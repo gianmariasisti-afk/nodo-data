@@ -27,6 +27,7 @@ const FILES = process.env.EP_FILES || "https://data.europarl.europa.eu/";
 const UA = "nodo-prd-1.0";
 const MAX_DETAILS = Number(process.env.MAX_DETAILS || 3000);
 const MAX_PDFS = Number(process.env.MAX_PDFS || 800);
+const PDF_GAP_MS = Number(process.env.PDF_GAP_MS || 1500);
 const GAP_MS = Number(process.env.GAP_MS || 650); /* 500 requests per 5 minutes per endpoint is the limit; this stays under it */
 const DRY = process.env.DRY === "1";
 const NOW = new Date();
@@ -50,7 +51,10 @@ async function getJson(url) {
     stats.calls++;
     try {
       const r = await fetch(url, { headers: { "User-Agent": UA, Accept: "application/ld+json, application/json" } });
-      if (r.ok) return await r.json();
+      if (r.ok) {
+        const body = await r.text();
+        try { return JSON.parse(body); } catch { stats.retries++; await sleep(2000 * (attempt + 1)); continue; }
+      }
       if (r.status === 404) return null;
       if (r.status === 429 || r.status >= 500) {
         stats.retries++;
@@ -117,6 +121,7 @@ const okStage = { speech: true, question: true, role: true };
 const stageErr = {};
 
 /* ---------- stage 1: plenary speeches, one request series per MEP ---------- */
+const speechFailed = new Set();
 async function speeches() {
   let n = 0;
   for (const m of MEPS) {
@@ -134,12 +139,12 @@ async function speeches() {
       }
       n += items.get(id).speech.length;
     } catch (e) {
-      okStage.speech = false; stageErr.speech = e.message;
+      speechFailed.add(id); stageErr.speech = e.message;
       log("speeches failed for", id, e.message);
-      if (stats.failed > 25) break;
+      if (speechFailed.size > MEPS.length * 0.1 + 5) { okStage.speech = false; break; }
     }
   }
-  log("speeches:", n);
+  log("speeches:", n, "failed MEPs:", speechFailed.size);
 }
 
 /* ---------- stage 2: written questions ---------- */
@@ -208,9 +213,16 @@ const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "nodo-"));
 function pdfText(file) {
   return new Promise((res) => execFile("pdftotext", ["-enc", "UTF-8", file, "-"], { maxBuffer: 8e6 }, (err, out) => res(err ? "" : out)));
 }
+let lastPdf = 0, pdfStreak = 0;
 async function download(url) {
-  const wait = last + 300 - Date.now(); if (wait > 0) await sleep(wait); last = Date.now();
-  const r = await fetch(url, { headers: { "User-Agent": UA } });
+  let r;
+  for (let attempt = 0; attempt < 4; attempt++) {
+    const wait = lastPdf + PDF_GAP_MS - Date.now(); if (wait > 0) await sleep(wait); lastPdf = Date.now();
+    r = await fetch(url, { headers: { "User-Agent": UA } });
+    if (r.ok) break;
+    if (r.status === 429 || r.status >= 500) { const ra = Number(r.headers.get("retry-after")); await sleep(ra > 0 ? Math.min(ra, 300) * 1000 : 20000 * 2 ** attempt); continue; }
+    break;
+  }
   if (!r.ok) throw new Error("HTTP " + r.status);
   const f = path.join(tmp, crypto.randomBytes(6).toString("hex") + ".pdf");
   await fs.writeFile(f, Buffer.from(await r.arrayBuffer()));
@@ -243,8 +255,8 @@ async function texts() {
         r.ab = by ? by[1].replace(/\s+/g, " ").trim() : "";
         r.at = clip(paragraphs(raw, ""), 9000); await fs.rm(f, { force: true });
       }
-      done++;
-    } catch (e) { log("pdf failed", id, e.message); }
+      done++; pdfStreak = 0;
+    } catch (e) { log("pdf failed", id, e.message); if (++pdfStreak >= 8) { log("pdf stage stopped: 8 failures in a row, will resume next run"); break; } }
     if (done % 100 === 0 && done) await writeJson(path.join(CACHE, "questions.json"), qCache);
   }
   await writeJson(path.join(CACHE, "questions.json"), qCache);
@@ -285,7 +297,7 @@ const cmp = (a, b) => (a.date && b.date ? (a.date < b.date ? 1 : a.date > b.date
 for (const m of MEPS) {
   const id = String(m.id), f = path.join(OUT, id + ".json");
   const prev = await readJson(f, null), it = items.get(id);
-  const keep = (stage, type) => (okStage[stage] ? it[stage] : ((prev && prev.items) || []).filter((x) => (stage === "role" ? x.type === "opinion" || x.type === "report" : x.type === type)));
+  const keep = (stage, type) => (okStage[stage] && !(stage === "speech" && speechFailed.has(id)) ? it[stage] : ((prev && prev.items) || []).filter((x) => (stage === "role" ? x.type === "opinion" || x.type === "report" : x.type === type)));
   const all = [...keep("speech", "speech"), ...keep("question", "question"), ...keep("role")].sort(cmp);
   total.speech += all.filter((x) => x.type === "speech").length; total.question += all.filter((x) => x.type === "question").length; total.role += all.filter((x) => x.role && x.type !== "speech").length;
   if (prev && JSON.stringify(prev.items) === JSON.stringify(all)) continue;
