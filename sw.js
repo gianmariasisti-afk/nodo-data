@@ -1,5 +1,5 @@
 /* nodo service worker: app shell works offline, data refreshes whenever there is a connection. */
-const VERSION = "nodo-v1";
+const VERSION = "nodo-v2";
 const SHELL = ["./", "index.html", "manifest.webmanifest", "icons/icon-192.png", "icons/icon-512.png", "icons/apple-touch-icon.png"];
 
 self.addEventListener("install", (e) => {

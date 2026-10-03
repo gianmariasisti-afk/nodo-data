@@ -527,6 +527,7 @@ details.office > .list { margin-top: var(--space-2); }
 .ag-tg { display: inline-flex; align-items: center; height: 28px; padding: 0 var(--space-3); border-radius: var(--radius-pill); font-size: 13px; line-height: 16px; font-weight: 600; }
 .ag-empty { margin-top: var(--space-5); }
 .ag-empty .eu-hero__title span { font-weight: 300; }
+
 /* MEP activity feed */
 .fd { margin-top: var(--space-3); padding: var(--space-4); border-radius: var(--radius-lg); background: var(--surface); }
 .fd .eu-chips { margin-bottom: var(--space-4); }
@@ -593,7 +594,28 @@ details.office > .list { margin-top: var(--space-2); }
 .wl { min-width: 0; font-size: 13px; line-height: 16px; font-weight: 600; }
 .wl small { display: block; font-size: 12px; font-weight: 500; color: var(--ink-muted); }
 .cweek { grid-column: 1 / -1; font-size: 12px; line-height: 16px; font-weight: 500; color: var(--ink-muted); }
-#calEarlier { margin-top: var(--space-5); }
+.cal-tree { display: grid; gap: var(--space-2); margin-top: var(--space-5); }
+.cal-tree .cal-in { display: grid; gap: var(--space-2); }
+.cal-tree .list { margin-top: 0; }
+
+.cfold { display: flex; align-items: center; gap: var(--space-3); width: 100%; min-height: 64px; padding: 10px var(--space-4) 10px var(--space-5); border: 0; border-radius: var(--radius-md); background: var(--surface-sunken); color: var(--ink); text-align: left; font: inherit; cursor: pointer; }
+.cfold:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+.cfold__t { flex: 1; min-width: 0; display: grid; gap: 2px; }
+.cfold__t b { font-size: 17px; line-height: 22px; font-weight: 600; letter-spacing: -0.005em; }
+.cfold__t small { display: flex; align-items: center; gap: 6px; font-size: 13px; line-height: 16px; font-weight: 500; color: var(--ink-muted); }
+.cfold__t small i { width: 8px; height: 8px; border-radius: 50%; background: var(--cal-plenary); flex: none; }
+.cfold__go { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; flex: none; border-radius: var(--radius-pill); background: var(--surface); }
+.cfold__go .eu-icon { width: 18px; height: 18px; transition: transform .15s; }
+.cfold[aria-expanded="true"] .cfold__go .eu-icon { transform: rotate(180deg); }
+.cfold--now { background: var(--tint-butter); }
+.cfold--yr { min-height: 72px; border-radius: var(--radius-lg); }
+.cfold--yr .cfold__t b { font: 700 28px/32px var(--font-display); letter-spacing: -0.025em; }
+.cfold--yr[aria-expanded="false"] { background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--border-control); }
+.cfold--yr[aria-expanded="false"] .cfold__go { background: var(--surface-sunken); }
+.cfold--yr[aria-expanded="true"] .cfold__go { background: var(--surface); }
+.cfold--past { color: var(--ink-muted); }
+.cfold .eu-badge { flex: none; }
+@media (prefers-reduced-motion: reduce) { .cfold__go .eu-icon { transition: none; } }
 
 /* Onboarding fills the screen with brand-deep */
 .onb { position: fixed; inset: 0; z-index: 70; overflow-y: auto; background: var(--brand-deep); color: var(--on-brand-deep); padding-top: env(safe-area-inset-top, 0px); }
@@ -1460,7 +1482,63 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       <p class="eu-hero__text">${esc(wk.where ? wk.label + ". " : "")}${esc(tail)}.</p>
       <button class="eu-btn eu-btn--on-deep" type="button" data-view="cal">Open the calendar</button></section>`;
   }
-  let calFrom = null;
+  /* Calendar list: years and months fold. calOpen holds the open keys: "y:2026", "m:2026-10", "e:2026" (past months of the current year). */
+  let calOpen = null;
+  const MONTHS = Array.from({ length: 12 }, (_, i) => new Date(2026, i, 1).toLocaleDateString("en-GB", { month: "long" }));
+  const calKey = (y, m) => `${y}-${String(m + 1).padStart(2, "0")}`;
+  function monthSummary(y, m) {
+    const k = calKey(y, m), by = {};
+    CAL.sessions.filter((x) => x.start.slice(0, 7) === k).forEach((x) => {
+      const a = +x.start.slice(8), b = +x.end.slice(8);
+      (by[x.place] = by[x.place] || []).push(a === b ? String(a) : a + "–" + b);
+    });
+    return Object.entries(by).map(([pl, r]) => `${PLACE[pl]} ${r.join(" · ")}`).join(" · ");
+  }
+  function monthWeeks(y, m, today, mon) {
+    const first = new Date(y, m, 1), last = new Date(y, m + 1, 0);
+    let rows = "";
+    for (let w = mondayOf(first); w <= last; w = addD(w, 7)) {
+      if (addD(w, 3).getMonth() !== m) continue;
+      const wk = weekOf(w);
+      const sub = wk.kind === "P" ? (wk.place === "SXB" ? "MEPs in Strasbourg" : "MEPs in Brussels") : wk.kind === "C" || wk.kind === "G" ? "MEPs in Brussels" : wk.kind === "X" ? "MEPs away from Brussels" : "";
+      rows += `<div class="wk${isoD(w) === isoD(mon) ? " cur" : ""}"><div class="wd"><b>${esc(rangeTxt(w, addD(w, 6)))}</b><span>W${isoWeek(w)}</span></div>
+        <div class="cells">${wk.days.map((x) => cellHtml(x, today)).join("")}</div>
+        <div class="wl">${esc(wk.label)}${sub ? `<small>${esc(sub)}</small>` : ""}</div>${councilWeek(w)}</div>`;
+    }
+    return `<div class="list cal-in">${rows}</div>`;
+  }
+  function renderCalTree(today, mon) {
+    const cy = today.getFullYear(), cm = today.getMonth();
+    if (!calOpen) calOpen = new Set([`y:${cy}`, `m:${calKey(cy, cm)}`]);
+    const fold = (key, cls, title, sub, extra) => `<button class="cfold ${cls}" type="button" data-calfold="${key}" aria-expanded="${calOpen.has(key)}"><span class="cfold__t"><b>${title}</b>${sub}</span>${extra || ""}<span class="cfold__go">${icon("down")}</span></button>`;
+    const monthFold = (y, m) => {
+      const key = "m:" + calKey(y, m), sum = monthSummary(y, m), now = y === cy && m === cm, past = y < cy || (y === cy && m < cm);
+      const sub = `<small>${sum ? "<i></i>" + esc(sum) : "No plenary"}</small>`;
+      return `<div class="cal-in">${fold(key, (now ? "cfold--now " : "") + (past ? "cfold--past" : ""), MONTHS[m], sub, now ? `<span class="eu-badge">Now</span>` : "")}${calOpen.has(key) ? monthWeeks(y, m, today, mon) : ""}</div>`;
+    };
+    let html = "";
+    [2026, 2027].forEach((y) => {
+      const ys = CAL.sessions.filter((x) => x.start.slice(0, 4) === String(y)), held = ys.filter((x) => x.end < isoD(today)).length;
+      const ysub = !CAL.days[y] ? "Plenary dates only · weeks not published yet" : `${ys.length - held} ${pl(ys.length - held, "session", "sessions")} to go · ${held} held`;
+      let inner = "";
+      if (calOpen.has("y:" + y)) {
+        const from = y === cy ? cm : 0;
+        if (y === cy && cm > 0) {
+          const ek = "e:" + y, past = Array.from({ length: cm }, (_, i) => i);
+          inner += `<div class="cal-in">${fold(ek, "cfold--past", `Earlier in ${y}`, `<small>${held} ${pl(held, "session", "sessions")} held · ${MONTHS[0]} to ${MONTHS[cm - 1]}</small>`)}${calOpen.has(ek) ? past.map((m) => monthFold(y, m)).join("") : ""}</div>`;
+        }
+        for (let m = from; m < 12; m++) inner += monthFold(y, m);
+      }
+      html += `<div class="cal-in">${fold("y:" + y, "cfold--yr", String(y), `<small>${esc(ysub)}</small>`)}${inner}</div>`;
+    });
+    $("calList").innerHTML = `<div class="cal-tree">${html}</div>`;
+  }
+  $("calList").addEventListener("click", (ev) => {
+    const b = ev.target.closest("[data-calfold]"); if (!b) return;
+    const k = b.dataset.calfold; if (calOpen.has(k)) calOpen.delete(k); else calOpen.add(k);
+    renderCalTree(new Date(), mondayOf(new Date()));
+    const nb = $("calList").querySelector(`[data-calfold="${k}"]`); if (nb) nb.focus({ preventScroll: true });
+  });
   function renderCal() {
     const today = new Date(), mon = mondayOf(today), wk = weekOf(mon), np = plenaryLine(nextPlenary(today), today);
     const yr = String(today.getFullYear()), ys = CAL.sessions.filter((s) => s.start.slice(0, 4) === yr), held = ys.filter((s) => s.end < isoD(today)).length;
@@ -1475,20 +1553,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
         <div class="eu-meter eu-meter--dense" role="img" aria-label="${held} of ${ys.length} plenary sessions held in ${yr}">${ys.map((s, i) => `<span class="eu-meter__seg${i < held ? " is-on" : ""}"></span>`).join("")}</div>
         <p class="eu-stat__foot">${esc(np.t)}${np.s ? " · " + esc(np.s) : ""}</p>${agendaWell(nextPlenary(today), np)}</section>` : ""}`;
     $("calLegend").innerHTML = ["P", "C", "G", "X", "?"].map((k) => `<span><i class="k-${k}"></i>${esc(k === "P" ? "Plenary" : k === "G" ? "Political groups" : k === "X" ? "External activities" : KLABEL[k])}</span>`).join("") + `<span>Top half morning, bottom half afternoon</span>`;
-    const start = calFrom || mon, end = fromIso("2027-12-31");
-    let html = "", curMonth = "", rows = "";
-    const flush = () => { if (rows) html += `<section class="mon"><h3>${esc(curMonth)}</h3><div class="list">${rows}</div></section>`; rows = ""; };
-    for (let m = start; m <= end; m = addD(m, 7)) {
-      const w = weekOf(m), label = addD(m, 3).toLocaleDateString("en-GB", { month: "long", year: "numeric" });
-      if (label !== curMonth) { flush(); curMonth = label; }
-      const sub = w.kind === "P" ? (w.place === "SXB" ? "MEPs in Strasbourg" : "MEPs in Brussels") : w.kind === "C" || w.kind === "G" ? "MEPs in Brussels" : w.kind === "X" ? "MEPs away from Brussels" : "";
-      rows += `<div class="wk${isoD(m) === isoD(mon) ? " cur" : ""}"><div class="wd"><b>${esc(rangeTxt(m, addD(m, 6)))}</b><span>W${isoWeek(m)}</span></div>
-        <div class="cells">${w.days.map((x) => cellHtml(x, today)).join("")}</div>
-        <div class="wl">${esc(w.label)}${sub ? `<small>${esc(sub)}</small>` : ""}</div>${councilWeek(m)}</div>`;
-    }
-    flush();
-    $("calList").innerHTML = (calFrom ? "" : `<button class="eu-btn eu-btn--block" id="calEarlier" type="button">Show earlier weeks of 2026</button>`) + html;
-    const e = $("calEarlier"); if (e) e.onclick = () => { calFrom = mondayOf(fromIso("2026-01-01")); renderCal(); };
+    renderCalTree(today, mon);
     $("calNote").textContent = `Source: European Parliament calendar 2026 and plenary dates for 2027 (adopted 21 October 2025). Committee and group weeks for 2027 are not published yet. Checked ${CAL.fetched}.`;
   }
 
@@ -1875,7 +1940,9 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
      Each MEP has one JSON file, activity/<EP id>.json, written by the data pipeline (nodo-data). To move the feed to GitHub Pages,
      The hosted copy (DATA_BASE + activity/) is read first; the bundled activity/ folder is the fallback, as for the directory data.
      The app never needs a new release when the data changes. */
-  const actJson = (id) => fetchJson(DATA_BASE + "activity/" + id + ".json").catch(() => fetchJson("activity/" + id + ".json"));
+  const shardCache = {};
+  const actShard = (id) => { const k = Number(id) % 64; return shardCache[k] || (shardCache[k] = fetchJson("activity/s" + k + ".json").catch((e) => { delete shardCache[k]; throw e; })); };
+  const actJson = (id) => fetchJson(DATA_BASE + "activity/" + id + ".json").catch(() => actShard(id).then((s) => { if (!s[id]) throw new Error("no activity"); return s[id]; }).catch(() => fetchJson("activity/" + id + ".json")));
   const feed = { id: null, items: [], filter: "all", updated: "", status: "idle", cur: -1, curFull: false };
   const FD_SVG = {
     check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
@@ -2624,5 +2691,4 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
 /* Offline support: only on the hosted PWA. */
 if ("serviceWorker" in navigator && /github\.io$/.test(location.hostname)) addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
 </script>
-
 </body></html>
