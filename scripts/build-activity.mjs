@@ -214,15 +214,17 @@ const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "nodo-"));
 function pdfText(file) {
   return new Promise((res) => execFile("pdftotext", ["-enc", "UTF-8", file, "-"], { maxBuffer: 8e6 }, (err, out) => res(err ? "" : out)));
 }
+/* The file server answers 500 to requests that do not look like a browser (checked with the PROBE mode), so PDFs are fetched with browser headers. */
+const PDF_HEADERS = { "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36", Accept: "text/html,application/pdf,*/*;q=0.8", "Accept-Language": "en" };
 let lastPdf = 0, pdfStreak = 0;
 const pdfDiag = [];
 async function download(url) {
   let r;
   for (let attempt = 0; attempt < 4; attempt++) {
     const wait = lastPdf + PDF_GAP_MS - Date.now(); if (wait > 0) await sleep(wait); lastPdf = Date.now();
-    r = await fetch(url, { headers: { "User-Agent": UA } });
+    r = await fetch(url, { headers: PDF_HEADERS });
     if (r.ok) break;
-    if (r.status === 429 || r.status >= 500) { const ra = Number(r.headers.get("retry-after")); await sleep(ra > 0 ? Math.min(ra, 300) * 1000 : 20000 * 2 ** attempt); continue; }
+    if (r.status === 429 || r.status >= 500) { if (attempt >= 2) break; const ra = Number(r.headers.get("retry-after")); await sleep(ra > 0 ? Math.min(ra, 120) * 1000 : 10000 * 2 ** attempt); continue; }
     break;
   }
   if (!r.ok) {
