@@ -55,7 +55,7 @@ Sessions are keyed by their first sitting day (`YYYY-MM-DD`).
 
 `v1/activity/<EP id>.json` holds one feed per MEP: plenary speeches, written questions (with addressee and answer status) and committee roles (rapporteur, shadow). `v1/activity/q/<question id>.json` holds the question and answer text, which the app loads when a card is opened. `v1/activity/index.json` lists the files and is also summarised in `manifest.json`.
 
-The GitHub Action "Update MEP activity" (`.github/workflows/activity.yml`) runs `scripts/build-activity.mjs` every night at 03:30 UTC and commits the result, together with the cache in `data-cache/`. Details are fetched newest first and capped per run (`max_details`), so the first backfill takes several nights. For a faster backfill start the workflow by hand with `max_details` set to 20000. To test, start it by hand with `only` set to a few MEP ids, for example `257041,256810`. If a stage fails, the previous items of that stage stay in place and the Action opens an issue labelled `structural`.
+The GitHub Action "Update MEP activity" (`.github/workflows/activity.yml`) runs `scripts/build-activity.mjs` twice a day (03:30 and 15:30 UTC) and commits the result, together with the cache in `data-cache/`. Details are fetched newest first and capped per run (`max_details`), (8000 by default), so the first backfill takes a few days. For a faster backfill start the workflow by hand with `max_details` set to 20000. To test, start it by hand with `only` set to a few MEP ids, for example `257041,256810`. If a stage fails, the previous items of that stage stay in place and the Action opens an issue labelled `structural`.
 
 Source: European Parliament Open Data Portal (API v2), CC BY 4.0.
 

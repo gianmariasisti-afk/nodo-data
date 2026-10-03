@@ -2,12 +2,12 @@ name: Update MEP activity
 
 on:
   schedule:
-    - cron: "30 3 * * *"
+    - cron: "30 3,15 * * *"
   workflow_dispatch:
     inputs:
       max_details:
         description: "Question and document details to fetch in this run (use 20000 for a full backfill)"
-        default: "3000"
+        default: "8000"
       only:
         description: "Comma-separated MEP ids, to test with a few MEPs (leave empty for all)"
         default: ""
@@ -33,7 +33,7 @@ jobs:
         run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
       - name: Build activity files
         env:
-          MAX_DETAILS: ${{ inputs.max_details || '3000' }}
+          MAX_DETAILS: ${{ inputs.max_details || '8000' }}
           ONLY: ${{ inputs.only || '' }}
         run: set -o pipefail; node scripts/build-activity.mjs 2>&1 | tee build.log
       - name: Commit changes
