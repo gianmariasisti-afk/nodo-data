@@ -27,6 +27,7 @@ const FILES = process.env.EP_FILES || "https://data.europarl.europa.eu/";
 const UA = "nodo-prd-1.0";
 const MAX_DETAILS = Number(process.env.MAX_DETAILS || 3000);
 const MAX_PDFS = Number(process.env.MAX_PDFS || 800);
+const SKIP = new Set((process.env.SKIP || "").split(",").filter(Boolean)); /* e.g. SKIP=speech,question,role to run only the PDF text stage from the caches */
 const PDF_GAP_MS = Number(process.env.PDF_GAP_MS || 1500);
 const GAP_MS = Number(process.env.GAP_MS || 650); /* 500 requests per 5 minutes per endpoint is the limit; this stays under it */
 const DRY = process.env.DRY === "1";
@@ -214,6 +215,7 @@ function pdfText(file) {
   return new Promise((res) => execFile("pdftotext", ["-enc", "UTF-8", file, "-"], { maxBuffer: 8e6 }, (err, out) => res(err ? "" : out)));
 }
 let lastPdf = 0, pdfStreak = 0;
+const pdfDiag = [];
 async function download(url) {
   let r;
   for (let attempt = 0; attempt < 4; attempt++) {
@@ -223,7 +225,10 @@ async function download(url) {
     if (r.status === 429 || r.status >= 500) { const ra = Number(r.headers.get("retry-after")); await sleep(ra > 0 ? Math.min(ra, 300) * 1000 : 20000 * 2 ** attempt); continue; }
     break;
   }
-  if (!r.ok) throw new Error("HTTP " + r.status);
+  if (!r.ok) {
+    if (pdfDiag.length < 8) pdfDiag.push({ url, status: r.status, retryAfter: r.headers.get("retry-after"), server: r.headers.get("server"), type: r.headers.get("content-type"), body: (await r.text().catch(() => "")).slice(0, 300) });
+    throw new Error("HTTP " + r.status);
+  }
   const f = path.join(tmp, crypto.randomBytes(6).toString("hex") + ".pdf");
   await fs.writeFile(f, Buffer.from(await r.arrayBuffer()));
   return f;
@@ -260,14 +265,17 @@ async function texts() {
     if (done % 100 === 0 && done) await writeJson(path.join(CACHE, "questions.json"), qCache);
   }
   await writeJson(path.join(CACHE, "questions.json"), qCache);
+  await writeJson(path.join(CACHE, "pdf-diag.json"), { at: new Date().toISOString(), extracted: done, tried: cand.length, errors: pdfDiag });
   log("pdf texts extracted:", done);
 }
 
 /* ---------- run ---------- */
 const t0 = Date.now();
-try { await speeches(); } catch (e) { okStage.speech = false; stageErr.speech = e.message; log("speeches stage failed", e.message); }
-try { await questions(); } catch (e) { okStage.question = false; stageErr.question = e.message; log("questions stage failed", e.message); }
-try { await roles(); } catch (e) { okStage.role = false; stageErr.role = e.message; log("roles stage failed", e.message); }
+if (SKIP.has("speech")) okStage.speech = false; /* keeps the previous speeches */
+if (SKIP.has("role")) okStage.role = false;
+try { if (!SKIP.has("speech")) await speeches(); } catch (e) { okStage.speech = false; stageErr.speech = e.message; log("speeches stage failed", e.message); }
+try { if (!SKIP.has("question")) await questions(); } catch (e) { okStage.question = false; stageErr.question = e.message; log("questions stage failed", e.message); }
+try { if (!SKIP.has("role")) await roles(); } catch (e) { okStage.role = false; stageErr.role = e.message; log("roles stage failed", e.message); }
 try { await texts(); } catch (e) { log("texts stage failed", e.message); }
 
 /* assemble questions and roles per MEP from the caches */
@@ -323,7 +331,7 @@ if (ids.size > 100) {
   if (okStage.speech && total.speech === 0) problems.push("no speeches for any MEP");
   if (prevIndex && prevIndex.totals && okStage.speech && total.speech < prevIndex.totals.speech * 0.8) problems.push(`speeches fell from ${prevIndex.totals.speech} to ${total.speech}`);
 }
-Object.entries(okStage).forEach(([k, ok]) => { if (!ok) problems.push(`${k} stage failed: ${stageErr[k]}`); });
+Object.entries(okStage).forEach(([k, ok]) => { if (!ok && !SKIP.has(k)) problems.push(`${k} stage failed: ${stageErr[k]}`); });
 await writeJson(path.join(OUT, "index.json"), { generated: changed || qfiles ? NOW.toISOString() : (prevIndex && prevIndex.generated) || NOW.toISOString(), meps: MEPS.length, totals: total, source: "European Parliament Open Data Portal, CC BY 4.0" });
 
 /* register in the manifest */
