@@ -1,0 +1,16 @@
+{
+  "name": "nodo",
+  "short_name": "nodo",
+  "description": "Untangle the EU: MEPs, Commission, Council, calendar and plenary agendas.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#062f35",
+  "theme_color": "#062f35",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

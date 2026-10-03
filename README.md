@@ -2,11 +2,17 @@
 
 Public data files for **nodo**, an app that gives public affairs professionals fast access to EU institutions: MEPs, the Commission, the Council and the Parliament calendar and plenary agendas.
 
-Served by GitHub Pages at `https://gianmariasisti-afk.github.io/nodo-data/`.
+Served by GitHub Pages at `https://gianmariasisti-afk.github.io/nodo-data/`. Open that address on a phone and use Share → Add to Home Screen (iPhone) or Install app (Android).
+
+The app reads `v1/` from its own origin. Profile and favourites live in the browser on each device.
 
 ## Layout
 
 ```
+index.html            the nodo app (PWA)
+manifest.webmanifest  install settings (name, icons, colours)
+sw.js                 service worker: offline shell, fresh data when online
+icons/                app icons
 v1/
   manifest.json   index of every file with size, checksum and generation time
   meps.json       Members of the European Parliament
