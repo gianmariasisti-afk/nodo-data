@@ -144,6 +144,8 @@ async function speeches() {
 
 /* ---------- stage 2: written questions ---------- */
 const qCache = await readJson(path.join(CACHE, "questions.json"), {});
+/* E-10-2026-000123 -> sortable number (term, year, sequence), so the newest questions come first */
+const qKey = (id) => { const m = /^[A-Z]-(\d+)-(\d{4})-(\d+)$/.exec(id); return m ? Number(m[1]) * 1e12 + Number(m[2]) * 1e8 + Number(m[3]) : 0; };
 async function questions() {
   const listed = new Set();
   for (const y of YEARS) {
@@ -152,7 +154,7 @@ async function questions() {
     log("questions listed", y, rows.length);
   }
   const today = NOW.toISOString().slice(0, 10);
-  const todo = [...listed].filter((id) => !qCache[id] || (!qCache[id].ad && qCache[id].c !== today)).sort((a, b) => (qCache[a] ? 1 : 0) - (qCache[b] ? 1 : 0) || (a < b ? 1 : -1));
+  const todo = [...listed].filter((id) => !qCache[id] || (!qCache[id].ad && qCache[id].c !== today)).sort((a, b) => (qCache[a] ? 1 : 0) - (qCache[b] ? 1 : 0) || qKey(b) - qKey(a));
   log("question details to fetch:", todo.length, "cap", MAX_DETAILS);
   let done = 0;
   for (const id of todo.slice(0, MAX_DETAILS)) {
@@ -184,7 +186,7 @@ async function roles() {
   }
   const today = NOW.toISOString().slice(0, 10);
   const age = (id) => (NOW - new Date(dCache[id].d || 0)) / 864e5;
-  const todo = [...listed].filter((id) => !dCache[id] || (age(id) < 60 && dCache[id].c !== today)).sort((a, b) => (dCache[a] ? 1 : 0) - (dCache[b] ? 1 : 0) || (a < b ? 1 : -1));
+  const todo = [...listed].filter((id) => !dCache[id] || (age(id) < 60 && dCache[id].c !== today)).sort((a, b) => (dCache[a] ? 1 : 0) - (dCache[b] ? 1 : 0) || Number(b.split("-").pop()) - Number(a.split("-").pop()));
   log("committee document details to fetch:", todo.length, "cap", MAX_DETAILS);
   let done = 0;
   for (const id of todo.slice(0, MAX_DETAILS)) {
@@ -229,7 +231,7 @@ function paragraphs(raw, title) {
 }
 const clip = (ps, max) => { const o = []; let n = 0; for (const p of ps) { if (n + p.length > max) break; o.push(p); n += p.length; } return o; };
 async function texts() {
-  const cand = Object.entries(qCache).filter(([, r]) => r.p && !r.qt || (r.ap && !r.at)).sort((a, b) => (a[0] < b[0] ? 1 : -1)).slice(0, MAX_PDFS);
+  const cand = Object.entries(qCache).filter(([, r]) => r.p && !r.qt || (r.ap && !r.at)).sort((a, b) => qKey(b[0]) - qKey(a[0])).slice(0, MAX_PDFS);
   log("pdf texts to extract:", cand.length);
   let done = 0;
   for (const [id, r] of cand) {
