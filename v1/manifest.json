@@ -1,0 +1,38 @@
+{
+ "schema": 1,
+ "generated": "2026-10-03T05:27:22Z",
+ "files": {
+  "meps": {
+   "path": "meps.json",
+   "description": "Members of the European Parliament: name, group, country, committees, contacts",
+   "bytes": 3693892,
+   "sha256": "ad66fa078181fe623f86650cdf78ccaa6b662c3032af6a0a5982662ec3a2ea6a"
+  },
+  "commission": {
+   "path": "commission.json",
+   "description": "European Commission: College, cabinets, portfolios",
+   "bytes": 1770565,
+   "sha256": "b16cfa3fce7e6b6539b11259b71c1daea47f12366e9a7690c2f874dfcc136351"
+  },
+  "calendar": {
+   "path": "calendar.json",
+   "description": "Parliament calendar: plenary, committee and group weeks",
+   "bytes": 2516,
+   "sha256": "580b30fa21d6a4b40363ce28b5afa1c9f66371bef9883b098c3ff37e3a542534"
+  },
+  "council": {
+   "path": "council.json",
+   "description": "Council of the EU: configurations, meetings, presidency rotation, voting weights",
+   "bytes": 76659,
+   "sha256": "f33f799b6a2d953b03f9bf171f3e4b2b69ea2a7d01853ce73a81f233130343d2"
+  },
+  "agenda": {
+   "path": "agenda.json",
+   "description": "Plenary agendas by session, keyed by first sitting day",
+   "bytes": 12946,
+   "sha256": "6ef8b554842dbbbae69f5dd2e2ac6f098ef1cf0458b2f0e6c7dfb1125e28c2fe",
+   "updated": "2026-10-02",
+   "stage": "final-draft"
+  }
+ }
+}
