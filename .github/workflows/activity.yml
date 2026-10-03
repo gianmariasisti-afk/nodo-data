@@ -1,0 +1,56 @@
+name: Update MEP activity
+
+on:
+  schedule:
+    - cron: "30 3 * * *"
+  workflow_dispatch:
+    inputs:
+      max_details:
+        description: "Question and document details to fetch in this run (use 20000 for a full backfill)"
+        default: "3000"
+      only:
+        description: "Comma-separated MEP ids, to test with a few MEPs (leave empty for all)"
+        default: ""
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: activity
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install pdftotext
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
+      - name: Build activity files
+        env:
+          MAX_DETAILS: ${{ inputs.max_details || '3000' }}
+          ONLY: ${{ inputs.only || '' }}
+        run: set -o pipefail; node scripts/build-activity.mjs 2>&1 | tee build.log
+      - name: Commit changes
+        if: always()
+        run: |
+          git config user.name "nodo-data bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add v1 data-cache
+          if git diff --cached --quiet; then echo "Nothing new."; exit 0; fi
+          git commit -m "Update MEP activity $(date -u +%F)"
+          git pull --rebase origin main
+          git push origin HEAD:main
+      - name: Open an issue when the build found a problem
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create structural --color D93F0B --description "Needs a human decision" 2>/dev/null || true
+          { echo "The activity build reported a problem. Last lines of the log:"; echo; echo '```'; tail -n 40 build.log; echo '```'; echo; echo "Run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"; } > issue.md
+          gh issue create --title "Activity build needs attention ($(date -u +%F))" --label structural --body-file issue.md

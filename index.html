@@ -527,6 +527,38 @@ details.office > .list { margin-top: var(--space-2); }
 .ag-tg { display: inline-flex; align-items: center; height: 28px; padding: 0 var(--space-3); border-radius: var(--radius-pill); font-size: 13px; line-height: 16px; font-weight: 600; }
 .ag-empty { margin-top: var(--space-5); }
 .ag-empty .eu-hero__title span { font-weight: 300; }
+/* MEP activity feed */
+.fd { margin-top: var(--space-3); padding: var(--space-4); border-radius: var(--radius-lg); background: var(--surface); }
+.fd .eu-chips { margin-bottom: var(--space-4); }
+.fd .ag-tl { margin-top: 0; }
+.fd-month { margin: var(--space-2) 0 var(--space-3) 24px; font-size: 13px; line-height: 16px; font-weight: 600; color: var(--ink-muted); }
+.fd-card.sky { background: var(--tint-sky); } .fd-card.apr { background: var(--tint-apricot); }
+.fd-card.mint { background: var(--tint-mint); } .fd-card.but { background: var(--tint-butter); }
+.fd-card .ag-type { background: var(--surface); }
+.fd-card .ag-title { font-family: var(--font-display); font-size: 18px; line-height: 22px; font-weight: 700; letter-spacing: -0.02em; }
+.ag-rail i.b { background: var(--accent-butter); }
+.fd-pill { display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 var(--space-3); border-radius: var(--radius-pill); background: var(--surface); font-size: 13px; line-height: 16px; font-weight: 600; }
+.fd-pill.ok { color: var(--success); } .fd-pill.wait { color: var(--warning); }
+.fd-pill.ink { background: var(--ink); color: var(--ink-inverse); }
+.fd-pill.line { box-shadow: inset 0 0 0 1.5px var(--border-control); }
+.fd-pill svg { width: 14px; height: 14px; }
+.fd-ft { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); }
+.fd-open, .fd-pdf { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; border: 0; background: none; padding: 0; color: var(--ink); font: inherit; font-size: 15px; line-height: 22px; font-weight: 600; cursor: pointer; text-decoration: none; }
+.fd-open svg { width: 18px; height: 18px; }
+.fd-pdf { font-size: 13px; line-height: 16px; color: var(--brand); text-decoration: underline; }
+.fd-pdf svg { width: 16px; height: 16px; }
+.fd-open:focus-visible, .fd-pdf:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+.fd-sheet { display: grid; gap: var(--space-4); margin-top: var(--space-3); }
+.fd-sheet .fd-head { padding: var(--space-5); border-radius: var(--radius-lg); display: grid; gap: var(--space-3); }
+.fd-sheet h2 { font-family: var(--font-display); font-size: 26px; line-height: 30px; font-weight: 700; letter-spacing: -0.03em; overflow-wrap: anywhere; }
+.fd-sheet h4 { font-family: var(--font-display); font-size: 22px; line-height: 26px; font-weight: 700; letter-spacing: -0.02em; margin: 0; }
+.fd-sheet .fd-txt { padding: var(--space-4); border-radius: var(--radius-md); background: var(--surface-sunken); display: grid; gap: var(--space-3); font-size: 15px; line-height: 22px; }
+.fd-sheet .fd-txt p { margin: 0; }
+.fd-step { display: grid; grid-template-columns: 12px minmax(0, 1fr); gap: var(--space-3); }
+.fd-step .ag-rail { padding-top: 6px; }
+.fd-step b { display: block; font-size: 15px; line-height: 22px; font-weight: 600; }
+.fd-step .cap { padding-bottom: var(--space-4); }
+.fd-step:last-child .cap { padding-bottom: 0; }
 .ag-steps { margin-top: var(--space-6); }
 .ag-steps h2 { margin: 0 0 var(--space-4); font-size: 22px; line-height: 26px; font-weight: 700; letter-spacing: -0.02em; }
 .ag-step { display: grid; grid-template-columns: 20px minmax(0, 1fr); gap: 14px; }
@@ -1839,6 +1871,126 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       });
     });
   }
+  /* ---------- MEP activity feed ----------
+     Each MEP has one JSON file, activity/<EP id>.json, written by the data pipeline (nodo-data). To move the feed to GitHub Pages,
+     The hosted copy (DATA_BASE + activity/) is read first; the bundled activity/ folder is the fallback, as for the directory data.
+     The app never needs a new release when the data changes. */
+  const actJson = (id) => fetchJson(DATA_BASE + "activity/" + id + ".json").catch(() => fetchJson("activity/" + id + ".json"));
+  const feed = { id: null, items: [], filter: "all", updated: "", status: "idle", cur: -1, curFull: false };
+  const FD_SVG = {
+    check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
+    clock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>',
+    pdf: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3.5h7l4 4V20.5H7z"/><path d="M14 3.5v4h4"/></svg>',
+    next: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>',
+  };
+  const FD_TYPE = { speech: "Speech", question: "Written question", report: "Report", opinion: "Opinion", motion: "Motion" };
+  const FD_FILTERS = [["all", "All"], ["speech", "Speeches"], ["question", "Questions"], ["report", "Reports and opinions"]];
+  const fdGroup = (t) => (t === "opinion" || t === "report" || t === "motion" ? "report" : t);
+  const fdTone = (it) => {
+    if (it.type === "question") return /council/i.test(it.addressee || "") ? "mint" : /commission/i.test(it.addressee || "") ? "apr" : "sky";
+    return it.type === "speech" ? "sky" : "but";
+  };
+  const fdDate = (iso, long) => { const d = new Date(iso + "T12:00:00"); return isNaN(d) ? "" : d.toLocaleDateString("en-GB", long ? { day: "numeric", month: "short", year: "numeric" } : { day: "numeric", month: "short" }); };
+  const fdMonth = (iso) => { const d = iso ? new Date(iso + "T12:00:00") : null; return d && !isNaN(d) ? d.toLocaleDateString("en-GB", { month: "long", year: "numeric" }) : "Roles"; };
+  const fdParas = (v) => (Array.isArray(v) ? v : String(v || "").split(/\n{1,}/)).filter(Boolean);
+  const fdPreview = (t) => { const s = fdParas(t).join(" "); if (s.length <= 260) return s + " […]"; return s.slice(0, 260).replace(/\s+\S*$/, "") + " […]"; };
+  function fdSort(items) {
+    return items.map((x, i) => ({ ...x, _i: i })).sort((a, b) => (a.date && b.date ? (a.date < b.date ? 1 : a.date > b.date ? -1 : a._i - b._i) : a.date ? -1 : b.date ? 1 : a._i - b._i));
+  }
+  function feedCard(it, idx, last) {
+    const tone = fdTone(it);
+    const dot = { sky: "", apr: "s", mint: "v", but: "b" }[tone];
+    const q = it.type === "question";
+    const status = !q ? "" : it.status === "answered"
+      ? `<span class="fd-pill ok">${FD_SVG.check}Answered${it.answerDate ? " · " + esc(fdDate(it.answerDate)) : ""}</span>`
+      : `<span class="fd-pill wait">${FD_SVG.clock}Awaiting answer</span>`;
+    const role = it.role ? `<span class="fd-pill ${/rapporteur/i.test(it.role) && !/shadow/i.test(it.role) ? "ink" : "line"}">${esc(it.role)}</span>` : "";
+    const pdf = safeUrl(q && it.status === "answered" && it.answerPdf ? it.answerPdf : it.pdf);
+    const pdfLabel = q && it.status === "answered" && it.answerPdf ? "Answer PDF" : it.type === "speech" ? "Verbatim PDF" : "PDF";
+    const cta = { speech: "Open speech", question: "Open question", report: "Open report", opinion: "Open opinion", motion: "Open motion" }[it.type] || "Open";
+    return `<div class="ag-it"><div class="ag-rail"><i class="${dot}"></i>${last ? "" : "<u></u>"}</div>
+      <article class="ag-card fd-card ${tone}">
+        <div class="ag-card__top"><span class="ag-type">${esc(FD_TYPE[it.type] || "Activity")}</span>${it.date ? `<span class="ag-time">${esc(fdDate(it.date))}</span>` : ""}</div>
+        <div class="ag-title">${esc(it.title)}</div>
+        ${it.meta ? `<div class="ag-sub">${esc(it.meta)}</div>` : ""}
+        ${q ? `<div class="ag-tags">${it.addressee ? `<span class="fd-pill">To ${esc(it.addressee)}</span>` : ""}${status}</div>` : ""}
+        ${role || it.ref ? `<div class="ag-tags">${role}${it.ref ? `<span class="fd-pill">${esc(it.ref)}</span>` : ""}</div>` : ""}
+        <div class="fd-ft"><button class="fd-open" type="button" data-fd-open="${idx}">${cta}${FD_SVG.next}</button>
+          ${pdf ? `<a class="fd-pdf" href="${esc(pdf)}" target="_blank" rel="noopener">${FD_SVG.pdf}${pdfLabel}</a>` : ""}</div>
+      </article></div>`;
+  }
+  function renderFeed() {
+    const host = $("actFeed"); if (!host) return;
+    if (feed.status === "loading") { host.innerHTML = `<p class="cap">Loading activity…</p>`; return; }
+    if (!feed.items.length) { host.innerHTML = `<p class="cap">No activity published for this MEP yet. It appears here after the next data refresh.</p>`; return; }
+    const list = feed.items.filter((x) => feed.filter === "all" || fdGroup(x.type) === feed.filter);
+    let lastM = null;
+    const rows = list.map((it, k) => {
+      const m = fdMonth(it.date), head = m !== lastM ? `<div class="fd-month">${esc(m)}</div>` : ""; lastM = m;
+      return head + feedCard(it, it._i, k === list.length - 1);
+    }).join("");
+    host.innerHTML = `<div class="eu-chips">${FD_FILTERS.map(([k, l]) => `<button class="eu-chip" type="button" data-fd-filter="${k}" aria-pressed="${feed.filter === k}">${l}</button>`).join("")}</div>
+      <div class="ag-tl">${rows || `<p class="cap">Nothing of this type yet.</p>`}</div>`;
+  }
+  function loadFeed(m) {
+    feed.id = String(m.id); feed.items = []; feed.filter = "all"; feed.updated = ""; feed.status = "loading"; renderFeed();
+    if (!/^\d+$/.test(feed.id)) { feed.status = "done"; renderFeed(); return; }
+    const id = feed.id;
+    actJson(id)
+      .then((d) => { if (feed.id !== id) return; feed.items = fdSort(Array.isArray(d.items) ? d.items : []); feed.updated = d.updated || ""; })
+      .catch(() => { if (feed.id !== id) return; feed.items = []; })
+      .then(() => { if (feed.id !== id) return; feed.status = "done"; renderFeed(); const u = $("actUpd"); if (u && feed.updated) u.textContent = "Updated " + fdDate(feed.updated.slice(0, 10), true); });
+  }
+  /* Question and answer texts live in activity/q/<id>.json (written by the pipeline) and load when a card is opened. */
+  function fdDetail(it, i) {
+    if (!it.detail || it._det) return;
+    it._det = "loading";
+    const rel = "activity/" + it.detail;
+    fetchJson(DATA_BASE + rel).catch(() => fetchJson(rel))
+      .then((d) => { if (d.question) it.question = d.question; if (d.answer) it.answer = d.answer; if (d.answeredBy) it.answeredBy = d.answeredBy; it._det = "done"; })
+      .catch(() => { it._det = "failed"; })
+      .then(() => { if (state.sheet === "feed" && feed.cur === i) openFeedItem(i, feed.curFull, true); });
+  }
+  function openFeedItem(i, full, quiet) {
+    const it = feed.items.find((x) => x._i === i); if (!it) return;
+    feed.cur = i; feed.curFull = !!full; fdDetail(it, i);
+    const wait = it._det === "loading";
+    const tone = fdTone(it), q = it.type === "question";
+    const tint = { sky: "var(--tint-sky)", apr: "var(--tint-apricot)", mint: "var(--tint-mint)", but: "var(--tint-butter)" }[tone];
+    const accent = { sky: "var(--accent-sky)", apr: "var(--accent-apricot)", mint: "var(--accent-mint)", but: "var(--accent-butter)" }[tone];
+    const paras = (v) => fdParas(v).map((p) => `<p>${esc(p)}</p>`).join("");
+    const pdfLink = (u, l) => (safeUrl(u) ? `<a class="fd-pdf" href="${esc(u)}" target="_blank" rel="noopener">${FD_SVG.pdf}${l}</a>` : "");
+    const answered = it.status === "answered";
+    const step = (c, h, s, last) => `<div class="fd-step"><div class="ag-rail"><i style="background:${c}"></i>${last ? "" : "<u></u>"}</div><div><b>${h}</b><div class="cap">${s}</div></div></div>`;
+    let body = "";
+    if (q) {
+      body += `<section><h4>Status</h4><div style="margin-top:12px">${step("var(--accent-sky)", "Question submitted", `${it.date ? esc(fdDate(it.date, true)) + " · " : ""}Parliament`, !answered)}${answered ? step(tone === "mint" ? "var(--accent-mint)" : "var(--accent-apricot)", "Answer given", `${it.answerDate ? esc(fdDate(it.answerDate, true)) + " · " : ""}${esc(it.addressee || "")}`, true) : ""}</div></section>`;
+      body += `<section><h4>Question</h4><div class="fd-txt" style="margin-top:12px">${it.question ? paras(it.question) : `<p>${wait ? "Loading the question…" : "The full text is added at the next data refresh."}</p>`}</div></section>`;
+      if (answered) {
+        const hasText = !!it.answer;
+        body += `<section><h4>Answer</h4><div class="fd-txt" style="margin-top:12px">${hasText ? (full ? paras(it.answer) : `<p>${esc(it.answerPreview || fdPreview(it.answer))}</p>`) : `<p>${wait ? "Loading the answer…" : "The answer is published as a document."}</p>`}</div>
+          ${hasText && !full ? `<button class="eu-btn eu-btn--brand eu-btn--block" type="button" data-fd-full="${i}" style="margin-top:12px">Read the full answer</button>` : ""}
+          ${!hasText && !wait && safeUrl(it.answerPdf) ? `<a class="eu-btn eu-btn--brand eu-btn--block" href="${esc(it.answerPdf)}" target="_blank" rel="noopener" style="margin-top:12px">Read the full answer</a>` : ""}
+          <div style="margin-top:4px">${pdfLink(it.answerPdf, "Answer PDF")}</div></section>`;
+      }
+    } else {
+      body += it.text ? `<section><div class="fd-txt">${paras(it.text)}</div></section>` : `<section><div class="fd-txt"><p>The full text is added at the next data refresh.</p></div></section>`;
+      body += `<div>${pdfLink(it.pdf, it.type === "speech" ? "Verbatim PDF" : "PDF")}</div>`;
+    }
+    if ($("sheet").hidden) layer.sheet = document.activeElement;
+    state.sheet = "feed";
+    $("sheet").innerHTML = `<div class="sheet__bar"><button class="eu-iconbtn eu-iconbtn--sm" type="button" data-sheet-close aria-label="Close">${icon("x")}</button></div>
+      <div class="fd-sheet"><div class="fd-head" style="background:${tint}">
+        <div class="ag-card__top"><span class="fd-pill"><i style="width:8px;height:8px;border-radius:50%;background:${accent}"></i>${esc(FD_TYPE[it.type] || "Activity")}</span>${it.ref ? `<span class="ag-time">${esc(it.ref)}</span>` : ""}</div>
+        <h2 id="sName">${esc(it.title)}</h2>
+        <div class="ag-tags">${q && it.addressee ? `<span class="fd-pill">To ${esc(it.addressee)}</span>` : ""}${q ? (answered ? `<span class="fd-pill ok">${FD_SVG.check}Answered${it.answerDate ? " · " + esc(fdDate(it.answerDate, true)) : ""}</span>` : `<span class="fd-pill wait">${FD_SVG.clock}Awaiting answer</span>`) : ""}${it.role ? `<span class="fd-pill line">${esc(it.role)}</span>` : ""}${!q && it.date ? `<span class="fd-pill">${esc(fdDate(it.date, true))}</span>` : ""}</div>
+      </div>${body}
+      <p class="foot" style="margin:0">Source: European Parliament Open Data Portal, CC BY 4.0.</p></div>`;
+    $("scrim").hidden = false; $("sheet").hidden = false; if (!full && !quiet) $("sheet").scrollTop = 0;
+    syncLayers();
+    if (!full && !quiet) $("sheet").querySelector("[data-sheet-close]").focus({ preventScroll: true });
+  }
+
   function openMep(m) {
     state.open = m.key;
     const socials = Object.entries(m.socials || {}).filter(([, u]) => safeUrl(u));
@@ -1877,11 +2029,13 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       </div>
       ${cmts ? `<h3>Committees</h3><div class="list">${cmts}</div>` : ""}
       ${dels ? `<h3>Delegations</h3><div class="list">${dels}</div>` : ""}
-      ${acts ? `<h3>Parliamentary activity <small>europarl.europa.eu</small></h3><div class="list">${acts}</div>` : ""}
+      ${/^\d+$/.test(String(m.id)) ? `<h3>Activity <small id="actUpd">Open Data Portal</small></h3><div class="fd" id="actFeed"></div>` : ""}
+      ${acts ? `<details class="office"><summary>More on europarl.europa.eu${icon("down")}</summary><div class="list">${acts}</div></details>` : ""}
       ${links ? `<h3>Links</h3>${linkBtns([...(site ? [["Website", site]] : []), ...socials])}` : ""}
       <p class="foot">Source: European Parliament Open Data Portal.</p>`);
     $("pShare").onclick = () => copy(`${m.name} · ${m.group} · ${countryName(m.country)}${m.email ? " · " + m.email : ""}`, "Contact");
     sharpen(m);
+    if ($("actFeed")) loadFeed(m);
   }
 
   function openCom(c) {
@@ -2387,6 +2541,9 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const t = e.target;
     const fav = t.closest("[data-fav]"); if (fav) { e.stopPropagation(); return toggleFav(fav.dataset.fav); }
     const cp = t.closest("[data-copy]"); if (cp) return copy(cp.dataset.copy, cp.dataset.what || "Text");
+    const ff = t.closest("[data-fd-filter]"); if (ff) { feed.filter = ff.dataset.fdFilter; renderFeed(); const b = document.querySelector(`[data-fd-filter="${feed.filter}"]`); if (b) b.focus({ preventScroll: true }); return; }
+    const fo = t.closest("[data-fd-open]"); if (fo) return openFeedItem(Number(fo.dataset.fdOpen), false);
+    const fu = t.closest("[data-fd-full]"); if (fu) return openFeedItem(Number(fu.dataset.fdFull), true);
     if (t.closest("[data-sheet-close]")) return closeSheet();
     if (t.closest("[data-close]")) return closeProfile();
     const tp = t.closest("[data-topic]"); if (tp) return goHomeSearch(tp.dataset.topic);
