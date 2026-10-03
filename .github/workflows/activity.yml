@@ -14,6 +14,9 @@ on:
       max_pdfs:
         description: "Number of question PDFs to read in this run"
         default: "800"
+      probe:
+        description: "1 = only test how the PDF file server answers (writes data-cache/pdf-probe.json)"
+        default: ""
       only:
         description: "Comma-separated MEP ids, to test with a few MEPs (leave empty for all)"
         default: ""
@@ -42,6 +45,7 @@ jobs:
           MAX_DETAILS: ${{ inputs.max_details || '8000' }}
           ONLY: ${{ inputs.only || '' }}
           SKIP: ${{ inputs.skip || '' }}
+          PROBE: ${{ inputs.probe || '' }}
           MAX_PDFS: ${{ inputs.max_pdfs || '800' }}
         run: set -o pipefail; node scripts/build-activity.mjs 2>&1 | tee build.log
       - name: Commit changes

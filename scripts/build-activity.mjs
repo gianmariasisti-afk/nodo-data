@@ -269,6 +269,33 @@ async function texts() {
   log("pdf texts extracted:", done);
 }
 
+/* PROBE=1: try a few PDF URLs with different request headers and record what the file server answers (data-cache/pdf-probe.json) */
+async function probe() {
+  const ents = Object.entries(qCache).filter(([, r]) => r.p);
+  const pick5 = (arr) => [0, 0.25, 0.5, 0.75, 0.99].map((f) => arr[Math.floor(arr.length * f)]).filter(Boolean);
+  const urls = [...pick5(ents).map(([id, r]) => [id + " question", r.p]), ...pick5(ents.filter(([, r]) => r.ap)).map(([id, r]) => [id + " answer", r.ap])];
+  const variants = {
+    nodo: { "User-Agent": UA },
+    pdf: { "User-Agent": UA, Accept: "application/pdf" },
+    browser: { "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36", Accept: "text/html,application/pdf,*/*;q=0.8", "Accept-Language": "en" },
+  };
+  const out = [];
+  for (const [label, url] of urls) {
+    const row = { label, url, results: {} };
+    for (const [vn, h] of Object.entries(variants)) {
+      try {
+        const r = await fetch(url, { headers: h, redirect: "follow" });
+        const buf = Buffer.from(await r.arrayBuffer());
+        row.results[vn] = { status: r.status, type: r.headers.get("content-type"), bytes: buf.length, head: /pdf/i.test(r.headers.get("content-type") || "") ? buf.subarray(0, 8).toString("latin1") : buf.subarray(0, 160).toString("utf8") };
+      } catch (e) { row.results[vn] = { error: String(e.message) }; }
+      await sleep(1500);
+    }
+    out.push(row);
+  }
+  await writeJson(path.join(CACHE, "pdf-probe.json"), { at: new Date().toISOString(), rows: out });
+  log("probe done", out.length);
+}
+
 /* ---------- run ---------- */
 const t0 = Date.now();
 if (SKIP.has("speech")) okStage.speech = false; /* keeps the previous speeches */
@@ -276,7 +303,7 @@ if (SKIP.has("role")) okStage.role = false;
 try { if (!SKIP.has("speech")) await speeches(); } catch (e) { okStage.speech = false; stageErr.speech = e.message; log("speeches stage failed", e.message); }
 try { if (!SKIP.has("question")) await questions(); } catch (e) { okStage.question = false; stageErr.question = e.message; log("questions stage failed", e.message); }
 try { if (!SKIP.has("role")) await roles(); } catch (e) { okStage.role = false; stageErr.role = e.message; log("roles stage failed", e.message); }
-try { await texts(); } catch (e) { log("texts stage failed", e.message); }
+try { if (process.env.PROBE === "1") await probe(); else await texts(); } catch (e) { log("texts stage failed", e.message); }
 
 /* assemble questions and roles per MEP from the caches */
 for (const [id, r] of Object.entries(qCache)) {
