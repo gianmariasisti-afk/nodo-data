@@ -1,0 +1,1230 @@
+{
+ "generated": "2026-10-04T11:21:42Z",
+ "asOf": "2026-10-04",
+ "source": "Parliament Open Data Portal (basis ep-open-data); press and Council documents (basis press); commission.json for commissioners and cabinets",
+ "legend": {
+  "roles": [
+   "rapporteur",
+   "shadow",
+   "opinion-rapporteur",
+   "opinion-shadow",
+   "relevant"
+  ],
+  "basis": {
+   "ep-open-data": "read from the Parliament's open data and matched to the MEP id",
+   "press": "named in published reporting; verify in the Parliament's procedure file before external use"
+  },
+  "stage": [
+   "pre-proposal",
+   "positions-in-preparation",
+   "council-negotiating-box",
+   "trilogue",
+   "in-force"
+  ]
+ },
+ "files": [
+  {
+   "id": "mff-2028-2034",
+   "short": "MFF 2028–2034",
+   "title": "Multiannual Financial Framework 2028–2034",
+   "kind": "budget",
+   "procedure": "2025/0571(APP)",
+   "stage": "council-negotiating-box",
+   "status": "Cyprus Presidency tabled a first negotiating box on 11 June 2026 at €1,730bn (Commission proposal: €1,763bn, constant prices). The Presidency is preparing a revised box for the 15–16 October European Council. Unanimity in Council, then Parliament consent.",
+   "next": [
+    {
+     "date": "2026-10-13",
+     "what": "General Affairs Council: MFF policy debate (Luxembourg)"
+    },
+    {
+     "date": "2026-10-15",
+     "what": "European Council, 15–16 October: revised negotiating box expected beforehand"
+    }
+   ],
+   "ep": {
+    "lead": [
+     "BUDG",
+     "AFCO"
+    ],
+    "note": "Interim report co-rapporteurs from BUDG. Opinion rapporteurs listed for every committee that delivered an opinion on the MFF regulation."
+   },
+   "meps": [
+    {
+     "id": "257071",
+     "role": "rapporteur",
+     "committee": "BUDG",
+     "basis": "ep-open-data",
+     "ref": "BUDG-PR-779351"
+    },
+    {
+     "id": "124802",
+     "role": "rapporteur",
+     "committee": "BUDG",
+     "basis": "ep-open-data",
+     "ref": "BUDG-PR-779351"
+    },
+    {
+     "id": "22858",
+     "role": "shadow",
+     "committee": "BUDG",
+     "basis": "ep-open-data",
+     "ref": "BUDG-PR-779351"
+    },
+    {
+     "id": "96826",
+     "role": "shadow",
+     "committee": "BUDG",
+     "basis": "ep-open-data",
+     "ref": "BUDG-PR-779351"
+    },
+    {
+     "id": "257083",
+     "role": "shadow",
+     "committee": "BUDG",
+     "basis": "ep-open-data",
+     "ref": "BUDG-PR-779351"
+    },
+    {
+     "id": "28615",
+     "role": "shadow",
+     "committee": "BUDG",
+     "basis": "ep-open-data",
+     "ref": "BUDG-PR-779351"
+    },
+    {
+     "id": "257044",
+     "role": "shadow",
+     "committee": "BUDG",
+     "basis": "ep-open-data",
+     "ref": "BUDG-PR-779351"
+    },
+    {
+     "id": "256941",
+     "role": "shadow",
+     "committee": "BUDG",
+     "basis": "ep-open-data",
+     "ref": "BUDG-PR-779351"
+    },
+    {
+     "id": "124736",
+     "role": "opinion-rapporteur",
+     "committee": "TRAN",
+     "basis": "ep-open-data",
+     "ref": "TRAN-AD-782412"
+    },
+    {
+     "id": "257068",
+     "role": "opinion-rapporteur",
+     "committee": "CULT",
+     "basis": "ep-open-data",
+     "ref": "CULT-AD-781137"
+    },
+    {
+     "id": "251874",
+     "role": "opinion-rapporteur",
+     "committee": "DEVE",
+     "basis": "ep-open-data",
+     "ref": "DEVE-AD-781486"
+    },
+    {
+     "id": "197658",
+     "role": "opinion-rapporteur",
+     "committee": "REGI",
+     "basis": "ep-open-data",
+     "ref": "REGI-AD-781447"
+    },
+    {
+     "id": "197579",
+     "role": "opinion-rapporteur",
+     "committee": "EMPL",
+     "basis": "ep-open-data",
+     "ref": "EMPL-AD-781335"
+    },
+    {
+     "id": "257108",
+     "role": "opinion-rapporteur",
+     "committee": "AGRI",
+     "basis": "ep-open-data",
+     "ref": "AGRI-AD-782190"
+    },
+    {
+     "id": "257041",
+     "role": "opinion-rapporteur",
+     "committee": "CONT",
+     "basis": "ep-open-data",
+     "ref": "CONT-AD-781489"
+    },
+    {
+     "id": "256985",
+     "role": "opinion-rapporteur",
+     "committee": "ENVI",
+     "basis": "ep-open-data",
+     "ref": "ENVI-AD-781199"
+    },
+    {
+     "id": "197426",
+     "role": "opinion-rapporteur",
+     "committee": "AFCO",
+     "basis": "ep-open-data",
+     "ref": "AFCO-AD-782229"
+    },
+    {
+     "id": "197773",
+     "role": "opinion-rapporteur",
+     "committee": "PECH",
+     "basis": "ep-open-data",
+     "ref": "PECH-AD-781214"
+    },
+    {
+     "id": "257110",
+     "role": "opinion-rapporteur",
+     "committee": "AFET",
+     "basis": "ep-open-data",
+     "ref": "AFET-AD-781487"
+    },
+    {
+     "id": "88882",
+     "role": "opinion-rapporteur",
+     "committee": "JURI",
+     "basis": "ep-open-data",
+     "ref": "JURI-AD-779629"
+    },
+    {
+     "id": "256926",
+     "role": "opinion-rapporteur",
+     "committee": "SEDE",
+     "basis": "ep-open-data",
+     "ref": "SEDE-AD-784497"
+    }
+   ],
+   "commission": {
+    "lead": [
+     "piotr-serafin"
+    ],
+    "associated": [
+     "ursula-von-der-leyen",
+     "raffaele-fitto"
+    ]
+   },
+   "cabinet": [
+    {
+     "k": "piotr-serafin~grzegorz-radziejewski",
+     "why": "Head of Cabinet; covers the Multiannual Financial Framework"
+    },
+    {
+     "k": "piotr-serafin~anne-funch-jensen",
+     "why": "MFF and own resources"
+    },
+    {
+     "k": "piotr-serafin~wouter-coussens",
+     "why": "MFF external relations; relations with the Council"
+    },
+    {
+     "k": "ursula-von-der-leyen~alexandre-adam",
+     "why": "Deputy Head of Cabinet; MFF in the President's cabinet"
+    },
+    {
+     "k": "raffaele-fitto~felicia-stanescu",
+     "why": "Deputy Head of Cabinet; MFF (cohesion angle)"
+    }
+   ],
+   "council": {
+    "configs": [
+     "GAC"
+    ],
+    "configsBasis": "source",
+    "presidency": "IE",
+    "note": "GAC leads the horizontal negotiation. Sectoral programmes sit in the sectoral Council formations."
+   },
+   "caveats": [],
+   "sources": [
+    {
+     "id": "council-12922",
+     "title": "Council doc 12922/26: MFF policy debate (14 Sep 2026)",
+     "url": "https://data.consilium.europa.eu/doc/document/ST-12922-2026-INIT/en/pdf"
+    },
+    {
+     "id": "council-10058",
+     "title": "Council doc 10058/26: MFF negotiating box (11 Jun 2026)",
+     "url": "https://data.consilium.europa.eu/doc/document/ST-10058-2026-INIT/en/pdf"
+    },
+    {
+     "id": "gac-oct",
+     "title": "Council GAC provisional agenda, 13 Oct 2026 (CM 4302/26)",
+     "url": "https://data.consilium.europa.eu/doc/document/CM-4302-2026-INIT/en/pdf"
+    },
+    {
+     "id": "matheson-mff",
+     "title": "Matheson: MFF negotiations enter a critical phase",
+     "url": "https://www.matheson.com/insights/mff-negotiations-enter-a-critical-phase-for-irelands-presidency-of-the-council-of-the-eu/"
+    },
+    {
+     "id": "ep-open-data",
+     "title": "European Parliament Open Data Portal (via nodo activity feeds)",
+     "url": "https://data.europarl.europa.eu/"
+    }
+   ]
+  },
+  {
+   "id": "digital-omnibus-data",
+   "short": "Digital Omnibus (data)",
+   "title": "Digital Omnibus on data: GDPR, ePrivacy, Data Act, NIS2",
+   "kind": "regulation",
+   "procedure": "2025/0360(COD)",
+   "stage": "positions-in-preparation",
+   "status": "The Commission proposed it on 19 November 2025. Member States are close to a Council position (EDRi letter, 18 September 2026). Parliament's position is still being built in joint ITRE-LIBE work and will take months. Open fights: personal data and pseudonymisation, AI training on personal data, and whether cookie rules move into the GDPR or stay in ePrivacy.",
+   "next": [
+    {
+     "date": "2026-10-13",
+     "what": "GAC: omnibus simplification packages, state of play"
+    }
+   ],
+   "ep": {
+    "lead": [
+     "LIBE",
+     "ITRE"
+    ],
+    "note": "Joint competence of LIBE and ITRE with co-rapporteurs."
+   },
+   "meps": [
+    {
+     "id": "197491",
+     "role": "rapporteur",
+     "committee": "LIBE",
+     "basis": "press",
+     "src": "agenceurope-13909"
+    },
+    {
+     "id": "98219",
+     "role": "rapporteur",
+     "committee": "ITRE",
+     "basis": "press",
+     "src": "agenceurope-13909",
+     "note": "Civil society groups asked for her appointment to be withdrawn (Transparency International EU, Feb 2026)"
+    },
+    {
+     "id": "256979",
+     "role": "shadow",
+     "committee": "LIBE",
+     "basis": "press",
+     "src": "agenceurope-13797"
+    },
+    {
+     "id": "197447",
+     "role": "shadow",
+     "committee": "LIBE",
+     "basis": "press",
+     "src": "agenceurope-13797"
+    },
+    {
+     "id": "197549",
+     "role": "shadow",
+     "committee": "LIBE",
+     "basis": "press",
+     "src": "agenceurope-13797"
+    },
+    {
+     "id": "197684",
+     "role": "shadow",
+     "committee": "LIBE",
+     "basis": "press",
+     "src": "agenceurope-13797"
+    },
+    {
+     "id": "256806",
+     "role": "shadow",
+     "committee": "LIBE",
+     "basis": "press",
+     "src": "agenceurope-13797"
+    },
+    {
+     "id": "256957",
+     "role": "shadow",
+     "committee": "LIBE",
+     "basis": "press",
+     "src": "agenceurope-13797"
+    },
+    {
+     "id": "256872",
+     "role": "shadow",
+     "committee": "LIBE",
+     "basis": "press",
+     "src": "agenceurope-13797"
+    },
+    {
+     "id": "257001",
+     "role": "shadow",
+     "committee": "ITRE",
+     "basis": "press",
+     "src": "agenceurope-13909"
+    }
+   ],
+   "commission": {
+    "lead": [
+     "henna-virkkunen"
+    ],
+    "associated": [
+     "michael-mcgrath",
+     "valdis-dombrovskis"
+    ]
+   },
+   "cabinet": [
+    {
+     "k": "henna-virkkunen~benjamin-bogel",
+     "why": "GDPR and data protection; digital identity and EU wallet"
+    },
+    {
+     "k": "henna-virkkunen~fausto-matos",
+     "why": "Data policy; justice and consumers; protection of minors"
+    },
+    {
+     "k": "michael-mcgrath~maria-zafra-saura",
+     "why": "Data protection, including external dimension"
+    },
+    {
+     "k": "valdis-dombrovskis~michael-hager",
+     "why": "Head of Cabinet; College coordination for simplification and implementation"
+    },
+    {
+     "k": "valdis-dombrovskis~dorota-denning",
+     "why": "Better regulation; competitiveness and SME checks"
+    }
+   ],
+   "council": {
+    "configs": [],
+    "configsBasis": "none",
+    "presidency": "IE",
+    "note": "Presidency compromise texts circulated from June 2026. The Council wants all omnibus texts adopted before the end of 2026."
+   },
+   "caveats": [
+    "Rapporteurs and shadows come from Agence Europe reporting. Check the Parliament's procedure file before external use.",
+    "Sources disagree on whether the Council position is already adopted. The Council note of 22 June is a mandate text. EDRi's September letter says Member States were still close to agreeing."
+   ],
+   "sources": [
+    {
+     "id": "agenceurope-13909",
+     "title": "Agence Europe: Kaljurand on the Digital Omnibus",
+     "url": "https://agenceurope.eu/en/bulletin/article/13909/19/digital-omnibus-marina-kaljurand-to-keep-definition-of-personal-data-intact-impact-assessment-in-european-parliament-in-autumn"
+    },
+    {
+     "id": "agenceurope-13797",
+     "title": "Agence Europe: major digital files have their rapporteurs",
+     "url": "https://agenceurope.eu/en/bulletin/article/13797/18/major-digital-files-this-year-have-their-rapporteurs-in-european-parliament"
+    },
+    {
+     "id": "medialaws-omnibus",
+     "title": "MediaLaws: Digital Omnibus legislative tracker",
+     "url": "https://www.medialaws.eu/digital-omnibus-legislative-tracker/"
+    },
+    {
+     "id": "edri-leto",
+     "title": "Leto Legal on the EDRi letter to Member States (24 Sep 2026)",
+     "url": "https://www.leto.legal/news/edri-lettre-etats-membres-digital-omnibus-conseil-rgpd-2026"
+    },
+    {
+     "id": "council-10729",
+     "title": "Council doc 10729/26: Digital Omnibus mandate",
+     "url": "https://data.consilium.europa.eu/doc/document/ST-10729-2026-INIT/en/pdf"
+    },
+    {
+     "id": "ti-salla",
+     "title": "Transparency International EU: call to withdraw rapporteur appointment",
+     "url": "https://transparency.eu/call-to-withdraw-european-parliaments-digital-omnibus-rapporteur-appointment/"
+    }
+   ]
+  },
+  {
+   "id": "industrial-accelerator-act",
+   "short": "Industrial Accelerator Act",
+   "title": "Industrial Accelerator Act ('Made in Europe')",
+   "kind": "regulation",
+   "procedure": "COM(2026)100",
+   "stage": "positions-in-preparation",
+   "status": "Proposed 4 March 2026. The Irish Presidency circulated a 'partner origin' compromise in late July 2026, which departs substantially from the Commission text. Parliament's rapporteurs were due to table draft reports after the summer. Von der Leyen wants adoption in 2026, which looks like an aspiration.",
+   "next": [],
+   "ep": {
+    "lead": [
+     "ITRE",
+     "IMCO"
+    ],
+    "note": "INTA involved on the trade angle."
+   },
+   "meps": [
+    {
+     "id": "197557",
+     "role": "rapporteur",
+     "committee": "ITRE",
+     "basis": "press",
+     "src": "agenceurope-13879",
+     "note": "Lead rapporteur"
+    },
+    {
+     "id": "256898",
+     "role": "rapporteur",
+     "committee": "IMCO",
+     "basis": "press",
+     "src": "agenceurope-13879",
+     "note": "Lead rapporteur in IMCO; works on geographical requirements"
+    },
+    {
+     "id": "86793",
+     "role": "rapporteur",
+     "committee": "IMCO",
+     "basis": "press",
+     "src": "agenceurope-13879",
+     "note": "IMCO chair (meps.json)"
+    },
+    {
+     "id": "5729",
+     "role": "relevant",
+     "committee": "INTA",
+     "basis": "press",
+     "src": "vulcan-iaa",
+     "note": "Named in a Vulcan Consulting briefing as pushing 'opt in, not opt out'; formal role not confirmed"
+    }
+   ],
+   "commission": {
+    "lead": [
+     "stephane-sejourne"
+    ],
+    "associated": [
+     "wopke-hoekstra",
+     "maros-sefcovic"
+    ]
+   },
+   "cabinet": [
+    {
+     "k": "stephane-sejourne~aleksandra-kordecka",
+     "why": "Industrial Accelerator Act is in her portfolio"
+    },
+    {
+     "k": "stephane-sejourne~bertrand-l-huillier",
+     "why": "Head of Cabinet; political steering of the portfolio"
+    },
+    {
+     "k": "stephane-sejourne~estelle-goger",
+     "why": "Deputy Head of Cabinet; relations with the Council, COMPET coordination"
+    },
+    {
+     "k": "stephane-sejourne~jugatx-ortiz-gonzalez",
+     "why": "Public procurement (the preference applies to procurement and support schemes)"
+    },
+    {
+     "k": "stephane-sejourne~andreea-diana-barbu",
+     "why": "Public procurement"
+    },
+    {
+     "k": "wopke-hoekstra~miguel-garcia-jones",
+     "why": "Clean Industrial Deal and Industrial Decarbonisation Accelerator Act"
+    },
+    {
+     "k": "stephane-sejourne~dragos-tudorache",
+     "why": "Economic security and trusted-partner dialogues, relevant to the partner-origin debate"
+    }
+   ],
+   "council": {
+    "configs": [
+     "COMPET-IM"
+    ],
+    "configsBasis": "inferred",
+    "presidency": "IE",
+    "note": "Irish Presidency 'partner origin' compromise, late July 2026."
+   },
+   "caveats": [
+    "Parliament rapporteurs come from two press sources (Agence Europe, Vulcan Consulting). No shadow rapporteurs were named. Verify in the procedure file.",
+    "Sources differ on whether the file is already in trilogue. Treat Parliament's position as still forming."
+   ],
+   "sources": [
+    {
+     "id": "oxford-iaa",
+     "title": "Oxford Business Law Blog: legal fault lines of the IAA",
+     "url": "https://blogs.law.ox.ac.uk/oblb/blog-post/2026/08/made-europe-or-made-measure-legal-fault-lines-industrial-accelerator-act"
+    },
+    {
+     "id": "agenceurope-13879",
+     "title": "Agence Europe: Industrial Accelerator Act in Parliament",
+     "url": "https://agenceurope.eu/en/bulletin/article/13879/1"
+    },
+    {
+     "id": "vulcan-iaa",
+     "title": "Vulcan Consulting: the IAA and the contested 'Made in Europe'",
+     "url": "https://vulcanconsulting.eu/the-industrial-accelerator-act-and-the-highly-contested-made-in-europe/"
+    }
+   ]
+  },
+  {
+   "id": "digital-networks-act",
+   "short": "Digital Networks Act",
+   "title": "Digital Networks Act",
+   "kind": "regulation",
+   "procedure": "2026/0013(COD)",
+   "stage": "positions-in-preparation",
+   "status": "Proposed 21 January 2026. It replaces the EECC, BEREC regulation and Radio Spectrum Policy Programme and extends authorisation rules to cloud providers and CDNs. The Council issued a progress report on 2 June 2026. IMCO and LIBE draft opinions were published in June.",
+   "next": [],
+   "ep": {
+    "lead": [
+     "ITRE"
+    ],
+    "note": "IMCO and LIBE draft opinions published June 2026. Their rapporteurs are not identified in the sources found."
+   },
+   "meps": [
+    {
+     "id": "257037",
+     "role": "rapporteur",
+     "committee": "ITRE",
+     "basis": "press",
+     "src": "xyz-kobosko",
+     "note": "Named lead rapporteur; also reported by Agence Europe and MLex"
+    }
+   ],
+   "commission": {
+    "lead": [
+     "henna-virkkunen"
+    ],
+    "associated": []
+   },
+   "cabinet": [
+    {
+     "k": "henna-virkkunen~silke-dalton",
+     "why": "Connectivity, telecom networks, future networks"
+    },
+    {
+     "k": "henna-virkkunen~werner-stengg",
+     "why": "Cloud and digital transformation (cloud providers and CDNs enter the scope)"
+    }
+   ],
+   "council": {
+    "configs": [
+     "TTE-TEL"
+    ],
+    "configsBasis": "source",
+    "presidency": "IE",
+    "note": "Telecom working party reports to the Council; progress report ST 9685/26."
+   },
+   "caveats": [
+    "Only the lead rapporteur is named. Shadow rapporteurs were not found."
+   ],
+   "sources": [
+    {
+     "id": "council-9685",
+     "title": "Council doc 9685/26: Digital Networks Act progress report (2 Jun 2026)",
+     "url": "https://data.consilium.europa.eu/doc/document/ST-9685-2026-INIT/en/pdf"
+    },
+    {
+     "id": "xyz-kobosko",
+     "title": "XYZ.pl: Kobosko nominated lead rapporteur on the Digital Networks Act",
+     "url": "https://xyz.pl/dzieje-sie/michal-kobosko-nominowany-na-glownego-sprawozdawce-aktu-o-sieciach-cyfrowych-7292"
+    },
+    {
+     "id": "agenceurope-13797",
+     "title": "Agence Europe: major digital files have their rapporteurs",
+     "url": "https://agenceurope.eu/en/bulletin/article/13797/18/major-digital-files-this-year-have-their-rapporteurs-in-european-parliament"
+    },
+    {
+     "id": "medialaws-dna",
+     "title": "MediaLaws: Digital Networks Act tracker",
+     "url": "https://www.medialaws.eu/digital-networks-act-legislative-tracker/"
+    }
+   ]
+  },
+  {
+   "id": "digital-fairness-act",
+   "short": "Digital Fairness Act",
+   "title": "Digital Fairness Act (and a possible EU social media minimum age)",
+   "kind": "pre-proposal",
+   "procedure": null,
+   "stage": "pre-proposal",
+   "status": "The Commission is on track to present the proposal in Q4 2026. Expected themes: dark patterns, addictive design, influencer marketing, unfair personalisation and minors. A bloc-wide social media minimum age may come alongside or inside it. Member States are moving first, for example Denmark's consultation on a minimum age of 15 launched 7 September 2026.",
+   "next": [
+    {
+     "date": null,
+     "what": "Commission proposal expected in Q4 2026"
+    }
+   ],
+   "ep": {
+    "lead": [
+     "IMCO"
+    ],
+    "note": "No rapporteur yet. MEPs listed worked on the Parliament's 2025 report on protection of minors online."
+   },
+   "meps": [
+    {
+     "id": "37312",
+     "role": "relevant",
+     "committee": "IMCO",
+     "basis": "ep-open-data",
+     "ref": "IMCO-PR-772053",
+     "note": "Worked on the Parliament's 2025 report on protection of minors online"
+    },
+    {
+     "id": "256834",
+     "role": "relevant",
+     "committee": "IMCO",
+     "basis": "ep-open-data",
+     "ref": "IMCO-PR-772053",
+     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)"
+    },
+    {
+     "id": "197529",
+     "role": "relevant",
+     "committee": "IMCO",
+     "basis": "ep-open-data",
+     "ref": "IMCO-PR-772053",
+     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)"
+    },
+    {
+     "id": "197581",
+     "role": "relevant",
+     "committee": "IMCO",
+     "basis": "ep-open-data",
+     "ref": "IMCO-PR-772053",
+     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)"
+    },
+    {
+     "id": "197870",
+     "role": "relevant",
+     "committee": "IMCO",
+     "basis": "ep-open-data",
+     "ref": "IMCO-PR-772053",
+     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)"
+    },
+    {
+     "id": "256862",
+     "role": "relevant",
+     "committee": "IMCO",
+     "basis": "ep-open-data",
+     "ref": "IMCO-PR-772053",
+     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)"
+    },
+    {
+     "id": "124884",
+     "role": "relevant",
+     "committee": "IMCO",
+     "basis": "ep-open-data",
+     "ref": "IMCO-PR-772053",
+     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)"
+    },
+    {
+     "id": "257258",
+     "role": "relevant",
+     "committee": "CULT",
+     "basis": "ep-open-data",
+     "ref": "CULT-AD-775391",
+     "note": "Worked on the Parliament's 2025 report on protection of minors online"
+    },
+    {
+     "id": "257457",
+     "role": "relevant",
+     "committee": "CULT",
+     "basis": "ep-open-data",
+     "ref": "CULT-AD-775391",
+     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)"
+    },
+    {
+     "id": "197832",
+     "role": "relevant",
+     "committee": "CULT",
+     "basis": "ep-open-data",
+     "ref": "CULT-AD-775391",
+     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)"
+    },
+    {
+     "id": "256943",
+     "role": "relevant",
+     "committee": "CULT",
+     "basis": "ep-open-data",
+     "ref": "CULT-AD-775391",
+     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)"
+    },
+    {
+     "id": "256952",
+     "role": "relevant",
+     "committee": "CULT",
+     "basis": "ep-open-data",
+     "ref": "CULT-AD-775391",
+     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)"
+    },
+    {
+     "id": "256803",
+     "role": "relevant",
+     "committee": "CULT",
+     "basis": "ep-open-data",
+     "ref": "CULT-AD-775391",
+     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)"
+    },
+    {
+     "id": "256859",
+     "role": "relevant",
+     "committee": "CULT",
+     "basis": "ep-open-data",
+     "ref": "CULT-AD-775391",
+     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)"
+    },
+    {
+     "id": "197672",
+     "role": "relevant",
+     "committee": "CULT",
+     "basis": "ep-open-data",
+     "ref": "CULT-AD-775391",
+     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)"
+    },
+    {
+     "id": "86793",
+     "role": "relevant",
+     "committee": "IMCO",
+     "basis": "ep-open-data",
+     "ref": "meps.json",
+     "note": "IMCO chair; IMCO is the natural lead committee"
+    }
+   ],
+   "commission": {
+    "lead": [
+     "michael-mcgrath"
+    ],
+    "associated": [
+     "henna-virkkunen"
+    ]
+   },
+   "cabinet": [
+    {
+     "k": "michael-mcgrath~egelyn-braun",
+     "why": "Digital Fairness Act is in her portfolio"
+    },
+    {
+     "k": "michael-mcgrath~lucie-rousselle",
+     "why": "Consumer protection, e-commerce"
+    },
+    {
+     "k": "henna-virkkunen~werner-stengg",
+     "why": "DSA and DMA enforcement"
+    },
+    {
+     "k": "henna-virkkunen~fausto-matos",
+     "why": "Protection of minors; justice and consumers"
+    }
+   ],
+   "council": {
+    "configs": [],
+    "configsBasis": "none",
+    "presidency": "IE",
+    "note": "Nothing to negotiate until the proposal lands."
+   },
+   "caveats": [
+    "Not yet proposed. MEP entries are relevance markers from earlier work and carry no role on the file."
+   ],
+   "sources": [
+    {
+     "id": "insideprivacy-minors",
+     "title": "Covington: horizon scan on children's online safety",
+     "url": "https://www.insideprivacy.com/childrens-privacy/horizon-scan-childrens-online-safety-and-privacy-eu-and-beyond/"
+    },
+    {
+     "id": "bhrrc-dfa",
+     "title": "Euractiv via BHRRC: civil society open letter on the DFA",
+     "url": "https://www.bhrrc.org/es/últimas-noticias/eu-more-than-200-civil-society-groups-urge-commission-in-open-letter-to-deliver-an-ambitious-digital-fairness-act-proposal/"
+    },
+    {
+     "id": "ep-open-data",
+     "title": "European Parliament Open Data Portal (via nodo activity feeds)",
+     "url": "https://data.europarl.europa.eu/"
+    }
+   ]
+  },
+  {
+   "id": "tech-sovereignty-package",
+   "short": "Chips Act 2.0 and CADA",
+   "title": "Technology Sovereignty Package: Chips Act 2.0 and Cloud and AI Development Act",
+   "kind": "package",
+   "procedure": null,
+   "stage": "positions-in-preparation",
+   "status": "Both proposals went to Parliament and Council in May–June 2026 (sources differ on the exact date). The Chips Act 2.0 Council working party resumed talks on 2 September 2026. The CADA aims to triple EU data-centre capacity within five to seven years and creates a framework to assess cloud and AI sovereignty, which is the most contested element.",
+   "next": [],
+   "ep": {
+    "lead": [
+     "ITRE",
+     "IMCO"
+    ],
+    "note": "Chips Act 2.0 sits in ITRE. CADA is shared between ITRE and IMCO."
+   },
+   "parts": [
+    {
+     "id": "chips-act-2",
+     "title": "Chips Act 2.0",
+     "meps": [
+      {
+       "id": "256979",
+       "role": "rapporteur",
+       "committee": "ITRE",
+       "basis": "press",
+       "src": "semi-julaug"
+      },
+      {
+       "id": "237465",
+       "role": "shadow",
+       "committee": "ITRE",
+       "basis": "press",
+       "src": "semi-julaug"
+      },
+      {
+       "id": "197780",
+       "role": "shadow",
+       "committee": "ITRE",
+       "basis": "press",
+       "src": "semi-julaug"
+      }
+     ]
+    },
+    {
+     "id": "cada",
+     "title": "Cloud and AI Development Act",
+     "meps": [
+      {
+       "id": "257021",
+       "role": "rapporteur",
+       "committee": "ITRE",
+       "basis": "press",
+       "src": "semi-julaug"
+      },
+      {
+       "id": "256978",
+       "role": "rapporteur",
+       "committee": "IMCO",
+       "basis": "press",
+       "src": "semi-julaug"
+      }
+     ]
+    }
+   ],
+   "meps": [
+    {
+     "id": "256979",
+     "role": "rapporteur",
+     "committee": "ITRE",
+     "basis": "press",
+     "src": "semi-julaug"
+    },
+    {
+     "id": "237465",
+     "role": "shadow",
+     "committee": "ITRE",
+     "basis": "press",
+     "src": "semi-julaug"
+    },
+    {
+     "id": "197780",
+     "role": "shadow",
+     "committee": "ITRE",
+     "basis": "press",
+     "src": "semi-julaug"
+    },
+    {
+     "id": "257021",
+     "role": "rapporteur",
+     "committee": "ITRE",
+     "basis": "press",
+     "src": "semi-julaug"
+    },
+    {
+     "id": "256978",
+     "role": "rapporteur",
+     "committee": "IMCO",
+     "basis": "press",
+     "src": "semi-julaug"
+    }
+   ],
+   "commission": {
+    "lead": [
+     "henna-virkkunen"
+    ],
+    "associated": [
+     "stephane-sejourne"
+    ]
+   },
+   "cabinet": [
+    {
+     "k": "henna-virkkunen~silvia-bartolini",
+     "why": "AI innovation, quantum, chips; AI factories and gigafactories"
+    },
+    {
+     "k": "henna-virkkunen~werner-stengg",
+     "why": "Cloud; AI Act; digital transformation"
+    },
+    {
+     "k": "stephane-sejourne~dragos-tudorache",
+     "why": "Tech sovereignty; sectors: cloud and AI, quantum, chips"
+    }
+   ],
+   "council": {
+    "configs": [
+     "COMPET-IM"
+    ],
+    "configsBasis": "inferred",
+    "presidency": "IE",
+    "note": "Working Party on Competitiveness resumed Chips Act 2.0 talks on 2 September 2026 (SEMI Europe)."
+   },
+   "caveats": [
+    "Rapporteurs and shadows come from one industry brief (SEMI Europe). Check the Parliament's procedure files."
+   ],
+   "sources": [
+    {
+     "id": "semi-julaug",
+     "title": "SEMI Europe: July-August EU policy brief",
+     "url": "https://www.semi.org/sites/semi.org/files/2026-09/SEMI_Europe_July-August_EU_Policy_Brief.pdf"
+    },
+    {
+     "id": "era-tech",
+     "title": "ERA: Commission tech sovereignty package",
+     "url": "https://era.gv.at/news-items/commission-proposes-tech-sovereignty-package-to-strengthen-europes-digital-autonomy-and-resilience/"
+    },
+    {
+     "id": "matheson-tech",
+     "title": "Matheson: Technology Sovereignty Package",
+     "url": "https://www.matheson.com/insights/european-commission-proposes-new-european-technology-sovereignty-package/"
+    }
+   ]
+  },
+  {
+   "id": "ai-act-implementation",
+   "short": "AI Act after the Omnibus",
+   "title": "AI Act implementation after the Digital Omnibus on AI",
+   "kind": "implementation",
+   "procedure": null,
+   "stage": "in-force",
+   "status": "The Digital Omnibus on AI entered into force on 27 July 2026. Annex III high-risk obligations now apply from 2 December 2027 and Annex I from 2 August 2028. Providers of generative AI already on the market have until 2 December 2026 for labelling measures. The live issues are standards, AI Office enforcement and national authority designation.",
+   "next": [
+    {
+     "date": "2026-12-02",
+     "what": "Labelling cut-off for generative AI systems already on the market"
+    }
+   ],
+   "ep": {
+    "lead": [
+     "IMCO",
+     "LIBE"
+    ],
+    "note": "Joint IMCO-LIBE file. CULT and JURI gave opinions."
+   },
+   "meps": [
+    {
+     "id": "257300",
+     "role": "rapporteur",
+     "committee": "LIBE",
+     "basis": "press",
+     "src": "agenceurope-13797"
+    },
+    {
+     "id": "197406",
+     "role": "rapporteur",
+     "committee": "IMCO",
+     "basis": "press",
+     "src": "agenceurope-13797"
+    },
+    {
+     "id": "96761",
+     "role": "shadow",
+     "committee": "LIBE",
+     "basis": "press",
+     "src": "agenceurope-13797"
+    },
+    {
+     "id": "34232",
+     "role": "shadow",
+     "committee": "LIBE",
+     "basis": "press",
+     "src": "agenceurope-13797"
+    },
+    {
+     "id": "197549",
+     "role": "shadow",
+     "committee": "LIBE",
+     "basis": "press",
+     "src": "agenceurope-13797"
+    },
+    {
+     "id": "197684",
+     "role": "shadow",
+     "committee": "LIBE",
+     "basis": "press",
+     "src": "agenceurope-13797"
+    },
+    {
+     "id": "256957",
+     "role": "shadow",
+     "committee": "LIBE",
+     "basis": "press",
+     "src": "agenceurope-13797"
+    },
+    {
+     "id": "220840",
+     "role": "shadow",
+     "committee": "LIBE",
+     "basis": "press",
+     "src": "agenceurope-13797"
+    },
+    {
+     "id": "124867",
+     "role": "shadow",
+     "committee": "IMCO",
+     "basis": "press",
+     "src": "agenceurope-13797"
+    },
+    {
+     "id": "197870",
+     "role": "shadow",
+     "committee": "IMCO",
+     "basis": "press",
+     "src": "agenceurope-13797"
+    },
+    {
+     "id": "197444",
+     "role": "shadow",
+     "committee": "IMCO",
+     "basis": "press",
+     "src": "agenceurope-13797"
+    },
+    {
+     "id": "197627",
+     "role": "shadow",
+     "committee": "IMCO",
+     "basis": "press",
+     "src": "agenceurope-13797"
+    },
+    {
+     "id": "197529",
+     "role": "shadow",
+     "committee": "IMCO",
+     "basis": "press",
+     "src": "agenceurope-13797"
+    },
+    {
+     "id": "257080",
+     "role": "shadow",
+     "committee": "IMCO",
+     "basis": "press",
+     "src": "agenceurope-13797"
+    },
+    {
+     "id": "197460",
+     "role": "opinion-rapporteur",
+     "committee": "JURI",
+     "basis": "ep-open-data",
+     "ref": "JURI-AD-784179"
+    },
+    {
+     "id": "204400",
+     "role": "opinion-shadow",
+     "committee": "JURI",
+     "basis": "ep-open-data",
+     "ref": "JURI-AD-784179"
+    },
+    {
+     "id": "197589",
+     "role": "opinion-shadow",
+     "committee": "JURI",
+     "basis": "ep-open-data",
+     "ref": "JURI-AD-784179"
+    },
+    {
+     "id": "257002",
+     "role": "opinion-shadow",
+     "committee": "JURI",
+     "basis": "ep-open-data",
+     "ref": "JURI-AD-784179"
+    },
+    {
+     "id": "256981",
+     "role": "opinion-shadow",
+     "committee": "JURI",
+     "basis": "ep-open-data",
+     "ref": "JURI-AD-784179"
+    },
+    {
+     "id": "257073",
+     "role": "opinion-shadow",
+     "committee": "JURI",
+     "basis": "ep-open-data",
+     "ref": "JURI-AD-784179"
+    },
+    {
+     "id": "256902",
+     "role": "opinion-rapporteur",
+     "committee": "CULT",
+     "basis": "ep-open-data",
+     "ref": "CULT-AD-784261"
+    },
+    {
+     "id": "257457",
+     "role": "opinion-shadow",
+     "committee": "CULT",
+     "basis": "ep-open-data",
+     "ref": "CULT-AD-784261"
+    },
+    {
+     "id": "257149",
+     "role": "opinion-shadow",
+     "committee": "CULT",
+     "basis": "ep-open-data",
+     "ref": "CULT-AD-784261"
+    },
+    {
+     "id": "197589",
+     "role": "opinion-shadow",
+     "committee": "CULT",
+     "basis": "ep-open-data",
+     "ref": "CULT-AD-784261"
+    }
+   ],
+   "commission": {
+    "lead": [
+     "henna-virkkunen"
+    ],
+    "associated": []
+   },
+   "cabinet": [
+    {
+     "k": "henna-virkkunen~werner-stengg",
+     "why": "AI Act, AI safety and enforcement"
+    },
+    {
+     "k": "henna-virkkunen~silvia-bartolini",
+     "why": "AI innovation, AI factories and gigafactories"
+    },
+    {
+     "k": "michael-mcgrath~egelyn-braun",
+     "why": "Digital technologies and AI (consumer and justice angle)"
+    }
+   ],
+   "council": {
+    "configs": [],
+    "configsBasis": "none",
+    "presidency": "IE",
+    "note": "Final Council approval 29 June 2026."
+   },
+   "caveats": [
+    "Sources disagree on the date of the provisional trilogue agreement (6–7 May versus 22 June 2026). The entry into force date of 27 July 2026 is consistent across sources."
+   ],
+   "sources": [
+    {
+     "id": "lewis-silkin-ai",
+     "title": "Lewis Silkin: Digital Omnibus on AI enters into force",
+     "url": "https://www.lewissilkin.com/insights/2026/07/27/the-digital-omnibus-on-ai-enters-into-force-today-102nedo"
+    },
+    {
+     "id": "gibson-dunn-ai",
+     "title": "Gibson Dunn: AI Act omnibus agreement",
+     "url": "https://www.gibsondunn.com/eu-ai-act-omnibus-agreement-postponed-high-risk-deadlines-and-other-key-changes/"
+    },
+    {
+     "id": "agenceurope-13797",
+     "title": "Agence Europe: major digital files have their rapporteurs",
+     "url": "https://agenceurope.eu/en/bulletin/article/13797/18/major-digital-files-this-year-have-their-rapporteurs-in-european-parliament"
+    },
+    {
+     "id": "ep-open-data",
+     "title": "European Parliament Open Data Portal (via nodo activity feeds)",
+     "url": "https://data.europarl.europa.eu/"
+    }
+   ]
+  }
+ ]
+}

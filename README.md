@@ -20,9 +20,14 @@ v1/
   council.json    Council of the EU
   calendar.json   Parliament calendar
   agenda.json     Plenary agendas
+  files.json      Legislative files with linked MEPs, Commissioners, cabinet members
 ```
 
 `v1` is the schema version. Fields can be added inside v1. A rename or removal creates `v2` and `v1` stays online for installed apps.
+
+## files.json
+
+Seven priority legislative files (MFF 2028–2034, Digital Omnibus, Industrial Accelerator Act, Digital Networks Act, Digital Fairness Act, Chips Act 2.0 and CADA, AI Act after the Omnibus). Each file lists `meps` (id, role, committee, `basis`), `commission` (lead and associated commissioner slugs), `cabinet` (keys from `commission.json` with a reason), Council configurations, `caveats` and `sources`. `basis` is `ep-open-data` (verified from `activity/` feeds) or `press` (named in reporting, to verify in the EP procedure file). MEP ids match `meps.json`.
 
 ## agenda.json
 
