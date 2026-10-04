@@ -1409,8 +1409,8 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     $("meBtn").innerHTML = state.me.id && state.me.avatarUrl ? `<img src="${esc(state.me.avatarUrl)}" alt="">` : nm ? esc(initialsOf(nm)) : icon("user");
   }
   function renderTopics() {
-    $("topics").hidden = false;
-    $("topics").innerHTML = '<span class="cap">Try</span>' + TOPICS.map((x) => `<button class="eu-chip" type="button" data-topic="${esc(x)}">${esc(x)}</button>`).join("");
+    $("topics").hidden = true;
+    $("topics").innerHTML = "";
   }
 
   /* Areas: who works on a file */
