@@ -342,12 +342,55 @@ for (const m of MEPS) {
   await writeJson(f, { id: Number(id), updated: NOW.toISOString(), source: "European Parliament Open Data Portal, CC BY 4.0", items: all });
 }
 
+/* ---------- clean the extracted PDF text (applied when the files are written, so the cache keeps the raw text) ---------- */
+const DATE_MARK = /\((\d{1,2} [A-Z][a-z]+ \d{4})\)/g;
+const isJunk = (p) => {
+  const t = p.replace(/\|\(⸱?\d+\|\)∙?/g, "").trim();
+  if (!t || /^[\d\s.|()⸱∙-]+$/.test(t) || /^https?:\/\//.test(t)) return true; /* footnote references */
+  const w = t.split(/\s+/); return w.length && w.filter((x) => /^https?:\/\//.test(x)).length / w.length > 0.5;
+};
+/* a numbered point such as "2." arrives as its own line; join it to the next paragraph */
+function joinNumbers(ps) { const o = []; for (let i = 0; i < ps.length; i++) { if (/^\d{1,2}\.$/.test(ps[i]) && ps[i + 1]) { o.push(ps[i] + " " + ps[i + 1]); i++; } else o.push(ps[i]); } return o; }
+/* the file is one long block of text: break it into readable paragraphs of a few sentences */
+function breakUp(ps) {
+  const o = [];
+  for (const p of ps) {
+    if (p.length <= 520) { o.push(p); continue; }
+    const sents = p.match(/[^.!?]+(?:[.!?]+["”')\]]*|$)\s*/g) || [p]; let cur = "";
+    for (const x of sents) { if (cur && (cur + x).length > 420) { o.push(cur.trim()); cur = ""; } cur += x; }
+    if (cur.trim()) o.push(cur.trim());
+  }
+  return o;
+}
+const stripTitle = (txt, title) => { const t = String(title || "").trim(); return t && txt.toLowerCase().startsWith(t.toLowerCase()) ? txt.slice(t.length).trim() : txt; };
+/* the answer PDF repeats the question under "(English version) to the Commission Name (Group) (date) Subject: Title ..." and the answer follows the second date */
+function splitAnswerPdf(ps) {
+  const all = ps.join("\n"); const marks = [...all.matchAll(DATE_MARK)];
+  if (marks.length >= 2) {
+    const q0 = all.indexOf(marks[0][0]) + marks[0][0].length, a0 = marks[1].index;
+    let q = all.slice(q0, a0).replace(/^\s*Subject:\s*/i, "").trim();
+    return { question: q, answer: all.slice(a0 + marks[1][0].length).trim() };
+  }
+  return { question: "", answer: all.replace(/^\(English version\)[^\n]*?Subject:[^\n]*?\n/i, "").trim() };
+}
+function cleanQuestion(r) {
+  let ps = (r.qt || []).filter((p) => !/^(to the |to )?(Commission|Council|High Representative)?.*\bSubject:\s*$/i.test(p) && !/^Subject:?$/i.test(p) && !isJunk(p));
+  if (!ps.length && r.at) { const q = stripTitle(splitAnswerPdf(r.at).question, r.t); if (q) ps = [q]; }
+  return breakUp(joinNumbers(ps)).filter((p) => p.length > 1);
+}
+function cleanAnswer(r) {
+  if (!r.at) return null;
+  const a = splitAnswerPdf(r.at).answer.split(/\n+/).map((x) => x.trim()).filter((x) => x && !isJunk(x));
+  return breakUp(joinNumbers(a));
+}
+
 /* text files for questions that have them */
 let qfiles = 0;
 for (const [id, r] of Object.entries(qCache)) {
   if (!r.qt && !r.at) continue;
   const f = path.join(OUT, "q", id + ".json");
-  const body = { id, ...(r.qt ? { question: r.qt } : {}), ...(r.at ? { answer: r.at } : {}), ...(r.ab ? { answeredBy: r.ab } : {}) };
+  const cq = cleanQuestion(r), ca = cleanAnswer(r);
+  const body = { id, ...(cq.length ? { question: cq } : {}), ...(ca && ca.length ? { answer: ca } : {}), ...(r.ab ? { answeredBy: r.ab } : {}) };
   const prev = await readJson(f, null);
   if (prev && JSON.stringify(prev) === JSON.stringify(body)) continue;
   await writeJson(f, body); qfiles++;
