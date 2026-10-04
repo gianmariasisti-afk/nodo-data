@@ -4,4 +4,6 @@
 window.NODO_CONFIG = {
   supabaseUrl: "https://dmishwyqipqbfgtdpalk.supabase.co",
   supabaseAnonKey: "sb_publishable_D27BtfFg8CurRjDAs0Sb3Q_Kuzs_52Q",
+  /* Social sign-in buttons to show. Add "apple", "google" or "linkedin" only after the provider is enabled in Supabase. */
+  providers: [],
 };

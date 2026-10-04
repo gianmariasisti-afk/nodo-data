@@ -2657,8 +2657,8 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       const claude = state.me.id ? `<button class="eu-btn eu-btn--on-deep eu-btn--block" data-onb="claude" type="button">${state.me.avatarUrl ? `<img class="pface" src="${esc(state.me.avatarUrl)}" alt="">` : `<span class="pmark" aria-hidden="true">${esc(initialsOf(state.me.name))}</span>`}Continue as ${esc(fn || "you")}</button>` : "";
       main = `<h1 class="onb-xl onb-xl--auth" id="onbTitle" tabindex="-1">Untangle the <strong>EU.</strong></h1>
         <p class="lead">Sign in to keep your topics, countries and saved people ${PREVIEW && !state.me.id ? "in one place" : "on every device"}.</p>
-        <div class="auth-list">${claude}${Object.entries(PROVIDERS).filter(([k]) => !LIVE || k !== "microsoft").map(([k, v]) => `<button class="eu-btn eu-btn--on-deep eu-btn--block" data-prov="${k}" type="button"><span class="pmark" aria-hidden="true">${v.mark}</span>Continue with ${v.name}</button>`).join("")}</div>
-        <div class="or"><span>or</span></div>
+        <div class="auth-list">${claude}${Object.entries(PROVIDERS).filter(([k]) => !LIVE || (CFG.providers || []).includes(k)).map(([k, v]) => `<button class="eu-btn eu-btn--on-deep eu-btn--block" data-prov="${k}" type="button"><span class="pmark" aria-hidden="true">${v.mark}</span>Continue with ${v.name}</button>`).join("")}</div>
+        ${LIVE && !(CFG.providers || []).length && !claude ? "" : `<div class="or"><span>or</span></div>`}
         <button class="eu-btn eu-btn--block auth-line" data-onb="email" type="button">${icon("mail")}Continue with email</button>`;
       foot = `${LIVE ? "" : `<button class="textbtn textbtn--strong" data-onb="passkey-in" type="button">${icon("finger")}Sign in with a passkey</button>`}
         <button class="textbtn" data-onb="skip" type="button">Explore without an account</button>

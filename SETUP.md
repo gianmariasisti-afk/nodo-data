@@ -31,7 +31,7 @@ The anon key is public by design. Never put the `service_role` key anywhere in t
 
 ## 3. Social sign-in
 
-Each provider needs a developer app. Use this redirect (callback) URL in all of them: `https://xxxx.supabase.co/auth/v1/callback`.
+Each provider needs a developer app. The sign-in screen shows a provider button only when its name is listed in `providers` in `config.js` (for example `providers: ["google"]`). Add the name after you enable the provider in Supabase. Use this redirect (callback) URL in all of them: `https://xxxx.supabase.co/auth/v1/callback`.
 
 | Provider | Where | Notes |
 |---|---|---|
