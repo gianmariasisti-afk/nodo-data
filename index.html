@@ -368,6 +368,8 @@ h3 small { font-size: 12px; line-height: 16px; font-weight: 500; letter-spacing:
 .block section + section { margin-top: var(--space-5); }
 .block.clip section:nth-of-type(n+2), .block.clip li:nth-child(n+4) { display: none; }
 .block .more { margin-top: var(--space-3); }
+.tbr { display: flex; gap: var(--space-2); align-items: center; }
+.eu-btn[data-follow][aria-pressed="true"] { background: var(--ink); color: var(--surface); border-color: var(--ink); }
 .pitch h3 { margin: 0; font-size: 22px; line-height: 26px; letter-spacing: -0.02em; }
 .pitch p { margin-top: var(--space-2); color: var(--ink-muted); }
 .pitch .eu-btn { margin-top: var(--space-5); }
@@ -900,8 +902,8 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   </div>
   <div id="homeResults" hidden></div>
   <div id="homeBody">
-    <div id="homeCal"></div>
     <div id="filesWrap"></div>
+    <div id="homeCal"></div>
     <h3>Saved <button class="more" id="seeSaved" type="button">See all</button></h3>
     <div id="savedStrip"></div>
     <div id="recentWrap" hidden><h3>Recently viewed</h3><div class="strip" id="recentStrip"></div></div>
@@ -1043,7 +1045,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   const GROUP_MOD = { "EPP": "epp", "S&D": "sd", "PfE": "pfe", "ECR": "ecr", "Renew": "renew", "Greens/EFA": "greens", "The Left": "left", "ESN": "esn", "NI": "ni" };
   const GROUP_ORDER = ["EPP", "S&D", "PfE", "ECR", "Renew", "Greens/EFA", "The Left", "ESN", "NI"];
   const TOPICS = ["AI Act", "Defence", "Energy", "Agriculture", "Trade", "Migration", "Housing", "Health", "Competition", "Ukraine"];
-  const LISTS_KEY = "nodo.lists", SYNCED_KEY = "nodo.syncedwith";
+  const LISTS_KEY = "nodo.lists", FOLLOW_KEY = "nodo.follow", SYNCED_KEY = "nodo.syncedwith";
   const CFG = window.NODO_CONFIG || {};
   const LIVE = !!(CFG.supabaseUrl && CFG.supabaseAnonKey);
   const FAV_KEY = "mepocket.favs", RECENT_KEY = "mepocket.recent", DESK_KEY = "mepocket.desk", PROFILE_KEY = "mepocket.profile", UPD_KEY = "mepocket.updated";
@@ -1166,6 +1168,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   try { state.profile = JSON.parse(store.get(PROFILE_KEY) || "null"); } catch { state.profile = null; }
   state.me = { id: null, name: "", avatarUrl: "" };
   try { state.lists = JSON.parse(store.get(LISTS_KEY) || "{}") || {}; } catch { state.lists = {}; }
+  try { state.follow = new Set(JSON.parse(store.get(FOLLOW_KEY) || "[]")); } catch { state.follow = new Set(); }
   const acct = { user: null };
 
   /* Storage: always this browser; also the person's private record in the cloud when they are signed in
@@ -1180,7 +1183,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     }
     return out;
   };
-  const stateBody = () => ({ profile: state.profile || null, favs: [...state.favs], lists: state.lists || {}, updated: Number(store.get(UPD_KEY) || Date.now()) });
+  const stateBody = () => ({ profile: state.profile || null, favs: [...state.favs], lists: state.lists || {}, follow: [...state.follow], updated: Number(store.get(UPD_KEY) || Date.now()) });
   const Store = {
     mode: "local", ref: null, timer: null, chain: Promise.resolve(), status: "local",
     touch() { store.set(UPD_KEY, String(Date.now())); this.push(); },
@@ -1227,7 +1230,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       const uid = user.id;
       const ref = {
         set: async (b) => {
-          const { error } = await sb.from("user_state").upsert({ user_id: uid, body: { profile: b.profile, favs: b.favs, lists: b.lists }, updated: b.updated });
+          const { error } = await sb.from("user_state").upsert({ user_id: uid, body: { profile: b.profile, favs: b.favs, lists: b.lists, follow: b.follow }, updated: b.updated });
           if (error) throw error;
         },
       };
@@ -1240,7 +1243,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       if (!data) { Store.touch(); return; }
       const d = { ...(data.body || {}), updated: Number(data.updated) || 0 };
       if (first) {
-        const m = { profile: d.profile || state.profile || null, favs: [...new Set([...(d.favs || []), ...state.favs])], lists: mergeLists(d.lists, state.lists), updated: Date.now() };
+        const m = { profile: d.profile || state.profile || null, favs: [...new Set([...(d.favs || []), ...state.favs])], lists: mergeLists(d.lists, state.lists), follow: [...new Set([...(d.follow || []), ...state.follow])], updated: Date.now() };
         adoptRemote(m, true); this.push();
       } else if (d.updated >= localUpd) adoptRemote(d, true);
       else this.push();
@@ -1255,9 +1258,11 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     state.profile = d.profile || null;
     state.favs = new Set(Array.isArray(d.favs) ? d.favs : []);
     state.lists = d.lists && typeof d.lists === "object" ? d.lists : {};
+    state.follow = new Set(Array.isArray(d.follow) ? d.follow : []);
     if (state.profile) store.set(PROFILE_KEY, JSON.stringify(state.profile)); else store.del(PROFILE_KEY);
     store.set(FAV_KEY, JSON.stringify([...state.favs]));
     store.set(LISTS_KEY, JSON.stringify(state.lists));
+    store.set(FOLLOW_KEY, JSON.stringify([...state.follow]));
     store.set(UPD_KEY, String(d.updated || Date.now()));
     if (state.profile && state.profile.onboarded && !$("onb").hidden && !onb.edit && !quiet) $("onb").hidden = true;
     identityChanged();
@@ -1266,10 +1271,12 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     else if (!state.open) renderView();
   }
   const saveLists = () => { store.set(LISTS_KEY, JSON.stringify(state.lists)); Store.touch(); };
+  const saveFollow = () => { store.set(FOLLOW_KEY, JSON.stringify([...state.follow])); Store.touch(); };
   const saveFavs = () => { store.set(FAV_KEY, JSON.stringify([...state.favs])); Store.touch(); };
   function saveProfile() { state.profile.updated = Date.now(); store.set(PROFILE_KEY, JSON.stringify(state.profile)); Store.touch(); }
   const firstName = () => (state.me.name || (state.profile && state.profile.name) || "").trim().split(/\s+/)[0] || "";
-  const myAreas = () => ((state.profile && state.profile.areas) || []).map((id) => AREA_BY[id]).filter(Boolean);
+  const followedFiles = () => FILES.filter((f) => state.follow.has(f.id));
+  const followedConfs = () => new Set(followedFiles().flatMap((f) => (f.council || {}).configs || []));
   function identityChanged() { renderGreeting(); renderMeBtn(); renderTopics(); if (!$("onb").hidden) renderOnb(); }
 
   let toastTimer;
@@ -1402,9 +1409,8 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     $("meBtn").innerHTML = state.me.id && state.me.avatarUrl ? `<img src="${esc(state.me.avatarUrl)}" alt="">` : nm ? esc(initialsOf(nm)) : icon("user");
   }
   function renderTopics() {
-    const areas = myAreas();
-    $("topics").hidden = areas.length > 0;
-    $("topics").innerHTML = areas.length ? "" : '<span class="cap">Try</span>' + TOPICS.map((x) => `<button class="eu-chip" type="button" data-topic="${esc(x)}">${esc(x)}</button>`).join("");
+    $("topics").hidden = false;
+    $("topics").innerHTML = '<span class="cap">Try</span>' + TOPICS.map((x) => `<button class="eu-chip" type="button" data-topic="${esc(x)}">${esc(x)}</button>`).join("");
   }
 
   /* Areas: who works on a file */
@@ -1437,18 +1443,36 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     extra: `<span class="eu-row__tags">${gtag(x.m.group)}</span>`, tail: starBtn(x.m.key, x.m.name) });
   const rowCabArea = (x, d) => row({ attrs: tap(`data-open="${esc(x.m.key)}"`), lead: avaOf(x.m.key), name: esc(x.m.name), meta: esc(`${x.m.role} · Cabinet ${x.m.com.short}`), wrap: true,
     extra: `<span class="row-hit">${d.hl(x.line)}</span>`, tail: starBtn(x.m.key, x.m.name) });
+  /* Files that matter: followed files first, then the files with the nearest dated step. Curated order breaks ties. */
+  const followBtn = (id, name) => `<button class="eu-iconbtn eu-iconbtn--sm star" type="button" data-follow="${esc(id)}" aria-pressed="${state.follow.has(id)}" aria-label="Follow ${esc(name)}">${icon("star")}</button>`;
+  const nextStep = (f) => { const n = f.next || []; return n.find((x) => x.date) || n[0] || null; };
+  const nextLine = (f) => { const n = nextStep(f); if (n) return (n.date ? fdDate(n.date) + " · " : "") + n.what; const c = countsOf(f); return `${c.ep} MEPs · ${c.ec} Commissioners · ${c.cab} cabinet`; };
+  const homeFile = (f) => row({ attrs: tap(`data-file="${esc(f.id)}"`), lead: disc("file"), name: esc(f.short), meta: esc(nextLine(f)), wrap: true,
+    extra: `<span class="eu-row__tags">${stagePill(f.stage)}</span>`, tail: followBtn(f.id, f.short) });
   function renderFiles() {
-    const areas = myAreas();
-    if (areas.length) $("homeCal").before($("filesWrap")); else $("homeCal").after($("filesWrap"));
-    if (!areas.length) {
-      $("filesWrap").innerHTML = `<section class="block pitch"><h3>Make this home yours</h3><p>Pick the topics you follow. Your home lines up the Commissioners, cabinet staff and MEPs who work on them.</p>
-        <button class="eu-btn eu-btn--brand" data-edit="${state.profile ? 2 : 0}" type="button">Pick your topics</button></section>`;
-      return;
-    }
-    $("filesWrap").innerHTML = `<h3>Your topics <button class="more" data-edit="2" type="button">Edit</button></h3><div class="list">${areas.map((a) => {
-      const d = areaData(a);
-      return row({ el: "button", attrs: `type="button" data-area="${a.id}"`, lead: disc("file"), name: esc(a.name), meta: `${d.cab.length} cabinet staff · ${d.members.length} MEPs`, wrap: true, tail: go });
-    }).join("")}</div>`;
+    const wrap = $("filesWrap");
+    if (!FILES.length) { wrap.innerHTML = ""; return; }
+    const fol = FILES.filter((f) => state.follow.has(f.id));
+    const when = (f) => { const n = nextStep(f); return n && n.date ? n.date : "9999"; };
+    const others = FILES.filter((f) => !state.follow.has(f.id)).map((f, i) => ({ f, i })).sort((a, b) => when(a.f).localeCompare(when(b.f)) || a.i - b.i).map((x) => x.f)
+      .slice(0, Math.max(2, 4 - fol.length));
+    wrap.innerHTML = `<h3>Files that matter <button class="more" data-view="files" type="button">See all ${FILES.length}</button></h3>
+      ${fol.length ? `<p class="cap lead-cap">Following ${fol.length}</p><div class="list">${fol.map(homeFile).join("")}</div>` : ""}
+      ${others.length ? `${fol.length ? `<p class="cap lead-cap">Also moving</p>` : ""}<div class="list">${others.map(homeFile).join("")}</div>` : ""}
+      ${fol.length ? "" : `<p class="note">Tap the star to follow a file. Followed files move to the top of your home.</p>`}`;
+  }
+  function toggleFollow(id) {
+    const f = FILE_BY[id]; if (!f) return;
+    const had = state.follow.has(id);
+    had ? state.follow.delete(id) : state.follow.add(id);
+    saveFollow();
+    toast(had ? `Stopped following ${f.short}` : `Following ${f.short}`);
+    document.querySelectorAll(`[data-follow="${id.replace(/["\\]/g, "\\$&")}"]`).forEach((b) => {
+      b.setAttribute("aria-pressed", String(!had));
+      if (b.dataset.label) b.textContent = had ? "Follow" : "Following";
+    });
+    renderFiles(); renderSpot(); renderCoDoor();
+    if (state.view === "files") renderFilesView();
   }
   function renderDesk() {
     const c = $("deskCountry").value;
@@ -1459,7 +1483,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       <button class="eu-tile eu-tile--sky" type="button" data-desk="ep"><span class="eu-tile__disc">${icon("group")}</span><span><span class="eu-tile__label">${ep.length}</span><span class="eu-tile__meta">MEPs from ${esc(countryName(c))}</span></span></button>`;
   }
   function renderSpot() {
-    const mine = [...new Set(myAreas().flatMap((a) => areaData(a).coms))];
+    const mine = [...new Set(followedFiles().flatMap((f) => [...((f.commission || {}).lead || []), ...((f.commission || {}).associated || [])]))].map((sl) => COLL.find((c) => c.slug === sl)).filter(Boolean);
     const pool = mine.length ? mine : COLL;
     const c = pool[dayIndex % pool.length], hd = c.head;
     $("spotDate").textContent = "changes daily";
@@ -1732,8 +1756,8 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   }
   function renderCoDoor() {
     const now = new Date(), cur = presOf(now);
-    const files = myAreas().map((a) => a.id);
-    const nm = CO.meetings.filter((m) => m.kind === "council" && m.start >= isoD(now) && (!files.length || (m.conf && CONF_BY[m.conf].areas.some((x) => files.includes(x)))))[0];
+    const fc = followedConfs();
+    const nm = CO.meetings.filter((m) => m.kind === "council" && m.start >= isoD(now) && (!fc.size || (m.conf && fc.has(m.conf))))[0];
     $("metaCo").innerHTML = `<span>${esc(cur ? countryName(cur[0]) + " Presidency" : "27 delegations")}</span>${nm ? `<span>Next: ${esc(nm.conf ? CONF_BY[nm.conf].short : nm.title)}, ${esc(fmtIso(nm.start))}</span>` : ""}`;
   }
   const segs = (n, on) => Array.from({ length: n }, (_, i) => `<span class="eu-meter__seg${i < on ? " is-on" : ""}"></span>`).join("");
@@ -1772,10 +1796,10 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
         return row({ attrs: tap(`data-country="${c.cc}"`), lead: codeAva(c.cc), name: esc(c.name), meta: `${pct(share(c.cc))} of EU population · ${pr ? "Permanent Representative " + esc(person(pr[0])) : "Permanent Representative not listed"}`, wrap: true,
           extra: inPres && inPres === presOf(now) ? `<span class="eu-row__tags">${tag("Presidency")}</span>` : "", tail: go }); }).join("")}</div>`;
     } else if (tab === "configs") {
-      const mine = myAreas().map((a) => a.id);
+      const fc = followedConfs();
       const grp = (k) => CO_CONFS.filter((c) => (k === "II" ? c.coreper === "II" : c.coreper !== "II"));
-      const yours = mine.length ? CO_CONFS.filter((c) => c.areas.some((a) => mine.includes(a))) : [];
-      h = `${yours.length ? `<h3>Your topics</h3><div class="list">${yours.map(confRow).join("")}</div>` : ""}
+      const yours = CO_CONFS.filter((c) => fc.has(c.id));
+      h = `${yours.length ? `<h3>From files you follow</h3><div class="list">${yours.map(confRow).join("")}</div>` : ""}
         <h3>Prepared by Coreper II <small>ambassadors</small></h3><div class="list">${grp("II").map(confRow).join("")}</div>
         <h3>Prepared by Coreper I <small>deputy ambassadors</small></h3><div class="list">${grp("I").map(confRow).join("")}</div>`;
     } else {
@@ -1807,8 +1831,8 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const P = CO.presidency, today = isoD(new Date()), pr = CO.permreps[cc] || {};
     const pres = P.rotation.filter((r) => r[0] === cc && r[2] >= today.slice(0, 7))[0];
     const meps = MEPS.filter((m) => m.country === cc), com = COLL.find((c) => c.country === cc), desk = CAB.filter((m) => m.countries.includes(cc));
-    const mine = myAreas().map((a) => a.id);
-    const confs = [...CO_CONFS].sort((a, b) => (b.areas.some((x) => mine.includes(x)) - a.areas.some((x) => mine.includes(x))) || (a.coreper === "II" ? 0 : 1) - (b.coreper === "II" ? 0 : 1));
+    const fc = followedConfs();
+    const confs = [...CO_CONFS].sort((a, b) => (fc.has(b.id) - fc.has(a.id)) || (a.coreper === "II" ? 0 : 1) - (b.coreper === "II" ? 0 : 1));
     const groups = GROUP_ORDER.map((g) => [g, meps.filter((m) => m.group === g).length]).filter((x) => x[1]);
     const mx = Math.max(1, ...groups.map((x) => x[1]));
     const prRow = (k, lab, sub) => row({ cls: "is-static", lead: disc("user"), name: pr[k] ? esc(person(pr[k][0])) : "Not listed in 2026 Council lists", wrap: true,
@@ -1820,7 +1844,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
         ${pres ? `<p class="pf-line">${pres === presOf(new Date()) ? "Holds the Council Presidency until " : "Next Council Presidency: "}${esc(pres === presOf(new Date()) ? fmtD(new Date(+pres[2].slice(0, 4), +pres[2].slice(5, 7), 0), { day: "numeric", month: "long", year: "numeric" }) : fmtD(new Date(+pres[1].slice(0, 4), +pres[1].slice(5, 7) - 1, 1), { month: "long", year: "numeric" }))}</p>` : ""}</div>
       <div class="stats"><div><b>${meps.length}</b><span>${pl(meps.length, "MEP", "MEPs")}</span></div><div><b>${com ? 1 : 0}</b><span>${pl(com ? 1 : 0, "Commissioner", "Commissioners")}</span></div><div><b>${desk.length}</b><span>${pl(desk.length, "Cabinet desk", "Cabinet desks")}</span></div></div>
       <h3>Permanent Representation</h3><div class="list">${prRow("pr", "Permanent Representative", "Coreper II")}${prRow("dpr", "Deputy Permanent Representative", "Coreper I")}</div>
-      <h3>In the Council <small>last meeting of each</small></h3><div class="list">${confs.map((c) => { const r = c.reps[cc]; return `<button class="rep" type="button" data-conf="${c.id}"><span><b>${esc(c.short)}</b><small>${r ? esc(fmtIso(r[0], { day: "numeric", month: "short", year: "numeric" })) : "–"}${c.areas.some((x) => mine.includes(x)) ? " · your topic" : ""}</small></span>
+      <h3>In the Council <small>last meeting of each</small></h3><div class="list">${confs.map((c) => { const r = c.reps[cc]; return `<button class="rep" type="button" data-conf="${c.id}"><span><b>${esc(c.short)}</b><small>${r ? esc(fmtIso(r[0], { day: "numeric", month: "short", year: "numeric" })) : "–"}${fc.has(c.id) ? " · your file" : ""}</small></span>
         <span>${r ? r[1].map(([n, ti]) => `<em>${esc(person(n))}<i>${esc(ti)}</i></em>`).join("") : `<i>Not listed</i>`}</span></button>`; }).join("")}</div>
       ${com ? `<h3>Commissioner</h3><div class="list">${rowCom(com)}</div>` : ""}
       ${desk.length ? `<h3>Cabinet desk officers for ${esc(countryName(cc))} <small>${desk.length}</small></h3><div class="list">${desk.map((m) => rowCab(m)).join("")}</div>` : ""}
@@ -1998,7 +2022,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     $("filesBody").innerHTML = `<div class="list">${FILES.map((f) => {
       const c = countsOf(f), mine = !!state.lists[f.id];
       return row({ el: "button", attrs: `type="button" data-file="${esc(f.id)}"`, lead: disc("file"), name: esc(f.short), meta: `${c.ep} MEPs · ${c.ec} Commissioners · ${c.cab} cabinet`, wrap: true,
-        extra: `<span class="eu-row__tags">${stagePill(f.stage)}${mine ? tag("Your edits") : ""}</span>`, tail: go });
+        extra: `<span class="eu-row__tags">${stagePill(f.stage)}${state.follow.has(f.id) ? tag("Following") : ""}${mine ? tag("Your edits") : ""}</span>`, tail: go });
     }).join("")}</div>
     <p class="foot">Names marked Verified come from the Parliament's open data. Names marked From press are taken from published reporting and need a check in the Parliament's procedure file before external use.${asOf}</p>`;
   }
@@ -2035,7 +2059,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
         + (changed ? `<div id="resetBox" class="mt"><button class="eu-btn eu-btn--outline eu-btn--block danger" type="button" data-freset>Reset this list to default</button></div>` : "")
       : "";
     showProfile(`
-      <div class="tb">${backBtn}${icon("back")}</button><button class="eu-btn eu-btn--sm${edit ? " eu-btn--brand" : ""}" type="button" data-fedit>${edit ? "Done" : "Edit list"}</button></div>
+      <div class="tb">${backBtn}${icon("back")}</button><span class="tbr"><button class="eu-btn eu-btn--sm" type="button" data-follow="${esc(f.id)}" data-label="1" aria-pressed="${state.follow.has(f.id)}">${state.follow.has(f.id) ? "Following" : "Follow"}</button><button class="eu-btn eu-btn--sm${edit ? " eu-btn--brand" : ""}" type="button" data-fedit>${edit ? "Done" : "Edit list"}</button></span></div>
       <div class="hero"><div class="eu-row__tags">${stagePill(f.stage)}${changed ? tag("Your edits") : ""}</div>
         <h2 class="eu-headline" id="pName"><strong>${esc(f.short)}</strong></h2>
         <p class="bio">${esc(f.status || "")}</p></div>
@@ -2387,13 +2411,11 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     state.open = "area:" + id;
     const d = areaData(a), myC = new Set((state.profile && state.profile.countries) || []);
     const mine = d.members.filter((x) => myC.has(x.m.country));
-    const isMine = myAreas().includes(a);
     showProfile(`
       <div class="tb">${backBtn}${icon("back")}</button></div>
-      <div class="hero"><p class="cap">${isMine ? "Your topic" : "Policy area"}</p><h2 class="eu-headline" id="pName"><strong>${esc(a.name)}</strong></h2>
+      <div class="hero"><p class="cap">Policy area</p><h2 class="eu-headline" id="pName"><strong>${esc(a.name)}</strong></h2>
         <p class="bio">${a.cmte.map((c) => esc(c + " · " + (CMTE_NAMES[c] || c).replace(/^(Committee|Subcommittee) on (the )?/, ""))).join("<br>")}</p></div>
       <div class="stats"><div><b>${d.coms.length}</b><span>${pl(d.coms.length, "Commissioner", "Commissioners")}</span></div><div><b>${d.cab.length}</b><span>Cabinet staff</span></div><div><b>${d.members.length}</b><span>${pl(d.members.length, "Committee MEP", "Committee MEPs")}</span></div></div>
-      ${isMine ? "" : `<div class="acts"><button class="eu-btn eu-btn--brand" type="button" data-addarea="${a.id}">Add to my topics</button></div>`}
       ${d.coms.length ? `<h3>Commissioners in charge</h3><div class="list">${d.coms.map(rowCom).join("")}</div>` : ""}
       ${CO_CONFS.some((c) => c.areas.includes(a.id)) ? `<h3>In the Council</h3><div class="list">${CO_CONFS.filter((c) => c.areas.includes(a.id)).map(confRow).join("")}</div>` : ""}
       ${d.cab.length ? `<h3>Cabinet staff on this topic <small>${d.cab.length}</small></h3><div class="list" id="areaCab">${d.cab.slice(0, keep ? 999 : 10).map((x) => rowCabArea(x, d)).join("")}
@@ -2408,7 +2430,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   function openMe(keepScroll) {
     state.open = "me";
     const p = state.profile || {}, nm = state.me.name || p.name || "";
-    const areas = myAreas(), cs = p.countries || [];
+    const fol = followedFiles(), cs = p.countries || [];
     const favN = [...state.favs].filter((k) => BYKEY.has(k)).length;
     const cloud = Store.mode === "cloud";
     const top = $("profile").scrollTop;
@@ -2428,11 +2450,11 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
         <p class="bio">${esc([p.org, p.role].filter(Boolean).join(" · ") || "Add your organisation and role")}</p>
         <div class="eu-row__tags"><span class="eu-group tag">${syncTag()}</span></div>
       </div>
-      <div class="stats"><div><b>${favN}</b><span>Saved</span></div><div><b>${areas.length}</b><span>${pl(areas.length, "Topic", "Topics")}</span></div><div><b>${cs.length}</b><span>${pl(cs.length, "Country", "Countries")}</span></div></div>
-      <h3>Your topics <button class="more" data-edit="2" type="button">Edit</button></h3>
-      ${areas.length ? `<div class="chips wrap">${areas.map((a) => `<button class="eu-chip" data-area="${a.id}" type="button">${esc(a.name)}</button>`).join("")}</div>`
-        : `<div class="hint"><span>No topics yet. Pick the policy areas you follow and your home lines up the people who work on them.</span></div>`}
-      <h3>Countries you cover <button class="more" data-edit="3" type="button">Edit</button></h3>
+      <div class="stats"><div><b>${favN}</b><span>Saved</span></div><div><b>${fol.length}</b><span>Following</span></div><div><b>${cs.length}</b><span>${pl(cs.length, "Country", "Countries")}</span></div></div>
+      <h3>Files you follow ${fol.length ? `<small>${fol.length}</small>` : ""}</h3>
+      ${fol.length ? `<div class="chips wrap">${fol.map((f) => `<button class="eu-chip" data-file="${esc(f.id)}" type="button">${esc(f.short)}</button>`).join("")}</div>`
+        : `<div class="hint"><span>No files followed yet. Tap the star on a file and it moves to the top of your home.</span></div>`}
+      <h3>Countries you cover <button class="more" data-edit="2" type="button">Edit</button></h3>
       ${cs.length ? `<div class="tags">${cs.length >= EU27.length ? tag(`All ${EU27.length} countries`) : cs.map((c) => tag(countryName(c))).join("")}</div>`
         : `<div class="hint"><span>Add countries to see their MEPs and each cabinet's country desk first.</span></div>`}
       <h3>About you <button class="more" data-edit="1" type="button">Edit</button></h3>
@@ -2469,12 +2491,12 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     if ($("pkBtn")) $("pkBtn").onclick = () => openOnb("passkey", true);
     if ($("inBtn")) $("inBtn").onclick = () => openOnb(0, false);
     $("clearBtn").onclick = () => {
-      $("clearBox").innerHTML = `<div class="block"><p>This removes your topics, countries and ${favN} saved ${favN === 1 ? "person" : "people"}${cloud ? " on every device" : " from this browser"}.</p>
+      $("clearBox").innerHTML = `<div class="block"><p>This removes the files you follow, your list edits, your countries and ${favN} saved ${favN === 1 ? "person" : "people"}${cloud ? " on every device" : " from this browser"}.</p>
         <div class="acts"><button class="eu-btn" id="noClr" type="button">Keep them</button><button class="eu-btn eu-btn--ink" id="yesClr" type="button">Clear</button></div></div>`;
       $("noClr").onclick = () => openMe(true);
       $("yesClr").onclick = () => {
-        state.profile = null; state.favs = new Set(); state.recent = []; state.lists = {};
-        [PROFILE_KEY, FAV_KEY, RECENT_KEY, DESK_KEY, LISTS_KEY].forEach((k) => store.del(k));
+        state.profile = null; state.favs = new Set(); state.recent = []; state.lists = {}; state.follow = new Set();
+        [PROFILE_KEY, FAV_KEY, RECENT_KEY, DESK_KEY, LISTS_KEY, FOLLOW_KEY].forEach((k) => store.del(k));
         Store.touch(); identityChanged(); closeProfile(); setView("home"); openOnb(0, false);
         toast("Profile cleared");
       };
@@ -2544,8 +2566,8 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     } else { identityChanged(); openOnb(1, false); }
   }
   function wipeLocal() {
-    state.profile = null; state.favs = new Set(); state.recent = []; state.lists = {};
-    [PROFILE_KEY, FAV_KEY, RECENT_KEY, DESK_KEY, LISTS_KEY, UPD_KEY, SYNCED_KEY].forEach((k) => store.del(k));
+    state.profile = null; state.favs = new Set(); state.recent = []; state.lists = {}; state.follow = new Set();
+    [PROFILE_KEY, FAV_KEY, RECENT_KEY, DESK_KEY, LISTS_KEY, FOLLOW_KEY, UPD_KEY, SYNCED_KEY].forEach((k) => store.del(k));
   }
   function leaveAccount() {
     acct.user = null; Store.ref = null; Store.mode = "local"; Store.status = "local"; clearTimeout(Store.timer);
@@ -2566,6 +2588,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   function exportData() {
     const nm = (k) => { const e = BYKEY.get(k); return e ? e.o.name : k; };
     const out = { exported: new Date().toISOString(), profile: state.profile || null, saved: [...state.favs].map((k) => ({ key: k, name: nm(k) })),
+      following: [...state.follow].map((id) => ({ id, name: (FILE_BY[id] || {}).short || id })),
       lists: Object.fromEntries(Object.entries(state.lists).map(([id, l]) => [id, { added: (l.add || []).map((k) => ({ key: k, name: nm(k) })), removed: (l.rem || []).map((k) => ({ key: k, name: nm(k) })) }])) };
     const a = document.createElement("a");
     a.href = URL.createObjectURL(new Blob([JSON.stringify(out, null, 2)], { type: "application/json" })); a.download = "nodo-my-data.json";
@@ -2623,7 +2646,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   function openOnb(step, edit, fresh) {
     const p = (!fresh && state.profile) || {};
     onb.step = step; onb.edit = !!edit;
-    onb.d = { name: p.name || "", org: p.org || "", role: p.role || "", areas: new Set(p.areas || []), countries: new Set(p.countries || []) };
+    onb.d = { name: p.name || "", org: p.org || "", role: p.role || "", countries: new Set(p.countries || []) };
     onb.a = { provider: "", method: "", first: String(p.name || "").trim().split(/\s+/)[0] || "", last: String(p.name || "").trim().split(/\s+/).slice(1).join(" "), email: p.email || "", passkey: !!p.passkey, fresh: !!fresh, terms: false, busy: false, resendAt: 0, err: {} };
     $("onb").hidden = false;
     renderOnb(true);
@@ -2656,7 +2679,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     if (s === 0) {
       const claude = state.me.id ? `<button class="eu-btn eu-btn--on-deep eu-btn--block" data-onb="claude" type="button">${state.me.avatarUrl ? `<img class="pface" src="${esc(state.me.avatarUrl)}" alt="">` : `<span class="pmark" aria-hidden="true">${esc(initialsOf(state.me.name))}</span>`}Continue as ${esc(fn || "you")}</button>` : "";
       main = `<h1 class="onb-xl onb-xl--auth" id="onbTitle" tabindex="-1">Untangle the <strong>EU.</strong></h1>
-        <p class="lead">Sign in to keep your topics, countries and saved people ${PREVIEW && !state.me.id ? "in one place" : "on every device"}.</p>
+        <p class="lead">Sign in to keep your files, countries and saved people ${PREVIEW && !state.me.id ? "in one place" : "on every device"}.</p>
         <div class="auth-list">${claude}${Object.entries(PROVIDERS).filter(([k]) => !LIVE || (CFG.providers || []).includes(k)).map(([k, v]) => `<button class="eu-btn eu-btn--on-deep eu-btn--block" data-prov="${k}" type="button"><span class="pmark" aria-hidden="true">${v.mark}</span>Continue with ${v.name}</button>`).join("")}</div>
         ${LIVE && !(CFG.providers || []).length && !claude ? "" : `<div class="or"><span>or</span></div>`}
         <button class="eu-btn eu-btn--block auth-line" data-onb="email" type="button">${icon("mail")}Continue with email</button>`;
@@ -2668,7 +2691,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       const p = state.profile || {}, nm = state.me.name || p.name || "";
       main = `<span class="auth-me" aria-hidden="true">${nm ? esc(initialsOf(nm)) : icon("user")}</span>
         <h1 class="onb-xl onb-xl--auth" id="onbTitle" tabindex="-1">Welcome <strong>back${fn ? "," : ""}</strong>${fn ? ` ${esc(fn)}` : ""}</h1>
-        <p class="lead">Your topics, countries and saved people are ready.</p>`;
+        <p class="lead">Your files, countries and saved people are ready.</p>`;
       foot = `${cta("signin", p.passkey ? `${icon("finger")}Sign in with your passkey` : fn ? `Continue as ${esc(fn)}` : "Sign in")}
         <button class="eu-btn eu-btn--block auth-line" data-onb="other" type="button">Use another method</button>
         ${p.email ? `<p class="fine">Signed in before as ${esc(p.email)}.</p>` : ""}
@@ -2745,12 +2768,6 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
         <div class="field"><label for="onbOrg">Organisation (optional)</label><input id="onbOrg" data-f="org" value="${esc(d.org)}" autocomplete="organization" placeholder="Where you work"></div>
         <p class="lbl2">Your role</p><div class="pickgrid">${pickBtns(ROLES, "data-role", (x) => d.role === x, (x) => x)}</div>`;
       foot = ed ? saveBtn : cta("next", "Continue");
-    } else if (s === 2) {
-      main = `<h1 class="eu-headline" id="onbTitle" tabindex="-1">Which <strong>topics</strong> do you follow?</h1>
-        <p class="lead">Pick as many as you like. Each one becomes a shortcut on your home with the Commissioners, cabinet staff and MEPs who work on it.</p>
-        <div class="pickgrid">${AREAS.map((x) => `<button class="eu-chip" type="button" data-pick-area="${x.id}" aria-pressed="${d.areas.has(x.id)}">${esc(x.name)}</button>`).join("")}</div>`;
-      foot = ed ? saveBtn : `${cta("next", d.areas.size ? `Continue with ${d.areas.size} ${d.areas.size === 1 ? "topic" : "topics"}` : "Pick at least one", !d.areas.size)}
-        <button class="textbtn" data-onb="next" type="button">Skip for now</button>`;
     } else {
       main = `<h1 class="eu-headline" id="onbTitle" tabindex="-1">Which <strong>countries</strong> do you cover?</h1>
         <p class="lead">Optional. Their MEPs and each cabinet's country desk show up first.</p>
@@ -2848,9 +2865,9 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
 
   function finishOnb(skipped) {
     const d = onb.d, a = onb.a || {}, prev = (!a.fresh && state.profile) || {};
-    if (a.fresh) { state.favs = new Set(); state.recent = []; [FAV_KEY, RECENT_KEY, DESK_KEY].forEach((k) => store.del(k)); }
+    if (a.fresh) { state.favs = new Set(); state.recent = []; state.follow = new Set(); [FAV_KEY, RECENT_KEY, DESK_KEY, FOLLOW_KEY].forEach((k) => store.del(k)); }
     state.profile = { ...prev, name: state.me.name ? (prev.name || "") : d.name.trim(), org: d.org.trim(), role: d.role,
-      areas: [...d.areas], countries: [...d.countries], onboarded: true, v: 1,
+      countries: [...d.countries], onboarded: true, v: 1,
       ...(a.method ? { email: a.email.trim(), method: a.method, passkey: !!a.passkey } : {}) };
     saveProfile();
     store.del(SIGNED_KEY); clearInterval(resendTimer);
@@ -2948,7 +2965,6 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       return;
     }
     const r = t.closest("[data-role]"); if (r) { d.role = d.role === r.dataset.role ? "" : r.dataset.role; return renderOnb(); }
-    const pa = t.closest("[data-pick-area]"); if (pa) { const id = pa.dataset.pickArea; d.areas.has(id) ? d.areas.delete(id) : d.areas.add(id); return renderOnb(); }
     if (t.closest("[data-pick-all]")) { d.countries = EU27.every((x) => d.countries.has(x)) ? new Set() : new Set(EU27); return renderOnb(); }
     const pc = t.closest("[data-pick-c]"); if (pc) { const c = pc.dataset.pickC; d.countries.has(c) ? d.countries.delete(c) : d.countries.add(c); return renderOnb(); }
   });
@@ -2987,6 +3003,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   document.addEventListener("click", (e) => {
     const t = e.target;
     const fav = t.closest("[data-fav]"); if (fav) { e.stopPropagation(); return toggleFav(fav.dataset.fav); }
+    const fw = t.closest("[data-follow]"); if (fw) { e.stopPropagation(); return toggleFollow(fw.dataset.follow); }
     const frm = t.closest("[data-frm]"); if (frm) { e.stopPropagation(); return fileAct("rm", frm.dataset.frm); }
     const frs = t.closest("[data-frs]"); if (frs) return fileAct("restore", frs.dataset.frs);
     if (t.closest("[data-fedit]")) return fileAct("edit");
@@ -3018,12 +3035,6 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     if (t.closest("#meBtn")) return openMe();
     const ed = t.closest("[data-edit]"); if (ed) { const n = Number(ed.dataset.edit); return openOnb(n, n > 0); }
     const ar = t.closest("[data-area]"); if (ar) return openArea(ar.dataset.area);
-    const ad = t.closest("[data-addarea]");
-    if (ad) {
-      const p = state.profile || (state.profile = { areas: [], countries: [], onboarded: true, v: 1 });
-      p.areas = [...new Set([...(p.areas || []), ad.dataset.addarea])]; saveProfile(); identityChanged(); renderView();
-      toast("Added to your topics"); return openArea(ad.dataset.addarea);
-    }
     const vw = t.closest("[data-view]"); if (vw) return setView(vw.dataset.view);
     const dr = t.closest("[data-dir]"); if (dr) return setView(dr.dataset.dir);
     const ct = t.closest("[data-cotab]"); if (ct) { state.co.tab = ct.dataset.cotab; return renderCo(); }
