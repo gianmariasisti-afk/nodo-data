@@ -4,12 +4,16 @@ Public data files for **nodo**, an app that gives public affairs professionals f
 
 Served by GitHub Pages at `https://gianmariasisti-afk.github.io/nodo-data/`. Open that address on a phone and use Share → Add to Home Screen (iPhone) or Install app (Android).
 
-The app reads `v1/` from its own origin. Profile and favourites live in the browser on each device.
+The app reads `v1/` from its own origin. Profile, favourites and file lists live in the browser. When `config.js` is filled in (see SETUP.md) people can sign in with Apple, Google, LinkedIn or an email link and their data follows them to every device.
 
 ## Layout
 
 ```
 index.html            the nodo app (PWA)
+config.js             Supabase URL and public key (empty = preview mode)
+vendor/               supabase-js (bundled so the app works offline)
+supabase/schema.sql   table, row-level security and account deletion
+SETUP.md              how to switch on accounts and sync
 manifest.webmanifest  install settings (name, icons, colours)
 sw.js                 service worker: offline shell, fresh data when online
 icons/                app icons

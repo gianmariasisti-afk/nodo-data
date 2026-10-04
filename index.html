@@ -220,7 +220,7 @@ h1, h2, h3, h4, p { margin: 0; }
 
 /* TabBar */
 .eu-tabbar { display: inline-flex; gap: var(--space-1); padding: 6px; border-radius: var(--radius-pill); background: var(--ink); box-shadow: var(--shadow-float); }
-.eu-tabbar__item { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; width: 76px; height: 56px; border: 0; border-radius: var(--radius-pill); background: none; color: var(--ink-inverse-muted); font-size: 12px; line-height: 16px; font-weight: 600; cursor: pointer; text-decoration: none; }
+.eu-tabbar__item { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; width: 62px; height: 56px; border: 0; border-radius: var(--radius-pill); background: none; color: var(--ink-inverse-muted); font-size: 12px; line-height: 16px; font-weight: 600; cursor: pointer; text-decoration: none; }
 .eu-tabbar__item[aria-current="page"] { color: var(--ink-inverse); }
 .eu-tabbar__item:focus-visible { outline-color: var(--ink-inverse); outline-offset: -2px; }
 .eu-tabbar__item .eu-icon { width: 22px; height: 22px; }
@@ -327,6 +327,13 @@ h3 small { font-size: 12px; line-height: 16px; font-weight: 500; letter-spacing:
 .eu-chip[aria-pressed="true"] .dot { box-shadow: 0 0 0 1.5px var(--ink-inverse); }
 .eu-group.tag { height: auto; min-height: 28px; max-width: 100%; padding: 6px var(--space-3); white-space: normal; }
 .eu-group.tag::before { content: none; }
+.eu-group.tag.tg-ok { background: var(--tint-mint); color: var(--accent-mint); }
+.eu-group.tag.tg-press { background: var(--tint-butter); color: var(--accent-butter); }
+.eu-group.tag.tg-mine { background: var(--tint-sky); color: var(--accent-sky); }
+.hero .fd-pill, .eu-row__tags .fd-pill { background: var(--surface-sunken); }
+.field2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); }
+.field2 .field { min-width: 0; }
+.eu-btn.mt, .mt.eu-btn { margin-top: var(--space-4); }
 .eu-group .eu-icon { width: 16px; height: 16px; color: var(--success); }
 .eu-search { margin-top: var(--space-4); }
 .eu-hero { margin-top: var(--space-6); }
@@ -764,8 +771,10 @@ details.office > .list { margin-top: var(--space-2); }
 /* Floating TabBar and toast */
 .dock { position: fixed; z-index: 30; left: 0; right: 0; bottom: calc(env(safe-area-inset-bottom, 0px) + var(--space-4)); display: flex; justify-content: center; padding-inline: var(--space-4); pointer-events: none; }
 .dock .eu-tabbar { flex: none; pointer-events: auto; }
-.dock .eu-tabbar__item { flex: none; width: 76px; }
-@media (max-width: 360px) { .dock .eu-tabbar__item { width: 64px; } }
+.dock .eu-tabbar__item { flex: none; width: 66px; }
+@media (max-width: 400px) { .dock .eu-tabbar__item { width: 62px; } }
+@media (max-width: 360px) { .dock .eu-tabbar__item { width: 56px; font-size: 11px; } }
+@media (max-width: 330px) { .dock .eu-tabbar__item { width: 50px; } }
 .toast { position: fixed; z-index: 80; left: 0; right: 0; margin-inline: auto; width: fit-content; max-width: calc(100% - 2 * var(--space-4)); bottom: calc(env(safe-area-inset-bottom, 0px) + 100px); height: 40px; padding: 0 var(--space-4); }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -980,6 +989,13 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   <div id="savedBody"></div>
 </main>
 
+<!-- FILES -->
+<main id="vFiles" class="view" hidden>
+  <h1 class="eu-headline">The files that <strong>matter</strong></h1>
+  <p id="filesCount" class="cap count"></p>
+  <div id="filesBody"></div>
+</main>
+
 <section id="profile" class="profile" hidden role="dialog" aria-labelledby="pName"><div class="col" id="profileBody"></div></section>
 <div id="scrim" class="scrim" hidden></div>
 <section id="sheet" class="sheet" hidden role="dialog" aria-modal="true" aria-labelledby="sName"></section>
@@ -989,10 +1005,12 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   <button class="eu-tabbar__item" id="navHome" type="button" aria-current="page"><svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11l8-6.500 8 6.500v8.500H4zM10 19.500v-5h4v5"/></svg>Home</button>
   <button class="eu-tabbar__item" id="navDir" type="button"><svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 19c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><circle cx="17" cy="9" r="2.4"/><path d="M17.5 13.8c2 .4 3.5 2 3.5 4.2"/></svg>Directory</button>
   <button class="eu-tabbar__item" id="navCal" type="button"><svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5.5" width="16" height="14.5" rx="3"/><path d="M4 10h16M8.500 3.500v4M15.500 3.500v4"/></svg>Calendar</button>
+  <button class="eu-tabbar__item" id="navFiles" type="button"><svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3.5h7.5L18 7v13.5H7zM14.5 3.5V7H18M10 12.5h5M10 16h5"/></svg>Files</button>
   <button class="eu-tabbar__item" id="navSaved" type="button"><svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3.500 2.600 5.400 5.900.8-4.300 4.100 1 5.900L12 16.900l-5.200 2.800 1-5.900L3.500 9.700l5.900-.8z"/></svg>Saved</button>
 </nav></div>
 <div id="toast" class="eu-badge toast" role="status" hidden></div>
 
+<script src="config.js"></script>
 <script>
 (async () => {
   "use strict";
@@ -1010,7 +1028,9 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       const [mep, ec, cal, co] = await Promise.all(["meps", "commission", "calendar", "council"].map(getData));
       /* The plenary agenda file is optional: the app works without it and shows the "not here yet" state. */
       const ag = await getData("agenda").catch(() => ({ checked: null, sessions: {} }));
-      DATA = { mep, ec, cal, co, ag };
+      /* The files list is optional too: without it the Files tab shows an empty state. */
+      const fl = await getData("files").catch(() => ({ files: [] }));
+      DATA = { mep, ec, cal, co, ag, fl };
     } catch {
       bootMsg.textContent = "The directory could not load. Check your connection and try again.";
       bootRetry.hidden = false;
@@ -1023,6 +1043,9 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   const GROUP_MOD = { "EPP": "epp", "S&D": "sd", "PfE": "pfe", "ECR": "ecr", "Renew": "renew", "Greens/EFA": "greens", "The Left": "left", "ESN": "esn", "NI": "ni" };
   const GROUP_ORDER = ["EPP", "S&D", "PfE", "ECR", "Renew", "Greens/EFA", "The Left", "ESN", "NI"];
   const TOPICS = ["AI Act", "Defence", "Energy", "Agriculture", "Trade", "Migration", "Housing", "Health", "Competition", "Ukraine"];
+  const LISTS_KEY = "nodo.lists", SYNCED_KEY = "nodo.syncedwith";
+  const CFG = window.NODO_CONFIG || {};
+  const LIVE = !!(CFG.supabaseUrl && CFG.supabaseAnonKey);
   const FAV_KEY = "mepocket.favs", RECENT_KEY = "mepocket.recent", DESK_KEY = "mepocket.desk", PROFILE_KEY = "mepocket.profile", UPD_KEY = "mepocket.updated";
   /* Policy areas: keywords match whole words in cabinet responsibilities (a trailing s is allowed);
      com = lead Commissioners, cmte = EP committees. */
@@ -1072,6 +1095,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     swap: '<path d="M4 9h16M16 5l4 4-4 4M20 15H4M8 11l-4 4 4 4"/>',
     warn: '<circle cx="12" cy="12" r="8.5"/><path d="M12 8v4.500M12 16v.01"/>',
     dot: '<circle cx="12" cy="12" r="7.5"/>',
+    plus: '<path d="M12 5v14M5 12h14"/>', out: '<path d="M10 4.5H6.500a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2H10M15 8l4 4-4 4M19 12H9.500"/>',
     copy: '<rect x="8.5" y="8.5" width="11" height="11" rx="2.5"/><path d="M15.5 8.5v-2a2 2 0 0 0-2-2h-7a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h2"/>',
   };
   const icon = (n) => `<svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true">${IC[n]}</svg>`;
@@ -1141,18 +1165,36 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   try { state.recent = JSON.parse(store.get(RECENT_KEY) || "[]").filter((k) => BYKEY.has(k)); } catch { /* ignore */ }
   try { state.profile = JSON.parse(store.get(PROFILE_KEY) || "null"); } catch { state.profile = null; }
   state.me = { id: null, name: "", avatarUrl: "" };
+  try { state.lists = JSON.parse(store.get(LISTS_KEY) || "{}") || {}; } catch { state.lists = {}; }
+  const acct = { user: null };
 
-  /* Storage: always this browser; also the viewer's private record on the server when they may write it. */
+  /* Storage: always this browser; also the person's private record in the cloud when they are signed in
+     (their Supabase account on the hosted app, their Claude account inside an artifact). */
+  const mergeLists = (x, y) => {
+    const out = {};
+    for (const id of new Set([...Object.keys(x || {}), ...Object.keys(y || {})])) {
+      const a = (x || {})[id] || {}, b = (y || {})[id] || {};
+      const add = [...new Set([...(a.add || []), ...(b.add || [])])];
+      const rem = [...new Set([...(a.rem || []), ...(b.rem || [])])].filter((k) => !add.includes(k));
+      if (add.length || rem.length) out[id] = { add, rem };
+    }
+    return out;
+  };
+  const stateBody = () => ({ profile: state.profile || null, favs: [...state.favs], lists: state.lists || {}, updated: Number(store.get(UPD_KEY) || Date.now()) });
   const Store = {
-    mode: "local", ref: null, timer: null, chain: Promise.resolve(),
+    mode: "local", ref: null, timer: null, chain: Promise.resolve(), status: "local",
     touch() { store.set(UPD_KEY, String(Date.now())); this.push(); },
+    setStatus(st) { if (this.status === st) return; this.status = st; if (state.open === "me") openMe(true); },
     push() {
       if (!this.ref) return;
       clearTimeout(this.timer);
+      this.setStatus("syncing");
       this.timer = setTimeout(() => {
-        const body = { profile: state.profile || null, favs: [...state.favs], updated: Number(store.get(UPD_KEY) || Date.now()) };
-        this.chain = this.chain.then(() => this.ref.set(body)).then(() => { if (this.mode !== "cloud") { this.mode = "cloud"; if (state.open === "me") openMe(true); } })
-          .catch((e) => { if (e && (e.code === "invalid_argument" || e.code === "not_granted" || e.code === "revoked")) { this.ref = null; this.mode = "local"; } });
+        this.chain = this.chain.then(() => this.ref.set(stateBody())).then(() => { this.mode = "cloud"; this.setStatus("synced"); })
+          .catch((e) => {
+            if (e && (e.code === "invalid_argument" || e.code === "not_granted" || e.code === "revoked")) { this.ref = null; this.mode = "local"; this.setStatus("local"); }
+            else this.setStatus(navigator.onLine === false ? "offline" : "error");
+          });
       }, 500);
     },
     async connect() {
@@ -1175,20 +1217,55 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
           this.mode = "cloud";
           const d = snap.data() || {};
           if ((d.updated || 0) >= localUpd) adoptRemote(d); else this.push();
-        } else if (state.profile || state.favs.size) this.push();
+        } else if (state.profile || state.favs.size || Object.keys(state.lists).length) this.push();
       } catch { this.ref = null; }
     },
+    /* Supabase: one row per person in user_state. The first time this device meets this account, local and cloud
+       data are merged (union of saved people and list edits). After that the newer copy wins. */
+    async connectSb(user) {
+      const sb = SB.client;
+      const uid = user.id;
+      const ref = {
+        set: async (b) => {
+          const { error } = await sb.from("user_state").upsert({ user_id: uid, body: { profile: b.profile, favs: b.favs, lists: b.lists }, updated: b.updated });
+          if (error) throw error;
+        },
+      };
+      const { data, error } = await sb.from("user_state").select("body,updated").eq("user_id", uid).maybeSingle();
+      if (error) throw error;
+      this.ref = ref; this.mode = "cloud";
+      const localUpd = Number(store.get(UPD_KEY) || 0);
+      const first = store.get(SYNCED_KEY) !== uid;
+      store.set(SYNCED_KEY, uid);
+      if (!data) { Store.touch(); return; }
+      const d = { ...(data.body || {}), updated: Number(data.updated) || 0 };
+      if (first) {
+        const m = { profile: d.profile || state.profile || null, favs: [...new Set([...(d.favs || []), ...state.favs])], lists: mergeLists(d.lists, state.lists), updated: Date.now() };
+        adoptRemote(m, true); this.push();
+      } else if (d.updated >= localUpd) adoptRemote(d, true);
+      else this.push();
+    },
   };
-  function adoptRemote(d) {
+  window.addEventListener("online", () => {
+    if (acct.user && !Store.ref) Store.connectSb(acct.user).catch(() => {});
+    else if (Store.status === "offline" || Store.status === "error") Store.push();
+  });
+  window.addEventListener("offline", () => { if (Store.ref) Store.setStatus("offline"); });
+  function adoptRemote(d, quiet) {
     state.profile = d.profile || null;
     state.favs = new Set(Array.isArray(d.favs) ? d.favs : []);
+    state.lists = d.lists && typeof d.lists === "object" ? d.lists : {};
     if (state.profile) store.set(PROFILE_KEY, JSON.stringify(state.profile)); else store.del(PROFILE_KEY);
     store.set(FAV_KEY, JSON.stringify([...state.favs]));
+    store.set(LISTS_KEY, JSON.stringify(state.lists));
     store.set(UPD_KEY, String(d.updated || Date.now()));
-    if (state.profile && !$("onb").hidden && !onb.edit) $("onb").hidden = true;
+    if (state.profile && state.profile.onboarded && !$("onb").hidden && !onb.edit && !quiet) $("onb").hidden = true;
     identityChanged();
-    if (state.open === "me") openMe(true); else if (!state.open) renderView();
+    if (state.open === "me") openMe(true);
+    else if (state.open && state.open.startsWith("file:")) openFile(state.open.slice(5), true);
+    else if (!state.open) renderView();
   }
+  const saveLists = () => { store.set(LISTS_KEY, JSON.stringify(state.lists)); Store.touch(); };
   const saveFavs = () => { store.set(FAV_KEY, JSON.stringify([...state.favs])); Store.touch(); };
   function saveProfile() { state.profile.updated = Date.now(); store.set(PROFILE_KEY, JSON.stringify(state.profile)); Store.touch(); }
   const firstName = () => (state.me.name || (state.profile && state.profile.name) || "").trim().split(/\s+/)[0] || "";
@@ -1275,14 +1352,14 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   function setView(v) {
     state.view = v;
     if (v === "ep" || v === "ec" || v === "co") state.dir = v;
-    ["home", "ep", "ec", "co", "cal", "agenda", "saved"].forEach((k) => { $({ home: "vHome", ep: "vEp", ec: "vEc", co: "vCo", cal: "vCal", agenda: "vAgenda", saved: "vSaved" }[k]).hidden = k !== v; });
+    ["home", "ep", "ec", "co", "cal", "agenda", "saved", "files"].forEach((k) => { $({ home: "vHome", ep: "vEp", ec: "vEc", co: "vCo", cal: "vCal", agenda: "vAgenda", saved: "vSaved", files: "vFiles" }[k]).hidden = k !== v; });
     closeSheet(); closeProfile(true);
     renderView(); syncDock(); scrollTo({ top: 0 });
   }
   function syncDock() {
     const cur = state.view;
     const set = (id, on) => { if (on) $(id).setAttribute("aria-current", "page"); else $(id).removeAttribute("aria-current"); };
-    set("navHome", cur === "home"); set("navDir", cur === "ep" || cur === "ec" || cur === "co"); set("navCal", cur === "cal" || cur === "agenda"); set("navSaved", cur === "saved");
+    set("navHome", cur === "home"); set("navDir", cur === "ep" || cur === "ec" || cur === "co"); set("navCal", cur === "cal" || cur === "agenda"); set("navSaved", cur === "saved"); set("navFiles", cur === "files");
     document.querySelectorAll(".dirhost").forEach((h) => { h.innerHTML = `<div class="chips" role="group" aria-label="Institution">${[["ep", "Parliament"], ["ec", "Commission"], ["co", "Council"]].map(([k, n]) => `<button class="eu-chip" type="button" data-dir="${k}" aria-pressed="${state.view === k}">${n}</button>`).join("")}</div>`; });
   }
   function renderView() {
@@ -1290,6 +1367,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     if (state.view === "ep") renderEp();
     if (state.view === "ec") renderEc();
     if (state.view === "saved") renderSaved();
+    if (state.view === "files") renderFilesView();
     if (state.view === "cal") renderCal();
     if (state.view === "agenda") renderAgenda();
     if (state.view === "co") renderCo();
@@ -1857,6 +1935,162 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       ${ep.length ? `<h3>MEPs <small>${ep.length}</small></h3><div class="list">${ep.map(rowMep).join("")}</div>` : ""}`;
   }
 
+  /* ---------- Files ----------
+     Seven priority legislative files from files.json. Each links MEPs, Commissioners and cabinet staff.
+     A person edits a list by adding and removing people; those edits are stored as keys on top of the shared data
+     (state.lists[fileId] = { add: [key], rem: [key] }) and sync with the account. */
+  const FILES = (DATA.fl && DATA.fl.files) || [];
+  const FILE_BY = Object.fromEntries(FILES.map((f) => [f.id, f]));
+  const STAGE = { "pre-proposal": ["Pre-proposal", "wait"], "positions-in-preparation": ["Positions forming", "wait"], "council-negotiating-box": ["In the Council", "wait"], trilogue: ["In trilogue", "ok"], "in-force": ["In force", "ok"] };
+  const ROLE_ORDER = ["rapporteur", "shadow", "opinion-rapporteur", "opinion-shadow", "relevant"];
+  const ROLE_ONE = { rapporteur: "Rapporteur", shadow: "Shadow", "opinion-rapporteur": "Opinion rapporteur", "opinion-shadow": "Opinion shadow", relevant: "Active on the topic" };
+  const ROLE_MANY = { rapporteur: "Rapporteurs", shadow: "Shadows", "opinion-rapporteur": "Opinion rapporteurs", "opinion-shadow": "Opinion shadows", relevant: "Active on the topic" };
+  const stagePill = (st) => { const x = STAGE[st] || [st, ""]; return `<span class="fd-pill ${x[1]}">${esc(x[0])}</span>`; };
+  const baseOf = (f) => [
+    ...(f.meps || []).map((x) => ({ key: "ep:" + x.id, role: x.role, cmte: x.committee || "", basis: x.basis })),
+    ...((f.commission || {}).lead || []).map((sl) => ({ key: "ec:" + sl, role: "lead" })),
+    ...((f.commission || {}).associated || []).map((sl) => ({ key: "ec:" + sl, role: "associated" })),
+    ...(f.cabinet || []).map((c) => ({ key: "cab:" + c.k, role: "cabinet", why: c.why })),
+  ].filter((x) => BYKEY.has(x.key));
+  const isBase = (f, key) => baseOf(f).some((x) => x.key === key);
+  function membersOf(f) {
+    const l = state.lists[f.id] || {}, rem = new Set(l.rem || []), all = baseOf(f), have = new Set(all.map((x) => x.key));
+    return { base: all.filter((x) => !rem.has(x.key)), added: (l.add || []).filter((k) => BYKEY.has(k) && !have.has(k)).map((k) => ({ key: k, role: "added", mine: true })), removed: [...rem].filter((k) => BYKEY.has(k)) };
+  }
+  function countsOf(f) {
+    const m = membersOf(f), all = [...m.base, ...m.added];
+    const n = (t) => new Set(all.filter((x) => BYKEY.get(x.key).t === t).map((x) => x.key)).size;
+    return { ep: n("ep"), ec: n("ec"), cab: n("cab") };
+  }
+  function tidyList(f) { const l = state.lists[f.id]; if (l && !(l.add || []).length && !(l.rem || []).length) delete state.lists[f.id]; }
+  function listRemove(f, key) {
+    const l = state.lists[f.id] || (state.lists[f.id] = { add: [], rem: [] });
+    l.add = (l.add || []).filter((k) => k !== key);
+    if (isBase(f, key) && !(l.rem || []).includes(key)) l.rem = [...(l.rem || []), key];
+    tidyList(f); saveLists();
+  }
+  function listAdd(f, key) {
+    const l = state.lists[f.id] || (state.lists[f.id] = { add: [], rem: [] });
+    l.rem = (l.rem || []).filter((k) => k !== key);
+    if (!isBase(f, key) && !(l.add || []).includes(key)) l.add = [...(l.add || []), key];
+    tidyList(f); saveLists();
+  }
+  const tagBasis = (b) => (b === "press" ? `<span class="eu-group tag tg-press">From press</span>` : b === "ep-open-data" ? `<span class="eu-group tag tg-ok">Verified</span>` : "");
+  const tagMine = `<span class="eu-group tag tg-mine">Added by you</span>`;
+  const rmBtn = (key, name) => `<button class="eu-iconbtn eu-iconbtn--sm" type="button" data-frm="${esc(key)}" aria-label="Remove ${esc(name)} from this list">${icon("x")}</button>`;
+  const tailFor = (key, name) => (state.fedit ? rmBtn(key, name) : starBtn(key, name));
+  function fileRow(x) {
+    const e = BYKEY.get(x.key), o = e.o, op = tap(`data-open="${esc(x.key)}"`);
+    const mine = x.mine ? `<span class="eu-row__tags">${tagMine}</span>` : "";
+    if (e.t === "ep") return row({ attrs: op, lead: avaOf(x.key), name: esc(o.name), meta: esc([countryName(o.country), x.cmte, x.mine ? "" : ROLE_ONE[x.role]].filter(Boolean).join(" · ")),
+      extra: `<span class="eu-row__tags">${gtag(o.group)}${x.mine ? tagMine : tagBasis(x.basis)}</span>`, tail: tailFor(x.key, o.name) });
+    if (e.t === "ec") return row({ attrs: op, lead: avaOf(x.key), name: esc(o.name), meta: esc(o.title + " · " + o.portfolio.join(" · ")), wrap: true, extra: mine, tail: tailFor(x.key, o.name) });
+    return row({ attrs: op, lead: avaOf(x.key), name: esc(o.name), meta: esc(o.role + " · Cabinet " + o.com.short), wrap: true,
+      extra: (x.why ? `<span class="row-hit">${esc(x.why)}</span>` : "") + mine, tail: tailFor(x.key, o.name) });
+  }
+  const restoreRow = (key) => { const o = BYKEY.get(key).o; return row({ cls: "is-static", lead: avaOf(key), name: esc(o.name), meta: "Removed from this list", tail: `<button class="eu-btn eu-btn--sm" type="button" data-frs="${esc(key)}">Restore</button>` }); };
+  const curFile = () => (state.open && state.open.startsWith("file:") ? FILE_BY[state.open.slice(5)] : null);
+
+  function renderFilesView() {
+    $("filesCount").textContent = FILES.length ? `${FILES.length} files` : "";
+    if (!FILES.length) { $("filesBody").innerHTML = `<div class="hint"><span>The files list could not load. Check your connection and reopen nodo.</span></div>`; return; }
+    const asOf = DATA.fl && DATA.fl.asOf ? ` Data as of ${fdDate(DATA.fl.asOf, true)}.` : "";
+    $("filesBody").innerHTML = `<div class="list">${FILES.map((f) => {
+      const c = countsOf(f), mine = !!state.lists[f.id];
+      return row({ el: "button", attrs: `type="button" data-file="${esc(f.id)}"`, lead: disc("file"), name: esc(f.short), meta: `${c.ep} MEPs · ${c.ec} Commissioners · ${c.cab} cabinet`, wrap: true,
+        extra: `<span class="eu-row__tags">${stagePill(f.stage)}${mine ? tag("Your edits") : ""}</span>`, tail: go });
+    }).join("")}</div>
+    <p class="foot">Names marked Verified come from the Parliament's open data. Names marked From press are taken from published reporting and need a check in the Parliament's procedure file before external use.${asOf}</p>`;
+  }
+
+  function openFile(id, keep) {
+    const f = FILE_BY[id]; if (!f) return;
+    if (!keep) { state.ftab = "ep"; state.fedit = false; }
+    const top = $("profile").scrollTop;
+    state.open = "file:" + id;
+    const m = membersOf(f), c = countsOf(f), edit = !!state.fedit, tab = state.ftab || "ep";
+    const typeOf = (x) => BYKEY.get(x.key).t;
+    const mineEp = m.added.filter((x) => typeOf(x) === "ep"), mineCo = m.added.filter((x) => typeOf(x) !== "ep"), baseEp = m.base.filter((x) => typeOf(x) === "ep");
+    const sec = (title, xs) => (xs.length ? `<h3>${title} <small>${xs.length}</small></h3><div class="list">${xs.map(fileRow).join("")}</div>` : "");
+    let body = "";
+    if (tab === "ep") {
+      body = sec("Added by you", mineEp) + ROLE_ORDER.map((r) => sec(ROLE_MANY[r], baseEp.filter((x) => x.role === r))).join("")
+        + (!baseEp.length && !mineEp.length ? `<div class="hint"><span>No MEPs on this list.${edit ? "" : " Press Edit list to add some."}</span></div>` : "")
+        + (f.ep && f.ep.note ? `<p class="note">${esc(f.ep.note)}</p>` : "");
+    } else if (tab === "ec") {
+      const by = (role) => m.base.filter((x) => x.role === role);
+      body = sec("Added by you", mineCo) + sec("Lead Commissioner", by("lead")) + sec("Associated Commissioners", by("associated")) + sec("Cabinet staff", by("cabinet"));
+    } else {
+      const nx = f.next || [], cfs = ((f.council || {}).configs || []).map((cid) => CO_CONFS.find((x) => x.id === cid)).filter(Boolean);
+      body = `<h3>What happens next</h3>` + (nx.length ? `<div class="list">${nx.map((n) => row({ cls: "is-static", lead: disc("cal"), name: esc(n.what), meta: esc(fdDate(n.date, true)), wrap: true })).join("")}</div>` : `<div class="hint"><span>No dated step yet.</span></div>`)
+        + (cfs.length ? `<h3>In the Council</h3><div class="list">${cfs.map(confRow).join("")}</div>${f.council.note ? `<p class="note">${esc(f.council.note)}</p>` : ""}` : "")
+        + ((f.caveats || []).length ? `<h3>Check before you rely on it</h3>${f.caveats.map((x) => `<div class="block"><p>${esc(typeof x === "string" ? x : x.text || x.note || "")}</p></div>`).join("")}` : "")
+        + ((f.sources || []).filter((x) => safeUrl(x.url)).length ? `<h3>Sources</h3><div class="list">${f.sources.filter((x) => safeUrl(x.url)).map((x) => extRow(esc(x.title), esc(safeUrl(x.url)))).join("")}</div>` : "");
+    }
+    const changed = !!state.lists[f.id];
+    const where = acct.user ? "Your changes sync to your account." : LIVE ? "Your changes are saved on this device. Sign in to keep them on every device." : "Your changes are saved in this browser.";
+    const tools = edit && tab !== "next"
+      ? `<button class="eu-btn eu-btn--outline eu-btn--block mt" type="button" data-fadd>${icon("plus")}Add a stakeholder</button>`
+        + (m.removed.length ? `<h3>Removed <small>${m.removed.length}</small></h3><div class="list">${m.removed.map(restoreRow).join("")}</div>` : "")
+        + (changed ? `<div id="resetBox" class="mt"><button class="eu-btn eu-btn--outline eu-btn--block danger" type="button" data-freset>Reset this list to default</button></div>` : "")
+      : "";
+    showProfile(`
+      <div class="tb">${backBtn}${icon("back")}</button><button class="eu-btn eu-btn--sm${edit ? " eu-btn--brand" : ""}" type="button" data-fedit>${edit ? "Done" : "Edit list"}</button></div>
+      <div class="hero"><div class="eu-row__tags">${stagePill(f.stage)}${changed ? tag("Your edits") : ""}</div>
+        <h2 class="eu-headline" id="pName"><strong>${esc(f.short)}</strong></h2>
+        <p class="bio">${esc(f.status || "")}</p></div>
+      <div class="stats"><div><b>${c.ep}</b><span>${pl(c.ep, "MEP", "MEPs")}</span></div><div><b>${c.ec}</b><span>${pl(c.ec, "Commissioner", "Commissioners")}</span></div><div><b>${c.cab}</b><span>Cabinet staff</span></div></div>
+      <div class="chips wrap" role="group" aria-label="View">${[["ep", "Parliament"], ["ec", "Commission"], ["next", "Next steps"]].map(([k, n]) => `<button class="eu-chip" type="button" data-ftab="${k}" aria-pressed="${tab === k}">${n}</button>`).join("")}</div>
+      ${body}${tools}
+      ${tab !== "next" && (edit || changed) ? `<p class="note">${where}</p>` : ""}
+      <p class="foot">Source: ${esc((DATA.fl && DATA.fl.source) || "nodo-data files.json")}.</p>`);
+    if (keep) $("profile").scrollTop = top;
+  }
+  function fileAct(kind, key) {
+    const f = curFile(); if (!f) return;
+    const nm = key && BYKEY.get(key) ? BYKEY.get(key).o.name : "";
+    if (kind === "rm") { listRemove(f, key); toast(nm + " removed from this list"); }
+    else if (kind === "restore") { listAdd(f, key); toast(nm + " restored"); }
+    else if (kind === "edit") state.fedit = !state.fedit;
+    else if (kind === "tab") state.ftab = key;
+    else if (kind === "add") return openAdd(f.id);
+    openFile(f.id, true);
+  }
+  function openAdd(id) {
+    const f = FILE_BY[id]; if (!f) return;
+    state.sheet = "add:" + id;
+    if ($("sheet").hidden) layer.sheet = document.activeElement;
+    $("sheet").innerHTML = `<div class="sheet__bar"><button class="eu-iconbtn eu-iconbtn--sm" type="button" data-sheet-close aria-label="Close">${icon("x")}</button></div>
+      <div class="top"><div class="top__tx"><h2 id="sName">Add to ${esc(f.short)}</h2><div class="cap">Search MEPs, Commissioners and cabinet staff</div></div></div>
+      <label class="eu-search"><svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.500"/><path d="M16 16l4 4"/></svg>
+        <input id="fq" type="search" placeholder="Search a name, committee or topic" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Search people to add"></label>
+      <div id="fRes"></div>`;
+    $("scrim").hidden = false; $("sheet").hidden = false; $("sheet").scrollTop = 0;
+    syncLayers();
+    let tmr; $("fq").addEventListener("input", (e) => { clearTimeout(tmr); tmr = setTimeout(() => addResults(f, e.target.value), 90); });
+    addResults(f, "");
+    $("fq").focus({ preventScroll: true });
+  }
+  function addResults(f, q) {
+    const host = $("fRes"); if (!host) return;
+    const r = searchAll(q);
+    if (!r) { host.innerHTML = `<p class="cap desk-hint">Type a name, a committee or a topic.</p>`; return; }
+    const m = membersOf(f), have = new Set([...m.base, ...m.added].map((x) => x.key));
+    const pick = (key, o, meta) => row({ el: "button", attrs: `type="button" data-fpick="${esc(key)}"${have.has(key) ? " disabled" : ""}`, lead: avaOf(key), name: esc(o.name), meta, wrap: true,
+      tail: have.has(key) ? `<span class="eu-iconbtn eu-iconbtn--sm" role="img" aria-label="Already on the list">${icon("check")}</span>` : `<span class="eu-iconbtn eu-iconbtn--sm" aria-hidden="true">${icon("plus")}</span>` });
+    const block = (title, xs) => (xs.length ? `<h3>${title} <small>${xs.length}</small></h3><div class="list">${xs.join("")}</div>` : "");
+    const html = block("Commission", r.com.slice(0, 4).map((c) => pick(c.key, c, esc(c.title + " · " + c.portfolio.join(" · ")))))
+      + block("Cabinets", r.cab.slice(0, 8).map((x) => pick(x.key, x, esc(x.role + " · Cabinet " + x.com.short))))
+      + block("Parliament", r.ep.slice(0, 8).map((x) => pick(x.key, x, esc([countryName(x.country), x.group].join(" · ")))));
+    host.innerHTML = html || `<p class="cap desk-hint">Nothing matches “${esc(q)}”.</p>`;
+  }
+  function fileLinks(key) {
+    const L = FILES.map((f) => { const m = membersOf(f), hs = [...m.base, ...m.added].filter((x) => x.key === key); return hs.length ? { f, hs } : null; }).filter(Boolean);
+    if (!L.length) return "";
+    const txt = (hs) => [...new Set(hs.map((x) => (x.mine ? "On your list" : x.role === "lead" ? "Lead Commissioner" : x.role === "associated" ? "Associated Commissioner" : x.role === "cabinet" ? x.why : [ROLE_ONE[x.role], x.cmte].filter(Boolean).join(", "))).filter(Boolean))].join(" · ");
+    return `<h3>On these files <small>${L.length}</small></h3><div class="list">${L.map(({ f, hs }) => row({ el: "button", attrs: `type="button" data-file="${esc(f.id)}"`, lead: disc("file"), name: esc(f.short), meta: esc(txt(hs)), wrap: true, tail: go })).join("")}</div>`;
+  }
+
   /* ---------- favourites & recents ---------- */
   function toggleFav(key) {
     const had = state.favs.has(key);
@@ -2094,6 +2328,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
         ${m.email ? copyRow("mail", m.email, "Email") : row({ cls: "is-static", lead: disc("mail"), name: "Not published", meta: "Email" })}
         ${row({ el: "button", attrs: `type="button" data-group="${esc(m.group)}"`, lead: disc("group"), name: esc(m.group), meta: "Political group · see all members", tail: go })}
       </div>
+      ${fileLinks(m.key)}
       ${cmts ? `<h3>Committees</h3><div class="list">${cmts}</div>` : ""}
       ${dels ? `<h3>Delegations</h3><div class="list">${dels}</div>` : ""}
       ${/^\d+$/.test(String(m.id)) ? `<h3>Activity <small id="actUpd">Open Data Portal</small></h3><div class="fd" id="actFeed"></div>` : ""}
@@ -2132,6 +2367,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
         ${c.head ? row({ el: "button", attrs: `type="button" data-open="${esc(c.head.key)}"`, lead: avaOf(c.head.key), name: esc(c.head.name), meta: "Head of Cabinet", wrap: true, tail: go }) : ""}
         ${c.contact ? copyRow("mail", c.contact, "Cabinet email") : row({ cls: "is-static", lead: disc("mail"), name: "Not published", meta: "Cabinet email" })}
       </div>
+      ${fileLinks(c.key)}
       ${c.files.length ? `<h3>Key topics <small>tap to find who covers it</small></h3><div class="chips wrap">${c.files.map((f) => `<button class="eu-chip" type="button" data-topic="${esc(f)}">${esc(f)}</button>`).join("")}</div>` : ""}
       <h3>Cabinet <small>${c.cabinet.length} people</small></h3>
       <div class="list">${[...lead, ...pol].map((m) => rowCab(m, [], false)).join("")}</div>
@@ -2176,14 +2412,21 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const favN = [...state.favs].filter((k) => BYKEY.has(k)).length;
     const cloud = Store.mode === "cloud";
     const top = $("profile").scrollTop;
+    const syncTag = () => {
+      if (acct.user) { const t = { synced: "Synced", syncing: "Syncing…", offline: "Offline. Syncs when you are back", error: "Sync paused. Will retry" }[Store.status] || "Syncing…"; return (Store.status === "synced" ? icon("check") : "") + t; }
+      return cloud ? icon("check") + "Synced with your Claude account" : "Saved in this browser";
+    };
     const about = (ic, v, lab) => row({ cls: "is-static", lead: disc(ic), name: esc(v || "Not set"), meta: lab, wrap: true });
+    const liveSign = !LIVE ? "" : acct.user
+      ? `<h3>Account</h3><div class="list">${about("mail", acct.user.email || p.email || "No email on file", "Signed in with " + (METHOD_LABEL[p.method] || "your account"))}</div><div class="acts"><button class="eu-btn" id="outBtn" type="button">Sign out</button></div>`
+      : `<h3>Sign-in</h3><div class="list">${about("user", "Not signed in", "Your lists are saved in this browser only")}</div><div class="acts"><button class="eu-btn eu-btn--brand" id="inBtn" type="button">Sign in or create an account</button></div>`;
     showProfile(`
       <div class="tb">${backBtn}${icon("back")}</button></div>
       <div class="hero">
         <span class="eu-row__avatar ava big">${state.me.id && state.me.avatarUrl ? `<img src="${esc(state.me.avatarUrl)}" alt="">` : nm ? esc(initialsOf(nm)) : icon("user")}</span>
         <h2 class="eu-headline" id="pName">${nm ? twoW(nm) : "Your <strong>profile</strong>"}</h2>
         <p class="bio">${esc([p.org, p.role].filter(Boolean).join(" · ") || "Add your organisation and role")}</p>
-        <div class="eu-row__tags"><span class="eu-group tag">${cloud ? icon("check") + "Synced with your Claude account" : "Saved in this browser"}</span></div>
+        <div class="eu-row__tags"><span class="eu-group tag">${syncTag()}</span></div>
       </div>
       <div class="stats"><div><b>${favN}</b><span>Saved</span></div><div><b>${areas.length}</b><span>${pl(areas.length, "Topic", "Topics")}</span></div><div><b>${cs.length}</b><span>${pl(cs.length, "Country", "Countries")}</span></div></div>
       <h3>Your topics <button class="more" data-edit="2" type="button">Edit</button></h3>
@@ -2198,7 +2441,8 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
         ${about("bank", p.org, "Organisation")}
         ${about("group", p.role, "Role")}
       </div>
-      ${state.me.id && !(p.method && p.method !== "claude") ? "" : `<h3>Sign-in</h3>
+      ${liveSign}
+      ${LIVE || (state.me.id && !(p.method && p.method !== "claude")) ? "" : `<h3>Sign-in</h3>
       <div class="list">
         ${p.method ? about("mail", p.email || "No email on file", "Signed in with " + (METHOD_LABEL[p.method] || "your account")) : about("user", "Not signed in", "You are exploring without an account")}
         ${p.method ? about("finger", p.passkey ? "Passkey on this device" : "No passkey yet", "Passkey") : ""}
@@ -2208,11 +2452,20 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       <h3>Saved people</h3>
       <div class="list">${row({ el: "button", attrs: `type="button" data-view="saved"`, lead: disc("star"), name: favN ? `${favN} saved ${favN === 1 ? "person" : "people"}` : "Nobody saved yet", meta: "MEPs, Commissioners and cabinet staff", wrap: true, tail: go })}</div>
       <h3>Your data</h3>
-      <p class="cap lead-cap">${cloud ? "Your profile and saved people are stored with your Claude account and follow you to other devices. Only you can see them." : "Your profile and saved people are stored in this browser only. Nobody else can see them."}</p>
+      <p class="cap lead-cap">${acct.user ? "Your profile, saved people and file lists are stored with your nodo account and follow you to every device. Only you can read them." : cloud ? "Your profile and saved people are stored with your Claude account and follow you to other devices. Only you can see them." : "Your profile, saved people and file lists are stored in this browser only. Nobody else can see them."}</p>
+      <div class="acts"><button class="eu-btn" id="expBtn" type="button">Export my data</button></div>
       <div id="clearBox" class="mt"><button class="eu-btn eu-btn--outline eu-btn--block danger" id="clearBtn" type="button">Clear my profile and saved people</button></div>
-      <p class="foot">${state.me.id ? "Signed in through Claude." : p.method ? "Preview build: sign-in is simulated and your profile stays in this browser." : "No account needed to explore."}</p>`);
+      ${LIVE && acct.user ? `<div id="delBox" class="mt"><button class="eu-btn eu-btn--outline eu-btn--block danger" id="delBtn" type="button">Delete my account and data</button></div>` : ""}
+      <p class="foot">${acct.user ? "Signed in as " + esc(acct.user.email || "your account") + "." : state.me.id ? "Signed in through Claude." : p.method ? "Preview build: sign-in is simulated and your profile stays in this browser." : "No account needed to explore."}</p>`);
     if (keepScroll) $("profile").scrollTop = top;
     if ($("outBtn")) $("outBtn").onclick = signOut;
+    $("expBtn").onclick = exportData;
+    if ($("delBtn")) $("delBtn").onclick = () => {
+      $("delBox").innerHTML = `<div class="block"><p>This permanently deletes your account, your profile, saved people and file lists on every device. It cannot be undone.</p>
+        <div class="acts"><button class="eu-btn" id="noDel" type="button">Keep my account</button><button class="eu-btn eu-btn--ink" id="yesDel" type="button">Delete everything</button></div></div>`;
+      $("noDel").onclick = () => openMe(true);
+      $("yesDel").onclick = deleteAccount;
+    };
     if ($("pkBtn")) $("pkBtn").onclick = () => openOnb("passkey", true);
     if ($("inBtn")) $("inBtn").onclick = () => openOnb(0, false);
     $("clearBtn").onclick = () => {
@@ -2220,26 +2473,135 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
         <div class="acts"><button class="eu-btn" id="noClr" type="button">Keep them</button><button class="eu-btn eu-btn--ink" id="yesClr" type="button">Clear</button></div></div>`;
       $("noClr").onclick = () => openMe(true);
       $("yesClr").onclick = () => {
-        state.profile = null; state.favs = new Set(); state.recent = [];
-        [PROFILE_KEY, FAV_KEY, RECENT_KEY, DESK_KEY].forEach((k) => store.del(k));
+        state.profile = null; state.favs = new Set(); state.recent = []; state.lists = {};
+        [PROFILE_KEY, FAV_KEY, RECENT_KEY, DESK_KEY, LISTS_KEY].forEach((k) => store.del(k));
         Store.touch(); identityChanged(); closeProfile(); setView("home"); openOnb(0, false);
         toast("Profile cleared");
       };
     };
   }
 
+  /* ---------- real accounts (Supabase) ----------
+     Switched on by config.js. Without it the app runs in preview mode exactly as before. */
+  const SB = {
+    client: null, ready: null,
+    load() {
+      if (!LIVE) return Promise.resolve(null);
+      if (this.ready) return this.ready;
+      this.ready = new Promise((done) => {
+        const sc = document.createElement("script"); sc.src = "vendor/supabase.js";
+        sc.onload = () => {
+          try { this.client = window.supabase.createClient(CFG.supabaseUrl, CFG.supabaseAnonKey, { auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true } }); done(this.client); }
+          catch { done(null); }
+        };
+        sc.onerror = () => { this.ready = null; done(null); };
+        document.head.appendChild(sc);
+      });
+      return this.ready;
+    },
+    async start() {
+      const c = await this.load(); if (!c) return;
+      c.auth.onAuthStateChange((ev, session) => {
+        /* No Supabase calls inside this callback: hand off to the next tick. */
+        if (ev === "SIGNED_IN" && session && session.user) setTimeout(() => onSignedIn(session.user), 0);
+        else if (ev === "SIGNED_OUT" && acct.user) setTimeout(() => leaveAccount(), 0);
+      });
+      const { data } = await c.auth.getSession();
+      if (data && data.session) await onSignedIn(data.session.user);
+    },
+    async sendLink(email, meta) {
+      const c = await this.load(); if (!c) throw new Error("unavailable");
+      const { error } = await c.auth.signInWithOtp({ email, options: { shouldCreateUser: true, emailRedirectTo: location.origin + location.pathname, data: meta || {} } });
+      if (error) throw error;
+    },
+    async verify(email, token) {
+      const c = await this.load(); if (!c) throw new Error("unavailable");
+      const { error } = await c.auth.verifyOtp({ email, token, type: "email" });
+      if (error) throw error;
+    },
+    async oauth(provider) {
+      const c = await this.load(); if (!c) throw new Error("unavailable");
+      const { error } = await c.auth.signInWithOAuth({ provider: provider === "linkedin" ? "linkedin_oidc" : provider, options: { redirectTo: location.origin + location.pathname } });
+      if (error) throw error;
+    },
+  };
+  const providerOf = (u) => { const p = (u.app_metadata && u.app_metadata.provider) || "email"; return p === "linkedin_oidc" ? "linkedin" : p; };
+  const nameOfUser = (u) => { const m = u.user_metadata || {}; return String(m.full_name || m.name || [m.first_name, m.last_name].filter(Boolean).join(" ") || "").trim(); };
+  const authError = (e) => (e && (e.status === 429 || /rate|too many/i.test(e.message || "")) ? "Too many attempts. Wait a minute and try again." : "We could not send the link. Check your connection and try again.");
+  async function onSignedIn(user) {
+    if (acct.user && acct.user.id === user.id) return;
+    acct.user = user;
+    try { await Store.connectSb(user); } catch { Store.setStatus(navigator.onLine === false ? "offline" : "error"); }
+    const prev = state.profile || {};
+    state.profile = { ...prev, name: prev.name || nameOfUser(user), email: user.email || prev.email || "", method: providerOf(user), v: 1 };
+    saveProfile();
+    store.del(SIGNED_KEY); clearInterval(resendTimer);
+    const viaOnb = !$("onb").hidden;
+    if (state.profile.onboarded) {
+      if (viaOnb) { $("onb").hidden = true; onb.d = null; const fn = firstName(); toast(fn ? `Welcome back, ${fn}` : "Signed in"); }
+      identityChanged();
+      if (state.open === "me") openMe(true); else if (state.open && state.open.startsWith("file:")) openFile(state.open.slice(5), true); else renderView();
+    } else { identityChanged(); openOnb(1, false); }
+  }
+  function wipeLocal() {
+    state.profile = null; state.favs = new Set(); state.recent = []; state.lists = {};
+    [PROFILE_KEY, FAV_KEY, RECENT_KEY, DESK_KEY, LISTS_KEY, UPD_KEY, SYNCED_KEY].forEach((k) => store.del(k));
+  }
+  function leaveAccount() {
+    acct.user = null; Store.ref = null; Store.mode = "local"; Store.status = "local"; clearTimeout(Store.timer);
+    wipeLocal(); identityChanged(); closeProfile(true); setView("home"); openOnb(0, false);
+  }
+  async function signOutLive() {
+    leaveAccount();
+    try { await SB.client.auth.signOut(); } catch { /* the local sign-out already happened */ }
+    toast("Signed out. Your lists stay in your account.", 2600);
+  }
+  async function deleteAccount() {
+    try { const { error } = await SB.client.rpc("delete_my_account"); if (error) throw error; }
+    catch { return toast("The account could not be deleted. Try again.", 3000); }
+    leaveAccount();
+    try { await SB.client.auth.signOut(); } catch { /* ignore */ }
+    toast("Your account and data are deleted", 3200);
+  }
+  function exportData() {
+    const nm = (k) => { const e = BYKEY.get(k); return e ? e.o.name : k; };
+    const out = { exported: new Date().toISOString(), profile: state.profile || null, saved: [...state.favs].map((k) => ({ key: k, name: nm(k) })),
+      lists: Object.fromEntries(Object.entries(state.lists).map(([id, l]) => [id, { added: (l.add || []).map((k) => ({ key: k, name: nm(k) })), removed: (l.rem || []).map((k) => ({ key: k, name: nm(k) })) }])) };
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([JSON.stringify(out, null, 2)], { type: "application/json" })); a.download = "nodo-my-data.json";
+    document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 1500);
+  }
+  async function sendLiveLink(resend) {
+    const a = onb.a, d = onb.d; if (!d || a.busy) return;
+    a.busy = true; a.email = String(a.email).trim();
+    const first = String(a.first || "").trim(), last = String(a.last || "").trim();
+    if (first) d.name = `${first} ${last}`.trim();
+    try {
+      await SB.sendLink(a.email, first ? { first_name: first, last_name: last, name: `${first} ${last}`.trim() } : {});
+      a.busy = false; a.resendAt = Date.now() + 45000;
+      if (resend) { tickResend(); clearInterval(resendTimer); resendTimer = setInterval(tickResend, 1000); toast("Link sent again", 2400); } else goStep("inbox");
+    } catch (e) {
+      a.busy = false;
+      if (resend) toast(authError(e), 3000); else { a.err = { email: authError(e) }; renderOnb(false); }
+    }
+  }
+  async function startOAuth(provider) {
+    toast(`Opening ${(PROVIDERS[provider] || {}).name || "sign-in"}…`, 3000);
+    try { await SB.oauth(provider); } catch { toast("Sign-in could not start. Check your connection.", 3000); }
+  }
+
   /* Onboarding: welcome and sign-in, then about you, files, countries.
      PREVIEW: an artifact has no server, so every sign-in method except the Claude account is simulated. No email is
      sent, no provider is contacted, and a typed password is scored on screen and then dropped: it is never stored. */
-  const PREVIEW = true;
+  const PREVIEW = !LIVE;
   const SIGNED_KEY = "mepocket.signedout";
   const WORDMARK = `<span class="wordmark" role="img" aria-label="nodo"><svg viewBox="0 0 294 100" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"><path d="M14 35V85M14 57A22 22 0 0 1 58 57V85"/><circle cx="107" cy="60" r="25"/><circle cx="181" cy="60" r="25"/><path d="M206 9V85"/></g><circle class="wm-node" cx="255" cy="60" r="32"/></svg></span>`;
   const LOGO_D = `<svg class="logo-mark" viewBox="0 0 96 96" aria-hidden="true"><circle cx="34" cy="48" r="20" fill="none" stroke="currentColor" stroke-width="12"/><circle class="wm-node" cx="66" cy="48" r="18"/></svg>`;
   const PROVIDERS = {
-    linkedin: { name: "LinkedIn", mark: "in", vow: "Nothing is posted to LinkedIn and your connections stay private." },
-    google: { name: "Google", mark: "G", vow: "Nothing else from your account is shared with nodo." },
-    microsoft: { name: "Microsoft", mark: "M", vow: "Nothing else from your account is shared with nodo." },
     apple: { name: "Apple", mark: "A", vow: "Nothing else from your account is shared with nodo." },
+    google: { name: "Google", mark: "G", vow: "Nothing else from your account is shared with nodo." },
+    linkedin: { name: "LinkedIn", mark: "in", vow: "Nothing is posted to LinkedIn and your connections stay private." },
+    microsoft: { name: "Microsoft", mark: "M", vow: "Nothing else from your account is shared with nodo." },
   };
   const METHOD_LABEL = { linkedin: "LinkedIn", google: "Google", microsoft: "Microsoft", apple: "Apple", email: "an email link", password: "email and password", claude: "your Claude account" };
   const LIGHT_STEPS = new Set(["email", "inbox", "password", "provider", "passkey"]);
@@ -2262,7 +2624,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const p = (!fresh && state.profile) || {};
     onb.step = step; onb.edit = !!edit;
     onb.d = { name: p.name || "", org: p.org || "", role: p.role || "", areas: new Set(p.areas || []), countries: new Set(p.countries || []) };
-    onb.a = { provider: "", method: "", email: p.email || "", passkey: !!p.passkey, fresh: !!fresh, terms: false, busy: false, resendAt: 0, err: {} };
+    onb.a = { provider: "", method: "", first: String(p.name || "").trim().split(/\s+/)[0] || "", last: String(p.name || "").trim().split(/\s+/).slice(1).join(" "), email: p.email || "", passkey: !!p.passkey, fresh: !!fresh, terms: false, busy: false, resendAt: 0, err: {} };
     $("onb").hidden = false;
     renderOnb(true);
   }
@@ -2295,10 +2657,10 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       const claude = state.me.id ? `<button class="eu-btn eu-btn--on-deep eu-btn--block" data-onb="claude" type="button">${state.me.avatarUrl ? `<img class="pface" src="${esc(state.me.avatarUrl)}" alt="">` : `<span class="pmark" aria-hidden="true">${esc(initialsOf(state.me.name))}</span>`}Continue as ${esc(fn || "you")}</button>` : "";
       main = `<h1 class="onb-xl onb-xl--auth" id="onbTitle" tabindex="-1">Untangle the <strong>EU.</strong></h1>
         <p class="lead">Sign in to keep your topics, countries and saved people ${PREVIEW && !state.me.id ? "in one place" : "on every device"}.</p>
-        <div class="auth-list">${claude}${Object.entries(PROVIDERS).map(([k, v]) => `<button class="eu-btn eu-btn--on-deep eu-btn--block" data-prov="${k}" type="button"><span class="pmark" aria-hidden="true">${v.mark}</span>Continue with ${v.name}</button>`).join("")}</div>
+        <div class="auth-list">${claude}${Object.entries(PROVIDERS).filter(([k]) => !LIVE || k !== "microsoft").map(([k, v]) => `<button class="eu-btn eu-btn--on-deep eu-btn--block" data-prov="${k}" type="button"><span class="pmark" aria-hidden="true">${v.mark}</span>Continue with ${v.name}</button>`).join("")}</div>
         <div class="or"><span>or</span></div>
         <button class="eu-btn eu-btn--block auth-line" data-onb="email" type="button">${icon("mail")}Continue with email</button>`;
-      foot = `<button class="textbtn textbtn--strong" data-onb="passkey-in" type="button">${icon("finger")}Sign in with a passkey</button>
+      foot = `${LIVE ? "" : `<button class="textbtn textbtn--strong" data-onb="passkey-in" type="button">${icon("finger")}Sign in with a passkey</button>`}
         <button class="textbtn" data-onb="skip" type="button">Explore without an account</button>
         <p class="fine">${PREVIEW ? "Preview build: these sign-in methods are simulated. No account is created and no password is saved." : "By continuing you accept the Terms and the Privacy notice. nodo never posts on your behalf."}</p>`;
       footCls = " onb-foot--flow";
@@ -2313,16 +2675,17 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
         <button class="textbtn" data-onb="switch" type="button">Not you? Switch account</button>`;
     } else if (s === "email") {
       main = `<h1 class="eu-headline" id="onbTitle" tabindex="-1">Enter your <strong>work email</strong></h1>
-        <p class="lead">We email you a link. No password to remember, and no separate step to create an account.</p>
+        <p class="lead">${LIVE ? "Tell us who you are and we email you a link. The first time creates your account." : "We email you a link. No password to remember, and no separate step to create an account."}</p>
         <form id="fEmail" novalidate>
+          ${LIVE ? `<div class="field2">${field("aFirst", "First name", "first", a.first || "", `autocomplete="given-name" placeholder="First name"`)}${field("aLast", "Last name", "last", a.last || "", `autocomplete="family-name" placeholder="Last name"`)}</div>` : ""}
           ${field("aEmail", "Work email", "email", a.email, emailAttrs, "The link signs you in on the device where you open it.")}
           <button class="eu-btn eu-btn--brand eu-btn--block auth-go" type="submit">Email me a link</button>
         </form>
-        <div class="or"><span>or</span></div>
+        ${LIVE ? "" : `<div class="or"><span>or</span></div>
         <div class="auth-list auth-list--tight">
           <button class="eu-btn eu-btn--block" data-onb="password" type="button">${icon("lock")}Use a password instead</button>
           <button class="eu-btn eu-btn--block" data-onb="passkey-in" type="button">${icon("finger")}Use a passkey</button>
-        </div>`;
+        </div>`}`;
       foot = `<p class="fine">${PREVIEW ? "Preview build: no email is sent and no account is created." : "By continuing you accept the Terms and the Privacy notice."}</p>`;
     } else if (s === "inbox") {
       main = `<span class="auth-disc" aria-hidden="true">${icon("mail")}</span>
@@ -2449,6 +2812,15 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   function checkCode() {
     const a = onb.a; if (a.busy) return;
     a.busy = true; $("code").disabled = true; $("codeHelp").textContent = "Checking the code…";
+    if (LIVE) {
+      const code = [...$("code").querySelectorAll("input")].map((b) => b.value).join("");
+      SB.verify(a.email, code).then(() => { a.busy = false; /* onSignedIn runs from the auth event */ }).catch(() => {
+        a.busy = false; if (onb.step !== "inbox" || !$("code")) return;
+        $("code").disabled = false; $("code").querySelectorAll("input").forEach((b) => { b.value = ""; b.dataset.v = ""; });
+        $("codeHelp").textContent = "That code did not work. Check it or send a new link."; $("code").querySelector("input").focus();
+      });
+      return;
+    }
     setTimeout(() => { if (onb.step !== "inbox" || !onb.d) return; a.busy = false; authDone("email"); }, 600);
   }
   function authDone(method) {
@@ -2469,6 +2841,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const fn = firstName(); toast(fn ? `Welcome back, ${fn}` : "Welcome back");
   }
   function signOut() {
+    if (LIVE && acct.user) return signOutLive();
     store.set(SIGNED_KEY, "1");
     closeProfile(); setView("home"); openOnb("back", false);
   }
@@ -2513,8 +2886,12 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const id = e.target.id, err = {};
     const mailErr = "Enter a full email address, like name@organisation.eu";
     if (id === "fEmail") {
+      if (LIVE) {
+        if (!String(a.first || "").trim()) err.first = "Enter your first name";
+        if (!String(a.last || "").trim()) err.last = "Enter your last name";
+      }
       if (!okEmail(a.email)) err.email = mailErr;
-      if (!err.email) { a.email = a.email.trim(); a.resendAt = Date.now() + 45000; return goStep("inbox"); }
+      if (!Object.keys(err).length) { if (LIVE) return sendLiveLink(false); a.email = a.email.trim(); a.resendAt = Date.now() + 45000; return goStep("inbox"); }
     } else if (id === "fPw") {
       const pw = $("aPw").value, r = pwRules(pw);
       if (!state.me.name && !d.name.trim()) err.name = "Enter your name";
@@ -2537,7 +2914,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   });
   $("onb").addEventListener("click", (e) => {
     const t = e.target, d = onb.d, a = onb.a; if (!d) return;
-    const pr = t.closest("[data-prov]"); if (pr) { a.provider = pr.dataset.prov; return goStep("provider"); }
+    const pr = t.closest("[data-prov]"); if (pr) { a.provider = pr.dataset.prov; return LIVE ? startOAuth(pr.dataset.prov) : goStep("provider"); }
     if (t.closest("#pwEye")) {
       const b = $("pwEye"), inp = $("aPw"), show = inp.type === "password";
       inp.type = show ? "text" : "password"; b.setAttribute("aria-pressed", String(show)); b.setAttribute("aria-label", show ? "Hide password" : "Show password");
@@ -2548,12 +2925,14 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     if (act) {
       const k = act.dataset.onb, s = onb.step;
       if (k === "next") { onb.step++; renderOnb(true); }
+      else if (k === "back" && LIVE && acct.user && s === 1) return;
       else if (k === "back") goStep(s === "inbox" || s === "password" ? "email" : typeof s === "string" ? 0 : Math.max(0, s - 1));
       else if (k === "home") goStep(0);
       else if (k === "email" || k === "password") goStep(k);
       else if (k === "claude") authDone("claude");
       else if (k === "passkey-in") { const p = state.profile; if (p && p.passkey && !a.fresh) signBack(); else toast("No passkey on this device yet", 2400); }
       else if (k === "mailapp") toast(PREVIEW ? "Preview build: no email was sent" : "Open the email on this device", 2400);
+      else if (k === "resend" && LIVE) sendLiveLink(true);
       else if (k === "resend") { a.resendAt = Date.now() + 45000; tickResend(); clearInterval(resendTimer); resendTimer = setInterval(tickResend, 1000); toast(PREVIEW ? "Preview build: no email is sent" : "Link sent again", 2400); }
       else if (k === "passkey-make" || k === "passkey-skip") {
         if (k === "passkey-make") { a.passkey = true; toast(PREVIEW ? "Passkey simulated for this preview" : "Passkey created", 2400); }
@@ -2585,6 +2964,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
         ${m.team ? `<div class="cap">${esc(m.team)} team</div>` : ""}</div>
         ${starBtn(m.key, m.name)}</div>
       <button class="eu-row cabof" type="button" data-open="${esc(c.key)}">${avaOf(c.key)}<span class="eu-row__body"><span class="eu-row__name wrap">Cabinet of ${esc(c.name)}</span><span class="eu-row__meta wrap">${esc(c.portfolio.join(" · "))}</span></span>${go}</button>
+      ${fileLinks(m.key)}
       ${m.email || m.phone ? `<div class="list">${m.email ? copyRow("mail", m.email, "Email") : ""}${m.phone ? copyRow("phone", m.phone, "Phone") : ""}</div>` : ""}
       ${m.resp.length ? `<h3>Covers</h3>${lineList(m.resp)}` : ""}
       ${m.outside.length ? `<h3>Also covers, outside the portfolio</h3>${lineList(m.outside)}` : ""}
@@ -2607,6 +2987,27 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   document.addEventListener("click", (e) => {
     const t = e.target;
     const fav = t.closest("[data-fav]"); if (fav) { e.stopPropagation(); return toggleFav(fav.dataset.fav); }
+    const frm = t.closest("[data-frm]"); if (frm) { e.stopPropagation(); return fileAct("rm", frm.dataset.frm); }
+    const frs = t.closest("[data-frs]"); if (frs) return fileAct("restore", frs.dataset.frs);
+    if (t.closest("[data-fedit]")) return fileAct("edit");
+    const ftb = t.closest("[data-ftab]"); if (ftb) return fileAct("tab", ftb.dataset.ftab);
+    if (t.closest("[data-fadd]")) return fileAct("add");
+    const fpk = t.closest("[data-fpick]");
+    if (fpk) {
+      if (fpk.disabled || !state.sheet || !state.sheet.startsWith("add:")) return;
+      const fid = state.sheet.slice(4), f = FILE_BY[fid], key = fpk.dataset.fpick;
+      listAdd(f, key); closeSheet(); toast(BYKEY.get(key).o.name + " added to " + f.short);
+      if (BYKEY.get(key).t === "ep") state.ftab = "ep"; else state.ftab = "ec";
+      return openFile(fid, true);
+    }
+    if (t.closest("[data-freset]")) {
+      const bx = $("resetBox"); if (!bx) return;
+      bx.innerHTML = `<div class="block"><p>This brings back the original list and drops your changes${acct.user ? " on every device" : ""}.</p><div class="acts"><button class="eu-btn" type="button" data-freset-no>Keep my changes</button><button class="eu-btn eu-btn--ink" type="button" data-freset-yes>Reset</button></div></div>`;
+      return;
+    }
+    if (t.closest("[data-freset-no]")) { const f = curFile(); return f && openFile(f.id, true); }
+    if (t.closest("[data-freset-yes]")) { const f = curFile(); if (!f) return; delete state.lists[f.id]; saveLists(); toast("List reset to default"); return openFile(f.id, true); }
+    const fl = t.closest("[data-file]"); if (fl) return openFile(fl.dataset.file);
     const cp = t.closest("[data-copy]"); if (cp) return copy(cp.dataset.copy, cp.dataset.what || "Text");
     const ff = t.closest("[data-fd-filter]"); if (ff) { feed.filter = ff.dataset.fdFilter; renderFeed(); const b = document.querySelector(`[data-fd-filter="${feed.filter}"]`); if (b) b.focus({ preventScroll: true }); return; }
     const fo = t.closest("[data-fd-open]"); if (fo) return openFeedItem(Number(fo.dataset.fdOpen), false);
@@ -2675,15 +3076,17 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   $("navDir").addEventListener("click", () => setView(state.dir || "ep"));
   $("doorCo").addEventListener("click", () => { state.co.tab = "presidency"; setView("co"); });
   $("navSaved").addEventListener("click", () => setView("saved"));
+  $("navFiles").addEventListener("click", () => setView("files"));
   $("navCal").addEventListener("click", () => setView("cal"));
 
   document.documentElement.lang = "en";
   new MutationObserver(syncLayers).observe($("onb"), { attributes: true, attributeFilter: ["hidden"] });
   initHome(); initEp(); initEc();
   let startView = "home";
-  try { const h = (location.hash || "").slice(1); startView = { parliament: "ep", commission: "ec", council: "co", calendar: "cal", agenda: "agenda", saved: "saved" }[h] || "home"; } catch { /* ignore */ }
+  try { const h = (location.hash || "").slice(1); startView = { parliament: "ep", commission: "ec", council: "co", calendar: "cal", agenda: "agenda", saved: "saved", files: "files" }[h] || "home"; } catch { /* ignore */ }
   setView(startView);
-  if (!state.profile) openOnb(0, false); else if (store.get(SIGNED_KEY)) openOnb("back", false);
+  if (LIVE) { try { await Promise.race([SB.start(), new Promise((r) => setTimeout(r, 4000))]); } catch { /* stay local */ } }
+  if (!state.profile && !acct.user) openOnb(0, false); else if (store.get(SIGNED_KEY)) openOnb("back", false);
   Store.connect();
   } finally { boot.hidden = true; }
 })();
