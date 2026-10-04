@@ -9,15 +9,24 @@ create table if not exists public.user_state (
 
 alter table public.user_state enable row level security;
 
+-- New tables are not exposed to the Data API by default: grant access explicitly.
+-- anon gets nothing. Row-level security below limits signed-in people to their own row.
+revoke all on public.user_state from anon;
+grant select, insert, update, delete on public.user_state to authenticated;
+
 drop policy if exists "own row select" on public.user_state;
 drop policy if exists "own row insert" on public.user_state;
 drop policy if exists "own row update" on public.user_state;
 drop policy if exists "own row delete" on public.user_state;
 
-create policy "own row select" on public.user_state for select using (auth.uid() = user_id);
-create policy "own row insert" on public.user_state for insert with check (auth.uid() = user_id);
-create policy "own row update" on public.user_state for update using (auth.uid() = user_id) with check (auth.uid() = user_id);
-create policy "own row delete" on public.user_state for delete using (auth.uid() = user_id);
+create policy "own row select" on public.user_state for select to authenticated
+  using ((select auth.uid()) = user_id);
+create policy "own row insert" on public.user_state for insert to authenticated
+  with check ((select auth.uid()) = user_id);
+create policy "own row update" on public.user_state for update to authenticated
+  using ((select auth.uid()) = user_id) with check ((select auth.uid()) = user_id);
+create policy "own row delete" on public.user_state for delete to authenticated
+  using ((select auth.uid()) = user_id);
 
 -- Account deletion from inside the app (required by the App Store).
 -- Deleting the auth user cascades to user_state.

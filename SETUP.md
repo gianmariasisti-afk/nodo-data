@@ -27,7 +27,7 @@ The anon key is public by design. Never put the `service_role` key anywhere in t
 ```
 
 3. **Authentication → URL Configuration**: set **Site URL** to `https://gianmariasisti-afk.github.io/nodo-data/` and add the same address under **Redirect URLs**. Add `http://localhost:8765/` while testing.
-4. For real users, set up custom SMTP (**Project settings → Authentication → SMTP**). The built-in sender is limited to a few emails an hour.
+4. Set up custom SMTP (**Project settings → Authentication → SMTP**) with a service such as Resend, using an address on a domain you control. The built-in sender is limited to a few emails an hour, and on the Free plan Supabase only lets you edit email templates once custom SMTP is on. Until then the email carries the link only, and the six-digit code box in the app has nothing to receive.
 
 ## 3. Social sign-in
 
