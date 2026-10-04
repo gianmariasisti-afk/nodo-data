@@ -314,6 +314,17 @@ h3 small { font-size: 12px; line-height: 16px; font-weight: 500; letter-spacing:
 .ava { position: relative; overflow: hidden; }
 .ava img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
 .ava.big { width: 96px; height: 96px; font-size: 28px; }
+.avpick { position: relative; display: inline-block; border: 0; background: none; padding: 0; border-radius: 50%; }
+.avpick .ava { display: block; }
+.avpick__edit { position: absolute; right: -2px; bottom: -2px; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: var(--brand); color: #fff; box-shadow: 0 0 0 3px var(--surface); }
+.avpick__edit .eu-icon { width: 16px; height: 16px; }
+.avsheet h2 { margin: 0 0 var(--space-1); }
+.avacts { display: flex; gap: var(--space-2); flex-wrap: wrap; margin: var(--space-4) 0 var(--space-2); }
+.avgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4) var(--space-3); margin-top: var(--space-3); }
+.avb { border: 0; background: none; padding: 0; text-align: center; font-size: 12.5px; font-weight: 600; color: var(--ink); }
+.avb img { display: block; width: 100%; aspect-ratio: 1; border-radius: 50%; margin-bottom: 6px; box-shadow: 0 0 0 3px var(--surface), 0 0 0 4px var(--hairline); }
+.avb[aria-pressed="true"] img { box-shadow: 0 0 0 3px var(--surface), 0 0 0 6px var(--brand); }
+#meBtn > img.av, .ava > img.av { object-position: center; }
 .ava.mid { width: 72px; height: 72px; font-size: 22px; }
 .ava.sm { width: 40px; height: 40px; font-size: 13px; }
 .star[aria-pressed="true"] { color: var(--accent-rose); }
@@ -1013,6 +1024,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
 <div id="toast" class="eu-badge toast" role="status" hidden></div>
 
 <script src="config.js"></script>
+<script src="avatars.js"></script>
 <script>
 (async () => {
   "use strict";
@@ -1077,6 +1089,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   const ROLES = ["Public affairs consultancy", "In-house public affairs", "Trade association", "NGO or civil society", "Law firm", "Think tank or academia", "Journalist", "EU or national institution", "Other"];
   const CMTE_NAMES = {};
   const IC = {
+    edit: '<path d="M4 20l1-4L16.500 4.500a2.100 2.100 0 0 1 3 3L8 19zM14.500 6.500l3 3"/>',
     back: '<path d="M19 12H5M11 6l-6 6 6 6"/>', arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>', ext: '<path d="M8 16 16 8M9.5 8H16v6.5"/>',
     star: '<path d="m12 3.5 2.6 5.4 5.9.8-4.3 4.1 1 5.9L12 16.9l-5.2 2.8 1-5.9L3.5 9.7l5.9-.8z"/>',
     share: '<circle cx="18" cy="5.5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="18.5" r="2.5"/><path d="m8.2 10.8 7.6-4.1M8.2 13.2l7.6 4.1"/>',
@@ -1108,6 +1121,22 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   const words = (s) => " " + fold(s).replace(/[^a-z0-9]+/g, " ").trim() + " ";
   const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const safeUrl = (u) => (/^https?:\/\//i.test(u || "") ? u : "");
+  const AVN = window.NODO_AV || {};
+  const avCache = {};
+  const avUrl = (cc) => { const k = cc === "GR" ? "EL" : cc; if (!AVN[k]) return ""; return avCache[k] || (avCache[k] = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(AVN[k])); };
+  /* The picture a person chose: their own photo, one of the 27 scenes, or (for someone who covers one country) that country's scene. */
+  const chosenFace = () => {
+    const p = state.profile || {};
+    if (p.avatar === "photo" && p.photo) return p.photo;
+    if (p.avatar && avUrl(p.avatar)) return avUrl(p.avatar);
+    if (!p.avatar && (p.countries || []).length === 1) return avUrl(p.countries[0]);
+    return "";
+  };
+  const meFace = () => {
+    const ch = chosenFace(), nm = state.me.name || (state.profile && state.profile.name) || "";
+    if (ch) return `<img class="av" src="${esc(ch)}" alt="">`;
+    return state.me.id && state.me.avatarUrl ? `<img src="${esc(state.me.avatarUrl)}" alt="">` : nm ? esc(initialsOf(nm)) : icon("user");
+  };
   const initialsOf = (name) => { const p = String(name || "?").replace(/\(.*?\)/g, "").trim().split(/\s+/); return ((p[0] || "?")[0] + (p.length > 1 ? p[p.length - 1][0] : "")).toUpperCase(); };
   const gc = (g) => `var(--grp-${GROUP_MOD[g] || "ni"})`;
   const store = {
@@ -1405,8 +1434,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     $("greet").innerHTML = `${h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening"}${fn ? " " + esc(fn) : ""},<br>who are you <strong>meeting</strong> today?`;
   }
   function renderMeBtn() {
-    const nm = state.me.name || (state.profile && state.profile.name) || "";
-    $("meBtn").innerHTML = state.me.id && state.me.avatarUrl ? `<img src="${esc(state.me.avatarUrl)}" alt="">` : nm ? esc(initialsOf(nm)) : icon("user");
+    $("meBtn").innerHTML = meFace();
   }
   function renderTopics() {
     $("topics").hidden = true;
@@ -2445,7 +2473,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     showProfile(`
       <div class="tb">${backBtn}${icon("back")}</button></div>
       <div class="hero">
-        <span class="eu-row__avatar ava big">${state.me.id && state.me.avatarUrl ? `<img src="${esc(state.me.avatarUrl)}" alt="">` : nm ? esc(initialsOf(nm)) : icon("user")}</span>
+        <button class="avpick" type="button" data-avatar aria-label="Change profile picture"><span class="eu-row__avatar ava big">${meFace()}</span><span class="avpick__edit">${icon("edit")}</span></button>
         <h2 class="eu-headline" id="pName">${nm ? twoW(nm) : "Your <strong>profile</strong>"}</h2>
         <p class="bio">${esc([p.org, p.role].filter(Boolean).join(" · ") || "Add your organisation and role")}</p>
         <div class="eu-row__tags"><span class="eu-group tag">${syncTag()}</span></div>
@@ -2989,6 +3017,47 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     syncLayers();
     $("sheet").querySelector("[data-sheet-close]").focus({ preventScroll: true });
   }
+  /* ---------- profile picture ---------- */
+  function openAvatar() {
+    state.sheet = "avatar";
+    const p = state.profile || {}, cur = chosenFace();
+    const mine = (p.countries || []).filter((c) => AVN[c === "GR" ? "EL" : c]);
+    const codes = Object.keys(AVN).sort((a, b) => countryName(a).localeCompare(countryName(b)));
+    const order = [...mine, ...codes.filter((c) => !mine.includes(c))];
+    const sel = p.avatar === "photo" ? "photo" : (p.avatar || (cur && (p.countries || []).length === 1 ? p.countries[0] : ""));
+    if ($("sheet").hidden) layer.sheet = document.activeElement;
+    $("sheet").innerHTML = `<div class="sheet__bar"><button class="eu-iconbtn eu-iconbtn--sm" type="button" data-sheet-close aria-label="Close">${icon("x")}</button></div>
+      <div class="avsheet"><h2 id="sName">Profile picture</h2><p class="cap">Pick a scene from the 27 member states, or use your own photo. Your photo stays in your profile and is never shown to anyone else.</p>
+      <div class="avacts"><button class="eu-btn eu-btn--brand" type="button" data-avphoto>${icon("plus")}${p.photo ? "Change photo" : "Upload a photo"}</button>${p.avatar ? `<button class="eu-btn" type="button" data-avclear>Use initials</button>` : ""}<input id="avFile" type="file" accept="image/*" hidden></div>
+      ${p.photo ? `<div class="avgrid" style="margin-top:0"><button class="avb" type="button" data-avpick="photo" aria-pressed="${sel === "photo"}"><img src="${esc(p.photo)}" alt="" style="object-fit:cover">Your photo</button></div>` : ""}
+      ${mine.length ? `<h3>Your countries</h3>` : ""}
+      <div class="avgrid">${order.map((c, i) => (i === mine.length && mine.length ? `</div><h3>All 27</h3><div class="avgrid">` : "") + `<button class="avb" type="button" data-avpick="${c}" aria-pressed="${sel === c}"><img src="${esc(avUrl(c))}" alt="">${esc(countryName(c))}</button>`).join("")}</div></div>`;
+    $("scrim").hidden = false; $("sheet").hidden = false; $("sheet").scrollTop = 0;
+    syncLayers();
+    $("sheet").querySelector("[data-sheet-close]").focus({ preventScroll: true });
+  }
+  function setAvatar(v, photo) {
+    if (!state.profile) state.profile = { v: 1 };
+    if (v) state.profile.avatar = v; else delete state.profile.avatar;
+    if (photo) state.profile.photo = photo;
+    saveProfile(); renderMeBtn();
+    if (state.open === "me") openMe(true);
+  }
+  function pickPhoto(file) {
+    if (!file) return;
+    const url = URL.createObjectURL(file), img = new Image();
+    img.onload = () => {
+      const n = 192, side = Math.min(img.width, img.height), cv = document.createElement("canvas");
+      cv.width = cv.height = n;
+      cv.getContext("2d").drawImage(img, (img.width - side) / 2, (img.height - side) / 3, side, side, 0, 0, n, n);
+      URL.revokeObjectURL(url);
+      let data = ""; try { data = cv.toDataURL("image/jpeg", 0.82); } catch { /* ignore */ }
+      if (!data) return toast("That photo could not be read", 2600);
+      setAvatar("photo", data); closeSheet(); toast("Photo saved", 1800);
+    };
+    img.onerror = () => { URL.revokeObjectURL(url); toast("That file is not an image", 2600); };
+    img.src = url;
+  }
   function closeSheet() {
     const was = !$("sheet").hidden;
     state.sheet = null; $("sheet").hidden = true; $("scrim").hidden = true;
@@ -3033,6 +3102,10 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     if (t.closest("[data-close]")) return closeProfile();
     const tp = t.closest("[data-topic]"); if (tp) return goHomeSearch(tp.dataset.topic);
     if (t.closest("#meBtn")) return openMe();
+    if (t.closest("[data-avatar]")) return openAvatar();
+    if (t.closest("[data-avphoto]")) return $("avFile").click();
+    const avp = t.closest("[data-avpick]"); if (avp) { setAvatar(avp.dataset.avpick); return closeSheet(); }
+    if (t.closest("[data-avclear]")) { setAvatar(""); delete state.profile.photo; saveProfile(); return closeSheet(); }
     const ed = t.closest("[data-edit]"); if (ed) { const n = Number(ed.dataset.edit); return openOnb(n, n > 0); }
     const ar = t.closest("[data-area]"); if (ar) return openArea(ar.dataset.area);
     const vw = t.closest("[data-view]"); if (vw) return setView(vw.dataset.view);
@@ -3065,6 +3138,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     if (e.key === "Escape") { if (!$("onb").hidden && onb.edit) { $("onb").hidden = true; onb.d = null; } else if (state.sheet) closeSheet(); else if (state.open) closeProfile(); }
   });
   $("scrim").addEventListener("click", closeSheet);
+  document.addEventListener("change", (e) => { if (e.target && e.target.id === "avFile") pickPhoto(e.target.files && e.target.files[0]); });
 
   let tm;
   const deb = (fn) => (e) => { clearTimeout(tm); tm = setTimeout(() => fn(e.target.value), 90); };

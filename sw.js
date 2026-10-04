@@ -1,6 +1,6 @@
 /* nodo service worker: app shell works offline, data refreshes whenever there is a connection. */
-const VERSION = "nodo-v5";
-const SHELL = ["./", "index.html", "config.js", "vendor/supabase.js", "manifest.webmanifest", "icons/icon-192.png", "icons/icon-512.png", "icons/apple-touch-icon.png"];
+const VERSION = "nodo-v6";
+const SHELL = ["./", "index.html", "config.js", "avatars.js", "vendor/supabase.js", "manifest.webmanifest", "icons/icon-192.png", "icons/icon-512.png", "icons/apple-touch-icon.png"];
 
 self.addEventListener("install", (e) => {
   e.waitUntil(caches.open(VERSION).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting()));
