@@ -885,6 +885,20 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
 
 /* Cabinet sheet: a close button in place of the drag handle. */
 .sheet__bar { display: flex; justify-content: flex-end; margin-bottom: var(--space-2); }
+
+/* Perm reps */
+.pr-st { display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 var(--space-3) 0 10px; border-radius: var(--radius-pill); background: var(--surface); font-size: 13px; line-height: 16px; font-weight: 600; white-space: nowrap; }
+.pr-st svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+.pr-st--ok { color: var(--success); } .pr-st--warn { color: var(--warning); } .pr-st--none { color: var(--ink-muted); }
+.pr-st--plain { color: var(--ink); background: var(--surface-sunken); }
+.pr-top-note { margin: var(--space-3) var(--space-1) 0; }
+.pr-btns { display: grid; gap: var(--space-2); margin-top: var(--space-4); }
+.pr-lab { display: block; margin: var(--space-4) var(--space-1) var(--space-2); font-size: 13px; line-height: 16px; font-weight: 600; }
+.pr-sel { width: 100%; height: 56px; padding: 0 var(--space-5); border: 0; border-radius: var(--radius-pill); background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--border-control); color: var(--ink); font: 400 15px/22px var(--font-sans); }
+.pr-sheet { padding: 0 var(--space-4) var(--space-6); }
+.pr-sheet .chips { margin-top: 0; }
+.pr-sheet .eu-search { margin-top: 0; }
+.pr-sheet .eu-btn { margin-top: var(--space-2); }
 </style>
 
 <section id="boot" class="boot" aria-live="polite"><div>
@@ -1790,7 +1804,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   }
   const segs = (n, on) => Array.from({ length: n }, (_, i) => `<span class="eu-meter__seg${i < on ? " is-on" : ""}"></span>`).join("");
   function renderCo() {
-    const tabs = [["presidency", "Presidency"], ["countries", "Countries"], ["configs", "Configurations"], ["qmv", "QMV calculator"]];
+    const tabs = [["presidency", "Presidency"], ["perms", "Perm reps"], ["countries", "Countries"], ["configs", "Configurations"], ["qmv", "QMV calculator"]];
     $("coTabs").innerHTML = tabs.map(([k, n]) => `<button class="eu-chip" type="button" data-cotab="${k}" aria-pressed="${state.co.tab === k}">${n}</button>`).join("");
     const tab = state.co.tab, now = new Date(), today = isoD(now);
     let h = "";
@@ -1818,6 +1832,8 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
           meta: `${esc(fmtIso(m.start, { weekday: "short", day: "numeric", month: "short" }))}${m.end !== m.start ? "–" + esc(fmtIso(m.end, { day: "numeric", month: "short" })) : ""}${m.kind === "ec" ? " · heads of state or government" : ""}`, tail: m.conf ? go : "" })).join("")}</div>
         <h3>Rotation</h3><div class="rot">${P.rotation.slice(ci).map((r) => `<div>${esc(countryName(r[0]))}<br><span>${esc(per(r))}</span></div>`).join("")}</div>
         <div class="links"><a class="eu-btn eu-btn--sm" href="${esc(P.current.site)}" target="_blank" rel="noopener">Presidency website${icon("ext")}</a><a class="eu-btn eu-btn--sm" href="${esc(P.current.trioProgramme)}" target="_blank" rel="noopener">Trio programme (PDF)${icon("ext")}</a></div>`;
+    } else if (tab === "perms") {
+      h = prHub(now);
     } else if (tab === "countries") {
       h = `<p class="cap lead-cap">Sorted by population, which decides voting weight under qualified majority.</p><div class="list">${CO_COUNTRIES.map((c) => {
         const pr = (CO.permreps[c.cc] || {}).pr, inPres = CO.presidency.rotation.find((r) => r[0] === c.cc && r[2] >= today.slice(0, 7));
@@ -1852,7 +1868,154 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
         <p class="note">Standard qualified majority (Article 16(4) TEU) for Commission proposals: 55% of member states representing 65% of the EU population. A blocking minority needs at least four member states. Population figures for 2026 from Council Decision (EU, Euratom) 2025/2427.</p>`;
     }
     $("coBody").innerHTML = h;
-    $("coNote").textContent = tab === "qmv" ? "" : `Sources: Council of the EU meeting calendar and participant lists, checked ${CO.fetched}.`;
+    $("coNote").textContent = tab === "qmv" ? "" : tab === "perms" ? `Ambassador and deputy names from Council participant lists, checked ${CO.fetched}. Other names are added by users on this device.` : `Sources: Council of the EU meeting calendar and participant lists, checked ${CO.fetched}.`;
+  }
+
+  /* ---------- permanent representations ---------- */
+  const PRX_KEY = "nodo.permreps.v1";
+  const prx = (() => { let o = {}; try { o = JSON.parse(store.get(PRX_KEY) || "{}") || {}; } catch { o = {}; } o.names = o.names || {}; o.corr = o.corr || {}; return o; })();
+  const prxSave = () => { if (!store.set(PRX_KEY, JSON.stringify(prx))) toast("Could not save on this device"); };
+  const PI = {
+    ok: `<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.7 2.7L16 9.5"/></svg>`,
+    warn: `<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.5v.01"/></svg>`,
+    none: `<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.5 12h7"/></svg>`,
+  };
+  const stPill = (k, t) => `<span class="pr-st pr-st--${k}">${PI[k] || ""}${esc(t)}</span>`;
+  const LEAD = [["pr", "Ambassador", "Coreper II", "Permanent Representative"], ["dpr", "Deputy Permanent Representative", "Coreper I", "Deputy Permanent Representative"],
+    ["antici", "Antici counsellor", "Coreper II", "Antici counsellor"], ["mertens", "Mertens counsellor", "Coreper I", "Mertens counsellor"]];
+  const slotLabel = (slot) => { const l = LEAD.find((x) => x[0] === slot); if (l) return l[1]; const c = CONF_BY[String(slot).replace("wp:", "")]; return c ? c.short + " counsellor" : "Working party"; };
+  const dShort = (iso) => fmtIso(String(iso).slice(0, 10), { day: "numeric", month: "short" });
+  /* The state of one name: from the Council lists (Ambassador, Deputy), or added by the user. */
+  function slotInfo(cc, slot) {
+    const key = cc + "|" + slot, mine = prx.names[key], cor = prx.corr[key], today = isoD(new Date());
+    if (mine) {
+      const flag = cor && cor.kind !== "yes";
+      return { name: mine.name, role: mine.role, mine: true, kind: flag ? "warn" : "ok", label: flag ? "Flagged by you" : "Added by you " + dShort(mine.date) };
+    }
+    const src = (slot === "pr" || slot === "dpr") && (CO.permreps[cc] || {})[slot];
+    if (src) {
+      const age = (fromIso(today) - fromIso(src[1])) / 864e5;
+      if (cor && cor.kind !== "yes") return { name: person(src[0]), kind: "warn", label: "Flagged by you" };
+      if (cor && cor.kind === "yes") return { name: person(src[0]), kind: "ok", label: "Confirmed by you " + dShort(cor.date) };
+      return age > 150 ? { name: person(src[0]), kind: "warn", label: "Needs check · listed " + dShort(src[1]) } : { name: person(src[0]), kind: "ok", label: "Listed " + dShort(src[1]) };
+    }
+    return { name: "", kind: "none", label: "No name yet" };
+  }
+  function slotRow(cc, slot, lab, sub, forWp) {
+    const i = slotInfo(cc, slot);
+    return row({ attrs: tap(`data-prsheet="${cc}|${slot}"`), lead: forWp ? codeAva(cc) : disc("user"), name: i.name ? esc(i.name) : `<span style="color:var(--ink-muted)">Not yet known</span>`,
+      meta: esc(forWp ? countryName(cc) + (i.role ? " · " + i.role : "") : lab + (sub ? " · " + sub : "")), wrap: true,
+      extra: `<span class="eu-row__tags">${stPill(i.kind, i.label)}</span>`, tail: go });
+  }
+  function prCount(cc) { return LEAD.filter((l) => slotInfo(cc, l[0]).kind === "none").length; }
+  function prListHtml() {
+    const q = fold(state.co.q || "").trim(), f = state.co.pf || "all";
+    const list = [...CO_COUNTRIES].sort((a, b) => a.name.localeCompare(b.name)).filter((c) => {
+      const infos = LEAD.map((l) => slotInfo(c.cc, l[0]));
+      if (f === "none" && !infos.some((i) => i.kind === "none")) return false;
+      if (f === "warn" && !infos.some((i) => i.kind === "warn")) return false;
+      if (f === "mine" && !infos.some((i) => i.mine) && !Object.keys(prx.names).some((k) => k.startsWith(c.cc + "|"))) return false;
+      if (q) { const hay = fold([c.name, c.cc, ...infos.map((i) => i.name)].join(" ")); if (!hay.includes(q)) return false; }
+      return true;
+    });
+    if (!list.length) return `<p class="empty mt">No delegation matches.</p>`;
+    return `<div class="list">${list.map((c) => { const i = slotInfo(c.cc, "pr"), n = prCount(c.cc);
+      return row({ attrs: tap(`data-prdel="${c.cc}"`), lead: codeAva(c.cc), name: esc(c.name), meta: i.name ? `${esc(i.name)} · Ambassador` : "Ambassador not listed", wrap: true,
+        extra: n ? `<span class="eu-row__tags">${stPill("none", n + (n === 1 ? " name missing" : " names missing"))}</span>` : "", tail: go }); }).join("")}</div>`;
+  }
+  function prHub(now) {
+    const rot = CO.presidency.rotation, cur = presOf(now), ci = rot.indexOf(cur), nx = rot[ci + 1];
+    const chips = [["all", "All"], ["none", "Name missing"], ["warn", "Needs check"], ["mine", "Added by you"]];
+    return `<h2 class="eu-headline mt">Which <strong>delegation</strong> are you looking for?</h2>
+      ${cur ? `<section class="eu-hero" aria-label="Current presidency"><div class="eu-hero__eyebrow">Presidency · ${esc(fmtD(new Date(+cur[1].slice(0, 4), +cur[1].slice(5, 7) - 1, 1), { month: "long", year: "numeric" }))} to ${esc(fmtD(new Date(+cur[2].slice(0, 4), +cur[2].slice(5, 7) - 1, 1), { month: "long", year: "numeric" }))}</div>
+        <h2 class="eu-hero__title"><span>Chaired by</span> ${esc(countryName(cur[0]))}</h2>
+        ${nx ? `<p class="eu-hero__text">${esc(countryName(nx[0]))} takes over on 1 ${esc(fmtD(new Date(+nx[1].slice(0, 4), +nx[1].slice(5, 7) - 1, 1), { month: "long", year: "numeric" }))}.</p>` : ""}
+        <button class="eu-btn eu-btn--on-deep eu-btn--sm" type="button" data-prdel="${cur[0]}">Open ${esc(countryName(cur[0]))}’s delegation</button></section>` : ""}
+      <label class="eu-search"><svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4 4"/></svg><input id="prq" type="search" placeholder="Search a country or a name" aria-label="Search delegations" value="${esc(state.co.q || "")}"></label>
+      <div class="chips">${chips.map(([k, n]) => `<button class="eu-chip" type="button" data-prf="${k}" aria-pressed="${(state.co.pf || "all") === k}">${n}</button>`).join("")}</div>
+      <h3>27 delegations <small>A to Z</small></h3><div id="prList">${prListHtml()}</div>
+      <h3>Who covers a policy area <small>working parties</small></h3>
+      <div class="list">${CO_CONFS.map((c) => row({ attrs: tap(`data-prwp="${c.id}"`), lead: disc("group"), name: esc(c.short), meta: esc(c.name) + " · Coreper " + esc(c.coreper), wrap: true, tail: go })).join("")}</div>`;
+  }
+  function openDelegation(cc) {
+    state.open = "deleg:" + cc;
+    const named = Object.keys(prx.names).filter((k) => k.startsWith(cc + "|wp:"));
+    showProfile(`
+      <div class="tb"><button class="eu-iconbtn" type="button" data-close aria-label="Back">${icon("back")}</button></div>
+      <div class="hero">${codeAva(cc, "big")}<h2 class="eu-headline" id="pName"><strong>${esc(countryName(cc))}</strong></h2>
+        <p class="bio">Permanent Representation to the EU</p>
+        <div class="eu-row__tags" style="margin-top:12px">${stPill("plain", "Coreper I and II")}${stPill("ok", "Council lists checked " + dShort(CO.fetched))}</div></div>
+      <h3>Leadership <small>Ambassador and Coreper counsellors</small></h3>
+      <div class="list">${LEAD.map((l) => slotRow(cc, l[0], l[1], l[2])).join("")}</div>
+      <h3>Who covers what <small>working parties</small></h3>
+      ${named.length ? `<div class="list">${named.map((k) => { const id = k.split("|wp:")[1], c = CONF_BY[id]; return slotRow(cc, "wp:" + id, c ? c.short : id, "", false).replace(esc(countryName(cc)), esc(countryName(cc))); }).join("")}</div>` : `<p class="empty">No working-party names yet for ${esc(countryName(cc))}.</p>`}
+      <div class="pr-btns"><button class="eu-btn eu-btn--brand eu-btn--block" type="button" data-prsheet="${cc}|new">Add a name</button></div>
+      <h3>In the Council <small>last meeting of each</small></h3>
+      <button class="eu-btn eu-btn--block" type="button" data-country="${cc}">Open the ${esc(countryName(cc))} country page</button>
+      <p class="foot">Ambassador and deputy come from official Council participant lists (${esc(CO.fetched)}). Counsellors and attachés are not published there, so they stay empty until someone adds them. Names added here are saved on this device only.</p>`);
+  }
+  function wpListHtml(id) {
+    const f = state.prwf || "all";
+    const rows = [...CO_COUNTRIES].sort((a, b) => a.name.localeCompare(b.name)).filter((c) => { const k = slotInfo(c.cc, "wp:" + id).kind; return f === "all" || (f === "has" ? k !== "none" : k === "none"); });
+    return rows.length ? `<div class="list">${rows.map((c) => { const i = slotInfo(c.cc, "wp:" + id); return i.kind === "none"
+      ? row({ cls: "is-static", lead: codeAva(c.cc), name: `<span style="color:var(--ink-muted)">Not yet known</span>`, meta: esc(countryName(c.cc)), wrap: true, extra: `<span class="eu-row__tags">${stPill("none", "No name yet")}</span>`,
+          tail: `<button class="eu-btn eu-btn--sm" type="button" data-prsheet="${c.cc}|wp:${id}">Add a name</button>` })
+      : slotRow(c.cc, "wp:" + id, "", "", true); }).join("")}</div>` : `<p class="empty mt">Nothing in this view.</p>`;
+  }
+  function openWp(id) {
+    const c = CONF_BY[id]; if (!c) return;
+    state.open = "wp:" + id; state.prwf = "all";
+    showProfile(`
+      <div class="tb"><button class="eu-iconbtn" type="button" data-close aria-label="Back">${icon("back")}</button></div>
+      <h2 class="eu-headline" id="pName" style="margin:24px 4px 20px">Who covers <strong>${esc(c.short)}</strong> in each delegation?</h2>
+      <div class="eu-tile eu-tile--mint"><span class="eu-tile__disc">${icon("flag")}</span><span><span class="eu-tile__label">${esc(c.name)}</span><span class="eu-tile__meta">Prepared by Coreper ${esc(c.coreper)}</span></span></div>
+      <div class="chips" id="prWf">${[["all", "All"], ["has", "Has a name"], ["none", "No name yet"]].map(([k, n]) => `<button class="eu-chip" type="button" data-prwf="${k}" aria-pressed="${k === "all"}">${n}</button>`).join("")}</div>
+      <h3>Delegations <small>A to Z</small></h3><div id="prWpList">${wpListHtml(id)}</div>
+      <button class="eu-btn eu-btn--block mt" type="button" data-conf="${id}">Open the Council configuration</button>
+      <p class="foot">Working-party attachés are not published by the Council. Names here are added by users and saved on this device.</p>`);
+  }
+  const prSheetState = { cc: "", slot: "", kind: "moved" };
+  function openPrSheet(cc, slot) {
+    state.sheet = "prx";
+    prSheetState.cc = cc; prSheetState.slot = slot; prSheetState.kind = "moved";
+    const i = slot === "new" ? { kind: "none", name: "" } : slotInfo(cc, slot);
+    const has = !!i.name;
+    const opts = `<optgroup label="Leadership">${LEAD.map((l) => `<option value="${l[0]}">${esc(l[1])}</option>`).join("")}</optgroup><optgroup label="Working party">${CO_CONFS.map((c) => `<option value="wp:${c.id}">${esc(c.short)}</option>`).join("")}</optgroup>`;
+    if ($("sheet").hidden) layer.sheet = document.activeElement;
+    $("sheet").innerHTML = `<div class="sheet__bar"><button class="eu-iconbtn eu-iconbtn--sm" type="button" data-sheet-close aria-label="Close">${icon("x")}</button></div>
+      <div class="pr-sheet"><p class="cap">${esc(countryName(cc))}${slot !== "new" ? " · " + esc(slotLabel(slot)) : ""}</p>
+      ${has ? `<h2 class="eu-headline" id="sName" style="margin:8px 0 20px;font-size:30px;line-height:34px">Is ${esc(i.name)} still <strong>the ${esc(slotLabel(slot).toLowerCase())}</strong>?</h2>
+        <div class="chips wrap" id="prKinds">${[["yes", "Yes, still correct"], ["moved", "Moved to another role"], ["left", "Left the delegation"]].map(([k, n]) => `<button class="eu-chip" type="button" data-prk="${k}" aria-pressed="${k === "moved"}">${n}</button>`).join("")}</div>
+        <span class="pr-lab">New role or successor (optional)</span><label class="eu-search"><input id="prName" type="text" placeholder="Name" aria-label="Successor name"></label>`
+      : `<h2 class="eu-headline" id="sName" style="margin:8px 0 20px;font-size:30px;line-height:34px">Add <strong>a name</strong></h2>
+        ${slot === "new" ? `<span class="pr-lab" style="margin-top:0">Role</span><select id="prSlot" class="pr-sel" aria-label="Role">${opts}</select>` : ""}
+        <span class="pr-lab"${slot === "new" ? "" : ' style="margin-top:0"'}>Name</span><label class="eu-search"><input id="prName" type="text" placeholder="First and last name" aria-label="Name"></label>
+        <span class="pr-lab">Job title (optional)</span><label class="eu-search"><input id="prRole" type="text" placeholder="For example Counsellor" aria-label="Job title"></label>`}
+      <p class="note pr-top-note">Saved on this device. Check a name against a source you trust before you rely on it.</p>
+      <button class="eu-btn eu-btn--brand eu-btn--block" type="button" data-prsend style="margin-top:16px">${has ? "Send correction" : "Save name"}</button>
+      <button class="eu-btn eu-btn--block" type="button" data-sheet-close>Cancel</button></div>`;
+    $("scrim").hidden = false; $("sheet").hidden = false; $("sheet").scrollTop = 0;
+    syncLayers();
+    const f = $("sheet").querySelector("input,select,[data-sheet-close]"); if (f) f.focus({ preventScroll: true });
+  }
+  function sendPr() {
+    const cc = prSheetState.cc; let slot = prSheetState.slot;
+    const sl = $("prSlot"); if (sl) slot = sl.value;
+    const nm = ($("prName") ? $("prName").value : "").trim(), role = ($("prRole") ? $("prRole").value : "").trim();
+    const key = cc + "|" + slot, today = isoD(new Date());
+    const existing = slotInfo(cc, slot);
+    if (existing.name) {
+      const kind = prSheetState.kind;
+      prx.corr[key] = { kind, date: today };
+      if (kind !== "yes" && nm) { prx.names[key] = { name: nm, role: "", date: today }; prx.corr[key] = { kind: "yes", date: today }; }
+    } else {
+      if (!nm) { toast("Add a name first"); return; }
+      prx.names[key] = { name: nm, role, date: today };
+    }
+    prxSave(); closeSheet(); toast("Saved on this device");
+    if (state.open && state.open.startsWith("deleg:")) openDelegation(state.open.slice(6));
+    else if (state.open && state.open.startsWith("wp:")) { const id = state.open.slice(3); $("prWpList").innerHTML = wpListHtml(id); }
+    else renderCo();
   }
   function openCountry(cc) {
     state.open = "country:" + cc;
@@ -1872,6 +2035,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
         ${pres ? `<p class="pf-line">${pres === presOf(new Date()) ? "Holds the Council Presidency until " : "Next Council Presidency: "}${esc(pres === presOf(new Date()) ? fmtD(new Date(+pres[2].slice(0, 4), +pres[2].slice(5, 7), 0), { day: "numeric", month: "long", year: "numeric" }) : fmtD(new Date(+pres[1].slice(0, 4), +pres[1].slice(5, 7) - 1, 1), { month: "long", year: "numeric" }))}</p>` : ""}</div>
       <div class="stats"><div><b>${meps.length}</b><span>${pl(meps.length, "MEP", "MEPs")}</span></div><div><b>${com ? 1 : 0}</b><span>${pl(com ? 1 : 0, "Commissioner", "Commissioners")}</span></div><div><b>${desk.length}</b><span>${pl(desk.length, "Cabinet desk", "Cabinet desks")}</span></div></div>
       <h3>Permanent Representation</h3><div class="list">${prRow("pr", "Permanent Representative", "Coreper II")}${prRow("dpr", "Deputy Permanent Representative", "Coreper I")}</div>
+      <button class="eu-btn eu-btn--block mt" type="button" data-prdel="${cc}">Open the full delegation</button>
       <h3>In the Council <small>last meeting of each</small></h3><div class="list">${confs.map((c) => { const r = c.reps[cc]; return `<button class="rep" type="button" data-conf="${c.id}"><span><b>${esc(c.short)}</b><small>${r ? esc(fmtIso(r[0], { day: "numeric", month: "short", year: "numeric" })) : "–"}${fc.has(c.id) ? " · your file" : ""}</small></span>
         <span>${r ? r[1].map(([n, ti]) => `<em>${esc(person(n))}<i>${esc(ti)}</i></em>`).join("") : `<i>Not listed</i>`}</span></button>`; }).join("")}</div>
       ${com ? `<h3>Commissioner</h3><div class="list">${rowCom(com)}</div>` : ""}
@@ -3116,6 +3280,13 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     if (qs) { const v = qs.dataset.qmvset; state.qmv = new Set(v === "none" ? [] : Object.keys(POP).filter((k) => v === "all" || !["DE", "FR", "IT", "ES"].includes(k))); return renderCo(); }
     const ec = t.closest("[data-epcountry]");
     if (ec) { state.ep = { q: "", country: ec.dataset.epcountry, committee: "", group: ec.dataset.epgroup || "" }; return setView("ep"); }
+    const pf = t.closest("[data-prf]"); if (pf) { state.co.pf = pf.dataset.prf; return renderCo(); }
+    const pwf = t.closest("[data-prwf]"); if (pwf) { state.prwf = pwf.dataset.prwf; const id = state.open.slice(3); $("prWpList").innerHTML = wpListHtml(id); document.querySelectorAll("#prWf [data-prwf]").forEach((b) => b.setAttribute("aria-pressed", String(b === pwf))); return; }
+    const prk = t.closest("[data-prk]"); if (prk) { prSheetState.kind = prk.dataset.prk; document.querySelectorAll("#prKinds [data-prk]").forEach((b) => b.setAttribute("aria-pressed", String(b === prk))); return; }
+    if (t.closest("[data-prsend]")) return sendPr();
+    const pps = t.closest("[data-prsheet]"); if (pps) { const [c, sl] = pps.dataset.prsheet.split("|"); return openPrSheet(c, sl); }
+    const pdl = t.closest("[data-prdel]"); if (pdl) return openDelegation(pdl.dataset.prdel);
+    const pwp = t.closest("[data-prwp]"); if (pwp) return openWp(pwp.dataset.prwp);
     const cf = t.closest("[data-conf]"); if (cf) return openConf(cf.dataset.conf);
     const cy = t.closest("[data-country]"); if (cy) return openCountry(cy.dataset.country);
     const gp = t.closest("[data-group]"); if (gp) { state.ep = { q: "", country: "", committee: "", group: gp.dataset.group }; return setView("ep"); }
@@ -3142,6 +3313,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
 
   let tm;
   const deb = (fn) => (e) => { clearTimeout(tm); tm = setTimeout(() => fn(e.target.value), 90); };
+  document.addEventListener("input", (e) => { if (e.target && e.target.id === "prq") { state.co.q = e.target.value; $("prList").innerHTML = prListHtml(); } });
   $("hq").addEventListener("input", deb((v) => { state.hq = v; renderHome(); }));
   $("q").addEventListener("input", deb((v) => { state.ep.q = v; renderEp(); }));
   $("ecq").addEventListener("input", deb((v) => { state.ec.q = v; renderEc(); }));
