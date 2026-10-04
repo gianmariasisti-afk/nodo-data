@@ -1,4 +1,7 @@
 /* nodo configuration. Leave both values empty to run in preview mode (local only, sign-in simulated).
-   Add your Supabase project URL and public (anon) key to switch on real sign-in and sync. See SETUP.md.
-   The anon key is public by design: row-level security in supabase/schema.sql protects each user's data. */
-window.NODO_CONFIG = { supabaseUrl: "", supabaseAnonKey: "" };
+   The project URL and publishable key are public by design: row-level security in supabase/schema.sql
+   protects each person's data. Never put a secret or service_role key in this file. */
+window.NODO_CONFIG = {
+  supabaseUrl: "https://dmishwyqipqbfgtdpalk.supabase.co",
+  supabaseAnonKey: "sb_publishable_D27BtfFg8CurRjDAs0Sb3Q_Kuzs_52Q",
+};
