@@ -1,90 +1,53 @@
 {
- "run": "2026-10-05T07:38:10.816Z",
- "list": {
-  "status": 202,
-  "bytes": 2431
- },
+ "run": "2026-10-05T07:46:05.585Z",
  "sessions": {
   "2026-10-05": {
-   "tried": [
-    {
-     "u": "https://www.europarl.europa.eu/doceo/document/OJ-10-2026-10-05_EN.pdf",
-     "status": 202,
-     "note": "not a PDF (text/html; charset=UTF-8)"
+   "days": {
+    "2026-10-05": {
+     "status": 200,
+     "activities": 8
     },
-    {
-     "u": "https://www.europarl.europa.eu/doceo/document/OJ-10-2026-10-05-FNL_EN.pdf",
-     "status": 202,
-     "note": "not a PDF (text/html; charset=UTF-8)"
+    "2026-10-06": {
+     "status": 200,
+     "activities": 29
     },
-    {
-     "u": "https://www.europarl.europa.eu/doceo/document/PDOJ-10-2026-10-05_EN.pdf",
-     "status": 202,
-     "note": "not a PDF (text/html; charset=UTF-8)"
+    "2026-10-07": {
+     "status": 200,
+     "activities": 27
     },
-    {
-     "u": "https://www.europarl.europa.eu/doceo/document/PDOJ-10-2026-10-05-PROV_EN.pdf",
-     "status": 202,
-     "note": "not a PDF (text/html; charset=UTF-8)"
-    },
-    {
-     "u": "https://www.europarl.europa.eu/doceo/document/OJ-10-2026-10-05-PROV_EN.pdf",
-     "status": 202,
-     "note": "not a PDF (text/html; charset=UTF-8)"
+    "2026-10-08": {
+     "status": 200,
+     "activities": 17
     }
-   ]
+   },
+   "types": {
+    "def/ep-activities/MEETING_PART": 27,
+    "def/ep-activities/PLENARY_DEBATE": 29,
+    "def/ep-activities/PLENARY_VOTE": 25
+   },
+   "items": 55
   },
   "2026-10-19": {
-   "tried": [
-    {
-     "u": "https://www.europarl.europa.eu/doceo/document/OJ-10-2026-10-19_EN.pdf",
-     "status": 202,
-     "note": "not a PDF (text/html; charset=UTF-8)"
+   "days": {
+    "2026-10-19": {
+     "status": 204,
+     "activities": 0
     },
-    {
-     "u": "https://www.europarl.europa.eu/doceo/document/OJ-10-2026-10-19-FNL_EN.pdf",
-     "status": 202,
-     "note": "not a PDF (text/html; charset=UTF-8)"
+    "2026-10-20": {
+     "status": 204,
+     "activities": 0
     },
-    {
-     "u": "https://www.europarl.europa.eu/doceo/document/PDOJ-10-2026-10-19_EN.pdf",
-     "status": 202,
-     "note": "not a PDF (text/html; charset=UTF-8)"
+    "2026-10-21": {
+     "status": 204,
+     "activities": 0
     },
-    {
-     "u": "https://www.europarl.europa.eu/doceo/document/PDOJ-10-2026-10-19-PROV_EN.pdf",
-     "status": 202,
-     "note": "not a PDF (text/html; charset=UTF-8)"
-    },
-    {
-     "u": "https://www.europarl.europa.eu/doceo/document/OJ-10-2026-10-19-PROV_EN.pdf",
-     "status": 202,
-     "note": "not a PDF (text/html; charset=UTF-8)"
+    "2026-10-22": {
+     "status": 204,
+     "activities": 0
     }
-   ]
-  }
- },
- "listSnippet": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"utf-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    <title></title>\n    <style>\n        body {\n            font-family: \"Arial\";\n        }\n    </style>\n    <script type=\"text/javascript\">\n    window.awsWafCookieDomainList = [];\n    window.gokuProps = {\n\"key\":\"AQIDAHjcYu/GjX+QlghicBgQ/7bFaQZ+m5FKCMDnO+vTbNg96AHrpG+smH/Q9yf2obu6Kz6kAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMby/UCAAhiSpgP771AgEQgDvpq4/Bx+v7RCb6yH4re1sIWAQ8hwTbQxwiOx26rjT1T4iW6J1tC6nRdHEUGs/RJu2Q4Hm6uBcnAVn8JA==\",\n          \"iv\":\"D57WRwDWcQAAGff6\",\n          \"context\":\"f5596yIvHy+MPGcZm2pLnywcLaQZD8mU5Rkde5MiAaNEk2y91VYrhT5izHzRCSnPLhuFawGkaHlzTOnH+ecnR9/Qbd22BmNmKLB1WBMqi4TGcpNEWxK270sBJ6mWeh6gBZjXN0+J7KTZDmn2Eg8ib0M8ulgsb7HTw4yX/ZAxa0VrItJ/Wuspy03tjJoVer+He9Y7SZkFmRmnPsvVhzXeYYw22bev+wqfVXdDoT1RMQ+uuxROqaYdYIToHtAnjA1BjiooOEEBkDXMoxK2nrr3agX2mo/jhDtL++wfCQDfsGhcRQ8Ps5oI8RXuhFfpYwEcl4cxxPi7u79Bgjqij70m7LFVU+ZlMLADt14JLNUm2jtlZLZKFpP4HDqt1ynVRLUJ0pRxhNxdZ23xiS+vMZSHAnCKoykFaU354gLVKMgXpoyTy0NgfVeyHaV7piI0I4gsk28pfrJhlXlI3h6+OY3SN3grk8cJoGs18jVSvMUbb5siIKa2iBV6BD3nLFXTNDltJV+3yE7ca8gLCYfjjoCUCS6ju66hmeFjJVRaNrr5TYQqDXJelQzWgGhFKoZ2Cw2iEKpECd79x+3hXUT8CdP7sxrAcPCPPcD1KHFtQ/jSiBRNrNU0qtPC+MXsoctxc4Qb3VBX3NhfXa3ocuZH/EJRnw66Gai9nhP6KJJzU94PhqAx2E0dFbXS8g4J9H5nUzzhrHIksc0Wx61BdEaYRdJSfeVvjZDr+J30O5T/FwS8jWZPCjHDBLrDyRWnI+xX4SrE9IP0vYTPLSThrPk/qK4KO2QKfL/nmMtIMXT0LfSxi+5/X1U1\"\n};\n    </script>\n    <s",
- "api": {
-  "/meetings/MTG-PL-2026-10-05": {
-   "status": 200,
-   "bytes": 1625,
-   "head": "{\"data\":[{\"id\":\"eli/dl/event/MTG-PL-2026-10-05\",\"type\":\"Activity\",\"activity_date\":\"2026-10-05\",\"activity_end_date\":\"2026-10-05T23:00:00+02:00\",\"activity_id\":\"MTG-PL-2026-10-05\",\"activity_label\":{\"es\":\"Lunes 5 de octubre de 2026\",\"da\":\"Mandag den 5. oktober 2026\",\"lv\":\"Pirmdiena, 2026. gada 5. oktobris\",\"pl\":\"Poniedziałek, 5 października 2026\",\"fr\":\"Lundi 5 octobre 2026\",\"en\":\"Monday, 5 October 2026\",\"nl\":\"Maandag 5 oktober 2026\",\"de\":\"Montag, 5. Oktober 2026\",\"ro\":\"Luni, 5 octombrie 2026\",\"el\":\"Δευτέρα 5 Οκτωβρίου 2026\",\"fi\":\"Maanantai 5. lokakuuta 2026\",\"bg\":\"Понеделник, 5 октомври 2026\",\"pt\":\"Segunda-feira, 5 de Outubro de 2026\",\"ga\":\"Dé Luain, 5 Deireadh Fómhair 2026\",\"it\":\"Lunedì 5 ottobre 2026\",\"hu\":\"2026. október 5., hétfő\",\"et\":\"Esmaspäev, 5. oktoober 2026\",\"sk\":\"Pondelok, 5. októbra 2026\",\"mt\":\"It-Tnejn, 5 ta' Ottubru 2026\",\"lt\":\"Pirmadienis, 2026 m. spalio 5 d.\",\"hr\":\"ponedjeljak, 5. listopada 2026.\",\"sv\":\"Måndagen den 5 oktober 2026\",\"sl\":\"Ponedeljek, 5. oktober 2026\",\"cs\":\"Pondělí, 5. října 2026\"},\"activity_start_date\":\"2026-10-05T01:00:00+02:00\",\"documented_by_a_realization_of\":[\"eli/dl/doc/OJQ-10-2026-10-05\"],\"had_activity_type\":\"def/ep-activities/PLENARY_SITTING\",\"parliamentary_term\":\"org/ep-10\",\"was_scheduled_in\":[\"eli/dl/event/MTG-PL-2026-10-05-TF-1730\",\"eli/dl/event/MTG-PL-2026-10-05-TF-1845\",\"eli/dl/event/MTG-PL-2026-10-05-TF-1700\",\"eli/dl/event/MTG-PL-2026-10-05-TF-1745\"],\"hasLocality\":\"http://publications.europa.eu/resource/authority/place/FRA_SXB\"}],\"@context\":[{\"data\":\"@graph\",\"@base\":\"https://data.europarl.europa.eu/\"},\"https://data.europarl.europa.eu/api/v2/context.jsonld\"]}"
-  },
-  "/meetings/MTG-PL-2026-10-05/foreseen-activities?format=application%2Fld%2Bjson&limit=200": {
-   "status": 200,
-   "bytes": 60830,
-   "head": "{\"data\":[{\"id\":\"eli/dl/event/MTG-PL-2026-10-05-TF-1730\",\"type\":\"ForeseenActivity\",\"activity_date\":\"2026-10-05\",\"activity_end_date\":\"2026-10-05T17:45:00+02:00\",\"activity_id\":\"MTG-PL-2026-10-05-TF-1730\",\"activity_label\":{\"hu\":\"PLENÁRIS ÜLÉS DEBATES\",\"lv\":\"PLENĀRSESIJA DEBATES\",\"ga\":\"SEISIÚN IOMLÁNACH DEBATES\",\"fr\":\"SÉANCE PLÉNIÈRE DEBATES\",\"sl\":\"PLENARNO ZASEDANJE DEBATES\",\"pl\":\"SESJA PLENARNA DEBATES\",\"nl\":\"PLENAIRE VERGADERING DEBATES\",\"lt\":\"PLENARINĖ SESIJA DEBATES\",\"pt\":\"SESSÃO PLENÁRIA DEBATES\",\"da\":\"PLENARMØDE DEBATES\",\"es\":\"PLENO DEBATES\",\"it\":\"SEDUTA PLENARIA DEBATES\",\"fi\":\"TÄYSISTUNTO DEBATES\",\"cs\":\"PLENÁRNÍ ZASEDÁNÍ DEBATES\",\"et\":\"TÄISKOGU DEBATES\",\"sv\":\"PLENARSAMMANTRÄDE DEBATES\",\"sk\":\"PLENÁRNA SCHÔDZA DEBATES\",\"de\":\"PLENARTAGUNG DEBATES\",\"ro\":\"ŞEDINŢĂ PLENARĂ DEBATES\",\"en\":\"PLENARY SESSION DEBATES\",\"hr\":\"PLENARY SESSION DEBATES\",\"bg\":\"ПЛЕНАРНО ЗАСЕДАНИЕ DEBATES\",\"el\":\"ΟΛΟΜΕΛΕΙΑ DEBATES\",\"mt\":\"DG IV / VIŻITATURI DEBATES\"},\"activity_start_date\":\"2026-10-05T17:30:00+02:00\",\"consists_of\":[\"eli/dl/event/MTG-PL-2026-10-05-OJ-ITM-D-66\"],\"had_activity_type\":\"def/ep-activities/MEETING_PART\",\"notation_periclesId\":\"023086-01\",\"hasLocality\":\"http://publications.europa.eu/resource/authority/place/FRA_SXB\",\"agendaLabel\":{\"pl\":\"Debata\",\"de\":\"Aussprache\",\"it\":\"Discussione\",\"hr\":\"Rasprava\",\"da\":\"Forhandling\",\"et\":\"Arutelu\",\"el\":\"Συζήτηση\",\"lt\":\"Diskusijos\",\"sl\":\"Razprava\",\"sv\":\"Debatt\",\"hu\":\"Vita\",\"fr\":\"Débat\",\"ga\":\"Díospóireacht\",\"nl\":\"Debat\",\"ro\":\"Dezbatere\",\"fi\":\"Keskustelu\",\"bg\":\"Разискване\",\"lv\":\"Debates\",\"sk\":\"Rozprava\",\"cs\":\"Rozprava\",\"es\":\"Debate\",\"en\":\"Debate\",\"pt\":\"Debate\",\"mt\":\"Dibattitu\"},\"hasRoom\":{\"id\":\"room/LOW-LOWHEM\",\"type\":\"Room\",\"officeAddress\":\"LOWHEM\",\"identifier\":\"LOW-LOWHEM\",\"hasSite\":\"http://publications.europa.eu/resource/authority/site/LOW\"},\"speaking"
-  },
-  "/meetings?year=2026&format=application%2Fld%2Bjson&limit=5": {
-   "status": 200,
-   "bytes": 63669,
-   "head": "{\"data\":[{\"id\":\"eli/dl/event/MTG-PL-2026-01-19\",\"type\":\"Activity\",\"activity_date\":\"2026-01-19\",\"activity_end_date\":\"2026-01-19T23:00:00+01:00\",\"activity_id\":\"MTG-PL-2026-01-19\",\"activity_label\":{\"mt\":\"It-Tnejn, 19 ta' Jannar 2026\",\"hr\":\"ponedjeljak, 19. siječnja 2026.\",\"fi\":\"Maanantai 19. tammikuuta 2026\",\"lv\":\"Pirmdiena, 2026. gada 19. janvāris\",\"ga\":\"Dé Luain, 19 Eanáir 2026\",\"nl\":\"Maandag 19 januari 2026\",\"en\":\"Monday, 19 January 2026\",\"it\":\"Lunedì 19 gennaio 2026\",\"da\":\"Mandag den 19. januar 2026\",\"pt\":\"Segunda-feira, 19 de Janeiro de 2026\",\"el\":\"Δευτέρα 19 Ιανουαρίου 2026\",\"es\":\"Lunes 19 de enero de 2026\",\"ro\":\"Luni, 19 ianuarie 2026\",\"pl\":\"Poniedziałek, 19 stycznia 2026\",\"de\":\"Montag, 19. Januar 2026\",\"sk\":\"Pondelok, 19. januára 2026\",\"lt\":\"Pirmadienis, 2026 m. sausio 19 d.\",\"sl\":\"Ponedeljek, 19. januar 2026\",\"sv\":\"Måndagen den 19 januari 2026\",\"et\":\"Esmaspäev, 19. jaanuar 2026\",\"cs\":\"Pondělí, 19. ledna 2026\",\"hu\":\"2026. január 19., hétfő\",\"fr\":\"Lundi 19 janvier 2026\",\"bg\":\"Понеделник, 19 януари 2026\"},\"activity_start_date\":\"2026-01-19T01:00:00+01:00\",\"consists_of\":[\"eli/dl/event/MTG-PL-2026-01-19-PVCRE-CHA-2\",\"eli/dl/event/MTG-PL-2026-01-19-PVCRE-ITM-2\",\"eli/dl/event/MTG-PL-2026-01-19-PVCRE-ITM-22\",\"eli/dl/event/MTG-PL-2026-01-19-PVCRE-ITM-20\",\"eli/dl/event/MTG-PL-2026-01-19-PVCRE-ITM-10\",\"eli/dl/event/MTG-PL-2026-01-19-PVCRE-ITM-11\",\"eli/dl/event/MTG-PL-2026-01-19-PVCRE-ITM-3\",\"eli/dl/event/MTG-PL-2026-01-19-PVCRE-ITM-13\",\"eli/dl/event/MTG-PL-2026-01-19-PVCRE-ITM-8\",\"eli/dl/event/MTG-PL-2026-01-19-PVCRE-ITM-12\",\"eli/dl/event/MTG-PL-2026-01-19-PVCRE-ITM-9\",\"eli/dl/event/MTG-PL-2026-01-19-PVCRE-ITM-4\",\"eli/dl/event/MTG-PL-2026-01-19-PVCRE-ITM-14\",\"eli/dl/event/MTG-PL-2026-01-19-PVCRE-ITM-7\",\"eli/dl/event/MTG-PL-2026-01-19-PVCRE-ITM-17\",\"eli/dl/event/MTG-PL-2026-01"
-  },
-  "/plenary-documents?year=2026&format=application%2Fld%2Bjson&limit=3": {
-   "status": 200,
-   "bytes": 602,
-   "head": "{\"data\":[{\"id\":\"eli/dl/doc/A-10-2026-0001\",\"type\":\"Work\",\"work_type\":\"def/ep-document-types/REPORT_PLENARY\",\"identifier\":\"A-10-2026-0001\",\"label\":\"A10-0001/2026\"},{\"id\":\"eli/dl/doc/A-10-2026-0002\",\"type\":\"Work\",\"work_type\":\"def/ep-document-types/REPORT_PLENARY\",\"identifier\":\"A-10-2026-0002\",\"label\":\"A10-0002/2026\"},{\"id\":\"eli/dl/doc/A-10-2026-0003\",\"type\":\"Work\",\"work_type\":\"def/ep-document-types/REPORT_PLENARY\",\"identifier\":\"A-10-2026-0003\",\"label\":\"A10-0003/2026\"}],\"@context\":[{\"data\":\"@graph\",\"@base\":\"https://data.europarl.europa.eu/\"},\"https://data.europarl.europa.eu/api/v2/context.jsonld\"]}"
+   },
+   "types": {},
+   "items": 0
   }
  }
 }

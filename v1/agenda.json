@@ -1,10 +1,15 @@
 {
- "checked": "2026-10-03",
+ "checked": "2026-10-05",
  "source": "https://www.europarl.europa.eu/plenary/en/agendas.html",
  "sessions": {
   "2026-10-05": {
-   "stage": "final-draft",
-   "updated": "2026-10-02",
+   "stage": "agenda",
+   "updated": "2026-10-05",
+   "link": "https://www.europarl.europa.eu/plenary/en/agendas.html",
+   "src": {
+    "api": "foreseen-activities",
+    "sha256": "0afc39e713a132ec5901e1fa39df856de1db8c96a9c7b6d8084f179cf7ce205e"
+   },
    "days": {
     "2026-10-05": [
      {
@@ -14,411 +19,442 @@
      },
      {
       "time": "17:30–17:45",
-      "type": "statement",
-      "title": "Parliament's statement: Humanitarian situation in Ukraine",
-      "sub": "One round of political group speakers"
+      "type": "debate",
+      "title": "Humanitarian situation in Ukraine",
+      "sub": "2026/2903(RSP)"
      },
      {
       "time": "17:45–18:45",
       "type": "debate",
       "title": "Psychosocial risks, stress and mental health at work",
-      "sub": "A10-0225/2026",
-      "rapporteur": "Ceulemans",
-      "committee": "EMPL",
+      "sub": "A10-0225/2026 · 2026/2023(INL)",
+      "rapporteur": "Estelle Ceulemans",
       "rapporteurs": [
        "256880"
-      ]
+      ],
+      "committee": "EMPL"
      },
      {
-      "time": "18:45–20:00",
-      "type": "statement",
-      "title": "Commission statement: Protecting patients from illegal and falsified medicines sold online",
-      "sub": "Strengthening enforcement and cross-border cooperation · followed by one-minute speeches (Rule 179)"
+      "time": "18:45–21:00",
+      "type": "debate",
+      "title": "Protecting patients from illegal and falsified medicines sold online: strengthening enforcement and cross-border cooperation",
+      "sub": "2026/2904(RSP)"
+     },
+     {
+      "time": "18:45–21:00",
+      "type": "debate",
+      "title": "One-minute speeches (Rule 179)"
      }
     ],
     "2026-10-06": [
      {
       "time": "09:00–10:30",
       "type": "debate",
-      "title": "Key debate: Preparation of the European Council meeting of 15–16 October 2026",
-      "sub": "Council and Commission statements"
+      "title": "Preparation of the European Council meeting of 15-16 October 2026",
+      "sub": "2026/2856(RSP)"
      },
      {
       "time": "10:30–12:00",
       "type": "debate",
-      "title": "Key debate: This is Europe",
-      "sub": "Debate with the Prime Minister of Portugal, Luís Montenegro"
+      "title": "This is Europe - Debate with the Prime Minister of Portugal, Luís Montenegro",
+      "sub": "2026/2905(RSP)"
      },
      {
       "time": "12:00–13:00",
       "type": "votes",
-      "title": "Voting time",
-      "sub": "9 items on the voting list"
-     },
-     {
-      "time": "",
-      "type": "votes",
-      "title": "Request for the waiver of the immunity of Matteo Ricci",
-      "sub": "A10-0255/2026",
-      "rapporteur": "Piera",
-      "committee": "JURI",
+      "title": "Economic and budgetary surveillance of Member States in the euro area experiencing or threatened with serious difficulties with respect to their financial stability",
+      "sub": "C10-0232/2025 · A10-0097/2026 · ***I",
+      "rapporteur": "Markus Ferber, Carla Tavares",
       "rapporteurs": [
-       "256877"
-      ]
+       "1917",
+       "257071"
+      ],
+      "committee": "ECON"
      },
      {
-      "time": "",
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "Psychosocial risks, stress and mental health at work",
+      "sub": "A10-0225/2026 · 2026/2023(INL)",
+      "rapporteur": "Estelle Ceulemans",
+      "rapporteurs": [
+       "256880"
+      ],
+      "committee": "EMPL"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "Alignment with the EU economic governance framework and further simplification of that framework",
+      "sub": "C10-0227/2025 · A10-0099/2026 · ***I",
+      "rapporteur": "Markus Ferber, Carla Tavares",
+      "rapporteurs": [
+       "1917",
+       "257071"
+      ],
+      "committee": "ECON"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "Funding arrangements and the use of a diversified funding strategy",
+      "sub": "C10-0123/2026 · A10-0206/2026 · ***",
+      "rapporteur": "Markus Ferber, Carla Tavares",
+      "rapporteurs": [
+       "1917",
+       "257071"
+      ],
+      "committee": "ECON"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "Protection of workers from the risks related to exposure to carcinogens or mutagens at work",
+      "sub": "C10-0180/2025 · A10-0100/2026 · ***I",
+      "rapporteur": "Liesbet Sommen",
+      "rapporteurs": [
+       "256889"
+      ],
+      "committee": "EMPL"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "The EU’s approach to corporate tax policy in a changing international environment",
+      "sub": "A10-0238/2026 · 2025/2210(INI)",
+      "rapporteur": "Kinga Kollár",
+      "rapporteurs": [
+       "256861"
+      ],
+      "committee": "ECON"
+     },
+     {
+      "time": "12:00–13:00",
       "type": "votes",
       "title": "Programme for agile and rapid defence innovation (AGILE)",
-      "sub": "A10-0188/2026 · ***I",
-      "rapporteur": "Picula, Ijabs",
-      "committee": "SEDE/ITRE",
+      "sub": "C10-0089/2026 · A10-0188/2026 · ***I",
+      "rapporteur": "Tonino Picula, Ivars Ijabs",
       "rapporteurs": [
        "112744",
        "197624"
-      ]
+      ],
+      "committee": "SEDE"
      },
      {
-      "time": "",
+      "time": "12:00–13:00",
       "type": "votes",
-      "title": "Protection of workers from the risks related to exposure to carcinogens or mutagens at work",
-      "sub": "A10-0100/2026 · ***I",
-      "rapporteur": "Sommen",
-      "committee": "EMPL",
-      "rapporteurs": [
-       "256889"
-      ]
-     },
-     {
-      "time": "",
-      "type": "votes",
-      "title": "Alignment with the EU economic governance framework and further simplification of that framework",
-      "sub": "A10-0099/2026 · ***I",
-      "rapporteur": "Ferber, Tavares",
-      "committee": "ECON",
-      "rapporteurs": [
-       "1917",
-       "257071"
-      ]
-     },
-     {
-      "time": "",
-      "type": "votes",
-      "title": "Economic and budgetary surveillance of Member States in the euro area experiencing or threatened with serious difficulties with respect to their financial stability",
-      "sub": "A10-0097/2026 · ***I",
-      "rapporteur": "Ferber, Tavares",
-      "committee": "ECON",
-      "rapporteurs": [
-       "1917",
-       "257071"
-      ]
-     },
-     {
-      "time": "",
-      "type": "votes",
-      "title": "Funding arrangements and the use of a diversified funding strategy",
-      "sub": "A10-0206/2026 · ***",
-      "rapporteur": "Ferber, Tavares",
-      "committee": "ECON",
-      "rapporteurs": [
-       "1917",
-       "257071"
-      ]
-     },
-     {
-      "time": "",
-      "type": "votes",
-      "title": "Simplification of certain requirements for spatial information infrastructure in the Union (INSPIRE)",
-      "sub": "A10-0233/2026 · ***I · Omnibus VIII on environmental legislation",
-      "rapporteur": "Wiesner",
-      "committee": "ENVI",
+      "title": "Simplification of certain requirements for spatial information infrastructure in the Union (INSPIRE) (Omnibus VIII on environmental legislation)",
+      "sub": "C10-0338/2025 · A10-0233/2026 · ***I",
+      "rapporteur": "Emma Wiesner",
       "rapporteurs": [
        "214839"
-      ]
+      ],
+      "committee": "ENVI"
      },
      {
-      "time": "",
+      "time": "12:00–13:00",
       "type": "votes",
-      "title": "Psychosocial risks, stress and mental health at work",
-      "sub": "A10-0225/2026",
-      "rapporteur": "Ceulemans",
-      "committee": "EMPL",
+      "title": "Request for the waiver of the immunity of Matteo Ricci",
+      "sub": "A10-0255/2026 · 2026/2077(IMM)",
+      "rapporteur": "Pascale Piera",
       "rapporteurs": [
-       "256880"
-      ]
-     },
-     {
-      "time": "",
-      "type": "votes",
-      "title": "The EU's approach to corporate tax policy in a changing international environment",
-      "sub": "A10-0238/2026",
-      "rapporteur": "Kollár",
-      "committee": "ECON",
-      "rapporteurs": [
-       "256861"
-      ]
+       "256877"
+      ],
+      "committee": "JURI"
      },
      {
       "time": "13:00–14:30",
-      "type": "statement",
+      "type": "debate",
       "title": "Affordable Housing Act",
-      "sub": "Council and Commission statements · debate or at the end of the votes"
+      "sub": "2026/2918(RSP)"
      },
      {
       "time": "14:30–15:00",
-      "type": "statement",
-      "title": "Commission statement: Pilot project on European Schools Alliances and its contribution to citizenship education, democratic competences and European values",
-      "sub": "One round of political group speakers · vote Thursday"
+      "type": "debate",
+      "title": "Pilot project on European Schools Alliances and its contribution to citizenship education, democratic competences and European values",
+      "sub": "2026/2713(RSP)"
      },
      {
       "time": "15:00–16:00",
-      "type": "other",
-      "title": "Question Time (Commission): Implementation of the Methane Regulation",
-      "sub": "Scrutiny session"
+      "type": "debate",
+      "title": "Question Time (Commission) - Implementation of the Methane Regulation"
      },
      {
       "time": "16:00–17:30",
-      "type": "statement",
-      "title": "Commission statement: Effective measures to protect and empower children in the digital world"
+      "type": "debate",
+      "title": "Effective measures to protect and empower children in the digital world",
+      "sub": "2026/2915(RSP)"
      },
      {
       "time": "17:30–18:30",
       "type": "debate",
       "title": "Recommendation on EU-China political relations",
-      "sub": "A10-0237/2026 · Rule 121",
-      "rapporteur": "Vautmans",
-      "committee": "AFET",
+      "sub": "A10-0237/2026 · 2025/2117(INI)",
+      "rapporteur": "Hilde Vautmans",
       "rapporteurs": [
        "130100"
-      ]
+      ],
+      "committee": "AFET"
      },
      {
       "time": "18:30–19:15",
-      "type": "statement",
-      "title": "Statement by the VP/HR: The 2026 undemocratic elections to the Russian State Duma and its implications on civil society",
-      "sub": "Vote Thursday"
+      "type": "debate",
+      "title": "The 2026 undemocratic elections to the Russian State Duma and its implications on civil society",
+      "sub": "2026/2907(RSP)"
      },
      {
       "time": "19:15–20:00",
       "type": "debate",
-      "title": "Oral question: The state of play of advancing EU-Africa trade and investment relations",
-      "sub": "Commission: O-000041/2026 · vote Thursday",
+      "title": "The state of play of advancing EU-Africa trade and investment relations",
+      "sub": "2026/2624(RSP)",
+      "rapporteur": "Bernd Lange",
+      "rapporteurs": [
+       "1909"
+      ],
       "committee": "INTA"
+     },
+     {
+      "time": "19:15–20:00",
+      "type": "debate",
+      "title": "Explanations of votes"
      }
     ],
     "2026-10-07": [
      {
       "time": "09:00–10:30",
-      "type": "statement",
-      "title": "An ambitious Multiannual Financial Framework 2028–2034 for a strong and resilient Europe",
-      "sub": "Council and Commission statements"
+      "type": "debate",
+      "title": "An ambitious Multiannual Financial Framework 2028 - 2034 for a strong and resilient Europe",
+      "sub": "2026/2909(RSP)"
      },
      {
       "time": "10:30–11:50",
-      "type": "statement",
+      "type": "debate",
       "title": "Empowering Europeans to address the cost-of-living crisis",
-      "sub": "Council and Commission statements"
+      "sub": "2026/2906(RSP)"
      },
      {
       "time": "12:00–13:00",
       "type": "votes",
-      "title": "Voting time",
-      "sub": "7 items on the voting list"
-     },
-     {
-      "time": "",
-      "type": "votes",
-      "title": "CO2 emission class of heavy-duty vehicles with trailers",
-      "sub": "A10-0131/2026 · ***I",
-      "rapporteur": "Ricci",
-      "committee": "TRAN",
-      "rapporteurs": [
-       "257121"
-      ]
-     },
-     {
-      "time": "",
-      "type": "votes",
       "title": "Empowering France to accede to the Inter-American Convention for the Protection and Conservation of Sea Turtles",
-      "sub": "A10-0095/2026 · ***I",
-      "rapporteur": "Maran, Camara",
-      "committee": "ENVI/PECH",
+      "sub": "C10-0300/2025 · A10-0095/2026 · ***I",
+      "rapporteur": "Pierfrancesco Maran, Mélissa Camara",
       "rapporteurs": [
        "257727",
        "256915"
-      ]
+      ],
+      "committee": "ENVI"
      },
      {
-      "time": "",
+      "time": "12:00–13:00",
       "type": "votes",
-      "title": "Consular protection for unrepresented citizens of the Union in third countries",
-      "sub": "A10-0254/2026 · *",
-      "rapporteur": "Düpont",
-      "committee": "LIBE",
-      "rapporteurs": [
-       "99945"
-      ]
-     },
-     {
-      "time": "",
-      "type": "votes",
-      "title": "European Globalisation Adjustment Fund: application EGF/2026/002 ES/Galicia automotive ancillary, Spain",
-      "sub": "A10-0242/2026",
-      "rapporteur": "Gómez López",
-      "committee": "BUDG",
-      "rapporteurs": [
-       "256997"
-      ]
-     },
-     {
-      "time": "",
-      "type": "votes",
-      "title": "European Globalisation Adjustment Fund: application EGF/2026/003 FI/Valmet Automotive, Finland",
-      "sub": "A10-0243/2026",
-      "rapporteur": "Ștefănuță",
-      "committee": "BUDG",
+      "title": "Mobilisation of the European Globalisation Adjustment Fund for Displaced Workers: application EGF/2026/003 FI/Valmet Automotive - Finland",
+      "sub": "C10-0199/2026 · A10-0243/2026 · 2026/0220(BUD)",
+      "rapporteur": "Nicolae Ștefănuță",
       "rapporteurs": [
        "58766"
-      ]
+      ],
+      "committee": "BUDG"
      },
      {
-      "time": "",
-      "type": "votes",
-      "title": "European Globalisation Adjustment Fund: application EGF/2026/001 BE/Cora, Belgium",
-      "sub": "A10-0241/2026",
-      "rapporteur": "Sousa Silva",
-      "committee": "BUDG",
-      "rapporteurs": [
-       "257068"
-      ]
-     },
-     {
-      "time": "",
+      "time": "12:00–13:00",
       "type": "votes",
       "title": "Recommendation on EU-China political relations",
-      "sub": "A10-0237/2026",
-      "rapporteur": "Vautmans",
-      "committee": "AFET",
+      "sub": "A10-0237/2026 · 2025/2117(INI)",
+      "rapporteur": "Hilde Vautmans",
       "rapporteurs": [
        "130100"
-      ]
+      ],
+      "committee": "AFET"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "Mobilisation of the European Globalisation Adjustment Fund for Displaced Workers: application EGF/2026/002 ES/ Galicia automotive ancillary - Spain",
+      "sub": "C10-0198/2026 · A10-0242/2026 · 2026/0195(BUD)",
+      "rapporteur": "Sandra Gómez López",
+      "rapporteurs": [
+       "256997"
+      ],
+      "committee": "BUDG"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "CO2 emission class of heavy-duty vehicles with trailers",
+      "sub": "C10-0235/2025 · A10-0131/2026 · ***I",
+      "rapporteur": "Matteo Ricci",
+      "rapporteurs": [
+       "257121"
+      ],
+      "committee": "TRAN"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "Consular protection for unrepresented citizens of the Union in third countries",
+      "sub": "C9-0015/2024 · C10-0027/2026 · A10-0254/2026 · *",
+      "rapporteur": "Lena Düpont",
+      "rapporteurs": [
+       "99945"
+      ],
+      "committee": "LIBE"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "Mobilisation of the European Globalisation Adjustment Fund for Displaced Workers: application EGF/2026/001 BE/Cora - Belgium",
+      "sub": "C10-0200/2026 · A10-0241/2026 · 2026/0197(BUD)",
+      "rapporteur": "Hélder Sousa Silva",
+      "rapporteurs": [
+       "257068"
+      ],
+      "committee": "BUDG"
      },
      {
       "time": "13:00–13:45",
       "type": "debate",
-      "title": "Topical debate (Greens/EFA, Rule 169): Urgent need for a tax on super profits of polluters",
-      "sub": "Protecting people's health and lowering energy bills in times of the climate crisis · debate or at the end of the votes"
+      "title": "Topical debate requested by a political group (Greens/EFA) (Rule 169) - Urgent need for a tax on super profits of polluters: protecting people’s health and lowering energy bills in times of the climate crisis"
      },
      {
       "time": "13:45–14:45",
       "type": "debate",
-      "title": "Oral question: The upcoming EU anti-corruption strategy",
-      "sub": "Commission: O-000031/2026",
+      "title": "The upcoming EU anti-corruption strategy",
+      "sub": "2026/2790(RSP)",
+      "rapporteur": "Javier Zarzalejos",
+      "rapporteurs": [
+       "197606"
+      ],
       "committee": "LIBE"
      },
      {
       "time": "14:45–16:15",
-      "type": "statement",
+      "type": "debate",
       "title": "Ensuring promotion of clean energy in European policies",
-      "sub": "Council and Commission statements"
+      "sub": "2026/2867(RSP)"
      },
      {
       "time": "16:15–17:45",
-      "type": "statement",
+      "type": "debate",
       "title": "The need for an EU strategy to counter Islamist entryism and the influence of the Muslim Brotherhood network",
-      "sub": "Council and Commission statements"
+      "sub": "2026/2868(RSP)"
      },
      {
       "time": "17:45–19:00",
-      "type": "statement",
+      "type": "debate",
       "title": "Implementation of the Nature Restoration Regulation",
-      "sub": "Council and Commission statements"
+      "sub": "2026/2910(RSP)"
      },
      {
       "time": "19:00–20:00",
       "type": "debate",
-      "title": "Debates on breaches of human rights, democracy and the rule of law (Rule 150)",
-      "sub": "Iran: the cases of Taraneh Rahimi and Leila Abolhasani · Georgia: attempts by Georgian Dream to ban opposition parties · Azerbaijan: Ali Karimli, Anar Mammadli and other political prisoners · followed by explanations of votes"
+      "title": "The cases of Ali Karimli, Anar Mammadli and other political prisoners in Azerbaijan",
+      "sub": "2026/2914(RSP)"
+     },
+     {
+      "time": "19:00–20:00",
+      "type": "debate",
+      "title": "Explanations of votes"
+     },
+     {
+      "time": "19:00–20:00",
+      "type": "debate",
+      "title": "Attempts by the ruling party Georgian Dream to ban opposition parties in Georgia",
+      "sub": "2026/2913(RSP)"
+     },
+     {
+      "time": "19:00–20:00",
+      "type": "debate",
+      "title": "Human rights situation in Iran, notably the cases of Taraneh Rahimi and Leila Abolhasani",
+      "sub": "2026/2912(RSP)"
      }
     ],
     "2026-10-08": [
      {
-      "time": "09:00–10:00",
-      "type": "statement",
-      "title": "Commission statement: Escalations in the Eastern Mediterranean and the Aegean following persistent Turkish provocations"
+      "time": "09:00–11:50",
+      "type": "debate",
+      "title": "Escalations in the Eastern Mediterranean and the Aegean following persistent Turkish provocations",
+      "sub": "2026/2908(RSP)"
      },
      {
       "time": "10:00–11:50",
-      "type": "statement",
-      "title": "Commission statement: EU strategies for islands, coastal communities and outermost regions"
+      "type": "debate",
+      "title": "EU strategies for islands, coastal communities and outermost regions",
+      "sub": "2026/2916(RSP)"
      },
      {
       "time": "12:00–14:00",
       "type": "votes",
-      "title": "Voting time",
-      "sub": "Includes the urgency resolutions (MRs)"
-     },
-     {
-      "time": "",
-      "type": "votes",
-      "title": "Objection pursuant to Rule 115(2), (3) and (4)(c): Lead in gunshot",
-      "sub": "Objection"
-     },
-     {
-      "time": "",
-      "type": "votes",
-      "title": "Human rights situation in Iran, notably the cases of Taraneh Rahimi and Leila Abolhasani",
-      "sub": "MRs"
-     },
-     {
-      "time": "",
-      "type": "votes",
-      "title": "Attempts by the ruling party Georgian Dream to ban opposition parties in Georgia",
-      "sub": "MRs"
-     },
-     {
-      "time": "",
-      "type": "votes",
-      "title": "The cases of Ali Karimli, Anar Mammadli and other political prisoners in Azerbaijan",
-      "sub": "MRs"
-     },
-     {
-      "time": "",
-      "type": "votes",
-      "title": "Pilot project on European Schools Alliances and its contribution to citizenship education, democratic competences and European values",
-      "sub": "MRs"
-     },
-     {
-      "time": "",
-      "type": "votes",
       "title": "The 2026 undemocratic elections to the Russian State Duma and its implications on civil society",
-      "sub": "MRs"
+      "sub": "2026/2907(RSP)"
      },
      {
-      "time": "",
+      "time": "12:00–14:00",
       "type": "votes",
-      "title": "The state of play of advancing EU-Africa trade and investment relations",
-      "sub": "MRs",
+      "title": "Motions for resolutions - The state of play of advancing EU-Africa trade and investment relations",
+      "sub": "2026/2624(RSP)",
+      "rapporteur": "Bernd Lange",
+      "rapporteurs": [
+       "1909"
+      ],
       "committee": "INTA"
      },
      {
-      "time": "",
+      "time": "12:00–14:00",
       "type": "votes",
-      "title": "The upcoming EU anti-corruption strategy",
-      "sub": "MRs",
+      "title": "Human rights situation in Iran, notably the cases of Taraneh Rahimi and Leila Abolhasani",
+      "sub": "2026/2912(RSP)"
+     },
+     {
+      "time": "12:00–14:00",
+      "type": "votes",
+      "title": "Motions for resolutions - The upcoming EU anti-corruption strategy",
+      "sub": "2026/2790(RSP)",
+      "rapporteur": "Javier Zarzalejos",
+      "rapporteurs": [
+       "197606"
+      ],
       "committee": "LIBE"
      },
      {
-      "time": "",
+      "time": "12:00–14:00",
+      "type": "votes",
+      "title": "Pilot project on European Schools Alliances and its contribution to citizenship education, democratic competences and European values",
+      "sub": "2026/2713(RSP)"
+     },
+     {
+      "time": "12:00–14:00",
       "type": "votes",
       "title": "The need for an EU strategy to counter Islamist entryism and the influence of the Muslim Brotherhood network",
-      "sub": "MRs"
+      "sub": "2026/2868(RSP)"
+     },
+     {
+      "time": "12:00–14:00",
+      "type": "votes",
+      "title": "The cases of Ali Karimli, Anar Mammadli and other political prisoners in Azerbaijan",
+      "sub": "2026/2914(RSP)"
+     },
+     {
+      "time": "12:00–14:00",
+      "type": "votes",
+      "title": "Objection pursuant to Rule 115(2), (3) and (4)(c): Lead in gunshot",
+      "sub": "2026/2824(RPS)"
+     },
+     {
+      "time": "12:00–14:00",
+      "type": "votes",
+      "title": "Attempts by the ruling party Georgian Dream to ban opposition parties in Georgia",
+      "sub": "2026/2913(RSP)"
      },
      {
       "time": "15:00–16:00",
-      "type": "statement",
-      "title": "Commission statement: UN Convention on the Rights of Older Persons",
-      "sub": "Followed by explanations of votes"
+      "type": "debate",
+      "title": "Explanations of votes"
+     },
+     {
+      "time": "15:00–16:00",
+      "type": "debate",
+      "title": "UN Convention on the Rights of Older Persons",
+      "sub": "2026/2919(RSP)"
      }
     ]
    }
