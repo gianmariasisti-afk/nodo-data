@@ -33,11 +33,11 @@ const ENT = { "&nbsp;": " ", "&amp;": "&", "&quot;": '"', "&#039;": "'", "&#39;"
 const dec = (s) => s.replace(/&[a-z]+;|&#\d+;/gi, (m) => ENT[m] ?? (/^&#(\d+);$/.test(m) ? String.fromCharCode(+m.slice(2, -1)) : m));
 export function toLines(html) {
   const main = (html.match(/<main[\s\S]*<\/main>/) || [html])[0];
-  return dec(main.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/g, " ").replace(/<\/(p|li|div|h[1-6]|tr|ul|ol|section|article)>|<br\s*\/?>/gi, "\n").replace(/<[^>]+>/g, " "))
+  return dec(main.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/g, " ").replace(/<\/(p|li|div|h[1-6]|tr|ul|ol|section|article)>|<br\s*\/?>/gi, "\n").replace(/<[^>]+>/g, ""))
     .split("\n").map((l) => l.replace(/\s+/g, " ").trim()).filter(Boolean);
 }
 const deob = (s) => s.replace(/\s*\[\s*dot\s*\]\s*/gi, ".").replace(/\s*\[\s*at\s*\]\s*/gi, "@");
-const isRole = (l) => /^[A-Z][A-Z0-9 /,&()'’.:-]{2,90}$/.test(l) && /[A-Z]{3}/.test(l) && !/^(EMAIL|PHONE|RESPONSIBILITIES|PRESS CONTACTS)\b/.test(l);
+const isRole = (l) => /^\p{Lu}[\p{Lu}0-9 /,&()'’.:-]{2,120}$/u.test(l) && /\p{Lu}{3}/u.test(l) && !/^(EMAIL|PHONE|RESPONSIBILITIES|PRESS CONTACTS)\b/.test(l);
 
 /* A team page lists people as: Name / ROLE / Email: … / Phone number: … / Responsibilities / items / Responsibilities outside the portfolio / items / Country coordinator: … */
 export function parseTeam(lines) {
@@ -54,7 +54,7 @@ export function parseTeam(lines) {
     if (/^Phone number:/i.test(l)) { cur.phone = l.replace(/^Phone number:\s*/i, "").trim(); mode = ""; continue; }
     if (/^Responsibilities outside the portfolio/i.test(l)) { mode = "outside"; continue; }
     if (/^Responsibilities$/i.test(l)) { mode = "resp"; continue; }
-    if (/^Country coordinator:?/i.test(l)) { cur.countries = l.replace(/^Country coordinator:?\s*/i, "").split(/[,;]/).map((x) => x.trim()).filter(Boolean).map((x) => COUNTRY[x.toLowerCase()] || x); mode = ""; continue; }
+    if (/^Country coordinator:?/i.test(l)) { cur.countries = l.replace(/^Country coordinator:?\s*/i, "").split(/[,;]/).map((x) => x.trim()).filter(Boolean).map((x) => x.replace(/\(.*?\)/g, "").replace(/^the\s+/i, "").trim()).filter(Boolean).map((x) => COUNTRY[x.toLowerCase()] || x); mode = ""; continue; }
     if (isRole(lines[i + 1] || "") && /^Email/i.test(lines[i + 2] || "")) continue; /* next person's name */
     if (mode === "resp") cur.resp.push(l); else if (mode === "outside") cur.outside.push(l);
   }
