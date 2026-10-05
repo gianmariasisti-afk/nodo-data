@@ -3,12 +3,12 @@
  "source": "https://www.europarl.europa.eu/plenary/en/agendas.html",
  "sessions": {
   "2026-10-05": {
-   "stage": "agenda",
+   "stage": "updated",
    "updated": "2026-10-05",
    "link": "https://www.europarl.europa.eu/plenary/en/agendas.html",
    "src": {
     "api": "foreseen-activities",
-    "sha256": "0afc39e713a132ec5901e1fa39df856de1db8c96a9c7b6d8084f179cf7ce205e"
+    "sha256": "c87e584d0a1ab2285799d198df46be1431d8fa22324c3444a85f9b5ba2ff2c18"
    },
    "days": {
     "2026-10-05": [
@@ -35,15 +35,21 @@
       "committee": "EMPL"
      },
      {
-      "time": "18:45–21:00",
+      "time": "18:45–19:30",
       "type": "debate",
       "title": "Protecting patients from illegal and falsified medicines sold online: strengthening enforcement and cross-border cooperation",
       "sub": "2026/2904(RSP)"
      },
      {
-      "time": "18:45–21:00",
+      "time": "19:30–21:00",
       "type": "debate",
       "title": "One-minute speeches (Rule 179)"
+     },
+     {
+      "time": "19:30–21:00",
+      "type": "debate",
+      "title": "Escalating student riots in France: arson attacks on schools, assaults against firefighters, police officers and teachers, including in La Ciotat, and the role of far-left parties in inciting violence",
+      "sub": "2026/2924(RSP)"
      }
     ],
     "2026-10-06": [
