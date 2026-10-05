@@ -129,6 +129,20 @@ async function main() {
   let listHtml = "";
   try { const l = await get(LIST_URL); probe.list = { status: l.status, bytes: l.body ? l.body.length : 0 }; listHtml = l.body ? l.body.toString("utf8") : ""; } catch (e) { probe.list = { error: String(e) }; }
 
+  if (listHtml.length < 5000 || process.env.PROBE === "1") probe.listSnippet = listHtml.slice(0, 1500);
+  const API = process.env.EP_API || "https://data.europarl.europa.eu/api/v2";
+  probe.api = {};
+  for (const s of upcoming.slice(0, 1)) {
+    const id = `MTG-PL-${s.start}`;
+    for (const ep of [`/meetings/${id}`, `/meetings/${id}/foreseen-activities?format=application%2Fld%2Bjson&limit=200`, `/meetings?year=${s.start.slice(0, 4)}&format=application%2Fld%2Bjson&limit=5`, `/plenary-documents?year=${s.start.slice(0, 4)}&format=application%2Fld%2Bjson&limit=3`]) {
+      try {
+        const r = await fetch(API + ep, { headers: { "User-Agent": "nodo-prd-1.0", Accept: "application/ld+json, application/json" } });
+        const t = await r.text();
+        probe.api[ep] = { status: r.status, bytes: t.length, head: t.slice(0, 1800) };
+      } catch (e) { probe.api[ep] = { error: String(e) }; }
+    }
+  }
+
   const notify = (await readJson(path.join(CACHE, "agenda-notify.json"), { pending: [] }));
   const unmatchedAll = {};
   let changed = false, parseFailed = false;
