@@ -54,7 +54,7 @@ export function parseTeam(lines) {
     if (/^Phone number:/i.test(l)) { cur.phone = l.replace(/^Phone number:\s*/i, "").trim(); mode = ""; continue; }
     if (/^Responsibilities outside the portfolio/i.test(l)) { mode = "outside"; continue; }
     if (/^Responsibilities$/i.test(l)) { mode = "resp"; continue; }
-    if (/^Country coordinator:?/i.test(l)) { cur.countries = l.replace(/^Country coordinator:?\s*/i, "").split(/[,;]/).map((x) => x.trim()).filter(Boolean).map((x) => x.replace(/\(.*?\)/g, "").replace(/^the\s+/i, "").trim()).filter(Boolean).map((x) => COUNTRY[x.toLowerCase()] || x); mode = ""; continue; }
+    if (/^Country coordinator:?/i.test(l)) { cur.countries = l.replace(/^Country coordinator:?\s*/i, "").split(/[,;]| and /).map((x) => x.trim()).filter(Boolean).map((x) => x.replace(/\(.*?\)/g, "").replace(/^the\s+/i, "").trim()).filter(Boolean).map((x) => COUNTRY[x.toLowerCase()] || x); mode = ""; continue; }
     if (isRole(lines[i + 1] || "") && /^Email/i.test(lines[i + 2] || "")) continue; /* next person's name */
     if (mode === "resp") cur.resp.push(l); else if (mode === "outside") cur.outside.push(l);
   }
