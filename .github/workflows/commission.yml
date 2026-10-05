@@ -5,6 +5,9 @@ on:
     - cron: "41 4 * * 1-5"
   workflow_dispatch:
     inputs:
+      report_only:
+        description: "1 = parse and report only, change no data"
+        default: ""
       probe_urls:
         description: "Diagnostics: comma-separated URLs to fetch instead of building (answers go to data-cache/commission-probe.json)"
         default: ""
@@ -26,17 +29,66 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Probe
-        if: ${{ inputs.probe_urls != '' }}
+      - name: Build
         env:
           PROBE_URLS: ${{ inputs.probe_urls }}
           PROBE_TEXT: "1"
-        run: node scripts/probe-url.mjs 2>&1 | tee build.log
-      - name: Commit probe answers
-        if: ${{ inputs.probe_urls != '' }}
+          REPORT_ONLY: ${{ inputs.report_only }}
+        run: |
+          set -o pipefail
+          if [ -n "$PROBE_URLS" ]; then node scripts/probe-url.mjs 2>&1 | tee build.log; else node scripts/build-commission.mjs 2>&1 | tee build.log; fi
+      - name: Commit to main
+        if: always()
         run: |
           git config user.name "nodo-data bot"
           git config user.email "actions@users.noreply.github.com"
-          git add data-cache/commission-probe.json
-          git commit -q -m "Commission probe" || exit 0
-          git pull -q --rebase origin main && git push -q origin HEAD:main
+          rm -rf "$RUNNER_TEMP/out"; mkdir -p "$RUNNER_TEMP/out"
+          cp v1/commission.json "$RUNNER_TEMP/out/commission.json" 2>/dev/null || true
+          cp data-cache/commission-report.json data-cache/commission-probe.json "$RUNNER_TEMP/out/" 2>/dev/null || true
+          cp data-cache/commission-structural.json data-cache/commission-proposed.json "$RUNNER_TEMP/out/" 2>/dev/null || true
+          node -e 'const f=require("fs");let m={};try{m=JSON.parse(f.readFileSync("v1/manifest.json","utf8"))}catch{};f.writeFileSync(process.env.RUNNER_TEMP+"/out/entry.json",JSON.stringify((m.files&&m.files.commission)||null))'
+          for i in 1 2 3 4; do
+            git fetch -q origin main
+            git reset -q --hard origin/main
+            mkdir -p data-cache
+            [ -z "${{ inputs.report_only }}" ] && [ -z "${{ inputs.probe_urls }}" ] && cp "$RUNNER_TEMP/out/commission.json" v1/commission.json 2>/dev/null || true
+            cp "$RUNNER_TEMP"/out/commission-report.json "$RUNNER_TEMP"/out/commission-probe.json data-cache/ 2>/dev/null || true
+            rm -f data-cache/commission-structural.json data-cache/commission-proposed.json
+            [ -f "$RUNNER_TEMP/out/commission-structural.json" ] && cp "$RUNNER_TEMP/out/commission-structural.json" data-cache/
+            node -e 'const f=require("fs");const e=JSON.parse(f.readFileSync(process.env.RUNNER_TEMP+"/out/entry.json","utf8"));if(e&&!process.env.SKIP){const m=JSON.parse(f.readFileSync("v1/manifest.json","utf8"));m.files=m.files||{};m.files.commission=e;m.generated=new Date().toISOString();f.writeFileSync("v1/manifest.json",JSON.stringify(m,null,1)+"\n")}'
+            git add v1 data-cache
+            if git diff --cached --quiet; then echo "Nothing new."; exit 0; fi
+            git commit -q -m "Update Commission and cabinets $(date -u +%F)"
+            if git push -q origin HEAD:main; then echo "Pushed."; exit 0; fi
+            echo "Push rejected, retrying ($i)"; sleep 5
+          done
+          echo "Could not push after 4 tries"; exit 1
+      - name: Review branch and issue for structural changes
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          [ -f "$RUNNER_TEMP/out/commission-structural.json" ] || exit 0
+          [ -z "${{ inputs.report_only }}" ] || exit 0
+          B="review/commission-$(date -u +%F)"
+          git fetch -q origin main && git checkout -q -B "$B" origin/main
+          cp "$RUNNER_TEMP/out/commission-proposed.json" v1/commission.json
+          git add v1/commission.json && git commit -q -m "Proposed Commission and cabinet changes $(date -u +%F)" && git push -q -f origin "$B"
+          gh label create commission --color 5319E7 --description "Commission and cabinet changes" 2>/dev/null || true
+          gh label create structural --color D93F0B --description "Needs a human decision" 2>/dev/null || true
+          T="Commission/cabinets: structural changes to review ($(date -u +%F))"
+          if ! gh issue list --state open --search "\"$T\" in:title" --json number --jq '.[0].number' | grep -q .; then
+            { echo "Small changes (phones, responsibilities) are already on main. These need a decision. The proposal is on branch \`$B\` (v1/commission.json); merge it to accept."; echo; echo '```json'; head -c 6000 "$RUNNER_TEMP/out/commission-structural.json"; echo '```'; } > issue.md
+            gh issue create --title "$T" --label commission --label structural --body-file issue.md
+          fi
+      - name: Open an issue when the build failed
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create structural --color D93F0B --description "Needs a human decision" 2>/dev/null || true
+          T="Commission build needs attention"
+          if ! gh issue list --state open --search "\"$T\" in:title" --json number --jq '.[0].number' | grep -q .; then
+            { echo "The Commission/cabinets build failed. Last lines of the log:"; echo; echo '```'; tail -n 40 build.log; echo '```'; echo; echo "Run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"; } > issue.md
+            gh issue create --title "$T" --label structural --body-file issue.md
+          fi
