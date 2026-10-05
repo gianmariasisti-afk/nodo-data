@@ -68,12 +68,16 @@ The GitHub Action "Update MEP activity" (`.github/workflows/activity.yml`) runs 
 
 Source: European Parliament Open Data Portal (API v2), CC BY 4.0.
 
-## Weekly routine
+## Plenary agenda automation
 
-1. The Parliament publishes the final draft agenda on the Thursday before a Strasbourg session.
-2. The agenda PDF is converted to `agenda.json` and rapporteurs are matched to MEP ids.
-3. `manifest.json` is regenerated and the files are committed to `main`.
-4. GitHub Pages republishes within about a minute.
+The GitHub Action "Update plenary agenda" (`.github/workflows/agenda.yml`, `scripts/build-agenda.mjs`) runs on weekdays at 05:17, 09:17, 13:17 and 17:17 UTC.
+
+1. For each Strasbourg session starting within 21 days it reads `/meetings/MTG-PL-<day>/foreseen-activities` from the EP Open Data API for every sitting day. The EP website sits behind a bot check that blocks GitHub runners, the API does not.
+2. Time slots, titles, procedure and document references, committees and rapporteurs come from the API. Rapporteurs carry their MEP id in the source, so they link to `meps.json` without name matching.
+3. `agenda.json` is rewritten only when the content changed. `stage` is `draft` when first seen more than 4 days before the session, `final-draft` within 4 days, `agenda` on the first sitting day and `updated` after later changes.
+4. A new session or a stage change appends to `data-cache/agenda-notify.json`. The weekday check reads it, sends one push notification per entry and clears it. The Action also opens an issue labelled `agenda`.
+5. Rapporteur ids missing from `meps.json` go to `data-cache/agenda-unmatched.json`, a `review/agenda-<date>` branch and an issue.
+6. If the API fails, the run fails and opens an issue labelled `structural`. `scripts/probe-api.mjs` (workflow input `probe_paths`) fetches any API path for diagnosis.
 
 ## Sources and reuse
 
