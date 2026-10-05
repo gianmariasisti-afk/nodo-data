@@ -109,7 +109,7 @@ async function main() {
       if (JSON.stringify(p.outside) !== JSON.stringify(o.outside)) upd.outside = p.outside;
       if (JSON.stringify(p.countries) !== JSON.stringify(o.countries)) upd.countries = p.countries;
       const em = keepEmail(p.email); if (em && em !== o.email) upd.email = em;
-      if (Object.keys(upd).length) { Object.assign(np, upd); Object.assign(pp, upd); auto.push({ commissioner: m.slug, name: p.name, fields: Object.keys(upd) }); }
+      if (Object.keys(upd).length) { Object.assign(np, upd); Object.assign(pp, upd); auto.push({ commissioner: m.slug, name: p.name, fields: Object.keys(upd), diff: Object.fromEntries(Object.keys(upd).map((k) => [k, { from: o[k], to: upd[k] }])) }); }
     }
     for (const p of added) {
       structural.push({ type: "added", commissioner: m.slug, name: p.name, role: p.role });
@@ -123,6 +123,7 @@ async function main() {
   for (const s of report.college.added) structural.push({ type: "commissioner-added", slug: s });
   for (const s of report.college.removed) structural.push({ type: "commissioner-removed", slug: s });
 
+  report.auto = auto.slice(0, 60); report.structural = structural;
   report.summary = { auto: auto.length, structural: structural.length, failed };
   await fs.writeFile(path.join(CACHE, "commission-report.json"), JSON.stringify(report, null, 1) + "\n");
   if (!REPORT_ONLY) {
