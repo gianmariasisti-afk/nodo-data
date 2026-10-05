@@ -1,0 +1,148 @@
+{
+ "at": "2026-10-05",
+ "changes": [
+  {
+   "type": "role",
+   "commissioner": "kaja-kallas",
+   "name": "Maya Lamanna",
+   "from": "Assistant to Julika Luts and Christian Jetzlsperger",
+   "to": "ASSISTANT TO CHRISTIAN JETZLSPERGER"
+  },
+  {
+   "type": "removed",
+   "commissioner": "kaja-kallas",
+   "name": "Julika Luts",
+   "role": "Personal Assistant / Member"
+  },
+  {
+   "type": "removed",
+   "commissioner": "wopke-hoekstra",
+   "name": "Olivia Gippner",
+   "role": "Member (absent)"
+  },
+  {
+   "type": "removed",
+   "commissioner": "costas-kadis",
+   "name": "Fleur Breuillin",
+   "role": "Member"
+  },
+  {
+   "type": "role",
+   "commissioner": "piotr-serafin",
+   "name": "Anne Funch Jensen",
+   "from": "Acting Deputy Head of Cabinet",
+   "to": "DEPUTY HEAD OF CABINET"
+  },
+  {
+   "type": "role",
+   "commissioner": "piotr-serafin",
+   "name": "Wouter Coussens",
+   "from": "Member",
+   "to": "CABINET EXPERT"
+  },
+  {
+   "type": "added",
+   "commissioner": "piotr-serafin",
+   "name": "Daniela Vatrachki",
+   "role": "MEMBER"
+  },
+  {
+   "type": "removed",
+   "commissioner": "dan-jorgensen",
+   "name": "Anne-Maud Orlinski",
+   "role": "Personal Assistant / Member"
+  },
+  {
+   "type": "removed",
+   "commissioner": "dan-jorgensen",
+   "name": "Päivi Roybin",
+   "role": "Assistant to Stella Kaltsouni and Aleksander Vigne / Anne-Maud Orlinski"
+  },
+  {
+   "type": "role",
+   "commissioner": "michael-mcgrath",
+   "name": "Kevin Barrett",
+   "from": "Cabinet Expert",
+   "to": "HEAD OF CABINET"
+  },
+  {
+   "type": "role",
+   "commissioner": "michael-mcgrath",
+   "name": "Simona Constantin",
+   "from": "Member",
+   "to": "CABINET EXPERT"
+  },
+  {
+   "type": "role",
+   "commissioner": "michael-mcgrath",
+   "name": "Egelyn Braun",
+   "from": "Personal Assistant / Member",
+   "to": "MEMBER"
+  },
+  {
+   "type": "role",
+   "commissioner": "michael-mcgrath",
+   "name": "Jördis Ferroli",
+   "from": "Member / Communication Adviser",
+   "to": "MEMBER"
+  },
+  {
+   "type": "role",
+   "commissioner": "michael-mcgrath",
+   "name": "Laetitia Close",
+   "from": "Policy Assistant / Communication Adviser",
+   "to": "PERSONAL ASSISTANT/COMMUNICATION ADVISER"
+  },
+  {
+   "type": "role",
+   "commissioner": "michael-mcgrath",
+   "name": "Sham Abdurahim",
+   "from": "Member",
+   "to": "POLICY ASSISTANT"
+  },
+  {
+   "type": "role",
+   "commissioner": "michael-mcgrath",
+   "name": "Lucy Maher",
+   "from": "Assistant to Simona Constantin and Laetitia Close",
+   "to": "ASSISTANT TO SIMONA CONSTANTIN AND MARIA ZAFRA SAURA"
+  },
+  {
+   "type": "role",
+   "commissioner": "michael-mcgrath",
+   "name": "Judit Szarka",
+   "from": "Assistant to the Head of Cabinet",
+   "to": "ASSISTANT TO EGELYN BRAUN AND JÖRDIS FERROLI"
+  },
+  {
+   "type": "added",
+   "commissioner": "michael-mcgrath",
+   "name": "Vittorio Argeri",
+   "role": "ASSISTANT TO THE HEAD OF CABINET"
+  },
+  {
+   "type": "removed",
+   "commissioner": "michael-mcgrath",
+   "name": "Fiona Knab-Lunny",
+   "role": "Head of Cabinet"
+  },
+  {
+   "type": "removed",
+   "commissioner": "michael-mcgrath",
+   "name": "Cédric Bourlier",
+   "role": "Policy Assistant"
+  },
+  {
+   "type": "removed",
+   "commissioner": "michael-mcgrath",
+   "name": "Esther Rico-Donovan",
+   "role": "Assistant to Kevin Barrett and Maria Zafra Saura"
+  },
+  {
+   "type": "removed",
+   "commissioner": "glenn-micallef",
+   "name": "Tamara Javorcikova",
+   "role": "Assistant to Wendy Ducatelle, Desislava Dimitrova and Mark Anthony Zarb"
+  }
+ ]
+}

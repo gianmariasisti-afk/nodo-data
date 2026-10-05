@@ -1,5 +1,5 @@
 {
- "run": "2026-10-05T08:00:58.495Z",
+ "run": "2026-10-05T08:02:59.627Z",
  "college": {
   "found": 26,
   "added": [],
@@ -508,30 +508,6 @@
     "phone": {
      "from": "",
      "to": "+32 2 29 91690"
-    }
-   }
-  },
-  {
-   "commissioner": "jessika-roswall",
-   "name": "Axel Hellman",
-   "fields": [
-    "countries"
-   ],
-   "diff": {
-    "countries": {
-     "from": [
-      "SE",
-      "FI",
-      "SK",
-      "United Kingdom",
-      "EEA/EFTA"
-     ],
-     "to": [
-      "SE",
-      "FI",
-      "SK",
-      "United Kingdom and EEA/EFTA"
-     ]
     }
    }
   },
@@ -1382,7 +1358,7 @@
   }
  ],
  "summary": {
-  "auto": 36,
+  "auto": 35,
   "structural": 22,
   "failed": 0
  }
