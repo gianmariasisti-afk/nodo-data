@@ -139,6 +139,7 @@ async function main() {
         const r = await fetch(API + ep, { headers: { "User-Agent": "nodo-prd-1.0", Accept: "application/ld+json, application/json" } });
         const t = await r.text();
         probe.api[ep] = { status: r.status, bytes: t.length, head: t.slice(0, 1800) };
+        if (/foreseen-activities/.test(ep) && r.ok) await fs.writeFile(path.join(CACHE, "agenda-api-sample.json"), t);
       } catch (e) { probe.api[ep] = { error: String(e) }; }
     }
   }
