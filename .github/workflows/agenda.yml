@@ -1,0 +1,97 @@
+name: Update plenary agenda
+
+on:
+  schedule:
+    - cron: "17 5,9,13,17 * * 1-5"
+  workflow_dispatch:
+    inputs:
+      days_ahead:
+        description: "Look for agendas of sessions starting within this many days"
+        default: "21"
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: agenda
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install pdftotext
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
+      - name: Build agenda
+        id: build
+        env:
+          DAYS_AHEAD: ${{ inputs.days_ahead || '21' }}
+        run: set -o pipefail; node scripts/build-agenda.mjs 2>&1 | tee build.log
+      - name: Commit agenda to main
+        if: always()
+        run: |
+          git config user.name "nodo-data bot"
+          git config user.email "actions@users.noreply.github.com"
+          rm -rf "$RUNNER_TEMP/out"; mkdir -p "$RUNNER_TEMP/out/v1" "$RUNNER_TEMP/out/dc"
+          cp v1/agenda.json "$RUNNER_TEMP/out/v1/" 2>/dev/null || true
+          cp -r v1/agenda "$RUNNER_TEMP/out/v1/agenda" 2>/dev/null || true
+          cp data-cache/agenda-* "$RUNNER_TEMP/out/dc/" 2>/dev/null || true
+          node -e 'const f=require("fs");let m={};try{m=JSON.parse(f.readFileSync("v1/manifest.json","utf8"))}catch{};f.writeFileSync(process.env.RUNNER_TEMP+"/out/entry.json",JSON.stringify((m.files&&m.files.agenda)||null))'
+          for i in 1 2 3 4; do
+            git fetch -q origin main
+            git reset -q --hard origin/main
+            mkdir -p v1 data-cache
+            cp "$RUNNER_TEMP/out/v1/agenda.json" v1/ 2>/dev/null || true
+            [ -d "$RUNNER_TEMP/out/v1/agenda" ] && { rm -rf v1/agenda; cp -r "$RUNNER_TEMP/out/v1/agenda" v1/agenda; }
+            cp "$RUNNER_TEMP"/out/dc/agenda-* data-cache/ 2>/dev/null || true
+            node -e 'const f=require("fs");const e=JSON.parse(f.readFileSync(process.env.RUNNER_TEMP+"/out/entry.json","utf8"));if(e){const m=JSON.parse(f.readFileSync("v1/manifest.json","utf8"));m.files=m.files||{};m.files.agenda=e;m.generated=new Date().toISOString();f.writeFileSync("v1/manifest.json",JSON.stringify(m,null,1)+"\n")}'
+            git add v1 data-cache
+            if git diff --cached --quiet; then echo "Nothing new."; exit 0; fi
+            git commit -q -m "Update plenary agenda $(date -u +%F)"
+            if git push -q origin HEAD:main; then echo "Pushed."; exit 0; fi
+            echo "Push rejected, retrying ($i)"; sleep 5
+          done
+          echo "Could not push after 4 tries"; exit 1
+      - name: Review branch and issue for unmatched rapporteurs
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          [ -f data-cache/agenda-unmatched.json ] || exit 0
+          B="review/agenda-$(date -u +%F)"
+          git checkout -q -B "$B"
+          git push -q -f origin "$B"
+          gh label create agenda --color 1D76DB --description "Plenary agenda updates" 2>/dev/null || true
+          T="Agenda: rapporteurs to match ($(date -u +%F))"
+          if ! gh issue list --state open --search "\"$T\" in:title" --json number --jq '.[0].number' | grep -q .; then
+            { echo "Some rapporteur names did not match a single MEP. The agenda is already live; these names show as plain text."; echo; echo '```json'; cat data-cache/agenda-unmatched.json; echo '```'; echo; echo "Branch: $B"; } > um.md
+            gh issue create --title "$T" --label agenda --body-file um.md
+          fi
+      - name: Announce a new agenda
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git fetch -q origin main && git checkout -q -f origin/main 2>/dev/null || true
+          grep -q '"changed": true' build.log || exit 0
+          [ -f data-cache/agenda-notify.json ] || exit 0
+          node -e 'const n=JSON.parse(require("fs").readFileSync("data-cache/agenda-notify.json","utf8"));const p=n.pending||[];if(!p.length)process.exit(1);console.log(p.map(x=>`- **${x.session}** (${x.stage}): https://github.com/${process.env.GITHUB_REPOSITORY}/raw/main/${x.pdf}`).join("\n"))' > ann.md || exit 0
+          gh label create agenda --color 1D76DB --description "Plenary agenda updates" 2>/dev/null || true
+          gh issue create --title "Agenda found ($(date -u '+%F %H:%M'))" --label agenda --body-file ann.md || true
+      - name: Open an issue when the build failed
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create structural --color D93F0B --description "Needs a human decision" 2>/dev/null || true
+          T="Agenda build needs attention"
+          if ! gh issue list --state open --search "\"$T\" in:title" --json number --jq '.[0].number' | grep -q .; then
+            { echo "The agenda build failed. Last lines of the log:"; echo; echo '```'; tail -n 40 build.log; echo '```'; echo; echo "Run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"; } > issue.md
+            gh issue create --title "$T" --label structural --body-file issue.md
+          fi
