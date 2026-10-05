@@ -87,7 +87,7 @@ jobs:
           git fetch -q origin main && git checkout -q -f origin/main 2>/dev/null || true
           grep -q '"changed": true' build.log || exit 0
           [ -f data-cache/agenda-notify.json ] || exit 0
-          node -e 'const n=JSON.parse(require("fs").readFileSync("data-cache/agenda-notify.json","utf8"));const p=n.pending||[];if(!p.length)process.exit(1);console.log(p.map(x=>`- **${x.session}** (${x.stage}): https://github.com/${process.env.GITHUB_REPOSITORY}/raw/main/${x.pdf}`).join("\n"))' > ann.md || exit 0
+          node -e 'const n=JSON.parse(require("fs").readFileSync("data-cache/agenda-notify.json","utf8"));const p=n.pending||[];if(!p.length)process.exit(1);console.log(p.map(x=>`- **${x.session}** (${x.stage}, ${x.items} items): ${x.link}`).join("\n"))' > ann.md || exit 0
           gh label create agenda --color 1D76DB --description "Plenary agenda updates" 2>/dev/null || true
           gh issue create --title "Agenda found ($(date -u '+%F %H:%M'))" --label agenda --body-file ann.md || true
       - name: Open an issue when the build failed

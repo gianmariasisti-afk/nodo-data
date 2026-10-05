@@ -1,192 +1,163 @@
 /* Plenary agenda builder.
-   Finds the agenda PDF of the next plenary session(s) on the EP site, converts it to v1/agenda.json, links rapporteurs to MEP ids,
-   saves the PDF under v1/agenda/ and writes data-cache/agenda-notify.json when a draft, final draft or update appears.
-   Writes data-cache/agenda-probe.json on every run (what was found, HTTP status per URL) so a failing fetch can be diagnosed. */
+   Source: EP Open Data Portal API v2 (the EP website sits behind a bot check that blocks GitHub runners, the API does not).
+   For every sitting day of the next plenary session(s), GET /meetings/MTG-PL-<day>/foreseen-activities returns the time slots
+   (MEETING_PART) and the agenda items (…-OJ-ITM-…) with title, type, documents and creators (rapporteurs with their MEP id).
+   Output: v1/agenda.json (same shape as before), data-cache/agenda-notify.json (pending push notifications),
+   data-cache/agenda-probe.json (what the run saw, for diagnosis), data-cache/agenda-unmatched.json (rapporteur ids missing from meps.json). */
 import fs from "node:fs/promises";
 import path from "node:path";
 import crypto from "node:crypto";
-import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const V1 = path.join(ROOT, "v1");
 const CACHE = path.join(ROOT, "data-cache");
-const EP = "https://www.europarl.europa.eu";
-const LIST_URL = EP + "/plenary/en/agendas.html";
-const UA = "Mozilla/5.0 (compatible; nodo-data/1.0; +https://github.com/gianmariasisti-afk/nodo-data)";
+const API = process.env.EP_API || "https://data.europarl.europa.eu/api/v2";
+const PAGE = "https://www.europarl.europa.eu/plenary/en/agendas.html";
 const DAYS_AHEAD = Number(process.env.DAYS_AHEAD || 21);
-const TERM = process.env.EP_TERM || "10";
+const UA = "nodo-prd-1.0";
 
 const readJson = async (p, d) => { try { return JSON.parse(await fs.readFile(p, "utf8")); } catch { return d; } };
 const sha = (b) => crypto.createHash("sha256").update(b).digest("hex");
-const norm = (s) => String(s || "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[^a-z0-9 ]+/g, " ").replace(/\s+/g, " ").trim();
 const iso = (d) => d.toISOString().slice(0, 10);
-const MONTHS = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+const COMMITTEES = new Set("AFET DEVE INTA BUDG CONT ECON EMPL ENVI SANT ITRE IMCO TRAN REGI AGRI PECH CULT JURI LIBE AFCO FEMM PETI SEDE DROI".split(" "));
 
-async function get(url, binary) {
-  const r = await fetch(url, { headers: { "user-agent": UA, accept: binary ? "application/pdf,*/*" : "text/html,*/*" }, redirect: "follow" });
-  const status = r.status;
-  if (!r.ok) return { status, body: null };
-  const buf = Buffer.from(await r.arrayBuffer());
-  const ct = r.headers.get("content-type") || "";
-  if (binary && !(buf.slice(0, 4).toString() === "%PDF")) return { status, body: null, note: "not a PDF (" + ct + ")" };
-  return { status, body: buf, ct };
-}
-
-/* ---------- discovery ---------- */
-export function candidateUrls(sessionStart, listHtml) {
-  const [y, m, d] = sessionStart.split("-");
-  const stamp = `${y}-${m}-${d}`;
-  const found = [];
-  const re = /href="([^"]*doceo\/document\/[^"]*\.pdf)"/gi;
-  let x;
-  while ((x = re.exec(listHtml || ""))) {
-    const u = new URL(x[1].replace(/&amp;/g, "&"), EP).href;
-    if (u.includes(stamp)) found.push(u);
+async function getJson(url) {
+  for (let a = 0; a < 4; a++) {
+    try {
+      const r = await fetch(url, { headers: { "User-Agent": UA, Accept: "application/ld+json, application/json" } });
+      if (r.status === 404 || r.status === 204) return { status: r.status, data: [] };
+      if (r.ok) { const t = await r.text(); try { const j = JSON.parse(t); return { status: r.status, data: j.data || [] }; } catch { /* retry */ } }
+      else if (r.status !== 429 && r.status < 500) return { status: r.status, data: [] };
+    } catch { /* retry */ }
+    await sleep(2000 * (a + 1));
   }
-  const base = `${EP}/doceo/document/`;
-  const guesses = [
-    `${base}OJ-${TERM}-${stamp}_EN.pdf`,
-    `${base}OJ-${TERM}-${stamp}-FNL_EN.pdf`,
-    `${base}PDOJ-${TERM}-${stamp}_EN.pdf`,
-    `${base}PDOJ-${TERM}-${stamp}-PROV_EN.pdf`,
-    `${base}OJ-${TERM}-${stamp}-PROV_EN.pdf`,
-  ];
-  return [...new Set([...found, ...guesses])];
+  return { status: 0, data: [], failed: true };
 }
-/* Stage from the document name: PDOJ = draft, OJ = agenda. */
-export function stageFromUrl(u) { return /\/PDOJ-/i.test(u) ? "draft" : "agenda"; }
+async function dayActivities(day) {
+  const out = []; let status = 0;
+  for (let off = 0; off < 1000; off += 200) {
+    const r = await getJson(`${API}/meetings/MTG-PL-${day}/foreseen-activities?format=application%2Fld%2Bjson&limit=200&offset=${off}`);
+    status = r.status;
+    if (r.failed) return { status, items: out, failed: true };
+    out.push(...r.data);
+    if (r.data.length < 200) break;
+    await sleep(700);
+  }
+  return { status, items: out };
+}
 
 /* ---------- parsing ---------- */
-const DAY_RE = /^\s*(monday|tuesday|wednesday|thursday|friday)[,\s]+(\d{1,2})\s+([a-z]+)\s+(\d{4})/i;
-const TIME_RE = /^\s*(\d{1,2})[.:h](\d{2})\s*[–—-]\s*(\d{1,2})[.:h](\d{2})\s*(.*)$/;
-const pad = (n) => String(n).padStart(2, "0");
-const COMMITTEES = "AFET DEVE INTA BUDG CONT ECON EMPL ENVI SANT ITRE IMCO TRAN REGI AGRI PECH CULT JURI LIBE AFCO FEMM PETI SEDE DROI".split(" ");
+const en = (v) => (v && typeof v === "object" && !Array.isArray(v) ? v.en || "" : typeof v === "string" ? v : "");
+const arr = (v) => (v == null ? [] : Array.isArray(v) ? v : [v]);
+const clean = (s) => String(s || "").replace(/<[^>]*>/g, " ").replace(/&amp;/g, "&").replace(/&quot;/g, '"').replace(/&#39;|&apos;/g, "'").replace(/\s+/g, " ").trim();
+const hhmm = (s) => (typeof s === "string" && /T\d\d:\d\d/.test(s) ? s.slice(11, 16) : "");
+const idOf = (s) => String(s || "").replace(/^eli\/dl\/event\//, "");
 
-export function parseAgenda(text) {
-  const days = {};
-  let day = null, cur = null;
-  const flush = () => { if (cur && day) (days[day] = days[day] || []).push(finish(cur)); cur = null; };
-  for (const raw of text.split(/\r?\n/)) {
-    const line = raw.replace(/\f/g, "").trimEnd();
-    const dm = line.match(DAY_RE);
-    if (dm) {
-      const mi = MONTHS.indexOf(dm[3].toLowerCase());
-      if (mi >= 0) { flush(); day = `${dm[4]}-${pad(mi + 1)}-${pad(dm[2])}`; continue; }
-    }
-    if (!day) continue;
-    const tm = line.match(TIME_RE);
-    if (tm) { flush(); cur = { time: `${pad(tm[1])}:${tm[2]}–${pad(tm[3])}:${tm[4]}`, lines: tm[5].trim() ? [tm[5].trim()] : [] }; continue; }
-    if (cur && line.trim()) cur.lines.push(line.trim());
-  }
-  flush();
-  return days;
+export function itemType(a) {
+  const t = String(a.had_activity_type || "");
+  const label = en(a.activity_label);
+  if (/VOT/i.test(t) || /^votes?\b/i.test(label)) return "votes";
+  if (/STATEMENT/i.test(t) || /\bstatement\b/i.test(label)) return "statement";
+  if (/DEBATE|READING|REPORT|MOTION|QUESTION/i.test(t)) return "debate";
+  return "other";
 }
-function finish(c) {
-  const full = c.lines.join(" ").replace(/\s+/g, " ").trim();
-  const title = (c.lines[0] || "").replace(/\s+/g, " ").trim();
-  const rest = c.lines.slice(1).join(" ").replace(/\s+/g, " ").trim();
-  const it = { time: c.time, type: /\bvotes?\b|voting time/i.test(title) ? "votes" : /statement/i.test(title) ? "statement" : /debate|report|recommendation|motion|proposal|opinion/i.test(full) ? "debate" : "other", title };
-  if (rest) it.sub = rest;
-  const ref = full.match(/\bA\d{1,2}-\d{3,4}\/\d{4}\b/);
-  if (ref) it.ref = ref[0];
-  const rap = full.match(/(?:Report|Recommendation|Opinion)(?:\s+by|\s*:)\s+([^()\[\];]+?)(?=\s+(?:[A-Z]{3,5}\b|\(|\[|A\d{1,2}-)|\s*$)/);
-  if (rap) it.rapporteur = rap[1].trim();
-  const com = COMMITTEES.find((k) => new RegExp("\\b" + k + "\\b").test(full));
-  if (com) it.committee = com;
-  return it;
+/* structuredContent (English) is a small XML string: references, process, creators (org = committee, person = rapporteur). */
+export function parseStructured(sc) {
+  const x = en(sc);
+  const res = { refs: [], procs: [], people: [], committees: [] };
+  if (!x) return res;
+  for (const m of x.matchAll(/<label typeof="def\/ep-document-types\/[^"]*"[^>]*>([^<]+)<\/label>/g)) res.refs.push(clean(m[1]));
+  for (const m of x.matchAll(/<process[\s\S]*?<label[^>]*>([^<]+)<\/label>/g)) res.procs.push(clean(m[1]));
+  for (const m of x.matchAll(/<label typeof="person" resource="person\/(\d+)"[^>]*>([^<]*)<\/label>/g)) res.people.push({ id: m[1], name: clean(m[2]) });
+  for (const m of x.matchAll(/<label typeof="org" resource="org\/([A-Z0-9_-]+)"/g)) res.committees.push(m[1]);
+  return res;
 }
-
-/* ---------- MEP matching ---------- */
-export function makeMatcher(meps) {
-  const full = new Map(), fam = new Map();
-  for (const m of meps) {
-    const f = norm(`${m.given} ${m.family}`), l = norm(m.family);
-    if (f) (full.get(f) || full.set(f, []).get(f)).push(m.id);
-    if (l) (fam.get(l) || fam.set(l, []).get(l)).push(m.id);
-  }
-  return (name) => {
-    const n = norm(name);
-    if (!n) return [];
-    if (full.has(n) && full.get(n).length === 1) return full.get(n);
-    const parts = n.split(" ");
-    for (const k of [n, parts[parts.length - 1], parts.slice(-2).join(" ")]) if (fam.has(k) && fam.get(k).length === 1) return fam.get(k);
-    return [];
+export function buildDay(acts, mepIds) {
+  const byId = new Map(acts.map((a) => [idOf(a.activity_id || a.id), a]));
+  const slots = acts.filter((a) => /MEETING_PART/.test(String(a.had_activity_type || "")) || /-TF-/.test(String(a.activity_id || a.id)));
+  slots.sort((a, b) => String(a.activity_start_date || "").localeCompare(String(b.activity_start_date || "")));
+  const used = new Set(), out = [], unmatched = [];
+  const mk = (a, time) => {
+    const s = parseStructured(a.structuredContent);
+    const it = { time, type: itemType(a), title: en(a.activity_label) };
+    const sub = [...new Set([...s.refs, ...s.procs])].join(" · ");
+    if (sub) it.sub = sub;
+    const ids = [], names = [];
+    for (const p of s.people) { if (mepIds.has(p.id)) { ids.push(p.id); names.push(p.name); } else unmatched.push({ id: p.id, name: p.name, title: it.title }); }
+    if (names.length) { it.rapporteur = names.join(", "); it.rapporteurs = ids; }
+    const com = s.committees.find((c) => COMMITTEES.has(c)); if (com) it.committee = com;
+    return it;
   };
+  for (const sl of slots) {
+    const time = hhmm(sl.activity_start_date) ? `${hhmm(sl.activity_start_date)}–${hhmm(arr(sl.activity_end_date).slice(-1)[0])}` : "";
+    const kids = arr(sl.consists_of).map(idOf).filter((k) => byId.has(k));
+    if (!kids.length) { out.push({ time, type: itemType({ had_activity_type: "", activity_label: sl.agendaLabel || sl.activity_label }), title: en(sl.agendaLabel) || en(sl.activity_label) }); continue; }
+    for (const k of kids) { used.add(k); out.push(mk(byId.get(k), time)); }
+  }
+  const rest = acts.filter((a) => /-OJ-ITM-/.test(String(a.activity_id || a.id)) && !used.has(idOf(a.activity_id || a.id)));
+  rest.sort((a, b) => Number(a.activity_order || 0) - Number(b.activity_order || 0));
+  for (const a of rest) out.push(mk(a, ""));
+  return { items: out, unmatched };
 }
 
 /* ---------- main ---------- */
+function daysOf(s) {
+  const out = []; for (let d = new Date(s.start + "T00:00:00Z"); iso(d) <= s.end; d = new Date(d.getTime() + 864e5)) out.push(iso(d));
+  return out;
+}
+function stageFor(start, prevStage, isNew) {
+  const today = iso(new Date());
+  if (today >= start) return isNew ? "agenda" : (prevStage === "agenda" || prevStage === "updated" ? "updated" : "agenda");
+  const daysTo = Math.round((new Date(start) - new Date(today)) / 864e5);
+  if (isNew) return daysTo <= 4 ? "final-draft" : "draft";
+  return daysTo <= 4 ? "final-draft" : prevStage || "draft";
+}
+
 async function main() {
   await fs.mkdir(CACHE, { recursive: true });
-  const probe = { run: new Date().toISOString(), list: null, sessions: {} };
+  const probe = { run: new Date().toISOString(), sessions: {} };
   const cal = await readJson(path.join(V1, "calendar.json"), { sessions: [] });
-  const meps = (await readJson(path.join(V1, "meps.json"), { meps: [] })).meps || [];
-  const agenda = await readJson(path.join(V1, "agenda.json"), { checked: "", source: LIST_URL, sessions: {} });
-  const match = makeMatcher(meps);
-  const today = new Date(), horizon = new Date(Date.now() + DAYS_AHEAD * 864e5);
-  const upcoming = (cal.sessions || []).filter((s) => s.start >= iso(new Date(Date.now() - 3 * 864e5)) && s.start <= iso(horizon) && s.place === "SXB");
-
-  let listHtml = "";
-  try { const l = await get(LIST_URL); probe.list = { status: l.status, bytes: l.body ? l.body.length : 0 }; listHtml = l.body ? l.body.toString("utf8") : ""; } catch (e) { probe.list = { error: String(e) }; }
-
-  if (listHtml.length < 5000 || process.env.PROBE === "1") probe.listSnippet = listHtml.slice(0, 1500);
-  const API = process.env.EP_API || "https://data.europarl.europa.eu/api/v2";
-  probe.api = {};
-  for (const s of upcoming.slice(0, 1)) {
-    const id = `MTG-PL-${s.start}`;
-    for (const ep of [`/meetings/${id}`, `/meetings/${id}/foreseen-activities?format=application%2Fld%2Bjson&limit=200`, `/meetings?year=${s.start.slice(0, 4)}&format=application%2Fld%2Bjson&limit=5`, `/plenary-documents?year=${s.start.slice(0, 4)}&format=application%2Fld%2Bjson&limit=3`]) {
-      try {
-        const r = await fetch(API + ep, { headers: { "User-Agent": "nodo-prd-1.0", Accept: "application/ld+json, application/json" } });
-        const t = await r.text();
-        probe.api[ep] = { status: r.status, bytes: t.length, head: t.slice(0, 1800) };
-        if (/foreseen-activities/.test(ep) && r.ok) await fs.writeFile(path.join(CACHE, "agenda-api-sample.json"), t);
-      } catch (e) { probe.api[ep] = { error: String(e) }; }
-    }
-  }
-
-  const notify = (await readJson(path.join(CACHE, "agenda-notify.json"), { pending: [] }));
+  const mepIds = new Set(((await readJson(path.join(V1, "meps.json"), { meps: [] })).meps || []).map((m) => String(m.id)));
+  const agenda = await readJson(path.join(V1, "agenda.json"), { checked: "", source: PAGE, sessions: {} });
+  const notify = await readJson(path.join(CACHE, "agenda-notify.json"), { pending: [] });
+  const from = iso(new Date(Date.now() - 4 * 864e5)), to = iso(new Date(Date.now() + DAYS_AHEAD * 864e5));
+  const upcoming = (cal.sessions || []).filter((s) => s.place === "SXB" && s.end >= from && s.start <= to);
   const unmatchedAll = {};
-  let changed = false, parseFailed = false;
+  let changed = false, failed = false;
 
   for (const s of upcoming) {
-    const info = (probe.sessions[s.start] = { tried: [] });
-    let pdf = null, url = null;
-    for (const u of candidateUrls(s.start, listHtml)) {
-      let r;
-      try { r = await get(u, true); } catch (e) { info.tried.push({ u, error: String(e) }); continue; }
-      info.tried.push({ u, status: r.status, note: r.note });
-      if (r.body) { pdf = r.body; url = u; break; }
+    const info = (probe.sessions[s.start] = { days: {} });
+    const days = {}; const um = []; const types = {};
+    for (const day of daysOf(s)) {
+      const r = await dayActivities(day);
+      info.days[day] = { status: r.status, activities: r.items.length };
+      if (r.failed) { failed = true; continue; }
+      for (const a of r.items) types[String(a.had_activity_type || "?")] = (types[String(a.had_activity_type || "?")] || 0) + 1;
+      if (!r.items.length) continue;
+      const { items, unmatched } = buildDay(r.items, mepIds);
+      if (items.length) days[day] = items;
+      um.push(...unmatched);
+      await sleep(700);
     }
-    if (!pdf) continue;
-    const hash = sha(pdf);
-    const prev = agenda.sessions[s.start];
-    if (prev && prev.src && prev.src.sha256 === hash) { info.unchanged = true; continue; }
-    const tmp = path.join(CACHE, `agenda-${s.start}.pdf`);
-    await fs.writeFile(tmp, pdf);
-    const text = execFileSync("pdftotext", ["-layout", tmp, "-"], { encoding: "utf8", maxBuffer: 64 * 1024 * 1024 });
-    await fs.writeFile(path.join(CACHE, `agenda-${s.start}.txt`), text);
-    const days = parseAgenda(text);
+    info.types = types;
     const n = Object.values(days).reduce((a, v) => a + v.length, 0);
     info.items = n;
-    if (n < 3) { parseFailed = true; info.error = "parser found fewer than 3 items; previous data kept"; continue; }
-    const unmatched = [];
-    for (const items of Object.values(days)) for (const it of items) {
-      if (!it.rapporteur) continue;
-      const ids = match(it.rapporteur);
-      if (ids.length) it.rapporteurs = ids; else unmatched.push({ name: it.rapporteur, title: it.title, ref: it.ref || "" });
-    }
-    let stage = stageFromUrl(url);
-    if (prev && prev.src && prev.stage !== "none") stage = stage === "agenda" ? (prev.stage === "agenda" || prev.stage === "updated" ? "updated" : "agenda") : "final-draft";
-    const dest = `agenda/${s.start}.pdf`;
-    await fs.mkdir(path.join(V1, "agenda"), { recursive: true });
-    await fs.writeFile(path.join(V1, dest), pdf);
-    agenda.sessions[s.start] = { stage, updated: iso(today), pdf: dest, src: { url, sha256: hash }, days };
-    notify.pending.push({ session: s.start, stage, pdf: `v1/${dest}`, source: url, at: today.toISOString(), unmatched: unmatched.length });
-    if (unmatched.length) unmatchedAll[s.start] = unmatched;
+    if (!n) continue;
+    const hash = sha(JSON.stringify(days));
+    const prev = agenda.sessions[s.start];
+    if (prev && prev.src && prev.src.sha256 === hash) { info.unchanged = true; continue; }
+    const adopt = prev && !prev.src; /* entry made by hand earlier: replace it without announcing it */
+    const stage = stageFor(s.start, prev && prev.stage, !prev);
+    agenda.sessions[s.start] = { stage, updated: iso(new Date()), link: PAGE, src: { api: "foreseen-activities", sha256: hash }, days };
+    if (!adopt && (!prev || prev.stage !== stage)) notify.pending.push({ session: s.start, stage, link: PAGE, at: new Date().toISOString(), items: n });
+    if (um.length) unmatchedAll[s.start] = um;
     changed = true;
   }
 
-  agenda.checked = iso(today);
+  agenda.checked = iso(new Date());
+  agenda.source = PAGE;
   await fs.writeFile(path.join(CACHE, "agenda-probe.json"), JSON.stringify(probe, null, 1) + "\n");
   if (changed) {
     const buf = Buffer.from(JSON.stringify(agenda, null, 1) + "\n");
@@ -198,7 +169,7 @@ async function main() {
   if (Object.keys(unmatchedAll).length) await fs.writeFile(path.join(CACHE, "agenda-unmatched.json"), JSON.stringify(unmatchedAll, null, 1) + "\n");
   else await fs.rm(path.join(CACHE, "agenda-unmatched.json"), { force: true });
   console.log(JSON.stringify({ upcoming: upcoming.map((s) => s.start), changed, unmatched: Object.fromEntries(Object.entries(unmatchedAll).map(([k, v]) => [k, v.length])), probe: probe.sessions }, null, 1));
-  if (parseFailed) process.exit(1);
+  if (failed) process.exit(1);
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) main().catch((e) => { console.error(e); process.exit(1); });
