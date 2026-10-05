@@ -1,5 +1,5 @@
 {
- "run": "2026-10-05T07:58:50.810Z",
+ "run": "2026-10-05T08:00:58.495Z",
  "college": {
   "found": 26,
   "added": [],
@@ -18,30 +18,25 @@
   },
   "henna-virkkunen": {
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/henna-virkkunen/henna-virkkunens-team_en",
+   "parsed": 22,
+   "existing": 22,
+   "added": [],
+   "removed": []
+  },
+  "stephane-sejourne": {
+   "url": "https://commission.europa.eu/about/organisation/college-commissioners/stephane-sejourne/stephane-sejournes-team_en",
+   "parsed": 24,
+   "existing": 24,
+   "added": [],
+   "removed": []
+  },
+  "kaja-kallas": {
+   "url": "https://commission.europa.eu/about/organisation/college-commissioners/kaja-kallas/kaja-kallass-team_en",
    "parsed": 21,
    "existing": 22,
    "added": [],
    "removed": [
-    "Anna Zapotocka-Zapalska"
-   ]
-  },
-  "stephane-sejourne": {
-   "url": "https://commission.europa.eu/about/organisation/college-commissioners/stephane-sejourne/stephane-sejournes-team_en",
-   "parsed": 23,
-   "existing": 24,
-   "added": [],
-   "removed": [
-    "Michail Stergiopoulos"
-   ]
-  },
-  "kaja-kallas": {
-   "url": "https://commission.europa.eu/about/organisation/college-commissioners/kaja-kallas/kaja-kallass-team_en",
-   "parsed": 20,
-   "existing": 22,
-   "added": [],
-   "removed": [
-    "Julika Luts",
-    "Myriam Gonzalez Alonso"
+    "Julika Luts"
    ]
   },
   "roxana-minzatu": {
@@ -60,12 +55,10 @@
   },
   "maros-sefcovic": {
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/maros-sefcovic/maros-sefcovics-team_en",
-   "parsed": 17,
+   "parsed": 18,
    "existing": 18,
    "added": [],
-   "removed": [
-    "Martina Tsacheva"
-   ]
+   "removed": []
   },
   "valdis-dombrovskis": {
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/valdis-dombrovskis/valdis-dombrovskiss-team_en",
@@ -90,12 +83,11 @@
   },
   "wopke-hoekstra": {
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/wopke-hoekstra/wopke-hoekstras-team_en",
-   "parsed": 16,
+   "parsed": 17,
    "existing": 18,
    "added": [],
    "removed": [
-    "Olivia Gippner",
-    "Caroline Limon"
+    "Olivia Gippner"
    ]
   },
   "andrius-kubilius": {
@@ -137,30 +129,24 @@
   },
   "hadja-lahbib": {
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/hadja-lahbib/hadja-lahbibs-team_en",
-   "parsed": 18,
+   "parsed": 19,
    "existing": 19,
    "added": [],
-   "removed": [
-    "Isabelle Stassart"
-   ]
+   "removed": []
   },
   "magnus-brunner": {
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/magnus-brunner/magnus-brunners-team_en",
-   "parsed": 16,
+   "parsed": 17,
    "existing": 17,
    "added": [],
-   "removed": [
-    "Fatoş Kabakci"
-   ]
+   "removed": []
   },
   "jessika-roswall": {
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/jessika-roswall/jessika-roswalls-team_en",
-   "parsed": 15,
+   "parsed": 16,
    "existing": 16,
    "added": [],
-   "removed": [
-    "Tita Grape"
-   ]
+   "removed": []
   },
   "piotr-serafin": {
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/piotr-serafin/piotr-serafins-team_en",
@@ -190,7 +176,7 @@
   },
   "michael-mcgrath": {
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/michael-mcgrath/michael-mcgraths-team_en",
-   "parsed": 14,
+   "parsed": 15,
    "existing": 17,
    "added": [
     "Vittorio Argeri"
@@ -198,7 +184,6 @@
    "removed": [
     "Fiona Knab-Lunny",
     "Cédric Bourlier",
-    "Judit Szarka",
     "Esther Rico-Donovan"
    ]
   },
@@ -227,131 +212,6 @@
   }
  },
  "auto": [
-  {
-   "commissioner": "henna-virkkunen",
-   "name": "Fausto Matos",
-   "fields": [
-    "resp"
-   ],
-   "diff": {
-    "resp": {
-     "from": [
-      "Justice and consumers",
-      "Rule of Law",
-      "EU Inc and the 28th regime",
-      "Protection of minors",
-      "Data policy",
-      "Standards",
-      "Infringements",
-      "Transparency and access to documents",
-      "Relations with the Committee of the Regions and the European Economic and Social Committee"
-     ],
-     "to": [
-      "Justice and consumers",
-      "Rule of Law",
-      "EU Inc and the 28 th regime",
-      "Protection of minors",
-      "Data policy",
-      "Standards",
-      "Infringements",
-      "Transparency and access to documents",
-      "Relations with the Committee of the Regions and the European Economic and Social Committee"
-     ]
-    }
-   }
-  },
-  {
-   "commissioner": "henna-virkkunen",
-   "name": "Christiane Wiedecke",
-   "fields": [
-    "phone"
-   ],
-   "diff": {
-    "phone": {
-     "from": "+32 2 29 80569",
-     "to": "+32 2 29 55994"
-    }
-   }
-  },
-  {
-   "commissioner": "stephane-sejourne",
-   "name": "Pauline Jannes",
-   "fields": [
-    "phone",
-    "resp"
-   ],
-   "diff": {
-    "phone": {
-     "from": "+32 2 29 63743",
-     "to": "+32 2 29 98167"
-    },
-    "resp": {
-     "from": [
-      "Atmos contact point",
-      "Deputy Local Security Officer",
-      "Business Continuity Officer"
-     ],
-     "to": [
-      "Atmos contact point",
-      "Deputy Local Security Officer",
-      "Business Continuity Officer",
-      "Michail Stergiopoulos",
-      "ASSISTANT TO ESTELLE GÖGER AND ANTOINE GUÉRY",
-      "Local Security Officer",
-      "Coordination of parliamentary questions, Consultative Committees, European Parliament Resolutions and Petitions",
-      "Trainees (Blue Book and NEPT)",
-      "Business Continuity Officer",
-      "Evacuation Officer",
-      "BASIS Coordinator and briefing contributions"
-     ]
-    }
-   }
-  },
-  {
-   "commissioner": "kaja-kallas",
-   "name": "Marek Dvorsky",
-   "fields": [
-    "phone",
-    "resp"
-   ],
-   "diff": {
-    "phone": {
-     "from": "+32 2 29 50305",
-     "to": "+32 2 29 69422"
-    },
-    "resp": {
-     "from": [
-      "Atmos contact point"
-     ],
-     "to": [
-      "Atmos contact point",
-      "Myriam Gonzalez Alonso",
-      "ASSISTANT TO SALVADOR FRANÇA"
-     ]
-    }
-   }
-  },
-  {
-   "commissioner": "roxana-minzatu",
-   "name": "Rares Achiriloaie",
-   "fields": [
-    "countries"
-   ],
-   "diff": {
-    "countries": {
-     "from": [
-      "SI",
-      "GR",
-      "RO"
-     ],
-     "to": [
-      "SI",
-      "GR",
-      "Romania (back-up)"
-     ]
-    }
-   }
-  },
   {
    "commissioner": "roxana-minzatu",
    "name": "Georgi Dimitrov",
@@ -397,60 +257,6 @@
       "China",
       "Taiwan",
       "Ukraine"
-     ]
-    }
-   }
-  },
-  {
-   "commissioner": "maros-sefcovic",
-   "name": "Amélie Morand",
-   "fields": [
-    "phone",
-    "resp"
-   ],
-   "diff": {
-    "phone": {
-     "from": "+32 2 29 50773",
-     "to": "+32 2 29 63821"
-    },
-    "resp": {
-     "from": [
-      "Contact point Cabinet/European Parliament",
-      "Preparation for the Group on Inter-institutional Relations (GRI)",
-      "ATMOS (transparency) for the missions of the Commissioner"
-     ],
-     "to": [
-      "Contact point Cabinet/European Parliament",
-      "Preparation for the Group on Inter-institutional Relations (GRI)",
-      "ATMOS (transparency) for the missions of the Commissioner",
-      "Martina Tsacheva",
-      "ASSISTANT TO CHIARA GALIFFA AND DĀRTA TENTERE",
-      "Administrative support",
-      "Follow-up of meetings and missions: briefing requests, logistics and transparency register (registrations)",
-      "Preparation for EXCO"
-     ]
-    }
-   }
-  },
-  {
-   "commissioner": "dubravka-suica",
-   "name": "Ingrid Godkin",
-   "fields": [
-    "countries"
-   ],
-   "diff": {
-    "countries": {
-     "from": [
-      "BE",
-      "IE",
-      "LU",
-      "NL"
-     ],
-     "to": [
-      "BE",
-      "IE",
-      "LU",
-      "the Netherlands"
      ]
     }
    }
@@ -559,19 +365,6 @@
       "Prevention and non-communicable diseases",
       "Cardiovascular"
      ]
-    }
-   }
-  },
-  {
-   "commissioner": "wopke-hoekstra",
-   "name": "Alina Nichifor",
-   "fields": [
-    "phone"
-   ],
-   "diff": {
-    "phone": {
-     "from": "+32 2 29 51620",
-     "to": "+32 2 29 52573"
     }
    }
   },
@@ -706,42 +499,6 @@
    }
   },
   {
-   "commissioner": "maria-luis-albuquerque",
-   "name": "Philippe Thill",
-   "fields": [
-    "countries"
-   ],
-   "diff": {
-    "countries": {
-     "from": [
-      "BE",
-      "IE",
-      "LU",
-      "NL"
-     ],
-     "to": [
-      "BE",
-      "IE",
-      "LU",
-      "The Netherlands"
-     ]
-    }
-   }
-  },
-  {
-   "commissioner": "hadja-lahbib",
-   "name": "Benoit Dethiege",
-   "fields": [
-    "phone"
-   ],
-   "diff": {
-    "phone": {
-     "from": "+32 2 29 86080",
-     "to": "+32 2 29 98645"
-    }
-   }
-  },
-  {
    "commissioner": "magnus-brunner",
    "name": "Evgenia Todorova",
    "fields": [
@@ -751,19 +508,6 @@
     "phone": {
      "from": "",
      "to": "+32 2 29 91690"
-    }
-   }
-  },
-  {
-   "commissioner": "magnus-brunner",
-   "name": "Valentina Russo",
-   "fields": [
-    "phone"
-   ],
-   "diff": {
-    "phone": {
-     "from": "+32 2 29 56475",
-     "to": "+32 2 29 91476"
     }
    }
   },
@@ -806,39 +550,6 @@
       "Administrative support",
       "Budget",
       "Coordination of Cabinet’s logistical matters"
-     ]
-    }
-   }
-  },
-  {
-   "commissioner": "jessika-roswall",
-   "name": "Petya Dimitrova",
-   "fields": [
-    "phone",
-    "resp"
-   ],
-   "diff": {
-    "phone": {
-     "from": "+32 2 29 58462",
-     "to": "+32 2 29 63343"
-    },
-    "resp": {
-     "from": [
-      "Coordination of briefings",
-      "Administrative support",
-      "Group for inter-institutional relations and the Council",
-      "Security and Cybersecurity contact point"
-     ],
-     "to": [
-      "Coordination of briefings",
-      "Administrative support",
-      "Group for inter-institutional relations and the Council",
-      "Security and Cybersecurity contact point",
-      "Tita Grape",
-      "ASSISTANT TO AXEL HELLMAN AND VITA JUKNĖ",
-      "Coordination of briefings",
-      "Administrative support",
-      "European Parliament matters"
      ]
     }
    }
@@ -981,39 +692,6 @@
     "phone": {
      "from": "+32 2 29 85730",
      "to": "+32 2 29 62318"
-    }
-   }
-  },
-  {
-   "commissioner": "ekaterina-zaharieva",
-   "name": "Ann-Sofie Ronnlund",
-   "fields": [
-    "resp"
-   ],
-   "diff": {
-    "resp": {
-     "from": [
-      "Innovation policy (regulatory aspects)",
-      "EU Innovation Act",
-      "28th regime",
-      "Life science strategy and Biotech Act",
-      "Artificial Intelligence, ICT",
-      "European AI Council",
-      "Industrial Clean Deal",
-      "Project group: Artificial intelligence",
-      "Partnerships on: Health (Cluster 1)"
-     ],
-     "to": [
-      "Innovation policy (regulatory aspects)",
-      "EU Innovation Act",
-      "28 th regime",
-      "Life science strategy and Biotech Act",
-      "Artificial Intelligence, ICT",
-      "European AI Council",
-      "Industrial Clean Deal",
-      "Project group: Artificial intelligence",
-      "Partnerships on: Health (Cluster 1)"
-     ]
     }
    }
   },
@@ -1437,14 +1115,9 @@
    "commissioner": "michael-mcgrath",
    "name": "Lucy Maher",
    "fields": [
-    "phone",
     "resp"
    ],
    "diff": {
-    "phone": {
-     "from": "+32 2 29 13461",
-     "to": "+32 2 29 84397"
-    },
     "resp": {
      "from": [
       "Deputy Local Security Officer",
@@ -1452,9 +1125,7 @@
      ],
      "to": [
       "Deputy Local Security Officer",
-      "Deputy BASIS correspondent for cross DG and cross Cab requests",
-      "Judit Szarka",
-      "ASSISTANT TO EGELYN BRAUN AND JÖRDIS FERROLI"
+      "Deputy BASIS correspondent for cross DG and cross Cab requests"
      ]
     }
    }
@@ -1482,29 +1153,6 @@
       "Preparation of Hebdo & College files",
       "Courrier du Président et contact point",
       "EUCI SPOC contact point with Judit Szarka"
-     ]
-    }
-   }
-  },
-  {
-   "commissioner": "apostolos-tzitzikostas",
-   "name": "Anne Bergenfelt",
-   "fields": [
-    "countries"
-   ],
-   "diff": {
-    "countries": {
-     "from": [
-      "DK",
-      "BE",
-      "LU",
-      "NL"
-     ],
-     "to": [
-      "DK",
-      "BE",
-      "LU",
-      "The Netherlands"
      ]
     }
    }
@@ -1590,18 +1238,6 @@
  ],
  "structural": [
   {
-   "type": "removed",
-   "commissioner": "henna-virkkunen",
-   "name": "Anna Zapotocka-Zapalska",
-   "role": "Assistant to Silke Dalton and Benjamin Bögel"
-  },
-  {
-   "type": "removed",
-   "commissioner": "stephane-sejourne",
-   "name": "Michail Stergiopoulos",
-   "role": "Assistant to Estelle Göger and Antoine Guéry"
-  },
-  {
    "type": "role",
    "commissioner": "kaja-kallas",
    "name": "Maya Lamanna",
@@ -1616,51 +1252,15 @@
   },
   {
    "type": "removed",
-   "commissioner": "kaja-kallas",
-   "name": "Myriam Gonzalez Alonso",
-   "role": "Assistant to Salvador França"
-  },
-  {
-   "type": "removed",
-   "commissioner": "maros-sefcovic",
-   "name": "Martina Tsacheva",
-   "role": "Assistant to Chiara Galiffa and Dārta Tentere"
-  },
-  {
-   "type": "removed",
    "commissioner": "wopke-hoekstra",
    "name": "Olivia Gippner",
    "role": "Member (absent)"
   },
   {
    "type": "removed",
-   "commissioner": "wopke-hoekstra",
-   "name": "Caroline Limon",
-   "role": "Assistant to Myriam Jans and Katarina Köszeghy"
-  },
-  {
-   "type": "removed",
    "commissioner": "costas-kadis",
    "name": "Fleur Breuillin",
    "role": "Member"
-  },
-  {
-   "type": "removed",
-   "commissioner": "hadja-lahbib",
-   "name": "Isabelle Stassart",
-   "role": "Assistant to Edouard Schmidt and Boriša Falatar"
-  },
-  {
-   "type": "removed",
-   "commissioner": "magnus-brunner",
-   "name": "Fatoş Kabakci",
-   "role": "Assistant to Cathrin Bauer-Bulst and Anne Lamminmäki"
-  },
-  {
-   "type": "removed",
-   "commissioner": "jessika-roswall",
-   "name": "Tita Grape",
-   "role": "Assistant to Axel Hellman and Vita Juknė"
   },
   {
    "type": "role",
@@ -1744,6 +1344,13 @@
    "to": "ASSISTANT TO SIMONA CONSTANTIN AND MARIA ZAFRA SAURA"
   },
   {
+   "type": "role",
+   "commissioner": "michael-mcgrath",
+   "name": "Judit Szarka",
+   "from": "Assistant to the Head of Cabinet",
+   "to": "ASSISTANT TO EGELYN BRAUN AND JÖRDIS FERROLI"
+  },
+  {
    "type": "added",
    "commissioner": "michael-mcgrath",
    "name": "Vittorio Argeri",
@@ -1764,12 +1371,6 @@
   {
    "type": "removed",
    "commissioner": "michael-mcgrath",
-   "name": "Judit Szarka",
-   "role": "Assistant to the Head of Cabinet"
-  },
-  {
-   "type": "removed",
-   "commissioner": "michael-mcgrath",
    "name": "Esther Rico-Donovan",
    "role": "Assistant to Kevin Barrett and Maria Zafra Saura"
   },
@@ -1781,8 +1382,8 @@
   }
  ],
  "summary": {
-  "auto": 50,
-  "structural": 30,
+  "auto": 36,
+  "structural": 22,
   "failed": 0
  }
 }
