@@ -45,7 +45,9 @@ export function parseTeam(lines) {
   for (let i = 0; i < lines.length; i++) {
     const l = lines[i];
     if (isRole(l) && lines[i - 1] && /^(Email:|Email\b)/i.test(lines[i + 1] || "") && !/^(Email|Phone)/i.test(lines[i - 1])) {
-      cur = { name: lines[i - 1], role: l, email: "", phone: "", resp: [], outside: [], countries: [] }; people.push(cur); mode = ""; continue;
+      const rawName = lines[i - 1], ann = (rawName.match(/\(([^)]*)\)\s*$/) || [])[1] || "";
+      if (/^vacant$/i.test(rawName.replace(/\(.*$/, "").trim())) { cur = null; continue; }
+      cur = { name: rawName.replace(/\s*\([^)]*\)\s*$/, "").trim(), note: ann, role: l, email: "", phone: "", resp: [], outside: [], countries: [] }; people.push(cur); mode = ""; continue;
     }
     if (!cur) continue;
     if (/^Email:/i.test(l)) { const m = deob(l.replace(/^Email:\s*/i, "")); const mm = m.match(/([\w.+-]+)(?:@|\s+)((?:ec|ext\.ec)\.europa\.eu)/); const e = mm ? mm[1] + "@" + mm[2] : ""; const raw = (l.match(/\(([^)]*\[at\][^)]*)\)/) || [])[1]; cur.email = e || (raw ? deob(raw) : ""); mode = ""; continue; }
@@ -68,14 +70,16 @@ async function main() {
   if (!cm) throw new Error("v1/commission.json missing");
   const report = { run: new Date().toISOString(), college: {}, teams: {} };
   const html = await get(COLLEGE);
-  const slugs = [...new Set([...html.matchAll(/href="(?:https:\/\/commission\.europa\.eu)?\/about\/organisation\/college-commissioners\/([a-z0-9-]+)_en"/g)].map((m) => m[1]))];
-  const have = new Set(cm.college.map((m) => m.slug));
+  const NOT_PEOPLE = /^(commissioners-project-groups|calendar-items|former-|college-commissioners)/;
+  const slugs = [...new Set([...html.matchAll(/href="(?:https:\/\/commission\.europa\.eu)?\/about\/organisation\/college-commissioners\/([a-z0-9-]+)_en"/g)].map((m) => m[1]).filter((x) => !NOT_PEOPLE.test(x)))];
+  const have = new Set(cm.college.filter((m) => m.kind !== "president").map((m) => m.slug));
   report.college = { found: slugs.length, added: slugs.filter((s) => !have.has(s)), removed: [...have].filter((s) => !slugs.includes(s)) };
   const structural = [], auto = [];
   const next = JSON.parse(JSON.stringify(cm)), proposed = JSON.parse(JSON.stringify(cm));
   let failed = 0;
 
   for (const m of cm.college) {
+    if (m.kind === "president") { report.teams[m.slug] = { skipped: "president: cabinet page not covered yet" }; continue; }
     const idx = cm.college.indexOf(m);
     let teamUrl = null;
     try {
@@ -100,6 +104,7 @@ async function main() {
       const np = next.college[idx].cabinet.find((x) => x.k === o.k), pp = proposed.college[idx].cabinet.find((x) => x.k === o.k);
       const upd = {};
       if (p.phone && p.phone !== o.phone) upd.phone = p.phone;
+      if ((p.note || "") !== (o.note || "")) upd.note = p.note || "";
       if (JSON.stringify(p.resp) !== JSON.stringify(o.resp) && p.resp.length) upd.resp = p.resp;
       if (JSON.stringify(p.outside) !== JSON.stringify(o.outside)) upd.outside = p.outside;
       if (JSON.stringify(p.countries) !== JSON.stringify(o.countries)) upd.countries = p.countries;
@@ -108,7 +113,7 @@ async function main() {
     }
     for (const p of added) {
       structural.push({ type: "added", commissioner: m.slug, name: p.name, role: p.role });
-      proposed.college[idx].cabinet.push({ k: `${m.slug}~${slugify(p.name)}`, name: p.name, note: "", role: tidyRole(p.role), cls: roleClass(p.role), team: "", email: keepEmail(p.email), phone: p.phone, resp: p.resp, outside: p.outside, countries: p.countries });
+      proposed.college[idx].cabinet.push({ k: `${m.slug}~${slugify(p.name)}`, name: p.name, note: p.note || "", role: tidyRole(p.role), cls: roleClass(p.role), team: "", email: keepEmail(p.email), phone: p.phone, resp: p.resp, outside: p.outside, countries: p.countries });
     }
     for (const p of removed) {
       structural.push({ type: "removed", commissioner: m.slug, name: p.name, role: p.role });
