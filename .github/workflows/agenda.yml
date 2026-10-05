@@ -8,6 +8,9 @@ on:
       days_ahead:
         description: "Look for agendas of sessions starting within this many days"
         default: "21"
+      probe_paths:
+        description: "Diagnostics: comma-separated EP API paths to fetch instead of building (answers go to data-cache/agenda-probe-paths.json)"
+        default: ""
 
 permissions:
   contents: write
@@ -32,7 +35,10 @@ jobs:
         id: build
         env:
           DAYS_AHEAD: ${{ inputs.days_ahead || '21' }}
-        run: set -o pipefail; node scripts/build-agenda.mjs 2>&1 | tee build.log
+          PROBE_PATHS: ${{ inputs.probe_paths || '' }}
+        run: |
+          set -o pipefail
+          if [ -n "$PROBE_PATHS" ]; then node scripts/probe-api.mjs 2>&1 | tee build.log; else node scripts/build-agenda.mjs 2>&1 | tee build.log; fi
       - name: Commit agenda to main
         if: always()
         run: |
