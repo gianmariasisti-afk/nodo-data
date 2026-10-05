@@ -1,0 +1,272 @@
+{
+ "run": "2026-10-05T07:54:25.057Z",
+ "college": {
+  "found": 29,
+  "added": [
+   "commissioners-project-groups",
+   "calendar-items-president-and-commissioners",
+   "former-colleges-commissioners"
+  ],
+  "removed": [
+   "ursula-von-der-leyen"
+  ]
+ },
+ "teams": {
+  "ursula-von-der-leyen": {
+   "error": "no team link"
+  },
+  "teresa-ribera": {
+   "url": "https://commission.europa.eu/about/organisation/college-commissioners/teresa-ribera/teresa-riberas-team_en",
+   "parsed": 22,
+   "existing": 21,
+   "added": [
+    "Vacant"
+   ],
+   "removed": []
+  },
+  "henna-virkkunen": {
+   "url": "https://commission.europa.eu/about/organisation/college-commissioners/henna-virkkunen/henna-virkkunens-team_en",
+   "parsed": 21,
+   "existing": 22,
+   "added": [],
+   "removed": [
+    "Anna Zapotocka-Zapalska"
+   ]
+  },
+  "stephane-sejourne": {
+   "url": "https://commission.europa.eu/about/organisation/college-commissioners/stephane-sejourne/stephane-sejournes-team_en",
+   "parsed": 24,
+   "existing": 24,
+   "added": [
+    "Jugatx Ortiz Gonzalez (on leave)",
+    "Andreea-Diana Barbu (replacing Jugatx Ortiz Gonzalez)",
+    "Paola d’Amécourt (on leave)",
+    "Louis Roquebert (replacing Paola d’Amécourt)",
+    "VACANT"
+   ],
+   "removed": [
+    "Jugatx Ortiz Gonzalez",
+    "Andreea-Diana Barbu",
+    "Paola d’Amécourt",
+    "Louis Roquebert",
+    "Michail Stergiopoulos"
+   ]
+  },
+  "kaja-kallas": {
+   "url": "https://commission.europa.eu/about/organisation/college-commissioners/kaja-kallas/kaja-kallass-team_en",
+   "parsed": 20,
+   "existing": 22,
+   "added": [],
+   "removed": [
+    "Julika Luts",
+    "Myriam Gonzalez Alonso"
+   ]
+  },
+  "roxana-minzatu": {
+   "url": "https://commission.europa.eu/about/organisation/college-commissioners/roxana-minzatu/roxana-minzatus-team_en",
+   "parsed": 22,
+   "existing": 22,
+   "added": [],
+   "removed": []
+  },
+  "raffaele-fitto": {
+   "url": "https://commission.europa.eu/about/organisation/college-commissioners/raffaele-fitto/raffaele-fittos-team_en",
+   "parsed": 22,
+   "existing": 22,
+   "added": [],
+   "removed": []
+  },
+  "maros-sefcovic": {
+   "url": "https://commission.europa.eu/about/organisation/college-commissioners/maros-sefcovic/maros-sefcovics-team_en",
+   "parsed": 17,
+   "existing": 18,
+   "added": [],
+   "removed": [
+    "Martina Tsacheva"
+   ]
+  },
+  "valdis-dombrovskis": {
+   "url": "https://commission.europa.eu/about/organisation/college-commissioners/valdis-dombrovskis/valdis-dombrovskiss-team_en",
+   "parsed": 18,
+   "existing": 18,
+   "added": [],
+   "removed": []
+  },
+  "dubravka-suica": {
+   "url": "https://commission.europa.eu/about/organisation/college-commissioners/dubravka-suica/dubravka-suicas-team_en",
+   "parsed": 16,
+   "existing": 16,
+   "added": [],
+   "removed": []
+  },
+  "oliver-varhelyi": {
+   "url": "https://commission.europa.eu/about/organisation/college-commissioners/oliver-varhelyi/oliver-varhelyis-team_en",
+   "parsed": 15,
+   "existing": 15,
+   "added": [],
+   "removed": []
+  },
+  "wopke-hoekstra": {
+   "url": "https://commission.europa.eu/about/organisation/college-commissioners/wopke-hoekstra/wopke-hoekstras-team_en",
+   "parsed": 16,
+   "existing": 18,
+   "added": [],
+   "removed": [
+    "Olivia Gippner",
+    "Caroline Limon"
+   ]
+  },
+  "andrius-kubilius": {
+   "url": "https://commission.europa.eu/about/organisation/college-commissioners/andrius-kubilius/andrius-kubiliuss-team_en",
+   "parsed": 16,
+   "existing": 16,
+   "added": [],
+   "removed": []
+  },
+  "marta-kos": {
+   "url": "https://commission.europa.eu/about/organisation/college-commissioners/marta-kos/marta-koss-team_en",
+   "parsed": 15,
+   "existing": 15,
+   "added": [],
+   "removed": []
+  },
+  "jozef-sikela": {
+   "url": "https://commission.europa.eu/about/organisation/college-commissioners/jozef-sikela/jozef-sikelas-team_en",
+   "parsed": 16,
+   "existing": 15,
+   "added": [
+    "Vacant"
+   ],
+   "removed": []
+  },
+  "costas-kadis": {
+   "url": "https://commission.europa.eu/about/organisation/college-commissioners/costas-kadis/costas-kadiss-team_en",
+   "parsed": 16,
+   "existing": 17,
+   "added": [],
+   "removed": [
+    "Fleur Breuillin"
+   ]
+  },
+  "maria-luis-albuquerque": {
+   "url": "https://commission.europa.eu/about/organisation/college-commissioners/maria-luis-albuquerque/maria-luis-albuquerques-team_en",
+   "parsed": 17,
+   "existing": 17,
+   "added": [
+    "Elena Arveras (absent)",
+    "Edoardo Rulli (replacing Elena Arveras)"
+   ],
+   "removed": [
+    "Elena Arveras",
+    "Edoardo Rulli"
+   ]
+  },
+  "hadja-lahbib": {
+   "url": "https://commission.europa.eu/about/organisation/college-commissioners/hadja-lahbib/hadja-lahbibs-team_en",
+   "parsed": 18,
+   "existing": 19,
+   "added": [
+    "Halliki Voolma (absent)",
+    "Esther Luigi (replacing Halliki Voolma)"
+   ],
+   "removed": [
+    "Halliki Voolma",
+    "Esther Luigi",
+    "Isabelle Stassart"
+   ]
+  },
+  "magnus-brunner": {
+   "url": "https://commission.europa.eu/about/organisation/college-commissioners/magnus-brunner/magnus-brunners-team_en",
+   "parsed": 16,
+   "existing": 17,
+   "added": [
+    "Natasha Bertaud (on leave)"
+   ],
+   "removed": [
+    "Natasha Bertaud",
+    "Fatoş Kabakci"
+   ]
+  },
+  "jessika-roswall": {
+   "url": "https://commission.europa.eu/about/organisation/college-commissioners/jessika-roswall/jessika-roswalls-team_en",
+   "parsed": 15,
+   "existing": 16,
+   "added": [],
+   "removed": [
+    "Tita Grape"
+   ]
+  },
+  "piotr-serafin": {
+   "url": "https://commission.europa.eu/about/organisation/college-commissioners/piotr-serafin/piotr-serafins-team_en",
+   "parsed": 16,
+   "existing": 15,
+   "added": [
+    "Daniela Vatrachki"
+   ],
+   "removed": []
+  },
+  "dan-jorgensen": {
+   "url": "https://commission.europa.eu/about/organisation/college-commissioners/dan-jorgensen/dan-jorgensens-team_en",
+   "parsed": 16,
+   "existing": 18,
+   "added": [],
+   "removed": [
+    "Anne-Maud Orlinski",
+    "Päivi Roybin"
+   ]
+  },
+  "ekaterina-zaharieva": {
+   "url": "https://commission.europa.eu/about/organisation/college-commissioners/ekaterina-zaharieva/ekaterina-zaharievas-team_en",
+   "parsed": 16,
+   "existing": 16,
+   "added": [],
+   "removed": []
+  },
+  "michael-mcgrath": {
+   "url": "https://commission.europa.eu/about/organisation/college-commissioners/michael-mcgrath/michael-mcgraths-team_en",
+   "parsed": 14,
+   "existing": 17,
+   "added": [
+    "Lucie Rousselle (Absent)",
+    "Vittorio Argeri"
+   ],
+   "removed": [
+    "Fiona Knab-Lunny",
+    "Lucie Rousselle",
+    "Cédric Bourlier",
+    "Judit Szarka",
+    "Esther Rico-Donovan"
+   ]
+  },
+  "apostolos-tzitzikostas": {
+   "url": "https://commission.europa.eu/about/organisation/college-commissioners/apostolos-tzitzikostas/apostolos-tzitzikostass-team_en",
+   "parsed": 16,
+   "existing": 15,
+   "added": [
+    "Vacant"
+   ],
+   "removed": []
+  },
+  "christophe-hansen": {
+   "url": "https://commission.europa.eu/about/organisation/college-commissioners/christophe-hansen/christophe-hansens-team_en",
+   "parsed": 17,
+   "existing": 17,
+   "added": [],
+   "removed": []
+  },
+  "glenn-micallef": {
+   "url": "https://commission.europa.eu/about/organisation/college-commissioners/glenn-micallef/glenn-micallefs-team_en",
+   "parsed": 14,
+   "existing": 15,
+   "added": [],
+   "removed": [
+    "Tamara Javorcikova"
+   ]
+  }
+ },
+ "summary": {
+  "auto": 49,
+  "structural": 58,
+  "failed": 0
+ }
+}
