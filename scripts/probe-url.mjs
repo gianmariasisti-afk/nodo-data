@@ -9,7 +9,7 @@ for (const u of (process.env.PROBE_URLS || "").split(",").map((x) => x.trim()).f
     const t = buf.toString("utf8");
     const links = [...new Set([...t.matchAll(/href="([^"]*)"/g)].map((m) => m[1]).filter((h) => /cabinet|college-commissioners\/|document\/download|\.pdf/i.test(h)))].slice(0, 80);
     const ctx = []; for (const m of t.matchAll(/abinet/g)) { if (ctx.length >= 12) break; ctx.push(t.slice(Math.max(0, m.index - 160), m.index + 220).replace(/\s+/g, " ")); }
-    out[u] = { ctx, status: r.status, bytes: buf.length, type: r.headers.get("content-type"), final: r.url, head: /pdf/i.test(r.headers.get("content-type") || "") ? "(pdf)" : t.slice(0, 1200), links };
+    out[u] = { ctx, status: r.status, bytes: buf.length, type: r.headers.get("content-type"), final: r.url, head: /pdf/i.test(r.headers.get("content-type") || "") ? "(pdf)" : t.slice(0, Number(process.env.PROBE_HEAD || 1200)), text: process.env.PROBE_TEXT ? t.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/g, " ").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").slice(0, 6000) : undefined, links };
   } catch (e) { out[u] = { error: String(e) }; }
   await new Promise((r) => setTimeout(r, 800));
 }

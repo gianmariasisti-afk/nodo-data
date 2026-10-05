@@ -30,6 +30,7 @@ jobs:
         if: ${{ inputs.probe_urls != '' }}
         env:
           PROBE_URLS: ${{ inputs.probe_urls }}
+          PROBE_TEXT: "1"
         run: node scripts/probe-url.mjs 2>&1 | tee build.log
       - name: Commit probe answers
         if: ${{ inputs.probe_urls != '' }}
