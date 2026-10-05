@@ -6,7 +6,7 @@ for (const p of (process.env.PROBE_PATHS || "").split(",").map((x) => x.trim()).
   try {
     const r = await fetch(API + p, { headers: { "User-Agent": "nodo-prd-1.0", Accept: "application/ld+json, application/json" } });
     const t = await r.text();
-    out[p] = { status: r.status, bytes: t.length, body: t.slice(0, Number(process.env.PROBE_MAX || 7000)) };
+    out[p] = { status: r.status, bytes: t.length, body: t.slice(0, Number(process.env.PROBE_MAX || 30000)) };
   } catch (e) { out[p] = { error: String(e) }; }
   await new Promise((r) => setTimeout(r, 700));
 }
