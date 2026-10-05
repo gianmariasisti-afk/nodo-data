@@ -1,27 +1,19 @@
 {
- "run": "2026-10-05T07:54:25.057Z",
+ "run": "2026-10-05T07:56:43.834Z",
  "college": {
-  "found": 29,
-  "added": [
-   "commissioners-project-groups",
-   "calendar-items-president-and-commissioners",
-   "former-colleges-commissioners"
-  ],
-  "removed": [
-   "ursula-von-der-leyen"
-  ]
+  "found": 26,
+  "added": [],
+  "removed": []
  },
  "teams": {
   "ursula-von-der-leyen": {
-   "error": "no team link"
+   "skipped": "president: cabinet page not covered yet"
   },
   "teresa-ribera": {
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/teresa-ribera/teresa-riberas-team_en",
-   "parsed": 22,
+   "parsed": 21,
    "existing": 21,
-   "added": [
-    "Vacant"
-   ],
+   "added": [],
    "removed": []
   },
   "henna-virkkunen": {
@@ -35,20 +27,10 @@
   },
   "stephane-sejourne": {
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/stephane-sejourne/stephane-sejournes-team_en",
-   "parsed": 24,
+   "parsed": 23,
    "existing": 24,
-   "added": [
-    "Jugatx Ortiz Gonzalez (on leave)",
-    "Andreea-Diana Barbu (replacing Jugatx Ortiz Gonzalez)",
-    "Paola d’Amécourt (on leave)",
-    "Louis Roquebert (replacing Paola d’Amécourt)",
-    "VACANT"
-   ],
+   "added": [],
    "removed": [
-    "Jugatx Ortiz Gonzalez",
-    "Andreea-Diana Barbu",
-    "Paola d’Amécourt",
-    "Louis Roquebert",
     "Michail Stergiopoulos"
    ]
   },
@@ -132,11 +114,9 @@
   },
   "jozef-sikela": {
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/jozef-sikela/jozef-sikelas-team_en",
-   "parsed": 16,
+   "parsed": 15,
    "existing": 15,
-   "added": [
-    "Vacant"
-   ],
+   "added": [],
    "removed": []
   },
   "costas-kadis": {
@@ -152,26 +132,15 @@
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/maria-luis-albuquerque/maria-luis-albuquerques-team_en",
    "parsed": 17,
    "existing": 17,
-   "added": [
-    "Elena Arveras (absent)",
-    "Edoardo Rulli (replacing Elena Arveras)"
-   ],
-   "removed": [
-    "Elena Arveras",
-    "Edoardo Rulli"
-   ]
+   "added": [],
+   "removed": []
   },
   "hadja-lahbib": {
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/hadja-lahbib/hadja-lahbibs-team_en",
    "parsed": 18,
    "existing": 19,
-   "added": [
-    "Halliki Voolma (absent)",
-    "Esther Luigi (replacing Halliki Voolma)"
-   ],
+   "added": [],
    "removed": [
-    "Halliki Voolma",
-    "Esther Luigi",
     "Isabelle Stassart"
    ]
   },
@@ -179,11 +148,8 @@
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/magnus-brunner/magnus-brunners-team_en",
    "parsed": 16,
    "existing": 17,
-   "added": [
-    "Natasha Bertaud (on leave)"
-   ],
+   "added": [],
    "removed": [
-    "Natasha Bertaud",
     "Fatoş Kabakci"
    ]
   },
@@ -227,12 +193,10 @@
    "parsed": 14,
    "existing": 17,
    "added": [
-    "Lucie Rousselle (Absent)",
     "Vittorio Argeri"
    ],
    "removed": [
     "Fiona Knab-Lunny",
-    "Lucie Rousselle",
     "Cédric Bourlier",
     "Judit Szarka",
     "Esther Rico-Donovan"
@@ -240,11 +204,9 @@
   },
   "apostolos-tzitzikostas": {
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/apostolos-tzitzikostas/apostolos-tzitzikostass-team_en",
-   "parsed": 16,
+   "parsed": 15,
    "existing": 15,
-   "added": [
-    "Vacant"
-   ],
+   "added": [],
    "removed": []
   },
   "christophe-hansen": {
@@ -265,8 +227,8 @@
   }
  },
  "summary": {
-  "auto": 49,
-  "structural": 58,
+  "auto": 50,
+  "structural": 30,
   "failed": 0
  }
 }
