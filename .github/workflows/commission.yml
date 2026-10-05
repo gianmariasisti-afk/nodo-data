@@ -1,0 +1,41 @@
+name: Update Commission and cabinets
+
+on:
+  schedule:
+    - cron: "41 4 * * 1-5"
+  workflow_dispatch:
+    inputs:
+      probe_urls:
+        description: "Diagnostics: comma-separated URLs to fetch instead of building (answers go to data-cache/commission-probe.json)"
+        default: ""
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: commission
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Probe
+        if: ${{ inputs.probe_urls != '' }}
+        env:
+          PROBE_URLS: ${{ inputs.probe_urls }}
+        run: node scripts/probe-url.mjs 2>&1 | tee build.log
+      - name: Commit probe answers
+        if: ${{ inputs.probe_urls != '' }}
+        run: |
+          git config user.name "nodo-data bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data-cache/commission-probe.json
+          git commit -q -m "Commission probe" || exit 0
+          git pull -q --rebase origin main && git push -q origin HEAD:main
