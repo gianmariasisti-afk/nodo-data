@@ -1,0 +1,77 @@
+{
+  "generatedAt": "2026-10-06T00:00:00Z",
+  "events": [
+    {
+      "id": "ai-act-implementation:next:2026-12-02:452a4f",
+      "fileId": "ai-act-implementation",
+      "date": "2026-12-02",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Labelling cut-off for generative AI systems already on the market",
+      "push": true,
+      "pushOn": "2026-12-02"
+    },
+    {
+      "id": "mff-2028-2034:next:2026-10-15:4c1fd2",
+      "fileId": "mff-2028-2034",
+      "date": "2026-10-15",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "European Council, 15–16 October: revised negotiating box expected beforehand",
+      "push": true,
+      "pushOn": "2026-10-15"
+    },
+    {
+      "id": "digital-omnibus-data:next:2026-10-13:f12fa3",
+      "fileId": "digital-omnibus-data",
+      "date": "2026-10-13",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "GAC: omnibus simplification packages, state of play",
+      "push": true,
+      "pushOn": "2026-10-13"
+    },
+    {
+      "id": "mff-2028-2034:next:2026-10-13:617eea",
+      "fileId": "mff-2028-2034",
+      "date": "2026-10-13",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "General Affairs Council: MFF policy debate (Luxembourg)",
+      "push": true,
+      "pushOn": "2026-10-13"
+    },
+    {
+      "id": "digital-omnibus-data:ep:amendments:2026-07-27",
+      "fileId": "digital-omnibus-data",
+      "date": "2026-07-27",
+      "source": "ep",
+      "kind": "milestone",
+      "title": "Amendments tabled in committee",
+      "count": 9,
+      "push": true
+    },
+    {
+      "id": "digital-omnibus-data:ep:2025-0360-NMSR-197503-2026-07-20",
+      "fileId": "digital-omnibus-data",
+      "date": "2026-07-20",
+      "source": "ep",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "197503",
+      "group": "Greens/EFA",
+      "push": false
+    },
+    {
+      "id": "digital-omnibus-data:ep:2025-0360-NMSR-197503-2026-07-13",
+      "fileId": "digital-omnibus-data",
+      "date": "2026-07-13",
+      "source": "ep",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "197503",
+      "group": "Greens/EFA",
+      "push": false
+    }
+  ]
+}
