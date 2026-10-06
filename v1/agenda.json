@@ -1,14 +1,14 @@
 {
- "checked": "2026-10-05",
+ "checked": "2026-10-06",
  "source": "https://www.europarl.europa.eu/plenary/en/agendas.html",
  "sessions": {
   "2026-10-05": {
    "stage": "updated",
-   "updated": "2026-10-05",
+   "updated": "2026-10-06",
    "link": "https://www.europarl.europa.eu/plenary/en/agendas.html",
    "src": {
     "api": "foreseen-activities",
-    "sha256": "c87e584d0a1ab2285799d198df46be1431d8fa22324c3444a85f9b5ba2ff2c18"
+    "sha256": "bce2d824d89ccafac230e95761e6bf55e8a7a3b1ad340fc2458fd1e24e3c4502"
    },
    "days": {
     "2026-10-05": [
@@ -442,6 +442,12 @@
      {
       "time": "12:00–14:00",
       "type": "votes",
+      "title": "Objection pursuant to Rule 115(2), (3), and (4)(c): Monacolins from red yeast rice",
+      "sub": "2026/2821(RPS)"
+     },
+     {
+      "time": "12:00–14:00",
+      "type": "votes",
       "title": "Objection pursuant to Rule 115(2), (3) and (4)(c): Lead in gunshot",
       "sub": "2026/2824(RPS)"
      },
@@ -450,6 +456,12 @@
       "type": "votes",
       "title": "Attempts by the ruling party Georgian Dream to ban opposition parties in Georgia",
       "sub": "2026/2913(RSP)"
+     },
+     {
+      "time": "12:00–14:00",
+      "type": "votes",
+      "title": "Objection pursuant to Rule 115(2), (3), and (4)(c): certain botanical species containing hydroxyanthracene derivatives",
+      "sub": "2026/2839(RPS)"
      },
      {
       "time": "15:00–16:00",
