@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generated": "2026-10-06T18:55:22.048Z",
+ "generated": "2026-10-06T21:35:45.706Z",
  "files": {
   "meps": {
    "path": "meps.json",
@@ -38,7 +38,7 @@
    "path": "activity/index.json",
    "description": "MEP activity: speeches, written questions, rapporteur and shadow roles (one file per MEP in activity/)",
    "bytes": 166,
-   "sha256": "d68292661b1e03a93b0070c17ee994b1ce9fbf62ce2d3d75c9eb94a88c8fbf49"
+   "sha256": "7c9fa483caa322373ad4c2a804d2fa60563b980c09eae1a3178115f0c639e9fd"
   },
   "files": {
    "path": "files.json",
