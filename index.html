@@ -1499,6 +1499,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const others = FILES.filter((f) => !state.follow.has(f.id)).map((f, i) => ({ f, i })).sort((a, b) => when(a.f).localeCompare(when(b.f)) || a.i - b.i).map((x) => x.f)
       .slice(0, Math.max(2, 4 - fol.length));
     wrap.innerHTML = `<h3>Files that matter <button class="more" data-view="files" type="button">See all ${FILES.length}</button></h3>
+      ${latestBlock()}
       ${fol.length ? `<p class="cap lead-cap">Following ${fol.length}</p><div class="list">${fol.map(homeFile).join("")}</div>` : ""}
       ${others.length ? `${fol.length ? `<p class="cap lead-cap">Also moving</p>` : ""}<div class="list">${others.map(homeFile).join("")}</div>` : ""}
       ${fol.length ? "" : `<p class="note">Tap the star to follow a file. Followed files move to the top of your home.</p>`}`;
@@ -2207,6 +2208,28 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   const restoreRow = (key) => { const o = BYKEY.get(key).o; return row({ cls: "is-static", lead: avaOf(key), name: esc(o.name), meta: "Removed from this list", tail: `<button class="eu-btn eu-btn--sm" type="button" data-frs="${esc(key)}">Restore</button>` }); };
   const curFile = () => (state.open && state.open.startsWith("file:") ? FILE_BY[state.open.slice(5)] : null);
 
+  /* ---------- File updates ----------
+     v1/updates/*.json is built daily by the "Update file stream" Action. It loads after the page is up; every view works without it. */
+  const UPD = { feed: [], tl: {} };
+  const todayIso = () => new Date().toISOString().slice(0, 10);
+  const evIcon = (e) => (e.kind === "scheduled" ? "cal" : e.kind === "people" ? "user" : "file");
+  const evName = (e) => {
+    let t = esc(e.title) + (e.count > 1 ? ` <small>${e.count}</small>` : "");
+    const p = e.personId && BYKEY.get("ep:" + e.personId);
+    if (p) t += ` · ${esc(p.o.name)}`;
+    return t;
+  };
+  const evMeta = (e, withFile) => esc([withFile && FILE_BY[e.fileId] ? FILE_BY[e.fileId].short : "", e.date ? fdDate(e.date, true) : "", e.group || ""].filter(Boolean).join(" · "));
+  const evRow = (e, withFile) => row({ cls: withFile ? "" : "is-static", attrs: withFile ? tap(`data-file="${esc(e.fileId)}"`) : "", lead: disc(evIcon(e)), name: evName(e), meta: evMeta(e, withFile), wrap: true });
+  function latestBlock() {
+    const fol = new Set(followedFiles().map((f) => f.id)), t = todayIso();
+    const xs = UPD.feed.filter((e) => fol.has(e.fileId) && e.kind !== "people" && e.date <= t).slice(0, 4);
+    return xs.length ? `<p class="cap lead-cap">Latest on your files</p><div class="list">${xs.map((e) => evRow(e, true)).join("")}</div>` : "";
+  }
+  Promise.all(["updates/updates", "updates/timelines"].map((n) => fetchJson(DATA_BASE + n + ".json")))
+    .then(([u, t]) => { UPD.feed = u.events || []; UPD.tl = t || {}; renderFiles(); const f = curFile(); if (f) openFile(f.id, true); })
+    .catch(() => {});
+
   function renderFilesView() {
     $("filesCount").textContent = FILES.length ? `${FILES.length} files` : "";
     if (!FILES.length) { $("filesBody").innerHTML = `<div class="hint"><span>The files list could not load. Check your connection and reopen nodo.</span></div>`; return; }
@@ -2236,6 +2259,13 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     } else if (tab === "ec") {
       const by = (role) => m.base.filter((x) => x.role === role);
       body = sec("Added by you", mineCo) + sec("Lead Commissioner", by("lead")) + sec("Associated Commissioners", by("associated")) + sec("Cabinet staff", by("cabinet"));
+    } else if (tab === "upd") {
+      const t = todayIso(), ev = (UPD.tl[f.id] || []).filter((e) => e.kind !== "scheduled" || e.date <= t);
+      const big = ev.filter((e) => e.kind !== "people"), seenP = new Set();
+      const ppl = ev.filter((e) => e.kind === "people").slice().reverse().filter((e) => { const k = e.personId + "|" + e.title; return seenP.has(k) ? false : (seenP.add(k), true); }).reverse();
+      body = `<h3>Timeline <small>${big.length}</small></h3>` + (big.length ? `<div class="list">${big.map((e) => evRow(e)).join("")}</div>` : `<div class="hint"><span>${UPD.feed.length ? "No recorded steps yet." : "The timeline could not load. Check your connection."}</span></div>`)
+        + (ppl.length ? `<h3>People changes <small>${ppl.length}</small></h3><div class="list">${ppl.map((e) => evRow(e)).join("")}</div>` : "")
+        + `<p class="note">Built daily from the Parliament's open data, the Council calendar and nodo's own file data. Procedural steps appear with a delay of up to a day.</p>`;
     } else {
       const nx = f.next || [], cfs = ((f.council || {}).configs || []).map((cid) => CO_CONFS.find((x) => x.id === cid)).filter(Boolean);
       body = `<h3>What happens next</h3>` + (nx.length ? `<div class="list">${nx.map((n) => row({ cls: "is-static", lead: disc("cal"), name: esc(n.what), meta: esc(fdDate(n.date, true)), wrap: true })).join("")}</div>` : `<div class="hint"><span>No dated step yet.</span></div>`)
@@ -2245,7 +2275,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     }
     const changed = !!state.lists[f.id];
     const where = acct.user ? "Your changes sync to your account." : LIVE ? "Your changes are saved on this device. Sign in to keep them on every device." : "Your changes are saved in this browser.";
-    const tools = edit && tab !== "next"
+    const tools = edit && (tab === "ep" || tab === "ec")
       ? `<button class="eu-btn eu-btn--outline eu-btn--block mt" type="button" data-fadd>${icon("plus")}Add a stakeholder</button>`
         + (m.removed.length ? `<h3>Removed <small>${m.removed.length}</small></h3><div class="list">${m.removed.map(restoreRow).join("")}</div>` : "")
         + (changed ? `<div id="resetBox" class="mt"><button class="eu-btn eu-btn--outline eu-btn--block danger" type="button" data-freset>Reset this list to default</button></div>` : "")
@@ -2256,9 +2286,9 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
         <h2 class="eu-headline" id="pName"><strong>${esc(f.short)}</strong></h2>
         <p class="bio">${esc(f.status || "")}</p></div>
       <div class="stats"><div><b>${c.ep}</b><span>${pl(c.ep, "MEP", "MEPs")}</span></div><div><b>${c.ec}</b><span>${pl(c.ec, "Commissioner", "Commissioners")}</span></div><div><b>${c.cab}</b><span>Cabinet staff</span></div></div>
-      <div class="chips wrap" role="group" aria-label="View">${[["ep", "Parliament"], ["ec", "Commission"], ["next", "Next steps"]].map(([k, n]) => `<button class="eu-chip" type="button" data-ftab="${k}" aria-pressed="${tab === k}">${n}</button>`).join("")}</div>
+      <div class="chips wrap" role="group" aria-label="View">${[["ep", "Parliament"], ["ec", "Commission"], ["next", "Next steps"], ["upd", "Timeline"]].map(([k, n]) => `<button class="eu-chip" type="button" data-ftab="${k}" aria-pressed="${tab === k}">${n}</button>`).join("")}</div>
       ${body}${tools}
-      ${tab !== "next" && (edit || changed) ? `<p class="note">${where}</p>` : ""}
+      ${(tab === "ep" || tab === "ec") && (edit || changed) ? `<p class="note">${where}</p>` : ""}
       <p class="foot">Source: ${esc((DATA.fl && DATA.fl.source) || "nodo-data files.json")}.</p>`);
     if (keep) $("profile").scrollTop = top;
   }
