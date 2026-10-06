@@ -1,0 +1,70 @@
+name: Update file stream
+
+on:
+  schedule:
+    - cron: "41 6 * * *"
+  workflow_dispatch:
+    inputs:
+      today:
+        description: "Diagnostics: override today's date (YYYY-MM-DD)"
+        default: ""
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: updates
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Run tests
+        run: node --test tests/updates/updates.test.mjs
+      - name: Build updates
+        run: |
+          set -o pipefail
+          ARGS=""
+          [ -n "${{ inputs.today }}" ] && ARGS="--today ${{ inputs.today }}"
+          node scripts/build-updates.mjs --files v1/files.json --out v1/updates --state data-cache/updates --manifest v1/manifest.json $ARGS 2>&1 | tee build.log
+      - name: Commit updates to main
+        if: always()
+        run: |
+          git config user.name "nodo-data bot"
+          git config user.email "actions@users.noreply.github.com"
+          rm -rf "$RUNNER_TEMP/out"; mkdir -p "$RUNNER_TEMP/out"
+          cp -r v1/updates "$RUNNER_TEMP/out/updates" 2>/dev/null || true
+          cp -r data-cache/updates "$RUNNER_TEMP/out/state" 2>/dev/null || true
+          node -e 'const f=require("fs");let m={};try{m=JSON.parse(f.readFileSync("v1/manifest.json","utf8"))}catch{};f.writeFileSync(process.env.RUNNER_TEMP+"/out/entry.json",JSON.stringify((m.files&&m.files.updates)||null))'
+          for i in 1 2 3 4; do
+            git fetch -q origin main
+            git reset -q --hard origin/main
+            mkdir -p v1 data-cache
+            [ -d "$RUNNER_TEMP/out/updates" ] && { rm -rf v1/updates; cp -r "$RUNNER_TEMP/out/updates" v1/updates; }
+            [ -d "$RUNNER_TEMP/out/state" ] && { rm -rf data-cache/updates; cp -r "$RUNNER_TEMP/out/state" data-cache/updates; }
+            node -e 'const f=require("fs");const e=JSON.parse(f.readFileSync(process.env.RUNNER_TEMP+"/out/entry.json","utf8"));if(e){const m=JSON.parse(f.readFileSync("v1/manifest.json","utf8"));m.files=m.files||{};m.files.updates=e;m.generated=new Date().toISOString();f.writeFileSync("v1/manifest.json",JSON.stringify(m,null,1)+"\n")}'
+            git add v1 data-cache
+            if git diff --cached --quiet; then echo "Nothing new."; exit 0; fi
+            git commit -q -m "Update file stream $(date -u +%F)"
+            if git push -q origin HEAD:main; then echo "Pushed."; exit 0; fi
+            echo "Push rejected, retrying ($i)"; sleep 5
+          done
+          echo "Could not push after 4 tries"; exit 1
+      - name: Open an issue when the build failed
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create structural --color D93F0B --description "Needs a human decision" 2>/dev/null || true
+          T="File stream build needs attention"
+          if ! gh issue list --state open --search "\"$T\" in:title" --json number --jq '.[0].number' | grep -q .; then
+            { echo "The file stream build failed or a procedure could not be fetched. Last lines of the log:"; echo; echo '```'; tail -n 40 build.log; echo '```'; echo; echo "Run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"; } > issue.md
+            gh issue create --title "$T" --label structural --body-file issue.md
+          fi

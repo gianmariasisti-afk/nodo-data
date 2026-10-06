@@ -1,0 +1,33 @@
+{
+  "asOf": "2026-10-04",
+  "note": "Trimmed copy of nodo-files.json for tests: only the fields the job reads.",
+  "files": [
+    {
+      "id": "mff-2028-2034",
+      "procedure": "2025/0571(APP)",
+      "stage": "council-negotiating-box",
+      "next": [
+        { "date": "2026-10-13", "what": "General Affairs Council: MFF policy debate (Luxembourg)" },
+        { "date": "2026-10-15", "what": "European Council, 15–16 October: revised negotiating box expected beforehand" }
+      ]
+    },
+    {
+      "id": "digital-omnibus-data",
+      "procedure": "2025/0360(COD)",
+      "stage": "positions-in-preparation",
+      "next": [{ "date": "2026-10-13", "what": "GAC: omnibus simplification packages, state of play" }]
+    },
+    {
+      "id": "industrial-accelerator-act",
+      "procedure": "COM(2026)100",
+      "stage": "positions-in-preparation",
+      "next": []
+    },
+    {
+      "id": "digital-fairness-act",
+      "procedure": null,
+      "stage": "pre-proposal",
+      "next": [{ "date": null, "what": "Commission proposal expected in Q4 2026" }]
+    }
+  ]
+}

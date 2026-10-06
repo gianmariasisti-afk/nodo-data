@@ -1,0 +1,17 @@
+{
+  "data": [
+    {
+      "id": "eli/dl/proc/2025-0571",
+      "type": "Process",
+      "had_participation": [
+        { "id": "eli/dl/participation/2025-0571-NMCOR-257071-BUDG-2025-11-25", "type": "Participation", "activity_date": "2025-11-25", "had_participant_person": ["person/257071"], "participation_in_name_of": "org/BUDG", "participation_role": "def/ep-roles/RAPPORTEUR_CO", "politicalGroup": "org/S-D" },
+        { "id": "eli/dl/participation/2025-0571-NMCOR-124802-BUDG-2025-11-25", "type": "Participation", "activity_date": "2025-11-25", "had_participant_person": ["person/124802"], "participation_in_name_of": "org/BUDG", "participation_role": "def/ep-roles/RAPPORTEUR_CO", "politicalGroup": "org/PPE" },
+        { "id": "eli/dl/participation/2025-0571-NMSR-22858-2025-11-25", "type": "Participation", "activity_date": "2025-11-25", "had_participant_person": ["person/22858"], "participation_role": "def/ep-roles/RAPPORTEUR_SHADOW", "politicalGroup": "org/RENEW" },
+        { "id": "eli/dl/participation/2025-0571-NMSR-256891-2026-02-13", "type": "Participation", "activity_date": "2026-02-13", "had_participant_person": ["person/256891"], "participation_role": "def/ep-roles/RAPPORTEUR_SHADOW_OPINION", "politicalGroup": "org/RENEW" },
+        { "id": "eli/dl/participation/2025-0571-AVI-ITRE", "type": "Participation", "had_participant_organization": ["org/ITRE"], "participation_role": "def/ep-roles/COMMITTEE_OPINION" }
+      ],
+      "process_id": "2025-0571",
+      "label": "2025/0571(APP)"
+    }
+  ]
+}

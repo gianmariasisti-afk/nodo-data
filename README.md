@@ -82,3 +82,9 @@ The GitHub Action "Update plenary agenda" (`.github/workflows/agenda.yml`, `scri
 ## Sources and reuse
 
 Data comes from the European Parliament, European Commission and Council of the EU public websites and open data portals. Check each institution's reuse terms before reusing the data. Everything in this repository is public.
+
+## updates/ (file update stream)
+
+`v1/updates/updates.json` is the latest feed for the priority files (last 90 days plus upcoming Council dates). `timelines.json` holds the full history per file for the file detail screen. `push-queue.json` lists today's push candidates; the sender applies per-user follows, toggles, caps and quiet hours. Events come from the EP Open Data procedure endpoint (`/api/v2/procedures/<year>-<number>`), the `next` dates in `files.json` and stage changes. State lives in `data-cache/updates/state.json`.
+
+The Action "Update file stream" (`.github/workflows/updates.yml`) runs `scripts/build-updates.mjs` daily at 06:41 UTC and commits the result. The first run per file seeds history without push candidates. If a procedure cannot be fetched the previous events stay, the Action exits non-zero and opens an issue labelled `structural`. Tests: `node --test tests/updates/updates.test.mjs`. To run it by hand: `node scripts/build-updates.mjs --files v1/files.json --out v1/updates --state data-cache/updates --manifest v1/manifest.json`.
