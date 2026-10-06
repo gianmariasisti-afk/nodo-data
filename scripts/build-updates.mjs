@@ -202,7 +202,7 @@ export async function run({ filesPath, outDir, stateDir = outDir, fixturesDir, t
   await write('updates.json', { generatedAt, events: updates });
   await write('timelines.json', timelines);
   await write('push-queue.json', { generatedAt, events: pushQueue });
-  await write('state.json', state);
+  await writeFile(path.join(stateDir, 'state.json'), JSON.stringify(state, null, 2) + '\n');
 
   return { newEvents, pushQueue, failures, updates, timelines };
 }
