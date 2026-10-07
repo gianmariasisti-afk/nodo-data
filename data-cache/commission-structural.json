@@ -1,5 +1,5 @@
 {
- "at": "2026-10-07",
+ "at": "2026-10-05",
  "changes": [
   {
    "type": "role",
@@ -25,18 +25,6 @@
    "commissioner": "costas-kadis",
    "name": "Fleur Breuillin",
    "role": "Member"
-  },
-  {
-   "type": "added",
-   "commissioner": "hadja-lahbib",
-   "name": "Christina Vasileiadou",
-   "role": "ASSISTANT TO HALLIKI VOOLMA AND FRANCESCO ZOIA BOLZONELLO"
-  },
-  {
-   "type": "removed",
-   "commissioner": "hadja-lahbib",
-   "name": "Caroline Limon",
-   "role": "Assistant to Halliki Voolma and Francesco Zoia Bolzonello"
   },
   {
    "type": "role",
