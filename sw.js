@@ -1,5 +1,7 @@
-/* nodo service worker: app shell works offline, data refreshes whenever there is a connection. */
-const VERSION = "nodo-v9";
+/* nodo service worker: the app shell works offline, and data refreshes whenever there is a connection. */
+const VERSION = "nodo-v10";
+/* Data has its own cache so an app update does not make every phone download the directory again. */
+const DATA = "nodo-data-v1";
 const SHELL = ["./", "index.html", "config.js", "avatars.js", "vendor/supabase.js", "manifest.webmanifest", "icons/icon-192.png", "icons/icon-512.png", "icons/apple-touch-icon.png"];
 
 self.addEventListener("install", (e) => {
@@ -7,10 +9,26 @@ self.addEventListener("install", (e) => {
 });
 
 self.addEventListener("activate", (e) => {
-  e.waitUntil(caches.keys().then((ks) => Promise.all(ks.filter((k) => k !== VERSION).map((k) => caches.delete(k)))).then(() => self.clients.claim()));
+  e.waitUntil(caches.keys().then((ks) => Promise.all(ks.filter((k) => k !== VERSION && k !== DATA).map((k) => caches.delete(k)))).then(() => self.clients.claim()));
 });
 
-const networkFirst = (req) => fetch(req).then((r) => { if (r.ok) { const copy = r.clone(); caches.open(VERSION).then((c) => c.put(req, copy)); } return r; }).catch(() => caches.match(req));
+/* Data: the network copy when it answers in time, the saved copy when the connection is slow or gone.
+   A slow answer still lands in the cache, ready for the next start. Without a saved copy the request simply waits for the network. */
+const WAIT_MS = 3000;
+const networkFirst = (req) => new Promise((resolve) => {
+  let settled = false;
+  const settle = (r) => { if (!settled && r) { settled = true; resolve(r); } };
+  const saved = caches.match(req);
+  const timer = setTimeout(() => saved.then(settle), WAIT_MS);
+  fetch(req).then((r) => {
+    clearTimeout(timer);
+    if (r.ok) { const copy = r.clone(); caches.open(DATA).then((c) => c.put(req, copy)); }
+    settle(r);
+  }).catch(() => {
+    clearTimeout(timer);
+    saved.then((hit) => settle(hit || Response.error()));
+  });
+});
 const staleWhileRevalidate = (req) => caches.match(req).then((hit) => {
   const net = fetch(req).then((r) => { if (r.ok || r.type === "opaque") { const copy = r.clone(); caches.open(VERSION).then((c) => c.put(req, copy)); } return r; }).catch(() => hit);
   return hit || net;

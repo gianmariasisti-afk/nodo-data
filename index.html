@@ -282,6 +282,11 @@ h1, h2, h3, h4, p { margin: 0; }
 .cap { font-size: 12px; line-height: 16px; font-weight: 500; color: var(--ink-muted); }
 .count { margin: var(--space-4) var(--space-1) 0; font-variant-numeric: tabular-nums; }
 .count:empty { display: none; }
+.countrow { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-3); }
+.countrow .more { margin-right: var(--space-1); }
+.az { margin-top: var(--space-2); }
+.az .eu-chip { width: 44px; padding: 0; justify-content: center; font-weight: 600; }
+.empty .eu-btn { margin-top: var(--space-3); background: var(--surface); color: var(--ink); }
 .lead-cap { margin: var(--space-3) var(--space-1) 0; font-size: 13px; }
 .note, .foot { margin: var(--space-6) var(--space-1) 0; font-size: 12px; line-height: 16px; font-weight: 500; color: var(--ink-muted); }
 .mt { margin-top: var(--space-3); }
@@ -398,6 +403,7 @@ h3 small { font-size: 12px; line-height: 16px; font-weight: 500; letter-spacing:
 .stats div { min-width: 0; padding: var(--space-3); border-radius: var(--radius-md); background: var(--surface-sunken); }
 .stats b { display: block; font-size: 22px; line-height: 26px; font-weight: 700; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
 .stats span { display: block; font-size: 12px; line-height: 16px; font-weight: 500; color: var(--ink-muted); overflow-wrap: anywhere; }
+@media (max-width: 340px) { .stats div { padding: var(--space-3) var(--space-2); } }
 .acts { display: flex; gap: var(--space-2); margin-top: var(--space-4); }
 .acts .eu-btn { flex: 1; }
 .tl { display: grid; gap: var(--space-3); }
@@ -417,7 +423,8 @@ details.office > .list { margin-top: var(--space-2); }
 .strip::-webkit-scrollbar { display: none; }
 .bub { flex: 0 0 72px; display: grid; justify-items: center; align-content: start; gap: 6px; border: 0; background: none; padding: 0; color: var(--ink); text-align: center; }
 .bub .ava { width: 60px; height: 60px; font-size: 18px; }
-.bub > span:last-child { width: 72px; font-size: 12px; line-height: 16px; font-weight: 500; overflow-wrap: anywhere; }
+.bub > span:last-child { width: 72px; font-size: 12px; line-height: 16px; font-weight: 500; }
+.bub > span:last-child b { display: block; font-weight: inherit; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .spot, .prez { display: grid; gap: var(--space-4); width: 100%; margin-top: var(--space-3); padding: var(--space-4); border: 0; border-radius: var(--radius-lg);
   background: var(--tint-apricot); color: var(--ink); text-align: left; cursor: pointer; }
 .spot { grid-template-columns: 96px 1fr; }
@@ -569,11 +576,15 @@ details.office > .list { margin-top: var(--space-2); }
 .fd-pdf { font-size: 13px; line-height: 16px; color: var(--brand); text-decoration: underline; }
 .fd-pdf svg { width: 16px; height: 16px; }
 .fd-open:focus-visible, .fd-pdf:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
-.fd-sheet { display: grid; gap: var(--space-4); margin-top: var(--space-3); }
+.fd-open small { font-size: 12px; line-height: 16px; font-weight: 600; color: var(--ink-muted); }
+.fd-more { margin-top: var(--space-2); flex-direction: column; gap: 0; }
+.fd-more small { display: block; font-size: 12px; line-height: 16px; font-weight: 500; color: var(--ink-muted); }
+.fd-sheet { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-4); margin-top: var(--space-3); }
+.fd-sheet .ag-card__top { flex-wrap: wrap; }
 .fd-sheet .fd-head { padding: var(--space-5); border-radius: var(--radius-lg); display: grid; gap: var(--space-3); }
 .fd-sheet h2 { font-family: var(--font-display); font-size: 26px; line-height: 30px; font-weight: 700; letter-spacing: -0.03em; overflow-wrap: anywhere; }
 .fd-sheet h4 { font-family: var(--font-display); font-size: 22px; line-height: 26px; font-weight: 700; letter-spacing: -0.02em; margin: 0; }
-.fd-sheet .fd-txt { padding: var(--space-4); border-radius: var(--radius-md); background: var(--surface-sunken); display: grid; gap: var(--space-3); font-size: 15px; line-height: 22px; }
+.fd-sheet .fd-txt { padding: var(--space-4); border-radius: var(--radius-md); background: var(--surface-sunken); display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-3); font-size: 15px; line-height: 22px; overflow-wrap: anywhere; }
 .fd-sheet .fd-txt p { margin: 0; }
 .fd-step { display: grid; grid-template-columns: 12px minmax(0, 1fr); gap: var(--space-3); }
 .fd-step .ag-rail { padding-top: 6px; }
@@ -690,6 +701,20 @@ details.office > .list { margin-top: var(--space-2); }
 .textbtn--strong { color: var(--on-brand-deep); }
 .onb-foot--flow { position: static; gap: 0; margin-top: var(--space-6); }
 .onb-foot--flow .fine { margin-top: var(--space-2); }
+.linkbtn { display: inline; min-height: 24px; border: 0; background: none; padding: 4px 0; color: inherit; font: inherit; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.onb--light .linkbtn { color: var(--brand); }
+.pv-auth { margin-top: var(--space-6); border-radius: var(--radius-lg); box-shadow: inset 0 0 0 1.5px var(--on-brand-deep-muted); }
+.pv-auth > summary { list-style: none; display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); min-height: 56px; padding: 0 var(--space-5); font-weight: 600; cursor: pointer; }
+.pv-auth > summary::-webkit-details-marker { display: none; }
+.pv-auth > summary .eu-icon { width: 20px; height: 20px; }
+.pv-auth[open] > summary .eu-icon { transform: rotate(180deg); }
+.pv-auth[open] { padding: 0 var(--space-4) var(--space-4); }
+.pv-auth[open] > summary { padding-inline: var(--space-1); }
+.pv-auth .fine { text-align: left; margin: 0 var(--space-1) var(--space-2); }
+.pv-auth .auth-list { margin-top: var(--space-3); }
+.onb .block { background: var(--surface-sunken); }
+.onb .block section + section { margin-top: var(--space-5); }
+.avsheet .block p, .onb .block p { color: var(--ink-muted); }
 .auth-me { display: grid; place-items: center; width: 72px; height: 72px; margin: var(--space-10) var(--space-1) 0; border-radius: 50%; background: var(--brand-on-deep); color: #0A1128; font-size: 26px; line-height: 1; font-weight: 700; }
 .auth-me + .onb-xl { margin-top: var(--space-6); }
 
@@ -788,6 +813,9 @@ details.office > .list { margin-top: var(--space-2); }
 @media (max-width: 400px) { .dock .eu-tabbar__item { width: 62px; } }
 @media (max-width: 360px) { .dock .eu-tabbar__item { width: 56px; font-size: 11px; } }
 @media (max-width: 330px) { .dock .eu-tabbar__item { width: 50px; } }
+.toast:has(.toast__act) { height: 48px; padding-right: var(--space-1); }
+.toast__act { height: 44px; min-width: 44px; margin-left: var(--space-2); padding: 0 var(--space-3); border: 0; border-radius: var(--radius-pill); background: none; color: inherit; font: inherit; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.toast__act:focus-visible { outline: 2px solid var(--ink-inverse); outline-offset: -4px; }
 .toast { position: fixed; z-index: 80; left: 0; right: 0; margin-inline: auto; width: fit-content; max-width: calc(100% - 2 * var(--space-4)); bottom: calc(env(safe-area-inset-bottom, 0px) + 100px); height: 40px; padding: 0 var(--space-4); }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -861,6 +889,8 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
 
 /* Addresses and numbers to copy sit at body-strong; emails break after the @. */
 .eu-row__name .sel-all { font-size: 15px; line-height: 22px; font-weight: 600; letter-spacing: 0; }
+.lnk { display: inline-block; padding: 6px 0; margin: -6px 0; color: inherit; text-decoration: underline; text-decoration-color: var(--border-control); text-underline-offset: 3px; }
+.lnk:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; border-radius: 4px; }
 
 /* Dropdowns show a chevron. */
 .sel { padding-right: 48px; background: var(--surface) var(--chev) no-repeat right 18px center / 20px 20px; }
@@ -887,11 +917,12 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
 .sheet__bar { display: flex; justify-content: flex-end; margin-bottom: var(--space-2); }
 
 /* Perm reps */
-.pr-st { display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 var(--space-3) 0 10px; border-radius: var(--radius-pill); background: var(--surface); font-size: 13px; line-height: 16px; font-weight: 600; white-space: nowrap; }
+.pr-st { display: inline-flex; align-items: center; gap: 6px; min-height: 28px; max-width: 100%; padding: 6px var(--space-3) 6px 10px; border-radius: var(--radius-lg); background: var(--surface); font-size: 13px; line-height: 16px; font-weight: 600; }
 .pr-st svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex: none; }
 .pr-st--ok { color: var(--success); } .pr-st--warn { color: var(--warning); } .pr-st--none { color: var(--ink-muted); }
 .pr-st--plain { color: var(--ink); background: var(--surface-sunken); }
 .pr-top-note { margin: var(--space-3) var(--space-1) 0; }
+.pr-src { margin: 0 0 var(--space-2); font-size: 13px; }
 .pr-btns { display: grid; gap: var(--space-2); margin-top: var(--space-4); }
 .pr-lab { display: block; margin: var(--space-4) var(--space-1) var(--space-2); font-size: 13px; line-height: 16px; font-weight: 600; }
 .pr-sel { width: 100%; height: 56px; padding: 0 var(--space-5); border: 0; border-radius: var(--radius-pill); background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--border-control); color: var(--ink); font: 400 15px/22px var(--font-sans); }
@@ -917,7 +948,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     <h1 id="greet" class="eu-headline">Who are you <strong>meeting</strong> today?</h1>
   </div>
   <label class="eu-search"><svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.500"/><path d="M16 16l4 4"/></svg>
-    <input id="hq" type="search" placeholder="Search a name, committee or topic" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Search Parliament, Commission and Council"></label>
+    <input id="hq" type="search" placeholder="Search a name, file or topic" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Search people, files, Parliament, Commission and Council"></label>
   <div class="chips" id="topics" aria-label="Popular topics"></div>
   <div class="grid2" id="homeTiles">
       <button class="eu-tile eu-tile--sky" id="doorEp" type="button"><span class="eu-tile__disc"><svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 19c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><circle cx="17" cy="9" r="2.4"/><path d="M17.5 13.8c2 .4 3.5 2 3.5 4.2"/></svg></span><span><span class="eu-tile__label">Parliament</span><span class="eu-tile__meta" id="metaEp">MEPs</span></span></button>
@@ -954,9 +985,11 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     <select id="country" class="sel" aria-label="Country"><option value="">All countries</option></select>
     <select id="committee" class="sel" aria-label="Committee"><option value="">All committees</option></select>
   </div>
-  <p id="epCount" class="cap count" aria-live="polite"></p>
+  <div class="countrow"><p id="epCount" class="cap count" aria-live="polite"></p><button class="more" id="epClear" type="button" data-epclear hidden>Clear filters</button></div>
+  <div class="chips az" id="epAz" role="group" aria-label="Jump to a letter" hidden></div>
   <div class="list" id="list"></div>
-  <p id="empty" class="empty" hidden>No MEPs match. Try fewer filters.</p>
+  <button class="eu-btn eu-btn--block mt" id="epMore" type="button" hidden>Show more</button>
+  <div id="empty" class="empty" hidden><p>No MEPs match these filters.</p><button class="eu-btn eu-btn--sm" type="button" data-epclear>Clear filters</button></div>
 </main>
 
 <!-- COMMISSION -->
@@ -1053,11 +1086,14 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   let DATA = null;
   while (!DATA) {
     try {
-      const [mep, ec, cal, co] = await Promise.all(["meps", "commission", "calendar", "council"].map(getData));
-      /* The plenary agenda file is optional: the app works without it and shows the "not here yet" state. */
-      const ag = await getData("agenda").catch(() => ({ checked: null, sessions: {} }));
-      /* The files list is optional too: without it the Files tab shows an empty state. */
-      const fl = await getData("files").catch(() => ({ files: [] }));
+      let got = 0;
+      /* All six files load side by side, so a slow connection costs one wait and not three.
+         The plenary agenda and the files list are optional: without them the app shows the "not here yet" and empty states. */
+      const [mep, ec, cal, co, ag, fl] = await Promise.all([
+        ...["meps", "commission", "calendar", "council"].map((f) => getData(f).then((d) => { bootMsg.textContent = `Loading the directory · ${++got} of 4`; return d; })),
+        getData("agenda").catch(() => ({ checked: null, sessions: {} })),
+        getData("files").catch(() => ({ files: [] })),
+      ]);
       DATA = { mep, ec, cal, co, ag, fl };
     } catch {
       bootMsg.textContent = "The directory could not load. Check your connection and try again.";
@@ -1323,9 +1359,16 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   function identityChanged() { renderGreeting(); renderMeBtn(); renderTopics(); if (!$("onb").hidden) renderOnb(); }
 
   let toastTimer;
-  function toast(msg, ms) {
-    const t = $("toast"); t.textContent = msg; t.hidden = false;
-    clearTimeout(toastTimer); toastTimer = setTimeout(() => (t.hidden = true), ms || 1600);
+  /* act = { label, fn } adds one button, for an action worth taking back. */
+  function toast(msg, ms, act) {
+    const t = $("toast"); t.textContent = msg;
+    if (act) {
+      const b = document.createElement("button"); b.type = "button"; b.className = "toast__act"; b.textContent = act.label;
+      b.onclick = () => { clearTimeout(toastTimer); t.hidden = true; act.fn(); };
+      t.appendChild(b);
+    }
+    t.hidden = false;
+    clearTimeout(toastTimer); toastTimer = setTimeout(() => (t.hidden = true), ms || (act ? 6000 : 1600));
   }
   function copy(text, label) {
     const ok = () => toast(label + " copied");
@@ -1350,9 +1393,10 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   const row = (o) => `<${o.el || "div"} class="eu-row eu-row--sunken${o.cls ? " " + o.cls : ""}" ${o.attrs || ""}>${o.lead || ""}<span class="eu-row__body"><span class="eu-row__name${o.wrap ? " wrap" : ""}">${/\bdata-tap\b/.test(o.attrs || "") ? hit(o.name) : o.name}</span>${o.meta ? `<span class="eu-row__meta${o.wrap ? " wrap" : ""}">${o.meta}</span>` : ""}${o.extra || ""}</span>${o.tail || ""}</${o.el || "div"}>`;
   const starBtn = (key, name) => `<button class="eu-iconbtn eu-iconbtn--sm star" type="button" data-fav="${esc(key)}" aria-pressed="${state.favs.has(key)}" aria-label="Save ${esc(name)}">${icon("star")}</button>`;
   const favPill = (key, label) => { const on = state.favs.has(key); return `<button class="eu-btn ${on ? "eu-btn--ink" : "eu-btn--brand"}" type="button" data-fav="${esc(key)}" data-label="${esc(label)}">${on ? "Saved" + icon("check") : esc(label)}</button>`; };
-  const copyRow = (ic, v, what) => row({ cls: "is-static", lead: disc(ic), name: `<span class="sel-all">${esc(v).replace("@", "@<wbr>")}</span>`, meta: esc(what), wrap: true,
+  const contactHref = (ic, v) => (ic === "phone" ? "tel:" + String(v).replace(/[^\d+]/g, "") : "mailto:" + String(v).trim());
+  const copyRow = (ic, v, what) => row({ cls: "is-static", lead: disc(ic), name: `<a class="sel-all lnk" href="${esc(contactHref(ic, v))}" aria-label="${ic === "phone" ? "Call" : "Email"} ${esc(v)}">${esc(v).replace("@", "@<wbr>")}</a>`, meta: esc(what), wrap: true,
     tail: `<button class="eu-btn eu-btn--sm" type="button" data-copy="${esc(v)}" data-what="${esc(what)}">Copy</button>` });
-  const rowMep = (m) => row({ attrs: tap(`data-open="${esc(m.key)}"`), lead: avaOf(m.key), name: esc(m.name), meta: esc([countryName(m.country), m.party].filter(Boolean).join(" · ")),
+  const rowMep = (m) => row({ attrs: tap(`data-open="${esc(m.key)}"`), lead: avaOf(m.key), name: esc(m.name), meta: esc([countryName(m.country), m.party].filter(Boolean).join(" · ")), wrap: true,
     extra: `<span class="eu-row__tags">${gtag(m.group)}</span>`, tail: starBtn(m.key, m.name) });
   const rowCom = (c) => row({ attrs: tap(`data-open="${esc(c.key)}"`), lead: avaOf(c.key), name: esc(c.name), meta: esc(c.title + " · " + c.portfolio.join(" · ")), wrap: true, tail: starBtn(c.key, c.name) });
   function snippet(m, t) {
@@ -1379,7 +1423,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   const bubble = (key) => {
     const e = BYKEY.get(key); if (!e) return "";
     const parts = e.o.name.split(" "), first = parts[0], rest = parts.slice(1).join(" ");
-    return `<button class="bub" type="button" data-open="${esc(key)}" aria-label="${esc(e.o.name)}">${avaOf(key)}<span>${esc(first)}<br>${esc(rest)}</span></button>`;
+    return `<button class="bub" type="button" data-open="${esc(key)}" title="${esc(e.o.name)}">${avaOf(key)}<span><b>${esc(first)} </b>${rest ? `<b>${esc(rest)}</b>` : ""}</span></button>`;
   };
 
   /* ---------- search ---------- */
@@ -1395,16 +1439,37 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const ep = MEPS.filter((m) => hits(m._hay, t)).sort((a, b) => (hits(b._nm, t) - hits(a._nm, t)));
     const co = [...CO_COUNTRIES.filter((c) => hits(c._hay, t)).map((c) => ({ k: "c", c })), ...CO_CONFS.filter((c) => hits(c._hay, t)).map((c) => ({ k: "f", c })),
       ...CO_PEOPLE.filter((x) => hits(x._hay, t)).map((x) => ({ k: "p", x }))];
-    return { t, com, cab, ep, co };
+    const fl = FILES.filter((f) => hits(f._hay, t)).sort((a, b) => (exact(b._sh, t) - exact(a._sh, t)) || (hits(b._nm, t) - hits(a._nm, t)));
+    return { t, com, cab, ep, co, fl };
+  }
+  /* One result list for the home search and for "who covers it" pages. q travels on the Show all buttons. */
+  function resultsHtml(r, q) {
+    const tot = r.fl.length + r.com.length + r.cab.length + r.ep.length + r.co.length;
+    if (!tot) return `<p class="empty mt">Nothing matches “${esc(q)}”. Try one word, a file like MFF, or a policy area like energy.</p>`;
+    const all = (n, where, to) => `<button class="eu-btn eu-btn--block" type="button" data-goto="${to}" data-q="${esc(q)}">Show all ${n} in ${where}</button>`;
+    return `
+      ${r.fl.length ? `<h3>Files <small>${r.fl.length}</small></h3><div class="list">${r.fl.map(homeFile).join("")}</div>` : ""}
+      ${r.com.length ? `<h3>Commission <small>${r.com.length}</small></h3><div class="list">${r.com.slice(0, 5).map(rowCom).join("")}</div>` : ""}
+      ${r.cab.length ? `<h3>Cabinets <small>${r.cab.length} ${r.cab.length === 1 ? "person" : "people"}</small></h3><div class="list">${r.cab.slice(0, 8).map((m) => rowCab(m, r.t)).join("")}
+        ${r.cab.length > 8 ? all(r.cab.length, "Cabinets", "cab") : ""}</div>` : ""}
+      ${r.co.length ? `<h3>Council <small>${r.co.length}</small></h3><div class="list">${r.co.slice(0, 6).map(coResultRow).join("")}</div>` : ""}
+      ${r.ep.length ? `<h3>Parliament <small>${r.ep.length} MEPs</small></h3><div class="list">${r.ep.slice(0, 6).map(rowMep).join("")}
+        ${r.ep.length > 6 ? all(r.ep.length, "Parliament", "ep") : ""}</div>` : ""}`;
   }
 
   /* ---------- views ---------- */
-  function setView(v) {
+  const VIEW_IDS = { home: "vHome", ep: "vEp", ec: "vEc", co: "vCo", cal: "vCal", agenda: "vAgenda", saved: "vSaved", files: "vFiles" };
+  function showView(v) {
     state.view = v;
     if (v === "ep" || v === "ec" || v === "co") state.dir = v;
-    ["home", "ep", "ec", "co", "cal", "agenda", "saved", "files"].forEach((k) => { $({ home: "vHome", ep: "vEp", ec: "vEc", co: "vCo", cal: "vCal", agenda: "vAgenda", saved: "vSaved", files: "vFiles" }[k]).hidden = k !== v; });
-    closeSheet(); closeProfile(true);
+    Object.entries(VIEW_IDS).forEach(([k, id]) => { $(id).hidden = k !== v; });
+  }
+  function setView(v) {
+    navMark();
+    showView(v);
+    closeSheet(); closeAllProfiles(true);
     renderView(); syncDock(); scrollTo({ top: 0 });
+    navTouch();
   }
   function syncDock() {
     const cur = state.view;
@@ -1434,8 +1499,8 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     $("metaEc").innerHTML = `<span>${COLL.length} Commissioners</span><span>${CAB.length} cabinet staff</span>`;
     const counts = GROUP_ORDER.map((g) => [g, MEPS.filter((m) => m.group === g).length]).filter((x) => x[1]);
     const max = Math.max(...counts.map((x) => x[1]));
-    $("bars").innerHTML = counts.map(([g, n]) => `<button class="bar" type="button" data-group="${esc(g)}" style="--gc:${gc(g)}" title="${esc(g)}: ${n} seats" aria-label="${esc(g)}, ${n} seats. Show members">
-      ${gtag(g)}<span class="tr"><i style="width:${(n / max * 100).toFixed(1)}%"></i></span><span class="n">${n}</span></button>`).join("");
+    $("bars").innerHTML = counts.map(([g, n]) => `<button class="bar" type="button" data-group="${esc(g)}" style="--gc:${gc(g)}" title="${esc(g)}: ${n} seats">
+      ${gtag(g)}<span class="tr"><i style="width:${(n / max * 100).toFixed(1)}%"></i></span><span class="n"> ${n}<span class="sr"> seats, show members</span></span></button>`).join("");
     const cs = [...new Set(MEPS.map((m) => m.country))].sort((a, b) => countryName(a).localeCompare(countryName(b)));
     $("deskCountry").innerHTML = '<option value="">Choose a country</option>' + cs.map((c) => `<option value="${c}">${esc(countryName(c))}</option>`).join("");
     const saved = store.get(DESK_KEY);
@@ -1481,7 +1546,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const hl = (line) => { let h = esc(line); kw.flat().forEach((x) => { h = h.replace(new RegExp("(^|[^\\p{L}\\p{N}])(" + x + "s?)(?![\\p{L}\\p{N}])", "giu"), "$1<b>$2</b>"); }); return h; };
     return (a._d = { coms, cab, members, lead: members.filter((x) => x.role !== "Member"), hl });
   }
-  const rowMepRole = (x) => row({ attrs: tap(`data-open="${esc(x.m.key)}"`), lead: avaOf(x.m.key), name: esc(x.m.name), meta: esc(`${countryName(x.m.country)} · ${x.abbr}, ${x.role.toLowerCase()}`),
+  const rowMepRole = (x) => row({ attrs: tap(`data-open="${esc(x.m.key)}"`), lead: avaOf(x.m.key), name: esc(x.m.name), meta: esc(`${countryName(x.m.country)} · ${x.abbr}, ${x.role.toLowerCase()}`), wrap: true,
     extra: `<span class="eu-row__tags">${gtag(x.m.group)}</span>`, tail: starBtn(x.m.key, x.m.name) });
   const rowCabArea = (x, d) => row({ attrs: tap(`data-open="${esc(x.m.key)}"`), lead: avaOf(x.m.key), name: esc(x.m.name), meta: esc(`${x.m.role} · Cabinet ${x.m.com.short}`), wrap: true,
     extra: `<span class="row-hit">${d.hl(x.line)}</span>`, tail: starBtn(x.m.key, x.m.name) });
@@ -1504,12 +1569,12 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       ${others.length ? `${fol.length ? `<p class="cap lead-cap">Also moving</p>` : ""}<div class="list">${others.map(homeFile).join("")}</div>` : ""}
       ${fol.length ? "" : `<p class="note">Tap the star to follow a file. Followed files move to the top of your home.</p>`}`;
   }
-  function toggleFollow(id) {
+  function toggleFollow(id, undo) {
     const f = FILE_BY[id]; if (!f) return;
     const had = state.follow.has(id);
     had ? state.follow.delete(id) : state.follow.add(id);
     saveFollow();
-    toast(had ? `Stopped following ${f.short}` : `Following ${f.short}`);
+    toast(had ? `Stopped following ${f.short}` : `Following ${f.short}`, 0, had && !undo ? { label: "Undo", fn: () => toggleFollow(id, true) } : null);
     document.querySelectorAll(`[data-follow="${id.replace(/["\\]/g, "\\$&")}"]`).forEach((b) => {
       b.setAttribute("aria-pressed", String(!had));
       if (b.dataset.label) b.textContent = had ? "Follow" : "Following";
@@ -1540,18 +1605,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const was = $("homeTop").hidden;
     $("homeTop").hidden = !!r; $("homeTiles").hidden = !!r; $("homeBody").hidden = !!r; $("homeResults").hidden = !r;
     if (was !== !!r) scrollTo({ top: 0 });
-    if (r) {
-      const tot = r.com.length + r.cab.length + r.ep.length + r.co.length;
-      const all = (n, where, to) => `<button class="eu-btn eu-btn--block" type="button" data-goto="${to}">Show all ${n} in ${where}</button>`;
-      $("homeResults").innerHTML = !tot ? `<p class="empty mt">Nothing matches “${esc(state.hq)}”. Try one word, or a policy area like energy.</p>` : `
-        ${r.com.length ? `<h3>Commission <small>${r.com.length}</small></h3><div class="list">${r.com.slice(0, 5).map(rowCom).join("")}</div>` : ""}
-        ${r.cab.length ? `<h3>Cabinets <small>${r.cab.length} ${r.cab.length === 1 ? "person" : "people"}</small></h3><div class="list">${r.cab.slice(0, 8).map((m) => rowCab(m, r.t)).join("")}
-          ${r.cab.length > 8 ? all(r.cab.length, "Cabinets", "cab") : ""}</div>` : ""}
-        ${r.co.length ? `<h3>Council <small>${r.co.length}</small></h3><div class="list">${r.co.slice(0, 6).map(coResultRow).join("")}</div>` : ""}
-        ${r.ep.length ? `<h3>Parliament <small>${r.ep.length} MEPs</small></h3><div class="list">${r.ep.slice(0, 6).map(rowMep).join("")}
-          ${r.ep.length > 6 ? all(r.ep.length, "Parliament", "ep") : ""}</div>` : ""}`;
-      return;
-    }
+    if (r) { $("homeResults").innerHTML = resultsHtml(r, state.hq); return; }
     const favs = [...state.favs].filter((k) => BYKEY.has(k));
     $("seeSaved").hidden = !favs.length;
     $("savedStrip").innerHTML = favs.length ? `<div class="strip">${favs.slice().reverse().map(bubble).join("")}</div>`
@@ -1715,7 +1769,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   function agendaWell(s, np) {
     if (!s) return "";
     const e = agEntry(s), ready = e.stage !== "none" && agHasItems(e);
-    const state = ready ? `${AG_LABEL[e.stage] || "Agenda"}${e.updated ? " · " + agUpdated(e).toLowerCase() : ""}` : "Agenda not in nodo yet";
+    const state = ready ? `${AG_LABEL[e.stage] || "Agenda"}${e.updated ? (e.stage === "updated" ? " · " : " · updated ") + fmtD(fromIso(e.updated), { weekday: "short", day: "numeric", month: "short" }) : ""}` : "Agenda not in nodo yet";
     return `<div class="ag-next"><div class="ag-next__row">
         <div class="ag-next__txt"><small>${np.n === "Now" ? "In session" : "Next plenary"}</small><b>${esc(PLACE[s.place])}</b><span>${esc(np.s)}</span></div>
         <button class="eu-btn eu-btn--brand" type="button" data-view="agenda">See agenda</button></div>
@@ -1760,7 +1814,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       <p class="cap ag-upd">The agenda can change until the session ends. Updated versions appear here as the Parliament publishes them.</p>`;
   }
   $("agBody").addEventListener("click", (ev) => { const mb = ev.target.closest("[data-agmep]"); if (mb) { const m = MEPS.find((x) => x.id === mb.dataset.agmep); if (m) openMep(m); return; } const b = ev.target.closest("[data-agday]"); if (b) { agDay = b.dataset.agday; renderAgenda(); } });
-  $("agBack").addEventListener("click", () => setView("cal"));
+  $("agBack").addEventListener("click", () => { const p = nav.trail[nav.cur - 1]; if (p && p.view === "cal" && !p.stack.length) goBack(); else setView("cal"); });
 
   /* Council of the EU */
   const CO = DATA.co;
@@ -1869,7 +1923,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
         <p class="note">Standard qualified majority (Article 16(4) TEU) for Commission proposals: 55% of member states representing 65% of the EU population. A blocking minority needs at least four member states. Population figures for 2026 from Council Decision (EU, Euratom) 2025/2427.</p>`;
     }
     $("coBody").innerHTML = h;
-    $("coNote").textContent = tab === "qmv" ? "" : tab === "perms" ? `Ambassador and deputy names from Council participant lists, checked ${CO.fetched}. Other names are added by users on this device.` : `Sources: Council of the EU meeting calendar and participant lists, checked ${CO.fetched}.`;
+    $("coNote").textContent = tab === "qmv" ? "" : tab === "perms" ? `Ambassador and deputy names from Council participant lists, checked ${CO.fetched}. Any other name is one you added, saved on this device.` : `Sources: Council of the EU meeting calendar and participant lists, checked ${CO.fetched}.`;
   }
 
   /* ---------- permanent representations ---------- */
@@ -1887,16 +1941,17 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   const slotLabel = (slot) => { const l = LEAD.find((x) => x[0] === slot); if (l) return l[1]; const c = CONF_BY[String(slot).replace("wp:", "")]; return c ? c.short + " counsellor" : "Working party"; };
   const dShort = (iso) => fmtIso(String(iso).slice(0, 10), { day: "numeric", month: "short" });
   /* The state of one name: from the Council lists (Ambassador, Deputy), or added by the user. */
+  const corLabel = (cor) => (cor.kind === "left" ? "Your note: left the delegation" : "Your note: moved to another role");
   function slotInfo(cc, slot) {
     const key = cc + "|" + slot, mine = prx.names[key], cor = prx.corr[key], today = isoD(new Date());
     if (mine) {
       const flag = cor && cor.kind !== "yes";
-      return { name: mine.name, role: mine.role, mine: true, kind: flag ? "warn" : "ok", label: flag ? "Flagged by you" : "Added by you " + dShort(mine.date) };
+      return { name: mine.name, role: mine.role, mine: true, kind: flag ? "warn" : "ok", label: flag ? corLabel(cor) : "Added by you " + dShort(mine.date) };
     }
     const src = (slot === "pr" || slot === "dpr") && (CO.permreps[cc] || {})[slot];
     if (src) {
       const age = (fromIso(today) - fromIso(src[1])) / 864e5;
-      if (cor && cor.kind !== "yes") return { name: person(src[0]), kind: "warn", label: "Flagged by you" };
+      if (cor && cor.kind !== "yes") return { name: person(src[0]), kind: "warn", label: corLabel(cor) };
       if (cor && cor.kind === "yes") return { name: person(src[0]), kind: "ok", label: "Confirmed by you " + dShort(cor.date) };
       return age > 150 ? { name: person(src[0]), kind: "warn", label: "Needs check · listed " + dShort(src[1]) } : { name: person(src[0]), kind: "ok", label: "Listed " + dShort(src[1]) };
     }
@@ -1904,29 +1959,32 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   }
   function slotRow(cc, slot, lab, sub, forWp) {
     const i = slotInfo(cc, slot);
-    return row({ attrs: tap(`data-prsheet="${cc}|${slot}"`), lead: forWp ? codeAva(cc) : disc("user"), name: i.name ? esc(i.name) : `<span style="color:var(--ink-muted)">Not yet known</span>`,
+    return row({ attrs: tap(`data-prsheet="${cc}|${slot}"`), lead: forWp ? codeAva(cc) : disc("user"), name: i.name ? esc(i.name) : `<span style="color:var(--ink-muted)">${slot === "pr" || slot === "dpr" ? "Not in the Council's lists" : "Not yet known"}</span>`,
       meta: esc(forWp ? countryName(cc) + (i.role ? " · " + i.role : "") : lab + (sub ? " · " + sub : "")), wrap: true,
       extra: `<span class="eu-row__tags">${stPill(i.kind, i.label)}</span>`, tail: go });
   }
-  function prCount(cc) { return LEAD.filter((l) => slotInfo(cc, l[0]).kind === "none").length; }
+  /* The Council publishes two names per delegation: the ambassador and the deputy. Everything else is a note the person adds. */
+  const PR_PUB = [["pr", "Ambassador"], ["dpr", "Deputy"]];
+  const prMissing = (cc) => PR_PUB.filter(([s]) => slotInfo(cc, s).kind === "none").map(([, n]) => n);
+  const prNotes = (cc) => Object.keys(prx.names).filter((k) => k.startsWith(cc + "|") && !PR_PUB.some(([s]) => k === cc + "|" + s));
   function prListHtml() {
     const q = fold(state.co.q || "").trim(), f = state.co.pf || "all";
     const list = [...CO_COUNTRIES].sort((a, b) => a.name.localeCompare(b.name)).filter((c) => {
       const infos = LEAD.map((l) => slotInfo(c.cc, l[0]));
-      if (f === "none" && !infos.some((i) => i.kind === "none")) return false;
+      if (f === "none" && !prMissing(c.cc).length) return false;
       if (f === "warn" && !infos.some((i) => i.kind === "warn")) return false;
-      if (f === "mine" && !infos.some((i) => i.mine) && !Object.keys(prx.names).some((k) => k.startsWith(c.cc + "|"))) return false;
-      if (q) { const hay = fold([c.name, c.cc, ...infos.map((i) => i.name)].join(" ")); if (!hay.includes(q)) return false; }
+      if (f === "mine" && !infos.some((i) => i.mine) && !prNotes(c.cc).length) return false;
+      if (q) { const hay = fold([c.name, c.cc, ...infos.map((i) => i.name), ...prNotes(c.cc).map((k) => prx.names[k].name)].join(" ")); if (!hay.includes(q)) return false; }
       return true;
     });
     if (!list.length) return `<p class="empty mt">No delegation matches.</p>`;
-    return `<div class="list">${list.map((c) => { const i = slotInfo(c.cc, "pr"), n = prCount(c.cc);
-      return row({ attrs: tap(`data-prdel="${c.cc}"`), lead: codeAva(c.cc), name: esc(c.name), meta: i.name ? `${esc(i.name)} · Ambassador` : "Ambassador not listed", wrap: true,
-        extra: n ? `<span class="eu-row__tags">${stPill("none", n + (n === 1 ? " name missing" : " names missing"))}</span>` : "", tail: go }); }).join("")}</div>`;
+    return `<div class="list">${list.map((c) => { const i = slotInfo(c.cc, "pr"), d = slotInfo(c.cc, "dpr"), miss = prMissing(c.cc), notes = prNotes(c.cc).length;
+      return row({ attrs: tap(`data-prdel="${c.cc}"`), lead: codeAva(c.cc), name: esc(c.name), meta: i.name ? `${esc(i.name)} · Ambassador` : d.name ? `${esc(d.name)} · Deputy` : "No names in the Council's lists", wrap: true,
+        extra: miss.length === 1 || notes ? `<span class="eu-row__tags">${miss.length === 1 ? stPill("none", miss[0] + " not listed") : ""}${notes ? stPill("plain", notes + (notes === 1 ? " note" : " notes")) : ""}</span>` : "", tail: go }); }).join("")}</div>`;
   }
   function prHub(now) {
     const rot = CO.presidency.rotation, cur = presOf(now), ci = rot.indexOf(cur), nx = rot[ci + 1];
-    const chips = [["all", "All"], ["none", "Name missing"], ["warn", "Needs check"], ["mine", "Added by you"]];
+    const chips = [["all", "All"], ["none", "Not listed"], ["warn", "Needs check"], ["mine", "Your notes"]];
     return `<h2 class="eu-headline mt">Which <strong>delegation</strong> are you looking for?</h2>
       ${cur ? `<section class="eu-hero" aria-label="Current presidency"><div class="eu-hero__eyebrow">Presidency · ${esc(fmtD(new Date(+cur[1].slice(0, 4), +cur[1].slice(5, 7) - 1, 1), { month: "long", year: "numeric" }))} to ${esc(fmtD(new Date(+cur[2].slice(0, 4), +cur[2].slice(5, 7) - 1, 1), { month: "long", year: "numeric" }))}</div>
         <h2 class="eu-hero__title"><span>Chaired by</span> ${esc(countryName(cur[0]))}</h2>
@@ -1940,64 +1998,71 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   }
   function openDelegation(cc) {
     state.open = "deleg:" + cc;
-    const named = Object.keys(prx.names).filter((k) => k.startsWith(cc + "|wp:"));
+    const notes = prNotes(cc).sort();
     showProfile(`
       <div class="tb"><button class="eu-iconbtn" type="button" data-close aria-label="Back">${icon("back")}</button></div>
       <div class="hero">${codeAva(cc, "big")}<h2 class="eu-headline" id="pName"><strong>${esc(countryName(cc))}</strong></h2>
         <p class="bio">Permanent Representation to the EU</p>
         <div class="eu-row__tags" style="margin-top:12px">${stPill("plain", "Coreper I and II")}${stPill("ok", "Council lists checked " + dShort(CO.fetched))}</div></div>
-      <h3>Leadership <small>Ambassador and Coreper counsellors</small></h3>
-      <div class="list">${LEAD.map((l) => slotRow(cc, l[0], l[1], l[2])).join("")}</div>
-      <h3>Who covers what <small>working parties</small></h3>
-      ${named.length ? `<div class="list">${named.map((k) => { const id = k.split("|wp:")[1], c = CONF_BY[id]; return slotRow(cc, "wp:" + id, c ? c.short : id, "", false).replace(esc(countryName(cc)), esc(countryName(cc))); }).join("")}</div>` : `<p class="empty">No working-party names yet for ${esc(countryName(cc))}.</p>`}
+      <h3>Leadership <small>from the Council's lists</small></h3>
+      <div class="list">${slotRow(cc, "pr", "Ambassador", "Coreper II")}${slotRow(cc, "dpr", "Deputy Permanent Representative", "Coreper I")}</div>
+      <h3>Your notes <small>${notes.length ? notes.length + " on this device" : "saved on this device"}</small></h3>
+      ${notes.length ? `<div class="list">${notes.map((k) => { const slot = k.slice(cc.length + 1); return slotRow(cc, slot, slotLabel(slot), ""); }).join("")}</div>`
+        : `<div class="hint"><span>The Council publishes the ambassador and the deputy only. Add the Antici, Mertens and working-party counsellors you know, and they stay here.</span></div>`}
       <div class="pr-btns"><button class="eu-btn eu-btn--brand eu-btn--block" type="button" data-prsheet="${cc}|new">Add a name</button></div>
       <h3>In the Council <small>last meeting of each</small></h3>
       <button class="eu-btn eu-btn--block" type="button" data-country="${cc}">Open the ${esc(countryName(cc))} country page</button>
-      <p class="foot">Ambassador and deputy come from official Council participant lists (${esc(CO.fetched)}). Counsellors and attachés are not published there, so they stay empty until someone adds them. Names added here are saved on this device only.</p>`);
+      <p class="foot">Ambassador and deputy come from official Council participant lists (${esc(CO.fetched)}). Counsellors and attachés are not published there. The names you add are saved on this device only.</p>`);
   }
+  /* Working party: the names the person has, then one fold to add a name for any other delegation. */
   function wpListHtml(id) {
-    const f = state.prwf || "all";
-    const rows = [...CO_COUNTRIES].sort((a, b) => a.name.localeCompare(b.name)).filter((c) => { const k = slotInfo(c.cc, "wp:" + id).kind; return f === "all" || (f === "has" ? k !== "none" : k === "none"); });
-    return rows.length ? `<div class="list">${rows.map((c) => { const i = slotInfo(c.cc, "wp:" + id); return i.kind === "none"
-      ? row({ cls: "is-static", lead: codeAva(c.cc), name: `<span style="color:var(--ink-muted)">Not yet known</span>`, meta: esc(countryName(c.cc)), wrap: true, extra: `<span class="eu-row__tags">${stPill("none", "No name yet")}</span>`,
-          tail: `<button class="eu-btn eu-btn--sm" type="button" data-prsheet="${c.cc}|wp:${id}">Add a name</button>` })
-      : slotRow(c.cc, "wp:" + id, "", "", true); }).join("")}</div>` : `<p class="empty mt">Nothing in this view.</p>`;
+    const all = [...CO_COUNTRIES].sort((a, b) => a.name.localeCompare(b.name));
+    const has = all.filter((c) => slotInfo(c.cc, "wp:" + id).kind !== "none"), rest = all.filter((c) => !has.includes(c));
+    return `${has.length ? `<h3>Your notes <small>${has.length} of 27</small></h3><div class="list">${has.map((c) => slotRow(c.cc, "wp:" + id, "", "", true)).join("")}</div>`
+        : `<div class="hint mt"><span>No names yet. The Council does not publish who covers a working party, so this list holds the names you add.</span></div>`}
+      ${rest.length ? `<details class="office"><summary>Add a name for a delegation <small>${rest.length}</small>${icon("down")}</summary><div class="list">${rest.map((c) =>
+        row({ el: "button", attrs: `type="button" data-prsheet="${c.cc}|wp:${id}"`, lead: codeAva(c.cc), name: esc(c.name), tail: `<span class="eu-iconbtn eu-iconbtn--sm" aria-hidden="true">${icon("plus")}</span>` })).join("")}</div></details>` : ""}`;
   }
   function openWp(id) {
     const c = CONF_BY[id]; if (!c) return;
-    state.open = "wp:" + id; state.prwf = "all";
+    state.open = "wp:" + id;
     showProfile(`
       <div class="tb"><button class="eu-iconbtn" type="button" data-close aria-label="Back">${icon("back")}</button></div>
       <h2 class="eu-headline" id="pName" style="margin:24px 4px 20px">Who covers <strong>${esc(c.short)}</strong> in each delegation?</h2>
       <div class="eu-tile eu-tile--mint"><span class="eu-tile__disc">${icon("flag")}</span><span><span class="eu-tile__label">${esc(c.name)}</span><span class="eu-tile__meta">Prepared by Coreper ${esc(c.coreper)}</span></span></div>
-      <div class="chips" id="prWf">${[["all", "All"], ["has", "Has a name"], ["none", "No name yet"]].map(([k, n]) => `<button class="eu-chip" type="button" data-prwf="${k}" aria-pressed="${k === "all"}">${n}</button>`).join("")}</div>
-      <h3>Delegations <small>A to Z</small></h3><div id="prWpList">${wpListHtml(id)}</div>
+      <div id="prWpList">${wpListHtml(id)}</div>
       <button class="eu-btn eu-btn--block mt" type="button" data-conf="${id}">Open the Council configuration</button>
-      <p class="foot">Working-party attachés are not published by the Council. Names here are added by users and saved on this device.</p>`);
+      <p class="foot">Working-party attachés are not published by the Council. The names here are the ones you add, saved on this device.</p>`);
   }
-  const prSheetState = { cc: "", slot: "", kind: "moved" };
+  const prSheetState = { cc: "", slot: "", kind: "" };
+  /* A known name opens as a small card: who, where the name comes from, and a note the person can leave for themselves.
+     Nothing is sent anywhere, so nothing is pre-selected and the button says what it does. */
   function openPrSheet(cc, slot) {
     state.sheet = "prx";
-    prSheetState.cc = cc; prSheetState.slot = slot; prSheetState.kind = "moved";
+    const key = cc + "|" + slot, cor = prx.corr[key];
+    prSheetState.cc = cc; prSheetState.slot = slot; prSheetState.kind = (cor && cor.kind) || "";
     const i = slot === "new" ? { kind: "none", name: "" } : slotInfo(cc, slot);
     const has = !!i.name;
+    const src = !i.mine && (slot === "pr" || slot === "dpr") && (CO.permreps[cc] || {})[slot];
     const opts = `<optgroup label="Leadership">${LEAD.map((l) => `<option value="${l[0]}">${esc(l[1])}</option>`).join("")}</optgroup><optgroup label="Working party">${CO_CONFS.map((c) => `<option value="wp:${c.id}">${esc(c.short)}</option>`).join("")}</optgroup>`;
     if ($("sheet").hidden) layer.sheet = document.activeElement;
     $("sheet").innerHTML = `<div class="sheet__bar"><button class="eu-iconbtn eu-iconbtn--sm" type="button" data-sheet-close aria-label="Close">${icon("x")}</button></div>
       <div class="pr-sheet"><p class="cap">${esc(countryName(cc))}${slot !== "new" ? " · " + esc(slotLabel(slot)) : ""}</p>
-      ${has ? `<h2 class="eu-headline" id="sName" style="margin:8px 0 20px;font-size:30px;line-height:34px">Is ${esc(i.name)} still <strong>the ${esc(slotLabel(slot).toLowerCase())}</strong>?</h2>
-        <div class="chips wrap" id="prKinds">${[["yes", "Yes, still correct"], ["moved", "Moved to another role"], ["left", "Left the delegation"]].map(([k, n]) => `<button class="eu-chip" type="button" data-prk="${k}" aria-pressed="${k === "moved"}">${n}</button>`).join("")}</div>
-        <span class="pr-lab">New role or successor (optional)</span><label class="eu-search"><input id="prName" type="text" placeholder="Name" aria-label="Successor name"></label>`
+      ${has ? `<h2 class="eu-headline" id="sName" style="margin:8px 0 8px;font-size:30px;line-height:34px">${twoW(i.name)}</h2>
+        <p class="cap pr-src">${i.mine ? "Added by you " + esc(dShort(prx.names[key].date)) + ", saved on this device" : src ? "From the Council's participant list of " + esc(fmtIso(src[1], { day: "numeric", month: "long", year: "numeric" })) : ""}${i.role ? " · " + esc(i.role) : ""}</p>
+        <span class="pr-lab">Still the ${esc(slotLabel(slot).toLowerCase())}?</span>
+        <div class="chips wrap" id="prKinds" role="group" aria-label="Still correct">${[["yes", "Yes, still correct"], ["moved", "Moved to another role"], ["left", "Left the delegation"]].map(([k, n]) => `<button class="eu-chip" type="button" data-prk="${k}" aria-pressed="${k === prSheetState.kind}">${n}</button>`).join("")}</div>
+        <span class="pr-lab">Successor, if you know who (optional)</span><label class="eu-search"><input id="prName" type="text" placeholder="First and last name" aria-label="Successor name"></label>`
       : `<h2 class="eu-headline" id="sName" style="margin:8px 0 20px;font-size:30px;line-height:34px">Add <strong>a name</strong></h2>
         ${slot === "new" ? `<span class="pr-lab" style="margin-top:0">Role</span><select id="prSlot" class="pr-sel" aria-label="Role">${opts}</select>` : ""}
         <span class="pr-lab"${slot === "new" ? "" : ' style="margin-top:0"'}>Name</span><label class="eu-search"><input id="prName" type="text" placeholder="First and last name" aria-label="Name"></label>
         <span class="pr-lab">Job title (optional)</span><label class="eu-search"><input id="prRole" type="text" placeholder="For example Counsellor" aria-label="Job title"></label>`}
-      <p class="note pr-top-note">Saved on this device. Check a name against a source you trust before you rely on it.</p>
-      <button class="eu-btn eu-btn--brand eu-btn--block" type="button" data-prsend style="margin-top:16px">${has ? "Send correction" : "Save name"}</button>
+      <p class="note pr-top-note">${has ? "Your answer is a note for you. It is saved on this device and is not sent to anyone." : "Saved on this device. Check a name against a source you trust before you rely on it."}</p>
+      <button class="eu-btn eu-btn--brand eu-btn--block" type="button" data-prsend style="margin-top:16px">${has ? "Save my note" : "Save name"}</button>
       <button class="eu-btn eu-btn--block" type="button" data-sheet-close>Cancel</button></div>`;
     $("scrim").hidden = false; $("sheet").hidden = false; $("sheet").scrollTop = 0;
     syncLayers();
-    const f = $("sheet").querySelector("input,select,[data-sheet-close]"); if (f) f.focus({ preventScroll: true });
+    const f = $("sheet").querySelector(has ? "[data-sheet-close]" : "input,select,[data-sheet-close]"); if (f) f.focus({ preventScroll: true });
   }
   function sendPr() {
     const cc = prSheetState.cc; let slot = prSheetState.slot;
@@ -2006,15 +2071,16 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const key = cc + "|" + slot, today = isoD(new Date());
     const existing = slotInfo(cc, slot);
     if (existing.name) {
-      const kind = prSheetState.kind;
+      const kind = prSheetState.kind || (nm ? "moved" : "");
+      if (!kind) { toast("Choose an answer first"); const b = $("sheet").querySelector("[data-prk]"); if (b) b.focus(); return; }
       prx.corr[key] = { kind, date: today };
       if (kind !== "yes" && nm) { prx.names[key] = { name: nm, role: "", date: today }; prx.corr[key] = { kind: "yes", date: today }; }
     } else {
-      if (!nm) { toast("Add a name first"); return; }
+      if (!nm) { toast("Add a name first"); if ($("prName")) $("prName").focus(); return; }
       prx.names[key] = { name: nm, role, date: today };
     }
     prxSave(); closeSheet(); toast("Saved on this device");
-    if (state.open && state.open.startsWith("deleg:")) openDelegation(state.open.slice(6));
+    if (state.open && state.open.startsWith("deleg:")) { const top = $("profile").scrollTop; openDelegation(state.open.slice(6)); $("profile").scrollTop = top; }
     else if (state.open && state.open.startsWith("wp:")) { const id = state.open.slice(3); $("prWpList").innerHTML = wpListHtml(id); }
     else renderCo();
   }
@@ -2075,16 +2141,46 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     $("groups").innerHTML = GROUP_ORDER.map((g) => [g, MEPS.filter((m) => m.group === g).length]).filter((x) => x[1])
       .map(([g, n]) => `<button class="eu-chip" type="button" data-g="${esc(g)}" aria-pressed="false"><i class="dot" style="background:${gc(g)}"></i>${esc(g)}<span class="eu-chip__count">${n}</span></button>`).join("");
   }
+  /* The list holds 720 rows. It renders EP_STEP at a time and grows as the person nears the end, or jumps to a letter. */
+  const EP_STEP = 60;
+  let epRows = [];
+  const famInit = (m) => (fold(m.family || m.name)[0] || "").toUpperCase();
+  const epLeft = () => { const left = epRows.length - $("list").children.length; $("epMore").hidden = left <= 0; $("epMore").textContent = `Show more · ${left} to go`; };
   function renderEp() {
     const s = state.ep, t = terms(s.q);
     $("q").value = s.q; $("country").value = s.country; $("committee").value = s.committee;
     const rows = MEPS.filter((m) => (!s.country || m.country === s.country) && (!s.group || m.group === s.group) &&
       (!s.committee || (m.committees || []).some((c) => (c.abbr || c.name) === s.committee)) && hits(m._hay, t));
+    const sig = [s.q, s.country, s.committee, s.group].join("|");
+    if (sig !== state.epSig) { state.epSig = sig; state.epShown = EP_STEP; }
+    epRows = rows;
+    const n = Math.min(rows.length, Math.max(EP_STEP, state.epShown || 0));
     $("epCount").textContent = `${rows.length} of ${MEPS.length} MEPs`;
+    $("epClear").hidden = !(s.q || s.country || s.committee || s.group);
     $("empty").hidden = rows.length > 0;
-    $("list").innerHTML = rows.map(rowMep).join("");
+    $("list").innerHTML = rows.slice(0, n).map(rowMep).join("");
+    epLeft();
+    const letters = rows.length < 40 ? [] : [...new Set(rows.map(famInit).filter((c) => /[A-Z]/.test(c)))].sort();
+    $("epAz").hidden = letters.length < 4;
+    $("epAz").innerHTML = letters.map((c) => `<button class="eu-chip" type="button" data-az="${c}" aria-label="Jump to ${c}">${c}</button>`).join("");
     document.querySelectorAll("#groups [data-g]").forEach((x) => x.setAttribute("aria-pressed", String(x.dataset.g === s.group)));
   }
+  function epGrow(upTo) {
+    const from = $("list").children.length, to = Math.min(epRows.length, Math.max(from + EP_STEP, upTo || 0));
+    if (to <= from) return;
+    $("list").insertAdjacentHTML("beforeend", epRows.slice(from, to).map(rowMep).join(""));
+    state.epShown = to; epLeft();
+  }
+  function epJump(letter) {
+    const i = epRows.findIndex((m) => famInit(m) === letter);
+    if (i < 0) return;
+    if (i >= $("list").children.length) epGrow(i + 20);
+    const el = $("list").children[i]; if (!el) return;
+    scrollTo({ top: Math.max(0, el.getBoundingClientRect().top + scrollY - 12) });
+    const b = el.querySelector(".eu-row__hit"); if (b) b.focus({ preventScroll: true });
+  }
+  $("epMore").addEventListener("click", () => { const n = $("list").children.length; epGrow(); const el = $("list").children[n], b = el && el.querySelector(".eu-row__hit"); if (b) b.focus({ preventScroll: true }); });
+  if ("IntersectionObserver" in window) new IntersectionObserver((es) => { if (es.some((x) => x.isIntersecting) && state.view === "ep" && !state.open) epGrow(); }, { rootMargin: "900px 0px" }).observe($("epMore"));
 
   /* Commission */
   function initEc() {
@@ -2157,6 +2253,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
      A person edits a list by adding and removing people; those edits are stored as keys on top of the shared data
      (state.lists[fileId] = { add: [key], rem: [key] }) and sync with the account. */
   const FILES = (DATA.fl && DATA.fl.files) || [];
+  FILES.forEach((f) => { f._sh = words(f.short); f._nm = words([f.short, f.title].join(" ")); f._hay = words([f.short, f.title, f.procedure, f.id, ((f.ep || {}).lead || []).join(" ")].join(" ")); });
   const FILE_BY = Object.fromEntries(FILES.map((f) => [f.id, f]));
   const STAGE = { "pre-proposal": ["Pre-proposal", "wait"], "positions-in-preparation": ["Positions forming", "wait"], "council-negotiating-box": ["In the Council", "wait"], trilogue: ["In trilogue", "ok"], "in-force": ["In force", "ok"] };
   const ROLE_ORDER = ["rapporteur", "shadow", "opinion-rapporteur", "opinion-shadow", "relevant"];
@@ -2199,7 +2296,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   function fileRow(x) {
     const e = BYKEY.get(x.key), o = e.o, op = tap(`data-open="${esc(x.key)}"`);
     const mine = x.mine ? `<span class="eu-row__tags">${tagMine}</span>` : "";
-    if (e.t === "ep") return row({ attrs: op, lead: avaOf(x.key), name: esc(o.name), meta: esc([countryName(o.country), x.cmte, x.mine ? "" : ROLE_ONE[x.role]].filter(Boolean).join(" · ")),
+    if (e.t === "ep") return row({ attrs: op, lead: avaOf(x.key), name: esc(o.name), meta: esc([countryName(o.country), x.cmte, x.mine ? "" : ROLE_ONE[x.role]].filter(Boolean).join(" · ")), wrap: true,
       extra: `<span class="eu-row__tags">${gtag(o.group)}${x.mine ? tagMine : tagBasis(x.basis)}</span>`, tail: tailFor(x.key, o.name) });
     if (e.t === "ec") return row({ attrs: op, lead: avaOf(x.key), name: esc(o.name), meta: esc(o.title + " · " + o.portfolio.join(" · ")), wrap: true, extra: mine, tail: tailFor(x.key, o.name) });
     return row({ attrs: op, lead: avaOf(x.key), name: esc(o.name), meta: esc(o.role + " · Cabinet " + o.com.short), wrap: true,
@@ -2226,7 +2323,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const xs = UPD.feed.filter((e) => fol.has(e.fileId) && e.kind !== "people" && e.date <= t).slice(0, 4);
     return xs.length ? `<p class="cap lead-cap">Latest on your files</p><div class="list">${xs.map((e) => evRow(e, true)).join("")}</div>` : "";
   }
-  Promise.all(["updates/updates", "updates/timelines"].map((n) => fetchJson(DATA_BASE + n + ".json")))
+  Promise.all(["updates/updates", "updates/timelines"].map((n) => fetchJson(DATA_BASE + n + ".json").catch(() => fetchJson("data/" + n + ".json"))))
     .then(([u, t]) => { UPD.feed = u.events || []; UPD.tl = t || {}; renderFiles(); const f = curFile(); if (f) openFile(f.id, true); })
     .catch(() => {});
 
@@ -2338,16 +2435,20 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   }
 
   /* ---------- favourites & recents ---------- */
-  function toggleFav(key) {
-    const had = state.favs.has(key);
-    had ? state.favs.delete(key) : state.favs.add(key);
-    saveFavs();
-    toast(had ? "Removed from Saved" : "Saved");
+  function syncFav(key) {
+    const on = state.favs.has(key);
     document.querySelectorAll(`[data-fav="${key.replace(/["\\]/g, "\\$&")}"]`).forEach((b) => {
       if (b.dataset.label) b.outerHTML = favPill(key, b.dataset.label);
-      else b.setAttribute("aria-pressed", String(!had));
+      else b.setAttribute("aria-pressed", String(on));
     });
     if (state.view === "saved" || (state.view === "home" && !state.hq)) renderView();
+  }
+  function toggleFav(key) {
+    const had = state.favs.has(key), order = [...state.favs];
+    had ? state.favs.delete(key) : state.favs.add(key);
+    saveFavs(); syncFav(key);
+    /* Removing is the tap that loses something: it can be undone, and the person returns to the same place in the list. */
+    toast(had ? "Removed from Saved" : "Saved", 0, had ? { label: "Undo", fn: () => { state.favs = new Set(order); saveFavs(); syncFav(key); toast("Back in Saved"); } } : null);
   }
   function pushRecent(key) {
     state.recent = [key, ...state.recent.filter((k) => k !== key)].slice(0, 12);
@@ -2369,26 +2470,146 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     document.querySelectorAll("main.view").forEach((m) => { m.inert = o || sh || p; });
     $("profile").inert = o || sh;
     document.querySelector(".dock").inert = o || sh;
+    navTouch();
   }
+
+  /* ---------- navigation ----------
+     Profiles stack: a person opened from a file sits on top of the file, and Back returns to the file.
+     Every screen change is also one browser-history entry, so the phone's back gesture steps back inside nodo
+     instead of leaving it. nav.trail holds one snapshot per entry: the view, the profile stack and the scroll positions.
+     Inside an embedded frame (the artifact) the browser history is left alone and Back walks the trail directly. */
+  const NAV_ID = Math.random().toString(36).slice(2);
+  const nav = { stack: [], trail: [], cur: 0, n: 0, hist: false, restoring: false, queued: false };
+  try { nav.hist = window.top === window.self; } catch { nav.hist = false; }
+  window.nodoNav = nav;
+  if (nav.hist) try { history.scrollRestoration = "manual"; } catch { /* nodo restores scroll positions itself */ }
+  const overlayOpen = () => (!$("sheet").hidden ? "s" : !$("onb").hidden && onb.edit ? "o" : "");
+  const navSnap = () => ({ view: state.view, stack: nav.stack.map((x) => ({ ...x })), ov: overlayOpen(), y: 0 });
+  const navSig = (s) => s.view + "|" + s.stack.map((x) => x.key).join(">") + "|" + s.ov;
+  const navState = () => ({ nodo: nav.cur, s: NAV_ID });
+  /* Before a screen changes: remember where the person was on the screen they are leaving. */
+  function navMark() {
+    const e = nav.trail[nav.cur];
+    if (!e || nav.restoring || nav.queued) return;
+    e.y = Math.round(scrollY);
+    const t = e.stack[e.stack.length - 1];
+    if (t && !$("profile").hidden) { t.top = $("profile").scrollTop; if (t.key.startsWith("file:")) t.tab = state.ftab; }
+    navTouch(); /* one mark per tap: later calls in the same tap would read positions that have already moved */
+  }
+  /* An Undo offer belongs to the screen it was made on: it goes when the person moves on. */
+  const dropUndo = () => { const t = $("toast"); if (!t.hidden && t.querySelector(".toast__act")) { clearTimeout(toastTimer); t.hidden = true; } };
+  /* After a change: record it once, at the end of the tap that caused it. */
+  function navTouch() { if (nav.restoring || nav.queued) return; nav.queued = true; queueMicrotask(navFlush); }
+  function navFlush() {
+    nav.queued = false;
+    if (nav.restoring) return;
+    const now = navSnap(), cur = nav.trail[nav.cur];
+    if (!cur) { nav.trail = [now]; nav.cur = 0; return; }
+    if (navSig(now) === navSig(cur)) return;
+    const prev = nav.trail[nav.cur - 1];
+    /* A sheet closed by its own button: step back over its entry. */
+    if (cur.ov && !now.ov && prev && navSig(prev) === navSig(now)) { navStep(-1, true); return; }
+    /* A sheet that led somewhere else: its entry becomes the new screen. */
+    dropUndo();
+    if (cur.ov) { nav.trail.length = nav.cur; nav.trail.push(now); nav.n++; if (nav.hist) try { history.replaceState(navState(), ""); } catch { nav.hist = false; } return; }
+    nav.trail.length = nav.cur + 1; nav.trail.push(now); nav.cur++; nav.n++;
+    if (nav.hist) try { history.pushState(navState(), ""); } catch { nav.hist = false; }
+  }
+  /* done: the screen already shows the target, only the history entry has to go. */
+  function navStep(d, done) {
+    const to = nav.cur + d;
+    if (to < 0 || to >= nav.trail.length) return false;
+    if (!nav.hist) { if (done) { nav.cur = to; nav.n++; } else navApply(to); return true; }
+    if (done) { nav.cur = to; nav.n++; }
+    try { history.go(d); } catch { nav.hist = false; if (!done) navApply(to); return true; }
+    const n = nav.n;
+    if (!done) setTimeout(() => { if (nav.n === n && nav.trail[to]) navApply(to); }, 700); /* the browser did not answer and nothing else moved: step ourselves */
+    return true;
+  }
+  const ROUTE_ATTR = { ep: "open", ec: "open", file: "file", deleg: "prdel", wp: "prwp", country: "country", conf: "conf", area: "area", find: "topic" };
+  /* After stepping back: focus the row that led to the screen just left. */
+  function focusFrom(key) {
+    const i = key.indexOf(":"), t = key.slice(0, i), a = ROUTE_ATTR[t];
+    if (!a) return;
+    const val = a === "open" ? key : key.slice(i + 1);
+    const el = [...$("profile").querySelectorAll(`[data-${a}]`)].find((x) => x.dataset[a] === val);
+    const f = el && (el.matches("button, a") ? el : el.querySelector(".eu-row__hit"));
+    if (f) try { f.focus({ preventScroll: true }); } catch { /* ignore */ }
+  }
+  function openRoute(key) {
+    if (key === "me") return openMe();
+    const i = key.indexOf(":"), t = key.slice(0, i), id = key.slice(i + 1);
+    if (t === "ep" || t === "ec") { const e = BYKEY.get(key); if (e) (t === "ep" ? openMep : openCom)(e.o); return; }
+    if (t === "file") return openFile(id, true);
+    if (t === "deleg") return openDelegation(id);
+    if (t === "wp") return openWp(id);
+    if (t === "country") return openCountry(id);
+    if (t === "conf") return openConf(id);
+    if (t === "area") return openArea(id);
+    if (t === "find") return openFind(id);
+  }
+  function navApply(i) {
+    const s = nav.trail[i];
+    if (!s) return;
+    const from = nav.stack.length ? nav.stack[nav.stack.length - 1].key : "";
+    nav.cur = i; nav.n++;
+    s.ov = ""; /* sheets are not reopened */
+    if (navSig(s) === navSig(navSnap())) return;
+    nav.restoring = true; dropUndo();
+    try {
+      closeSheet();
+      if (!$("onb").hidden && onb.edit) { $("onb").hidden = true; onb.d = null; }
+      const viewChanged = s.view !== state.view, was = !$("profile").hidden;
+      if (viewChanged) showView(s.view);
+      nav.stack = s.stack.map((x) => ({ ...x }));
+      const top = nav.stack[nav.stack.length - 1];
+      state.open = null;
+      if (!top) $("profile").hidden = true;
+      if (viewChanged) renderView(); else if (!top && state.view === "home" && !state.hq) renderHome();
+      if (top) {
+        if (top.key.startsWith("file:")) { state.ftab = top.tab || "ep"; state.fedit = false; }
+        openRoute(top.key);
+        if (state.open !== top.key) { nav.stack = []; state.open = null; $("profile").hidden = true; } /* the screen no longer exists */
+        else { $("profile").scrollTop = top.top || 0; feed.keepTop = top.top || 0; }
+      }
+      syncDock(); syncLayers();
+      if (viewChanged) scrollTo(0, s.y || 0);
+      if (state.open) { if (from) focusFrom(from); } else if (was && !viewChanged) refocus(layer.profile, layer.profileKey);
+    } finally { nav.restoring = false; }
+  }
+  function goBack() { if (nav.cur > 0) navStep(-1); else if (state.open) closeAllProfiles(); }
+  addEventListener("popstate", (e) => {
+    if (!nav.trail.length) return;
+    const st = e.state, i = st && st.s === NAV_ID && typeof st.nodo === "number" ? st.nodo : 0;
+    navApply(Math.max(0, Math.min(i, nav.trail.length - 1)));
+  });
   const keyOf = (el) => { const h = el && el.closest && el.closest("[data-open]"); return h ? h.dataset.open : ""; };
   function refocus(el, key) {
     let t = el && el.isConnected ? el : null;
     if (!t && key) { const h = [...document.querySelectorAll("main.view:not([hidden]) [data-open]")].find((x) => x.dataset.open === key); t = h ? (h.matches("button") ? h : h.querySelector(".eu-row__hit")) : null; }
     if (t) try { t.focus({ preventScroll: true }); } catch { /* ignore */ }
   }
+  /* Each open* function sets state.open to its route key, then calls showProfile. A new key goes on top of the stack;
+     the same key re-renders in place. */
   function showProfile(html) {
+    navMark();
     closeSheet();
-    const was = !$("profile").hidden;
+    const P = $("profile"), was = !P.hidden, key = state.open, top = nav.stack[nav.stack.length - 1];
     if (!was) { layer.profile = document.activeElement; layer.profileKey = keyOf(document.activeElement); }
+    if (!nav.restoring && key && (!top || top.key !== key)) {
+      if (top) { top.top = P.scrollTop; if (top.key.startsWith("file:")) top.tab = state.ftab; }
+      nav.stack.push({ key, top: 0 });
+    }
     $("profileBody").innerHTML = html;
-    $("profile").hidden = false; $("profile").scrollTop = 0;
+    P.hidden = false; P.scrollTop = 0;
     syncDock(); syncLayers();
-    const back = $("profile").querySelector("[data-close]");
-    if (back && !$("profile").contains(document.activeElement)) back.focus({ preventScroll: true });
+    const back = P.querySelector("[data-close]");
+    if (back && !P.contains(document.activeElement)) back.focus({ preventScroll: true });
   }
-  function closeProfile(silent) {
+  function closeAllProfiles(silent) {
     const was = !$("profile").hidden;
-    state.open = null; $("profile").hidden = true;
+    navMark();
+    state.open = null; nav.stack = []; $("profile").hidden = true;
     syncLayers();
     if (!silent) { syncDock(); if (state.view === "home" && !state.hq) renderHome(); if (was) refocus(layer.profile, layer.profileKey); }
   }
@@ -2423,12 +2644,16 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   const shardCache = {};
   const actShard = (id) => { const k = Number(id) % 64; return shardCache[k] || (shardCache[k] = fetchJson("activity/s" + k + ".json").catch((e) => { delete shardCache[k]; throw e; })); };
   const actJson = (id) => fetchJson(DATA_BASE + "activity/" + id + ".json").catch(() => actShard(id).then((s) => { if (!s[id]) throw new Error("no activity"); return s[id]; }).catch(() => fetchJson("activity/" + id + ".json")));
-  const feed = { id: null, items: [], filter: "all", updated: "", status: "idle", cur: -1, curFull: false };
+  /* The feed shows its newest items first and grows on request: FD_FIRST cards, then FD_STEP more per tap. */
+  const FD_FIRST = 6, FD_STEP = 20;
+  const feed = { id: null, items: [], filter: "all", shown: FD_FIRST, updated: "", status: "idle", cur: -1, curFull: false, keepTop: 0 };
+  const feedMem = new Map(); /* per MEP: the filter and length the person left the feed at, for when they step back to it */
   const FD_SVG = {
     check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
     clock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>',
     pdf: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3.5h7l4 4V20.5H7z"/><path d="M14 3.5v4h4"/></svg>',
     next: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>',
+    ext: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 16 16 8M9.5 8H16v6.500"/></svg>',
   };
   const FD_TYPE = { speech: "Speech", question: "Written question", report: "Report", opinion: "Opinion", motion: "Motion" };
   const FD_FILTERS = [["all", "All"], ["speech", "Speeches"], ["question", "Questions"], ["report", "Reports and opinions"]];
@@ -2452,9 +2677,17 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       ? `<span class="fd-pill ok">${FD_SVG.check}Answered${it.answerDate ? " · " + esc(fdDate(it.answerDate)) : ""}</span>`
       : `<span class="fd-pill wait">${FD_SVG.clock}Awaiting answer</span>`;
     const role = it.role ? `<span class="fd-pill ${/rapporteur/i.test(it.role) && !/shadow/i.test(it.role) ? "ink" : "line"}">${esc(it.role)}</span>` : "";
-    const pdf = safeUrl(q && it.status === "answered" && it.answerPdf ? it.answerPdf : it.pdf);
-    const pdfLabel = q && it.status === "answered" && it.answerPdf ? "Answer PDF" : it.type === "speech" ? "Verbatim PDF" : "PDF";
+    const hasAnswerPdf = q && it.status === "answered" && !!safeUrl(it.answerPdf);
+    const pdf = safeUrl(hasAnswerPdf ? it.answerPdf : it.pdf);
+    const pdfLabel = hasAnswerPdf ? "Answer PDF" : it.type === "speech" ? "Verbatim PDF" : "PDF";
     const cta = { speech: "Open speech", question: "Open question", report: "Open report", opinion: "Open opinion", motion: "Open motion" }[it.type] || "Open";
+    /* The sheet opens only when nodo holds text for it. Without text the card links to the document, and without a document it has no action. */
+    const canOpen = !!(it.text || it.detail || it.question || it.answer);
+    const docCta = hasAnswerPdf ? "Read the answer" : { speech: "Read the verbatim", question: "Read the question", report: "Read the report", opinion: "Read the opinion", motion: "Read the motion" }[it.type] || "Read the document";
+    const qPdf = hasAnswerPdf && !canOpen ? safeUrl(it.pdf) : "";
+    const actions = canOpen
+      ? `<button class="fd-open" type="button" data-fd-open="${idx}">${cta}${FD_SVG.next}</button>${pdf ? `<a class="fd-pdf" href="${esc(pdf)}" target="_blank" rel="noopener">${FD_SVG.pdf}${pdfLabel}</a>` : ""}`
+      : pdf ? `<a class="fd-open" href="${esc(pdf)}" target="_blank" rel="noopener">${docCta} <small>PDF</small>${FD_SVG.ext}</a>${qPdf ? `<a class="fd-pdf" href="${esc(qPdf)}" target="_blank" rel="noopener">${FD_SVG.pdf}Question PDF</a>` : ""}` : "";
     return `<div class="ag-it"><div class="ag-rail"><i class="${dot}"></i>${last ? "" : "<u></u>"}</div>
       <article class="ag-card fd-card ${tone}">
         <div class="ag-card__top"><span class="ag-type">${esc(FD_TYPE[it.type] || "Activity")}</span>${it.date ? `<span class="ag-time">${esc(fdDate(it.date))}</span>` : ""}</div>
@@ -2462,31 +2695,41 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
         ${it.meta ? `<div class="ag-sub">${esc(it.meta)}</div>` : ""}
         ${q ? `<div class="ag-tags">${it.addressee ? `<span class="fd-pill">To ${esc(it.addressee)}</span>` : ""}${status}</div>` : ""}
         ${role || it.ref ? `<div class="ag-tags">${role}${it.ref ? `<span class="fd-pill">${esc(it.ref)}</span>` : ""}</div>` : ""}
-        <div class="fd-ft"><button class="fd-open" type="button" data-fd-open="${idx}">${cta}${FD_SVG.next}</button>
-          ${pdf ? `<a class="fd-pdf" href="${esc(pdf)}" target="_blank" rel="noopener">${FD_SVG.pdf}${pdfLabel}</a>` : ""}</div>
+        ${actions ? `<div class="fd-ft">${actions}</div>` : ""}
       </article></div>`;
   }
   function renderFeed() {
     const host = $("actFeed"); if (!host) return;
     if (feed.status === "loading") { host.innerHTML = `<p class="cap">Loading activity…</p>`; return; }
     if (!feed.items.length) { host.innerHTML = `<p class="cap">No activity published for this MEP yet. It appears here after the next data refresh.</p>`; return; }
-    const list = feed.items.filter((x) => feed.filter === "all" || fdGroup(x.type) === feed.filter);
+    const all = feed.items.filter((x) => feed.filter === "all" || fdGroup(x.type) === feed.filter);
+    const list = all.slice(0, feed.shown), rest = all.length - list.length;
     let lastM = null;
     const rows = list.map((it, k) => {
       const m = fdMonth(it.date), head = m !== lastM ? `<div class="fd-month">${esc(m)}</div>` : ""; lastM = m;
       return head + feedCard(it, it._i, k === list.length - 1);
     }).join("");
-    host.innerHTML = `<div class="eu-chips">${FD_FILTERS.map(([k, l]) => `<button class="eu-chip" type="button" data-fd-filter="${k}" aria-pressed="${feed.filter === k}">${l}</button>`).join("")}</div>
-      <div class="ag-tl">${rows || `<p class="cap">Nothing of this type yet.</p>`}</div>`;
+    const n = (k) => (k === "all" ? feed.items.length : feed.items.filter((x) => fdGroup(x.type) === k).length);
+    host.innerHTML = `<div class="eu-chips">${FD_FILTERS.map(([k, l]) => `<button class="eu-chip" type="button" data-fd-filter="${k}" aria-pressed="${feed.filter === k}">${l}<span class="eu-chip__count">${n(k)}</span></button>`).join("")}</div>
+      <div class="ag-tl">${rows || `<p class="cap">Nothing of this type yet.</p>`}</div>
+      ${rest > 0 ? `<button class="eu-btn eu-btn--block fd-more" type="button" data-fd-more>Show ${Math.min(FD_STEP, rest)} more<small>${list.length} of ${all.length} shown</small></button>` : ""}`;
   }
   function loadFeed(m) {
-    feed.id = String(m.id); feed.items = []; feed.filter = "all"; feed.updated = ""; feed.status = "loading"; renderFeed();
+    const mem = nav.restoring ? feedMem.get(String(m.id)) : null;
+    feed.id = String(m.id); feed.items = []; feed.filter = mem ? mem.filter : "all"; feed.shown = mem ? mem.shown : FD_FIRST; feed.keepTop = 0; feed.updated = ""; feed.status = "loading"; renderFeed();
     if (!/^\d+$/.test(feed.id)) { feed.status = "done"; renderFeed(); return; }
     const id = feed.id;
     actJson(id)
       .then((d) => { if (feed.id !== id) return; feed.items = fdSort(Array.isArray(d.items) ? d.items : []); feed.updated = d.updated || ""; })
       .catch(() => { if (feed.id !== id) return; feed.items = []; })
-      .then(() => { if (feed.id !== id) return; feed.status = "done"; renderFeed(); const u = $("actUpd"); if (u && feed.updated) u.textContent = "Updated " + fdDate(feed.updated.slice(0, 10), true); });
+      .then(() => {
+        if (feed.id !== id) return;
+        feed.status = "done"; renderFeed();
+        const u = $("actUpd"); if (u && feed.updated) u.textContent = "Updated " + fdDate(feed.updated.slice(0, 10), true);
+        /* Stepping back to this profile: the feed is in place now, so the scroll position can be too. */
+        if (feed.keepTop && state.open === "ep:" + id) $("profile").scrollTop = feed.keepTop;
+        feed.keepTop = 0;
+      });
   }
   /* Question and answer texts live in activity/q/<id>.json (written by the pipeline) and load when a card is opened. */
   function fdDetail(it, i) {
@@ -2512,7 +2755,8 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     let body = "";
     if (q) {
       body += `<section><h4>Status</h4><div style="margin-top:12px">${step("var(--accent-sky)", "Question submitted", `${it.date ? esc(fdDate(it.date, true)) + " · " : ""}Parliament`, !answered)}${answered ? step(tone === "mint" ? "var(--accent-mint)" : "var(--accent-apricot)", "Answer given", `${it.answerDate ? esc(fdDate(it.answerDate, true)) + " · " : ""}${esc(it.addressee || "")}`, true) : ""}</div></section>`;
-      body += `<section><h4>Question</h4><div class="fd-txt" style="margin-top:12px">${it.question ? paras(it.question) : `<p>${wait ? "Loading the question…" : "The full text is added at the next data refresh."}</p>`}</div></section>`;
+      body += `<section><h4>Question</h4><div class="fd-txt" style="margin-top:12px">${it.question ? paras(it.question) : `<p>${wait ? "Loading the question…" : "The question text is not in nodo yet. The Parliament's document has it."}</p>`}</div>
+        ${!it.question && !wait && safeUrl(it.pdf) ? `<a class="eu-btn eu-btn--brand eu-btn--block" href="${esc(it.pdf)}" target="_blank" rel="noopener" style="margin-top:12px">Read the question (PDF)</a>` : ""}</section>`;
       if (answered) {
         const hasText = !!it.answer;
         body += `<section><h4>Answer</h4><div class="fd-txt" style="margin-top:12px">${hasText ? (full ? paras(it.answer) : `<p>${esc(it.answerPreview || fdPreview(it.answer))}</p>`) : `<p>${wait ? "Loading the answer…" : "The answer is published as a document."}</p>`}</div>
@@ -2521,7 +2765,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
           <div style="margin-top:4px">${pdfLink(it.answerPdf, "Answer PDF")}</div></section>`;
       }
     } else {
-      body += it.text ? `<section><div class="fd-txt">${paras(it.text)}</div></section>` : `<section><div class="fd-txt"><p>The full text is added at the next data refresh.</p></div></section>`;
+      body += it.text ? `<section><div class="fd-txt">${paras(it.text)}</div></section>` : `<section><div class="fd-txt"><p>The text is not in nodo yet.${safeUrl(it.pdf) ? " The Parliament's document has it." : ""}</p></div></section>`;
       body += `<div>${pdfLink(it.pdf, it.type === "speech" ? "Verbatim PDF" : "PDF")}</div>`;
     }
     if ($("sheet").hidden) layer.sheet = document.activeElement;
@@ -2577,9 +2821,9 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       ${fileLinks(m.key)}
       ${cmts ? `<h3>Committees</h3><div class="list">${cmts}</div>` : ""}
       ${dels ? `<h3>Delegations</h3><div class="list">${dels}</div>` : ""}
+      ${links ? `<h3>Links</h3>${linkBtns([...(site ? [["Website", site]] : []), ...socials])}` : ""}
       ${/^\d+$/.test(String(m.id)) ? `<h3>Activity <small id="actUpd">Open Data Portal</small></h3><div class="fd" id="actFeed"></div>` : ""}
       ${acts ? `<details class="office"><summary>More on europarl.europa.eu${icon("down")}</summary><div class="list">${acts}</div></details>` : ""}
-      ${links ? `<h3>Links</h3>${linkBtns([...(site ? [["Website", site]] : []), ...socials])}` : ""}
       <p class="foot">Source: European Parliament Open Data Portal.</p>`);
     $("pShare").onclick = () => copy(`${m.name} · ${m.group} · ${countryName(m.country)}${m.email ? " · " + m.email : ""}`, "Contact");
     sharpen(m);
@@ -2628,6 +2872,17 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     sharpen(c, "c");
   }
 
+  /* Who covers a topic: the search results as a page on top of the profile that asked, so Back returns to it. */
+  function openFind(q) {
+    state.open = "find:" + q;
+    const r = searchAll(q) || { t: [], com: [], cab: [], ep: [], co: [], fl: [] };
+    showProfile(`
+      <div class="tb">${backBtn}${icon("back")}</button></div>
+      <div class="hero"><p class="cap">Who covers it</p><h2 class="eu-headline" id="pName"><strong>${esc(q)}</strong></h2></div>
+      ${resultsHtml(r, q)}
+      <p class="foot">Matched on names, files, published cabinet responsibilities and committee membership.</p>`);
+  }
+
   function openArea(id, keep) {
     const a = AREA_BY[id]; if (!a) return;
     state.open = "area:" + id;
@@ -2645,7 +2900,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       ${mine.length ? `<h3>MEPs from your countries <small>${mine.length}</small></h3><div class="list">${mine.map(rowMepRole).join("")}</div>` : ""}
       ${d.lead.length ? `<h3>Committee chairs and vice-chairs <small>${d.lead.length}</small></h3><div class="list">${d.lead.map(rowMepRole).join("")}</div>` : ""}
       ${d.members.length ? `<details class="office"><summary>All full committee members <small>${d.members.length}</small>${icon("down")}</summary><div class="list">${d.members.map(rowMepRole).join("")}</div></details>` : ""}
-      <p class="foot">Matched on published cabinet responsibilities and committee membership.${isMine ? "" : " Add this topic to your profile to see it on your home."}</p>`);
+      <p class="foot">Matched on published cabinet responsibilities and committee membership.</p>`);
     const more = $("areaMore"); if (more) more.onclick = () => { $("areaCab").innerHTML = d.cab.map((x) => rowCabArea(x, d)).join(""); };
   }
 
@@ -2697,13 +2952,14 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       <div class="list">${row({ el: "button", attrs: `type="button" data-view="saved"`, lead: disc("star"), name: favN ? `${favN} saved ${favN === 1 ? "person" : "people"}` : "Nobody saved yet", meta: "MEPs, Commissioners and cabinet staff", wrap: true, tail: go })}</div>
       <h3>Your data</h3>
       <p class="cap lead-cap">${acct.user ? "Your profile, saved people and file lists are stored with your nodo account and follow you to every device. Only you can read them." : cloud ? "Your profile and saved people are stored with your Claude account and follow you to other devices. Only you can see them." : "Your profile, saved people and file lists are stored in this browser only. Nobody else can see them."}</p>
-      <div class="acts"><button class="eu-btn" id="expBtn" type="button">Export my data</button></div>
+      <div class="acts"><button class="eu-btn" id="expBtn" type="button">Export my data</button><button class="eu-btn" id="dataBtn" type="button">What nodo stores</button></div>
       <div id="clearBox" class="mt"><button class="eu-btn eu-btn--outline eu-btn--block danger" id="clearBtn" type="button">Clear my profile and saved people</button></div>
       ${LIVE && acct.user ? `<div id="delBox" class="mt"><button class="eu-btn eu-btn--outline eu-btn--block danger" id="delBtn" type="button">Delete my account and data</button></div>` : ""}
       <p class="foot">${acct.user ? "Signed in as " + esc(acct.user.email || "your account") + "." : state.me.id ? "Signed in through Claude." : p.method ? "Preview build: sign-in is simulated and your profile stays in this browser." : "No account needed to explore."}</p>`);
     if (keepScroll) $("profile").scrollTop = top;
     if ($("outBtn")) $("outBtn").onclick = signOut;
     $("expBtn").onclick = exportData;
+    $("dataBtn").onclick = openDataSheet;
     if ($("delBtn")) $("delBtn").onclick = () => {
       $("delBox").innerHTML = `<div class="block"><p>This permanently deletes your account, your profile, saved people and file lists on every device. It cannot be undone.</p>
         <div class="acts"><button class="eu-btn" id="noDel" type="button">Keep my account</button><button class="eu-btn eu-btn--ink" id="yesDel" type="button">Delete everything</button></div></div>`;
@@ -2719,7 +2975,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       $("yesClr").onclick = () => {
         state.profile = null; state.favs = new Set(); state.recent = []; state.lists = {}; state.follow = new Set();
         [PROFILE_KEY, FAV_KEY, RECENT_KEY, DESK_KEY, LISTS_KEY, FOLLOW_KEY].forEach((k) => store.del(k));
-        Store.touch(); identityChanged(); closeProfile(); setView("home"); openOnb(0, false);
+        Store.touch(); identityChanged(); setView("home"); openOnb(0, false);
         toast("Profile cleared");
       };
     };
@@ -2793,7 +3049,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   }
   function leaveAccount() {
     acct.user = null; Store.ref = null; Store.mode = "local"; Store.status = "local"; clearTimeout(Store.timer);
-    wipeLocal(); identityChanged(); closeProfile(true); setView("home"); openOnb(0, false);
+    wipeLocal(); identityChanged(); setView("home"); openOnb(0, false);
   }
   async function signOutLive() {
     leaveAccount();
@@ -2849,7 +3105,22 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     microsoft: { name: "Microsoft", mark: "M", vow: "Nothing else from your account is shared with nodo." },
   };
   const METHOD_LABEL = { linkedin: "LinkedIn", google: "Google", microsoft: "Microsoft", apple: "Apple", email: "an email link", password: "email and password", claude: "your Claude account" };
-  const LIGHT_STEPS = new Set(["email", "inbox", "password", "provider", "passkey"]);
+  const LIGHT_STEPS = new Set(["email", "inbox", "password", "provider", "passkey", "data"]);
+  /* What nodo stores, in plain words. Shown from the sign-in screens and from the profile. It describes what this code does:
+     keep it in step with stateBody(), the Supabase schema and the third parties the page contacts. */
+  const dataLink = (label) => `<button class="linkbtn" type="button" data-onb="data">${label}</button>`;
+  function dataNoticeHtml() {
+    const sec = (h, p) => `<section><h4>${h}</h4><p>${p}</p></section>`;
+    const provNames = (CFG.providers || []).map((k) => (PROVIDERS[k] || {}).name).filter(Boolean);
+    return `<div class="block">
+      ${LIVE ? sec("With an account", "nodo keeps one record for you: your name and email, the organisation, role and countries you enter, a profile picture if you add one, the people you save, the files you follow and the changes you make to stakeholder lists. The record sits in nodo's database, hosted by Supabase. Other people who use nodo cannot read it.")
+        + sec("Signing in", "An email link or code proves the address is yours. " + (provNames.length ? "If you sign in with " + provNames.join(" or ") + ", that service passes nodo your name and email address. " : "") + "nodo posts nothing on your behalf and does not read your contacts.")
+        : sec("In this preview", "There are no accounts here. Your profile, the people you save, the files you follow and your list changes stay in this browser" + (state.me.id ? ", and in your own Claude account when you open nodo there" : "") + ". The sign-in screens are simulated: nothing you type in them is saved or sent.")}
+      ${sec("Without an account", "The same information stays in this browser and goes nowhere. Names you add under Perm reps always stay on the device where you typed them.")}
+      ${sec("What the app loads", "The directory comes from nodo's own data files. The typefaces load from Google Fonts" + (LIVE ? ", and sign-in runs through Supabase" : "") + ". This version carries no advertising and no analytics.")}
+      ${sec("Your controls", "Your profile has Export my data" + (LIVE ? ", Clear my profile and Delete my account and data. Deleting removes your record for good, on every device." : " and Clear my profile and saved people."))}
+    </div>`;
+  }
   const COMMON_PW = ["password", "passw0rd", "123456", "qwerty", "letmein", "welcome", "iloveyou", "admin", "abc123", "111111", "000000", "dossier", "nodo", "brussels", "bruxelles", "europe"];
   const okEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(v || "").trim());
   const pwRules = (v) => {
@@ -2886,7 +3157,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       : ed ? `<div class="onb-top"><button class="eu-iconbtn" type="button" data-onb="close" aria-label="Close">${icon("back")}</button><span class="cap">${s === "passkey" ? "Sign-in" : "Edit profile"}</span></div>`
       : s === "passkey" ? `<div class="onb-top"></div>`
       : light ? backTop
-      : `<div class="onb-top"><button class="eu-iconbtn" type="button" data-onb="back" aria-label="Back">${icon("back")}</button><div class="prog" role="img" aria-label="Step ${s} of 3"><i style="width:${(s / 3 * 100).toFixed(0)}%"></i></div><span class="cap">Step ${s} of 3</span></div>`;
+      : `<div class="onb-top">${LIVE && acct.user && s === 1 ? "" : `<button class="eu-iconbtn" type="button" data-onb="back" aria-label="Back">${icon("back")}</button>`}<div class="prog" role="img" aria-label="Step ${s} of 2"><i style="width:${(s / 2 * 100).toFixed(0)}%"></i></div><span class="cap">Step ${s} of 2</span></div>`;
     const pickBtns = (list, attr, sel, label) => list.map((x) => `<button class="eu-chip" type="button" ${attr}="${esc(x)}" aria-pressed="${sel(x)}">${esc(label(x))}</button>`).join("");
     let main = "", foot = "", footCls = "";
     const cta = (act, label, off) => `<button class="eu-btn eu-btn--on-deep eu-btn--block" data-onb="${act}" type="button"${off ? " disabled" : ""}>${label}</button>`;
@@ -2900,14 +3171,31 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
 
     if (s === 0) {
       const claude = state.me.id ? `<button class="eu-btn eu-btn--on-deep eu-btn--block" data-onb="claude" type="button">${state.me.avatarUrl ? `<img class="pface" src="${esc(state.me.avatarUrl)}" alt="">` : `<span class="pmark" aria-hidden="true">${esc(initialsOf(state.me.name))}</span>`}Continue as ${esc(fn || "you")}</button>` : "";
-      main = `<h1 class="onb-xl onb-xl--auth" id="onbTitle" tabindex="-1">Untangle the <strong>EU.</strong></h1>
-        <p class="lead">Sign in to keep your files, countries and saved people ${PREVIEW && !state.me.id ? "in one place" : "on every device"}.</p>
-        <div class="auth-list">${claude}${Object.entries(PROVIDERS).filter(([k]) => !LIVE || (CFG.providers || []).includes(k)).map(([k, v]) => `<button class="eu-btn eu-btn--on-deep eu-btn--block" data-prov="${k}" type="button"><span class="pmark" aria-hidden="true">${v.mark}</span>Continue with ${v.name}</button>`).join("")}</div>
-        ${LIVE && !(CFG.providers || []).length && !claude ? "" : `<div class="or"><span>or</span></div>`}
-        <button class="eu-btn eu-btn--block auth-line" data-onb="email" type="button">${icon("mail")}Continue with email</button>`;
-      foot = `${LIVE ? "" : `<button class="textbtn textbtn--strong" data-onb="passkey-in" type="button">${icon("finger")}Sign in with a passkey</button>`}
-        <button class="textbtn" data-onb="skip" type="button">Explore without an account</button>
-        <p class="fine">${PREVIEW ? "Preview build: these sign-in methods are simulated. No account is created and no password is saved." : "By continuing you accept the Terms and the Privacy notice. nodo never posts on your behalf."}</p>`;
+      const provs = Object.entries(PROVIDERS).filter(([k]) => !LIVE || (CFG.providers || []).includes(k)).map(([k, v]) => `<button class="eu-btn eu-btn--on-deep eu-btn--block" data-prov="${k}" type="button"><span class="pmark" aria-hidden="true">${v.mark}</span>Continue with ${v.name}</button>`).join("");
+      const emailBtn = `<button class="eu-btn eu-btn--block auth-line" data-onb="email" type="button">${icon("mail")}Continue with email</button>`;
+      const title = `<h1 class="onb-xl onb-xl--auth" id="onbTitle" tabindex="-1">Untangle the <strong>EU.</strong></h1>`;
+      if (PREVIEW) {
+        /* No server behind a preview: Explore is the way in, and the sign-in screens are offered as what they are, a preview. */
+        main = `${title}
+          <p class="lead">${state.me.id ? "Carry on with your Claude account and your saved people and files follow you." : "This preview needs no account. What you save stays in this browser."}</p>
+          <div class="auth-list">${claude}<button class="eu-btn eu-btn--block ${claude ? "auth-line" : "eu-btn--on-deep"}" data-onb="skip" type="button">Explore nodo${icon("arrow")}</button></div>
+          <details class="pv-auth"${onb.pvOpen ? " open" : ""}><summary>Preview the sign-in screens${icon("down")}</summary>
+            <p class="fine">These screens show how sign-in will work. Here they are simulated: no account is created and nothing you type is saved or sent.</p>
+            <div class="auth-list">${provs}</div>
+            <div class="or"><span>or</span></div>
+            ${emailBtn}
+            <button class="textbtn textbtn--strong" data-onb="passkey-in" type="button">${icon("finger")}Sign in with a passkey</button>
+          </details>`;
+        foot = `<p class="fine">${dataLink("What nodo stores")}</p>`;
+      } else {
+        main = `${title}
+          <p class="lead">Sign in to keep your files, countries and saved people on every device.</p>
+          <div class="auth-list">${claude}${provs}</div>
+          ${provs || claude ? `<div class="or"><span>or</span></div>` : ""}
+          ${emailBtn}`;
+        foot = `<button class="textbtn textbtn--strong" data-onb="skip" type="button">Explore without an account${icon("arrow")}</button>
+          <p class="fine">nodo keeps your name, your email and the lists you build. It never posts on your behalf. ${dataLink("What nodo stores")}</p>`;
+      }
       footCls = " onb-foot--flow";
     } else if (s === "back") {
       const p = state.profile || {}, nm = state.me.name || p.name || "";
@@ -2931,7 +3219,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
           <button class="eu-btn eu-btn--block" data-onb="password" type="button">${icon("lock")}Use a password instead</button>
           <button class="eu-btn eu-btn--block" data-onb="passkey-in" type="button">${icon("finger")}Use a passkey</button>
         </div>`}`;
-      foot = `<p class="fine">${PREVIEW ? "Preview build: no email is sent and no account is created." : "By continuing you accept the Terms and the Privacy notice."}</p>`;
+      foot = `<p class="fine">${PREVIEW ? "Preview build: no email is sent and no account is created." : "nodo keeps your name, your email and the lists you build. " + dataLink("What nodo stores")}</p>`;
     } else if (s === "inbox") {
       main = `<span class="auth-disc" aria-hidden="true">${icon("mail")}</span>
         <h1 class="eu-headline" id="onbTitle" tabindex="-1">Check your <strong>inbox</strong></h1>
@@ -2955,7 +3243,8 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
             <ul class="pwrules" id="pwRules">${li("len", "12 characters or more")}${li("rare", "Not a common password")}${li("mix", "A number or a symbol, for a strong rating")}</ul>
             ${ferr("pw")}
           </div>
-          <label class="tick"><input type="checkbox" id="aTerms"${a.terms ? " checked" : ""}${a.err.terms ? ` aria-invalid="true"` : ""}><span>I accept the Terms and the Privacy notice.</span></label>
+          <label class="tick"><input type="checkbox" id="aTerms"${a.terms ? " checked" : ""}${a.err.terms ? ` aria-invalid="true"` : ""}><span>I have read what nodo stores.</span></label>
+          <p class="fhelp">${dataLink("What nodo stores")}</p>
           ${ferr("terms")}
         </form>`;
       foot = `<button class="eu-btn eu-btn--brand eu-btn--block" type="submit" form="fPw">Create account</button>
@@ -2984,6 +3273,9 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       foot = `<button class="eu-btn eu-btn--brand eu-btn--block" data-onb="passkey-make" type="button">Create a passkey</button>
         <button class="textbtn" data-onb="passkey-skip" type="button">Not now</button>
         <p class="fine">${PREVIEW ? "Preview build: the passkey is simulated. " : ""}You can add a passkey later in your profile.</p>`;
+    } else if (s === "data") {
+      main = `<h1 class="eu-headline" id="onbTitle" tabindex="-1">What nodo <strong>stores</strong></h1>${dataNoticeHtml()}`;
+      foot = `<button class="eu-btn eu-btn--brand eu-btn--block" data-onb="back" type="button">Back</button>`;
     } else if (s === 1) {
       main = `<h1 class="eu-headline" id="onbTitle" tabindex="-1">About <strong>you</strong></h1><p class="lead">This tunes what nodo shows you first.</p>
         ${!state.me.name ? `<div class="field"><label for="onbName">Your name</label><input id="onbName" data-f="name" value="${esc(d.name)}" autocomplete="name" placeholder="First and last name"></div>` : ""}
@@ -3082,7 +3374,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   function signOut() {
     if (LIVE && acct.user) return signOutLive();
     store.set(SIGNED_KEY, "1");
-    closeProfile(); setView("home"); openOnb("back", false);
+    setView("home"); openOnb("back", false);
   }
 
   function finishOnb(skipped) {
@@ -3111,6 +3403,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     if (t.id === "aTerms") { onb.a.terms = t.checked; clearErr(); }
     if (ds.code != null) codeInput(t);
   });
+  $("onb").addEventListener("toggle", (e) => { if (e.target.classList && e.target.classList.contains("pv-auth")) onb.pvOpen = e.target.open; }, true);
   $("onb").addEventListener("focusin", (e) => { if (e.target.dataset && e.target.dataset.code != null) e.target.select(); });
   $("onb").addEventListener("keydown", (e) => {
     const t = e.target; if (!t.dataset || t.dataset.code == null) return;
@@ -3136,7 +3429,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       if (!state.me.name && !d.name.trim()) err.name = "Enter your name";
       if (!okEmail(a.email)) err.email = mailErr;
       if (r.score < 3) err.pw = !pw ? "Choose a password" : !r.rare ? "This password is too easy to guess" : "Use 12 characters or more";
-      if (!a.terms) err.terms = "Accept the Terms and the Privacy notice to continue";
+      if (!a.terms) err.terms = "Tick the box to continue";
       if (!Object.keys(err).length) { $("aPw").value = ""; a.email = a.email.trim(); return authDone("password"); }
       a.err = err; renderOnb(false);
       $("aPw").value = pw; syncPw();
@@ -3165,6 +3458,8 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       const k = act.dataset.onb, s = onb.step;
       if (k === "next") { onb.step++; renderOnb(true); }
       else if (k === "back" && LIVE && acct.user && s === 1) return;
+      else if (k === "data") { if (s !== "data") onb.from = s; if (s === "password" && $("aPw")) onb.a.terms = $("aTerms").checked; goStep("data"); }
+      else if (k === "back" && s === "data") goStep(onb.from == null ? 0 : onb.from);
       else if (k === "back") goStep(s === "inbox" || s === "password" ? "email" : typeof s === "string" ? 0 : Math.max(0, s - 1));
       else if (k === "home") goStep(0);
       else if (k === "email" || k === "password") goStep(k);
@@ -3207,6 +3502,15 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       ${m.resp.length ? `<h3>Covers</h3>${lineList(m.resp)}` : ""}
       ${m.outside.length ? `<h3>Also covers, outside the portfolio</h3>${lineList(m.outside)}` : ""}
       ${m.countries.length ? `<h3>Country desk</h3><div class="tags">${m.countries.map((x) => tag(countryName(x))).join("")}</div>` : ""}`;
+    $("scrim").hidden = false; $("sheet").hidden = false; $("sheet").scrollTop = 0;
+    syncLayers();
+    $("sheet").querySelector("[data-sheet-close]").focus({ preventScroll: true });
+  }
+  function openDataSheet() {
+    state.sheet = "data";
+    if ($("sheet").hidden) layer.sheet = document.activeElement;
+    $("sheet").innerHTML = `<div class="sheet__bar"><button class="eu-iconbtn eu-iconbtn--sm" type="button" data-sheet-close aria-label="Close">${icon("x")}</button></div>
+      <div class="avsheet"><h2 id="sName">What nodo stores</h2>${dataNoticeHtml()}</div>`;
     $("scrim").hidden = false; $("sheet").hidden = false; $("sheet").scrollTop = 0;
     syncLayers();
     $("sheet").querySelector("[data-sheet-close]").focus({ preventScroll: true });
@@ -3261,10 +3565,27 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   /* ---------- events ---------- */
   function goHomeSearch(q) {
     state.hq = q; $("hq").value = q;
-    if (state.view !== "home") setView("home"); else { closeSheet(); closeProfile(true); syncDock(); renderHome(); scrollTo({ top: 0 }); }
+    if (state.view !== "home") setView("home"); else { navMark(); closeSheet(); closeAllProfiles(true); syncDock(); renderHome(); scrollTo({ top: 0 }); }
   }
-  document.addEventListener("click", (e) => {
+  /* A tap that re-renders the control it came from (a tab, a toggle, a filter) would drop keyboard and screen-reader
+     focus to the top of the page. focusKey notes the control before the tap; focusBack finds its twin afterwards. */
+  function focusKey(target) {
+    const el = target && target.closest && target.closest("button, a, summary");
+    if (!el) return null;
+    const a = [...el.attributes].find((x) => x.name.startsWith("data-")) || el.attributes.id;
+    const host = el.closest("#sheet, #profile, #onb, main.view");
+    return a && host ? { el, tag: el.tagName, name: a.name, value: a.value, host, route: state.open, view: state.view } : null;
+  }
+  function focusBack(k) {
+    if (!k || k.el.isConnected || !k.host.isConnected || k.host.hidden || k.route !== state.open || k.view !== state.view) return;
+    const to = [...k.host.querySelectorAll(`${k.tag}[${k.name}]`)].find((x) => x.getAttribute(k.name) === k.value);
+    if (to) try { to.focus({ preventScroll: true }); } catch { /* ignore */ }
+  }
+  document.addEventListener("click", (e) => { const k = focusKey(e.target); onTap(e); focusBack(k); });
+  function onTap(e) {
     const t = e.target;
+    const az = t.closest("[data-az]"); if (az) return epJump(az.dataset.az);
+    if (t.closest("[data-epclear]")) { state.ep = { q: "", country: "", committee: "", group: "" }; renderEp(); scrollTo({ top: 0 }); $("q").focus({ preventScroll: true }); return; }
     const fav = t.closest("[data-fav]"); if (fav) { e.stopPropagation(); return toggleFav(fav.dataset.fav); }
     const fw = t.closest("[data-follow]"); if (fw) { e.stopPropagation(); return toggleFollow(fw.dataset.follow); }
     const frm = t.closest("[data-frm]"); if (frm) { e.stopPropagation(); return fileAct("rm", frm.dataset.frm); }
@@ -3289,12 +3610,18 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     if (t.closest("[data-freset-yes]")) { const f = curFile(); if (!f) return; delete state.lists[f.id]; saveLists(); toast("List reset to default"); return openFile(f.id, true); }
     const fl = t.closest("[data-file]"); if (fl) return openFile(fl.dataset.file);
     const cp = t.closest("[data-copy]"); if (cp) return copy(cp.dataset.copy, cp.dataset.what || "Text");
-    const ff = t.closest("[data-fd-filter]"); if (ff) { feed.filter = ff.dataset.fdFilter; renderFeed(); const b = document.querySelector(`[data-fd-filter="${feed.filter}"]`); if (b) b.focus({ preventScroll: true }); return; }
+    if (t.closest("[data-fd-more]")) {
+      const before = feed.shown; feed.shown += FD_STEP; feedMem.set(feed.id, { filter: feed.filter, shown: feed.shown }); renderFeed();
+      const cards = document.querySelectorAll("#actFeed .ag-it"), nx = cards[before] && cards[before].querySelector("button, a");
+      const to = nx || document.querySelector("#actFeed [data-fd-more]"); if (to) to.focus({ preventScroll: true });
+      return;
+    }
+    const ff = t.closest("[data-fd-filter]"); if (ff) { feed.filter = ff.dataset.fdFilter; feed.shown = FD_FIRST; feedMem.set(feed.id, { filter: feed.filter, shown: feed.shown }); renderFeed(); const b = document.querySelector(`[data-fd-filter="${feed.filter}"]`); if (b) b.focus({ preventScroll: true }); return; }
     const fo = t.closest("[data-fd-open]"); if (fo) return openFeedItem(Number(fo.dataset.fdOpen), false);
     const fu = t.closest("[data-fd-full]"); if (fu) return openFeedItem(Number(fu.dataset.fdFull), true);
     if (t.closest("[data-sheet-close]")) return closeSheet();
-    if (t.closest("[data-close]")) return closeProfile();
-    const tp = t.closest("[data-topic]"); if (tp) return goHomeSearch(tp.dataset.topic);
+    if (t.closest("[data-close]")) return goBack();
+    const tp = t.closest("[data-topic]"); if (tp) return openFind(tp.dataset.topic);
     if (t.closest("#meBtn")) return openMe();
     if (t.closest("[data-avatar]")) return openAvatar();
     if (t.closest("[data-avphoto]")) return $("avFile").click();
@@ -3311,7 +3638,6 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const ec = t.closest("[data-epcountry]");
     if (ec) { state.ep = { q: "", country: ec.dataset.epcountry, committee: "", group: ec.dataset.epgroup || "" }; return setView("ep"); }
     const pf = t.closest("[data-prf]"); if (pf) { state.co.pf = pf.dataset.prf; return renderCo(); }
-    const pwf = t.closest("[data-prwf]"); if (pwf) { state.prwf = pwf.dataset.prwf; const id = state.open.slice(3); $("prWpList").innerHTML = wpListHtml(id); document.querySelectorAll("#prWf [data-prwf]").forEach((b) => b.setAttribute("aria-pressed", String(b === pwf))); return; }
     const prk = t.closest("[data-prk]"); if (prk) { prSheetState.kind = prk.dataset.prk; document.querySelectorAll("#prKinds [data-prk]").forEach((b) => b.setAttribute("aria-pressed", String(b === prk))); return; }
     if (t.closest("[data-prsend]")) return sendPr();
     const pps = t.closest("[data-prsheet]"); if (pps) { const [c, sl] = pps.dataset.prsheet.split("|"); return openPrSheet(c, sl); }
@@ -3323,8 +3649,9 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const gt = t.closest("[data-goto]");
     if (gt) {
       const g = gt.dataset.goto;
-      if (g === "ep") { state.ep = { q: state.hq, country: "", committee: "", group: "" }; return setView("ep"); }
-      if (g === "cab") { state.ec = { ...state.ec, tab: "cabinets", q: state.hq, who: "", country: "", staff: "all" }; return setView("ec"); }
+      const gq = gt.dataset.q != null ? gt.dataset.q : state.hq;
+      if (g === "ep") { state.ep = { q: gq, country: "", committee: "", group: "" }; return setView("ep"); }
+      if (g === "cab") { state.ec = { ...state.ec, tab: "cabinets", q: gq, who: "", country: "", staff: "all" }; return setView("ec"); }
       if (g === "cabtab") { state.ec.tab = "cabinets"; state.ec.staff = "all"; return renderEc(); }
     }
     const dk = t.closest("[data-desk]");
@@ -3334,9 +3661,9 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       state.ep = { q: "", country: c, committee: "", group: "" }; return setView("ep");
     }
     const op = t.closest("[data-open]"); if (op) return openKey(op.dataset.open);
-  });
+  }
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") { if (!$("onb").hidden && onb.edit) { $("onb").hidden = true; onb.d = null; } else if (state.sheet) closeSheet(); else if (state.open) closeProfile(); }
+    if (e.key === "Escape") { if (!$("onb").hidden && onb.edit) { $("onb").hidden = true; onb.d = null; } else if (state.sheet) closeSheet(); else if (state.open) goBack(); }
   });
   $("scrim").addEventListener("click", closeSheet);
   document.addEventListener("change", (e) => { if (e.target && e.target.id === "avFile") pickPhoto(e.target.files && e.target.files[0]); });
@@ -3372,7 +3699,10 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   let startView = "home";
   try { const h = (location.hash || "").slice(1); startView = { parliament: "ep", commission: "ec", council: "co", calendar: "cal", agenda: "agenda", saved: "saved", files: "files" }[h] || "home"; } catch { /* ignore */ }
   setView(startView);
+  if (nav.hist) try { history.replaceState({ nodo: 0, s: NAV_ID }, ""); } catch { nav.hist = false; }
   if (LIVE) { try { await Promise.race([SB.start(), new Promise((r) => setTimeout(r, 4000))]); } catch { /* stay local */ } }
+  /* The sign-in library may have cleaned the address after a redirect: put the first history entry back under nodo's name. */
+  if (nav.hist && nav.cur === 0) try { history.replaceState({ nodo: 0, s: NAV_ID }, ""); } catch { /* ignore */ }
   if (!state.profile && !acct.user) openOnb(0, false); else if (store.get(SIGNED_KEY)) openOnb("back", false);
   Store.connect();
   } finally { boot.hidden = true; }

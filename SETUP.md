@@ -50,7 +50,8 @@ The App Store listing needs a native shell around the web app. The usual route i
 
 ## 5. Before public launch
 
-- Publish a privacy notice and terms and link them from the sign-in screen.
+- The sign-in screens and the profile link to "What nodo stores", a plain-language notice built into the app (`dataNoticeHtml` in `index.html`). It describes what the code does. Keep it in step when the stored data, the sign-in providers or the third parties change, for example if analytics are added.
+- Still to publish: a formal privacy notice that names the data controller and a contact address, and terms of use. The app does not claim that people accept terms, because none exist yet. Add the links next to "What nodo stores" once they do.
 - Decide who the data controller is and have legal review it. The app stores names, emails and the lists a person builds.
 - Test the full path on a phone: sign up by email, sign in with each social option, edit a list, sign in on a second device, delete the account.
 

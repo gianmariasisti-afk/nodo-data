@@ -15,7 +15,7 @@ vendor/               supabase-js (bundled so the app works offline)
 supabase/schema.sql   table, row-level security and account deletion
 SETUP.md              how to switch on accounts and sync
 manifest.webmanifest  install settings (name, icons, colours)
-sw.js                 service worker: offline shell, fresh data when online
+sw.js                 service worker: offline shell, fresh data when online, saved data when the connection is slow
 icons/                app icons
 v1/
   manifest.json   index of every file with size, checksum and generation time
@@ -28,6 +28,14 @@ v1/
 ```
 
 `v1` is the schema version. Fields can be added inside v1. A rename or removal creates `v2` and `v1` stays online for installed apps.
+
+## How the app moves between screens
+
+Profiles stack: a person opened from a file sits on top of the file, and Back returns to the file. Every screen change is one browser-history entry, so the phone's back gesture steps back inside nodo. Inside an embedded frame (the Claude artifact) the browser history is left alone and Back walks the same trail in memory. The code is the "navigation" block in `index.html`.
+
+The service worker keeps two caches: `nodo-v<n>` for the app shell and `nodo-data-v1` for `v1/`. Bump `VERSION` in `sw.js` with every change to the shell; the data cache survives app updates, so phones do not download the directory again. Data requests wait 3 seconds for the network and then answer from the saved copy.
+
+The artifact page is this `index.html` without its first line, without `config.js` (so it runs in preview mode) and with `avatars.js` inlined.
 
 ## files.json
 
