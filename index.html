@@ -465,19 +465,25 @@ details.office > .list { margin-top: var(--space-2); }
 .ftile__n { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .ftile__head:focus-visible, .ftile__f:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
 @media (max-width: 340px) { .ftile__ic { width: 48px; height: 48px; } .ftile__grid { gap: var(--space-3) var(--space-1); } }
-/* style candidates: ticker plates and stage rings */
-.ftile__tag { font: 700 14px/1 var(--font-display); letter-spacing: -0.01em; white-space: nowrap; }
-.ftile--ticker .ftile__ic { width: 100%; height: 52px; border-radius: 14px; background: var(--brand-deep); color: var(--on-brand-deep); }
-.ftile--ticker .ftile__f--all .ftile__ic { background: none; color: var(--ink); }
-.ftile--ticker .ftile__n { color: var(--ink-muted); font-weight: 600; }
-.ftile--ring .ftile__ic { width: 64px; height: 64px; border-radius: 50%; }
-.ftile--ring .ftile__tag { font-size: 12px; }
-.ftile__ring { position: absolute; inset: 0; width: 100%; height: 100%; fill: none; stroke-width: 4; }
-.ftile__ring .on { stroke: var(--brand); }
-.ftile__ring .off { stroke: var(--hairline); }
-.ftile--ring .ftile__n { color: var(--ink-muted); font-weight: 600; }
-.ftile__cap { margin: calc(var(--space-1) * -1) 0 0; font-size: 12px; line-height: 16px; font-weight: 500; color: var(--ink-muted); }
-@media (max-width: 340px) { .ftile--ticker .ftile__ic { width: 100%; } .ftile--ticker .ftile__tag { font-size: 12px; } .ftile--ring .ftile__ic { width: 54px; height: 54px; } .ftile--ring .ftile__tag { font-size: 11px; } }
+/* illustrated candidates: ink (bold black and white, ground shadow, gold detail) and riso (brand line, offset gold) */
+.ftile--ink .ftile__ic, .ftile--riso .ftile__ic, .ftile--ink .ftile__f--all .ftile__ic, .ftile--riso .ftile__f--all .ftile__ic { width: 56px; height: 56px; border-radius: 0; background: none; box-shadow: none; }
+.k { display: block; width: 100%; height: 100%; overflow: visible; }
+.ftile--ink .ftile__star, .ftile--riso .ftile__star { right: auto; left: -4px; }
+.k-ink .g { fill: #0D1535; opacity: .22; }
+.k-ink .o { display: none; }
+.k-ink .b { fill: #fff; stroke: #0D1535; stroke-width: 3; stroke-linejoin: round; }
+.k-ink .s { fill: #0D1535; stroke: #0D1535; stroke-width: 3; stroke-linejoin: round; }
+.k-ink .p { fill: #F5B800; stroke: #0D1535; stroke-width: 3; stroke-linejoin: round; }
+.k-ink .l { fill: none; stroke: #0D1535; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.k-ink .wl { fill: none; stroke: #fff; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+.k-ink .gl { fill: #fff; stroke: #fff; stroke-width: 1.6; stroke-linecap: round; }
+.k-ink .gl2 { fill: #fff; }
+.k-riso .g, .k-riso .gl { display: none; }
+.k-riso .o { fill: #F5B800; }
+.k-riso .b, .k-riso .s, .k-riso .gl2 { fill: none; stroke: var(--brand); stroke-width: 2.2; stroke-linejoin: round; }
+.k-riso .p { fill: #F5B800; stroke: var(--brand); stroke-width: 2.2; stroke-linejoin: round; }
+.k-riso .l, .k-riso .wl { fill: none; stroke: var(--brand); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+@media (max-width: 340px) { .ftile--ink .ftile__ic, .ftile--riso .ftile__ic { width: 50px; height: 50px; } }
 
 /* Latest news: the home section that changes every day, set apart as one labelled panel under the tiles. */
 .nw { margin-top: var(--space-6); padding: var(--space-4); border-radius: var(--radius-lg); background: var(--surface-sunken); }
@@ -1637,38 +1643,37 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   const FILE_IC = { "mff-2028-2034": "euro", "digital-omnibus-data": "data", "industrial-accelerator-act": "factory", "digital-networks-act": "antenna", "digital-fairness-act": "scale", "tech-sovereignty-package": "chip", "ai-act-implementation": "spark" };
   const fileTag = (f) => f.tag || FILE_TAG[f.id] || String(f.short).split(/[\s(]/)[0];
   const fileIc = (f) => (IC[f.icon] ? f.icon : IC[FILE_IC[f.id]] ? FILE_IC[f.id] : f.kind === "budget" ? "euro" : "file");
-  /* Two candidate styles for the file marks while the design is chosen (preview with ?ft=ticker or ?ft=ring).
-     ticker: each file as a navy plate with its short name, the policy area underneath.
-     ring: a ring per file that fills as the file moves from proposal to in force, the stage underneath. */
-  const FILE_AREA = { "mff-2028-2034": "Budget", "digital-omnibus-data": "Data", "industrial-accelerator-act": "Industry", "digital-networks-act": "Telecoms", "digital-fairness-act": "Consumers", "tech-sovereignty-package": "Tech", "ai-act-implementation": "AI" };
-  const STAGE_STEPS = [0, 1, 2, 3, 4];
-  const STAGE_WORD = { "pre-proposal": "Expected", "positions-in-preparation": "Positions", "council-negotiating-box": "Council", trilogue: "Trilogue", "in-force": "In force" };
-  const FT_STYLE = (() => { try { const s = new URLSearchParams(location.search).get("ft"); return s === "ticker" || s === "ring" ? s : "icons"; } catch { return "icons"; } })();
-  const ringSvg = (stage) => {
-    /* segments: proposal out, positions, Council, trilogue, in force */
-    const n = { "pre-proposal": 0, "positions-in-preparation": 2, "council-negotiating-box": 3, trilogue: 4, "in-force": 5 }[stage] || 0, r = 27, c = 30, pt = (deg) => { const a = (deg - 90) * Math.PI / 180; return `${(c + r * Math.cos(a)).toFixed(2)} ${(c + r * Math.sin(a)).toFixed(2)}`; };
-    return `<svg class="ftile__ring" viewBox="0 0 60 60" aria-hidden="true">${STAGE_STEPS.map((_, i) => { const a = i * 72 + 5, b = a + 62; return `<path class="${i < n ? "on" : "off"}" d="M${pt(a)}A${r} ${r} 0 0 1 ${pt(b)}"/>`; }).join("")}</svg>`;
+  /* Two illustrated styles for the file marks while the design is chosen (preview with ?ft=ink or ?ft=riso).
+     Each drawing is 64x64; its parts are classed so one drawing serves both styles: g ground shadow, o offset colour,
+     b body, s solid, p pop colour, l line, wl line over a solid area, gl and gl2 white highlights. */
+  const FILE_ART = {
+    "digital-omnibus-data": "<ellipse class=\"g\" cx=\"32\" cy=\"56\" rx=\"25\" ry=\"2.6\"/><circle class=\"o\" cx=\"16\" cy=\"25\" r=\"9.5\"/><rect class=\"b\" x=\"5\" y=\"14\" width=\"52\" height=\"33\" rx=\"7\"/><path class=\"l\" d=\"M5 37h52\"/><rect class=\"s\" x=\"10\" y=\"19.5\" width=\"9\" height=\"10\" rx=\"2\"/><rect class=\"s\" x=\"22.5\" y=\"19.5\" width=\"9\" height=\"10\" rx=\"2\"/><rect class=\"s\" x=\"35\" y=\"19.5\" width=\"8\" height=\"10\" rx=\"2\"/><path class=\"s\" d=\"M47 19.5h4.5a2 2 0 0 1 2 2V33H47z\"/><path class=\"gl\" d=\"M12.5 27l4-4.5M25 27l4-4.5M37.5 27l3.5-4\"/><circle class=\"s\" cx=\"17\" cy=\"47.5\" r=\"5.5\"/><circle class=\"gl\" cx=\"17\" cy=\"47.5\" r=\"1.8\"/><circle class=\"s\" cx=\"45\" cy=\"47.5\" r=\"5.5\"/><circle class=\"gl\" cx=\"45\" cy=\"47.5\" r=\"1.8\"/><circle class=\"p\" cx=\"54\" cy=\"41.5\" r=\"2\"/>",
+    "mff-2028-2034": "<ellipse class=\"g\" cx=\"32\" cy=\"57\" rx=\"19\" ry=\"2.6\"/><circle class=\"o\" cx=\"22.5\" cy=\"47\" r=\"8.5\"/><path class=\"b\" d=\"M25.5 23C15.5 29 11.5 38 13 45.5 14.5 52 21 55 32 55s17.5-3 19-9.5C52.5 38 48.5 29 38.5 23z\"/><path class=\"b\" d=\"M27 21.5c-1.5-2.8-4.6-5-3.6-8.3 2 .9 3.9.7 5.2-.6 1 1.9 2.6 2.9 3.4 2.9s2.4-1 3.4-2.9c1.3 1.3 3.2 1.5 5.2.6 1 3.3-2.1 5.5-3.6 8.3z\"/><rect class=\"s\" x=\"24\" y=\"19.5\" width=\"16\" height=\"4.5\" rx=\"2.25\"/><path class=\"l\" d=\"M37.5 34.5a7 7 0 1 0 0 11M25.5 38.3h9.5M25.5 41.8h9.5\"/><path class=\"l\" d=\"M40 9.5h-4M41 15h-5\"/><circle class=\"p\" cx=\"49.5\" cy=\"12\" r=\"5.5\"/><path class=\"gl\" d=\"M47.5 10.5a3 3 0 0 1 2.5-1.6\"/>",
+    "industrial-accelerator-act": "<ellipse class=\"g\" cx=\"35\" cy=\"56.5\" rx=\"22\" ry=\"2.6\"/><circle class=\"o\" cx=\"21\" cy=\"29\" r=\"8\"/><path class=\"b\" d=\"M15 54V31l9-6.5V31l9-6.5V31l9-6.5V54z\"/><path class=\"b\" d=\"M42 54V15h8v39z\"/><path class=\"s\" d=\"M42 19h8v3.5h-8z\"/><rect class=\"s\" x=\"18.5\" y=\"36\" width=\"5\" height=\"5\" rx=\"1\"/><rect class=\"s\" x=\"27\" y=\"36\" width=\"5\" height=\"5\" rx=\"1\"/><rect class=\"s\" x=\"35\" y=\"36\" width=\"4.5\" height=\"5\" rx=\"1\"/><path class=\"s\" d=\"M25 54v-7.5h7V54z\"/><circle class=\"b\" cx=\"48.5\" cy=\"9\" r=\"3.6\"/><circle class=\"b\" cx=\"55\" cy=\"6\" r=\"3\"/><path class=\"l\" d=\"M3 35h7M1.5 42H11M4 49h6\"/><circle class=\"p\" cx=\"46\" cy=\"34\" r=\"2\"/>",
+    "digital-networks-act": "<ellipse class=\"g\" cx=\"32\" cy=\"57\" rx=\"15\" ry=\"2.4\"/><circle class=\"o\" cx=\"35\" cy=\"16.5\" r=\"7\"/><path class=\"b\" d=\"M32 17 22 55h20z\"/><path class=\"l\" d=\"M28.4 30.5h7.2M26.2 39h11.6M24 47.5h16M28.4 30.5 37.8 39M35.6 30.5 26.2 39M26.2 39 40 47.5M37.8 39 24 47.5\"/><path class=\"l\" d=\"M24.5 8a7 7 0 0 0 0 12M39.5 8a7 7 0 0 1 0 12M18.5 4a11.5 11.5 0 0 0 0 20M45.5 4a11.5 11.5 0 0 1 0 20\"/><circle class=\"p\" cx=\"32\" cy=\"14\" r=\"3.8\"/>",
+    "digital-fairness-act": "<ellipse class=\"g\" cx=\"29\" cy=\"58.5\" rx=\"15\" ry=\"2.4\"/><circle class=\"o\" cx=\"41\" cy=\"48\" r=\"8.5\"/><rect class=\"b\" x=\"15\" y=\"10\" width=\"28\" height=\"46\" rx=\"5.5\"/><rect class=\"s\" x=\"18.5\" y=\"16.5\" width=\"21\" height=\"32\" rx=\"2\"/><path class=\"l\" d=\"M26 13.2h6M27 52.5h4\"/><path class=\"p\" d=\"M27.5 47.4l-5.4-5.2a3.3 3.3 0 0 1 5.4-3.9 3.3 3.3 0 0 1 5.4 3.9z\"/><path class=\"l\" d=\"M33 1v14\"/><path class=\"wl\" d=\"M33 21v9a5.5 5.5 0 0 1-11 0v-4.5M22 25.5l3.6 3.4\"/><circle class=\"wl\" cx=\"33\" cy=\"18.6\" r=\"2\"/>",
+    "tech-sovereignty-package": "<ellipse class=\"g\" cx=\"26\" cy=\"60\" rx=\"17\" ry=\"2.4\"/><rect class=\"o\" x=\"25\" y=\"37\" width=\"20\" height=\"20\" rx=\"3\"/><path class=\"l\" d=\"M19 24v-5M26 24v-5M33 24v-5M19 52v5M26 52v5M33 52v5M12 31H7M12 38H7M12 45H7M40 31h5M40 38h5M40 45h5\"/><rect class=\"s\" x=\"12\" y=\"24\" width=\"28\" height=\"28\" rx=\"3\"/><rect class=\"gl2\" x=\"19\" y=\"31\" width=\"14\" height=\"14\" rx=\"1.5\"/><circle class=\"gl\" cx=\"16\" cy=\"28\" r=\"1.3\"/><path class=\"b\" d=\"M43.5 21a5.3 5.3 0 0 1 .6-10.6 7.4 7.4 0 0 1 14 2.8 4 4 0 0 1-.6 7.8z\"/><circle class=\"p\" cx=\"26\" cy=\"38\" r=\"2.2\"/>",
+    "ai-act-implementation": "<ellipse class=\"g\" cx=\"31\" cy=\"57\" rx=\"18\" ry=\"2.4\"/><circle class=\"o\" cx=\"18.5\" cy=\"40\" r=\"8\"/><path class=\"l\" d=\"M30 19v-6.5\"/><circle class=\"p\" cx=\"30\" cy=\"9.5\" r=\"3.2\"/><rect class=\"s\" x=\"9.5\" y=\"28\" width=\"5\" height=\"11\" rx=\"2\"/><rect class=\"s\" x=\"45.5\" y=\"28\" width=\"5\" height=\"11\" rx=\"2\"/><rect class=\"b\" x=\"14\" y=\"19\" width=\"32\" height=\"27\" rx=\"7\"/><circle class=\"s\" cx=\"23\" cy=\"31\" r=\"4\"/><circle class=\"s\" cx=\"37\" cy=\"31\" r=\"4\"/><circle class=\"gl\" cx=\"24.4\" cy=\"29.6\" r=\"1.3\"/><circle class=\"gl\" cx=\"38.4\" cy=\"29.6\" r=\"1.3\"/><path class=\"l\" d=\"M25 38.5q5 4 10 0\"/><path class=\"b\" d=\"M23 46v5h14v-5\"/><path class=\"l\" d=\"M50.5 35c3 .3 5.5 2.4 5.5 6\"/><g transform=\"rotate(14 56 48)\"><path class=\"p\" d=\"M52 44.5l4-3.8 4 3.8v10.5h-8z\"/><circle class=\"s\" cx=\"56\" cy=\"45\" r=\"1\"/></g>",
+    "all": "<ellipse class=\"g\" cx=\"32\" cy=\"57\" rx=\"16\" ry=\"2.4\"/><circle class=\"o\" cx=\"20\" cy=\"19\" r=\"8\"/><rect class=\"b\" x=\"14\" y=\"13\" width=\"24\" height=\"34\" rx=\"2\" transform=\"rotate(-9 26 30)\"/><rect class=\"b\" x=\"21\" y=\"14\" width=\"24\" height=\"34\" rx=\"2\" transform=\"rotate(5 33 31)\"/><path class=\"l\" d=\"M27 22.5h12M27 28.5h12M27 34.5h8\" transform=\"rotate(5 33 31)\"/><circle class=\"p\" cx=\"46\" cy=\"47\" r=\"7\"/><path class=\"l\" d=\"M42.5 47h6.5M46.3 44.2 49 47l-2.7 2.8\"/>",
+    "doc": "<ellipse class=\"g\" cx=\"32\" cy=\"57\" rx=\"14\" ry=\"2.4\"/><circle class=\"o\" cx=\"22\" cy=\"18\" r=\"8\"/><path class=\"b\" d=\"M19 9h18l9 9v36H19z\"/><path class=\"l\" d=\"M37 9v9h9M25 28h15M25 34h15M25 40h10\"/>"
   };
+  const FT_STYLE = (() => { try { const s = new URLSearchParams(location.search).get("ft"); return s === "ink" || s === "riso" ? s : "icons"; } catch { return "icons"; } })();
+  const fileArt = (key) => `<svg class="k k-${FT_STYLE}" viewBox="0 0 64 64" aria-hidden="true">${FILE_ART[key] || FILE_ART.doc}</svg>`;
   function renderFiles() {
     const w = $("doorFiles"); if (!w) return;
     const fol = FILES.filter((f) => state.follow.has(f.id)).length;
     const star = (on) => (on ? `<span class="ftile__star">${icon("star")}</span>` : "");
     const cell = (f) => {
-      const on = state.follow.has(f.id), t = fileTag(f), st = STAGE[f.stage] ? STAGE[f.stage][0] : "";
-      if (FT_STYLE === "ticker") return `<button class="ftile__f" type="button" data-file="${esc(f.id)}" title="${esc(f.short)}">
-        <span class="ftile__ic"><span class="ftile__tag">${esc(t)}</span>${star(on)}</span><span class="ftile__n">${esc(FILE_AREA[f.id] || f.kind || "")}</span><span class="sr">: ${esc(f.short)}${on ? ", following" : ""}</span></button>`;
-      if (FT_STYLE === "ring") return `<button class="ftile__f" type="button" data-file="${esc(f.id)}" title="${esc(f.short + (st ? " · " + st : ""))}">
-        <span class="ftile__ic">${ringSvg(f.stage)}<span class="ftile__tag">${esc(t)}</span>${star(on)}</span><span class="ftile__n">${esc(STAGE_WORD[f.stage] || st)}</span><span class="sr">: ${esc(f.short)}${st ? ", " + esc(st.toLowerCase()) : ""}${on ? ", following" : ""}</span></button>`;
+      const on = state.follow.has(f.id), t = fileTag(f);
       const lab = f.short.includes(t) ? f.short : `${t}, ${f.short}`;
       return `<button class="ftile__f" type="button" data-file="${esc(f.id)}" aria-label="${esc(lab + (on ? ", following" : ""))}" title="${esc(f.short)}">
-        <span class="ftile__ic">${icon(fileIc(f))}${star(on)}</span><span class="ftile__n">${esc(t)}</span></button>`;
+        <span class="ftile__ic">${FT_STYLE === "icons" ? icon(fileIc(f)) : fileArt(f.id)}${star(on)}</span><span class="ftile__n">${esc(t)}</span></button>`;
     };
     w.className = `eu-tile eu-tile--rose ftile${FT_STYLE === "icons" ? "" : " ftile--" + FT_STYLE}`;
     w.innerHTML = `<button class="ftile__head" type="button" data-view="files"><span class="eu-tile__disc">${icon("file")}</span>
       <span class="ftile__tx"><span class="eu-tile__label" id="ftH">Files</span><span class="eu-tile__meta">${FILES.length ? `${FILES.length} priority files${fol ? ` · ${fol} followed` : ""}` : "The files list could not load"}</span></span>
       <span class="ftile__go">${icon("arrow")}</span></button>
-      ${FILES.length ? `<div class="ftile__grid">${FILES.map(cell).join("")}<button class="ftile__f ftile__f--all" type="button" data-view="files"><span class="ftile__ic">${icon("arrow")}</span><span class="ftile__n">All files</span></button></div>` : ""}
-      ${FILES.length && FT_STYLE === "ring" ? `<p class="ftile__cap">Each ring fills as the file moves: proposal, positions, Council, trilogue, in force.</p>` : ""}`;
+      ${FILES.length ? `<div class="ftile__grid">${FILES.map(cell).join("")}<button class="ftile__f ftile__f--all" type="button" data-view="files"><span class="ftile__ic">${FT_STYLE === "icons" ? icon("arrow") : fileArt("all")}</span><span class="ftile__n">All files</span></button></div>` : ""}`;
   }
   function toggleFollow(id, undo) {
     const f = FILE_BY[id]; if (!f) return;
