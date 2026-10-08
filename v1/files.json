@@ -1,6 +1,6 @@
 {
  "generated": "2026-10-04T11:21:42Z",
- "asOf": "2026-10-04",
+ "asOf": "2026-10-08",
  "source": "Parliament Open Data Portal (basis ep-open-data); press and Council documents (basis press); commission.json for commissioners and cabinets",
  "legend": {
   "roles": [
@@ -20,7 +20,11 @@
    "council-negotiating-box",
    "trilogue",
    "in-force"
-  ]
+  ],
+  "dgBasis": {
+   "source": "named in a Parliament or Commission document",
+   "inferred": "deduced from the commissioner portfolio; verify before external use"
+  }
  },
  "files": [
   {
@@ -33,12 +37,28 @@
    "status": "Cyprus Presidency tabled a first negotiating box on 11 June 2026 at €1,730bn (Commission proposal: €1,763bn, constant prices). The Presidency is preparing a revised box for the 15–16 October European Council. Unanimity in Council, then Parliament consent.",
    "next": [
     {
+     "date": "2026-10-09",
+     "what": "AHWP MFF (national and regional partnerships), 10:00"
+    },
+    {
      "date": "2026-10-13",
      "what": "General Affairs Council: MFF policy debate (Luxembourg)"
     },
     {
      "date": "2026-10-15",
      "what": "European Council, 15–16 October: revised negotiating box expected beforehand"
+    },
+    {
+     "date": "2026-10-20",
+     "what": "AHWP MFF (national and regional partnerships)"
+    },
+    {
+     "date": "2026-10-30",
+     "what": "AHWP MFF (national and regional partnerships)"
+    },
+    {
+     "date": "2026-11-03",
+     "what": "AHWP MFF (national and regional partnerships)"
     }
    ],
    "ep": {
@@ -206,6 +226,13 @@
      "raffaele-fitto"
     ]
    },
+   "dg": {
+    "lead": [
+     "BUDG"
+    ],
+    "basis": "inferred",
+    "note": "Follows the Budget commissioner portfolio; no DG named in the sources checked."
+   },
    "cabinet": [
     {
      "k": "piotr-serafin~grzegorz-radziejewski",
@@ -234,7 +261,14 @@
     ],
     "configsBasis": "source",
     "presidency": "IE",
-    "note": "GAC leads the horizontal negotiation. Sectoral programmes sit in the sectoral Council formations."
+    "note": "GAC leads the horizontal negotiation. Sectoral programmes sit in the sectoral Council formations.",
+    "workingParties": [
+     {
+      "name": "Ad Hoc Working Party on the Multiannual Financial Framework (AHWP MFF)",
+      "basis": "source",
+      "note": "Only the 'National and Regional Partnerships' series was visible. Other AHWP MFF topic sessions may run in parallel."
+     }
+    ]
    },
    "caveats": [],
    "sources": [
@@ -277,6 +311,18 @@
     {
      "date": "2026-10-13",
      "what": "GAC: omnibus simplification packages, state of play"
+    },
+    {
+     "date": "2026-10-19",
+     "what": "Antici Group (Simplification); agenda not confirmed to include the Omnibus"
+    },
+    {
+     "date": "2026-10-23",
+     "what": "Antici Group (Simplification); agenda not confirmed to include the Omnibus"
+    },
+    {
+     "date": "2026-10-26",
+     "what": "Antici Group (Simplification); agenda not confirmed to include the Omnibus"
     }
    ],
    "ep": {
@@ -368,6 +414,13 @@
      "valdis-dombrovskis"
     ]
    },
+   "dg": {
+    "lead": [
+     "CNECT"
+    ],
+    "basis": "source",
+    "note": "Parliament procedure file (OEIL) lists DG CNECT."
+   },
    "cabinet": [
     {
      "k": "henna-virkkunen~benjamin-bogel",
@@ -394,7 +447,14 @@
     "configs": [],
     "configsBasis": "none",
     "presidency": "IE",
-    "note": "Presidency compromise texts circulated from June 2026. The Council wants all omnibus texts adopted before the end of 2026."
+    "note": "Presidency compromise texts circulated from June 2026. The Council wants all omnibus texts adopted before the end of 2026.",
+    "workingParties": [
+     {
+      "name": "Antici Group (Simplification)",
+      "basis": "inferred",
+      "note": "Received the Presidency compromise text on 27 Feb 2026. Not confirmed as the current venue. The Working Party on Data Protection agendas through September cover the EUDPR amendment, not the Omnibus."
+     }
+    ]
    },
    "caveats": [
     "Rapporteurs and shadows come from Agence Europe reporting. Check the Parliament's procedure file before external use.",
@@ -441,7 +501,24 @@
    "procedure": "COM(2026)100",
    "stage": "positions-in-preparation",
    "status": "Proposed 4 March 2026. The Irish Presidency circulated a 'partner origin' compromise in late July 2026, which departs substantially from the Commission text. Parliament's rapporteurs were due to table draft reports after the summer. Von der Leyen wants adoption in 2026, which looks like an aspiration.",
-   "next": [],
+   "next": [
+    {
+     "date": "2026-10-12",
+     "what": "Industry Working Party, 10:00 (file not specified; also covers Chips Act 2.0)"
+    },
+    {
+     "date": "2026-10-13",
+     "what": "Industry Working Party (file not specified)"
+    },
+    {
+     "date": "2026-10-19",
+     "what": "Industry Working Party (file not specified)"
+    },
+    {
+     "date": "2026-10-26",
+     "what": "Industry Working Party (file not specified)"
+    }
+   ],
    "ep": {
     "lead": [
      "ITRE",
@@ -492,6 +569,13 @@
      "maros-sefcovic"
     ]
    },
+   "dg": {
+    "lead": [
+     "GROW"
+    ],
+    "basis": "inferred",
+    "note": "Follows the industrial strategy portfolio; no DG named in the sources checked."
+   },
    "cabinet": [
     {
      "k": "stephane-sejourne~aleksandra-kordecka",
@@ -528,7 +612,14 @@
     ],
     "configsBasis": "inferred",
     "presidency": "IE",
-    "note": "Irish Presidency 'partner origin' compromise, late July 2026."
+    "note": "Irish Presidency 'partner origin' compromise, late July 2026.",
+    "workingParties": [
+     {
+      "name": "Working Party on Competitiveness and Growth (Industry)",
+      "basis": "source",
+      "note": "Also handles Chips Act 2.0. The calendar does not say which file each session covers."
+     }
+    ]
    },
    "caveats": [
     "Parliament rapporteurs come from two press sources (Agence Europe, Vulcan Consulting). No shadow rapporteurs were named. Verify in the procedure file.",
@@ -560,7 +651,12 @@
    "procedure": "2026/0013(COD)",
    "stage": "positions-in-preparation",
    "status": "Proposed 21 January 2026. It replaces the EECC, BEREC regulation and Radio Spectrum Policy Programme and extends authorisation rules to cloud providers and CDNs. The Council issued a progress report on 2 June 2026. IMCO and LIBE draft opinions were published in June.",
-   "next": [],
+   "next": [
+    {
+     "date": "2026-10-12",
+     "what": "Informal meeting of telecommunications ministers, 12–13 October (agenda not checked)"
+    }
+   ],
    "ep": {
     "lead": [
      "ITRE"
@@ -583,6 +679,13 @@
     ],
     "associated": []
    },
+   "dg": {
+    "lead": [
+     "CNECT"
+    ],
+    "basis": "inferred",
+    "note": "Follows the Tech Sovereignty commissioner portfolio (connectivity)."
+   },
    "cabinet": [
     {
      "k": "henna-virkkunen~silke-dalton",
@@ -599,7 +702,14 @@
     ],
     "configsBasis": "source",
     "presidency": "IE",
-    "note": "Telecom working party reports to the Council; progress report ST 9685/26."
+    "note": "Telecom working party reports to the Council; progress report ST 9685/26.",
+    "workingParties": [
+     {
+      "name": "Working Party on Telecommunications and Information Society",
+      "basis": "source",
+      "note": "Article-by-article examination reached Part V (Art. 53–76) on 3 and 10 Sept 2026. No sessions after 12 Oct were visible."
+     }
+    ]
    },
    "caveats": [
     "Only the lead rapporteur is named. Shadow rapporteurs were not found."
@@ -785,6 +895,13 @@
      "henna-virkkunen"
     ]
    },
+   "dg": {
+    "lead": [
+     "JUST"
+    ],
+    "basis": "source",
+    "note": "Consultation and stakeholder exchanges run by DG JUST."
+   },
    "cabinet": [
     {
      "k": "michael-mcgrath~egelyn-braun",
@@ -838,7 +955,24 @@
    "procedure": null,
    "stage": "positions-in-preparation",
    "status": "Both proposals went to Parliament and Council in May–June 2026 (sources differ on the exact date). The Chips Act 2.0 Council working party resumed talks on 2 September 2026. The CADA aims to triple EU data-centre capacity within five to seven years and creates a framework to assess cloud and AI sovereignty, which is the most contested element.",
-   "next": [],
+   "next": [
+    {
+     "date": "2026-10-12",
+     "what": "Industry Working Party, 10:00 (Chips Act 2.0 probable; file not specified)"
+    },
+    {
+     "date": "2026-10-13",
+     "what": "Industry Working Party (file not specified)"
+    },
+    {
+     "date": "2026-10-19",
+     "what": "Industry Working Party (file not specified)"
+    },
+    {
+     "date": "2026-10-26",
+     "what": "Industry Working Party (file not specified)"
+    }
+   ],
    "ep": {
     "lead": [
      "ITRE",
@@ -940,6 +1074,13 @@
      "stephane-sejourne"
     ]
    },
+   "dg": {
+    "lead": [
+     "CNECT"
+    ],
+    "basis": "inferred",
+    "note": "Follows the Tech Sovereignty commissioner portfolio; GROW may be associated."
+   },
    "cabinet": [
     {
      "k": "henna-virkkunen~silvia-bartolini",
@@ -960,7 +1101,19 @@
     ],
     "configsBasis": "inferred",
     "presidency": "IE",
-    "note": "Working Party on Competitiveness resumed Chips Act 2.0 talks on 2 September 2026 (SEMI Europe)."
+    "note": "Working Party on Competitiveness resumed Chips Act 2.0 talks on 2 September 2026 (SEMI Europe).",
+    "workingParties": [
+     {
+      "part": "chips-act-2",
+      "name": "Working Party on Competitiveness and Growth (Industry)",
+      "basis": "source"
+     },
+     {
+      "part": "cada",
+      "name": "Not identified",
+      "basis": "none"
+     }
+    ]
    },
    "caveats": [
     "Rapporteurs and shadows come from one industry brief (SEMI Europe). Check the Parliament's procedure files."
@@ -1179,6 +1332,13 @@
      "henna-virkkunen"
     ],
     "associated": []
+   },
+   "dg": {
+    "lead": [
+     "CNECT"
+    ],
+    "basis": "inferred",
+    "note": "AI Office sits in DG CNECT."
    },
    "cabinet": [
     {

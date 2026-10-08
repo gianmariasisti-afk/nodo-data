@@ -1960,6 +1960,11 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     return row({ attrs: tap(`data-country="${x.cc}"`), lead: codeAva(x.cc), name: esc(person(x.name)), meta: esc(x.title), wrap: true,
       extra: `<span class="row-hit">${esc(countryName(x.cc))} at ${esc(x.confs.slice(0, 3).join(", "))}</span>`, tail: go });
   };
+  const DG_NAMES = { BUDG: "Budget", CNECT: "Communications Networks, Content and Technology", GROW: "Internal Market, Industry, Entrepreneurship and SMEs", JUST: "Justice and Consumers" };
+  const dgBlock = (f) => { const d = f.dg; if (!d || !(d.lead || []).length) return "";
+    return `<h3>DG holding the pen</h3><div class="block">${d.lead.map((x) => `<h4>DG ${esc(x)}</h4><p>${esc(DG_NAMES[x] || "")}</p>`).join("")}<p class="cap">${d.basis === "source" ? "Named in a Parliament or Commission document." : "Deduced from the Commissioner's portfolio. Verify before external use."}${d.note ? " " + esc(d.note) : ""}</p></div>`; };
+  const wpBlock = (f) => { const w = ((f.council || {}).workingParties || []); if (!w.length) return "";
+    return `<h3>Working party</h3><div class="list">${w.map((x) => `<div class="block"><h4>${esc(x.name)}</h4>${x.note ? `<p class="cap">${esc(x.note)}</p>` : ""}${x.basis === "inferred" ? `<p class="cap">Venue inferred, not confirmed.</p>` : ""}</div>`).join("")}</div>`; };
   const confRow = (c) => row({ attrs: tap(`data-conf="${c.id}"`), lead: disc("bank"), name: esc(c.short),
     meta: c.next.length ? `Next: ${esc(fmtIso(c.next[0].start, { weekday: "short", day: "numeric", month: "short" }))}${c.next[0].informal ? " · informal" : ""}` : "No meeting before January", tail: go });
   function councilWeek(mon, big) {
@@ -2532,7 +2537,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
         + (f.ep && f.ep.note ? `<p class="note">${esc(f.ep.note)}</p>` : "");
     } else if (tab === "ec") {
       const by = (role) => m.base.filter((x) => x.role === role);
-      body = sec("Added by you", mineCo) + sec("Lead Commissioner", by("lead")) + sec("Associated Commissioners", by("associated")) + sec("Cabinet staff", by("cabinet"));
+      body = dgBlock(f) + sec("Added by you", mineCo) + sec("Lead Commissioner", by("lead")) + sec("Associated Commissioners", by("associated")) + sec("Cabinet staff", by("cabinet"));
     } else if (tab === "upd") {
       const t = todayIso(), ev = (UPD.tl[f.id] || []).filter((e) => e.kind !== "scheduled" || e.date <= t);
       const big = ev.filter((e) => e.kind !== "people"), seenP = new Set();
@@ -2543,7 +2548,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     } else {
       const nx = f.next || [], cfs = ((f.council || {}).configs || []).map((cid) => CO_CONFS.find((x) => x.id === cid)).filter(Boolean);
       body = `<h3>What happens next</h3>` + (nx.length ? `<div class="list">${nx.map((n) => row({ cls: "is-static", lead: disc("cal"), name: esc(n.what), meta: esc(fdDate(n.date, true)), wrap: true })).join("")}</div>` : `<div class="hint"><span>No dated step yet.</span></div>`)
-        + (cfs.length ? `<h3>In the Council</h3><div class="list">${cfs.map(confRow).join("")}</div>${f.council.note ? `<p class="note">${esc(f.council.note)}</p>` : ""}` : "")
+        + (cfs.length ? `<h3>In the Council</h3><div class="list">${cfs.map(confRow).join("")}</div>` : "") + wpBlock(f) + (f.council && f.council.note && (cfs.length || wpBlock(f)) ? `<p class="note">${esc(f.council.note)}</p>` : "")
         + ((f.caveats || []).length ? `<h3>Check before you rely on it</h3>${f.caveats.map((x) => `<div class="block"><p>${esc(typeof x === "string" ? x : x.text || x.note || "")}</p></div>`).join("")}` : "")
         + ((f.sources || []).filter((x) => safeUrl(x.url)).length ? `<h3>Sources</h3><div class="list">${f.sources.filter((x) => safeUrl(x.url)).map((x) => extRow(esc(x.title), esc(safeUrl(x.url)))).join("")}</div>` : "");
     }
@@ -3688,7 +3693,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   const TOUR = [
     { t: "Search everything", b: "Type a name, a file, a committee or a country. nodo looks across Parliament, Commission and Council at once.", el: () => document.querySelector("#vHome .eu-search"), r: 999 },
     { t: "Three institutions and a calendar", b: "Every MEP, Commissioner, cabinet member and Council delegation, plus the Parliament's calendar and plenary agenda.", el: () => [...document.querySelectorAll("#homeTiles > button.eu-tile")], r: 24 },
-    { t: "Follow the files that matter", b: "Each priority file with its rapporteurs, shadows, Commissioners and Council timeline. Open one and tap Follow to put it first everywhere.", el: () => $("doorFiles"), r: 24 },
+    { t: "Follow the files that matter", b: "Each priority file with its lead MEPs, the Commission DG holding the pen and the Council configuration, working party and next meetings. Open one and tap Follow to put it first everywhere.", el: () => $("doorFiles"), r: 24 },
     { t: "What is coming up", b: "Meetings and deadlines on the priority files in the next 14 days. The files you follow come first.", el: () => { const w = $("newsWrap"), h = w.querySelector(".nw-head"), r1 = w.querySelector(".eu-row"); return h && r1 ? [h, r1] : w; }, r: 20 },
     { t: "All the news", b: "Recent procedure steps, people changes and dates further out, in one list.", el: () => $("navNews"), r: 999 },
     { t: "Your profile", b: "Your saved people, the files you follow and the countries you cover. You can take this tour again from here.", el: () => $("meBtn"), r: 999 },
