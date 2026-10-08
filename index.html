@@ -1357,7 +1357,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   state.me = { id: null, name: "", avatarUrl: "" };
   try { state.lists = JSON.parse(store.get(LISTS_KEY) || "{}") || {}; } catch { state.lists = {}; }
   try { state.follow = new Set(JSON.parse(store.get(FOLLOW_KEY) || "[]")); } catch { state.follow = new Set(); }
-  const acct = { user: null };
+  const acct = { user: null, recovery: /(^|[#&])type=recovery(&|$)/.test(location.hash) };
 
   /* Storage: always this browser; also the person's private record in the cloud when they are signed in
      (their Supabase account on the hosted app, their Claude account inside an artifact). */
@@ -3180,10 +3180,12 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       return this.ready;
     },
     async start() {
+      acct.recovery = acct.recovery || /(^|[?&])type=recovery(&|$)/.test(location.search);
       const c = await this.load(); if (!c) return;
       c.auth.onAuthStateChange((ev, session) => {
         /* No Supabase calls inside this callback: hand off to the next tick. */
-        if (ev === "SIGNED_IN" && session && session.user) setTimeout(() => onSignedIn(session.user), 0);
+        if (ev === "PASSWORD_RECOVERY" && session && session.user) { acct.recovery = true; setTimeout(() => (acct.user ? openOnb("newpw", false) : onSignedIn(session.user)), 0); }
+        else if (ev === "SIGNED_IN" && session && session.user) setTimeout(() => onSignedIn(session.user), 0);
         else if (ev === "SIGNED_OUT" && acct.user) setTimeout(() => leaveAccount(), 0);
       });
       const { data } = await c.auth.getSession();
@@ -3197,6 +3199,31 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     async verify(email, token) {
       const c = await this.load(); if (!c) throw new Error("unavailable");
       const { error } = await c.auth.verifyOtp({ email, token, type: "email" });
+      if (error) throw error;
+    },
+    async signUp(email, password, name) {
+      const c = await this.load(); if (!c) throw new Error("unavailable");
+      const { data, error } = await c.auth.signUp({ email, password, options: { emailRedirectTo: location.origin + location.pathname, data: name ? { full_name: name, name } : {} } });
+      if (error) throw error; return data;
+    },
+    async signIn(email, password) {
+      const c = await this.load(); if (!c) throw new Error("unavailable");
+      const { data, error } = await c.auth.signInWithPassword({ email, password });
+      if (error) throw error; return data;
+    },
+    async resetLink(email) {
+      const c = await this.load(); if (!c) throw new Error("unavailable");
+      const { error } = await c.auth.resetPasswordForEmail(email, { redirectTo: location.origin + location.pathname });
+      if (error) throw error;
+    },
+    async resendConfirm(email) {
+      const c = await this.load(); if (!c) throw new Error("unavailable");
+      const { error } = await c.auth.resend({ type: "signup", email, options: { emailRedirectTo: location.origin + location.pathname } });
+      if (error) throw error;
+    },
+    async setPassword(password) {
+      const c = await this.load(); if (!c) throw new Error("unavailable");
+      const { error } = await c.auth.updateUser({ password });
       if (error) throw error;
     },
     async oauth(provider) {
@@ -3216,6 +3243,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     state.profile = { ...prev, name: prev.name || nameOfUser(user), email: user.email || prev.email || "", method: providerOf(user), v: 1 };
     saveProfile();
     store.del(SIGNED_KEY); clearInterval(resendTimer);
+    if (acct.recovery) { identityChanged(); openOnb("newpw", false); return; }
     const viaOnb = !$("onb").hidden;
     if (state.profile.onboarded) {
       if (viaOnb) { $("onb").hidden = true; onb.d = null; const fn = firstName(); toast(fn ? `Welcome back, ${fn}` : "Signed in"); }
@@ -3266,6 +3294,61 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       if (resend) toast(authError(e), 3000); else { a.err = { email: authError(e) }; renderOnb(false); }
     }
   }
+  /* Email accounts. Errors from the sign-in service become plain sentences next to the field they concern. */
+  function liveAuthErr(e) {
+    const m = String((e && e.message) || "");
+    if (e && (e.status === 429 || /rate|too many/i.test(m))) return { form: "Too many attempts. Wait a minute and try again." };
+    if (/invalid login credentials/i.test(m)) return { pw: "That email and password do not match. Check both, or reset your password." };
+    if (/already (registered|exists)/i.test(m)) return { email: "An account with this email already exists. Sign in instead." };
+    if (/password/i.test(m) && /(short|weak|least|characters)/i.test(m)) return { pw: "Choose a longer password, with a number or a symbol." };
+    if (/signups? not allowed|signup.*disabled/i.test(m)) return { form: "New accounts are switched off for now." };
+    if (/provider is disabled|logins are disabled/i.test(m)) return { form: "Email sign-in is switched off for now. Use Google instead." };
+    if (/fetch|network|unavailable|failed to/i.test(m)) return { form: "nodo could not be reached. Check your connection and try again." };
+    return { form: "That did not work. Try again in a moment." };
+  }
+  async function liveSignUp(pw) {
+    const a = onb.a, d = onb.d; if (!d || a.busy) return;
+    a.busy = true;
+    try {
+      const data = await SB.signUp(a.email, pw, d.name.trim());
+      a.busy = false;
+      /* The service hides existing accounts when it asks for email confirmation: an empty identity list means the address is taken. */
+      if (data.user && Array.isArray(data.user.identities) && !data.user.identities.length) { a.err = { email: "An account with this email already exists. Sign in instead." }; return renderOnb(false); }
+      if (!data.session) return goStep("confirm");
+      /* Signed in: the sign-in listener runs onSignedIn, which opens the setup steps. */
+    } catch (e) { a.busy = false; a.err = liveAuthErr(e); renderOnb(false); }
+  }
+  async function liveSignIn(pw) {
+    const a = onb.a; if (!onb.d || a.busy) return;
+    a.busy = true;
+    try { await SB.signIn(a.email, pw); a.busy = false; }
+    catch (e) {
+      a.busy = false;
+      if (/not confirmed/i.test(String(e && e.message))) return goStep("confirm");
+      a.err = liveAuthErr(e); renderOnb(false);
+    }
+  }
+  async function liveReset() {
+    const a = onb.a; if (!onb.d || a.busy) return;
+    a.busy = true;
+    try { await SB.resetLink(a.email); a.busy = false; goStep("sent"); }
+    catch (e) { a.busy = false; a.err = liveAuthErr(e); renderOnb(false); }
+  }
+  async function liveResend() {
+    try { await SB.resendConfirm(onb.a.email); toast("Link sent again", 2400); }
+    catch (e) { toast(liveAuthErr(e).form || "That did not work. Try again in a moment.", 3000); }
+  }
+  async function liveNewPassword(pw) {
+    const a = onb.a; if (!onb.d || a.busy) return;
+    a.busy = true;
+    try {
+      await SB.setPassword(pw);
+      a.busy = false; acct.recovery = false;
+      try { history.replaceState(history.state, "", location.pathname + location.search.replace(/([?&])type=recovery(&|$)/, "$1")); } catch { /* ignore */ }
+      if (state.profile && state.profile.onboarded) { $("onb").hidden = true; onb.d = null; identityChanged(); renderView(); toast("Password saved. You are signed in.", 2600); }
+      else { identityChanged(); openOnb(1, false); toast("Password saved", 2400); }
+    } catch (e) { a.busy = false; a.err = liveAuthErr(e); renderOnb(false); }
+  }
   async function startOAuth(provider) {
     toast(`Opening ${(PROVIDERS[provider] || {}).name || "sign-in"}…`, 3000);
     try { await SB.oauth(provider); } catch { toast("Sign-in could not start. Check your connection.", 3000); }
@@ -3284,8 +3367,8 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     linkedin: { name: "LinkedIn", mark: "in", vow: "Nothing is posted to LinkedIn and your connections stay private." },
     microsoft: { name: "Microsoft", mark: "M", vow: "Nothing else from your account is shared with nodo." },
   };
-  const METHOD_LABEL = { linkedin: "LinkedIn", google: "Google", microsoft: "Microsoft", apple: "Apple", email: "an email link", password: "email and password", claude: "your Claude account" };
-  const LIGHT_STEPS = new Set(["email", "inbox", "password", "provider", "passkey", "data"]);
+  const METHOD_LABEL = { linkedin: "LinkedIn", google: "Google", microsoft: "Microsoft", apple: "Apple", email: "email and password", password: "email and password", claude: "your Claude account" };
+  const LIGHT_STEPS = new Set(["email", "inbox", "password", "provider", "passkey", "data", "signin", "forgot", "sent", "confirm", "newpw"]);
   /* What nodo stores, in plain words. Shown from the sign-in screens and from the profile. It describes what this code does:
      keep it in step with stateBody(), the Supabase schema and the third parties the page contacts. */
   const dataLink = (label) => `<button class="linkbtn" type="button" data-onb="data">${label}</button>`;
@@ -3294,7 +3377,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const provNames = (CFG.providers || []).map((k) => (PROVIDERS[k] || {}).name).filter(Boolean);
     return `<div class="block">
       ${LIVE ? sec("With an account", "nodo keeps one record for you: your name and email, the organisation, role and countries you enter, a profile picture if you add one, the people you save, the files you follow and the changes you make to stakeholder lists. The record sits in nodo's database, hosted by Supabase. Other people who use nodo cannot read it.")
-        + sec("Signing in", "An email link or code proves the address is yours. " + (provNames.length ? "If you sign in with " + provNames.join(" or ") + ", that service passes nodo your name and email address. " : "") + "nodo posts nothing on your behalf and does not read your contacts.")
+        + sec("Signing in", "With email you choose a password. It goes straight to the sign-in service, which keeps only a scrambled form of it; nodo never stores it. " + (provNames.length ? "If you sign in with " + provNames.join(" or ") + ", that service passes nodo your name and email address. " : "") + "nodo posts nothing on your behalf and does not read your contacts.")
         : sec("In this preview", "There are no accounts here. Your profile, the people you save, the files you follow and your list changes stay in this browser" + (state.me.id ? ", and in your own Claude account when you open nodo there" : "") + ". The sign-in screens are simulated: nothing you type in them is saved or sent.")}
       ${sec("Without an account", "The same information stays in this browser and goes nowhere. Names you add under Perm reps always stay on the device where you typed them.")}
       ${sec("What the app loads", "The directory comes from nodo's own data files. The typefaces load from Google Fonts" + (LIVE ? ", and sign-in runs through Supabase" : "") + ". This version carries no advertising and no analytics.")}
@@ -3335,7 +3418,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const backTop = `<div class="onb-top"><button class="eu-iconbtn" type="button" data-onb="back" aria-label="Back">${icon("back")}</button></div>`;
     const top = s === 0 || s === "back" ? `<div class="onb-top">${WORDMARK}${PREVIEW ? `<span class="pv">Preview</span>` : ""}</div>`
       : ed ? `<div class="onb-top"><button class="eu-iconbtn" type="button" data-onb="close" aria-label="Close">${icon("back")}</button><span class="cap">${s === "passkey" ? "Sign-in" : "Edit profile"}</span></div>`
-      : s === "passkey" ? `<div class="onb-top"></div>`
+      : s === "passkey" || s === "newpw" ? `<div class="onb-top"></div>`
       : light ? backTop
       : `<div class="onb-top">${LIVE && acct.user && s === 1 ? "" : `<button class="eu-iconbtn" type="button" data-onb="back" aria-label="Back">${icon("back")}</button>`}<div class="prog" role="img" aria-label="Step ${s} of 2"><i style="width:${(s / 2 * 100).toFixed(0)}%"></i></div><span class="cap">Step ${s} of 2</span></div>`;
     const pickBtns = (list, attr, sel, label) => list.map((x) => `<button class="eu-chip" type="button" ${attr}="${esc(x)}" aria-pressed="${sel(x)}">${esc(label(x))}</button>`).join("");
@@ -3348,19 +3431,28 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       ${a.err[key] ? ferr(key, id + "H") : help ? `<p class="fhelp" id="${id}H">${help}</p>` : ""}</div>`;
     const emailAttrs = `type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" placeholder="you@organisation.eu"`;
     const note = (title, text) => `<div class="block auth-note"><h4>${title}</h4><p>${text}</p></div>`;
+    const pwRule = (rule, text) => `<li data-rule="${rule}"><svg class="eu-icon i-no" viewBox="0 0 24 24" aria-hidden="true">${IC.dot}</svg><svg class="eu-icon i-ok" viewBox="0 0 24 24" aria-hidden="true">${IC.check}</svg><span class="sr"></span>${text}</li>`;
+    /* One password box. A new password shows the strength meter and the rules; signing in shows only the box. */
+    const pwField = (auto, rules) => `<div class="field${a.err.pw ? " is-err" : ""}"><label for="aPw">Password</label>
+            <div class="pwbox"><input id="aPw" type="password" autocomplete="${auto}" autocapitalize="off" spellcheck="false"${rules ? ` aria-describedby="pwRules"` : ""}${a.err.pw ? ` aria-invalid="true"` : ""}><button class="pweye" id="pwEye" type="button" aria-label="Show password" aria-pressed="false">${icon("eye")}</button></div>
+            ${rules ? `<div class="pwmeter" id="pwMeter" data-score="0" aria-hidden="true"><i></i><i></i><i></i><i></i><b id="pwWord"></b></div>
+            <p class="sr" id="pwSay" role="status"></p>
+            <ul class="pwrules" id="pwRules">${pwRule("len", "12 characters or more")}${pwRule("rare", "Not a common password")}${pwRule("mix", "A number or a symbol, for a strong rating")}</ul>` : ""}
+            ${ferr("pw")}
+          </div>`;
 
     if (s === 0) {
       const claude = state.me.id ? `<button class="eu-btn eu-btn--on-deep eu-btn--block" data-onb="claude" type="button">${state.me.avatarUrl ? `<img class="pface" src="${esc(state.me.avatarUrl)}" alt="">` : `<span class="pmark" aria-hidden="true">${esc(initialsOf(state.me.name))}</span>`}Continue as ${esc(fn || "you")}</button>` : "";
       const provs = Object.entries(PROVIDERS).filter(([k]) => !LIVE || (CFG.providers || []).includes(k)).map(([k, v]) => `<button class="eu-btn eu-btn--on-deep eu-btn--block" data-prov="${k}" type="button"><span class="pmark" aria-hidden="true">${v.mark}</span>Continue with ${v.name}</button>`).join("");
-      const emailBtn = `<button class="eu-btn eu-btn--block auth-line" data-onb="email" type="button">${icon("mail")}Continue with email</button>`;
+      const emailBtn = `<button class="eu-btn eu-btn--block auth-line" data-onb="password" type="button">${icon("mail")}Create an account with email</button>
+        <button class="textbtn textbtn--strong" data-onb="signin-email" type="button">Already have an account? Sign in</button>`;
       const title = `<h1 class="onb-xl onb-xl--auth" id="onbTitle" tabindex="-1">Untangle the <strong>EU.</strong></h1>`;
       /* Signing in is the way in. The preview has no server, so there the same screens are simulated. */
       main = `${title}
         <p class="lead">Sign in or create your account to start. Your files, countries and saved people follow you on every device.</p>
         <div class="auth-list">${claude}${provs}</div>
         ${provs || claude ? `<div class="or"><span>or</span></div>` : ""}
-        ${emailBtn}
-        ${PREVIEW ? `<button class="textbtn textbtn--strong" data-onb="passkey-in" type="button">${icon("finger")}Sign in with a passkey</button>` : ""}`;
+        ${emailBtn}`;
       foot = PREVIEW
         ? `<p class="fine">Preview build: sign-in is simulated. No account is created and nothing you type is sent. ${dataLink("What nodo stores")}</p>`
         : `<p class="fine">nodo keeps your name, your email and the lists you build. It never posts on your behalf. ${dataLink("What nodo stores")}</p>`;
@@ -3399,25 +3491,50 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
         ${PREVIEW ? note("Preview build", "No email is sent yet. Type any six digits to continue.") : note("Nothing yet?", "Look in spam or junk. Some organisations delay external email by a minute or two.")}`;
       foot = `<div class="auth-split"><button class="textbtn" id="resend" data-onb="resend" type="button" disabled>Resend in 0:45</button><button class="textbtn textbtn--brand" data-onb="email" type="button">Change email</button></div>`;
     } else if (s === "password") {
-      const li = (rule, text) => `<li data-rule="${rule}"><svg class="eu-icon i-no" viewBox="0 0 24 24" aria-hidden="true">${IC.dot}</svg><svg class="eu-icon i-ok" viewBox="0 0 24 24" aria-hidden="true">${IC.check}</svg><span class="sr"></span>${text}</li>`;
       main = `<h1 class="eu-headline" id="onbTitle" tabindex="-1">Create your <strong>account</strong></h1>
         <form id="fPw" novalidate>
           ${state.me.name ? "" : field("aName", "Full name", "name", d.name, `autocomplete="name" placeholder="First and last name"`)}
           ${field("aMail", "Work email", "email", a.email, emailAttrs)}
-          <div class="field${a.err.pw ? " is-err" : ""}"><label for="aPw">Password</label>
-            <div class="pwbox"><input id="aPw" type="password" autocomplete="new-password" autocapitalize="off" spellcheck="false" aria-describedby="pwRules"${a.err.pw ? ` aria-invalid="true"` : ""}><button class="pweye" id="pwEye" type="button" aria-label="Show password" aria-pressed="false">${icon("eye")}</button></div>
-            <div class="pwmeter" id="pwMeter" data-score="0" aria-hidden="true"><i></i><i></i><i></i><i></i><b id="pwWord"></b></div>
-            <p class="sr" id="pwSay" role="status"></p>
-            <ul class="pwrules" id="pwRules">${li("len", "12 characters or more")}${li("rare", "Not a common password")}${li("mix", "A number or a symbol, for a strong rating")}</ul>
-            ${ferr("pw")}
-          </div>
+          ${pwField("new-password", true)}
           <label class="tick"><input type="checkbox" id="aTerms"${a.terms ? " checked" : ""}${a.err.terms ? ` aria-invalid="true"` : ""}><span>I have read what nodo stores.</span></label>
           <p class="fhelp">${dataLink("What nodo stores")}</p>
           ${ferr("terms")}
+          ${ferr("form")}
         </form>`;
       foot = `<button class="eu-btn eu-btn--brand eu-btn--block" type="submit" form="fPw">Create account</button>
-        <p class="auth-alt">Already have an account?<button class="textbtn textbtn--brand" data-onb="home" type="button">Log in</button></p>
+        <p class="auth-alt">Already have an account?<button class="textbtn textbtn--brand" data-onb="signin-email" type="button">Sign in</button></p>
         ${PREVIEW ? `<p class="fine">Preview build: your password is not saved or sent.</p>` : ""}`;
+    } else if (s === "signin") {
+      main = `<h1 class="eu-headline" id="onbTitle" tabindex="-1">Sign in with <strong>email</strong></h1>
+        <form id="fIn" novalidate>
+          ${field("aMail", "Email", "email", a.email, emailAttrs)}
+          ${pwField("current-password", false)}
+          ${ferr("form")}
+        </form>
+        <button class="textbtn textbtn--brand auth-forgot" data-onb="forgot" type="button">Forgot your password?</button>`;
+      foot = `<button class="eu-btn eu-btn--brand eu-btn--block" type="submit" form="fIn"${a.busy ? " disabled" : ""}>Sign in</button>
+        <p class="auth-alt">New to nodo?<button class="textbtn textbtn--brand" data-onb="password" type="button">Create an account</button></p>
+        ${PREVIEW ? `<p class="fine">Preview build: sign-in is simulated and nothing is sent.</p>` : ""}`;
+    } else if (s === "forgot") {
+      main = `<h1 class="eu-headline" id="onbTitle" tabindex="-1">Reset your <strong>password</strong></h1>
+        <p class="lead">Enter the email you signed up with. We send you a link to choose a new password.</p>
+        <form id="fForgot" novalidate>${field("aMail", "Email", "email", a.email, emailAttrs)}${ferr("form")}</form>`;
+      foot = `<button class="eu-btn eu-btn--brand eu-btn--block" type="submit" form="fForgot"${a.busy ? " disabled" : ""}>Email me a reset link</button>
+        <p class="auth-alt">Remembered it?<button class="textbtn textbtn--brand" data-onb="signin-email" type="button">Sign in</button></p>`;
+    } else if (s === "sent" || s === "confirm") {
+      const sent = s === "sent";
+      main = `<span class="auth-disc" aria-hidden="true">${icon("mail")}</span>
+        <h1 class="eu-headline" id="onbTitle" tabindex="-1">${sent ? "Check your <strong>inbox</strong>" : "Confirm your <strong>email</strong>"}</h1>
+        <p class="lead">${sent ? `If there is an account for <b>${esc(a.email)}</b>, we sent it a link to choose a new password. The link works once.`
+          : `We sent a link to <b>${esc(a.email)}</b>. Open it on this device to finish creating your account.`}</p>
+        ${PREVIEW ? note("Preview build", "No email is sent in the preview.") : note("Nothing yet?", "Look in spam or junk. Some organisations hold external email for a few minutes.")}`;
+      foot = `${sent ? "" : `<button class="eu-btn eu-btn--block" data-onb="resend-confirm" type="button">Send the link again</button>`}
+        <p class="auth-alt">${sent ? "Ready?" : "Confirmed it already?"}<button class="textbtn textbtn--brand" data-onb="signin-email" type="button">Sign in</button></p>`;
+    } else if (s === "newpw") {
+      main = `<h1 class="eu-headline" id="onbTitle" tabindex="-1">Choose a new <strong>password</strong></h1>
+        <p class="lead">For ${esc(a.email || "your account")}. You stay signed in on this device.</p>
+        <form id="fNew" novalidate>${pwField("new-password", true)}${ferr("form")}</form>`;
+      foot = `<button class="eu-btn eu-btn--brand eu-btn--block" type="submit" form="fNew"${a.busy ? " disabled" : ""}>Save password</button>`;
     } else if (s === "provider") {
       const pv = PROVIDERS[a.provider] || PROVIDERS.linkedin;
       const row = (key, label, val, attrs, lead) => `<label class="imp__row${key === "email" ? (okEmail(val) ? " has" : "") : val.trim() ? " has" : ""}">${lead}
@@ -3477,7 +3594,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     if (!left) clearInterval(resendTimer);
   }
   function syncPw() {
-    const inp = $("aPw"); if (!inp) return;
+    const inp = $("aPw"); if (!inp || !$("pwMeter")) return;
     const r = pwRules(inp.value);
     $("pwMeter").dataset.score = r.score;
     $("pwWord").textContent = PW_WORD[r.score];
@@ -3530,7 +3647,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       saveProfile();
       return signBack();
     }
-    goStep((method === "email" || method === "password") && !a.passkey ? "passkey" : 1);
+    goStep(1);
   }
   function signBack() {
     store.del(SIGNED_KEY); clearInterval(resendTimer);
@@ -3691,9 +3808,27 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       if (!okEmail(a.email)) err.email = mailErr;
       if (r.score < 3) err.pw = !pw ? "Choose a password" : !r.rare ? "This password is too easy to guess" : "Use 12 characters or more";
       if (!a.terms) err.terms = "Tick the box to continue";
-      if (!Object.keys(err).length) { $("aPw").value = ""; a.email = a.email.trim(); return authDone("password"); }
+      if (!Object.keys(err).length) { a.email = a.email.trim(); if (LIVE) return liveSignUp(pw); $("aPw").value = ""; return authDone("password"); }
       a.err = err; renderOnb(false);
       $("aPw").value = pw; syncPw();
+      const bad = $("onb").querySelector('[aria-invalid="true"]'); if (bad) bad.focus();
+      return;
+    } else if (id === "fIn") {
+      const pw = $("aPw").value;
+      if (!okEmail(a.email)) err.email = mailErr;
+      if (!pw) err.pw = "Enter your password";
+      if (!Object.keys(err).length) { a.email = a.email.trim(); if (LIVE) return liveSignIn(pw); $("aPw").value = ""; return authDone("password"); }
+      a.err = err; renderOnb(false); $("aPw").value = pw;
+      const bad = $("onb").querySelector('[aria-invalid="true"]'); if (bad) bad.focus();
+      return;
+    } else if (id === "fForgot") {
+      if (!okEmail(a.email)) err.email = mailErr;
+      if (!Object.keys(err).length) { a.email = a.email.trim(); if (LIVE) return liveReset(); return goStep("sent"); }
+    } else if (id === "fNew") {
+      const pw = $("aPw").value, r = pwRules(pw);
+      if (r.score < 3) err.pw = !pw ? "Choose a password" : !r.rare ? "This password is too easy to guess" : "Use 12 characters or more";
+      if (!Object.keys(err).length) return liveNewPassword(pw);
+      a.err = err; renderOnb(false); $("aPw").value = pw; syncPw();
       const bad = $("onb").querySelector('[aria-invalid="true"]'); if (bad) bad.focus();
       return;
     } else if (id === "fProv") {
@@ -3721,9 +3856,12 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       else if (k === "back" && LIVE && acct.user && s === 1) return;
       else if (k === "data") { if (s !== "data") onb.from = s; if (s === "password" && $("aPw")) onb.a.terms = $("aTerms").checked; goStep("data"); }
       else if (k === "back" && s === "data") goStep(onb.from == null ? 0 : onb.from);
-      else if (k === "back") goStep(s === "inbox" || s === "password" ? "email" : typeof s === "string" ? 0 : Math.max(0, s - 1));
+      else if (k === "back") goStep(s === "forgot" || s === "sent" ? "signin" : typeof s === "string" ? 0 : Math.max(0, s - 1));
       else if (k === "home") goStep(0);
-      else if (k === "email" || k === "password") goStep(k);
+      else if (k === "email" || k === "password") goStep("password");
+      else if (k === "signin-email") goStep("signin");
+      else if (k === "forgot") goStep("forgot");
+      else if (k === "resend-confirm") { if (LIVE) liveResend(); else toast("Preview build: no email is sent", 2400); }
       else if (k === "claude") authDone("claude");
       else if (k === "passkey-in") { const p = state.profile; if (p && p.passkey && !a.fresh) signBack(); else toast("No passkey on this device yet", 2400); }
       else if (k === "mailapp") toast(PREVIEW ? "Preview build: no email was sent" : "Open the email on this device", 2400);
