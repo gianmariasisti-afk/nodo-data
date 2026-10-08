@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generated": "2026-10-08T13:58:19.499Z",
+ "generated": "2026-10-08T19:17:56.569Z",
  "files": {
   "meps": {
    "path": "meps.json",
@@ -29,8 +29,8 @@
   "agenda": {
    "path": "agenda.json",
    "description": "Plenary agendas by session, keyed by first sitting day",
-   "bytes": 15038,
-   "sha256": "5e4be94bd6ee2572e6e45386213d6476171303beb250a9dfc16286d83b1bd466",
+   "bytes": 16640,
+   "sha256": "469e19bdd53cf708771d2c63e85b537fc3c9750a28667e140bc6b1a0a3aa6cf3",
    "updated": "2026-10-02",
    "stage": "final-draft"
   },

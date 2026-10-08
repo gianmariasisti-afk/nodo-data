@@ -1,5 +1,5 @@
 {
- "checked": "2026-10-06",
+ "checked": "2026-10-08",
  "source": "https://www.europarl.europa.eu/plenary/en/agendas.html",
  "sessions": {
   "2026-10-05": {
@@ -473,6 +473,80 @@
       "type": "debate",
       "title": "UN Convention on the Rights of Older Persons",
       "sub": "2026/2919(RSP)"
+     }
+    ]
+   }
+  },
+  "2026-10-19": {
+   "stage": "draft",
+   "updated": "2026-10-08",
+   "link": "https://www.europarl.europa.eu/plenary/en/agendas.html",
+   "src": {
+    "api": "foreseen-activities",
+    "sha256": "d216ef0e369f1862b72c4e1d568222b95b14e9c272f8e9038c07a3db277acd58"
+   },
+   "days": {
+    "2026-10-19": [
+     {
+      "time": "17:00–21:00",
+      "type": "other",
+      "title": "PLENARY SESSION DEBATES"
+     }
+    ],
+    "2026-10-20": [
+     {
+      "time": "09:00–11:50",
+      "type": "other",
+      "title": "PLENARY SESSION DEBATES"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "other",
+      "title": "PLENARY SESSION VOTES"
+     },
+     {
+      "time": "13:00–15:00",
+      "type": "other",
+      "title": "PLENARY SESSION DEBATES"
+     },
+     {
+      "time": "15:00–20:00",
+      "type": "other",
+      "title": "PLENARY SESSION DEBATES"
+     }
+    ],
+    "2026-10-21": [
+     {
+      "time": "09:00–11:50",
+      "type": "other",
+      "title": "PLENARY SESSION KEY DEBATE"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "other",
+      "title": "PLENARY SESSION VOTES"
+     },
+     {
+      "time": "13:00–20:00",
+      "type": "other",
+      "title": "PLENARY SESSION DEBATES"
+     }
+    ],
+    "2026-10-22": [
+     {
+      "time": "09:00–11:50",
+      "type": "other",
+      "title": "PLENARY SESSION DEBATES"
+     },
+     {
+      "time": "12:00–14:00",
+      "type": "other",
+      "title": "PLENARY SESSION VOTES"
+     },
+     {
+      "time": "15:00–16:00",
+      "type": "other",
+      "title": "PLENARY SESSION DEBATES"
      }
     ]
    }
