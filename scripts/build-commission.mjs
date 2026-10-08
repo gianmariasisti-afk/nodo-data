@@ -61,8 +61,8 @@ export function parseTeam(lines) {
   return people;
 }
 const keepEmail = (e) => (/^cab-/.test(e) ? e : "");
-const roleClass = (role) => (/head of cabinet|director of coordination|cabinet expert/i.test(role) ? "lead" : /assistant|officer|logistics|secretary|registry|document|mission/i.test(role) && !/adviser|member/i.test(role) ? "office" : "policy");
-const tidyRole = (r) => r.toLowerCase().replace(/(^|[\s/(-])([a-z])/g, (m, a, b) => a + b.toUpperCase()).replace(/\bOf\b/g, "of").replace(/\bAnd\b/g, "and").replace(/\bTo\b/g, "to").replace(/\//g, " / ").replace(/\s+/g, " ").trim();
+export const roleClass = (role) => (/head of cabinet|director of coordination|cabinet expert/i.test(role) ? "lead" : /assistant|officer|logistics|secretary|registry|document|mission/i.test(role) && !/adviser|member/i.test(role) ? "office" : "policy");
+export const tidyRole = (r) => r.toLowerCase().replace(/(^|[\s/(-])([a-z])/g, (m, a, b) => a + b.toUpperCase()).replace(/\bOf\b/g, "of").replace(/\bAnd\b/g, "and").replace(/\bTo\b/g, "to").replace(/\//g, " / ").replace(/\s+/g, " ").trim();
 
 async function main() {
   await fs.mkdir(CACHE, { recursive: true });
@@ -100,8 +100,12 @@ async function main() {
 
     for (const p of people) {
       const o = old.get(nk(p.name)); if (!o) continue;
-      if (nk(tidyRole(p.role)) !== nk(o.role) && nk(p.role) !== nk(o.role)) structural.push({ type: "role", commissioner: m.slug, name: p.name, from: o.role, to: p.role });
+      const roleChanged = nk(tidyRole(p.role)) !== nk(o.role) && nk(p.role) !== nk(o.role);
+      if (roleChanged) structural.push({ type: "role", commissioner: m.slug, name: p.name, from: o.role, to: p.role });
       const np = next.college[idx].cabinet.find((x) => x.k === o.k), pp = proposed.college[idx].cabinet.find((x) => x.k === o.k);
+      // A role change is structural, so it waits for review on the proposal branch, but the proposal must carry it:
+      // otherwise merging the branch removes the old Head of Cabinet and leaves the successor with the old role.
+      if (roleChanged) { pp.role = tidyRole(p.role); pp.cls = roleClass(p.role); }
       const upd = {};
       if (p.phone && p.phone !== o.phone) upd.phone = p.phone;
       if ((p.note || "") !== (o.note || "")) upd.note = p.note || "";
@@ -119,6 +123,10 @@ async function main() {
       structural.push({ type: "removed", commissioner: m.slug, name: p.name, role: p.role });
       proposed.college[idx].cabinet = proposed.college[idx].cabinet.filter((x) => x.k !== p.k);
     }
+  }
+  for (const m of proposed.college) { // keep the Head of Cabinet first, as the team page lists them
+    const cab = m.cabinet || [], heads = cab.filter((x) => x.role === "Head of Cabinet");
+    if (heads.length && cab[0] !== heads[0]) m.cabinet = [...heads, ...cab.filter((x) => !heads.includes(x))];
   }
   for (const s of report.college.added) structural.push({ type: "commissioner-added", slug: s });
   for (const s of report.college.removed) structural.push({ type: "commissioner-removed", slug: s });
