@@ -1358,6 +1358,44 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   try { state.lists = JSON.parse(store.get(LISTS_KEY) || "{}") || {}; } catch { state.lists = {}; }
   try { state.follow = new Set(JSON.parse(store.get(FOLLOW_KEY) || "[]")); } catch { state.follow = new Set(); }
   const acct = { user: null, recovery: /(^|[#&])type=recovery(&|$)/.test(location.hash) };
+  /* ---------- usage log (signed-in accounts only) ----------
+     One row per action in public.events: sections and profiles opened, searches with their result count,
+     saves and follows. Nothing is logged in preview mode or before sign-in. Described in dataNoticeHtml:
+     keep the two in step. Logging never blocks or breaks the app: every failure is swallowed. */
+  const Track = {
+    q: [], timer: 0, sid: Math.random().toString(36).slice(2, 12), lastView: "", lastOpen: null, sTimer: {}, lastQ: {},
+    log(name, f) {
+      if (!LIVE || !acct.user) return;
+      this.q.push({ user_id: acct.user.id, session_id: this.sid, name, section: null, item: null, query: null, results: null, ...f });
+      clearTimeout(this.timer);
+      if (this.q.length >= 20) this.flush(); else this.timer = setTimeout(() => this.flush(), 2000);
+    },
+    async flush() {
+      clearTimeout(this.timer);
+      if (!this.q.length || !acct.user || !SB.client) return;
+      const rows = this.q.splice(0);
+      try { await SB.client.from("events").insert(rows); } catch { /* ignore */ }
+    },
+    view(v) { if (!v || v === this.lastView) return; this.lastView = v; this.log("view", { section: v }); },
+    opened(key) {
+      if (!key || key === this.lastOpen) return;
+      this.lastOpen = key;
+      const i = key.indexOf(":");
+      this.log("open", { section: i < 0 ? key : key.slice(0, i), item: key.slice(0, 120) });
+    },
+    /* A search is logged once the person stops typing, with the number of results it returned. */
+    search(where, q, n) {
+      clearTimeout(this.sTimer[where]);
+      const t = String(q || "").trim().toLowerCase().slice(0, 80);
+      if (t.length < 2) { this.lastQ[where] = ""; return; }
+      this.sTimer[where] = setTimeout(() => {
+        if (this.lastQ[where] === t) return;
+        this.lastQ[where] = t; this.log("search", { section: where, query: t, results: n });
+      }, 1200);
+    },
+  };
+  addEventListener("pagehide", () => Track.flush());
+  document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden") Track.flush(); });
 
   /* Storage: always this browser; also the person's private record in the cloud when they are signed in
      (their Supabase account on the hosted app, their Claude account inside an artifact). */
@@ -1576,6 +1614,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   function setView(v) {
     navMark();
     showView(v);
+    Track.view(state.view);
     closeSheet(); closeAllProfiles(true);
     renderView(); syncDock(); scrollTo({ top: 0 });
     navTouch();
@@ -1690,6 +1729,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const f = FILE_BY[id]; if (!f) return;
     const had = state.follow.has(id);
     had ? state.follow.delete(id) : state.follow.add(id);
+    Track.log(had ? "unfollow" : "follow", { section: "file", item: String(id) });
     saveFollow();
     toast(had ? `Stopped following ${f.short}` : `Following ${f.short}`, 0, had && !undo ? { label: "Undo", fn: () => toggleFollow(id, true) } : null);
     document.querySelectorAll(`[data-follow="${id.replace(/["\\]/g, "\\$&")}"]`).forEach((b) => {
@@ -1723,7 +1763,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const was = $("homeTop").hidden;
     $("homeTop").hidden = !!r; $("homeTiles").hidden = !!r; $("homeBody").hidden = !!r; $("homeResults").hidden = !r;
     if (was !== !!r) scrollTo({ top: 0 });
-    if (r) { $("homeResults").innerHTML = resultsHtml(r, state.hq); return; }
+    if (r) { Track.search("home", state.hq, r.fl.length + r.com.length + r.cab.length + r.ep.length + r.co.length); $("homeResults").innerHTML = resultsHtml(r, state.hq); return; }
     const favs = [...state.favs].filter((k) => BYKEY.has(k));
     $("seeSaved").hidden = !favs.length;
     $("savedStrip").innerHTML = favs.length ? `<div class="strip">${favs.slice().reverse().map(bubble).join("")}</div>`
@@ -2277,6 +2317,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const sig = [s.q, s.country, s.committee, s.group].join("|");
     if (sig !== state.epSig) { state.epSig = sig; state.epShown = EP_STEP; }
     epRows = rows;
+    Track.search("ep", s.q, rows.length);
     const n = Math.min(rows.length, Math.max(EP_STEP, state.epShown || 0));
     $("epCount").textContent = `${rows.length} of ${MEPS.length} MEPs`;
     $("epClear").hidden = !(s.q || s.country || s.committee || s.group);
@@ -2321,6 +2362,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     if (s.tab === "college") {
       const list = t.length ? COLL.filter((c) => lineHits(c, t)) : COLL;
       $("ecCount").textContent = `${list.length} of ${COLL.length} Commissioners`;
+      Track.search("ec-college", s.q, list.length);
       if (!list.length) {
         const n = CAB.filter((m) => lineHits(m, t)).length;
         $("ecBody").innerHTML = `<p class="empty mt">No Commissioner matches.</p>${n ? `<button class="eu-btn eu-btn--block mt" type="button" data-goto="cabtab">See ${n} cabinet ${n === 1 ? "member" : "members"} who cover it</button>` : ""}`;
@@ -2342,6 +2384,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     document.querySelectorAll("#cabStaff [data-s]").forEach((x) => x.setAttribute("aria-pressed", String(x.dataset.s === s.staff)));
     $("cabWho").value = s.who; $("cabCountry").value = s.country;
     $("ecCount").textContent = `${list.length} ${list.length === 1 ? "person" : "people"}`;
+    Track.search("ec-cabinets", s.q, list.length);
     if (!list.length) { $("ecBody").innerHTML = `<p class="empty mt">Nobody matches. Clear a filter or try a broader word.</p>`; return; }
     if (t.length) {
       list = rankCab(list, t);
@@ -2601,6 +2644,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const r = searchAll(q);
     if (!r) { host.innerHTML = `<p class="cap desk-hint">Type a name, a committee or a topic.</p>`; return; }
     const m = membersOf(f), have = new Set([...m.base, ...m.added].map((x) => x.key));
+    Track.search("list-add", q, r.com.length + r.cab.length + r.ep.length);
     const pick = (key, o, meta) => row({ el: "button", attrs: `type="button" data-fpick="${esc(key)}"${have.has(key) ? " disabled" : ""}`, lead: avaOf(key), name: esc(o.name), meta, wrap: true,
       tail: have.has(key) ? `<span class="eu-iconbtn eu-iconbtn--sm" role="img" aria-label="Already on the list">${icon("check")}</span>` : `<span class="eu-iconbtn eu-iconbtn--sm" aria-hidden="true">${icon("plus")}</span>` });
     const block = (title, xs) => (xs.length ? `<h3>${title} <small>${xs.length}</small></h3><div class="list">${xs.join("")}</div>` : "");
@@ -2628,6 +2672,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   function toggleFav(key) {
     const had = state.favs.has(key), order = [...state.favs];
     had ? state.favs.delete(key) : state.favs.add(key);
+    Track.log(had ? "unsave" : "save", { section: String(key).split(":")[0], item: String(key) });
     saveFavs(); syncFav(key);
     /* Removing is the tap that loses something: it can be undone, and the person returns to the same place in the list. */
     toast(had ? "Removed from Saved" : "Saved", 0, had ? { label: "Undo", fn: () => { state.favs = new Set(order); saveFavs(); syncFav(key); toast("Back in Saved"); } } : null);
@@ -2784,6 +2829,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       nav.stack.push({ key, top: 0 });
     }
     $("profileBody").innerHTML = html;
+    if (!nav.restoring) Track.opened(key);
     P.hidden = false; P.scrollTop = 0;
     syncDock(); syncLayers();
     const back = P.querySelector("[data-close]");
@@ -2792,7 +2838,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   function closeAllProfiles(silent) {
     const was = !$("profile").hidden;
     navMark();
-    state.open = null; nav.stack = []; $("profile").hidden = true;
+    state.open = null; nav.stack = []; $("profile").hidden = true; Track.lastOpen = null;
     syncLayers();
     if (!silent) { syncDock(); if (state.view === "home" && !state.hq) renderHome(); if (was) refocus(layer.profile, layer.profileKey); }
   }
@@ -3243,6 +3289,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   async function onSignedIn(user) {
     if (acct.user && acct.user.id === user.id) return;
     acct.user = user;
+    Track.log("app_open", { section: state.view, item: matchMedia("(display-mode: standalone)").matches || navigator.standalone ? "installed" : "browser" });
     try { await Store.connectSb(user); } catch { Store.setStatus(navigator.onLine === false ? "offline" : "error"); }
     const prev = state.profile || {};
     state.profile = { ...prev, name: prev.name || nameOfUser(user), email: user.email || prev.email || "", method: providerOf(user), v: 1 };
@@ -3276,11 +3323,17 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     try { await SB.client.auth.signOut(); } catch { /* ignore */ }
     toast("Your account and data are deleted", 3200);
   }
-  function exportData() {
+  async function exportData() {
+    let usage = null;
+    if (LIVE && acct.user && SB.client) {
+      await Track.flush();
+      try { const { data } = await SB.client.from("events").select("created_at,name,section,item,query,results").order("created_at").limit(10000); usage = data || []; } catch { /* export the rest */ }
+    }
     const nm = (k) => { const e = BYKEY.get(k); return e ? e.o.name : k; };
     const out = { exported: new Date().toISOString(), profile: state.profile || null, saved: [...state.favs].map((k) => ({ key: k, name: nm(k) })),
       following: [...state.follow].map((id) => ({ id, name: (FILE_BY[id] || {}).short || id })),
       lists: Object.fromEntries(Object.entries(state.lists).map(([id, l]) => [id, { added: (l.add || []).map((k) => ({ key: k, name: nm(k) })), removed: (l.rem || []).map((k) => ({ key: k, name: nm(k) })) }])) };
+    if (usage) out.usage = usage;
     const a = document.createElement("a");
     a.href = URL.createObjectURL(new Blob([JSON.stringify(out, null, 2)], { type: "application/json" })); a.download = "nodo-my-data.json";
     document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 1500);
@@ -3382,11 +3435,12 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const provNames = (CFG.providers || []).map((k) => (PROVIDERS[k] || {}).name).filter(Boolean);
     return `<div class="block">
       ${LIVE ? sec("With an account", "nodo keeps one record for you: your name and email, the organisation, role and countries you enter, a profile picture if you add one, the people you save, the files you follow and the changes you make to stakeholder lists. The record sits in nodo's database, hosted by Supabase. Other people who use nodo cannot read it.")
+        + sec("How you use nodo", "While you are signed in, nodo keeps a usage log for your account: the sections and profiles you open, what you type in search and how many results came back, when you save or follow something, and whether you took the tour. The team behind nodo reads it to see what works and what is missing. It sits in the same database, is not shared with anyone else and is not used for advertising.")
         + sec("Signing in", "With email you choose a password. It goes straight to the sign-in service, which keeps only a scrambled form of it; nodo never stores it. " + (provNames.length ? "If you sign in with " + provNames.join(" or ") + ", that service passes nodo your name and email address. " : "") + "nodo posts nothing on your behalf and does not read your contacts.")
         : sec("In this preview", "There are no accounts here. Your profile, the people you save, the files you follow and your list changes stay in this browser" + (state.me.id ? ", and in your own Claude account when you open nodo there" : "") + ". The sign-in screens are simulated: nothing you type in them is saved or sent.")}
       ${sec("Without an account", "The same information stays in this browser and goes nowhere. Names you add under Perm reps always stay on the device where you typed them.")}
-      ${sec("What the app loads", "The directory comes from nodo's own data files. The typefaces load from Google Fonts" + (LIVE ? ", and sign-in runs through Supabase" : "") + ". This version carries no advertising and no analytics.")}
-      ${sec("Your controls", "Your profile has Export my data" + (LIVE ? ", Clear my profile and Delete my account and data. Deleting removes your record for good, on every device." : " and Clear my profile and saved people."))}
+      ${sec("What the app loads", "The directory comes from nodo's own data files. The typefaces load from Google Fonts" + (LIVE ? ", and sign-in runs through Supabase" : "") + ". This version carries no advertising" + (LIVE ? " and no third-party analytics: the usage log above is nodo's own." : " and no analytics."))}
+      ${sec("Your controls", "Your profile has Export my data" + (LIVE ? ", which includes your usage log, Clear my profile and Delete my account and data. Deleting removes your record and your usage log for good, on every device." : " and Clear my profile and saved people."))}
     </div>`;
   }
   const COMMON_PW = ["password", "passw0rd", "123456", "qwerty", "letmein", "welcome", "iloveyou", "admin", "abc123", "111111", "000000", "dossier", "nodo", "brussels", "bruxelles", "europe"];
@@ -3710,6 +3764,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     closeSheet();
     if (state.view !== "home" || state.open || state.hq) { if (state.hq) { state.hq = ""; $("hq").value = ""; } setView("home"); }
     tour.from = document.activeElement; tour.i = 0;
+    Track.log("tour_start", {});
     document.documentElement.classList.add("touring");
     $("tour").hidden = false; state.touring = true; syncLayers();
     showTourStep();
@@ -3751,6 +3806,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   }
   function endTour(done) {
     if (tour.i < 0) return;
+    Track.log("tour_end", { item: done ? "finished" : "left at step " + (tour.i + 1) });
     tour.i = -1; $("tour").hidden = true; document.documentElement.classList.remove("touring");
     state.touring = false; syncLayers();
     if (state.profile && !state.profile.toured) { state.profile.toured = true; saveProfile(); }
