@@ -1,0 +1,75 @@
+name: Publish health status
+
+# Writes status.json to the `status` branch so the daily nodo check can read the
+# state of every workflow and every open issue from raw.githubusercontent.com.
+# Runs shortly before the weekday check (06:54 UTC).
+
+on:
+  schedule:
+    - cron: "20 6 * * 1-5"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+  issues: read
+
+concurrency:
+  group: status
+  cancel-in-progress: true
+
+jobs:
+  status:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build status.json
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/out"
+          gh api "repos/$REPO/actions/runs?per_page=100" > "$RUNNER_TEMP/runs.json"
+          gh api "repos/$REPO/issues?state=open&per_page=50" > "$RUNNER_TEMP/issues.json"
+          git ls-remote --heads origin 'review/*' | sed 's#.*refs/heads/##' > "$RUNNER_TEMP/branches.txt" || true
+          ACT=$(ls v1/activity/*.json 2>/dev/null | wc -l)
+          QF=$(ls v1/activity/q 2>/dev/null | wc -l)
+          jq -n \
+            --slurpfile runs "$RUNNER_TEMP/runs.json" \
+            --slurpfile issues "$RUNNER_TEMP/issues.json" \
+            --rawfile branches "$RUNNER_TEMP/branches.txt" \
+            --arg generated "$(date -u +%FT%TZ)" \
+            --argjson act "$ACT" --argjson qf "$QF" \
+            --arg manifest "$(jq -r '.generated // empty' v1/manifest.json)" \
+            '{
+              generated: $generated,
+              manifestGenerated: $manifest,
+              counts: { activityFiles: $act, questionFiles: $qf },
+              workflows: (
+                [ $runs[0].workflow_runs[]
+                  | select(.name != "pages build and deployment" and .name != "Publish health status" and .status == "completed") ]
+                | group_by(.name)
+                | map(sort_by(.created_at) | reverse
+                      | { name: .[0].name,
+                          latest: { conclusion: .[0].conclusion, at: .[0].created_at, event: .[0].event, url: .[0].html_url },
+                          lastSuccessAt: (map(select(.conclusion == "success")) | first | .created_at // null) })
+              ),
+              openIssues: [ $issues[0][] | select(.pull_request | not)
+                | { number, title, labels: [.labels[].name], createdAt: .created_at, url: .html_url } ],
+              reviewBranches: ($branches | split("\n") | map(select(length > 0)))
+            }' > "$RUNNER_TEMP/out/status.json"
+          cat "$RUNNER_TEMP/out/status.json"
+      - name: Publish to the status branch
+        run: |
+          set -euo pipefail
+          git config user.name "nodo-data bot"
+          git config user.email "actions@users.noreply.github.com"
+          git checkout -q --orphan status
+          git rm -rq --cached . || true
+          find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+          cp "$RUNNER_TEMP/out/status.json" status.json
+          git add status.json
+          git commit -q -m "Status $(date -u +%FT%TZ)"
+          git push -q -f origin status
