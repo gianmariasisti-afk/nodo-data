@@ -729,6 +729,28 @@ details.office > .list { margin-top: var(--space-2); }
 .fine { font-size: 12px; line-height: 16px; font-weight: 500; text-align: center; }
 .textbtn { min-height: 44px; border: 0; background: none; font-size: 15px; font-weight: 600; }
 
+/* Guided tour: a spotlight over Home and a card that explains each stop */
+html.touring { overflow: hidden; }
+.tour { position: fixed; inset: 0; z-index: 70; touch-action: none; }
+.tour__hole { position: fixed; border-radius: 24px; box-shadow: 0 0 0 200vmax rgba(6, 10, 30, 0.62); outline: 2px solid var(--spark); outline-offset: 2px; pointer-events: none;
+  transition: left .25s ease, top .25s ease, width .25s ease, height .25s ease, border-radius .25s ease; }
+.tour__hole[hidden] { display: none; }
+.tour__card { position: fixed; left: 50%; transform: translateX(-50%); width: min(400px, calc(100% - 32px)); padding: var(--space-5); border-radius: var(--radius-lg);
+  background: var(--surface); color: var(--ink); box-shadow: var(--shadow-float); transition: top .25s ease; }
+.tour__step { display: flex; align-items: center; gap: var(--space-2); font-size: 12px; line-height: 16px; font-weight: 600; color: var(--ink-muted); }
+.tour__dots { display: inline-flex; gap: 4px; }
+.tour__dots i { width: 6px; height: 6px; border-radius: 3px; background: var(--hairline); }
+.tour__dots i.on { width: 16px; background: var(--spark); }
+.tour__card h2 { margin-top: var(--space-2); font: 700 22px/26px var(--font-display); letter-spacing: -0.02em; }
+#tourB { margin-top: var(--space-2); font-size: 15px; line-height: 22px; color: var(--ink-muted); }
+.tour__acts { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); margin-top: var(--space-5); }
+.tour__skip { min-height: 44px; padding: 0 var(--space-1); border: 0; background: none; color: var(--ink-muted); font-size: 15px; font-weight: 600; }
+.tour__nav { display: flex; gap: var(--space-2); }
+.tour__nav .eu-btn { min-width: 76px; height: 44px; }
+.tour__nav .eu-btn[hidden] { display: none; }
+@media (prefers-reduced-motion: reduce) { .tour__hole, .tour__card { transition: none; } }
+@media (max-height: 700px) { .tour__card { padding: var(--space-4); } .tour__card h2 { font-size: 19px; line-height: 23px; } #tourB { font-size: 14px; line-height: 20px; } .tour__acts { margin-top: var(--space-3); } }
+
 /* Sign-in. Welcome and welcome-back stay on brand-deep; the account steps (email, code, password, import, passkey)
    sit on the surface so forms read like the rest of the app. Inputs are 16px so phones do not zoom on focus. */
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
@@ -1126,6 +1148,18 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   <button class="eu-tabbar__item" id="navNews" type="button"><svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5.5h11v13H7.5A2.5 2.5 0 0 1 5 16z"/><path d="M16 9h3v7.5a2 2 0 0 1-2 2h-1M8 9h5"/><path class="spk" d="M10.5 11.1Q10.77 13.53 13.2 13.8Q10.77 14.07 10.5 16.5Q10.23 14.07 7.8 13.8Q10.23 13.53 10.5 11.1Z"/></svg>News</button>
 </nav></div>
 <div id="toast" class="eu-badge toast" role="status" hidden></div>
+<div id="tour" class="tour" hidden>
+  <div id="tourHole" class="tour__hole"></div>
+  <section id="tourCard" class="tour__card" role="dialog" aria-modal="true" aria-labelledby="tourT" aria-describedby="tourB">
+    <p class="tour__step"><span id="tourDots" class="tour__dots" aria-hidden="true"></span><span id="tourStep"></span></p>
+    <h2 id="tourT"></h2>
+    <p id="tourB"></p>
+    <div class="tour__acts">
+      <button class="tour__skip" type="button" data-tour="skip">Skip tour</button>
+      <span class="tour__nav"><button id="tourBack" class="eu-btn eu-btn--sm" type="button" data-tour="back">Back</button><button id="tourNext" class="eu-btn eu-btn--sm eu-btn--brand" type="button" data-tour="next">Next</button></span>
+    </div>
+  </section>
+</div>
 
 <script src="config.js"></script>
 <script src="avatars.js"></script>
@@ -2609,10 +2643,10 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   /* Whatever sits behind an open overlay is inert. Focus moves into the overlay and returns to what opened it. */
   const layer = { profile: null, profileKey: "", sheet: null };
   function syncLayers() {
-    const o = !$("onb").hidden, sh = !$("sheet").hidden, p = !$("profile").hidden;
-    document.querySelectorAll("main.view").forEach((m) => { m.inert = o || sh || p; });
-    $("profile").inert = o || sh;
-    document.querySelector(".dock").inert = o || sh;
+    const o = !$("onb").hidden, sh = !$("sheet").hidden, p = !$("profile").hidden, t = !!state.touring;
+    document.querySelectorAll("main.view").forEach((m) => { m.inert = o || sh || p || t; });
+    $("profile").inert = o || sh || t;
+    document.querySelector(".dock").inert = o || sh || t;
     navTouch();
   }
 
@@ -2722,6 +2756,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   }
   function goBack() { if (nav.cur > 0) navStep(-1); else if (state.open) closeAllProfiles(); }
   addEventListener("popstate", (e) => {
+    if (state.touring) endTour(false);
     if (!nav.trail.length) return;
     const st = e.state, i = st && st.s === NAV_ID && typeof st.nodo === "number" ? st.nodo : 0;
     navApply(Math.max(0, Math.min(i, nav.trail.length - 1)));
@@ -3093,6 +3128,8 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       </div>
       <div class="acts">${p.method ? `${p.passkey ? "" : `<button class="eu-btn" id="pkBtn" type="button">Add a passkey</button>`}<button class="eu-btn" id="outBtn" type="button">Sign out</button>`
         : `<button class="eu-btn eu-btn--brand" id="inBtn" type="button">Sign in or create an account</button>`}</div>`}
+      <h3>Getting around</h3>
+      <div class="list">${row({ el: "button", attrs: `type="button" data-tour-start`, lead: disc("home"), name: "Take the tour", meta: "Six stops around Home, about a minute", wrap: true, tail: go })}</div>
       <h3>Your data</h3>
       <p class="cap lead-cap">${acct.user ? "Your profile, saved people and file lists are stored with your nodo account and follow you to every device. Only you can read them." : cloud ? "Your profile and saved people are stored with your Claude account and follow you to other devices. Only you can see them." : "Your profile, saved people and file lists are stored in this browser only. Nobody else can see them."}</p>
       <div class="acts"><button class="eu-btn" id="expBtn" type="button">Export my data</button><button class="eu-btn" id="dataBtn" type="button">What nodo stores</button></div>
@@ -3317,28 +3354,16 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       const provs = Object.entries(PROVIDERS).filter(([k]) => !LIVE || (CFG.providers || []).includes(k)).map(([k, v]) => `<button class="eu-btn eu-btn--on-deep eu-btn--block" data-prov="${k}" type="button"><span class="pmark" aria-hidden="true">${v.mark}</span>Continue with ${v.name}</button>`).join("");
       const emailBtn = `<button class="eu-btn eu-btn--block auth-line" data-onb="email" type="button">${icon("mail")}Continue with email</button>`;
       const title = `<h1 class="onb-xl onb-xl--auth" id="onbTitle" tabindex="-1">Untangle the <strong>EU.</strong></h1>`;
-      if (PREVIEW) {
-        /* No server behind a preview: Explore is the way in, and the sign-in screens are offered as what they are, a preview. */
-        main = `${title}
-          <p class="lead">${state.me.id ? "Carry on with your Claude account and your saved people and files follow you." : "This preview needs no account. What you save stays in this browser."}</p>
-          <div class="auth-list">${claude}<button class="eu-btn eu-btn--block ${claude ? "auth-line" : "eu-btn--on-deep"}" data-onb="skip" type="button">Explore nodo${icon("arrow")}</button></div>
-          <details class="pv-auth"${onb.pvOpen ? " open" : ""}><summary>Preview the sign-in screens${icon("down")}</summary>
-            <p class="fine">These screens show how sign-in will work. Here they are simulated: no account is created and nothing you type is saved or sent.</p>
-            <div class="auth-list">${provs}</div>
-            <div class="or"><span>or</span></div>
-            ${emailBtn}
-            <button class="textbtn textbtn--strong" data-onb="passkey-in" type="button">${icon("finger")}Sign in with a passkey</button>
-          </details>`;
-        foot = `<p class="fine">${dataLink("What nodo stores")}</p>`;
-      } else {
-        main = `${title}
-          <p class="lead">Sign in to keep your files, countries and saved people on every device.</p>
-          <div class="auth-list">${claude}${provs}</div>
-          ${provs || claude ? `<div class="or"><span>or</span></div>` : ""}
-          ${emailBtn}`;
-        foot = `<button class="textbtn textbtn--strong" data-onb="skip" type="button">Explore without an account${icon("arrow")}</button>
-          <p class="fine">nodo keeps your name, your email and the lists you build. It never posts on your behalf. ${dataLink("What nodo stores")}</p>`;
-      }
+      /* Signing in is the way in. The preview has no server, so there the same screens are simulated. */
+      main = `${title}
+        <p class="lead">Sign in or create your account to start. Your files, countries and saved people follow you on every device.</p>
+        <div class="auth-list">${claude}${provs}</div>
+        ${provs || claude ? `<div class="or"><span>or</span></div>` : ""}
+        ${emailBtn}
+        ${PREVIEW ? `<button class="textbtn textbtn--strong" data-onb="passkey-in" type="button">${icon("finger")}Sign in with a passkey</button>` : ""}`;
+      foot = PREVIEW
+        ? `<p class="fine">Preview build: sign-in is simulated. No account is created and nothing you type is sent. ${dataLink("What nodo stores")}</p>`
+        : `<p class="fine">nodo keeps your name, your email and the lists you build. It never posts on your behalf. ${dataLink("What nodo stores")}</p>`;
       footCls = " onb-foot--flow";
     } else if (s === "back") {
       const p = state.profile || {}, nm = state.me.name || p.name || "";
@@ -3522,6 +3547,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
 
   function finishOnb(skipped) {
     const d = onb.d, a = onb.a || {}, prev = (!a.fresh && state.profile) || {};
+    const firstTime = !onb.edit && !prev.onboarded;
     if (a.fresh) { state.favs = new Set(); state.recent = []; state.follow = new Set(); [FAV_KEY, RECENT_KEY, DESK_KEY, FOLLOW_KEY].forEach((k) => store.del(k)); }
     state.profile = { ...prev, name: state.me.name ? (prev.name || "") : d.name.trim(), org: d.org.trim(), role: d.role,
       countries: [...d.countries], onboarded: true, v: 1,
@@ -3534,9 +3560,101 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     AREAS.forEach((x) => { delete x._d; });
     identityChanged();
     if (state.open === "me") openMe(true); else if (state.open && state.open.startsWith("area:")) openArea(state.open.slice(5)); else renderView();
+    if (firstTime && !state.profile.toured) { onb.d = null; setTimeout(startTour, 350); return; }
     toast(onb.edit ? "Profile updated" : skipped ? "Personalise any time from your profile" : "Your home is ready");
     onb.d = null;
   }
+
+  /* ---------- guided tour ----------
+     Runs once when a new account finishes setting up, and again on request from the profile. A spotlight walks through
+     Home: search, the institutions, Files, Latest news, the News tab and the profile. The page stays put underneath. */
+  const TOUR = [
+    { t: "Search everything", b: "Type a name, a file, a committee or a country. nodo looks across Parliament, Commission and Council at once.", el: () => document.querySelector("#vHome .eu-search"), r: 999 },
+    { t: "Three institutions and a calendar", b: "Every MEP, Commissioner, cabinet member and Council delegation, plus the Parliament's calendar and plenary agenda.", el: () => [...document.querySelectorAll("#homeTiles > button.eu-tile")], r: 24 },
+    { t: "Follow the files that matter", b: "Each priority file with its rapporteurs, shadows, Commissioners and Council timeline. Open one and tap Follow to put it first everywhere.", el: () => $("doorFiles"), r: 24 },
+    { t: "What is coming up", b: "Meetings and deadlines on the priority files in the next 14 days. The files you follow come first.", el: () => { const w = $("newsWrap"), h = w.querySelector(".nw-head"), r1 = w.querySelector(".eu-row"); return h && r1 ? [h, r1] : w; }, r: 20 },
+    { t: "All the news", b: "Recent procedure steps, people changes and dates further out, in one list.", el: () => $("navNews"), r: 999 },
+    { t: "Your profile", b: "Your saved people, the files you follow and the countries you cover. You can take this tour again from here.", el: () => $("meBtn"), r: 999 },
+  ];
+  const tour = { i: -1, from: null };
+  const tourRect = (el) => {
+    const rs = (Array.isArray(el) ? el : [el]).filter(Boolean).map((e) => e.getBoundingClientRect()).filter((r) => r.width || r.height);
+    if (!rs.length) return null;
+    const left = Math.min(...rs.map((r) => r.left)), top = Math.min(...rs.map((r) => r.top)), right = Math.max(...rs.map((r) => r.right)), bottom = Math.max(...rs.map((r) => r.bottom));
+    return { left, top, right, bottom, width: right - left, height: bottom - top };
+  };
+  function startTour() {
+    if (!$("onb").hidden || !state.profile) return;
+    closeSheet();
+    if (state.view !== "home" || state.open || state.hq) { if (state.hq) { state.hq = ""; $("hq").value = ""; } setView("home"); }
+    tour.from = document.activeElement; tour.i = 0;
+    document.documentElement.classList.add("touring");
+    $("tour").hidden = false; state.touring = true; syncLayers();
+    showTourStep();
+  }
+  function showTourStep() {
+    const st = TOUR[tour.i], el = st.el(), first = Array.isArray(el) ? el[0] : el;
+    $("tourStep").textContent = `${tour.i + 1} of ${TOUR.length}`;
+    $("tourDots").innerHTML = TOUR.map((_, k) => `<i${k === tour.i ? ' class="on"' : ""}></i>`).join("");
+    $("tourT").textContent = st.t; $("tourB").textContent = st.b;
+    $("tourBack").hidden = tour.i === 0;
+    $("tourNext").textContent = tour.i === TOUR.length - 1 ? "Done" : "Next";
+    /* Scroll so the stop and the card fit on screen together, the stop a little above the middle when there is room. */
+    if (first && !first.closest(".dock")) {
+      const r = tourRect(el), ch = $("tourCard").offsetHeight, room = r ? innerHeight - 24 - ch - 14 - 16 - r.height : 0;
+      if (r) scrollTo(0, Math.max(0, scrollY + r.top - (20 + (room > 0 ? Math.min(room * 0.35, 120) : 0))));
+    }
+    placeTour();
+    $("tourNext").focus({ preventScroll: true });
+  }
+  function placeTour() {
+    if (tour.i < 0) return;
+    const st = TOUR[tour.i], r = tourRect(st.el()), hole = $("tourHole"), card = $("tourCard"), pad = 8, gap = 14, edge = 12;
+    if (!r) { hole.hidden = true; card.style.top = Math.max(edge, (innerHeight - card.offsetHeight) / 2) + "px"; return; }
+    hole.hidden = false;
+    hole.style.left = r.left - pad + "px"; hole.style.top = r.top - pad + "px";
+    hole.style.width = r.width + pad * 2 + "px"; hole.style.height = r.height + pad * 2 + "px";
+    hole.style.borderRadius = st.r >= 999 ? "999px" : st.r + pad + "px";
+    const ch = card.offsetHeight, below = r.bottom + pad + gap, above = r.top - pad - gap - ch;
+    const top = below + ch <= innerHeight - edge ? below : above >= edge ? above : Math.max(edge, innerHeight - ch - edge);
+    card.style.top = top + "px";
+    /* On a short screen a tall stop cannot sit beside the card: the spotlight keeps to the part above the card. */
+    if (top > r.top && top < r.bottom + pad + gap) hole.style.height = Math.max(48, top - gap - (r.top - pad)) + "px";
+  }
+  function stepTour(d) {
+    const n = tour.i + d;
+    if (n < 0) return;
+    if (n >= TOUR.length) return endTour(true);
+    tour.i = n; showTourStep();
+  }
+  function endTour(done) {
+    if (tour.i < 0) return;
+    tour.i = -1; $("tour").hidden = true; document.documentElement.classList.remove("touring");
+    state.touring = false; syncLayers();
+    if (state.profile && !state.profile.toured) { state.profile.toured = true; saveProfile(); }
+    const back = tour.from && document.contains(tour.from) && !tour.from.closest("[inert]") ? tour.from : $("meBtn");
+    if (back && back.focus) back.focus({ preventScroll: true });
+    toast(done ? "You are all set. Find the tour again in your profile." : "Tour closed. Take it again from your profile.", 2600);
+  }
+  $("tour").addEventListener("click", (e) => {
+    const b = e.target.closest("[data-tour]"); if (!b) return;
+    const k = b.dataset.tour;
+    if (k === "next") stepTour(1); else if (k === "back") stepTour(-1); else if (k === "skip") endTour(false);
+  });
+  function tourKey(e) {
+    if (e.key === "Escape") { e.preventDefault(); endTour(false); }
+    else if (e.key === "ArrowRight" && !/input|textarea/i.test(e.target.tagName)) { e.preventDefault(); stepTour(1); }
+    else if (e.key === "ArrowLeft" && !/input|textarea/i.test(e.target.tagName)) { e.preventDefault(); stepTour(-1); }
+    else if (e.key === "Tab") {
+      const f = [...$("tourCard").querySelectorAll("button")].filter((x) => !x.hidden);
+      const i = f.indexOf(document.activeElement);
+      if (e.shiftKey && i <= 0) { e.preventDefault(); f[f.length - 1].focus(); }
+      else if (!e.shiftKey && i === f.length - 1) { e.preventDefault(); f[0].focus(); }
+      else if (i < 0) { e.preventDefault(); f[0].focus(); }
+    }
+  }
+  addEventListener("resize", placeTour);
+  if ("ResizeObserver" in window) new ResizeObserver(() => placeTour()).observe($("vHome"));
   $("onb").addEventListener("input", (e) => {
     const t = e.target, ds = t.dataset || {};
     if (!onb.d) return;
@@ -3772,6 +3890,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     if (t.closest("[data-avclear]")) { setAvatar(""); delete state.profile.photo; saveProfile(); return closeSheet(); }
     const ed = t.closest("[data-edit]"); if (ed) { const n = Number(ed.dataset.edit); return openOnb(n, n > 0); }
     const ar = t.closest("[data-area]"); if (ar) return openArea(ar.dataset.area);
+    if (t.closest("[data-tour-start]")) { setView("home"); return setTimeout(startTour, 250); }
     const vw = t.closest("[data-view]"); if (vw) return setView(vw.dataset.view);
     const dr = t.closest("[data-dir]"); if (dr) return setView(dr.dataset.dir);
     const ct = t.closest("[data-cotab]"); if (ct) { state.co.tab = ct.dataset.cotab; return renderCo(); }
@@ -3806,6 +3925,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const op = t.closest("[data-open]"); if (op) return openKey(op.dataset.open);
   }
   document.addEventListener("keydown", (e) => {
+    if (tour.i >= 0) return tourKey(e);
     if (e.key === "Escape") { if (!$("onb").hidden && onb.edit) { $("onb").hidden = true; onb.d = null; } else if (state.sheet) closeSheet(); else if (state.open) goBack(); }
   });
   $("scrim").addEventListener("click", closeSheet);
@@ -3846,7 +3966,9 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   if (LIVE) { try { await Promise.race([SB.start(), new Promise((r) => setTimeout(r, 4000))]); } catch { /* stay local */ } }
   /* The sign-in library may have cleaned the address after a redirect: put the first history entry back under nodo's name. */
   if (nav.hist && nav.cur === 0) try { history.replaceState({ nodo: 0, s: NAV_ID }, ""); } catch { /* ignore */ }
-  if (!state.profile && !acct.user) openOnb(0, false); else if (store.get(SIGNED_KEY)) openOnb("back", false);
+  /* Sign-in is required. Live: a Supabase session. Preview: the simulated sign-in recorded on the profile. */
+  const signedIn = LIVE ? !!acct.user : !!(state.profile && state.profile.method);
+  if (!signedIn) openOnb(0, false); else if (store.get(SIGNED_KEY)) openOnb("back", false);
   Store.connect();
   } finally { boot.hidden = true; }
 })();

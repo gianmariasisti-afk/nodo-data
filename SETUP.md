@@ -17,6 +17,9 @@ The anon key is public by design. Never put the `service_role` key anywhere in t
 
 ## 2. Email (magic link and code)
 
+Signing in is the only way into nodo, so email delivery has to work before launch: people without a Google account depend on it. Supabase's built-in sender is meant for testing; it sends a handful of emails an hour and only to addresses in your Supabase team. Step 4 (custom SMTP) is what makes email sign-in work for everyone else.
+
+
 1. **Authentication → Providers → Email**: keep it on. Turn **Confirm email** on.
 2. **Authentication → Email Templates**: edit both **Confirm signup** and **Magic Link**. Add the code so the six-digit box in the app works as well as the link:
 
