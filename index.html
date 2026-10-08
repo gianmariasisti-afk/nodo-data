@@ -448,6 +448,32 @@ details.office > .list { margin-top: var(--space-2); }
 .bar .tr i { display: block; height: 100%; border-radius: var(--radius-pill); background: var(--gc); }
 .bar .n { font-size: 13px; line-height: 16px; font-weight: 600; text-align: right; font-variant-numeric: tabular-nums; }
 
+/* Latest news: the home section that changes every day, set apart as one labelled panel under the tiles. */
+.nw { margin-top: var(--space-6); padding: var(--space-4); border-radius: var(--radius-lg); background: var(--surface-sunken); }
+.nw-head { display: flex; align-items: flex-start; gap: var(--space-3); }
+.nw-ic { display: grid; place-items: center; width: 44px; height: 44px; flex: none; border-radius: 50%; background: var(--brand-deep); color: var(--on-brand-deep); }
+.nw-hx { flex: 1; min-width: 0; }
+.nw-hx h2 { font: 700 22px/26px var(--font-display); letter-spacing: -0.02em; margin-top: 2px; }
+.nw-hx p { margin-top: 2px; font-size: 13px; line-height: 18px; color: var(--ink-muted); }
+.nw-upd { flex: none; margin-top: 6px; font-size: 12px; line-height: 16px; font-weight: 500; color: var(--ink-muted); white-space: nowrap; }
+.nw-grp { margin: var(--space-5) var(--space-1) 0; font-size: 13px; line-height: 16px; font-weight: 600; color: var(--ink-muted); }
+.nw-grp + .list { margin-top: var(--space-2); }
+.nw-note { margin: var(--space-4) var(--space-1) 0; font-size: 13px; line-height: 18px; color: var(--ink-muted); }
+.nw .eu-row--sunken { background: var(--surface); }
+.nw-date { display: grid; place-content: center; justify-items: center; width: 48px; height: 52px; flex: none; border-radius: var(--radius-sm); background: var(--surface-sunken); font-variant-numeric: tabular-nums; }
+.nw .nw-date { background: var(--surface-sunken); }
+.nw-date b { font: 700 20px/22px var(--font-display); letter-spacing: -0.02em; }
+.nw-date small { font-size: 12px; line-height: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--ink-muted); }
+.nw-date--up, .nw .nw-date--up { background: var(--tint-butter); }
+.nw-date--up small { color: var(--accent-butter); }
+.nw-kind { display: inline-flex; align-items: center; height: 24px; margin-bottom: 4px; padding: 0 10px; border-radius: var(--radius-pill); font: 600 12px/16px var(--font-sans); letter-spacing: 0.02em; }
+.nw-kind--up { background: var(--tint-butter); color: var(--accent-butter); }
+.nw-kind--step { background: var(--tint-sky); color: var(--accent-sky); }
+.nw-kind--ppl { background: var(--tint-rose); color: var(--accent-rose); }
+.nw-t { display: block; }
+.nw-all { margin-top: var(--space-3); flex-direction: column; gap: 0; background: var(--surface); }
+.nw-all small { display: block; font-size: 12px; line-height: 16px; font-weight: 500; color: var(--ink-muted); }
+
 /* Commission */
 .pgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: var(--space-2); margin-top: var(--space-3); }
 .pc { position: relative; min-width: 0; display: flex; flex-direction: column; gap: var(--space-2); padding: var(--space-2) var(--space-2) var(--space-4); border-radius: var(--radius-lg); background: var(--surface-sunken); cursor: pointer; }
@@ -958,6 +984,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   </div>
   <div id="homeResults" hidden></div>
   <div id="homeBody">
+    <section id="newsWrap" class="nw" aria-labelledby="newsH"></section>
     <div id="filesWrap"></div>
     <div id="homeCal"></div>
     <h3>Saved <button class="more" id="seeSaved" type="button">See all</button></h3>
@@ -1161,6 +1188,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     warn: '<circle cx="12" cy="12" r="8.5"/><path d="M12 8v4.500M12 16v.01"/>',
     dot: '<circle cx="12" cy="12" r="7.5"/>',
     plus: '<path d="M12 5v14M5 12h14"/>', out: '<path d="M10 4.5H6.500a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2H10M15 8l4 4-4 4M19 12H9.500"/>',
+    news: '<path d="M5 5.5h11v13H7.5A2.500 2.500 0 0 1 5 16z"/><path d="M16 9h3v7.500a2 2 0 0 1-2 2h-1M8 9h5M8 12.500h5M8 16h3"/>',
     copy: '<rect x="8.5" y="8.5" width="11" height="11" rx="2.5"/><path d="M15.5 8.5v-2a2 2 0 0 0-2-2h-7a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h2"/>',
   };
   const icon = (n) => `<svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true">${IC[n]}</svg>`;
@@ -1564,7 +1592,6 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const others = FILES.filter((f) => !state.follow.has(f.id)).map((f, i) => ({ f, i })).sort((a, b) => when(a.f).localeCompare(when(b.f)) || a.i - b.i).map((x) => x.f)
       .slice(0, Math.max(2, 4 - fol.length));
     wrap.innerHTML = `<h3>Files that matter <button class="more" data-view="files" type="button">See all ${FILES.length}</button></h3>
-      ${latestBlock()}
       ${fol.length ? `<p class="cap lead-cap">Following ${fol.length}</p><div class="list">${fol.map(homeFile).join("")}</div>` : ""}
       ${others.length ? `${fol.length ? `<p class="cap lead-cap">Also moving</p>` : ""}<div class="list">${others.map(homeFile).join("")}</div>` : ""}
       ${fol.length ? "" : `<p class="note">Tap the star to follow a file. Followed files move to the top of your home.</p>`}`;
@@ -1579,7 +1606,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       b.setAttribute("aria-pressed", String(!had));
       if (b.dataset.label) b.textContent = had ? "Follow" : "Following";
     });
-    renderFiles(); renderSpot(); renderCoDoor();
+    renderNews(); renderFiles(); renderSpot(); renderCoDoor();
     if (state.view === "files") renderFilesView();
   }
   function renderDesk() {
@@ -1612,7 +1639,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       : `<div class="hint hint--rose"><span class="eu-tile__disc">${icon("star")}</span><span>Tap the star to save someone. They stay here, one tap away.</span></div>`;
     $("recentWrap").hidden = !state.recent.length;
     $("recentStrip").innerHTML = state.recent.map(bubble).join("");
-    renderHomeCal(); renderCoDoor(); renderFiles(); renderSpot(); renderDesk();
+    renderHomeCal(); renderCoDoor(); renderNews(); renderFiles(); renderSpot(); renderDesk();
   }
 
   /* Calendar */
@@ -2307,7 +2334,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
 
   /* ---------- File updates ----------
      v1/updates/*.json is built daily by the "Update file stream" Action. It loads after the page is up; every view works without it. */
-  const UPD = { feed: [], tl: {} };
+  const UPD = { feed: [], tl: {}, status: "loading", at: "" };
   const todayIso = () => new Date().toISOString().slice(0, 10);
   const evIcon = (e) => (e.kind === "scheduled" ? "cal" : e.kind === "people" ? "user" : "file");
   const evName = (e) => {
@@ -2318,14 +2345,71 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   };
   const evMeta = (e, withFile) => esc([withFile && FILE_BY[e.fileId] ? FILE_BY[e.fileId].short : "", e.date ? fdDate(e.date, true) : "", e.group || ""].filter(Boolean).join(" · "));
   const evRow = (e, withFile) => row({ cls: withFile ? "" : "is-static", attrs: withFile ? tap(`data-file="${esc(e.fileId)}"`) : "", lead: disc(evIcon(e)), name: evName(e), meta: evMeta(e, withFile), wrap: true });
-  function latestBlock() {
-    const fol = new Set(followedFiles().map((f) => f.id)), t = todayIso();
-    const xs = UPD.feed.filter((e) => fol.has(e.fileId) && e.kind !== "people" && e.date <= t).slice(0, 4);
-    return xs.length ? `<p class="cap lead-cap">Latest on your files</p><div class="list">${xs.map((e) => evRow(e, true)).join("")}</div>` : "";
+  /* ---------- Latest news ----------
+     One labelled section under the four tiles, for everyone, built from the file update stream (v1/updates/updates.json).
+     Coming up: dated steps in the next NEWS_AHEAD days. Recent: procedure steps, milestones and people changes from the
+     last 90 days (the stream's own window). Files the person follows come first. Each row says what kind of news it is. */
+  const NEWS_AHEAD = 14, NEWS_HOME = 3;
+  const NEWS_KIND = { scheduled: ["Key date", "up"], milestone: ["Milestone", "step"], procedural: ["Procedure", "step"], people: ["People", "ppl"] };
+  /* The group heading already says when; the label says what the item is. */
+  const newsKind = (e) => {
+    if (e.kind !== "scheduled") return NEWS_KIND[e.kind];
+    if (/\b(council|gac|coreper|ecofin|summit|plenary|trilogue|hearing|meeting|vote)\b/i.test(e.title)) return ["Meeting", "up"];
+    if (/\b(deadline|cut-off|applies|application|entry into force|enters into force|transposition)\b/i.test(e.title)) return ["Deadline", "up"];
+    return NEWS_KIND.scheduled;
+  };
+  function newsItems() {
+    const now = new Date(), t = isoD(now), ahead = isoD(addD(now, NEWS_AHEAD)), seen = new Set();
+    const mine = (e) => (state.follow.has(e.fileId) ? 0 : 1);
+    const known = (e) => FILE_BY[e.fileId] && NEWS_KIND[e.kind] && e.date;
+    const up = UPD.feed.filter((e) => known(e) && e.kind === "scheduled" && e.date >= t).sort((a, b) => mine(a) - mine(b) || a.date.localeCompare(b.date));
+    const recent = UPD.feed.filter((e) => known(e) && e.kind !== "scheduled" && e.date <= t)
+      .sort((a, b) => b.date.localeCompare(a.date))
+      /* the Parliament sometimes records the same person twice: keep the newest */
+      .filter((e) => { if (e.kind !== "people") return true; const k = e.fileId + "|" + e.personId + "|" + e.title; return seen.has(k) ? false : (seen.add(k), true); })
+      .sort((a, b) => mine(a) - mine(b) || b.date.localeCompare(a.date));
+    return { soon: up.filter((e) => e.date <= ahead), later: up.filter((e) => e.date > ahead), recent };
+  }
+  function newsRow(e) {
+    const [label, cls] = newsKind(e), f = FILE_BY[e.fileId], p = e.personId && BYKEY.get("ep:" + e.personId), d = fromIso(e.date);
+    const when = fmtD(d, cls === "up" ? { weekday: "short", day: "numeric", month: "short" } : { day: "numeric", month: "short", year: "numeric" });
+    const title = esc(e.title) + (e.count > 1 ? ` · ${e.count}` : "") + (p ? ` · ${esc(p.o.name)}` : "");
+    return row({ attrs: tap(`data-file="${esc(f.id)}" data-filetab="upd"`), wrap: true,
+      lead: `<span class="nw-date${cls === "up" ? " nw-date--up" : ""}" aria-hidden="true"><b>${d.getDate()}</b><small>${esc(fmtD(d, { month: "short" }))}</small></span>`,
+      name: `<span class="nw-kind nw-kind--${cls}">${label}</span><span class="nw-t">${title}</span>`,
+      meta: esc([f.short, e.group, when, state.follow.has(f.id) ? "Following" : ""].filter(Boolean).join(" · ")) });
+  }
+  function renderNews() {
+    const w = $("newsWrap"); if (!w) return;
+    const n = newsItems(), fol = followedFiles().length;
+    const upd = UPD.at ? `<span class="nw-upd">Updated ${esc(fmtD(new Date(UPD.at), { day: "numeric", month: "short" }))}</span>` : "";
+    const head = `<div class="nw-head"><span class="nw-ic" aria-hidden="true">${icon("news")}</span><div class="nw-hx"><h2 id="newsH">Latest news</h2>
+      <p>${fol ? "Your files first, then the other priority files." : `On the ${FILES.length} priority files. Star a file to see its news first.`}</p></div>${upd}</div>`;
+    if (UPD.status !== "done") { w.innerHTML = head + (UPD.status === "failed" ? `<p class="nw-note">The news could not load. Check your connection and open nodo again.</p>` : `<p class="nw-note">Loading the latest news…</p>`); return; }
+    const soon = n.soon.slice(0, NEWS_HOME), recent = n.recent.slice(0, NEWS_HOME);
+    const total = n.soon.length + n.recent.length + n.later.length, shown = soon.length + recent.length;
+    w.innerHTML = head
+      + (soon.length ? `<p class="nw-grp">Coming up · next ${NEWS_AHEAD} days</p><div class="list">${soon.map(newsRow).join("")}</div>` : "")
+      + (recent.length ? `<p class="nw-grp">Recent · last 90 days</p><div class="list">${recent.map(newsRow).join("")}</div>` : "")
+      + (!shown ? `<p class="nw-note">No news on the priority files in the last 90 days or the next ${NEWS_AHEAD}.</p>` : "")
+      + (total > shown ? `<button class="eu-btn eu-btn--block nw-all" type="button" data-news>See all news<small>${total} ${total === 1 ? "item" : "items"}</small></button>` : "");
+  }
+  function openNews() {
+    state.open = "news";
+    const n = newsItems(), grp = (h, sub, xs) => (xs.length ? `<h3>${h} <small>${sub}</small></h3><div class="list">${xs.map(newsRow).join("")}</div>` : "");
+    showProfile(`
+      <div class="tb">${backBtn}${icon("back")}</button></div>
+      <div class="hero"><p class="cap">The ${FILES.length} priority files</p><h2 class="eu-headline" id="pName">Latest <strong>news</strong></h2>
+        <p class="bio">${state.follow.size ? "Files you follow come first in each group." : "Star a file to bring its news to the top."}</p></div>
+      ${grp("Coming up", `next ${NEWS_AHEAD} days`, n.soon)}
+      ${grp("Recent", "last 90 days", n.recent)}
+      ${grp("Later", `after ${esc(fmtD(addD(new Date(), NEWS_AHEAD), { day: "numeric", month: "short" }))}`, n.later)}
+      ${n.soon.length + n.recent.length + n.later.length ? "" : `<div class="hint"><span>No news on the priority files yet.</span></div>`}
+      <p class="foot">Built daily from the Parliament's open data, the Council calendar and nodo's own file data. Procedure steps appear up to a day after they happen. Tap an item to open the file's timeline.</p>`);
   }
   Promise.all(["updates/updates", "updates/timelines"].map((n) => fetchJson(DATA_BASE + n + ".json").catch(() => fetchJson("data/" + n + ".json"))))
-    .then(([u, t]) => { UPD.feed = u.events || []; UPD.tl = t || {}; renderFiles(); const f = curFile(); if (f) openFile(f.id, true); })
-    .catch(() => {});
+    .then(([u, t]) => { UPD.feed = u.events || []; UPD.tl = t || {}; UPD.at = u.generatedAt || ""; UPD.status = "done"; renderFiles(); renderNews(); const f = curFile(); if (f) openFile(f.id, true); else if (state.open === "news") openNews(); })
+    .catch(() => { UPD.status = "failed"; renderNews(); });
 
   function renderFilesView() {
     $("filesCount").textContent = FILES.length ? `${FILES.length} files` : "";
@@ -2339,9 +2423,9 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     <p class="foot">Names marked Verified come from the Parliament's open data. Names marked From press are taken from published reporting and need a check in the Parliament's procedure file before external use.${asOf}</p>`;
   }
 
-  function openFile(id, keep) {
+  function openFile(id, keep, startTab) {
     const f = FILE_BY[id]; if (!f) return;
-    if (!keep) { state.ftab = "ep"; state.fedit = false; }
+    if (!keep) { state.ftab = startTab || "ep"; state.fedit = false; }
     const top = $("profile").scrollTop;
     state.open = "file:" + id;
     const m = membersOf(f), c = countsOf(f), edit = !!state.fedit, tab = state.ftab || "ep";
@@ -2538,6 +2622,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   }
   function openRoute(key) {
     if (key === "me") return openMe();
+    if (key === "news") return openNews();
     const i = key.indexOf(":"), t = key.slice(0, i), id = key.slice(i + 1);
     if (t === "ep" || t === "ec") { const e = BYKEY.get(key); if (e) (t === "ep" ? openMep : openCom)(e.o); return; }
     if (t === "file") return openFile(id, true);
@@ -3608,7 +3693,8 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     }
     if (t.closest("[data-freset-no]")) { const f = curFile(); return f && openFile(f.id, true); }
     if (t.closest("[data-freset-yes]")) { const f = curFile(); if (!f) return; delete state.lists[f.id]; saveLists(); toast("List reset to default"); return openFile(f.id, true); }
-    const fl = t.closest("[data-file]"); if (fl) return openFile(fl.dataset.file);
+    if (t.closest("[data-news]")) return openNews();
+    const fl = t.closest("[data-file]"); if (fl) return openFile(fl.dataset.file, false, fl.dataset.filetab);
     const cp = t.closest("[data-copy]"); if (cp) return copy(cp.dataset.copy, cp.dataset.what || "Text");
     if (t.closest("[data-fd-more]")) {
       const before = feed.shown; feed.shown += FD_STEP; feedMem.set(feed.id, { filter: feed.filter, shown: feed.shown }); renderFeed();
