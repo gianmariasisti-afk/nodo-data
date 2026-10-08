@@ -38,6 +38,7 @@
   --accent-butter: #7A5A00;
   --accent-apricot: #A34006;
   --accent-rose: #B0345F;
+  --spark: #E5452A;
   --success: #17669a;
   --warning: #855800;
   --danger: #b92f18;
@@ -101,6 +102,7 @@
   --accent-butter: #F0C93A;
   --accent-apricot: #FDC49C;
   --accent-rose: #F9A3C2;
+  --spark: #FF7A5C;
   --success: #58c6e8;
   --warning: #e8ae3a;
   --danger: #ff8f78;
@@ -146,6 +148,7 @@
   --accent-butter: #F0C93A;
   --accent-apricot: #FDC49C;
   --accent-rose: #F9A3C2;
+  --spark: #FF7A5C;
   --success: #58c6e8;
   --warning: #e8ae3a;
   --danger: #ff8f78;
@@ -448,42 +451,24 @@ details.office > .list { margin-top: var(--space-2); }
 .bar .tr i { display: block; height: 100%; border-radius: var(--radius-pill); background: var(--gc); }
 .bar .n { font-size: 13px; line-height: 16px; font-weight: 600; text-align: right; font-variant-numeric: tabular-nums; }
 
+/* Icon sparkles: the accent of the icon family. In the tab bar only the open tab sparkles. */
+.eu-icon .spk { fill: var(--spark); stroke: var(--spark); stroke-width: 1; stroke-linejoin: round; }
+.eu-tabbar__item:not([aria-current]) .spk { display: none; }
+
 /* Files door: the fifth Home tile, full width, a way into each priority file */
 .ftile { grid-column: 1 / -1; min-height: 0; gap: var(--space-4); cursor: default; }
 .ftile:active { transform: none; }
-.ftile__head { display: flex; align-items: center; gap: var(--space-3); width: 100%; min-height: 44px; padding: 0; border: 0; border-radius: var(--radius-md); background: none; color: inherit; font: inherit; text-align: left; cursor: pointer; }
-.ftile__tx { flex: 1; min-width: 0; }
-.ftile__go { display: grid; place-items: center; width: 36px; height: 36px; flex: none; border-radius: var(--radius-pill); background: var(--surface); }
-.ftile__go .eu-icon { width: 18px; height: 18px; }
+.ftile__head h2, .ftile__head p { margin: 0; }
 .ftile__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-3) var(--space-2); }
 .ftile__f { display: flex; flex-direction: column; align-items: center; gap: 6px; min-width: 0; min-height: 44px; padding: 0; border: 0; border-radius: var(--radius-sm); background: none; color: var(--ink); font: 600 12px/16px var(--font-sans); cursor: pointer; }
-.ftile__ic { position: relative; display: grid; place-items: center; width: 52px; height: 52px; border-radius: 16px; background: var(--surface); transition: transform .15s ease-out; }
+.ftile__ic { position: relative; display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; background: var(--surface); transition: transform .15s ease-out; }
 .ftile__f:active .ftile__ic { transform: scale(.94); }
 .ftile__f--all .ftile__ic { background: none; box-shadow: inset 0 0 0 1.5px var(--border-control); }
 .ftile__star { position: absolute; top: -5px; right: -5px; display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: var(--accent-rose); color: var(--surface); box-shadow: 0 0 0 2px var(--tint-rose); }
 .ftile__star .eu-icon { width: 12px; height: 12px; fill: currentColor; stroke-width: 1.5; }
 .ftile__n { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.ftile__head:focus-visible, .ftile__f:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+.ftile__f:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
 @media (max-width: 340px) { .ftile__ic { width: 48px; height: 48px; } .ftile__grid { gap: var(--space-3) var(--space-1); } }
-/* illustrated candidates: ink (bold black and white, ground shadow, gold detail) and riso (brand line, offset gold) */
-.ftile--ink .ftile__ic, .ftile--riso .ftile__ic, .ftile--ink .ftile__f--all .ftile__ic, .ftile--riso .ftile__f--all .ftile__ic { width: 56px; height: 56px; border-radius: 0; background: none; box-shadow: none; }
-.k { display: block; width: 100%; height: 100%; overflow: visible; }
-.ftile--ink .ftile__star, .ftile--riso .ftile__star { right: auto; left: -4px; }
-.k-ink .g { fill: #0D1535; opacity: .22; }
-.k-ink .o { display: none; }
-.k-ink .b { fill: #fff; stroke: #0D1535; stroke-width: 3; stroke-linejoin: round; }
-.k-ink .s { fill: #0D1535; stroke: #0D1535; stroke-width: 3; stroke-linejoin: round; }
-.k-ink .p { fill: #F5B800; stroke: #0D1535; stroke-width: 3; stroke-linejoin: round; }
-.k-ink .l { fill: none; stroke: #0D1535; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
-.k-ink .wl { fill: none; stroke: #fff; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
-.k-ink .gl { fill: #fff; stroke: #fff; stroke-width: 1.6; stroke-linecap: round; }
-.k-ink .gl2 { fill: #fff; }
-.k-riso .g, .k-riso .gl { display: none; }
-.k-riso .o { fill: #F5B800; }
-.k-riso .b, .k-riso .s, .k-riso .gl2 { fill: none; stroke: var(--brand); stroke-width: 2.2; stroke-linejoin: round; }
-.k-riso .p { fill: #F5B800; stroke: var(--brand); stroke-width: 2.2; stroke-linejoin: round; }
-.k-riso .l, .k-riso .wl { fill: none; stroke: var(--brand); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
-@media (max-width: 340px) { .ftile--ink .ftile__ic, .ftile--riso .ftile__ic { width: 50px; height: 50px; } }
 
 /* Latest news: the home section that changes every day, set apart as one labelled panel under the tiles. */
 .nw { margin-top: var(--space-6); padding: var(--space-4); border-radius: var(--radius-lg); background: var(--surface-sunken); }
@@ -1011,14 +996,14 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   <div id="homeTop">
     <h1 id="greet" class="eu-headline">Who are you <strong>meeting</strong> today?</h1>
   </div>
-  <label class="eu-search"><svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.500"/><path d="M16 16l4 4"/></svg>
+  <label class="eu-search"><svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="12" r="6"/><path d="m15 16.5 4.5 4.5"/><path class="spk" d="M18.6 2.2Q18.9 4.9 21.6 5.2Q18.9 5.5 18.6 8.2Q18.3 5.5 15.6 5.2Q18.3 4.9 18.6 2.2Z"/></svg>
     <input id="hq" type="search" placeholder="Search a name, file or topic" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Search people, files, Parliament, Commission and Council"></label>
   <div class="chips" id="topics" aria-label="Popular topics"></div>
   <div class="grid2" id="homeTiles">
-      <button class="eu-tile eu-tile--sky" id="doorEp" type="button"><span class="eu-tile__disc"><svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 19c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><circle cx="17" cy="9" r="2.4"/><path d="M17.5 13.8c2 .4 3.5 2 3.5 4.2"/></svg></span><span><span class="eu-tile__label">Parliament</span><span class="eu-tile__meta" id="metaEp">MEPs</span></span></button>
-      <button class="eu-tile eu-tile--apricot" id="doorEc" type="button"><span class="eu-tile__disc"><svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h16M6 20V9l6-4 6 4v11M10 20v-5h4v5"/></svg></span><span><span class="eu-tile__label">Commission</span><span class="eu-tile__meta" id="metaEc">College and cabinets</span></span></button>
-      <button class="eu-tile eu-tile--mint" id="doorCo" type="button"><span class="eu-tile__disc"><svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 21V4M6 5h11l-2 3.5 2 3.5H6"/></svg></span><span><span class="eu-tile__label">Council</span><span class="eu-tile__meta" id="metaCo">27 delegations</span></span></button>
-      <button class="eu-tile eu-tile--butter" data-view="cal" type="button"><span class="eu-tile__disc"><svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5.5" width="16" height="14.5" rx="3"/><path d="M4 10h16M8.500 3.500v4M15.500 3.500v4"/></svg></span><span><span class="eu-tile__label">Calendar</span><span class="eu-tile__meta" id="metaCal">Plenary and committee weeks</span></span></button>
+      <button class="eu-tile eu-tile--sky" id="doorEp" type="button"><span class="eu-tile__disc"><svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="8.5" cy="8.5" r="3.2"/><path d="M2.5 19.5c0-3.4 2.7-5.6 6-5.6s6 2.2 6 5.6"/><circle cx="16.5" cy="10.2" r="2.4"/><path d="M17 14.8c2.1.4 3.6 2 3.6 4.4"/><path class="spk" d="M19.6 1.5Q19.85 3.75 22.1 4Q19.85 4.25 19.6 6.5Q19.35 4.25 17.1 4Q19.35 3.75 19.6 1.5Z"/><path class="spk" d="M14.6 1.3Q14.73 2.47 15.9 2.6Q14.73 2.73 14.6 3.9Q14.47 2.73 13.3 2.6Q14.47 2.47 14.6 1.3Z"/></svg></span><span><span class="eu-tile__label">Parliament</span><span class="eu-tile__meta" id="metaEp">MEPs</span></span></button>
+      <button class="eu-tile eu-tile--apricot" id="doorEc" type="button"><span class="eu-tile__disc"><svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5 12 4.5l8 5z"/><path d="M6.5 12.5v5M10.5 12.5v5M13.5 12.5v5M17.5 12.5v5M4 20.5h16"/><path class="spk" d="M19.4 1Q19.64 3.16 21.8 3.4Q19.64 3.64 19.4 5.8Q19.16 3.64 17 3.4Q19.16 3.16 19.4 1Z"/></svg></span><span><span class="eu-tile__label">Commission</span><span class="eu-tile__meta" id="metaEc">College and cabinets</span></span></button>
+      <button class="eu-tile eu-tile--mint" id="doorCo" type="button"><span class="eu-tile__disc"><svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 21V4M6 5h10l-2 3.5 2 3.5H6"/><path class="spk" d="M19.4 12.9Q19.66 15.24 22 15.5Q19.66 15.76 19.4 18.1Q19.14 15.76 16.8 15.5Q19.14 15.24 19.4 12.9Z"/><path class="spk" d="M16.2 17.5Q16.33 18.67 17.5 18.8Q16.33 18.93 16.2 20.1Q16.07 18.93 14.9 18.8Q16.07 18.67 16.2 17.5Z"/></svg></span><span><span class="eu-tile__label">Council</span><span class="eu-tile__meta" id="metaCo">27 delegations</span></span></button>
+      <button class="eu-tile eu-tile--butter" data-view="cal" type="button"><span class="eu-tile__disc"><svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5.5" width="16" height="14.5" rx="3"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"/><path class="spk" d="M13.6 12.3Q13.87 14.73 16.3 15Q13.87 15.27 13.6 17.7Q13.33 15.27 10.9 15Q13.33 14.73 13.6 12.3Z"/><path class="spk" d="M8.6 12.1Q8.73 13.27 9.9 13.4Q8.73 13.53 8.6 14.7Q8.47 13.53 7.3 13.4Q8.47 13.27 8.6 12.1Z"/></svg></span><span><span class="eu-tile__label">Calendar</span><span class="eu-tile__meta" id="metaCal">Plenary and committee weeks</span></span></button>
       <section class="eu-tile eu-tile--rose ftile" id="doorFiles" aria-labelledby="ftH"></section>
   </div>
   <div id="homeResults" hidden></div>
@@ -1043,7 +1028,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
 <main id="vEp" class="view" hidden>
   <div class="dirhost"></div>
   <h1 class="eu-headline">Find the right <strong>MEP</strong></h1>
-  <label class="eu-search"><svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.500"/><path d="M16 16l4 4"/></svg>
+  <label class="eu-search"><svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="12" r="6"/><path d="m15 16.5 4.5 4.5"/><path class="spk" d="M18.6 2.2Q18.9 4.9 21.6 5.2Q18.9 5.5 18.6 8.2Q18.3 5.5 15.6 5.2Q18.3 4.9 18.6 2.2Z"/></svg>
     <input id="q" type="search" placeholder="Name, country, party or committee" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Search MEPs"></label>
   <div class="chips" id="groups" role="group" aria-label="Political group"></div>
   <div class="selects">
@@ -1065,7 +1050,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     <button id="tabCollege" class="eu-chip" type="button" aria-pressed="true">College</button>
     <button id="tabCab" class="eu-chip" type="button" aria-pressed="false">Cabinets</button>
   </div>
-  <label class="eu-search"><svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.500"/><path d="M16 16l4 4"/></svg>
+  <label class="eu-search"><svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="12" r="6"/><path d="m15 16.5 4.5 4.5"/><path class="spk" d="M18.6 2.2Q18.9 4.9 21.6 5.2Q18.9 5.5 18.6 8.2Q18.3 5.5 15.6 5.2Q18.3 4.9 18.6 2.2Z"/></svg>
     <input id="ecq" type="search" placeholder="Name, portfolio, topic" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Search the Commission"></label>
   <div id="cabFilters" hidden>
     <div class="selects">
@@ -1134,11 +1119,11 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
 <section id="onb" class="onb" hidden aria-labelledby="onbTitle"><div class="col" id="onbBody"></div></section>
 
 <div class="dock"><nav class="eu-tabbar" aria-label="Main">
-  <button class="eu-tabbar__item" id="navHome" type="button" aria-current="page"><svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11l8-6.500 8 6.500v8.500H4zM10 19.500v-5h4v5"/></svg>Home</button>
-  <button class="eu-tabbar__item" id="navDir" type="button"><svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 19c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><circle cx="17" cy="9" r="2.4"/><path d="M17.5 13.8c2 .4 3.5 2 3.5 4.2"/></svg>Directory</button>
-  <button class="eu-tabbar__item" id="navCal" type="button"><svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5.5" width="16" height="14.5" rx="3"/><path d="M4 10h16M8.500 3.500v4M15.500 3.500v4"/></svg>Calendar</button>
-  <button class="eu-tabbar__item" id="navFiles" type="button"><svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3.5h7.5L18 7v13.5H7zM14.5 3.5V7H18M10 12.5h5M10 16h5"/></svg>Files</button>
-  <button class="eu-tabbar__item" id="navNews" type="button"><svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5.5h11v13H7.5A2.500 2.500 0 0 1 5 16z"/><path d="M16 9h3v7.500a2 2 0 0 1-2 2h-1M8 9h5M8 12.500h5M8 16h3"/></svg>News</button>
+  <button class="eu-tabbar__item" id="navHome" type="button" aria-current="page"><svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 12 4.5l9 7M5 10v10h14V10M10 20v-5h4v5"/><path class="spk" d="M19 1.2Q19.24 3.36 21.4 3.6Q19.24 3.84 19 6Q18.76 3.84 16.6 3.6Q18.76 3.36 19 1.2Z"/></svg>Home</button>
+  <button class="eu-tabbar__item" id="navDir" type="button"><svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="8.5" cy="8.5" r="3.2"/><path d="M2.5 19.5c0-3.4 2.7-5.6 6-5.6s6 2.2 6 5.6"/><circle cx="16.5" cy="10.2" r="2.4"/><path d="M17 14.8c2.1.4 3.6 2 3.6 4.4"/><path class="spk" d="M19.6 1.5Q19.85 3.75 22.1 4Q19.85 4.25 19.6 6.5Q19.35 4.25 17.1 4Q19.35 3.75 19.6 1.5Z"/><path class="spk" d="M14.6 1.3Q14.73 2.47 15.9 2.6Q14.73 2.73 14.6 3.9Q14.47 2.73 13.3 2.6Q14.47 2.47 14.6 1.3Z"/></svg>Directory</button>
+  <button class="eu-tabbar__item" id="navCal" type="button"><svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5.5" width="16" height="14.5" rx="3"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"/><path class="spk" d="M13.6 12.3Q13.87 14.73 16.3 15Q13.87 15.27 13.6 17.7Q13.33 15.27 10.9 15Q13.33 14.73 13.6 12.3Z"/><path class="spk" d="M8.6 12.1Q8.73 13.27 9.9 13.4Q8.73 13.53 8.6 14.7Q8.47 13.53 7.3 13.4Q8.47 13.27 8.6 12.1Z"/></svg>Calendar</button>
+  <button class="eu-tabbar__item" id="navFiles" type="button"><svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3.5h7.5L18 7v13.5H7z"/><path d="M14.5 3.5V7H18"/><path class="spk" d="M12.5 11.2Q12.78 13.72 15.3 14Q12.78 14.28 12.5 16.8Q12.22 14.28 9.7 14Q12.22 13.72 12.5 11.2Z"/><path class="spk" d="M9.6 9.1Q9.73 10.27 10.9 10.4Q9.73 10.53 9.6 11.7Q9.47 10.53 8.3 10.4Q9.47 10.27 9.6 9.1Z"/></svg>Files</button>
+  <button class="eu-tabbar__item" id="navNews" type="button"><svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5.5h11v13H7.5A2.5 2.5 0 0 1 5 16z"/><path d="M16 9h3v7.5a2 2 0 0 1-2 2h-1M8 9h5"/><path class="spk" d="M10.5 11.1Q10.77 13.53 13.2 13.8Q10.77 14.07 10.5 16.5Q10.23 14.07 7.8 13.8Q10.23 13.53 10.5 11.1Z"/></svg>News</button>
 </nav></div>
 <div id="toast" class="eu-badge toast" role="status" hidden></div>
 
@@ -1210,38 +1195,48 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   const AREA_BY = Object.fromEntries(AREAS.map((a) => [a.id, a]));
   const ROLES = ["Public affairs consultancy", "In-house public affairs", "Trade association", "NGO or civil society", "Law firm", "Think tank or academia", "Journalist", "EU or national institution", "Other"];
   const CMTE_NAMES = {};
+  /* One icon family: a rounded line, and a sparkle on the icons that stand for something (places, people, files, channels).
+     Small action icons (back, close, check, arrows, plus, copy) keep the plain line. Sparkles carry class spk. */
   const IC = {
     edit: '<path d="M4 20l1-4L16.500 4.500a2.100 2.100 0 0 1 3 3L8 19zM14.500 6.500l3 3"/>',
-    back: '<path d="M19 12H5M11 6l-6 6 6 6"/>', arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>', ext: '<path d="M8 16 16 8M9.5 8H16v6.5"/>',
+    back: '<path d="M19 12H5M11 6l-6 6 6 6"/>',
+    arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>',
+    ext: '<path d="M8 16 16 8M9.5 8H16v6.5"/>',
     star: '<path d="m12 3.5 2.6 5.4 5.9.8-4.3 4.1 1 5.9L12 16.9l-5.2 2.8 1-5.9L3.5 9.7l5.9-.8z"/>',
     share: '<circle cx="18" cy="5.5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="18.5" r="2.5"/><path d="m8.2 10.8 7.6-4.1M8.2 13.2l7.6 4.1"/>',
-    mail: '<rect x="3.5" y="5.5" width="17" height="13" rx="2.5"/><path d="m4 7.5 8 6 8-6"/>',
-    phone: '<path d="M6.5 3.5h3l1.5 4-2 1.5a11 11 0 0 0 6 6l1.5-2 4 1.5v3a2 2 0 0 1-2 2A16 16 0 0 1 4.5 5.5a2 2 0 0 1 2-2z"/>',
-    group: '<circle cx="9" cy="8" r="3.2"/><path d="M3 19c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><circle cx="17" cy="9" r="2.4"/><path d="M17.5 13.8c2 .4 3.5 2 3.5 4.2"/>',
-    bank: '<path d="M4 20h16M6 20V9l6-4 6 4v11M10 20v-5h4v5"/>',
-    flag: '<path d="M6 21V4M6 5h11l-2 3.5 2 3.5H6"/>', check: '<path d="m5 12.5 4.5 4.5L19 7.5"/>',
-    down: '<path d="m5 9 7 7 7-7"/>', user: '<circle cx="12" cy="8.5" r="3.5"/><path d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6"/>',
-    cal: '<rect x="4" y="5.5" width="16" height="14.5" rx="3"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"/>',
-    file: '<path d="M7 3.5h7.5L18 7v13.5H7zM14.5 3.5V7H18M10 12.5h5M10 16h5"/>',
+    check: '<path d="m5 12.5 4.5 4.5L19 7.5"/>',
+    down: '<path d="m5 9 7 7 7-7"/>',
     x: '<path d="M6 6l12 12M18 6 6 18"/>',
-    lock: '<rect x="5.5" y="10.5" width="13" height="9.5" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/>',
-    finger: '<path d="M12 11v2c0 3 .6 5.2 1.6 7"/><path d="M8 12a4 4 0 0 1 8 0c0 2.4.3 4.4 1 6"/><path d="M4.5 12a7.5 7.5 0 0 1 15 0c0 1.600.1 3 .4 4.200"/><path d="M8.2 17c-.1.800-.3 1.500-.6 2.100"/>',
     eye: '<path d="M2.5 12s3.500-6.500 9.500-6.500 9.500 6.500 9.500 6.500-3.500 6.500-9.500 6.500S2.500 12 2.500 12z"/><circle cx="12" cy="12" r="3"/>',
     eyeoff: '<path d="M2.5 12s3.500-6.500 9.500-6.500 9.500 6.500 9.500 6.500-3.500 6.500-9.500 6.500S2.500 12 2.500 12z"/><circle cx="12" cy="12" r="3"/><path d="M4 4l16 16"/>',
-    device: '<rect x="7" y="3.5" width="10" height="17" rx="2.5"/><path d="M11 17.5h2"/>',
     swap: '<path d="M4 9h16M16 5l4 4-4 4M20 15H4M8 11l-4 4 4 4"/>',
     warn: '<circle cx="12" cy="12" r="8.5"/><path d="M12 8v4.500M12 16v.01"/>',
     dot: '<circle cx="12" cy="12" r="7.5"/>',
-    plus: '<path d="M12 5v14M5 12h14"/>', out: '<path d="M10 4.5H6.500a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2H10M15 8l4 4-4 4M19 12H9.500"/>',
-    news: '<path d="M5 5.5h11v13H7.5A2.500 2.500 0 0 1 5 16z"/><path d="M16 9h3v7.500a2 2 0 0 1-2 2h-1M8 9h5M8 12.500h5M8 16h3"/>',
-    euro: '<circle cx="12" cy="12" r="8.5"/><path d="M15.2 9a3.8 3.8 0 1 0 0 6M7.5 10.8h5.5M7.5 13.2h5.5"/>',
-    data: '<ellipse cx="12" cy="6.5" rx="7" ry="2.8"/><path d="M5 6.5v11c0 1.5 3.1 2.8 7 2.8s7-1.3 7-2.8v-11M5 12c0 1.5 3.1 2.8 7 2.8s7-1.3 7-2.8"/>',
-    factory: '<path d="M3.5 20h17M4.5 20v-8.5l5 3v-3l5 3V4.5h4.5V20M11 17h1.5M15 17h1.5"/>',
-    antenna: '<circle cx="12" cy="9.5" r="1.8"/><path d="M12 11.5v9M9 20.5h6M8.6 6.1a4.8 4.8 0 0 0 0 6.8M15.4 6.1a4.8 4.8 0 0 1 0 6.8M6 3.5a8.5 8.5 0 0 0 0 12M18 3.5a8.5 8.5 0 0 1 0 12"/>',
-    scale: '<path d="M12 4v16M8 20h8M5 7.5h14M12 4.5l-7 3M12 4.5l7 3M5 7.5 2.8 13a2.3 2.3 0 0 0 4.4 0zM19 7.5 16.8 13a2.3 2.3 0 0 0 4.4 0z"/>',
-    chip: '<rect x="7" y="7" width="10" height="10" rx="2"/><path d="M10 3.5V7M14 3.5V7M10 17v3.5M14 17v3.5M3.5 10H7M3.5 14H7M17 10h3.5M17 14h3.5"/>',
-    spark: '<path d="M10.5 3.5 12.3 9l5.2 1.8-5.2 1.8-1.8 5.4-1.8-5.4L3.5 10.8 8.7 9zM17.5 14.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/>',
+    plus: '<path d="M12 5v14M5 12h14"/>',
+    out: '<path d="M10 4.5H6.500a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2H10M15 8l4 4-4 4M19 12H9.500"/>',
     copy: '<rect x="8.5" y="8.5" width="11" height="11" rx="2.5"/><path d="M15.5 8.5v-2a2 2 0 0 0-2-2h-7a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h2"/>',
+    search: '<circle cx="10.5" cy="12" r="6"/><path d="m15 16.5 4.5 4.5"/><path class="spk" d="M18.6 2.2Q18.9 4.9 21.6 5.2Q18.9 5.5 18.6 8.2Q18.3 5.5 15.6 5.2Q18.3 4.9 18.6 2.2Z"/>',
+    home: '<path d="M3 11.5 12 4.5l9 7M5 10v10h14V10M10 20v-5h4v5"/><path class="spk" d="M19 1.2Q19.24 3.36 21.4 3.6Q19.24 3.84 19 6Q18.76 3.84 16.6 3.6Q18.76 3.36 19 1.2Z"/>',
+    group: '<circle cx="8.5" cy="8.5" r="3.2"/><path d="M2.5 19.5c0-3.4 2.7-5.6 6-5.6s6 2.2 6 5.6"/><circle cx="16.5" cy="10.2" r="2.4"/><path d="M17 14.8c2.1.4 3.6 2 3.6 4.4"/><path class="spk" d="M19.6 1.5Q19.85 3.75 22.1 4Q19.85 4.25 19.6 6.5Q19.35 4.25 17.1 4Q19.35 3.75 19.6 1.5Z"/><path class="spk" d="M14.6 1.3Q14.73 2.47 15.9 2.6Q14.73 2.73 14.6 3.9Q14.47 2.73 13.3 2.6Q14.47 2.47 14.6 1.3Z"/>',
+    bank: '<path d="M4 9.5 12 4.5l8 5z"/><path d="M6.5 12.5v5M10.5 12.5v5M13.5 12.5v5M17.5 12.5v5M4 20.5h16"/><path class="spk" d="M19.4 1Q19.64 3.16 21.8 3.4Q19.64 3.64 19.4 5.8Q19.16 3.64 17 3.4Q19.16 3.16 19.4 1Z"/>',
+    flag: '<path d="M6 21V4M6 5h10l-2 3.5 2 3.5H6"/><path class="spk" d="M19.4 12.9Q19.66 15.24 22 15.5Q19.66 15.76 19.4 18.1Q19.14 15.76 16.8 15.5Q19.14 15.24 19.4 12.9Z"/><path class="spk" d="M16.2 17.5Q16.33 18.67 17.5 18.8Q16.33 18.93 16.2 20.1Q16.07 18.93 14.9 18.8Q16.07 18.67 16.2 17.5Z"/>',
+    cal: '<rect x="4" y="5.5" width="16" height="14.5" rx="3"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"/><path class="spk" d="M13.6 12.3Q13.87 14.73 16.3 15Q13.87 15.27 13.6 17.7Q13.33 15.27 10.9 15Q13.33 14.73 13.6 12.3Z"/><path class="spk" d="M8.6 12.1Q8.73 13.27 9.9 13.4Q8.73 13.53 8.6 14.7Q8.47 13.53 7.3 13.4Q8.47 13.27 8.6 12.1Z"/>',
+    file: '<path d="M7 3.5h7.5L18 7v13.5H7z"/><path d="M14.5 3.5V7H18"/><path class="spk" d="M12.5 11.2Q12.78 13.72 15.3 14Q12.78 14.28 12.5 16.8Q12.22 14.28 9.7 14Q12.22 13.72 12.5 11.2Z"/><path class="spk" d="M9.6 9.1Q9.73 10.27 10.9 10.4Q9.73 10.53 9.6 11.7Q9.47 10.53 8.3 10.4Q9.47 10.27 9.6 9.1Z"/>',
+    files: '<path d="M8.5 3.5h7L19 7v10.5"/><path d="M4.5 7.5h7.5l3 3v10h-10.5z"/><path class="spk" d="M9.8 12.6Q10.04 14.76 12.2 15Q10.04 15.24 9.8 17.4Q9.56 15.24 7.4 15Q9.56 14.76 9.8 12.6Z"/>',
+    news: '<path d="M5 5.5h11v13H7.5A2.5 2.5 0 0 1 5 16z"/><path d="M16 9h3v7.5a2 2 0 0 1-2 2h-1M8 9h5"/><path class="spk" d="M10.5 11.1Q10.77 13.53 13.2 13.8Q10.77 14.07 10.5 16.5Q10.23 14.07 7.8 13.8Q10.23 13.53 10.5 11.1Z"/>',
+    user: '<circle cx="11" cy="8.5" r="3.5"/><path d="M4 20c0-3.6 3.1-6 7-6s7 2.4 7 6"/><path class="spk" d="M19 2Q19.24 4.16 21.4 4.4Q19.24 4.64 19 6.8Q18.76 4.64 16.6 4.4Q18.76 4.16 19 2Z"/>',
+    mail: '<rect x="3" y="6.5" width="14" height="12" rx="2.5"/><path d="m3.5 8.5 6.5 5 6.5-5"/><path class="spk" d="M19.6 2.1Q19.85 4.35 22.1 4.6Q19.85 4.85 19.6 7.1Q19.35 4.85 17.1 4.6Q19.35 4.35 19.6 2.1Z"/>',
+    phone: '<path d="M6.5 3.5h3l1.5 4-2 1.5a11 11 0 0 0 6 6l1.5-2 4 1.5v3a2 2 0 0 1-2 2A16 16 0 0 1 4.5 5.5a2 2 0 0 1 2-2z"/><path class="spk" d="M18.4 2.6Q18.64 4.76 20.8 5Q18.64 5.24 18.4 7.4Q18.16 5.24 16 5Q18.16 4.76 18.4 2.6Z"/>',
+    lock: '<rect x="5.5" y="10.5" width="13" height="9.5" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/><path class="spk" d="M12 13Q12.22 14.98 14.2 15.2Q12.22 15.42 12 17.4Q11.78 15.42 9.8 15.2Q11.78 14.98 12 13Z"/>',
+    device: '<rect x="5" y="3.5" width="10" height="17" rx="2.5"/><path d="M9 17.5h2"/><path class="spk" d="M19 3.8Q19.24 5.96 21.4 6.2Q19.24 6.44 19 8.6Q18.76 6.44 16.6 6.2Q18.76 5.96 19 3.8Z"/>',
+    finger: '<path d="M12 11v2c0 3 .6 5.2 1.6 7"/><path d="M8 12a4 4 0 0 1 8 0c0 2.4.3 4.4 1 6"/><path d="M4.5 12a7.5 7.5 0 0 1 15 0c0 1.6.1 3 .4 4.2"/><path d="M8.2 17c-.1.8-.3 1.5-.6 2.1"/><path class="spk" d="M20.4 1.6Q20.6 3.4 22.4 3.6Q20.6 3.8 20.4 5.6Q20.2 3.8 18.4 3.6Q20.2 3.4 20.4 1.6Z"/>',
+    euro: '<circle cx="11" cy="13" r="7.5"/><path d="M14 10.2a3.6 3.6 0 1 0 0 5.6M7.6 12.1h4.8M7.6 14h4.8"/><path class="spk" d="M19.4 2Q19.66 4.34 22 4.6Q19.66 4.86 19.4 7.2Q19.14 4.86 16.8 4.6Q19.14 4.34 19.4 2Z"/>',
+    bus: '<rect x="5" y="3.5" width="14" height="15" rx="3"/><rect x="7.2" y="6" width="9.6" height="5.6" rx="1"/><path d="M8.5 15h.01M15.5 15h.01M7.5 18.5v2M16.5 18.5v2"/><path class="spk" d="M12 6.8Q12.2 8.6 14 8.8Q12.2 9 12 10.8Q11.8 9 10 8.8Q11.8 8.6 12 6.8Z"/>',
+    factory: '<path d="M3.5 20h17M4.5 20v-8.5l5 3v-3l5 3V5h4.5v15M11 17h1.5M15 17h1.5"/><path class="spk" d="M7.6 2.9Q7.85 5.15 10.1 5.4Q7.85 5.65 7.6 7.9Q7.35 5.65 5.1 5.4Q7.35 5.15 7.6 2.9Z"/>',
+    antenna: '<circle cx="12" cy="9.5" r="1.8"/><path d="M12 11.5v9M9 20.5h6M8.6 6.1a4.8 4.8 0 0 0 0 6.8M15.4 6.1a4.8 4.8 0 0 1 0 6.8M6 3.5a8.5 8.5 0 0 0 0 12"/><path class="spk" d="M19.2 2.6Q19.46 4.94 21.8 5.2Q19.46 5.46 19.2 7.8Q18.94 5.46 16.6 5.2Q18.94 4.94 19.2 2.6Z"/>',
+    hook: '<circle cx="13.5" cy="3.8" r="1.5"/><path d="M13.5 5.3v9.2a4.5 4.5 0 0 1-9 0V12l2.3 2"/><path class="spk" d="M18.6 13.4Q18.88 15.92 21.4 16.2Q18.88 16.48 18.6 19Q18.32 16.48 15.8 16.2Q18.32 15.92 18.6 13.4Z"/><path class="spk" d="M20 9.3Q20.13 10.47 21.3 10.6Q20.13 10.73 20 11.9Q19.87 10.73 18.7 10.6Q19.87 10.47 20 9.3Z"/>',
+    chip: '<rect x="7" y="7" width="10" height="10" rx="2"/><path d="M10 3.5V7M14 3.5V7M10 17v3.5M14 17v3.5M3.5 10H7M3.5 14H7M17 10h3.5M17 14h3.5"/><path class="spk" d="M12 9.5Q12.25 11.75 14.5 12Q12.25 12.25 12 14.5Q11.75 12.25 9.5 12Q11.75 11.75 12 9.5Z"/>',
+    robot: '<rect x="5" y="8.5" width="14" height="11" rx="3"/><path d="M12 8.5V6.2M9.5 13v1M14.5 13v1M10 16.8h4M3.5 12.5v3M20.5 12.5v3"/><path class="spk" d="M12 1.4Q12.22 3.38 14.2 3.6Q12.22 3.82 12 5.8Q11.78 3.82 9.8 3.6Q11.78 3.38 12 1.4Z"/>'
   };
   const icon = (n) => `<svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true">${IC[n]}</svg>`;
   const $ = (id) => document.getElementById(id);
@@ -1640,25 +1635,9 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   /* The Files door on Home: one wide tile, a way into each priority file, followed files marked with a star.
      Each file keeps its place so the grid stays the same from day to day. */
   const FILE_TAG = { "mff-2028-2034": "MFF", "digital-omnibus-data": "Omnibus", "industrial-accelerator-act": "IAA", "digital-networks-act": "DNA", "digital-fairness-act": "DFA", "tech-sovereignty-package": "Chips", "ai-act-implementation": "AI Act" };
-  const FILE_IC = { "mff-2028-2034": "euro", "digital-omnibus-data": "data", "industrial-accelerator-act": "factory", "digital-networks-act": "antenna", "digital-fairness-act": "scale", "tech-sovereignty-package": "chip", "ai-act-implementation": "spark" };
+  const FILE_IC = { "mff-2028-2034": "euro", "digital-omnibus-data": "bus", "industrial-accelerator-act": "factory", "digital-networks-act": "antenna", "digital-fairness-act": "hook", "tech-sovereignty-package": "chip", "ai-act-implementation": "robot" };
   const fileTag = (f) => f.tag || FILE_TAG[f.id] || String(f.short).split(/[\s(]/)[0];
   const fileIc = (f) => (IC[f.icon] ? f.icon : IC[FILE_IC[f.id]] ? FILE_IC[f.id] : f.kind === "budget" ? "euro" : "file");
-  /* Two illustrated styles for the file marks while the design is chosen (preview with ?ft=ink or ?ft=riso).
-     Each drawing is 64x64; its parts are classed so one drawing serves both styles: g ground shadow, o offset colour,
-     b body, s solid, p pop colour, l line, wl line over a solid area, gl and gl2 white highlights. */
-  const FILE_ART = {
-    "digital-omnibus-data": "<ellipse class=\"g\" cx=\"32\" cy=\"56\" rx=\"25\" ry=\"2.6\"/><circle class=\"o\" cx=\"16\" cy=\"25\" r=\"9.5\"/><rect class=\"b\" x=\"5\" y=\"14\" width=\"52\" height=\"33\" rx=\"7\"/><path class=\"l\" d=\"M5 37h52\"/><rect class=\"s\" x=\"10\" y=\"19.5\" width=\"9\" height=\"10\" rx=\"2\"/><rect class=\"s\" x=\"22.5\" y=\"19.5\" width=\"9\" height=\"10\" rx=\"2\"/><rect class=\"s\" x=\"35\" y=\"19.5\" width=\"8\" height=\"10\" rx=\"2\"/><path class=\"s\" d=\"M47 19.5h4.5a2 2 0 0 1 2 2V33H47z\"/><path class=\"gl\" d=\"M12.5 27l4-4.5M25 27l4-4.5M37.5 27l3.5-4\"/><circle class=\"s\" cx=\"17\" cy=\"47.5\" r=\"5.5\"/><circle class=\"gl\" cx=\"17\" cy=\"47.5\" r=\"1.8\"/><circle class=\"s\" cx=\"45\" cy=\"47.5\" r=\"5.5\"/><circle class=\"gl\" cx=\"45\" cy=\"47.5\" r=\"1.8\"/><circle class=\"p\" cx=\"54\" cy=\"41.5\" r=\"2\"/>",
-    "mff-2028-2034": "<ellipse class=\"g\" cx=\"32\" cy=\"57\" rx=\"19\" ry=\"2.6\"/><circle class=\"o\" cx=\"22.5\" cy=\"47\" r=\"8.5\"/><path class=\"b\" d=\"M25.5 23C15.5 29 11.5 38 13 45.5 14.5 52 21 55 32 55s17.5-3 19-9.5C52.5 38 48.5 29 38.5 23z\"/><path class=\"b\" d=\"M27 21.5c-1.5-2.8-4.6-5-3.6-8.3 2 .9 3.9.7 5.2-.6 1 1.9 2.6 2.9 3.4 2.9s2.4-1 3.4-2.9c1.3 1.3 3.2 1.5 5.2.6 1 3.3-2.1 5.5-3.6 8.3z\"/><rect class=\"s\" x=\"24\" y=\"19.5\" width=\"16\" height=\"4.5\" rx=\"2.25\"/><path class=\"l\" d=\"M37.5 34.5a7 7 0 1 0 0 11M25.5 38.3h9.5M25.5 41.8h9.5\"/><path class=\"l\" d=\"M40 9.5h-4M41 15h-5\"/><circle class=\"p\" cx=\"49.5\" cy=\"12\" r=\"5.5\"/><path class=\"gl\" d=\"M47.5 10.5a3 3 0 0 1 2.5-1.6\"/>",
-    "industrial-accelerator-act": "<ellipse class=\"g\" cx=\"35\" cy=\"56.5\" rx=\"22\" ry=\"2.6\"/><circle class=\"o\" cx=\"21\" cy=\"29\" r=\"8\"/><path class=\"b\" d=\"M15 54V31l9-6.5V31l9-6.5V31l9-6.5V54z\"/><path class=\"b\" d=\"M42 54V15h8v39z\"/><path class=\"s\" d=\"M42 19h8v3.5h-8z\"/><rect class=\"s\" x=\"18.5\" y=\"36\" width=\"5\" height=\"5\" rx=\"1\"/><rect class=\"s\" x=\"27\" y=\"36\" width=\"5\" height=\"5\" rx=\"1\"/><rect class=\"s\" x=\"35\" y=\"36\" width=\"4.5\" height=\"5\" rx=\"1\"/><path class=\"s\" d=\"M25 54v-7.5h7V54z\"/><circle class=\"b\" cx=\"48.5\" cy=\"9\" r=\"3.6\"/><circle class=\"b\" cx=\"55\" cy=\"6\" r=\"3\"/><path class=\"l\" d=\"M3 35h7M1.5 42H11M4 49h6\"/><circle class=\"p\" cx=\"46\" cy=\"34\" r=\"2\"/>",
-    "digital-networks-act": "<ellipse class=\"g\" cx=\"32\" cy=\"57\" rx=\"15\" ry=\"2.4\"/><circle class=\"o\" cx=\"35\" cy=\"16.5\" r=\"7\"/><path class=\"b\" d=\"M32 17 22 55h20z\"/><path class=\"l\" d=\"M28.4 30.5h7.2M26.2 39h11.6M24 47.5h16M28.4 30.5 37.8 39M35.6 30.5 26.2 39M26.2 39 40 47.5M37.8 39 24 47.5\"/><path class=\"l\" d=\"M24.5 8a7 7 0 0 0 0 12M39.5 8a7 7 0 0 1 0 12M18.5 4a11.5 11.5 0 0 0 0 20M45.5 4a11.5 11.5 0 0 1 0 20\"/><circle class=\"p\" cx=\"32\" cy=\"14\" r=\"3.8\"/>",
-    "digital-fairness-act": "<ellipse class=\"g\" cx=\"29\" cy=\"58.5\" rx=\"15\" ry=\"2.4\"/><circle class=\"o\" cx=\"41\" cy=\"48\" r=\"8.5\"/><rect class=\"b\" x=\"15\" y=\"10\" width=\"28\" height=\"46\" rx=\"5.5\"/><rect class=\"s\" x=\"18.5\" y=\"16.5\" width=\"21\" height=\"32\" rx=\"2\"/><path class=\"l\" d=\"M26 13.2h6M27 52.5h4\"/><path class=\"p\" d=\"M27.5 47.4l-5.4-5.2a3.3 3.3 0 0 1 5.4-3.9 3.3 3.3 0 0 1 5.4 3.9z\"/><path class=\"l\" d=\"M33 1v14\"/><path class=\"wl\" d=\"M33 21v9a5.5 5.5 0 0 1-11 0v-4.5M22 25.5l3.6 3.4\"/><circle class=\"wl\" cx=\"33\" cy=\"18.6\" r=\"2\"/>",
-    "tech-sovereignty-package": "<ellipse class=\"g\" cx=\"26\" cy=\"60\" rx=\"17\" ry=\"2.4\"/><rect class=\"o\" x=\"25\" y=\"37\" width=\"20\" height=\"20\" rx=\"3\"/><path class=\"l\" d=\"M19 24v-5M26 24v-5M33 24v-5M19 52v5M26 52v5M33 52v5M12 31H7M12 38H7M12 45H7M40 31h5M40 38h5M40 45h5\"/><rect class=\"s\" x=\"12\" y=\"24\" width=\"28\" height=\"28\" rx=\"3\"/><rect class=\"gl2\" x=\"19\" y=\"31\" width=\"14\" height=\"14\" rx=\"1.5\"/><circle class=\"gl\" cx=\"16\" cy=\"28\" r=\"1.3\"/><path class=\"b\" d=\"M43.5 21a5.3 5.3 0 0 1 .6-10.6 7.4 7.4 0 0 1 14 2.8 4 4 0 0 1-.6 7.8z\"/><circle class=\"p\" cx=\"26\" cy=\"38\" r=\"2.2\"/>",
-    "ai-act-implementation": "<ellipse class=\"g\" cx=\"31\" cy=\"57\" rx=\"18\" ry=\"2.4\"/><circle class=\"o\" cx=\"18.5\" cy=\"40\" r=\"8\"/><path class=\"l\" d=\"M30 19v-6.5\"/><circle class=\"p\" cx=\"30\" cy=\"9.5\" r=\"3.2\"/><rect class=\"s\" x=\"9.5\" y=\"28\" width=\"5\" height=\"11\" rx=\"2\"/><rect class=\"s\" x=\"45.5\" y=\"28\" width=\"5\" height=\"11\" rx=\"2\"/><rect class=\"b\" x=\"14\" y=\"19\" width=\"32\" height=\"27\" rx=\"7\"/><circle class=\"s\" cx=\"23\" cy=\"31\" r=\"4\"/><circle class=\"s\" cx=\"37\" cy=\"31\" r=\"4\"/><circle class=\"gl\" cx=\"24.4\" cy=\"29.6\" r=\"1.3\"/><circle class=\"gl\" cx=\"38.4\" cy=\"29.6\" r=\"1.3\"/><path class=\"l\" d=\"M25 38.5q5 4 10 0\"/><path class=\"b\" d=\"M23 46v5h14v-5\"/><path class=\"l\" d=\"M50.5 35c3 .3 5.5 2.4 5.5 6\"/><g transform=\"rotate(14 56 48)\"><path class=\"p\" d=\"M52 44.5l4-3.8 4 3.8v10.5h-8z\"/><circle class=\"s\" cx=\"56\" cy=\"45\" r=\"1\"/></g>",
-    "all": "<ellipse class=\"g\" cx=\"32\" cy=\"57\" rx=\"16\" ry=\"2.4\"/><circle class=\"o\" cx=\"20\" cy=\"19\" r=\"8\"/><rect class=\"b\" x=\"14\" y=\"13\" width=\"24\" height=\"34\" rx=\"2\" transform=\"rotate(-9 26 30)\"/><rect class=\"b\" x=\"21\" y=\"14\" width=\"24\" height=\"34\" rx=\"2\" transform=\"rotate(5 33 31)\"/><path class=\"l\" d=\"M27 22.5h12M27 28.5h12M27 34.5h8\" transform=\"rotate(5 33 31)\"/><circle class=\"p\" cx=\"46\" cy=\"47\" r=\"7\"/><path class=\"l\" d=\"M42.5 47h6.5M46.3 44.2 49 47l-2.7 2.8\"/>",
-    "doc": "<ellipse class=\"g\" cx=\"32\" cy=\"57\" rx=\"14\" ry=\"2.4\"/><circle class=\"o\" cx=\"22\" cy=\"18\" r=\"8\"/><path class=\"b\" d=\"M19 9h18l9 9v36H19z\"/><path class=\"l\" d=\"M37 9v9h9M25 28h15M25 34h15M25 40h10\"/>"
-  };
-  const FT_STYLE = (() => { try { const s = new URLSearchParams(location.search).get("ft"); return s === "ink" || s === "riso" ? s : "icons"; } catch { return "icons"; } })();
-  const fileArt = (key) => `<svg class="k k-${FT_STYLE}" viewBox="0 0 64 64" aria-hidden="true">${FILE_ART[key] || FILE_ART.doc}</svg>`;
   function renderFiles() {
     const w = $("doorFiles"); if (!w) return;
     const fol = FILES.filter((f) => state.follow.has(f.id)).length;
@@ -1667,13 +1646,11 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       const on = state.follow.has(f.id), t = fileTag(f);
       const lab = f.short.includes(t) ? f.short : `${t}, ${f.short}`;
       return `<button class="ftile__f" type="button" data-file="${esc(f.id)}" aria-label="${esc(lab + (on ? ", following" : ""))}" title="${esc(f.short)}">
-        <span class="ftile__ic">${FT_STYLE === "icons" ? icon(fileIc(f)) : fileArt(f.id)}${star(on)}</span><span class="ftile__n">${esc(t)}</span></button>`;
+        <span class="ftile__ic">${icon(fileIc(f))}${star(on)}</span><span class="ftile__n">${esc(t)}</span></button>`;
     };
-    w.className = `eu-tile eu-tile--rose ftile${FT_STYLE === "icons" ? "" : " ftile--" + FT_STYLE}`;
-    w.innerHTML = `<button class="ftile__head" type="button" data-view="files"><span class="eu-tile__disc">${icon("file")}</span>
-      <span class="ftile__tx"><span class="eu-tile__label" id="ftH">Files</span><span class="eu-tile__meta">${FILES.length ? `${FILES.length} priority files${fol ? ` · ${fol} followed` : ""}` : "The files list could not load"}</span></span>
-      <span class="ftile__go">${icon("arrow")}</span></button>
-      ${FILES.length ? `<div class="ftile__grid">${FILES.map(cell).join("")}<button class="ftile__f ftile__f--all" type="button" data-view="files"><span class="ftile__ic">${FT_STYLE === "icons" ? icon("arrow") : fileArt("all")}</span><span class="ftile__n">All files</span></button></div>` : ""}`;
+    w.innerHTML = `<div class="ftile__head"><h2 class="eu-tile__label" id="ftH">Files</h2>
+      <p class="eu-tile__meta">${FILES.length ? `${FILES.length} priority files${fol ? ` · ${fol} followed` : ""}` : "The files list could not load"}</p></div>
+      ${FILES.length ? `<div class="ftile__grid">${FILES.map(cell).join("")}<button class="ftile__f ftile__f--all" type="button" data-view="files"><span class="ftile__ic">${icon("files")}</span><span class="ftile__n">All files</span></button></div>` : ""}`;
   }
   function toggleFollow(id, undo) {
     const f = FILE_BY[id]; if (!f) return;
@@ -2097,7 +2074,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
         <h2 class="eu-hero__title"><span>Chaired by</span> ${esc(countryName(cur[0]))}</h2>
         ${nx ? `<p class="eu-hero__text">${esc(countryName(nx[0]))} takes over on 1 ${esc(fmtD(new Date(+nx[1].slice(0, 4), +nx[1].slice(5, 7) - 1, 1), { month: "long", year: "numeric" }))}.</p>` : ""}
         <button class="eu-btn eu-btn--on-deep eu-btn--sm" type="button" data-prdel="${cur[0]}">Open ${esc(countryName(cur[0]))}’s delegation</button></section>` : ""}
-      <label class="eu-search"><svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4 4"/></svg><input id="prq" type="search" placeholder="Search a country or a name" aria-label="Search delegations" value="${esc(state.co.q || "")}"></label>
+      <label class="eu-search"><svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="12" r="6"/><path d="m15 16.5 4.5 4.5"/><path class="spk" d="M18.6 2.2Q18.9 4.9 21.6 5.2Q18.9 5.5 18.6 8.2Q18.3 5.5 15.6 5.2Q18.3 4.9 18.6 2.2Z"/></svg><input id="prq" type="search" placeholder="Search a country or a name" aria-label="Search delegations" value="${esc(state.co.q || "")}"></label>
       <div class="chips">${chips.map(([k, n]) => `<button class="eu-chip" type="button" data-prf="${k}" aria-pressed="${(state.co.pf || "all") === k}">${n}</button>`).join("")}</div>
       <h3>27 delegations <small>A to Z</small></h3><div id="prList">${prListHtml()}</div>
       <h3>Who covers a policy area <small>working parties</small></h3>
@@ -2571,7 +2548,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     if ($("sheet").hidden) layer.sheet = document.activeElement;
     $("sheet").innerHTML = `<div class="sheet__bar"><button class="eu-iconbtn eu-iconbtn--sm" type="button" data-sheet-close aria-label="Close">${icon("x")}</button></div>
       <div class="top"><div class="top__tx"><h2 id="sName">Add to ${esc(f.short)}</h2><div class="cap">Search MEPs, Commissioners and cabinet staff</div></div></div>
-      <label class="eu-search"><svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.500"/><path d="M16 16l4 4"/></svg>
+      <label class="eu-search"><svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="12" r="6"/><path d="m15 16.5 4.5 4.5"/><path class="spk" d="M18.6 2.2Q18.9 4.9 21.6 5.2Q18.9 5.5 18.6 8.2Q18.3 5.5 15.6 5.2Q18.3 4.9 18.6 2.2Z"/></svg>
         <input id="fq" type="search" placeholder="Search a name, committee or topic" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Search people to add"></label>
       <div id="fRes"></div>`;
     $("scrim").hidden = false; $("sheet").hidden = false; $("sheet").scrollTop = 0;
