@@ -1,5 +1,5 @@
 /* nodo service worker: the app shell works offline, and data refreshes whenever there is a connection. */
-const VERSION = "nodo-v11";
+const VERSION = "nodo-v12";
 /* Data has its own cache so an app update does not make every phone download the directory again. */
 const DATA = "nodo-data-v1";
 const SHELL = ["./", "index.html", "config.js", "avatars.js", "vendor/supabase.js", "manifest.webmanifest", "icons/icon-192.png", "icons/icon-512.png", "icons/apple-touch-icon.png"];
