@@ -15,19 +15,19 @@ window.NODO_CONFIG = { supabaseUrl: "https://xxxx.supabase.co", supabaseAnonKey:
 
 The anon key is public by design. Never put the `service_role` key anywhere in this repository.
 
-## 2. Email (magic link and code)
+## 2. Email accounts (email and password)
 
-1. **Authentication → Providers → Email**: keep it on. Turn **Confirm email** on.
-2. **Authentication → Email Templates**: edit both **Confirm signup** and **Magic Link**. Add the code so the six-digit box in the app works as well as the link:
+People register with Google or with an email and a password. Signing in is the only way into nodo.
 
-```html
-<h2>Your nodo sign-in</h2>
-<p><a href="{{ .ConfirmationURL }}">Sign in to nodo</a></p>
-<p>Or type this code in the app: <b>{{ .Token }}</b></p>
-```
+1. **Authentication → Sign In / Providers → Email**: keep it on.
+2. **Confirm email** decides what happens at sign-up:
+   - Off: the account works straight away and nodo sends no email at sign-up. This is the simplest set-up and needs nothing else.
+   - On: the person must click a link in a confirmation email first. Only turn this on once custom SMTP (step 4) works, or sign-ups will wait for an email that never arrives.
+3. **Authentication → URL Configuration**: set **Site URL** to `https://gianmariasisti-afk.github.io/nodo-data/` and add the same address under **Redirect URLs**. The confirmation and password-reset links return there. Add `http://localhost:8765/` while testing.
+4. Set up custom SMTP (**Project settings → Authentication → SMTP**) with a service such as Resend, using an address on a domain you control. Until then Supabase's built-in sender delivers a handful of emails an hour and only to addresses in your Supabase team, so "Forgot your password?" works for you but not yet for other people.
+5. Optional: under the Email provider, set the minimum password length to 12 so the server enforces the same rule as the app.
 
-3. **Authentication → URL Configuration**: set **Site URL** to `https://gianmariasisti-afk.github.io/nodo-data/` and add the same address under **Redirect URLs**. Add `http://localhost:8765/` while testing.
-4. Set up custom SMTP (**Project settings → Authentication → SMTP**) with a service such as Resend, using an address on a domain you control. The built-in sender is limited to a few emails an hour, and on the Free plan Supabase only lets you edit email templates once custom SMTP is on. Until then the email carries the link only, and the six-digit code box in the app has nothing to receive.
+The default email templates (Confirm signup, Reset password) work as they are: both carry a link.
 
 ## 3. Social sign-in
 
@@ -53,7 +53,7 @@ The App Store listing needs a native shell around the web app. The usual route i
 - The sign-in screens and the profile link to "What nodo stores", a plain-language notice built into the app (`dataNoticeHtml` in `index.html`). It describes what the code does. Keep it in step when the stored data, the sign-in providers or the third parties change, for example if analytics are added.
 - Still to publish: a formal privacy notice that names the data controller and a contact address, and terms of use. The app does not claim that people accept terms, because none exist yet. Add the links next to "What nodo stores" once they do.
 - Decide who the data controller is and have legal review it. The app stores names, emails and the lists a person builds.
-- Test the full path on a phone: sign up by email, sign in with each social option, edit a list, sign in on a second device, delete the account.
+- Test the full path on a phone: create an account with email, sign in with Google, reset a password, edit a list, sign in on a second device, delete the account.
 
 ## How sync works
 

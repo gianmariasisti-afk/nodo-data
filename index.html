@@ -729,6 +729,28 @@ details.office > .list { margin-top: var(--space-2); }
 .fine { font-size: 12px; line-height: 16px; font-weight: 500; text-align: center; }
 .textbtn { min-height: 44px; border: 0; background: none; font-size: 15px; font-weight: 600; }
 
+/* Guided tour: a spotlight over Home and a card that explains each stop */
+html.touring { overflow: hidden; }
+.tour { position: fixed; inset: 0; z-index: 70; touch-action: none; }
+.tour__hole { position: fixed; border-radius: 24px; box-shadow: 0 0 0 200vmax rgba(6, 10, 30, 0.62); outline: 2px solid var(--spark); outline-offset: 2px; pointer-events: none;
+  transition: left .25s ease, top .25s ease, width .25s ease, height .25s ease, border-radius .25s ease; }
+.tour__hole[hidden] { display: none; }
+.tour__card { position: fixed; left: 50%; transform: translateX(-50%); width: min(400px, calc(100% - 32px)); padding: var(--space-5); border-radius: var(--radius-lg);
+  background: var(--surface); color: var(--ink); box-shadow: var(--shadow-float); transition: top .25s ease; }
+.tour__step { display: flex; align-items: center; gap: var(--space-2); font-size: 12px; line-height: 16px; font-weight: 600; color: var(--ink-muted); }
+.tour__dots { display: inline-flex; gap: 4px; }
+.tour__dots i { width: 6px; height: 6px; border-radius: 3px; background: var(--hairline); }
+.tour__dots i.on { width: 16px; background: var(--spark); }
+.tour__card h2 { margin-top: var(--space-2); font: 700 22px/26px var(--font-display); letter-spacing: -0.02em; }
+#tourB { margin-top: var(--space-2); font-size: 15px; line-height: 22px; color: var(--ink-muted); }
+.tour__acts { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); margin-top: var(--space-5); }
+.tour__skip { min-height: 44px; padding: 0 var(--space-1); border: 0; background: none; color: var(--ink-muted); font-size: 15px; font-weight: 600; }
+.tour__nav { display: flex; gap: var(--space-2); }
+.tour__nav .eu-btn { min-width: 76px; height: 44px; }
+.tour__nav .eu-btn[hidden] { display: none; }
+@media (prefers-reduced-motion: reduce) { .tour__hole, .tour__card { transition: none; } }
+@media (max-height: 700px) { .tour__card { padding: var(--space-4); } .tour__card h2 { font-size: 19px; line-height: 23px; } #tourB { font-size: 14px; line-height: 20px; } .tour__acts { margin-top: var(--space-3); } }
+
 /* Sign-in. Welcome and welcome-back stay on brand-deep; the account steps (email, code, password, import, passkey)
    sit on the surface so forms read like the rest of the app. Inputs are 16px so phones do not zoom on focus. */
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
@@ -1126,6 +1148,18 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   <button class="eu-tabbar__item" id="navNews" type="button"><svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5.5h11v13H7.5A2.5 2.5 0 0 1 5 16z"/><path d="M16 9h3v7.5a2 2 0 0 1-2 2h-1M8 9h5"/><path class="spk" d="M10.5 11.1Q10.77 13.53 13.2 13.8Q10.77 14.07 10.5 16.5Q10.23 14.07 7.8 13.8Q10.23 13.53 10.5 11.1Z"/></svg>News</button>
 </nav></div>
 <div id="toast" class="eu-badge toast" role="status" hidden></div>
+<div id="tour" class="tour" hidden>
+  <div id="tourHole" class="tour__hole"></div>
+  <section id="tourCard" class="tour__card" role="dialog" aria-modal="true" aria-labelledby="tourT" aria-describedby="tourB">
+    <p class="tour__step"><span id="tourDots" class="tour__dots" aria-hidden="true"></span><span id="tourStep"></span></p>
+    <h2 id="tourT"></h2>
+    <p id="tourB"></p>
+    <div class="tour__acts">
+      <button class="tour__skip" type="button" data-tour="skip">Skip tour</button>
+      <span class="tour__nav"><button id="tourBack" class="eu-btn eu-btn--sm" type="button" data-tour="back">Back</button><button id="tourNext" class="eu-btn eu-btn--sm eu-btn--brand" type="button" data-tour="next">Next</button></span>
+    </div>
+  </section>
+</div>
 
 <script src="config.js"></script>
 <script src="avatars.js"></script>
@@ -1323,7 +1357,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   state.me = { id: null, name: "", avatarUrl: "" };
   try { state.lists = JSON.parse(store.get(LISTS_KEY) || "{}") || {}; } catch { state.lists = {}; }
   try { state.follow = new Set(JSON.parse(store.get(FOLLOW_KEY) || "[]")); } catch { state.follow = new Set(); }
-  const acct = { user: null };
+  const acct = { user: null, recovery: /(^|[#&])type=recovery(&|$)/.test(location.hash) };
 
   /* Storage: always this browser; also the person's private record in the cloud when they are signed in
      (their Supabase account on the hosted app, their Claude account inside an artifact). */
@@ -2609,10 +2643,10 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   /* Whatever sits behind an open overlay is inert. Focus moves into the overlay and returns to what opened it. */
   const layer = { profile: null, profileKey: "", sheet: null };
   function syncLayers() {
-    const o = !$("onb").hidden, sh = !$("sheet").hidden, p = !$("profile").hidden;
-    document.querySelectorAll("main.view").forEach((m) => { m.inert = o || sh || p; });
-    $("profile").inert = o || sh;
-    document.querySelector(".dock").inert = o || sh;
+    const o = !$("onb").hidden, sh = !$("sheet").hidden, p = !$("profile").hidden, t = !!state.touring;
+    document.querySelectorAll("main.view").forEach((m) => { m.inert = o || sh || p || t; });
+    $("profile").inert = o || sh || t;
+    document.querySelector(".dock").inert = o || sh || t;
     navTouch();
   }
 
@@ -2722,6 +2756,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   }
   function goBack() { if (nav.cur > 0) navStep(-1); else if (state.open) closeAllProfiles(); }
   addEventListener("popstate", (e) => {
+    if (state.touring) endTour(false);
     if (!nav.trail.length) return;
     const st = e.state, i = st && st.s === NAV_ID && typeof st.nodo === "number" ? st.nodo : 0;
     navApply(Math.max(0, Math.min(i, nav.trail.length - 1)));
@@ -3093,6 +3128,8 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       </div>
       <div class="acts">${p.method ? `${p.passkey ? "" : `<button class="eu-btn" id="pkBtn" type="button">Add a passkey</button>`}<button class="eu-btn" id="outBtn" type="button">Sign out</button>`
         : `<button class="eu-btn eu-btn--brand" id="inBtn" type="button">Sign in or create an account</button>`}</div>`}
+      <h3>Getting around</h3>
+      <div class="list">${row({ el: "button", attrs: `type="button" data-tour-start`, lead: disc("home"), name: "Take the tour", meta: "Six stops around Home, about a minute", wrap: true, tail: go })}</div>
       <h3>Your data</h3>
       <p class="cap lead-cap">${acct.user ? "Your profile, saved people and file lists are stored with your nodo account and follow you to every device. Only you can read them." : cloud ? "Your profile and saved people are stored with your Claude account and follow you to other devices. Only you can see them." : "Your profile, saved people and file lists are stored in this browser only. Nobody else can see them."}</p>
       <div class="acts"><button class="eu-btn" id="expBtn" type="button">Export my data</button><button class="eu-btn" id="dataBtn" type="button">What nodo stores</button></div>
@@ -3143,10 +3180,12 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       return this.ready;
     },
     async start() {
+      acct.recovery = acct.recovery || /(^|[?&])type=recovery(&|$)/.test(location.search);
       const c = await this.load(); if (!c) return;
       c.auth.onAuthStateChange((ev, session) => {
         /* No Supabase calls inside this callback: hand off to the next tick. */
-        if (ev === "SIGNED_IN" && session && session.user) setTimeout(() => onSignedIn(session.user), 0);
+        if (ev === "PASSWORD_RECOVERY" && session && session.user) { acct.recovery = true; setTimeout(() => (acct.user ? openOnb("newpw", false) : onSignedIn(session.user)), 0); }
+        else if (ev === "SIGNED_IN" && session && session.user) setTimeout(() => onSignedIn(session.user), 0);
         else if (ev === "SIGNED_OUT" && acct.user) setTimeout(() => leaveAccount(), 0);
       });
       const { data } = await c.auth.getSession();
@@ -3160,6 +3199,31 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     async verify(email, token) {
       const c = await this.load(); if (!c) throw new Error("unavailable");
       const { error } = await c.auth.verifyOtp({ email, token, type: "email" });
+      if (error) throw error;
+    },
+    async signUp(email, password, name) {
+      const c = await this.load(); if (!c) throw new Error("unavailable");
+      const { data, error } = await c.auth.signUp({ email, password, options: { emailRedirectTo: location.origin + location.pathname, data: name ? { full_name: name, name } : {} } });
+      if (error) throw error; return data;
+    },
+    async signIn(email, password) {
+      const c = await this.load(); if (!c) throw new Error("unavailable");
+      const { data, error } = await c.auth.signInWithPassword({ email, password });
+      if (error) throw error; return data;
+    },
+    async resetLink(email) {
+      const c = await this.load(); if (!c) throw new Error("unavailable");
+      const { error } = await c.auth.resetPasswordForEmail(email, { redirectTo: location.origin + location.pathname });
+      if (error) throw error;
+    },
+    async resendConfirm(email) {
+      const c = await this.load(); if (!c) throw new Error("unavailable");
+      const { error } = await c.auth.resend({ type: "signup", email, options: { emailRedirectTo: location.origin + location.pathname } });
+      if (error) throw error;
+    },
+    async setPassword(password) {
+      const c = await this.load(); if (!c) throw new Error("unavailable");
+      const { error } = await c.auth.updateUser({ password });
       if (error) throw error;
     },
     async oauth(provider) {
@@ -3179,6 +3243,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     state.profile = { ...prev, name: prev.name || nameOfUser(user), email: user.email || prev.email || "", method: providerOf(user), v: 1 };
     saveProfile();
     store.del(SIGNED_KEY); clearInterval(resendTimer);
+    if (acct.recovery) { identityChanged(); openOnb("newpw", false); return; }
     const viaOnb = !$("onb").hidden;
     if (state.profile.onboarded) {
       if (viaOnb) { $("onb").hidden = true; onb.d = null; const fn = firstName(); toast(fn ? `Welcome back, ${fn}` : "Signed in"); }
@@ -3229,6 +3294,61 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       if (resend) toast(authError(e), 3000); else { a.err = { email: authError(e) }; renderOnb(false); }
     }
   }
+  /* Email accounts. Errors from the sign-in service become plain sentences next to the field they concern. */
+  function liveAuthErr(e) {
+    const m = String((e && e.message) || "");
+    if (e && (e.status === 429 || /rate|too many/i.test(m))) return { form: "Too many attempts. Wait a minute and try again." };
+    if (/invalid login credentials/i.test(m)) return { pw: "That email and password do not match. Check both, or reset your password." };
+    if (/already (registered|exists)/i.test(m)) return { email: "An account with this email already exists. Sign in instead." };
+    if (/password/i.test(m) && /(short|weak|least|characters)/i.test(m)) return { pw: "Choose a longer password, with a number or a symbol." };
+    if (/signups? not allowed|signup.*disabled/i.test(m)) return { form: "New accounts are switched off for now." };
+    if (/provider is disabled|logins are disabled/i.test(m)) return { form: "Email sign-in is switched off for now. Use Google instead." };
+    if (/fetch|network|unavailable|failed to/i.test(m)) return { form: "nodo could not be reached. Check your connection and try again." };
+    return { form: "That did not work. Try again in a moment." };
+  }
+  async function liveSignUp(pw) {
+    const a = onb.a, d = onb.d; if (!d || a.busy) return;
+    a.busy = true;
+    try {
+      const data = await SB.signUp(a.email, pw, d.name.trim());
+      a.busy = false;
+      /* The service hides existing accounts when it asks for email confirmation: an empty identity list means the address is taken. */
+      if (data.user && Array.isArray(data.user.identities) && !data.user.identities.length) { a.err = { email: "An account with this email already exists. Sign in instead." }; return renderOnb(false); }
+      if (!data.session) return goStep("confirm");
+      /* Signed in: the sign-in listener runs onSignedIn, which opens the setup steps. */
+    } catch (e) { a.busy = false; a.err = liveAuthErr(e); renderOnb(false); }
+  }
+  async function liveSignIn(pw) {
+    const a = onb.a; if (!onb.d || a.busy) return;
+    a.busy = true;
+    try { await SB.signIn(a.email, pw); a.busy = false; }
+    catch (e) {
+      a.busy = false;
+      if (/not confirmed/i.test(String(e && e.message))) return goStep("confirm");
+      a.err = liveAuthErr(e); renderOnb(false);
+    }
+  }
+  async function liveReset() {
+    const a = onb.a; if (!onb.d || a.busy) return;
+    a.busy = true;
+    try { await SB.resetLink(a.email); a.busy = false; goStep("sent"); }
+    catch (e) { a.busy = false; a.err = liveAuthErr(e); renderOnb(false); }
+  }
+  async function liveResend() {
+    try { await SB.resendConfirm(onb.a.email); toast("Link sent again", 2400); }
+    catch (e) { toast(liveAuthErr(e).form || "That did not work. Try again in a moment.", 3000); }
+  }
+  async function liveNewPassword(pw) {
+    const a = onb.a; if (!onb.d || a.busy) return;
+    a.busy = true;
+    try {
+      await SB.setPassword(pw);
+      a.busy = false; acct.recovery = false;
+      try { history.replaceState(history.state, "", location.pathname + location.search.replace(/([?&])type=recovery(&|$)/, "$1")); } catch { /* ignore */ }
+      if (state.profile && state.profile.onboarded) { $("onb").hidden = true; onb.d = null; identityChanged(); renderView(); toast("Password saved. You are signed in.", 2600); }
+      else { identityChanged(); openOnb(1, false); toast("Password saved", 2400); }
+    } catch (e) { a.busy = false; a.err = liveAuthErr(e); renderOnb(false); }
+  }
   async function startOAuth(provider) {
     toast(`Opening ${(PROVIDERS[provider] || {}).name || "sign-in"}…`, 3000);
     try { await SB.oauth(provider); } catch { toast("Sign-in could not start. Check your connection.", 3000); }
@@ -3247,8 +3367,8 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     linkedin: { name: "LinkedIn", mark: "in", vow: "Nothing is posted to LinkedIn and your connections stay private." },
     microsoft: { name: "Microsoft", mark: "M", vow: "Nothing else from your account is shared with nodo." },
   };
-  const METHOD_LABEL = { linkedin: "LinkedIn", google: "Google", microsoft: "Microsoft", apple: "Apple", email: "an email link", password: "email and password", claude: "your Claude account" };
-  const LIGHT_STEPS = new Set(["email", "inbox", "password", "provider", "passkey", "data"]);
+  const METHOD_LABEL = { linkedin: "LinkedIn", google: "Google", microsoft: "Microsoft", apple: "Apple", email: "email and password", password: "email and password", claude: "your Claude account" };
+  const LIGHT_STEPS = new Set(["email", "inbox", "password", "provider", "passkey", "data", "signin", "forgot", "sent", "confirm", "newpw"]);
   /* What nodo stores, in plain words. Shown from the sign-in screens and from the profile. It describes what this code does:
      keep it in step with stateBody(), the Supabase schema and the third parties the page contacts. */
   const dataLink = (label) => `<button class="linkbtn" type="button" data-onb="data">${label}</button>`;
@@ -3257,7 +3377,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const provNames = (CFG.providers || []).map((k) => (PROVIDERS[k] || {}).name).filter(Boolean);
     return `<div class="block">
       ${LIVE ? sec("With an account", "nodo keeps one record for you: your name and email, the organisation, role and countries you enter, a profile picture if you add one, the people you save, the files you follow and the changes you make to stakeholder lists. The record sits in nodo's database, hosted by Supabase. Other people who use nodo cannot read it.")
-        + sec("Signing in", "An email link or code proves the address is yours. " + (provNames.length ? "If you sign in with " + provNames.join(" or ") + ", that service passes nodo your name and email address. " : "") + "nodo posts nothing on your behalf and does not read your contacts.")
+        + sec("Signing in", "With email you choose a password. It goes straight to the sign-in service, which keeps only a scrambled form of it; nodo never stores it. " + (provNames.length ? "If you sign in with " + provNames.join(" or ") + ", that service passes nodo your name and email address. " : "") + "nodo posts nothing on your behalf and does not read your contacts.")
         : sec("In this preview", "There are no accounts here. Your profile, the people you save, the files you follow and your list changes stay in this browser" + (state.me.id ? ", and in your own Claude account when you open nodo there" : "") + ". The sign-in screens are simulated: nothing you type in them is saved or sent.")}
       ${sec("Without an account", "The same information stays in this browser and goes nowhere. Names you add under Perm reps always stay on the device where you typed them.")}
       ${sec("What the app loads", "The directory comes from nodo's own data files. The typefaces load from Google Fonts" + (LIVE ? ", and sign-in runs through Supabase" : "") + ". This version carries no advertising and no analytics.")}
@@ -3298,7 +3418,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const backTop = `<div class="onb-top"><button class="eu-iconbtn" type="button" data-onb="back" aria-label="Back">${icon("back")}</button></div>`;
     const top = s === 0 || s === "back" ? `<div class="onb-top">${WORDMARK}${PREVIEW ? `<span class="pv">Preview</span>` : ""}</div>`
       : ed ? `<div class="onb-top"><button class="eu-iconbtn" type="button" data-onb="close" aria-label="Close">${icon("back")}</button><span class="cap">${s === "passkey" ? "Sign-in" : "Edit profile"}</span></div>`
-      : s === "passkey" ? `<div class="onb-top"></div>`
+      : s === "passkey" || s === "newpw" ? `<div class="onb-top"></div>`
       : light ? backTop
       : `<div class="onb-top">${LIVE && acct.user && s === 1 ? "" : `<button class="eu-iconbtn" type="button" data-onb="back" aria-label="Back">${icon("back")}</button>`}<div class="prog" role="img" aria-label="Step ${s} of 2"><i style="width:${(s / 2 * 100).toFixed(0)}%"></i></div><span class="cap">Step ${s} of 2</span></div>`;
     const pickBtns = (list, attr, sel, label) => list.map((x) => `<button class="eu-chip" type="button" ${attr}="${esc(x)}" aria-pressed="${sel(x)}">${esc(label(x))}</button>`).join("");
@@ -3311,34 +3431,31 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       ${a.err[key] ? ferr(key, id + "H") : help ? `<p class="fhelp" id="${id}H">${help}</p>` : ""}</div>`;
     const emailAttrs = `type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" placeholder="you@organisation.eu"`;
     const note = (title, text) => `<div class="block auth-note"><h4>${title}</h4><p>${text}</p></div>`;
+    const pwRule = (rule, text) => `<li data-rule="${rule}"><svg class="eu-icon i-no" viewBox="0 0 24 24" aria-hidden="true">${IC.dot}</svg><svg class="eu-icon i-ok" viewBox="0 0 24 24" aria-hidden="true">${IC.check}</svg><span class="sr"></span>${text}</li>`;
+    /* One password box. A new password shows the strength meter and the rules; signing in shows only the box. */
+    const pwField = (auto, rules) => `<div class="field${a.err.pw ? " is-err" : ""}"><label for="aPw">Password</label>
+            <div class="pwbox"><input id="aPw" type="password" autocomplete="${auto}" autocapitalize="off" spellcheck="false"${rules ? ` aria-describedby="pwRules"` : ""}${a.err.pw ? ` aria-invalid="true"` : ""}><button class="pweye" id="pwEye" type="button" aria-label="Show password" aria-pressed="false">${icon("eye")}</button></div>
+            ${rules ? `<div class="pwmeter" id="pwMeter" data-score="0" aria-hidden="true"><i></i><i></i><i></i><i></i><b id="pwWord"></b></div>
+            <p class="sr" id="pwSay" role="status"></p>
+            <ul class="pwrules" id="pwRules">${pwRule("len", "12 characters or more")}${pwRule("rare", "Not a common password")}${pwRule("mix", "A number or a symbol, for a strong rating")}</ul>` : ""}
+            ${ferr("pw")}
+          </div>`;
 
     if (s === 0) {
       const claude = state.me.id ? `<button class="eu-btn eu-btn--on-deep eu-btn--block" data-onb="claude" type="button">${state.me.avatarUrl ? `<img class="pface" src="${esc(state.me.avatarUrl)}" alt="">` : `<span class="pmark" aria-hidden="true">${esc(initialsOf(state.me.name))}</span>`}Continue as ${esc(fn || "you")}</button>` : "";
       const provs = Object.entries(PROVIDERS).filter(([k]) => !LIVE || (CFG.providers || []).includes(k)).map(([k, v]) => `<button class="eu-btn eu-btn--on-deep eu-btn--block" data-prov="${k}" type="button"><span class="pmark" aria-hidden="true">${v.mark}</span>Continue with ${v.name}</button>`).join("");
-      const emailBtn = `<button class="eu-btn eu-btn--block auth-line" data-onb="email" type="button">${icon("mail")}Continue with email</button>`;
+      const emailBtn = `<button class="eu-btn eu-btn--block auth-line" data-onb="password" type="button">${icon("mail")}Create an account with email</button>
+        <button class="textbtn textbtn--strong" data-onb="signin-email" type="button">Already have an account? Sign in</button>`;
       const title = `<h1 class="onb-xl onb-xl--auth" id="onbTitle" tabindex="-1">Untangle the <strong>EU.</strong></h1>`;
-      if (PREVIEW) {
-        /* No server behind a preview: Explore is the way in, and the sign-in screens are offered as what they are, a preview. */
-        main = `${title}
-          <p class="lead">${state.me.id ? "Carry on with your Claude account and your saved people and files follow you." : "This preview needs no account. What you save stays in this browser."}</p>
-          <div class="auth-list">${claude}<button class="eu-btn eu-btn--block ${claude ? "auth-line" : "eu-btn--on-deep"}" data-onb="skip" type="button">Explore nodo${icon("arrow")}</button></div>
-          <details class="pv-auth"${onb.pvOpen ? " open" : ""}><summary>Preview the sign-in screens${icon("down")}</summary>
-            <p class="fine">These screens show how sign-in will work. Here they are simulated: no account is created and nothing you type is saved or sent.</p>
-            <div class="auth-list">${provs}</div>
-            <div class="or"><span>or</span></div>
-            ${emailBtn}
-            <button class="textbtn textbtn--strong" data-onb="passkey-in" type="button">${icon("finger")}Sign in with a passkey</button>
-          </details>`;
-        foot = `<p class="fine">${dataLink("What nodo stores")}</p>`;
-      } else {
-        main = `${title}
-          <p class="lead">Sign in to keep your files, countries and saved people on every device.</p>
-          <div class="auth-list">${claude}${provs}</div>
-          ${provs || claude ? `<div class="or"><span>or</span></div>` : ""}
-          ${emailBtn}`;
-        foot = `<button class="textbtn textbtn--strong" data-onb="skip" type="button">Explore without an account${icon("arrow")}</button>
-          <p class="fine">nodo keeps your name, your email and the lists you build. It never posts on your behalf. ${dataLink("What nodo stores")}</p>`;
-      }
+      /* Signing in is the way in. The preview has no server, so there the same screens are simulated. */
+      main = `${title}
+        <p class="lead">Sign in or create your account to start. Your files, countries and saved people follow you on every device.</p>
+        <div class="auth-list">${claude}${provs}</div>
+        ${provs || claude ? `<div class="or"><span>or</span></div>` : ""}
+        ${emailBtn}`;
+      foot = PREVIEW
+        ? `<p class="fine">Preview build: sign-in is simulated. No account is created and nothing you type is sent. ${dataLink("What nodo stores")}</p>`
+        : `<p class="fine">nodo keeps your name, your email and the lists you build. It never posts on your behalf. ${dataLink("What nodo stores")}</p>`;
       footCls = " onb-foot--flow";
     } else if (s === "back") {
       const p = state.profile || {}, nm = state.me.name || p.name || "";
@@ -3374,25 +3491,50 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
         ${PREVIEW ? note("Preview build", "No email is sent yet. Type any six digits to continue.") : note("Nothing yet?", "Look in spam or junk. Some organisations delay external email by a minute or two.")}`;
       foot = `<div class="auth-split"><button class="textbtn" id="resend" data-onb="resend" type="button" disabled>Resend in 0:45</button><button class="textbtn textbtn--brand" data-onb="email" type="button">Change email</button></div>`;
     } else if (s === "password") {
-      const li = (rule, text) => `<li data-rule="${rule}"><svg class="eu-icon i-no" viewBox="0 0 24 24" aria-hidden="true">${IC.dot}</svg><svg class="eu-icon i-ok" viewBox="0 0 24 24" aria-hidden="true">${IC.check}</svg><span class="sr"></span>${text}</li>`;
       main = `<h1 class="eu-headline" id="onbTitle" tabindex="-1">Create your <strong>account</strong></h1>
         <form id="fPw" novalidate>
           ${state.me.name ? "" : field("aName", "Full name", "name", d.name, `autocomplete="name" placeholder="First and last name"`)}
           ${field("aMail", "Work email", "email", a.email, emailAttrs)}
-          <div class="field${a.err.pw ? " is-err" : ""}"><label for="aPw">Password</label>
-            <div class="pwbox"><input id="aPw" type="password" autocomplete="new-password" autocapitalize="off" spellcheck="false" aria-describedby="pwRules"${a.err.pw ? ` aria-invalid="true"` : ""}><button class="pweye" id="pwEye" type="button" aria-label="Show password" aria-pressed="false">${icon("eye")}</button></div>
-            <div class="pwmeter" id="pwMeter" data-score="0" aria-hidden="true"><i></i><i></i><i></i><i></i><b id="pwWord"></b></div>
-            <p class="sr" id="pwSay" role="status"></p>
-            <ul class="pwrules" id="pwRules">${li("len", "12 characters or more")}${li("rare", "Not a common password")}${li("mix", "A number or a symbol, for a strong rating")}</ul>
-            ${ferr("pw")}
-          </div>
+          ${pwField("new-password", true)}
           <label class="tick"><input type="checkbox" id="aTerms"${a.terms ? " checked" : ""}${a.err.terms ? ` aria-invalid="true"` : ""}><span>I have read what nodo stores.</span></label>
           <p class="fhelp">${dataLink("What nodo stores")}</p>
           ${ferr("terms")}
+          ${ferr("form")}
         </form>`;
       foot = `<button class="eu-btn eu-btn--brand eu-btn--block" type="submit" form="fPw">Create account</button>
-        <p class="auth-alt">Already have an account?<button class="textbtn textbtn--brand" data-onb="home" type="button">Log in</button></p>
+        <p class="auth-alt">Already have an account?<button class="textbtn textbtn--brand" data-onb="signin-email" type="button">Sign in</button></p>
         ${PREVIEW ? `<p class="fine">Preview build: your password is not saved or sent.</p>` : ""}`;
+    } else if (s === "signin") {
+      main = `<h1 class="eu-headline" id="onbTitle" tabindex="-1">Sign in with <strong>email</strong></h1>
+        <form id="fIn" novalidate>
+          ${field("aMail", "Email", "email", a.email, emailAttrs)}
+          ${pwField("current-password", false)}
+          ${ferr("form")}
+        </form>
+        <button class="textbtn textbtn--brand auth-forgot" data-onb="forgot" type="button">Forgot your password?</button>`;
+      foot = `<button class="eu-btn eu-btn--brand eu-btn--block" type="submit" form="fIn"${a.busy ? " disabled" : ""}>Sign in</button>
+        <p class="auth-alt">New to nodo?<button class="textbtn textbtn--brand" data-onb="password" type="button">Create an account</button></p>
+        ${PREVIEW ? `<p class="fine">Preview build: sign-in is simulated and nothing is sent.</p>` : ""}`;
+    } else if (s === "forgot") {
+      main = `<h1 class="eu-headline" id="onbTitle" tabindex="-1">Reset your <strong>password</strong></h1>
+        <p class="lead">Enter the email you signed up with. We send you a link to choose a new password.</p>
+        <form id="fForgot" novalidate>${field("aMail", "Email", "email", a.email, emailAttrs)}${ferr("form")}</form>`;
+      foot = `<button class="eu-btn eu-btn--brand eu-btn--block" type="submit" form="fForgot"${a.busy ? " disabled" : ""}>Email me a reset link</button>
+        <p class="auth-alt">Remembered it?<button class="textbtn textbtn--brand" data-onb="signin-email" type="button">Sign in</button></p>`;
+    } else if (s === "sent" || s === "confirm") {
+      const sent = s === "sent";
+      main = `<span class="auth-disc" aria-hidden="true">${icon("mail")}</span>
+        <h1 class="eu-headline" id="onbTitle" tabindex="-1">${sent ? "Check your <strong>inbox</strong>" : "Confirm your <strong>email</strong>"}</h1>
+        <p class="lead">${sent ? `If there is an account for <b>${esc(a.email)}</b>, we sent it a link to choose a new password. The link works once.`
+          : `We sent a link to <b>${esc(a.email)}</b>. Open it on this device to finish creating your account.`}</p>
+        ${PREVIEW ? note("Preview build", "No email is sent in the preview.") : note("Nothing yet?", "Look in spam or junk. Some organisations hold external email for a few minutes.")}`;
+      foot = `${sent ? "" : `<button class="eu-btn eu-btn--block" data-onb="resend-confirm" type="button">Send the link again</button>`}
+        <p class="auth-alt">${sent ? "Ready?" : "Confirmed it already?"}<button class="textbtn textbtn--brand" data-onb="signin-email" type="button">Sign in</button></p>`;
+    } else if (s === "newpw") {
+      main = `<h1 class="eu-headline" id="onbTitle" tabindex="-1">Choose a new <strong>password</strong></h1>
+        <p class="lead">For ${esc(a.email || "your account")}. You stay signed in on this device.</p>
+        <form id="fNew" novalidate>${pwField("new-password", true)}${ferr("form")}</form>`;
+      foot = `<button class="eu-btn eu-btn--brand eu-btn--block" type="submit" form="fNew"${a.busy ? " disabled" : ""}>Save password</button>`;
     } else if (s === "provider") {
       const pv = PROVIDERS[a.provider] || PROVIDERS.linkedin;
       const row = (key, label, val, attrs, lead) => `<label class="imp__row${key === "email" ? (okEmail(val) ? " has" : "") : val.trim() ? " has" : ""}">${lead}
@@ -3452,7 +3594,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     if (!left) clearInterval(resendTimer);
   }
   function syncPw() {
-    const inp = $("aPw"); if (!inp) return;
+    const inp = $("aPw"); if (!inp || !$("pwMeter")) return;
     const r = pwRules(inp.value);
     $("pwMeter").dataset.score = r.score;
     $("pwWord").textContent = PW_WORD[r.score];
@@ -3505,7 +3647,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       saveProfile();
       return signBack();
     }
-    goStep((method === "email" || method === "password") && !a.passkey ? "passkey" : 1);
+    goStep(1);
   }
   function signBack() {
     store.del(SIGNED_KEY); clearInterval(resendTimer);
@@ -3522,6 +3664,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
 
   function finishOnb(skipped) {
     const d = onb.d, a = onb.a || {}, prev = (!a.fresh && state.profile) || {};
+    const firstTime = !onb.edit && !prev.onboarded;
     if (a.fresh) { state.favs = new Set(); state.recent = []; state.follow = new Set(); [FAV_KEY, RECENT_KEY, DESK_KEY, FOLLOW_KEY].forEach((k) => store.del(k)); }
     state.profile = { ...prev, name: state.me.name ? (prev.name || "") : d.name.trim(), org: d.org.trim(), role: d.role,
       countries: [...d.countries], onboarded: true, v: 1,
@@ -3534,9 +3677,101 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     AREAS.forEach((x) => { delete x._d; });
     identityChanged();
     if (state.open === "me") openMe(true); else if (state.open && state.open.startsWith("area:")) openArea(state.open.slice(5)); else renderView();
+    if (firstTime && !state.profile.toured) { onb.d = null; setTimeout(startTour, 350); return; }
     toast(onb.edit ? "Profile updated" : skipped ? "Personalise any time from your profile" : "Your home is ready");
     onb.d = null;
   }
+
+  /* ---------- guided tour ----------
+     Runs once when a new account finishes setting up, and again on request from the profile. A spotlight walks through
+     Home: search, the institutions, Files, Latest news, the News tab and the profile. The page stays put underneath. */
+  const TOUR = [
+    { t: "Search everything", b: "Type a name, a file, a committee or a country. nodo looks across Parliament, Commission and Council at once.", el: () => document.querySelector("#vHome .eu-search"), r: 999 },
+    { t: "Three institutions and a calendar", b: "Every MEP, Commissioner, cabinet member and Council delegation, plus the Parliament's calendar and plenary agenda.", el: () => [...document.querySelectorAll("#homeTiles > button.eu-tile")], r: 24 },
+    { t: "Follow the files that matter", b: "Each priority file with its rapporteurs, shadows, Commissioners and Council timeline. Open one and tap Follow to put it first everywhere.", el: () => $("doorFiles"), r: 24 },
+    { t: "What is coming up", b: "Meetings and deadlines on the priority files in the next 14 days. The files you follow come first.", el: () => { const w = $("newsWrap"), h = w.querySelector(".nw-head"), r1 = w.querySelector(".eu-row"); return h && r1 ? [h, r1] : w; }, r: 20 },
+    { t: "All the news", b: "Recent procedure steps, people changes and dates further out, in one list.", el: () => $("navNews"), r: 999 },
+    { t: "Your profile", b: "Your saved people, the files you follow and the countries you cover. You can take this tour again from here.", el: () => $("meBtn"), r: 999 },
+  ];
+  const tour = { i: -1, from: null };
+  const tourRect = (el) => {
+    const rs = (Array.isArray(el) ? el : [el]).filter(Boolean).map((e) => e.getBoundingClientRect()).filter((r) => r.width || r.height);
+    if (!rs.length) return null;
+    const left = Math.min(...rs.map((r) => r.left)), top = Math.min(...rs.map((r) => r.top)), right = Math.max(...rs.map((r) => r.right)), bottom = Math.max(...rs.map((r) => r.bottom));
+    return { left, top, right, bottom, width: right - left, height: bottom - top };
+  };
+  function startTour() {
+    if (!$("onb").hidden || !state.profile) return;
+    closeSheet();
+    if (state.view !== "home" || state.open || state.hq) { if (state.hq) { state.hq = ""; $("hq").value = ""; } setView("home"); }
+    tour.from = document.activeElement; tour.i = 0;
+    document.documentElement.classList.add("touring");
+    $("tour").hidden = false; state.touring = true; syncLayers();
+    showTourStep();
+  }
+  function showTourStep() {
+    const st = TOUR[tour.i], el = st.el(), first = Array.isArray(el) ? el[0] : el;
+    $("tourStep").textContent = `${tour.i + 1} of ${TOUR.length}`;
+    $("tourDots").innerHTML = TOUR.map((_, k) => `<i${k === tour.i ? ' class="on"' : ""}></i>`).join("");
+    $("tourT").textContent = st.t; $("tourB").textContent = st.b;
+    $("tourBack").hidden = tour.i === 0;
+    $("tourNext").textContent = tour.i === TOUR.length - 1 ? "Done" : "Next";
+    /* Scroll so the stop and the card fit on screen together, the stop a little above the middle when there is room. */
+    if (first && !first.closest(".dock")) {
+      const r = tourRect(el), ch = $("tourCard").offsetHeight, room = r ? innerHeight - 24 - ch - 14 - 16 - r.height : 0;
+      if (r) scrollTo(0, Math.max(0, scrollY + r.top - (20 + (room > 0 ? Math.min(room * 0.35, 120) : 0))));
+    }
+    placeTour();
+    $("tourNext").focus({ preventScroll: true });
+  }
+  function placeTour() {
+    if (tour.i < 0) return;
+    const st = TOUR[tour.i], r = tourRect(st.el()), hole = $("tourHole"), card = $("tourCard"), pad = 8, gap = 14, edge = 12;
+    if (!r) { hole.hidden = true; card.style.top = Math.max(edge, (innerHeight - card.offsetHeight) / 2) + "px"; return; }
+    hole.hidden = false;
+    hole.style.left = r.left - pad + "px"; hole.style.top = r.top - pad + "px";
+    hole.style.width = r.width + pad * 2 + "px"; hole.style.height = r.height + pad * 2 + "px";
+    hole.style.borderRadius = st.r >= 999 ? "999px" : st.r + pad + "px";
+    const ch = card.offsetHeight, below = r.bottom + pad + gap, above = r.top - pad - gap - ch;
+    const top = below + ch <= innerHeight - edge ? below : above >= edge ? above : Math.max(edge, innerHeight - ch - edge);
+    card.style.top = top + "px";
+    /* On a short screen a tall stop cannot sit beside the card: the spotlight keeps to the part above the card. */
+    if (top > r.top && top < r.bottom + pad + gap) hole.style.height = Math.max(48, top - gap - (r.top - pad)) + "px";
+  }
+  function stepTour(d) {
+    const n = tour.i + d;
+    if (n < 0) return;
+    if (n >= TOUR.length) return endTour(true);
+    tour.i = n; showTourStep();
+  }
+  function endTour(done) {
+    if (tour.i < 0) return;
+    tour.i = -1; $("tour").hidden = true; document.documentElement.classList.remove("touring");
+    state.touring = false; syncLayers();
+    if (state.profile && !state.profile.toured) { state.profile.toured = true; saveProfile(); }
+    const back = tour.from && document.contains(tour.from) && !tour.from.closest("[inert]") ? tour.from : $("meBtn");
+    if (back && back.focus) back.focus({ preventScroll: true });
+    toast(done ? "You are all set. Find the tour again in your profile." : "Tour closed. Take it again from your profile.", 2600);
+  }
+  $("tour").addEventListener("click", (e) => {
+    const b = e.target.closest("[data-tour]"); if (!b) return;
+    const k = b.dataset.tour;
+    if (k === "next") stepTour(1); else if (k === "back") stepTour(-1); else if (k === "skip") endTour(false);
+  });
+  function tourKey(e) {
+    if (e.key === "Escape") { e.preventDefault(); endTour(false); }
+    else if (e.key === "ArrowRight" && !/input|textarea/i.test(e.target.tagName)) { e.preventDefault(); stepTour(1); }
+    else if (e.key === "ArrowLeft" && !/input|textarea/i.test(e.target.tagName)) { e.preventDefault(); stepTour(-1); }
+    else if (e.key === "Tab") {
+      const f = [...$("tourCard").querySelectorAll("button")].filter((x) => !x.hidden);
+      const i = f.indexOf(document.activeElement);
+      if (e.shiftKey && i <= 0) { e.preventDefault(); f[f.length - 1].focus(); }
+      else if (!e.shiftKey && i === f.length - 1) { e.preventDefault(); f[0].focus(); }
+      else if (i < 0) { e.preventDefault(); f[0].focus(); }
+    }
+  }
+  addEventListener("resize", placeTour);
+  if ("ResizeObserver" in window) new ResizeObserver(() => placeTour()).observe($("vHome"));
   $("onb").addEventListener("input", (e) => {
     const t = e.target, ds = t.dataset || {};
     if (!onb.d) return;
@@ -3573,9 +3808,27 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       if (!okEmail(a.email)) err.email = mailErr;
       if (r.score < 3) err.pw = !pw ? "Choose a password" : !r.rare ? "This password is too easy to guess" : "Use 12 characters or more";
       if (!a.terms) err.terms = "Tick the box to continue";
-      if (!Object.keys(err).length) { $("aPw").value = ""; a.email = a.email.trim(); return authDone("password"); }
+      if (!Object.keys(err).length) { a.email = a.email.trim(); if (LIVE) return liveSignUp(pw); $("aPw").value = ""; return authDone("password"); }
       a.err = err; renderOnb(false);
       $("aPw").value = pw; syncPw();
+      const bad = $("onb").querySelector('[aria-invalid="true"]'); if (bad) bad.focus();
+      return;
+    } else if (id === "fIn") {
+      const pw = $("aPw").value;
+      if (!okEmail(a.email)) err.email = mailErr;
+      if (!pw) err.pw = "Enter your password";
+      if (!Object.keys(err).length) { a.email = a.email.trim(); if (LIVE) return liveSignIn(pw); $("aPw").value = ""; return authDone("password"); }
+      a.err = err; renderOnb(false); $("aPw").value = pw;
+      const bad = $("onb").querySelector('[aria-invalid="true"]'); if (bad) bad.focus();
+      return;
+    } else if (id === "fForgot") {
+      if (!okEmail(a.email)) err.email = mailErr;
+      if (!Object.keys(err).length) { a.email = a.email.trim(); if (LIVE) return liveReset(); return goStep("sent"); }
+    } else if (id === "fNew") {
+      const pw = $("aPw").value, r = pwRules(pw);
+      if (r.score < 3) err.pw = !pw ? "Choose a password" : !r.rare ? "This password is too easy to guess" : "Use 12 characters or more";
+      if (!Object.keys(err).length) return liveNewPassword(pw);
+      a.err = err; renderOnb(false); $("aPw").value = pw; syncPw();
       const bad = $("onb").querySelector('[aria-invalid="true"]'); if (bad) bad.focus();
       return;
     } else if (id === "fProv") {
@@ -3603,9 +3856,12 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       else if (k === "back" && LIVE && acct.user && s === 1) return;
       else if (k === "data") { if (s !== "data") onb.from = s; if (s === "password" && $("aPw")) onb.a.terms = $("aTerms").checked; goStep("data"); }
       else if (k === "back" && s === "data") goStep(onb.from == null ? 0 : onb.from);
-      else if (k === "back") goStep(s === "inbox" || s === "password" ? "email" : typeof s === "string" ? 0 : Math.max(0, s - 1));
+      else if (k === "back") goStep(s === "forgot" || s === "sent" ? "signin" : typeof s === "string" ? 0 : Math.max(0, s - 1));
       else if (k === "home") goStep(0);
-      else if (k === "email" || k === "password") goStep(k);
+      else if (k === "email" || k === "password") goStep("password");
+      else if (k === "signin-email") goStep("signin");
+      else if (k === "forgot") goStep("forgot");
+      else if (k === "resend-confirm") { if (LIVE) liveResend(); else toast("Preview build: no email is sent", 2400); }
       else if (k === "claude") authDone("claude");
       else if (k === "passkey-in") { const p = state.profile; if (p && p.passkey && !a.fresh) signBack(); else toast("No passkey on this device yet", 2400); }
       else if (k === "mailapp") toast(PREVIEW ? "Preview build: no email was sent" : "Open the email on this device", 2400);
@@ -3772,6 +4028,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     if (t.closest("[data-avclear]")) { setAvatar(""); delete state.profile.photo; saveProfile(); return closeSheet(); }
     const ed = t.closest("[data-edit]"); if (ed) { const n = Number(ed.dataset.edit); return openOnb(n, n > 0); }
     const ar = t.closest("[data-area]"); if (ar) return openArea(ar.dataset.area);
+    if (t.closest("[data-tour-start]")) { setView("home"); return setTimeout(startTour, 250); }
     const vw = t.closest("[data-view]"); if (vw) return setView(vw.dataset.view);
     const dr = t.closest("[data-dir]"); if (dr) return setView(dr.dataset.dir);
     const ct = t.closest("[data-cotab]"); if (ct) { state.co.tab = ct.dataset.cotab; return renderCo(); }
@@ -3806,6 +4063,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const op = t.closest("[data-open]"); if (op) return openKey(op.dataset.open);
   }
   document.addEventListener("keydown", (e) => {
+    if (tour.i >= 0) return tourKey(e);
     if (e.key === "Escape") { if (!$("onb").hidden && onb.edit) { $("onb").hidden = true; onb.d = null; } else if (state.sheet) closeSheet(); else if (state.open) goBack(); }
   });
   $("scrim").addEventListener("click", closeSheet);
@@ -3846,7 +4104,9 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   if (LIVE) { try { await Promise.race([SB.start(), new Promise((r) => setTimeout(r, 4000))]); } catch { /* stay local */ } }
   /* The sign-in library may have cleaned the address after a redirect: put the first history entry back under nodo's name. */
   if (nav.hist && nav.cur === 0) try { history.replaceState({ nodo: 0, s: NAV_ID }, ""); } catch { /* ignore */ }
-  if (!state.profile && !acct.user) openOnb(0, false); else if (store.get(SIGNED_KEY)) openOnb("back", false);
+  /* Sign-in is required. Live: a Supabase session. Preview: the simulated sign-in recorded on the profile. */
+  const signedIn = LIVE ? !!acct.user : !!(state.profile && state.profile.method);
+  if (!signedIn) openOnb(0, false); else if (store.get(SIGNED_KEY)) openOnb("back", false);
   Store.connect();
   } finally { boot.hidden = true; }
 })();
