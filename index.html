@@ -448,6 +448,24 @@ details.office > .list { margin-top: var(--space-2); }
 .bar .tr i { display: block; height: 100%; border-radius: var(--radius-pill); background: var(--gc); }
 .bar .n { font-size: 13px; line-height: 16px; font-weight: 600; text-align: right; font-variant-numeric: tabular-nums; }
 
+/* Files door: the fifth Home tile, full width, a way into each priority file */
+.ftile { grid-column: 1 / -1; min-height: 0; gap: var(--space-4); cursor: default; }
+.ftile:active { transform: none; }
+.ftile__head { display: flex; align-items: center; gap: var(--space-3); width: 100%; min-height: 44px; padding: 0; border: 0; border-radius: var(--radius-md); background: none; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+.ftile__tx { flex: 1; min-width: 0; }
+.ftile__go { display: grid; place-items: center; width: 36px; height: 36px; flex: none; border-radius: var(--radius-pill); background: var(--surface); }
+.ftile__go .eu-icon { width: 18px; height: 18px; }
+.ftile__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-3) var(--space-2); }
+.ftile__f { display: flex; flex-direction: column; align-items: center; gap: 6px; min-width: 0; min-height: 44px; padding: 0; border: 0; border-radius: var(--radius-sm); background: none; color: var(--ink); font: 600 12px/16px var(--font-sans); cursor: pointer; }
+.ftile__ic { position: relative; display: grid; place-items: center; width: 52px; height: 52px; border-radius: 16px; background: var(--surface); transition: transform .15s ease-out; }
+.ftile__f:active .ftile__ic { transform: scale(.94); }
+.ftile__f--all .ftile__ic { background: none; box-shadow: inset 0 0 0 1.5px var(--border-control); }
+.ftile__star { position: absolute; top: -5px; right: -5px; display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: var(--accent-rose); color: var(--surface); box-shadow: 0 0 0 2px var(--tint-rose); }
+.ftile__star .eu-icon { width: 12px; height: 12px; fill: currentColor; stroke-width: 1.5; }
+.ftile__n { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ftile__head:focus-visible, .ftile__f:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+@media (max-width: 340px) { .ftile__ic { width: 48px; height: 48px; } .ftile__grid { gap: var(--space-3) var(--space-1); } }
+
 /* Latest news: the home section that changes every day, set apart as one labelled panel under the tiles. */
 .nw { margin-top: var(--space-6); padding: var(--space-4); border-radius: var(--radius-lg); background: var(--surface-sunken); }
 .nw-head { display: flex; align-items: flex-start; gap: var(--space-3); }
@@ -458,6 +476,7 @@ details.office > .list { margin-top: var(--space-2); }
 .nw-upd { flex: none; margin-top: 6px; font-size: 12px; line-height: 16px; font-weight: 500; color: var(--ink-muted); white-space: nowrap; }
 .nw-grp { margin: var(--space-5) var(--space-1) 0; font-size: 13px; line-height: 16px; font-weight: 600; color: var(--ink-muted); }
 .nw-grp + .list { margin-top: var(--space-2); }
+.nw-head + .list { margin-top: var(--space-4); }
 .nw-note { margin: var(--space-4) var(--space-1) 0; font-size: 13px; line-height: 18px; color: var(--ink-muted); }
 .nw .eu-row--sunken { background: var(--surface); }
 .nw-date { display: grid; place-content: center; justify-items: center; width: 48px; height: 52px; flex: none; border-radius: var(--radius-sm); background: var(--surface-sunken); font-variant-numeric: tabular-nums; }
@@ -922,7 +941,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
 .sel { padding-right: 48px; background: var(--surface) var(--chev) no-repeat right 18px center / 20px 20px; }
 
 /* Home: tiles follow the search; every tile carries two short meta lines so both rows match. */
-#homeTiles { margin-top: var(--space-5); grid-auto-rows: 1fr; }
+#homeTiles { margin-top: var(--space-5); grid-template-rows: repeat(2, 1fr); grid-auto-rows: auto; }
 .eu-tile__meta > span { display: block; }
 @media (max-width: 343px) { .eu-tile__label { font-size: 18px; line-height: 22px; } }
 
@@ -981,11 +1000,11 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       <button class="eu-tile eu-tile--apricot" id="doorEc" type="button"><span class="eu-tile__disc"><svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h16M6 20V9l6-4 6 4v11M10 20v-5h4v5"/></svg></span><span><span class="eu-tile__label">Commission</span><span class="eu-tile__meta" id="metaEc">College and cabinets</span></span></button>
       <button class="eu-tile eu-tile--mint" id="doorCo" type="button"><span class="eu-tile__disc"><svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 21V4M6 5h11l-2 3.5 2 3.5H6"/></svg></span><span><span class="eu-tile__label">Council</span><span class="eu-tile__meta" id="metaCo">27 delegations</span></span></button>
       <button class="eu-tile eu-tile--butter" data-view="cal" type="button"><span class="eu-tile__disc"><svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5.5" width="16" height="14.5" rx="3"/><path d="M4 10h16M8.500 3.500v4M15.500 3.500v4"/></svg></span><span><span class="eu-tile__label">Calendar</span><span class="eu-tile__meta" id="metaCal">Plenary and committee weeks</span></span></button>
+      <section class="eu-tile eu-tile--rose ftile" id="doorFiles" aria-labelledby="ftH"></section>
   </div>
   <div id="homeResults" hidden></div>
   <div id="homeBody">
     <section id="newsWrap" class="nw" aria-labelledby="newsH"></section>
-    <div id="filesWrap"></div>
     <div id="homeCal"></div>
     <h3>Saved <button class="more" id="seeSaved" type="button">See all</button></h3>
     <div id="savedStrip"></div>
@@ -1083,6 +1102,13 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   <div id="filesBody"></div>
 </main>
 
+<!-- NEWS -->
+<main id="vNews" class="view" hidden>
+  <h1 class="eu-headline">The latest <strong>news</strong></h1>
+  <p id="newsCount" class="cap count"></p>
+  <div id="newsBody"></div>
+</main>
+
 <section id="profile" class="profile" hidden role="dialog" aria-labelledby="pName"><div class="col" id="profileBody"></div></section>
 <div id="scrim" class="scrim" hidden></div>
 <section id="sheet" class="sheet" hidden role="dialog" aria-modal="true" aria-labelledby="sName"></section>
@@ -1093,7 +1119,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   <button class="eu-tabbar__item" id="navDir" type="button"><svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 19c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><circle cx="17" cy="9" r="2.4"/><path d="M17.5 13.8c2 .4 3.5 2 3.5 4.2"/></svg>Directory</button>
   <button class="eu-tabbar__item" id="navCal" type="button"><svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5.5" width="16" height="14.5" rx="3"/><path d="M4 10h16M8.500 3.500v4M15.500 3.500v4"/></svg>Calendar</button>
   <button class="eu-tabbar__item" id="navFiles" type="button"><svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3.5h7.5L18 7v13.5H7zM14.5 3.5V7H18M10 12.5h5M10 16h5"/></svg>Files</button>
-  <button class="eu-tabbar__item" id="navSaved" type="button"><svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3.500 2.600 5.400 5.900.8-4.300 4.100 1 5.900L12 16.900l-5.200 2.800 1-5.900L3.500 9.700l5.900-.8z"/></svg>Saved</button>
+  <button class="eu-tabbar__item" id="navNews" type="button"><svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5.5h11v13H7.5A2.500 2.500 0 0 1 5 16z"/><path d="M16 9h3v7.500a2 2 0 0 1-2 2h-1M8 9h5M8 12.500h5M8 16h3"/></svg>News</button>
 </nav></div>
 <div id="toast" class="eu-badge toast" role="status" hidden></div>
 
@@ -1189,6 +1215,13 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     dot: '<circle cx="12" cy="12" r="7.5"/>',
     plus: '<path d="M12 5v14M5 12h14"/>', out: '<path d="M10 4.5H6.500a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2H10M15 8l4 4-4 4M19 12H9.500"/>',
     news: '<path d="M5 5.5h11v13H7.5A2.500 2.500 0 0 1 5 16z"/><path d="M16 9h3v7.500a2 2 0 0 1-2 2h-1M8 9h5M8 12.500h5M8 16h3"/>',
+    euro: '<circle cx="12" cy="12" r="8.5"/><path d="M15.2 9a3.8 3.8 0 1 0 0 6M7.5 10.8h5.5M7.5 13.2h5.5"/>',
+    data: '<ellipse cx="12" cy="6.5" rx="7" ry="2.8"/><path d="M5 6.5v11c0 1.5 3.1 2.8 7 2.8s7-1.3 7-2.8v-11M5 12c0 1.5 3.1 2.8 7 2.8s7-1.3 7-2.8"/>',
+    factory: '<path d="M3.5 20h17M4.5 20v-8.5l5 3v-3l5 3V4.5h4.5V20M11 17h1.5M15 17h1.5"/>',
+    antenna: '<circle cx="12" cy="9.5" r="1.8"/><path d="M12 11.5v9M9 20.5h6M8.6 6.1a4.8 4.8 0 0 0 0 6.8M15.4 6.1a4.8 4.8 0 0 1 0 6.8M6 3.5a8.5 8.5 0 0 0 0 12M18 3.5a8.5 8.5 0 0 1 0 12"/>',
+    scale: '<path d="M12 4v16M8 20h8M5 7.5h14M12 4.5l-7 3M12 4.5l7 3M5 7.5 2.8 13a2.3 2.3 0 0 0 4.4 0zM19 7.5 16.8 13a2.3 2.3 0 0 0 4.4 0z"/>',
+    chip: '<rect x="7" y="7" width="10" height="10" rx="2"/><path d="M10 3.5V7M14 3.5V7M10 17v3.5M14 17v3.5M3.5 10H7M3.5 14H7M17 10h3.5M17 14h3.5"/>',
+    spark: '<path d="M10.5 3.5 12.3 9l5.2 1.8-5.2 1.8-1.8 5.4-1.8-5.4L3.5 10.8 8.7 9zM17.5 14.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/>',
     copy: '<rect x="8.5" y="8.5" width="11" height="11" rx="2.5"/><path d="M15.5 8.5v-2a2 2 0 0 0-2-2h-7a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h2"/>',
   };
   const icon = (n) => `<svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true">${IC[n]}</svg>`;
@@ -1486,7 +1519,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   }
 
   /* ---------- views ---------- */
-  const VIEW_IDS = { home: "vHome", ep: "vEp", ec: "vEc", co: "vCo", cal: "vCal", agenda: "vAgenda", saved: "vSaved", files: "vFiles" };
+  const VIEW_IDS = { home: "vHome", ep: "vEp", ec: "vEc", co: "vCo", cal: "vCal", agenda: "vAgenda", saved: "vSaved", files: "vFiles", news: "vNews" };
   function showView(v) {
     state.view = v;
     if (v === "ep" || v === "ec" || v === "co") state.dir = v;
@@ -1502,7 +1535,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   function syncDock() {
     const cur = state.view;
     const set = (id, on) => { if (on) $(id).setAttribute("aria-current", "page"); else $(id).removeAttribute("aria-current"); };
-    set("navHome", cur === "home"); set("navDir", cur === "ep" || cur === "ec" || cur === "co"); set("navCal", cur === "cal" || cur === "agenda"); set("navSaved", cur === "saved"); set("navFiles", cur === "files");
+    set("navHome", cur === "home"); set("navDir", cur === "ep" || cur === "ec" || cur === "co"); set("navCal", cur === "cal" || cur === "agenda"); set("navNews", cur === "news"); set("navFiles", cur === "files");
     document.querySelectorAll(".dirhost").forEach((h) => { h.innerHTML = `<div class="chips" role="group" aria-label="Institution">${[["ep", "Parliament"], ["ec", "Commission"], ["co", "Council"]].map(([k, n]) => `<button class="eu-chip" type="button" data-dir="${k}" aria-pressed="${state.view === k}">${n}</button>`).join("")}</div>`; });
   }
   function renderView() {
@@ -1511,6 +1544,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     if (state.view === "ec") renderEc();
     if (state.view === "saved") renderSaved();
     if (state.view === "files") renderFilesView();
+    if (state.view === "news") renderNewsView();
     if (state.view === "cal") renderCal();
     if (state.view === "agenda") renderAgenda();
     if (state.view === "co") renderCo();
@@ -1582,19 +1616,26 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   const followBtn = (id, name) => `<button class="eu-iconbtn eu-iconbtn--sm star" type="button" data-follow="${esc(id)}" aria-pressed="${state.follow.has(id)}" aria-label="Follow ${esc(name)}">${icon("star")}</button>`;
   const nextStep = (f) => { const n = f.next || []; return n.find((x) => x.date) || n[0] || null; };
   const nextLine = (f) => { const n = nextStep(f); if (n) return (n.date ? fdDate(n.date) + " · " : "") + n.what; const c = countsOf(f); return `${c.ep} MEPs · ${c.ec} Commissioners · ${c.cab} cabinet`; };
-  const homeFile = (f) => row({ attrs: tap(`data-file="${esc(f.id)}"`), lead: disc("file"), name: esc(f.short), meta: esc(nextLine(f)), wrap: true,
+  const homeFile = (f) => row({ attrs: tap(`data-file="${esc(f.id)}"`), lead: disc(fileIc(f)), name: esc(f.short), meta: esc(nextLine(f)), wrap: true,
     extra: `<span class="eu-row__tags">${stagePill(f.stage)}</span>`, tail: followBtn(f.id, f.short) });
+  /* The Files door on Home: one wide tile, a way into each priority file, followed files marked with a star.
+     Each file keeps its place so the grid stays the same from day to day. */
+  const FILE_TAG = { "mff-2028-2034": "MFF", "digital-omnibus-data": "Omnibus", "industrial-accelerator-act": "IAA", "digital-networks-act": "DNA", "digital-fairness-act": "DFA", "tech-sovereignty-package": "Chips", "ai-act-implementation": "AI Act" };
+  const FILE_IC = { "mff-2028-2034": "euro", "digital-omnibus-data": "data", "industrial-accelerator-act": "factory", "digital-networks-act": "antenna", "digital-fairness-act": "scale", "tech-sovereignty-package": "chip", "ai-act-implementation": "spark" };
+  const fileTag = (f) => f.tag || FILE_TAG[f.id] || String(f.short).split(/[\s(]/)[0];
+  const fileIc = (f) => (IC[f.icon] ? f.icon : IC[FILE_IC[f.id]] ? FILE_IC[f.id] : f.kind === "budget" ? "euro" : "file");
   function renderFiles() {
-    const wrap = $("filesWrap");
-    if (!FILES.length) { wrap.innerHTML = ""; return; }
-    const fol = FILES.filter((f) => state.follow.has(f.id));
-    const when = (f) => { const n = nextStep(f); return n && n.date ? n.date : "9999"; };
-    const others = FILES.filter((f) => !state.follow.has(f.id)).map((f, i) => ({ f, i })).sort((a, b) => when(a.f).localeCompare(when(b.f)) || a.i - b.i).map((x) => x.f)
-      .slice(0, Math.max(2, 4 - fol.length));
-    wrap.innerHTML = `<h3>Files that matter <button class="more" data-view="files" type="button">See all ${FILES.length}</button></h3>
-      ${fol.length ? `<p class="cap lead-cap">Following ${fol.length}</p><div class="list">${fol.map(homeFile).join("")}</div>` : ""}
-      ${others.length ? `${fol.length ? `<p class="cap lead-cap">Also moving</p>` : ""}<div class="list">${others.map(homeFile).join("")}</div>` : ""}
-      ${fol.length ? "" : `<p class="note">Tap the star to follow a file. Followed files move to the top of your home.</p>`}`;
+    const w = $("doorFiles"); if (!w) return;
+    const fol = FILES.filter((f) => state.follow.has(f.id)).length;
+    const cell = (f) => {
+      const on = state.follow.has(f.id), t = fileTag(f), lab = f.short.includes(t) ? f.short : `${t}, ${f.short}`;
+      return `<button class="ftile__f" type="button" data-file="${esc(f.id)}" aria-label="${esc(lab + (on ? ", following" : ""))}" title="${esc(f.short)}">
+        <span class="ftile__ic">${icon(fileIc(f))}${on ? `<span class="ftile__star">${icon("star")}</span>` : ""}</span><span class="ftile__n">${esc(t)}</span></button>`;
+    };
+    w.innerHTML = `<button class="ftile__head" type="button" data-view="files"><span class="eu-tile__disc">${icon("file")}</span>
+      <span class="ftile__tx"><span class="eu-tile__label" id="ftH">Files</span><span class="eu-tile__meta">${FILES.length ? `${FILES.length} priority files${fol ? ` · ${fol} followed` : ""}` : "The files list could not load"}</span></span>
+      <span class="ftile__go">${icon("arrow")}</span></button>
+      ${FILES.length ? `<div class="ftile__grid">${FILES.map(cell).join("")}<button class="ftile__f ftile__f--all" type="button" data-view="files"><span class="ftile__ic">${icon("arrow")}</span><span class="ftile__n">All files</span></button></div>` : ""}`;
   }
   function toggleFollow(id, undo) {
     const f = FILE_BY[id]; if (!f) return;
@@ -1608,6 +1649,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     });
     renderNews(); renderFiles(); renderSpot(); renderCoDoor();
     if (state.view === "files") renderFilesView();
+    if (state.view === "news") renderNewsView();
   }
   function renderDesk() {
     const c = $("deskCountry").value;
@@ -2379,37 +2421,39 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       name: `<span class="nw-kind nw-kind--${cls}">${label}</span><span class="nw-t">${title}</span>`,
       meta: esc([f.short, e.group, when, state.follow.has(f.id) ? "Following" : ""].filter(Boolean).join(" · ")) });
   }
+  const newsUpd = () => (UPD.at ? fmtD(new Date(UPD.at), { day: "numeric", month: "short" }) : "");
   function renderNews() {
     const w = $("newsWrap"); if (!w) return;
-    const n = newsItems(), fol = followedFiles().length;
-    const upd = UPD.at ? `<span class="nw-upd">Updated ${esc(fmtD(new Date(UPD.at), { day: "numeric", month: "short" }))}</span>` : "";
+    const fol = followedFiles().length;
+    const upd = newsUpd() ? `<span class="nw-upd">Updated ${esc(newsUpd())}</span>` : "";
     const head = `<div class="nw-head"><span class="nw-ic" aria-hidden="true">${icon("news")}</span><div class="nw-hx"><h2 id="newsH">Latest news</h2>
-      <p>${fol ? "Your files first, then the other priority files." : `On the ${FILES.length} priority files. Star a file to see its news first.`}</p></div>${upd}</div>`;
+      <p>Coming up in the next ${NEWS_AHEAD} days${fol ? ", your files first" : ` on the ${FILES.length} priority files`}.</p></div>${upd}</div>`;
     if (UPD.status !== "done") { w.innerHTML = head + (UPD.status === "failed" ? `<p class="nw-note">The news could not load. Check your connection and open nodo again.</p>` : `<p class="nw-note">Loading the latest news…</p>`); return; }
-    const soon = n.soon.slice(0, NEWS_HOME), recent = n.recent.slice(0, NEWS_HOME);
-    const total = n.soon.length + n.recent.length + n.later.length, shown = soon.length + recent.length;
+    const n = newsItems(), soon = n.soon.slice(0, NEWS_HOME), more = n.soon.length - soon.length;
+    const rest = [more ? `${more} more coming up` : "", n.recent.length ? `${n.recent.length} recent` : "", n.later.length ? `${n.later.length} later` : ""].filter(Boolean).join(" · ");
     w.innerHTML = head
-      + (soon.length ? `<p class="nw-grp">Coming up · next ${NEWS_AHEAD} days</p><div class="list">${soon.map(newsRow).join("")}</div>` : "")
-      + (recent.length ? `<p class="nw-grp">Recent · last 90 days</p><div class="list">${recent.map(newsRow).join("")}</div>` : "")
-      + (!shown ? `<p class="nw-note">No news on the priority files in the last 90 days or the next ${NEWS_AHEAD}.</p>` : "")
-      + (total > shown ? `<button class="eu-btn eu-btn--block nw-all" type="button" data-news>See all news<small>${total} ${total === 1 ? "item" : "items"}</small></button>` : "");
+      + (soon.length ? `<div class="list">${soon.map(newsRow).join("")}</div>` : `<p class="nw-note">Nothing scheduled on the priority files in the next ${NEWS_AHEAD} days.</p>`)
+      + `<button class="eu-btn eu-btn--block nw-all" type="button" data-view="news">All news${rest ? `<small>${esc(rest)}</small>` : ""}</button>`;
   }
-  function openNews() {
-    state.open = "news";
-    const n = newsItems(), grp = (h, sub, xs) => (xs.length ? `<h3>${h} <small>${sub}</small></h3><div class="list">${xs.map(newsRow).join("")}</div>` : "");
-    showProfile(`
-      <div class="tb">${backBtn}${icon("back")}</button></div>
-      <div class="hero"><p class="cap">The ${FILES.length} priority files</p><h2 class="eu-headline" id="pName">Latest <strong>news</strong></h2>
-        <p class="bio">${state.follow.size ? "Files you follow come first in each group." : "Star a file to bring its news to the top."}</p></div>
+  function renderNewsView() {
+    const b = $("newsBody"); if (!b) return;
+    if (UPD.status !== "done") {
+      $("newsCount").textContent = "";
+      b.innerHTML = `<div class="hint"><span>${UPD.status === "failed" ? "The news could not load. Check your connection and open nodo again." : "Loading the latest news…"}</span></div>`; return;
+    }
+    const n = newsItems(), total = n.soon.length + n.recent.length + n.later.length;
+    const grp = (h, sub, xs) => (xs.length ? `<h3>${h} <small>${sub}</small></h3><div class="list">${xs.map(newsRow).join("")}</div>` : "");
+    $("newsCount").textContent = `${total} ${total === 1 ? "item" : "items"} on the ${FILES.length} priority files${newsUpd() ? ` · updated ${newsUpd()}` : ""}`;
+    b.innerHTML = `<p class="cap lead-cap">${state.follow.size ? "Files you follow come first in each group." : "Star a file to bring its news to the top."}</p>
       ${grp("Coming up", `next ${NEWS_AHEAD} days`, n.soon)}
       ${grp("Recent", "last 90 days", n.recent)}
       ${grp("Later", `after ${esc(fmtD(addD(new Date(), NEWS_AHEAD), { day: "numeric", month: "short" }))}`, n.later)}
-      ${n.soon.length + n.recent.length + n.later.length ? "" : `<div class="hint"><span>No news on the priority files yet.</span></div>`}
-      <p class="foot">Built daily from the Parliament's open data, the Council calendar and nodo's own file data. Procedure steps appear up to a day after they happen. Tap an item to open the file's timeline.</p>`);
+      ${total ? "" : `<div class="hint"><span>No news on the priority files yet.</span></div>`}
+      <p class="foot">Built daily from the Parliament's open data, the Council calendar and nodo's own file data. Procedure steps appear up to a day after they happen. Tap an item to open the file's timeline.</p>`;
   }
   Promise.all(["updates/updates", "updates/timelines"].map((n) => fetchJson(DATA_BASE + n + ".json").catch(() => fetchJson("data/" + n + ".json"))))
-    .then(([u, t]) => { UPD.feed = u.events || []; UPD.tl = t || {}; UPD.at = u.generatedAt || ""; UPD.status = "done"; renderFiles(); renderNews(); const f = curFile(); if (f) openFile(f.id, true); else if (state.open === "news") openNews(); })
-    .catch(() => { UPD.status = "failed"; renderNews(); });
+    .then(([u, t]) => { UPD.feed = u.events || []; UPD.tl = t || {}; UPD.at = u.generatedAt || ""; UPD.status = "done"; renderFiles(); renderNews(); if (state.view === "news") renderNewsView(); const f = curFile(); if (f) openFile(f.id, true); })
+    .catch(() => { UPD.status = "failed"; renderNews(); if (state.view === "news") renderNewsView(); });
 
   function renderFilesView() {
     $("filesCount").textContent = FILES.length ? `${FILES.length} files` : "";
@@ -2417,7 +2461,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const asOf = DATA.fl && DATA.fl.asOf ? ` Data as of ${fdDate(DATA.fl.asOf, true)}.` : "";
     $("filesBody").innerHTML = `<div class="list">${FILES.map((f) => {
       const c = countsOf(f), mine = !!state.lists[f.id];
-      return row({ el: "button", attrs: `type="button" data-file="${esc(f.id)}"`, lead: disc("file"), name: esc(f.short), meta: `${c.ep} MEPs · ${c.ec} Commissioners · ${c.cab} cabinet`, wrap: true,
+      return row({ el: "button", attrs: `type="button" data-file="${esc(f.id)}"`, lead: disc(fileIc(f)), name: esc(f.short), meta: `${c.ep} MEPs · ${c.ec} Commissioners · ${c.cab} cabinet`, wrap: true,
         extra: `<span class="eu-row__tags">${stagePill(f.stage)}${state.follow.has(f.id) ? tag("Following") : ""}${mine ? tag("Your edits") : ""}</span>`, tail: go });
     }).join("")}</div>
     <p class="foot">Names marked Verified come from the Parliament's open data. Names marked From press are taken from published reporting and need a check in the Parliament's procedure file before external use.${asOf}</p>`;
@@ -2622,7 +2666,6 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   }
   function openRoute(key) {
     if (key === "me") return openMe();
-    if (key === "news") return openNews();
     const i = key.indexOf(":"), t = key.slice(0, i), id = key.slice(i + 1);
     if (t === "ep" || t === "ec") { const e = BYKEY.get(key); if (e) (t === "ep" ? openMep : openCom)(e.o); return; }
     if (t === "file") return openFile(id, true);
@@ -3013,6 +3056,8 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
         <div class="eu-row__tags"><span class="eu-group tag">${syncTag()}</span></div>
       </div>
       <div class="stats"><div><b>${favN}</b><span>Saved</span></div><div><b>${fol.length}</b><span>Following</span></div><div><b>${cs.length}</b><span>${pl(cs.length, "Country", "Countries")}</span></div></div>
+      <h3>Saved people</h3>
+      <div class="list">${row({ el: "button", attrs: `type="button" data-view="saved"`, lead: disc("star"), name: favN ? `${favN} saved ${favN === 1 ? "person" : "people"}` : "Nobody saved yet", meta: "MEPs, Commissioners and cabinet staff", wrap: true, tail: go })}</div>
       <h3>Files you follow ${fol.length ? `<small>${fol.length}</small>` : ""}</h3>
       ${fol.length ? `<div class="chips wrap">${fol.map((f) => `<button class="eu-chip" data-file="${esc(f.id)}" type="button">${esc(f.short)}</button>`).join("")}</div>`
         : `<div class="hint"><span>No files followed yet. Tap the star on a file and it moves to the top of your home.</span></div>`}
@@ -3033,8 +3078,6 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       </div>
       <div class="acts">${p.method ? `${p.passkey ? "" : `<button class="eu-btn" id="pkBtn" type="button">Add a passkey</button>`}<button class="eu-btn" id="outBtn" type="button">Sign out</button>`
         : `<button class="eu-btn eu-btn--brand" id="inBtn" type="button">Sign in or create an account</button>`}</div>`}
-      <h3>Saved people</h3>
-      <div class="list">${row({ el: "button", attrs: `type="button" data-view="saved"`, lead: disc("star"), name: favN ? `${favN} saved ${favN === 1 ? "person" : "people"}` : "Nobody saved yet", meta: "MEPs, Commissioners and cabinet staff", wrap: true, tail: go })}</div>
       <h3>Your data</h3>
       <p class="cap lead-cap">${acct.user ? "Your profile, saved people and file lists are stored with your nodo account and follow you to every device. Only you can read them." : cloud ? "Your profile and saved people are stored with your Claude account and follow you to other devices. Only you can see them." : "Your profile, saved people and file lists are stored in this browser only. Nobody else can see them."}</p>
       <div class="acts"><button class="eu-btn" id="expBtn" type="button">Export my data</button><button class="eu-btn" id="dataBtn" type="button">What nodo stores</button></div>
@@ -3693,7 +3736,6 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     }
     if (t.closest("[data-freset-no]")) { const f = curFile(); return f && openFile(f.id, true); }
     if (t.closest("[data-freset-yes]")) { const f = curFile(); if (!f) return; delete state.lists[f.id]; saveLists(); toast("List reset to default"); return openFile(f.id, true); }
-    if (t.closest("[data-news]")) return openNews();
     const fl = t.closest("[data-file]"); if (fl) return openFile(fl.dataset.file, false, fl.dataset.filetab);
     const cp = t.closest("[data-copy]"); if (cp) return copy(cp.dataset.copy, cp.dataset.what || "Text");
     if (t.closest("[data-fd-more]")) {
@@ -3775,7 +3817,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   $("navHome").addEventListener("click", () => { if (state.view === "home" && !state.open) { state.hq = ""; $("hq").value = ""; } setView("home"); });
   $("navDir").addEventListener("click", () => setView(state.dir || "ep"));
   $("doorCo").addEventListener("click", () => { state.co.tab = "presidency"; setView("co"); });
-  $("navSaved").addEventListener("click", () => setView("saved"));
+  $("navNews").addEventListener("click", () => setView("news"));
   $("navFiles").addEventListener("click", () => setView("files"));
   $("navCal").addEventListener("click", () => setView("cal"));
 
@@ -3783,7 +3825,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   new MutationObserver(syncLayers).observe($("onb"), { attributes: true, attributeFilter: ["hidden"] });
   initHome(); initEp(); initEc();
   let startView = "home";
-  try { const h = (location.hash || "").slice(1); startView = { parliament: "ep", commission: "ec", council: "co", calendar: "cal", agenda: "agenda", saved: "saved", files: "files" }[h] || "home"; } catch { /* ignore */ }
+  try { const h = (location.hash || "").slice(1); startView = { parliament: "ep", commission: "ec", council: "co", calendar: "cal", agenda: "agenda", saved: "saved", files: "files", news: "news" }[h] || "home"; } catch { /* ignore */ }
   setView(startView);
   if (nav.hist) try { history.replaceState({ nodo: 0, s: NAV_ID }, ""); } catch { nav.hist = false; }
   if (LIVE) { try { await Promise.race([SB.start(), new Promise((r) => setTimeout(r, 4000))]); } catch { /* stay local */ } }
