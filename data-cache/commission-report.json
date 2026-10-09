@@ -1,5 +1,5 @@
 {
- "run": "2026-10-09T11:30:33.275Z",
+ "run": "2026-10-05T08:02:59.627Z",
  "college": {
   "found": 26,
   "added": [],
@@ -33,9 +33,11 @@
   "kaja-kallas": {
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/kaja-kallas/kaja-kallass-team_en",
    "parsed": 21,
-   "existing": 21,
+   "existing": 22,
    "added": [],
-   "removed": []
+   "removed": [
+    "Julika Luts"
+   ]
   },
   "roxana-minzatu": {
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/roxana-minzatu/roxana-minzatus-team_en",
@@ -82,9 +84,11 @@
   "wopke-hoekstra": {
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/wopke-hoekstra/wopke-hoekstras-team_en",
    "parsed": 17,
-   "existing": 17,
+   "existing": 18,
    "added": [],
-   "removed": []
+   "removed": [
+    "Olivia Gippner"
+   ]
   },
   "andrius-kubilius": {
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/andrius-kubilius/andrius-kubiliuss-team_en",
@@ -102,17 +106,19 @@
   },
   "jozef-sikela": {
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/jozef-sikela/jozef-sikelas-team_en",
-   "parsed": 14,
-   "existing": 14,
+   "parsed": 15,
+   "existing": 15,
    "added": [],
    "removed": []
   },
   "costas-kadis": {
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/costas-kadis/costas-kadiss-team_en",
    "parsed": 16,
-   "existing": 16,
+   "existing": 17,
    "added": [],
-   "removed": []
+   "removed": [
+    "Fleur Breuillin"
+   ]
   },
   "maria-luis-albuquerque": {
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/maria-luis-albuquerque/maria-luis-albuquerques-team_en",
@@ -145,16 +151,21 @@
   "piotr-serafin": {
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/piotr-serafin/piotr-serafins-team_en",
    "parsed": 16,
-   "existing": 16,
-   "added": [],
+   "existing": 15,
+   "added": [
+    "Daniela Vatrachki"
+   ],
    "removed": []
   },
   "dan-jorgensen": {
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/dan-jorgensen/dan-jorgensens-team_en",
    "parsed": 16,
-   "existing": 16,
+   "existing": 18,
    "added": [],
-   "removed": []
+   "removed": [
+    "Anne-Maud Orlinski",
+    "Päivi Roybin"
+   ]
   },
   "ekaterina-zaharieva": {
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/ekaterina-zaharieva/ekaterina-zaharievas-team_en",
@@ -166,17 +177,21 @@
   "michael-mcgrath": {
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/michael-mcgrath/michael-mcgraths-team_en",
    "parsed": 15,
-   "existing": 15,
-   "added": [],
-   "removed": []
+   "existing": 17,
+   "added": [
+    "Vittorio Argeri"
+   ],
+   "removed": [
+    "Fiona Knab-Lunny",
+    "Cédric Bourlier",
+    "Esther Rico-Donovan"
+   ]
   },
   "apostolos-tzitzikostas": {
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/apostolos-tzitzikostas/apostolos-tzitzikostass-team_en",
-   "parsed": 16,
+   "parsed": 15,
    "existing": 15,
-   "added": [
-    "Florian Flachenecker"
-   ],
+   "added": [],
    "removed": []
   },
   "christophe-hansen": {
@@ -189,232 +204,382 @@
   "glenn-micallef": {
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/glenn-micallef/glenn-micallefs-team_en",
    "parsed": 14,
-   "existing": 14,
+   "existing": 15,
    "added": [],
-   "removed": []
+   "removed": [
+    "Tamara Javorcikova"
+   ]
   }
  },
  "auto": [
   {
-   "commissioner": "apostolos-tzitzikostas",
-   "name": "Pierpaolo Settembri",
+   "commissioner": "roxana-minzatu",
+   "name": "Georgi Dimitrov",
    "fields": [
-    "outside",
-    "countries"
+    "phone"
    ],
    "diff": {
-    "outside": {
+    "phone": {
+     "from": "",
+     "to": "+32 2 29 90623"
+    }
+   }
+  },
+  {
+   "commissioner": "maros-sefcovic",
+   "name": "Adam Romanowski",
+   "fields": [
+    "resp"
+   ],
+   "diff": {
+    "resp": {
      "from": [
-      "Crisis Management",
-      "Simplification and Transparency",
-      "Better regulation",
-      "External relations: Latin America, Canada, Central Asia, India, South East Asia, South Korea, Japan, rest of Asia"
+      "Trade Defence instruments (anti-dumping, anti-subsidy, safeguards)",
+      "Foreign Subsidies Regulation",
+      "Enforcement Regulation",
+      "Trade and Sustainable development",
+      "Trade sectors: EnergyAutomotivesRaw materials, Conflict mineralsIntellectual propertyProcurement",
+      "China",
+      "Taiwan",
+      "Ukraine"
      ],
      "to": [
-      "Crisis Management",
-      "Simplification and Transparency",
-      "Better regulation",
-      "External relations: Latin America, Central Asia, India, South East Asia, rest of Asia"
-     ]
-    },
-    "countries": {
-     "from": [
-      "IT",
-      "FR",
-      "IE",
-      "ES",
-      "PT"
-     ],
-     "to": [
-      "IT",
-      "FR",
-      "ES",
-      "PT"
+      "Trade Defence instruments (anti-dumping, anti-subsidy, safeguards)",
+      "Foreign Subsidies Regulation",
+      "Enforcement Regulation",
+      "Trade and Sustainable development",
+      "Trade sectors:",
+      "Energy",
+      "Automotives",
+      "Raw materials, Conflict minerals",
+      "Intellectual property",
+      "Procurement",
+      "China",
+      "Taiwan",
+      "Ukraine"
      ]
     }
    }
   },
   {
-   "commissioner": "apostolos-tzitzikostas",
-   "name": "Anne Bergenfelt",
+   "commissioner": "oliver-varhelyi",
+   "name": "Katri Teedumäe",
    "fields": [
-    "resp",
-    "outside"
+    "resp"
+   ],
+   "diff": {
+    "resp": {
+     "from": [
+      "GRI",
+      "Critical Medicines Act",
+      "Health financing EU4 Health",
+      "Prevention and non-communicable diseases EU Beating Cancer PlanMental health"
+     ],
+     "to": [
+      "GRI",
+      "Critical Medicines Act",
+      "Health financing",
+      "EU4 Health",
+      "Prevention and non-communicable diseases",
+      "EU Beating Cancer Plan",
+      "Mental health"
+     ]
+    }
+   }
+  },
+  {
+   "commissioner": "oliver-varhelyi",
+   "name": "László Andrejkó",
+   "fields": [
+    "resp"
    ],
    "diff": {
     "resp": {
      "from": [
       "EXCO",
-      "Overall responsibility for international relations",
-      "EU Port Strategy (transport side)",
-      "Maritime Strategy",
-      "Solidarity lanes",
-      "Transport Community Treaty",
-      "Overall responsibility for Maritime Transport Policy",
-      "Global Gateway Forum",
-      "Inland Navigation",
-      "IMO",
-      "European Maritime Safety Agency (EMSA)",
-      "UN"
+      "Infringements",
+      "International relations",
+      "Biotech Act",
+      "Antimicrobial resistance",
+      "Prevention and non-communicable diseases Tobacco"
      ],
      "to": [
       "EXCO",
-      "Overall responsibility for international relations",
-      "EU Port Strategy (transport side)",
-      "Maritime Strategy",
-      "Transport Community Treaty",
-      "Overall responsibility for Maritime Transport Policy",
-      "Global Gateway Forum",
-      "Inland Navigation",
-      "IMO",
-      "European Maritime Safety Agency (EMSA)",
-      "UN"
-     ]
-    },
-    "outside": {
-     "from": [
-      "Fisheries and Oceans",
-      "Climate Policy, Environment, Water resilience and Competitive Circular Economy",
-      "Foreign affairs and Security Policy incl. hybrid threats",
-      "International Partnerships, Enlargement",
-      "Internal Affairs and Migration, Preparedness",
-      "European Semester",
-      "External relations: EFTA (except Norway), Switzerland, UK, Russia, Türkiye, Southern Caucasus, Western Balkans, US, Australia and New Zealand, Arctic"
-     ],
-     "to": [
-      "Fisheries and Oceans",
-      "Foreign affairs and Security Policy incl. hybrid threats",
-      "International Partnerships, Enlargement",
-      "Internal Affairs and Migration, Preparedness",
-      "External relations: UK, Russia, Türkiye, Southern Caucasus, Western Balkans, US, Canada, Australia and New Zealand, Arctic"
+      "Infringements",
+      "International relations",
+      "Biotech Act",
+      "Antimicrobial resistance",
+      "Prevention and non-communicable diseases",
+      "Tobacco"
      ]
     }
    }
   },
   {
-   "commissioner": "apostolos-tzitzikostas",
-   "name": "Helena Hinto",
+   "commissioner": "oliver-varhelyi",
+   "name": "Jana Dabbelt",
    "fields": [
-    "outside"
-   ],
-   "diff": {
-    "outside": {
-     "from": [
-      "Budget",
-      "MFF implementation",
-      "Recovery and Resilience Facility (RRF)",
-      "Strategic Technologies for Europe Platform (STEP)",
-      "Finance",
-      "Defence and Space",
-      "Energy and Housing",
-      "Economy and Productivity",
-      "Financial Services and the Savings and Investment Union"
-     ],
-     "to": [
-      "Budget",
-      "MFF implementation",
-      "Recovery and Resilience Facility (RRF)",
-      "Strategic Technologies for Europe Platform (STEP)",
-      "Solidarity lanes",
-      "HDV",
-      "Defence and Space",
-      "Energy and Housing",
-      "Economy and Productivity"
-     ]
-    }
-   }
-  },
-  {
-   "commissioner": "apostolos-tzitzikostas",
-   "name": "Simone Ritzek-Seidl",
-   "fields": [
-    "resp",
-    "countries"
+    "resp"
    ],
    "diff": {
     "resp": {
      "from": [
-      "EU Port Strategy (economic security side)",
-      "Maritime Strategy",
-      "Automotive industrial action plan and overall coordination",
-      "Passenger rights (all modes)",
-      "Infringements",
-      "State aid policy for transport",
-      "Economic security for transport",
-      "Relations with the European Court of Auditors"
+      "European Parliament (public health related dossiers)",
+      "Digitalising health – eHealth",
+      "Health systems Investing in resilient health systems and health workforce Health technology assessment Rare diseases, childhood diseases"
      ],
      "to": [
-      "EU Port Strategy (economic security side)",
-      "Maritime Strategy",
-      "Automotive industrial action plan and overall coordination",
-      "Passenger rights (all modes)",
-      "Infringements",
-      "State aid policy for transport",
-      "Economic security for transport",
-      "Autonomous driving",
-      "Strategy on cutting edge technology"
+      "European Parliament (public health related dossiers)",
+      "Digitalising health – eHealth",
+      "Health systems",
+      "Investing in resilient health systems and health workforce",
+      "Health technology assessment",
+      "Rare diseases, childhood diseases"
      ]
-    },
+    }
+   }
+  },
+  {
+   "commissioner": "oliver-varhelyi",
+   "name": "Csaba Kontor",
+   "fields": [
+    "resp"
+   ],
+   "diff": {
+    "resp": {
+     "from": [
+      "Pharma package",
+      "Medical products Medical devicesClinical trials Advanced therapy medicinal products",
+      "European Health Data Space",
+      "Substances of human origin and organs",
+      "Prevention and non-communicable diseases Cardiovascular"
+     ],
+     "to": [
+      "Pharma package",
+      "Medical products",
+      "Medical devices",
+      "Clinical trials",
+      "Advanced therapy medicinal products",
+      "European Health Data Space",
+      "Substances of human origin and organs",
+      "Prevention and non-communicable diseases",
+      "Cardiovascular"
+     ]
+    }
+   }
+  },
+  {
+   "commissioner": "jozef-sikela",
+   "name": "Elina Melngaile",
+   "fields": [
+    "resp"
+   ],
+   "diff": {
+    "resp": {
+     "from": [
+      "Overseas Countries and Territories",
+      "G7, G20, International cooperation and development policy",
+      "Relations with other donors (Australia, Canada, Japan, New Zealand, South Korea, United Kingdom, United States)",
+      "Relations with Ukraine",
+      "Multilateralism",
+      "NATO, OSCE",
+      "External Coordination Group (EXCO)",
+      "Relations with the Council of Europe",
+      "Migration",
+      "Relations with the UN system Sanctions/Security and migration related entities (UNHCR)"
+     ],
+     "to": [
+      "Overseas Countries and Territories",
+      "G7, G20, International cooperation and development policy",
+      "Relations with other donors (Australia, Canada, Japan, New Zealand, South Korea, United Kingdom, United States)",
+      "Relations with Ukraine",
+      "Multilateralism",
+      "NATO, OSCE",
+      "External Coordination Group (EXCO)",
+      "Relations with the Council of Europe",
+      "Migration",
+      "Relations with the UN system",
+      "Sanctions/Security and migration related entities (UNHCR)"
+     ]
+    }
+   }
+  },
+  {
+   "commissioner": "costas-kadis",
+   "name": "Polyvios Eliofotou",
+   "fields": [
+    "phone"
+   ],
+   "diff": {
+    "phone": {
+     "from": "+32 2 29 54726",
+     "to": "+32 2 29 53423"
+    }
+   }
+  },
+  {
+   "commissioner": "costas-kadis",
+   "name": "Virginie Battu-Henriksson",
+   "fields": [
+    "resp"
+   ],
+   "diff": {
+    "resp": {
+     "from": [
+      "EXCO",
+      "European Oceans Pact: Fisheries and Ocean Dialogues / high-level eventEuropean Maritime Day UN Ocean Conference (UNOC)",
+      "Maritime spatial planning",
+      "International ocean diplomacy and governance/UN Sustainable Development Goals (SDGs)",
+      "Strategic approach to EU fisheries external action",
+      "Implementation of UN High Seas Treaty (BBNJ)",
+      "World Trade Organization (WTO)"
+     ],
+     "to": [
+      "EXCO",
+      "European Oceans Pact:",
+      "Fisheries and Ocean Dialogues / high-level event",
+      "European Maritime Day",
+      "UN Ocean Conference (UNOC)",
+      "Maritime spatial planning",
+      "International ocean diplomacy and governance/UN Sustainable Development Goals (SDGs)",
+      "Strategic approach to EU fisheries external action",
+      "Implementation of UN High Seas Treaty (BBNJ)",
+      "World Trade Organization (WTO)"
+     ]
+    }
+   }
+  },
+  {
+   "commissioner": "costas-kadis",
+   "name": "Chrystalla Papanastasiou",
+   "fields": [
+    "resp"
+   ],
+   "diff": {
+    "resp": {
+     "from": [
+      "Social media accounts",
+      "Commissioner’s website",
+      "Relations with national media",
+      "Audiovisual aspects, video recordings",
+      "Press assistance",
+      "Press monitoring",
+      "Communication support to: Fisheries and Oceans DialoguesOcean Days European Maritime Day Implementation Dialogues Youth dialogues",
+      "Equality contact point"
+     ],
+     "to": [
+      "Social media accounts",
+      "Commissioner’s website",
+      "Relations with national media",
+      "Audiovisual aspects, video recordings",
+      "Press assistance",
+      "Press monitoring",
+      "Communication support to:",
+      "Fisheries and Oceans Dialogues",
+      "Ocean Days",
+      "European Maritime Day",
+      "Implementation Dialogues",
+      "Youth dialogues",
+      "Equality contact point"
+     ]
+    }
+   }
+  },
+  {
+   "commissioner": "costas-kadis",
+   "name": "Martha Drakaki",
+   "fields": [
+    "phone"
+   ],
+   "diff": {
+    "phone": {
+     "from": "+32 2 29",
+     "to": "+32 2 29 69056"
+    }
+   }
+  },
+  {
+   "commissioner": "magnus-brunner",
+   "name": "Evgenia Todorova",
+   "fields": [
+    "phone"
+   ],
+   "diff": {
+    "phone": {
+     "from": "",
+     "to": "+32 2 29 91690"
+    }
+   }
+  },
+  {
+   "commissioner": "jessika-roswall",
+   "name": "Ulrika Bröms",
+   "fields": [
+    "resp"
+   ],
+   "diff": {
+    "resp": {
+     "from": [],
+     "to": [
+      "Human Resources, Equality Coordinator",
+      "Coordination of briefings",
+      "Administrative support",
+      "Budget",
+      "Coordination of Cabinet’s logistical matters"
+     ]
+    }
+   }
+  },
+  {
+   "commissioner": "piotr-serafin",
+   "name": "Wouter Coussens",
+   "fields": [
+    "countries"
+   ],
+   "diff": {
     "countries": {
      "from": [
-      "AT",
       "DE",
-      "CZ",
-      "SK",
-      "HU",
+      "AT",
+      "BE",
+      "NL",
+      "HR",
       "SI"
      ],
      "to": [
+      "DE",
       "AT",
-      "CZ",
-      "SK",
-      "HU",
-      "SI"
+      "BE",
+      "NL"
      ]
     }
    }
   },
   {
-   "commissioner": "apostolos-tzitzikostas",
-   "name": "Petra Soderqvist",
+   "commissioner": "piotr-serafin",
+   "name": "Olga Panagopoulou",
    "fields": [
-    "resp"
+    "countries"
    ],
    "diff": {
-    "resp": {
+    "countries": {
      "from": [
-      "Multimodal digital mobility systems",
-      "Overall responsibility of road transport",
-      "Digitalisation of transport/paperless transport",
-      "Driving licenses and disqualification",
-      "Labour and Skills shortage for transport",
-      "Road Safety",
-      "Intelligent transport",
-      "Gender Equality in transport",
-      "Clean corporate fleets",
-      "Digital platforms"
+      "GR",
+      "RO",
+      "BG"
      ],
      "to": [
-      "Multimodal digital mobility systems",
-      "Overall responsibility of road transport",
-      "Digitalisation of transport/paperless transport",
-      "Driving licenses and disqualification",
-      "Labour and Skills shortage for transport",
-      "Road Safety",
-      "Taxi and Private Hired Vehicles for hire (PHV) and micromobility",
-      "Combined transport and logistics",
-      "Intelligent transport",
-      "Gender Equality in transport",
-      "Clean corporate fleets",
-      "Digital transport policy and AI",
-      "Summertime"
+      "GR",
+      "RO",
+      "HR",
+      "SI"
      ]
     }
    }
   },
   {
-   "commissioner": "apostolos-tzitzikostas",
-   "name": "Konstantina Melanidi",
+   "commissioner": "dan-jorgensen",
+   "name": "Marta Balossino",
    "fields": [
     "resp",
     "outside"
@@ -422,117 +587,627 @@
    "diff": {
     "resp": {
      "from": [
-      "European strategy for sustainable tourism",
-      "European Tourism Agenda 2030",
-      "Ombudsman",
-      "Tourism and Cruise shipping",
-      "Tourism and marketing",
-      "Foresight"
+      "Deputising for the Head of Cabinet",
+      "Just Transition Mechanism",
+      "Coal Regions in Transition",
+      "Clean energy for islands",
+      "Commission Work Programme",
+      "Preparation of the Council meetings",
+      "Reforms",
+      "Group of Interinstitutional Relations (GRI)",
+      "Strategic Jour Fixe with Executive Vice-President",
+      "Jour Fixe",
+      "Electricity Internal Market"
      ],
      "to": [
-      "European sustainable tourism strategy",
-      "European Tourism Agenda 2030",
-      "Ombudsman",
-      "Tourism and Cruise shipping",
-      "Tourism and marketing",
-      "Foresight"
+      "Deputising for the Head of Cabinet",
+      "Just Transition Mechanism",
+      "Coal Regions in Transition",
+      "Clean energy for islands",
+      "Commission Work Programme",
+      "Preparation of the Council meetings",
+      "Reforms",
+      "Group of Interinstitutional Relations (GRI)",
+      "Strategic Jour Fixe with Executive Vice-President",
+      "Jour Fixe",
+      "Electricity Internal Market",
+      "Energy Community",
+      "Energy partnerships with US, Canada, Japan, etc.",
+      "Relations with United Kingdom",
+      "G7/G20",
+      "EU-Africa relations",
+      "Relation with the UN system - COP",
+      "Support to Ukraine",
+      "Mediterranean",
+      "External energy suppliers to the EU",
+      "Roadmap towards ending Russian energy imports",
+      "Energy external relations and energy dialogues (except neighbourhood and enlargement countries)",
+      "Global Climate and energy Vision",
+      "Relations with International Energy Agency and International Renewable Energy Agency",
+      "Relations with global and regional organization on energy outside Europe",
+      "Horizontal responsibility for communications",
+      "Group of External Coordination (EXCO)",
+      "Relations with the Cabinet of HRVP Kallas",
+      "Relations with the Cabinet of EVP Virkkunen"
+     ]
+    },
+    "outside": {
+     "from": [],
+     "to": [
+      "Crisis management",
+      "Civil Protection and Humanitarian Aid Operations",
+      "Internal affairs and Migration policy",
+      "Development and International Partnerships",
+      "Greenland",
+      "Defence and Risk Preparedness",
+      "Foreign and Security Policy, Security Union"
+     ]
+    }
+   }
+  },
+  {
+   "commissioner": "dan-jorgensen",
+   "name": "Kamil Talbi",
+   "fields": [
+    "phone"
+   ],
+   "diff": {
+    "phone": {
+     "from": "+32 2 29 53083",
+     "to": "+32 2 29 51004"
+    }
+   }
+  },
+  {
+   "commissioner": "dan-jorgensen",
+   "name": "Astrid Leborgne",
+   "fields": [
+    "phone"
+   ],
+   "diff": {
+    "phone": {
+     "from": "+32 2 29 85730",
+     "to": "+32 2 29 62318"
+    }
+   }
+  },
+  {
+   "commissioner": "michael-mcgrath",
+   "name": "Kevin Barrett",
+   "fields": [
+    "resp",
+    "outside"
+   ],
+   "diff": {
+    "resp": {
+     "from": [
+      "EXCO",
+      "Criminal Justice, including international criminal justice",
+      "Company Law, including 28th Regime",
+      "European Arrest Warrant",
+      "EUROJUST and EPPO"
+     ],
+     "to": [
+      "Overall strategic coordination/policy setting",
+      "Management of the Cabinet",
+      "Strategic inter-institutional issues (European Parliament, European Council, Council, Court of Justice)",
+      "Relations with Cabinets of President and Executive Vice-President",
+      "Senior staff matters",
+      "HEBDO"
      ]
     },
     "outside": {
      "from": [
-      "Short-term rentals and affordable Housing",
-      "Intergenerational Fairness, Youth, Culture and Sport Foresight",
-      "External relations: Gulf Countries"
+      "External Relations",
+      "The Directorate-General for the Middle East, North Africa and the Gulf",
+      "Trade and Economic Security",
+      "Transparency",
+      "Mediterranean",
+      "EU-UK relations"
      ],
-     "to": [
-      "Intergenerational Fairness, Youth, Culture and Sport Foresight",
-      "External relations: Gulf Countries"
-     ]
+     "to": []
     }
    }
   },
   {
-   "commissioner": "apostolos-tzitzikostas",
-   "name": "Eleftheria Voliotou",
+   "commissioner": "michael-mcgrath",
+   "name": "Joachim Herrmann",
    "fields": [
     "resp"
    ],
    "diff": {
     "resp": {
      "from": [
-      "Commissioner’s agenda",
-      "Commissioner’s missions and ATMOS",
-      "Communication with the Protocol Service",
-      "Human resources of the Cabinet",
-      "Cabinet Budget"
+      "Deputise for the Head of Cabinet in her absence",
+      "Inter-institutional relations and Group of Inter-institutional relations (GRI)",
+      "Preparation of the General Affairs Council",
+      "Cluster Coordination with Cabinet of Executive Vice-President Virkkunnen",
+      "Preparation and coordination of Jour Fixe and Strategic Jour Fixe",
+      "Management of cabinet’s administrative staff",
+      "Rule of Law",
+      "Relations with the Council of Europe",
+      "European Convention on Human Rights",
+      "Infringements"
      ],
      "to": [
-      "Commissioner’s agenda",
-      "Commissioner’s missions and ATMOS",
-      "Communication with the Protocol Service",
-      "Human resources of the Cabinet (back- up)",
-      "Cabinet Budget"
+      "Deputise for the Head of Cabinet in his absence",
+      "Inter-institutional relations and Group of Inter-institutional relations (GRI)",
+      "Preparation of the General Affairs Council",
+      "Cluster Coordination with Cabinet of Executive Vice-President Virkkunnen",
+      "Preparation and coordination of Jour Fixe and Strategic Jour Fixe",
+      "Management of cabinet’s administrative staff",
+      "Rule of Law",
+      "Relations with the Council of Europe",
+      "European Convention on Human Rights",
+      "Infringements"
      ]
     }
    }
   },
   {
-   "commissioner": "apostolos-tzitzikostas",
-   "name": "Ioanna Tsamoura",
+   "commissioner": "michael-mcgrath",
+   "name": "Simona Constantin",
+   "fields": [
+    "resp",
+    "outside"
+   ],
+   "diff": {
+    "resp": {
+     "from": [
+      "Democracy",
+      "European Democracy Shield",
+      "European Media Freedom Act (EMFA)",
+      "Media Literacy and funding",
+      "Foreign information manipulation and interference and disinformation",
+      "Fairness and integrity of elections",
+      "Anti-SLAPP and safety of journalists",
+      "Citizenship, free movement"
+     ],
+     "to": [
+      "Democracy",
+      "European Democracy Shield",
+      "European Media Freedom Act (EMFA)",
+      "Media Literacy and funding",
+      "Foreign information manipulation and interference and disinformation",
+      "Fairness and integrity of elections",
+      "Anti-SLAPP and safety of journalists",
+      "Citizenship, free movement",
+      "Political parties",
+      "Exco",
+      "Anti-Fraud Architecture: EPPO and OLAF"
+     ]
+    },
+    "outside": {
+     "from": [
+      "Clean, just and competitive transition",
+      "Competition",
+      "Climate",
+      "Energy and Housing",
+      "Environment",
+      "Humanitarian Aid and Crisis Response, including preparedness",
+      "International partnerships"
+     ],
+     "to": [
+      "Clean, just and competitive transition",
+      "Competition",
+      "Climate",
+      "Energy and Housing",
+      "Environment",
+      "International partnerships"
+     ]
+    }
+   }
+  },
+  {
+   "commissioner": "michael-mcgrath",
+   "name": "Egelyn Braun",
+   "fields": [
+    "resp",
+    "outside"
+   ],
+   "diff": {
+    "resp": {
+     "from": [
+      "Digital Fairness Act",
+      "Consumer enforcement and redress (CPC, ADR, collective redress)",
+      "Digital Technologies, AI",
+      "Digitalisation of justice systems",
+      "Civil Law",
+      "Preparation for the Justice Affairs Council",
+      "Rule of Law (with Joachim Herrmann)"
+     ],
+     "to": [
+      "Digital Fairness Act",
+      "Consumer enforcement and redress (CPC, ADR, collective redress)",
+      "Digital Technologies, AI",
+      "Digitalisation of justice systems",
+      "Civil Law"
+     ]
+    },
+    "outside": {
+     "from": [
+      "Digital (CNECT)",
+      "Competitiveness",
+      "Single Market (Digital)",
+      "Taxation"
+     ],
+     "to": [
+      "Digital (CNECT)",
+      "Competitiveness",
+      "Single Market (Digital)",
+      "Taxation",
+      "Defense"
+     ]
+    }
+   }
+  },
+  {
+   "commissioner": "michael-mcgrath",
+   "name": "Jördis Ferroli",
+   "fields": [
+    "note",
+    "resp",
+    "outside"
+   ],
+   "diff": {
+    "note": {
+     "from": "absent",
+     "to": ""
+    },
+    "resp": {
+     "from": [
+      "Communication strategy",
+      "Social Media Strategy",
+      "Relations with press",
+      "Relations with the Spokespersons' Service",
+      "European Media Freedom Act implementation"
+     ],
+     "to": [
+      "Relations with EP",
+      "Relations with National Parliaments",
+      "Relations with the Committee of Regions",
+      "Relations with the European Ombudsman",
+      "Coordination of parliamentary questions, Petitions, Ombudsman, EP Resolutions",
+      "Criminal Justice, including international criminal justice",
+      "Victims’ Rights Strategy",
+      "Eurojust",
+      "European Arrest Warrant",
+      "Preparation for the Justice Affairs Council"
+     ]
+    },
+    "outside": {
+     "from": [
+      "Infringements",
+      "Agriculture and Food",
+      "Media Literacy and funding"
+     ],
+     "to": [
+      "FISMA related files",
+      "Humanitarian Aid and Crisis Response, including preparedness",
+      "People, skills and preparedness"
+     ]
+    }
+   }
+  },
+  {
+   "commissioner": "michael-mcgrath",
+   "name": "Maria Zafra Saura",
+   "fields": [
+    "resp",
+    "outside"
+   ],
+   "diff": {
+    "resp": {
+     "from": [
+      "Ukraine (accountability and damages, criminalization of sanction circumvention, Task Force Freeze and Seize)",
+      "Data protection, including external dimension",
+      "Fundamental Rights",
+      "Relations with the European Union Agency for Fundamental Rights",
+      "Justice Funds",
+      "Anti-corruption (working with Sham Abdurahim) and protection for whistleblowers",
+      "Anti-fraud Architecture and OLAF"
+     ],
+     "to": [
+      "Ukraine (accountability and damages, criminalization of sanction circumvention, Task Force Freeze and Seize)",
+      "Data protection, including external dimension",
+      "Fundamental Rights",
+      "Relations with the European Union Agency for Fundamental Rights",
+      "Justice Funds",
+      "Youth Platform"
+     ]
+    },
+    "outside": {
+     "from": [
+      "Equality",
+      "Budget (non-Rule of Law aspects), MFF and Public Administration",
+      "Culture",
+      "Sport",
+      "Defence"
+     ],
+     "to": [
+      "Equality",
+      "Budget (non-Rule of Law aspects), MFF and Public Administration",
+      "Culture",
+      "Sport",
+      "Education",
+      "Intergenerational Fairness",
+      "Youth"
+     ]
+    }
+   }
+  },
+  {
+   "commissioner": "michael-mcgrath",
+   "name": "Laetitia Close",
+   "fields": [
+    "resp",
+    "outside"
+   ],
+   "diff": {
+    "resp": {
+     "from": [
+      "Communication strategy",
+      "Communications (social media)",
+      "Social Media Strategy",
+      "Relations with press",
+      "Relations with the Spokespersons' Service",
+      "Civil Society Strategy; Civil Society Platform",
+      "Relations with the Economic and Social Committee",
+      "Shareholder Rights"
+     ],
+     "to": [
+      "Communication strategy",
+      "Communications (social media)",
+      "Social Media Strategy",
+      "Relations with press",
+      "Relations with the Spokespersons' Service",
+      "Relations with the Economic and Social Committee"
+     ]
+    },
+    "outside": {
+     "from": [
+      "Financial Services"
+     ],
+     "to": []
+    }
+   }
+  },
+  {
+   "commissioner": "michael-mcgrath",
+   "name": "Sham Abdurahim",
+   "fields": [
+    "note",
+    "resp",
+    "outside"
+   ],
+   "diff": {
+    "note": {
+     "from": "replacing Jördis Ferroli",
+     "to": ""
+    },
+    "resp": {
+     "from": [
+      "Communications (with Communications Adviser; social media)",
+      "Relations with press",
+      "Rule of Law (with Joachim Herrmann)",
+      "Anti-Corruption Directive"
+     ],
+     "to": [
+      "Communications (with Communications Adviser; social media)",
+      "Relations with press",
+      "Rule of Law (with Joachim Herrmann)",
+      "Anti-Corruption",
+      "Justice Scoreboard",
+      "Protection of Whistleblowers"
+     ]
+    },
+    "outside": {
+     "from": [
+      "Agriculture and Food",
+      "Health",
+      "Cohesion and Reforms"
+     ],
+     "to": [
+      "Agriculture and Food",
+      "Fisheries and Oceans",
+      "Health",
+      "Cohesion and Reforms"
+     ]
+    }
+   }
+  },
+  {
+   "commissioner": "michael-mcgrath",
+   "name": "Lucie Rousselle",
+   "fields": [
+    "note",
+    "outside"
+   ],
+   "diff": {
+    "note": {
+     "from": "",
+     "to": "Absent"
+    },
+    "outside": {
+     "from": [
+      "Single market (green, including circular economy, excl. digital)",
+      "Industrial Strategy",
+      "Transport and Tourism",
+      "Fisheries and Oceans"
+     ],
+     "to": []
+    }
+   }
+  },
+  {
+   "commissioner": "michael-mcgrath",
+   "name": "Vérane Pravda-Starov",
    "fields": [
     "resp"
    ],
    "diff": {
     "resp": {
      "from": [
-      "Agenda of the Head of Cabinet",
-      "Coordination of briefings for Head of Cabinet",
-      "Coordination of missions of Head of Cabinet",
-      "Jour fixe and CAB-DG meetings coordination",
-      "HR back up"
+      "ATMOS (transparency) for the meetings of the Commissioner",
+      "Ethics and Transparency Contact point",
+      "Coordination with Commission Protocol",
+      "BASIS correspondent for cross DG and cross Cabinet requests",
+      "Preparation of Jour Fixe and Strategic Jour Fixe files with Deputy Head of Cabinet",
+      "Business Continuity coordinator",
+      "ECI team leader for evacuation",
+      "Cabinet IT correspondent and Cyber Ambassador"
      ],
      "to": [
-      "Agenda of the Head of Cabinet",
-      "Coordination of briefings for Head of Cabinet",
-      "Coordination of missions of Head of Cabinet",
-      "Jour fixe and CAB-DG meetings coordination",
-      "Human resources of the Cabinet"
+      "ATMOS (transparency) for the meetings of the Commissioner",
+      "Ethics and Transparency Contact point",
+      "Coordination with Commission Protocol",
+      "BASIS correspondent for cross DG and cross Cab requests",
+      "Business Continuity coordinator",
+      "ECI team leader for evacuation",
+      "Cabinet IT correspondent and Cyber Ambassador"
      ]
     }
    }
   },
   {
-   "commissioner": "apostolos-tzitzikostas",
-   "name": "Anna Pilioura",
+   "commissioner": "michael-mcgrath",
+   "name": "Miguel Luz Soares",
+   "fields": [
+    "resp"
+   ],
+   "diff": {
+    "resp": {
+     "from": [],
+     "to": [
+      "Preparation for files for Inter-institutional relations and Group of Inter-institutional relations (GRI)",
+      "Preparation files for the General Affairs Council",
+      "Preparation of Jour Fixe and Strategic Jour Fixe files",
+      "Rule of Law report coordination"
+     ]
+    }
+   }
+  },
+  {
+   "commissioner": "michael-mcgrath",
+   "name": "Lucy Maher",
    "fields": [
     "resp"
    ],
    "diff": {
     "resp": {
      "from": [
-      "Preparation of GRI",
-      "Parliamentary Questions",
-      "Petitions",
-      "External Petitions",
-      "EC Library Correspondent",
-      "Back-up Document Management Officer",
-      "Consultative Committees",
-      "EP Resolutions",
-      "Briefing Coordinator",
-      "Blue Book Trainees"
+      "Deputy Local Security Officer",
+      "Deputy BASIS correspondent for cross DG and cross Cab requests."
      ],
      "to": [
-      "Preparation of GRI",
-      "Parliamentary Questions",
-      "Petitions",
-      "External Petitions",
-      "EC Library Correspondent",
-      "Document Management Officer (back-up)",
-      "Consultative Committees",
-      "EP Resolutions",
-      "Briefing Coordinator",
-      "Blue Book Trainees"
+      "Deputy Local Security Officer",
+      "Deputy BASIS correspondent for cross DG and cross Cab requests"
      ]
+    }
+   }
+  },
+  {
+   "commissioner": "michael-mcgrath",
+   "name": "Lavinia Ruxandra Gligor",
+   "fields": [
+    "resp"
+   ],
+   "diff": {
+    "resp": {
+     "from": [
+      "DECIDE",
+      "Management of e-Greffe documents",
+      "Archives and documents management",
+      "Access to documents",
+      "European Parliament questions",
+      "Courrier du Président et Vice-Présidents contact point"
+     ],
+     "to": [
+      "DECIDE coordinator",
+      "Archives and documents management",
+      "Access to documents",
+      "Preparation of Hebdo & College files",
+      "Courrier du Président et contact point",
+      "EUCI SPOC contact point with Judit Szarka"
+     ]
+    }
+   }
+  },
+  {
+   "commissioner": "apostolos-tzitzikostas",
+   "name": "Ilias Iordanidis",
+   "fields": [
+    "phone"
+   ],
+   "diff": {
+    "phone": {
+     "from": "",
+     "to": "+32 2 29 58080"
+    }
+   }
+  },
+  {
+   "commissioner": "christophe-hansen",
+   "name": "Johannes Van den Bossche",
+   "fields": [
+    "resp"
+   ],
+   "diff": {
+    "resp": {
+     "from": [
+      "Coordination Agricultural Trade And Diplomacy",
+      "Coordination of international files, incl: Agricultural trade policy, WTOAgrifood diplomacy and multilateral fora Enlargement, neighbourhood and agrifood trade aspects",
+      "Access to Documents"
+     ],
+     "to": [
+      "Coordination Agricultural Trade And Diplomacy",
+      "Coordination of international files, incl:",
+      "Agricultural trade policy, WTO",
+      "Agrifood diplomacy and multilateral fora",
+      "Enlargement, neighbourhood and agrifood trade aspects",
+      "Access to Documents"
+     ]
+    }
+   }
+  },
+  {
+   "commissioner": "glenn-micallef",
+   "name": "Clint Tanti",
+   "fields": [
+    "resp"
+   ],
+   "diff": {
+    "resp": {
+     "from": [
+      "Overall strategic coordination/policy-setting",
+      "Management of the Cabinet",
+      "Relations with the President’s andExecutive Vice-Presidents’ Cabinets",
+      "Senior personnel matters",
+      "Hebdo",
+      "Overall co-ordination of Council meetings"
+     ],
+     "to": [
+      "Overall strategic coordination/policy-setting",
+      "Management of the Cabinet",
+      "Relations with the President’s and",
+      "Executive Vice-Presidents’ Cabinets",
+      "Senior personnel matters",
+      "Hebdo",
+      "Overall co-ordination of Council meetings"
+     ]
+    }
+   }
+  },
+  {
+   "commissioner": "glenn-micallef",
+   "name": "Agnieszka Breczewska Nowicka",
+   "fields": [
+    "phone"
+   ],
+   "diff": {
+    "phone": {
+     "from": "+32 2 29 80118",
+     "to": "+32 2 29 66985"
     }
    }
   }
@@ -540,21 +1215,151 @@
  "structural": [
   {
    "type": "role",
-   "commissioner": "apostolos-tzitzikostas",
-   "name": "Konstantina Melanidi",
-   "from": "Policy Assistant",
-   "to": "PERSONAL ASSISTANT"
+   "commissioner": "kaja-kallas",
+   "name": "Maya Lamanna",
+   "from": "Assistant to Julika Luts and Christian Jetzlsperger",
+   "to": "ASSISTANT TO CHRISTIAN JETZLSPERGER"
+  },
+  {
+   "type": "removed",
+   "commissioner": "kaja-kallas",
+   "name": "Julika Luts",
+   "role": "Personal Assistant / Member"
+  },
+  {
+   "type": "removed",
+   "commissioner": "wopke-hoekstra",
+   "name": "Olivia Gippner",
+   "role": "Member (absent)"
+  },
+  {
+   "type": "removed",
+   "commissioner": "costas-kadis",
+   "name": "Fleur Breuillin",
+   "role": "Member"
+  },
+  {
+   "type": "role",
+   "commissioner": "piotr-serafin",
+   "name": "Anne Funch Jensen",
+   "from": "Acting Deputy Head of Cabinet",
+   "to": "DEPUTY HEAD OF CABINET"
+  },
+  {
+   "type": "role",
+   "commissioner": "piotr-serafin",
+   "name": "Wouter Coussens",
+   "from": "Member",
+   "to": "CABINET EXPERT"
   },
   {
    "type": "added",
-   "commissioner": "apostolos-tzitzikostas",
-   "name": "Florian Flachenecker",
+   "commissioner": "piotr-serafin",
+   "name": "Daniela Vatrachki",
    "role": "MEMBER"
+  },
+  {
+   "type": "removed",
+   "commissioner": "dan-jorgensen",
+   "name": "Anne-Maud Orlinski",
+   "role": "Personal Assistant / Member"
+  },
+  {
+   "type": "removed",
+   "commissioner": "dan-jorgensen",
+   "name": "Päivi Roybin",
+   "role": "Assistant to Stella Kaltsouni and Aleksander Vigne / Anne-Maud Orlinski"
+  },
+  {
+   "type": "role",
+   "commissioner": "michael-mcgrath",
+   "name": "Kevin Barrett",
+   "from": "Cabinet Expert",
+   "to": "HEAD OF CABINET"
+  },
+  {
+   "type": "role",
+   "commissioner": "michael-mcgrath",
+   "name": "Simona Constantin",
+   "from": "Member",
+   "to": "CABINET EXPERT"
+  },
+  {
+   "type": "role",
+   "commissioner": "michael-mcgrath",
+   "name": "Egelyn Braun",
+   "from": "Personal Assistant / Member",
+   "to": "MEMBER"
+  },
+  {
+   "type": "role",
+   "commissioner": "michael-mcgrath",
+   "name": "Jördis Ferroli",
+   "from": "Member / Communication Adviser",
+   "to": "MEMBER"
+  },
+  {
+   "type": "role",
+   "commissioner": "michael-mcgrath",
+   "name": "Laetitia Close",
+   "from": "Policy Assistant / Communication Adviser",
+   "to": "PERSONAL ASSISTANT/COMMUNICATION ADVISER"
+  },
+  {
+   "type": "role",
+   "commissioner": "michael-mcgrath",
+   "name": "Sham Abdurahim",
+   "from": "Member",
+   "to": "POLICY ASSISTANT"
+  },
+  {
+   "type": "role",
+   "commissioner": "michael-mcgrath",
+   "name": "Lucy Maher",
+   "from": "Assistant to Simona Constantin and Laetitia Close",
+   "to": "ASSISTANT TO SIMONA CONSTANTIN AND MARIA ZAFRA SAURA"
+  },
+  {
+   "type": "role",
+   "commissioner": "michael-mcgrath",
+   "name": "Judit Szarka",
+   "from": "Assistant to the Head of Cabinet",
+   "to": "ASSISTANT TO EGELYN BRAUN AND JÖRDIS FERROLI"
+  },
+  {
+   "type": "added",
+   "commissioner": "michael-mcgrath",
+   "name": "Vittorio Argeri",
+   "role": "ASSISTANT TO THE HEAD OF CABINET"
+  },
+  {
+   "type": "removed",
+   "commissioner": "michael-mcgrath",
+   "name": "Fiona Knab-Lunny",
+   "role": "Head of Cabinet"
+  },
+  {
+   "type": "removed",
+   "commissioner": "michael-mcgrath",
+   "name": "Cédric Bourlier",
+   "role": "Policy Assistant"
+  },
+  {
+   "type": "removed",
+   "commissioner": "michael-mcgrath",
+   "name": "Esther Rico-Donovan",
+   "role": "Assistant to Kevin Barrett and Maria Zafra Saura"
+  },
+  {
+   "type": "removed",
+   "commissioner": "glenn-micallef",
+   "name": "Tamara Javorcikova",
+   "role": "Assistant to Wendy Ducatelle, Desislava Dimitrova and Mark Anthony Zarb"
   }
  ],
  "summary": {
-  "auto": 9,
-  "structural": 2,
+  "auto": 35,
+  "structural": 22,
   "failed": 0
  }
 }
