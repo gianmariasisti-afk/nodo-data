@@ -1,5 +1,5 @@
 {
- "checked": "2026-10-08",
+ "checked": "2026-10-09",
  "source": "https://www.europarl.europa.eu/plenary/en/agendas.html",
  "sessions": {
   "2026-10-05": {
@@ -479,74 +479,399 @@
   },
   "2026-10-19": {
    "stage": "draft",
-   "updated": "2026-10-08",
+   "updated": "2026-10-09",
    "link": "https://www.europarl.europa.eu/plenary/en/agendas.html",
    "src": {
     "api": "foreseen-activities",
-    "sha256": "d216ef0e369f1862b72c4e1d568222b95b14e9c272f8e9038c07a3db277acd58"
+    "sha256": "b43eb4a3dfbc93c04193579c698be576a00c1965a3b0b2a48b2dff7119060ca6"
    },
    "days": {
     "2026-10-19": [
      {
-      "time": "17:00–21:00",
-      "type": "other",
-      "title": "PLENARY SESSION DEBATES"
+      "time": "17:00–20:00",
+      "type": "debate",
+      "title": "Suspending the application of the rules on extended producer responsibility for waste, waste electrical and electronical equipment and single use plastic waste (Omnibus VIII on environmental legislation)",
+      "sub": "C10-0339/2025 · A10-0267/2026 · ***I",
+      "rapporteur": "Ingeborg Ter Laak",
+      "rapporteurs": [
+       "256968"
+      ],
+      "committee": "ENVI"
+     },
+     {
+      "time": "17:00–20:00",
+      "type": "debate",
+      "title": "Suspending the application of the rules on extended producer responsibility for batteries and waste batteries and packaging and packaging waste (Omnibus VIII on environmental legislation)",
+      "sub": "C10-0335/2025 · A10-0266/2026 · ***I",
+      "rapporteur": "Ingeborg Ter Laak",
+      "rapporteurs": [
+       "256968"
+      ],
+      "committee": "ENVI"
+     },
+     {
+      "time": "17:00–20:00",
+      "type": "debate",
+      "title": "One-minute speeches (Rule 179)"
+     },
+     {
+      "time": "17:00–20:00",
+      "type": "debate",
+      "title": "Resumption of session and order of business"
+     },
+     {
+      "time": "17:00–20:00",
+      "type": "debate",
+      "title": "International Day for the Eradication of Poverty",
+      "sub": "2026/2925(RSP)"
+     },
+     {
+      "time": "17:00–20:00",
+      "type": "debate",
+      "title": "Amendments to the Critical Raw Materials Act",
+      "sub": "C10-0324/2025 · A10-0265/2026 · ***I",
+      "rapporteur": "Mohammed Chahim",
+      "rapporteurs": [
+       "197782"
+      ],
+      "committee": "ITRE"
      }
     ],
     "2026-10-20": [
      {
       "time": "09:00–11:50",
       "type": "other",
-      "title": "PLENARY SESSION DEBATES"
+      "title": "Debates"
      },
      {
       "time": "12:00–13:00",
-      "type": "other",
-      "title": "PLENARY SESSION VOTES"
+      "type": "votes",
+      "title": "A new co-ownership for the future of Euro-Mediterranean relations – the Pact for the Mediterranean",
+      "sub": "A10-0239/2026 · 2026/2035(INI)",
+      "rapporteur": "Nicola Zingaretti",
+      "rapporteurs": [
+       "28419"
+      ],
+      "committee": "AFET"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "Public interface connected to the Internal Market Information System for the declaration of posting of workers",
+      "sub": "C10-0188/2024 · A10-0162/2025 · ***I",
+      "rapporteur": "Johan Danielsson, Andreas Schwab",
+      "rapporteurs": [
+       "38542",
+       "28223"
+      ],
+      "committee": "EMPL"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "(possibly) Votes on requests for urgent procedure (Rule 170)"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "Texts on which debate is closed"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "Connecting Europe through high-speed rail",
+      "sub": "A10-0262/2026 · 2026/2003(INI)",
+      "rapporteur": "Vicent Marzà Ibáñez",
+      "rapporteurs": [
+       "257016"
+      ],
+      "committee": "TRAN"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "Protection of adults: jurisdiction, applicable law, recognition and enforcement of measures and cooperation",
+      "sub": "C9-0192/2023 · A10-0128/2025 · ***I",
+      "rapporteur": "Jana Toom",
+      "rapporteurs": [
+       "124700"
+      ],
+      "committee": "JURI"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "Combating VAT fraud – the effectiveness of cross-border cooperation when it comes to VAT fraud and its impact on the EU budget",
+      "sub": "A10-0213/2026 · 2025/2121(INI)",
+      "rapporteur": "Ondřej Knotek",
+      "rapporteurs": [
+       "197528"
+      ],
+      "committee": "CONT"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "Transport: enforcement of passenger rights in the Union",
+      "sub": "C9-0434/2023 · A10-0136/2025 · ***I",
+      "rapporteur": "Matteo Ricci",
+      "rapporteurs": [
+       "257121"
+      ],
+      "committee": "TRAN"
      },
      {
       "time": "13:00–15:00",
-      "type": "other",
-      "title": "PLENARY SESSION DEBATES"
+      "type": "debate",
+      "title": "General budget of the European Union for the financial year 2027 – all sections",
+      "sub": "C10-0218/2026 · 2026/0196(BUD)",
+      "rapporteur": "Nils Ušakovs, Michalis Hadjipantela",
+      "rapporteurs": [
+       "197810",
+       "256985"
+      ],
+      "committee": "BUDG"
      },
      {
       "time": "15:00–20:00",
-      "type": "other",
-      "title": "PLENARY SESSION DEBATES"
+      "type": "debate",
+      "title": "Explanations of votes"
+     },
+     {
+      "time": "15:00–20:00",
+      "type": "debate",
+      "title": "Commission Work Programme 2027",
+      "sub": "2026/2899(RSP)"
+     },
+     {
+      "time": "15:00–20:00",
+      "type": "debate",
+      "title": "Scrutiny session"
+     },
+     {
+      "time": "15:00–20:00",
+      "type": "debate",
+      "title": "Debates on foreign affairs issues in the presence of the Vice-President of the Commission/High Representative of the Union for Foreign Affairs and Security Policy"
+     },
+     {
+      "time": "15:00–20:00",
+      "type": "debate",
+      "title": "Question Time (Commission)"
+     },
+     {
+      "time": "15:00–20:00",
+      "type": "debate",
+      "title": "Erasmus+ programme 2028–2034",
+      "sub": "C10-0170/2025 · A10-0257/2026 · ***I",
+      "rapporteur": "Bogdan Andrzej Zdrojewski",
+      "rapporteurs": [
+       "124893"
+      ],
+      "committee": "CULT"
      }
     ],
     "2026-10-21": [
      {
       "time": "09:00–11:50",
-      "type": "other",
-      "title": "PLENARY SESSION KEY DEBATE"
+      "type": "debate",
+      "title": "Conclusions of the European Council meeting of 15-16 October 2026",
+      "sub": "2026/2898(RSP)"
      },
      {
       "time": "12:00–13:00",
-      "type": "other",
-      "title": "PLENARY SESSION VOTES"
+      "type": "votes",
+      "title": "Mobilisation of the European Union Solidarity Fund to provide assistance to Malta and Italy regarding storm Harry in January 2026 and to Portugal and Spain following the storms in January and February 2026",
+      "sub": "C10-0226/2026 · 2026/0284(BUD)",
+      "rapporteur": "Lucia Yar",
+      "rapporteurs": [
+       "257011"
+      ],
+      "committee": "BUDG"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "General budget of the European Union for the financial year 2027 – all sections",
+      "sub": "C10-0218/2026 · 2026/0196(BUD)",
+      "rapporteur": "Nils Ušakovs, Michalis Hadjipantela",
+      "rapporteurs": [
+       "197810",
+       "256985"
+      ],
+      "committee": "BUDG"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "Draft general budget of the European Union for the financial year 2027 – all sections"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "Mobilisation of the European Globalisation Adjustment Fund for Displaced Workers: application EGF/2026/004 FI/Etelä-Suomi and Helsinki-Uusimaa paper - Finland",
+      "sub": "C10-0209/2026 · 2026/0254(BUD)",
+      "rapporteur": "Aura Salla",
+      "rapporteurs": [
+       "98219"
+      ],
+      "committee": "BUDG"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "Discharge 2024: EU general budget – European Council and Council",
+      "sub": "C10-0147/2025 · A10-0258/2026 · 2025/2147(DEC)",
+      "rapporteur": "Pasquale Tridico",
+      "rapporteurs": [
+       "257133"
+      ],
+      "committee": "CONT"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "Pericles V exchange, assistance and training programme for the protection of the euro against counterfeiting 2028–2034",
+      "sub": "C10-0195/2025 · A10-0256/2026 · ***I",
+      "rapporteur": "Michael McNamara",
+      "rapporteurs": [
+       "257300"
+      ],
+      "committee": "LIBE"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "Guidelines for the employment policies of the Member States",
+      "sub": "C10-0153/2026 · A10-0260/2026 · *",
+      "rapporteur": "Li Andersson",
+      "rapporteurs": [
+       "256805"
+      ],
+      "committee": "EMPL"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "Texts on which debate is closed"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "Objection pursuant to Rule 115(2) and (3): Genetically modified soybean MON 87769",
+      "sub": "2026/2880(RSP)"
      },
      {
       "time": "13:00–20:00",
-      "type": "other",
-      "title": "PLENARY SESSION DEBATES"
+      "type": "debate",
+      "title": "UN Climate Change Conference 2026 in Antalya, Turkey (COP31)",
+      "sub": "2026/2666(RSP)",
+      "rapporteur": "Pierfrancesco Maran, Lídia Pereira, Heléne Fritzon, Marie-Luce Brasier-Clain, Emma Wiesner, Pär Holmgren, Lynn Boylan, Pierfrancesco Maran, Lídia Pereira, Heléne Fritzon, Marie-Luce Brasier-Clain, Emma Wiesner, Pär Holmgren, Lynn Boylan",
+      "rapporteurs": [
+       "257727",
+       "197738",
+       "197391",
+       "256878",
+       "214839",
+       "197398",
+       "124984",
+       "257727",
+       "197738",
+       "197391",
+       "256878",
+       "214839",
+       "197398",
+       "124984"
+      ],
+      "committee": "ENVI"
+     },
+     {
+      "time": "13:00–20:00",
+      "type": "debate",
+      "title": "Topical debate requested by a political group (EPP) (Rule 169)"
+     },
+     {
+      "time": "13:00–20:00",
+      "type": "debate",
+      "title": "Simplification of certain requirements and procedures for chemical products",
+      "sub": "C10-0143/2025 · A10-0104/2026 · ***I",
+      "rapporteur": "Dimitris Tsiodras, Piotr Müller",
+      "rapporteurs": [
+       "256950",
+       "257080"
+      ],
+      "committee": "ENVI"
+     },
+     {
+      "time": "13:00–20:00",
+      "type": "debate",
+      "title": "Presentation of the Court of Auditors' annual report 2025",
+      "sub": "2026/2897(RSP)"
+     },
+     {
+      "time": "13:00–20:00",
+      "type": "debate",
+      "title": "Explanations of votes"
      }
     ],
     "2026-10-22": [
      {
       "time": "09:00–11:50",
-      "type": "other",
-      "title": "PLENARY SESSION DEBATES"
+      "type": "debate",
+      "title": "Boosting skills in the Union – opportunities for vocational education and training in times of transition",
+      "sub": "A10-0259/2026 · 2026/2070(INI)",
+      "rapporteur": "Brigitte van den Berg",
+      "rapporteurs": [
+       "256976"
+      ],
+      "committee": "EMPL"
      },
      {
       "time": "12:00–14:00",
-      "type": "other",
-      "title": "PLENARY SESSION VOTES"
+      "type": "votes",
+      "title": "Cohesion policy – the driving force in implementing the EU agenda for cities",
+      "sub": "A10-0263/2026 · 2026/2027(INI)",
+      "rapporteur": "Denis Nesci",
+      "rapporteurs": [
+       "239260"
+      ],
+      "committee": "REGI"
+     },
+     {
+      "time": "12:00–14:00",
+      "type": "votes",
+      "title": "Texts on which debate is closed"
+     },
+     {
+      "time": "12:00–14:00",
+      "type": "votes",
+      "title": "Cohesion policy in the EU’s eastern border regions: strengthening territorial resilience and cross-border cooperation",
+      "sub": "A10-0264/2026 · 2026/2054(INI)",
+      "rapporteur": "Jacek Protas",
+      "rapporteurs": [
+       "257041"
+      ],
+      "committee": "REGI"
+     },
+     {
+      "time": "12:00–14:00",
+      "type": "votes",
+      "title": "Revised heat and fuel benchmark values for 2026-2030",
+      "sub": "C10-0189/2026 · ***I",
+      "rapporteur": "Adam Jarubas",
+      "rapporteurs": [
+       "197517"
+      ],
+      "committee": "ENVI"
      },
      {
       "time": "15:00–16:00",
-      "type": "other",
-      "title": "PLENARY SESSION DEBATES"
+      "type": "debate",
+      "title": "Explanations of votes"
+     },
+     {
+      "time": "15:00–16:00",
+      "type": "debate",
+      "title": "Major interpellations (Rule 145)"
      }
     ]
    }
