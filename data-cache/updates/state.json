@@ -151,7 +151,23 @@
     "digital-networks-act:ep:2026-0013-NMSR-256874-2026-02-19": true,
     "digital-networks-act:ep:2026-0013-NMSR-251324-2026-02-10": true,
     "digital-networks-act:ep:2026-0013-NMSR-197439-2026-02-03": true,
-    "ai-act-implementation:next:2026-12-02:452a4f": true
+    "ai-act-implementation:next:2026-12-02:452a4f": true,
+    "mff-2028-2034:next:2026-11-03:a60a9d": true,
+    "mff-2028-2034:next:2026-10-30:a60a9d": true,
+    "mff-2028-2034:next:2026-10-20:a60a9d": true,
+    "mff-2028-2034:next:2026-10-09:a6fbc3": true,
+    "digital-omnibus-data:next:2026-10-26:77c642": true,
+    "digital-omnibus-data:next:2026-10-23:77c642": true,
+    "digital-omnibus-data:next:2026-10-19:77c642": true,
+    "industrial-accelerator-act:next:2026-10-26:345611": true,
+    "industrial-accelerator-act:next:2026-10-19:345611": true,
+    "industrial-accelerator-act:next:2026-10-13:345611": true,
+    "industrial-accelerator-act:next:2026-10-12:ba073b": true,
+    "digital-networks-act:next:2026-10-12:1bf3e8": true,
+    "tech-sovereignty-package:next:2026-10-26:345611": true,
+    "tech-sovereignty-package:next:2026-10-19:345611": true,
+    "tech-sovereignty-package:next:2026-10-13:345611": true,
+    "tech-sovereignty-package:next:2026-10-12:9c39bb": true
   },
   "seeded": {
     "mff-2028-2034": true,
@@ -171,5 +187,7 @@
     "tech-sovereignty-package": "positions-in-preparation",
     "ai-act-implementation": "in-force"
   },
-  "pushed": {}
+  "pushed": {
+    "mff-2028-2034:next:2026-10-09:a6fbc3": true
+  }
 }

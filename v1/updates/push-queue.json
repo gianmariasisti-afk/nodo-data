@@ -1,4 +1,15 @@
 {
-  "generatedAt": "2026-10-08T00:00:00Z",
-  "events": []
+  "generatedAt": "2026-10-09T00:00:00Z",
+  "events": [
+    {
+      "id": "mff-2028-2034:next:2026-10-09:a6fbc3",
+      "fileId": "mff-2028-2034",
+      "date": "2026-10-09",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "AHWP MFF (national and regional partnerships), 10:00",
+      "push": true,
+      "pushOn": "2026-10-09"
+    }
+  ]
 }

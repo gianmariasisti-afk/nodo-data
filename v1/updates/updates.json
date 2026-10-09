@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-08T00:00:00Z",
+  "generatedAt": "2026-10-09T00:00:00Z",
   "events": [
     {
       "id": "ai-act-implementation:next:2026-12-02:452a4f",
@@ -10,6 +10,106 @@
       "title": "Labelling cut-off for generative AI systems already on the market",
       "push": true,
       "pushOn": "2026-12-02"
+    },
+    {
+      "id": "mff-2028-2034:next:2026-11-03:a60a9d",
+      "fileId": "mff-2028-2034",
+      "date": "2026-11-03",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "AHWP MFF (national and regional partnerships)",
+      "push": true,
+      "pushOn": "2026-11-03"
+    },
+    {
+      "id": "mff-2028-2034:next:2026-10-30:a60a9d",
+      "fileId": "mff-2028-2034",
+      "date": "2026-10-30",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "AHWP MFF (national and regional partnerships)",
+      "push": true,
+      "pushOn": "2026-10-30"
+    },
+    {
+      "id": "digital-omnibus-data:next:2026-10-26:77c642",
+      "fileId": "digital-omnibus-data",
+      "date": "2026-10-26",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Antici Group (Simplification); agenda not confirmed to include the Omnibus",
+      "push": true,
+      "pushOn": "2026-10-26"
+    },
+    {
+      "id": "industrial-accelerator-act:next:2026-10-26:345611",
+      "fileId": "industrial-accelerator-act",
+      "date": "2026-10-26",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Industry Working Party (file not specified)",
+      "push": true,
+      "pushOn": "2026-10-26"
+    },
+    {
+      "id": "tech-sovereignty-package:next:2026-10-26:345611",
+      "fileId": "tech-sovereignty-package",
+      "date": "2026-10-26",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Industry Working Party (file not specified)",
+      "push": true,
+      "pushOn": "2026-10-26"
+    },
+    {
+      "id": "digital-omnibus-data:next:2026-10-23:77c642",
+      "fileId": "digital-omnibus-data",
+      "date": "2026-10-23",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Antici Group (Simplification); agenda not confirmed to include the Omnibus",
+      "push": true,
+      "pushOn": "2026-10-23"
+    },
+    {
+      "id": "mff-2028-2034:next:2026-10-20:a60a9d",
+      "fileId": "mff-2028-2034",
+      "date": "2026-10-20",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "AHWP MFF (national and regional partnerships)",
+      "push": true,
+      "pushOn": "2026-10-20"
+    },
+    {
+      "id": "digital-omnibus-data:next:2026-10-19:77c642",
+      "fileId": "digital-omnibus-data",
+      "date": "2026-10-19",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Antici Group (Simplification); agenda not confirmed to include the Omnibus",
+      "push": true,
+      "pushOn": "2026-10-19"
+    },
+    {
+      "id": "industrial-accelerator-act:next:2026-10-19:345611",
+      "fileId": "industrial-accelerator-act",
+      "date": "2026-10-19",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Industry Working Party (file not specified)",
+      "push": true,
+      "pushOn": "2026-10-19"
+    },
+    {
+      "id": "tech-sovereignty-package:next:2026-10-19:345611",
+      "fileId": "tech-sovereignty-package",
+      "date": "2026-10-19",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Industry Working Party (file not specified)",
+      "push": true,
+      "pushOn": "2026-10-19"
     },
     {
       "id": "mff-2028-2034:next:2026-10-15:4c1fd2",
@@ -32,6 +132,16 @@
       "pushOn": "2026-10-13"
     },
     {
+      "id": "industrial-accelerator-act:next:2026-10-13:345611",
+      "fileId": "industrial-accelerator-act",
+      "date": "2026-10-13",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Industry Working Party (file not specified)",
+      "push": true,
+      "pushOn": "2026-10-13"
+    },
+    {
       "id": "mff-2028-2034:next:2026-10-13:617eea",
       "fileId": "mff-2028-2034",
       "date": "2026-10-13",
@@ -40,6 +150,56 @@
       "title": "General Affairs Council: MFF policy debate (Luxembourg)",
       "push": true,
       "pushOn": "2026-10-13"
+    },
+    {
+      "id": "tech-sovereignty-package:next:2026-10-13:345611",
+      "fileId": "tech-sovereignty-package",
+      "date": "2026-10-13",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Industry Working Party (file not specified)",
+      "push": true,
+      "pushOn": "2026-10-13"
+    },
+    {
+      "id": "digital-networks-act:next:2026-10-12:1bf3e8",
+      "fileId": "digital-networks-act",
+      "date": "2026-10-12",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Informal meeting of telecommunications ministers, 12–13 October (agenda not checked)",
+      "push": true,
+      "pushOn": "2026-10-12"
+    },
+    {
+      "id": "industrial-accelerator-act:next:2026-10-12:ba073b",
+      "fileId": "industrial-accelerator-act",
+      "date": "2026-10-12",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Industry Working Party, 10:00 (file not specified; also covers Chips Act 2.0)",
+      "push": true,
+      "pushOn": "2026-10-12"
+    },
+    {
+      "id": "tech-sovereignty-package:next:2026-10-12:9c39bb",
+      "fileId": "tech-sovereignty-package",
+      "date": "2026-10-12",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Industry Working Party, 10:00 (Chips Act 2.0 probable; file not specified)",
+      "push": true,
+      "pushOn": "2026-10-12"
+    },
+    {
+      "id": "mff-2028-2034:next:2026-10-09:a6fbc3",
+      "fileId": "mff-2028-2034",
+      "date": "2026-10-09",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "AHWP MFF (national and regional partnerships), 10:00",
+      "push": true,
+      "pushOn": "2026-10-09"
     },
     {
       "id": "digital-omnibus-data:ep:amendments:2026-07-27",
