@@ -35,7 +35,7 @@ export async function keyPlayers(ref) {
         rows.push(abbr);
         for (const a of td ? td.querySelectorAll("a.rapporteur") : []) out.push({ id: idOf(a), name: T(a.textContent), role: opinion ? "opinion-rapporteur" : "rapporteur", committee: abbr });
       }
-      for (const a of tr.querySelectorAll(".collapse a.rapporteur")) {
+      for (const a of tr.querySelectorAll(":scope .collapse a.rapporteur")) {
         if (opinion) continue;
         out.push({ id: idOf(a), name: T(a.textContent), role: "shadow", committee: joint ? rows.join("-") : rows[rows.length - 1] });
       }
