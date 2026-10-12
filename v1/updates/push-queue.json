@@ -1,35 +1,4 @@
 {
   "generatedAt": "2026-10-12T00:00:00Z",
-  "events": [
-    {
-      "id": "industrial-accelerator-act:next:2026-10-12:ba073b",
-      "fileId": "industrial-accelerator-act",
-      "date": "2026-10-12",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Industry Working Party, 10:00 (file not specified; also covers Chips Act 2.0)",
-      "push": true,
-      "pushOn": "2026-10-12"
-    },
-    {
-      "id": "digital-networks-act:next:2026-10-12:1bf3e8",
-      "fileId": "digital-networks-act",
-      "date": "2026-10-12",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Informal meeting of telecommunications ministers, 12–13 October (agenda not checked)",
-      "push": true,
-      "pushOn": "2026-10-12"
-    },
-    {
-      "id": "tech-sovereignty-package:next:2026-10-12:9c39bb",
-      "fileId": "tech-sovereignty-package",
-      "date": "2026-10-12",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Industry Working Party, 10:00 (Chips Act 2.0 probable; file not specified)",
-      "push": true,
-      "pushOn": "2026-10-12"
-    }
-  ]
+  "events": []
 }
