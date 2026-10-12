@@ -22,11 +22,11 @@ concurrency:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
           node-version: 22
       - name: Install pdftotext
@@ -87,9 +87,13 @@ jobs:
           git fetch -q origin main && git checkout -q -f origin/main 2>/dev/null || true
           grep -q '"changed": true' build.log || exit 0
           [ -f data-cache/agenda-notify.json ] || exit 0
-          node -e 'const n=JSON.parse(require("fs").readFileSync("data-cache/agenda-notify.json","utf8"));const p=n.pending||[];if(!p.length)process.exit(1);console.log(p.map(x=>`- **${x.session}** (${x.stage}, ${x.items} items): ${x.link}`).join("\n"))' > ann.md || exit 0
+          # Announce only what this run found (`latest`); older finds were announced by earlier runs.
+          node -e 'const n=JSON.parse(require("fs").readFileSync("data-cache/agenda-notify.json","utf8"));const p=n.latest||[];if(!p.length)process.exit(1);const pl={SXB:"Strasbourg",BRU:"Brussels"};console.log(p.map(x=>`- **${x.session}** ${pl[x.place]||""} (${x.stage}, ${x.items} items): ${x.link}`).join("\n"))' > ann.md || exit 0
           gh label create agenda --color 1D76DB --description "Plenary agenda updates" 2>/dev/null || true
-          gh issue create --title "Agenda found ($(date -u '+%F %H:%M'))" --label agenda --body-file ann.md || true
+          # The newest announcement replaces the older open ones, so the daily check reports one current agenda.
+          OLD=$(gh issue list --state open --label agenda --search '"Agenda found" in:title' --json number --jq '.[].number' || true)
+          NEW=$(gh issue create --title "Agenda found ($(date -u '+%F %H:%M'))" --label agenda --body-file ann.md) || exit 0
+          for n in $OLD; do gh issue close "$n" --comment "Superseded by $NEW" || true; done
       - name: Open an issue when the build failed
         if: failure()
         env:

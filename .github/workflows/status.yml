@@ -1,10 +1,14 @@
 name: Publish health status
 
 # Writes status.json to the `status` branch so the daily nodo check can read the
-# state of every workflow and every open issue from raw.githubusercontent.com.
-# Runs shortly before the weekday check (06:54 UTC).
+# state of every workflow, every open issue and the age of every data file from raw.githubusercontent.com.
+# It runs after each data workflow finishes, so the snapshot is always as fresh as the data.
+# GitHub starts scheduled runs on this repo 6–7 hours late, so the schedule below is only a backstop.
 
 on:
+  workflow_run:
+    workflows: ["Update MEP activity", "Update plenary agenda", "Update Commission and cabinets", "Update file stream"]
+    types: [completed]
   schedule:
     - cron: "20 6 * * 1-5"
   workflow_dispatch:
@@ -20,10 +24,15 @@ concurrency:
 
 jobs:
   status:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
+        with:
+          ref: main
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
       - name: Build status.json
         env:
           GH_TOKEN: ${{ github.token }}
@@ -36,9 +45,11 @@ jobs:
           git ls-remote --heads origin 'review/*' | sed 's#.*refs/heads/##' > "$RUNNER_TEMP/branches.txt" || true
           ACT=$(ls v1/activity/*.json 2>/dev/null | wc -l)
           QF=$(ls v1/activity/q 2>/dev/null | wc -l)
+          node scripts/status-data.mjs > "$RUNNER_TEMP/data.json"
           jq -n \
             --slurpfile runs "$RUNNER_TEMP/runs.json" \
             --slurpfile issues "$RUNNER_TEMP/issues.json" \
+            --slurpfile data "$RUNNER_TEMP/data.json" \
             --rawfile branches "$RUNNER_TEMP/branches.txt" \
             --arg generated "$(date -u +%FT%TZ)" \
             --argjson act "$ACT" --argjson qf "$QF" \
@@ -47,6 +58,9 @@ jobs:
               generated: $generated,
               manifestGenerated: $manifest,
               counts: { activityFiles: $act, questionFiles: $qf },
+              freshness: $data[0].freshness,
+              files: $data[0].files,
+              manifestProblems: $data[0].manifest,
               workflows: (
                 [ $runs[0].workflow_runs[]
                   | select(.name != "pages build and deployment" and .name != "Publish health status" and .status == "completed") ]

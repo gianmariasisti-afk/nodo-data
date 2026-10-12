@@ -2,7 +2,8 @@
    Source: EP Open Data Portal API v2 (the EP website sits behind a bot check that blocks GitHub runners, the API does not).
    For every sitting day of the next plenary session(s), GET /meetings/MTG-PL-<day>/foreseen-activities returns the time slots
    (MEETING_PART) and the agenda items (…-OJ-ITM-…) with title, type, documents and creators (rapporteurs with their MEP id).
-   Output: v1/agenda.json (same shape as before), data-cache/agenda-notify.json (pending push notifications),
+   Covers every plenary session in v1/calendar.json: Strasbourg and the Brussels mini-sessions.
+   Output: v1/agenda.json (same shape as before), data-cache/agenda-notify.json (`latest`: what this run found, `log`: the last 60 days),
    data-cache/agenda-probe.json (what the run saw, for diagnosis), data-cache/agenda-unmatched.json (rapporteur ids missing from meps.json). */
 import fs from "node:fs/promises";
 import path from "node:path";
@@ -121,19 +122,24 @@ async function main() {
   const cal = await readJson(path.join(V1, "calendar.json"), { sessions: [] });
   const mepIds = new Set(((await readJson(path.join(V1, "meps.json"), { meps: [] })).meps || []).map((m) => String(m.id)));
   const agenda = await readJson(path.join(V1, "agenda.json"), { checked: "", source: PAGE, sessions: {} });
-  const notify = await readJson(path.join(CACHE, "agenda-notify.json"), { pending: [] });
+  /* `latest` holds only what this run found, so an announcement never repeats an older one. `log` keeps 60 days for reference.
+     Files written before this change have `pending` instead of `log`. */
+  const prevNotify = await readJson(path.join(CACHE, "agenda-notify.json"), {});
+  const keepFrom = new Date(Date.now() - 60 * 864e5).toISOString();
+  const notify = { latest: [], log: (prevNotify.log || prevNotify.pending || []).filter((x) => String(x.at || "") >= keepFrom) };
   const from = iso(new Date(Date.now() - 4 * 864e5)), to = iso(new Date(Date.now() + DAYS_AHEAD * 864e5));
-  const upcoming = (cal.sessions || []).filter((s) => s.place === "SXB" && s.end >= from && s.start <= to);
+  const upcoming = (cal.sessions || []).filter((s) => s.end >= from && s.start <= to);
   const unmatchedAll = {};
   let changed = false, failed = false;
 
   for (const s of upcoming) {
     const info = (probe.sessions[s.start] = { days: {} });
     const days = {}; const um = []; const types = {};
+    let dayFailed = false;
     for (const day of daysOf(s)) {
       const r = await dayActivities(day);
       info.days[day] = { status: r.status, activities: r.items.length };
-      if (r.failed) { failed = true; continue; }
+      if (r.failed) { failed = true; dayFailed = true; continue; }
       for (const a of r.items) types[String(a.had_activity_type || "?")] = (types[String(a.had_activity_type || "?")] || 0) + 1;
       if (!r.items.length) continue;
       const { items, unmatched } = buildDay(r.items, mepIds);
@@ -142,6 +148,8 @@ async function main() {
       await sleep(700);
     }
     info.types = types;
+    /* A sitting day that could not be read would make the session look shorter than it is: keep the published entry. */
+    if (dayFailed) { info.kept = "a sitting day failed to load; the published entry stays"; continue; }
     const n = Object.values(days).reduce((a, v) => a + v.length, 0);
     info.items = n;
     if (!n) continue;
@@ -151,7 +159,10 @@ async function main() {
     const adopt = prev && !prev.src; /* entry made by hand earlier: replace it without announcing it */
     const stage = stageFor(s.start, prev && prev.stage, !prev);
     agenda.sessions[s.start] = { stage, updated: iso(new Date()), link: PAGE, src: { api: "foreseen-activities", sha256: hash }, days };
-    if (!adopt && (!prev || prev.stage !== stage)) notify.pending.push({ session: s.start, stage, link: PAGE, at: new Date().toISOString(), items: n });
+    if (!adopt && (!prev || prev.stage !== stage)) {
+      const entry = { session: s.start, place: s.place, stage, link: PAGE, at: new Date().toISOString(), items: n };
+      notify.latest.push(entry); notify.log.push(entry);
+    }
     if (um.length) unmatchedAll[s.start] = um;
     changed = true;
   }
@@ -164,11 +175,11 @@ async function main() {
     await fs.writeFile(path.join(V1, "agenda.json"), buf);
     await fs.writeFile(path.join(CACHE, "agenda-notify.json"), JSON.stringify(notify, null, 1) + "\n");
     const mp = path.join(V1, "manifest.json"), man = await readJson(mp, null);
-    if (man && man.files) { man.files.agenda = { ...(man.files.agenda || {}), path: "agenda.json", bytes: buf.length, sha256: sha(buf) }; man.generated = new Date().toISOString(); await fs.writeFile(mp, JSON.stringify(man, null, 1) + "\n"); }
+    if (man && man.files) { const { updated, stage, ...keep } = man.files.agenda || {}; /* drop fields left by the hand-made first version */ man.files.agenda = { ...keep, path: "agenda.json", bytes: buf.length, sha256: sha(buf) }; man.generated = new Date().toISOString(); await fs.writeFile(mp, JSON.stringify(man, null, 1) + "\n"); }
   }
   if (Object.keys(unmatchedAll).length) await fs.writeFile(path.join(CACHE, "agenda-unmatched.json"), JSON.stringify(unmatchedAll, null, 1) + "\n");
   else await fs.rm(path.join(CACHE, "agenda-unmatched.json"), { force: true });
-  console.log(JSON.stringify({ upcoming: upcoming.map((s) => s.start), changed, unmatched: Object.fromEntries(Object.entries(unmatchedAll).map(([k, v]) => [k, v.length])), probe: probe.sessions }, null, 1));
+  console.log(JSON.stringify({ upcoming: upcoming.map((s) => s.start), changed, announce: notify.latest.length, unmatched: Object.fromEntries(Object.entries(unmatchedAll).map(([k, v]) => [k, v.length])), probe: probe.sessions }, null, 1));
   if (failed) process.exit(1);
 }
 
