@@ -1,0 +1,429 @@
+{
+ "detail": {
+  "id": "person/257041",
+  "type": "Person",
+  "identifier": "257041",
+  "label": "Jacek PROTAS",
+  "notation_codictPersonId": "257041",
+  "hasEmail": "mailto:jacek.protas@europarl.europa.eu",
+  "hasMembership": [
+   {
+    "id": "membership/257041-f-174193",
+    "type": "Membership",
+    "identifier": "257041-f-174193",
+    "notation_codictFunctionId": "174193",
+    "memberDuring": {
+     "id": "time-period/20240719",
+     "type": "PeriodOfTime",
+     "startDate": "2024-07-19"
+    },
+    "organization": "org/6581",
+    "role": "def/ep-roles/MEMBER_SUBSTITUTE",
+    "membershipClassification": "def/ep-entities/COMMITTEE_PARLIAMENTARY_STANDING",
+    "contactPoint": []
+   },
+   {
+    "id": "membership/257041-f-173797",
+    "type": "Membership",
+    "identifier": "257041-f-173797",
+    "notation_codictFunctionId": "173797",
+    "memberDuring": {
+     "id": "time-period/20240719-20250714",
+     "type": "PeriodOfTime",
+     "endDate": "2025-07-14",
+     "startDate": "2024-07-19"
+    },
+    "organization": "org/6568",
+    "role": "def/ep-roles/MEMBER",
+    "membershipClassification": "def/ep-entities/COMMITTEE_PARLIAMENTARY_STANDING",
+    "contactPoint": []
+   },
+   {
+    "id": "membership/257041-f-179965",
+    "type": "Membership",
+    "identifier": "257041-f-179965",
+    "notation_codictFunctionId": "179965",
+    "memberDuring": {
+     "id": "time-period/20250225",
+     "type": "PeriodOfTime",
+     "startDate": "2025-02-25"
+    },
+    "organization": "org/7899",
+    "role": "def/ep-roles/MEMBER",
+    "membershipClassification": "def/ep-entities/WORKING_GROUP",
+    "contactPoint": []
+   },
+   {
+    "id": "membership/257041-f-180869",
+    "type": "Membership",
+    "identifier": "257041-f-180869",
+    "notation_codictFunctionId": "180869",
+    "memberDuring": {
+     "id": "time-period/20251201",
+     "type": "PeriodOfTime",
+     "startDate": "2025-12-01"
+    },
+    "organization": "org/7979",
+    "role": "def/ep-roles/MEMBER",
+    "membershipClassification": "def/ep-entities/NATIONAL_POLITICAL_GROUP",
+    "contactPoint": []
+   },
+   {
+    "id": "membership/257041-f-180459",
+    "type": "Membership",
+    "identifier": "257041-f-180459",
+    "notation_codictFunctionId": "180459",
+    "memberDuring": {
+     "id": "time-period/20250715",
+     "type": "PeriodOfTime",
+     "startDate": "2025-07-15"
+    },
+    "organization": "org/6568",
+    "role": "def/ep-roles/CHAIR_VICE",
+    "membershipClassification": "def/ep-entities/COMMITTEE_PARLIAMENTARY_STANDING",
+    "contactPoint": []
+   },
+   {
+    "id": "membership/257041-f-181098",
+    "type": "Membership",
+    "identifier": "257041-f-181098",
+    "notation_codictFunctionId": "181098",
+    "memberDuring": {
+     "id": "time-period/20260914",
+     "type": "PeriodOfTime",
+     "startDate": "2026-09-14"
+    },
+    "organization": "org/6618",
+    "role": "def/ep-roles/MEMBER",
+    "membershipClassification": "def/ep-entities/DELEGATION_PARLIAMENTARY",
+    "contactPoint": []
+   },
+   {
+    "id": "membership/257041-f-176383",
+    "type": "Membership",
+    "identifier": "257041-f-176383",
+    "notation_codictFunctionId": "176383",
+    "memberDuring": {
+     "id": "time-period/20240919",
+     "type": "PeriodOfTime",
+     "startDate": "2024-09-19"
+    },
+    "organization": "org/6628",
+    "role": "def/ep-roles/MEMBER_SUBSTITUTE",
+    "membershipClassification": "def/ep-entities/DELEGATION_JOINT_COMMITTEE",
+    "contactPoint": []
+   },
+   {
+    "id": "membership/257041-f-178048",
+    "type": "Membership",
+    "identifier": "257041-f-178048",
+    "notation_codictFunctionId": "178048",
+    "memberDuring": {
+     "id": "time-period/20250116",
+     "type": "PeriodOfTime",
+     "startDate": "2025-01-16"
+    },
+    "organization": "org/7882",
+    "role": "def/ep-roles/MEMBER",
+    "membershipClassification": "def/ep-entities/WORKING_GROUP",
+    "contactPoint": []
+   },
+   {
+    "id": "membership/257041-f-180526",
+    "type": "Membership",
+    "identifier": "257041-f-180526",
+    "notation_codictFunctionId": "180526",
+    "memberDuring": {
+     "id": "time-period/20250930",
+     "type": "PeriodOfTime",
+     "startDate": "2025-09-30"
+    },
+    "organization": "org/6596",
+    "role": "def/ep-roles/MEMBER_SUBSTITUTE",
+    "membershipClassification": "def/ep-entities/DELEGATION_PARLIAMENTARY",
+    "contactPoint": []
+   },
+   {
+    "id": "membership/257041-f-180527",
+    "type": "Membership",
+    "identifier": "257041-f-180527",
+    "notation_codictFunctionId": "180527",
+    "memberDuring": {
+     "id": "time-period/20250930",
+     "type": "PeriodOfTime",
+     "startDate": "2025-09-30"
+    },
+    "organization": "org/6569",
+    "role": "def/ep-roles/MEMBER_SUBSTITUTE",
+    "membershipClassification": "def/ep-entities/DELEGATION_PARLIAMENTARY_ASSEMBLY",
+    "contactPoint": []
+   },
+   {
+    "id": "membership/257041-f-176964",
+    "type": "Membership",
+    "identifier": "257041-f-176964",
+    "notation_codictFunctionId": "176964",
+    "memberDuring": {
+     "id": "time-period/20240919-20260913",
+     "type": "PeriodOfTime",
+     "endDate": "2026-09-13",
+     "startDate": "2024-09-19"
+    },
+    "organization": "org/6566",
+    "role": "def/ep-roles/MEMBER",
+    "membershipClassification": "def/ep-entities/DELEGATION_PARLIAMENTARY_ASSEMBLY",
+    "contactPoint": []
+   },
+   {
+    "id": "membership/257041-f-174640",
+    "type": "Membership",
+    "identifier": "257041-f-174640",
+    "notation_codictFunctionId": "174640",
+    "memberDuring": {
+     "id": "time-period/20240719",
+     "type": "PeriodOfTime",
+     "startDate": "2024-07-19"
+    },
+    "organization": "org/6567",
+    "role": "def/ep-roles/MEMBER_SUBSTITUTE",
+    "membershipClassification": "def/ep-entities/COMMITTEE_PARLIAMENTARY_STANDING",
+    "contactPoint": []
+   },
+   {
+    "id": "membership/257041-f-170403",
+    "type": "Membership",
+    "identifier": "257041-f-170403",
+    "notation_codictFunctionId": "170403",
+    "memberDuring": {
+     "id": "time-period/20240716",
+     "type": "PeriodOfTime",
+     "startDate": "2024-07-16"
+    },
+    "organization": "org/ep-10",
+    "role": "def/ep-roles/MEMBER",
+    "membershipClassification": "def/ep-entities/EU_INSTITUTION",
+    "contactPoint": []
+   },
+   {
+    "id": "membership/257041-f-171652",
+    "type": "Membership",
+    "identifier": "257041-f-171652",
+    "notation_codictFunctionId": "171652",
+    "memberDuring": {
+     "id": "time-period/20240716-20251130",
+     "type": "PeriodOfTime",
+     "endDate": "2025-11-30",
+     "startDate": "2024-07-16"
+    },
+    "organization": "org/6703",
+    "role": "def/ep-roles/MEMBER",
+    "membershipClassification": "def/ep-entities/NATIONAL_POLITICAL_GROUP",
+    "contactPoint": []
+   },
+   {
+    "id": "membership/257041-f-172466",
+    "type": "Membership",
+    "identifier": "257041-f-172466",
+    "notation_codictFunctionId": "172466",
+    "memberDuring": {
+     "id": "time-period/20240716",
+     "type": "PeriodOfTime",
+     "startDate": "2024-07-16"
+    },
+    "organization": "org/7018",
+    "role": "def/ep-roles/MEMBER",
+    "membershipClassification": "def/ep-entities/EU_POLITICAL_GROUP",
+    "contactPoint": []
+   },
+   {
+    "id": "membership/257041-f-175689",
+    "type": "Membership",
+    "identifier": "257041-f-175689",
+    "notation_codictFunctionId": "175689",
+    "memberDuring": {
+     "id": "time-period/20240919-20260913",
+     "type": "PeriodOfTime",
+     "endDate": "2026-09-13",
+     "startDate": "2024-09-19"
+    },
+    "organization": "org/6606",
+    "role": "def/ep-roles/MEMBER",
+    "membershipClassification": "def/ep-entities/DELEGATION_PARLIAMENTARY",
+    "contactPoint": []
+   },
+   {
+    "id": "membership/257041-m-17311",
+    "type": "Membership",
+    "represents": [
+     "http://publications.europa.eu/resource/authority/country/POL"
+    ],
+    "identifier": "257041-m-17311",
+    "notation_codictMandateId": "17311",
+    "contactPoint": [
+     {
+      "id": "contact-point/257041-m-17311-T10026",
+      "type": "ContactPoint",
+      "officeAddress": "T10026",
+      "hasTelephone": {
+       "id": "tel/0033388175720",
+       "type": "Voice",
+       "hasValue": "tel:+33388175720"
+      },
+      "hasSite": "http://publications.europa.eu/resource/authority/site/LOW"
+     },
+     {
+      "id": "contact-point/257041-m-17311-13E209",
+      "type": "ContactPoint",
+      "officeAddress": "13E209",
+      "hasTelephone": {
+       "id": "tel/003222845720",
+       "type": "Voice",
+       "hasValue": "tel:+3222845720"
+      },
+      "hasSite": "http://publications.europa.eu/resource/authority/site/ASP"
+     }
+    ],
+    "memberDuring": {
+     "id": "time-period/20240716",
+     "type": "PeriodOfTime",
+     "startDate": "2024-07-16"
+    },
+    "organization": "org/ep-10",
+    "role": "def/ep-roles/MEMBER_PARLIAMENT"
+   }
+  ],
+  "account": [
+   {
+    "id": "https://x.com/jacek_protas",
+    "type": "OnlineAccount",
+    "dcterms_type": "http://publications.europa.eu/resource/authority/address-type/TWT"
+   }
+  ],
+  "familyName": "Protas",
+  "givenName": "Jacek",
+  "img": "https://www.europarl.europa.eu/mepphoto/257041.jpg",
+  "sortLabel": "PROTASJ",
+  "upperFamilyName": "PROTAS",
+  "upperGivenName": "JACEK"
+ },
+ "cur": {
+  "id": "person/257041",
+  "type": "Person",
+  "identifier": "257041",
+  "label": "Jacek PROTAS",
+  "familyName": "Protas",
+  "givenName": "Jacek",
+  "sortLabel": "PROTASJ",
+  "api:country-of-representation": "PL",
+  "api:political-group": "PPE"
+ },
+ "prev": {
+  "id": "257041",
+  "name": "Jacek PROTAS",
+  "given": "Jacek",
+  "family": "Protas",
+  "country": "PL",
+  "group": "EPP",
+  "party": "KO",
+  "email": "jacek.protas@europarl.europa.eu",
+  "hi": 190,
+  "photo": "data:image/webp;base64,AAAA",
+  "homepage": "",
+  "socials": {
+   "x": "https://x.com/jacek_protas"
+  },
+  "committees": [
+   {
+    "name": "Committee on Regional Development",
+    "abbr": "REGI",
+    "role": "Substitute"
+   },
+   {
+    "name": "Committee on Budgetary Control",
+    "abbr": "CONT",
+    "role": "Vice Chair"
+   },
+   {
+    "name": "Committee on Budgets",
+    "abbr": "BUDG",
+    "role": "Substitute"
+   }
+  ],
+  "delegations": [
+   {
+    "name": "DCAS",
+    "abbr": "",
+    "role": "Member"
+   },
+   {
+    "name": "D-ME",
+    "abbr": "",
+    "role": "Substitute"
+   },
+   {
+    "name": "DSCA",
+    "abbr": "",
+    "role": "Substitute"
+   },
+   {
+    "name": "DEPA",
+    "abbr": "",
+    "role": "Substitute"
+   }
+  ],
+  "profile": "https://www.europarl.europa.eu/meps/en/257041"
+ },
+ "orgs": {
+  "6703": {
+   "label": "PO",
+   "cls": "def/ep-entities/NATIONAL_POLITICAL_GROUP"
+  },
+  "6568": {
+   "label": "CONT",
+   "cls": "def/ep-entities/COMMITTEE_PARLIAMENTARY_STANDING"
+  },
+  "6567": {
+   "label": "BUDG",
+   "cls": "def/ep-entities/COMMITTEE_PARLIAMENTARY_STANDING"
+  },
+  "6606": {
+   "label": "D-BR",
+   "cls": "def/ep-entities/DELEGATION_PARLIAMENTARY"
+  },
+  "6628": {
+   "label": "D-ME",
+   "cls": "def/ep-entities/DELEGATION_JOINT_COMMITTEE"
+  },
+  "6581": {
+   "label": "REGI",
+   "cls": "def/ep-entities/COMMITTEE_PARLIAMENTARY_STANDING"
+  },
+  "6618": {
+   "label": "DCAS",
+   "cls": "def/ep-entities/DELEGATION_PARLIAMENTARY"
+  },
+  "6596": {
+   "label": "DSCA",
+   "cls": "def/ep-entities/DELEGATION_PARLIAMENTARY"
+  },
+  "6569": {
+   "label": "DEPA",
+   "cls": "def/ep-entities/DELEGATION_PARLIAMENTARY_ASSEMBLY"
+  },
+  "6566": {
+   "label": "DLAT",
+   "cls": "def/ep-entities/DELEGATION_PARLIAMENTARY_ASSEMBLY"
+  },
+  "7979": {
+   "label": "KO",
+   "cls": "def/ep-entities/NATIONAL_POLITICAL_GROUP"
+  }
+ },
+ "known": {
+  "REGI": "Committee on Regional Development",
+  "CONT": "Committee on Budgetary Control",
+  "BUDG": "Committee on Budgets",
+  "ITRE": "Committee on Industry, Research and Energy",
+  "AGRI": "Committee on Agriculture and Rural Development"
+ }
+}

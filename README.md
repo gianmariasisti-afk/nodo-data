@@ -39,7 +39,7 @@ The artifact page is this `index.html` without its first line, without `config.j
 
 ## files.json
 
-Seven priority legislative files (MFF 2028–2034, Digital Omnibus, Industrial Accelerator Act, Digital Networks Act, Digital Fairness Act, Chips Act 2.0 and CADA, AI Act after the Omnibus). Each file lists `meps` (id, role, committee, `basis`), `commission` (lead and associated commissioner slugs), `cabinet` (keys from `commission.json` with a reason), Council configurations, `caveats` and `sources`. `basis` is `ep-open-data` (verified from `activity/` feeds) or `press` (named in reporting, to verify in the EP procedure file). MEP ids match `meps.json`.
+Seven priority legislative files (MFF 2028–2034, Digital Omnibus, Industrial Accelerator Act, Digital Networks Act, Digital Fairness Act, Chips Act 2.0 and CADA, AI Act after the Omnibus). `procedure` is the main EP procedure; `procedures` lists related ones (the MFF interim report is 2025/0571R(APP)) and each of `parts` can carry its own `procedure`; the update stream follows all of them. `proposal` keeps the Commission reference. Each file lists `meps` (id, role, committee, `basis`), `commission` (lead and associated commissioner slugs), `cabinet` (keys from `commission.json` with a reason), Council configurations, `caveats` and `sources`. `basis` is `ep-open-data` (verified from `activity/` feeds) or `press` (named in reporting, to verify in the EP procedure file). MEP ids match `meps.json`.
 
 ## agenda.json
 
@@ -67,6 +67,20 @@ Sessions are keyed by their first sitting day (`YYYY-MM-DD`).
 - `stage`: `none`, `draft`, `final-draft`, `agenda` or `updated`
 - `type`: `debate`, `votes`, `statement` or `other`
 - `rapporteurs`: MEP ids that match `id` in `meps.json`; the app turns them into profile links
+
+## meps.json updates
+
+The Action "Update MEP directory" (`.github/workflows/meps.yml`, `scripts/build-meps.mjs`) runs on weekdays. It reads `/meps/show-current` and each MEP's record from the EP Open Data Portal and compares them with `meps.json`.
+
+- Committee and delegation seats and roles, national party, email, homepage and names go straight to main.
+- An MEP arriving or leaving, a change of political group, a member losing every committee seat at once, or more than 150 changed records in one run (a reshuffle) wait for review on the rolling branch `review/meps`, with one open issue labelled `meps`. Merging the branch accepts them; the branch and issue are rebuilt on every run and closed when nothing waits.
+- Photos, `hi` and socials of existing MEPs are never touched. A new MEP arrives without a photo, because the EP photo server blocks GitHub runners; a session with a browser adds it.
+- `NOT_IN_API` in the script keeps records the API does not list by decision (Antoni Comín i Oliveres).
+- `data-cache/meps-report.json` records each check. Tests: `node --test tests/meps/meps.test.mjs`.
+
+## council.json updates
+
+The Council website (consilium.europa.eu) answers 403 to GitHub runners, so `council.json` has no Action. A Claude session refreshes it through a desktop browser (meetings calendar, list-of-participants PDFs for representatives and ambassadors). The weekday check reports its age on Mondays.
 
 ## activity/ (MEP feed)
 
@@ -101,6 +115,8 @@ Data comes from the European Parliament, European Commission and Council of the 
 
 ## updates/ (file update stream)
 
-`v1/updates/updates.json` is the latest feed for the priority files (last 90 days plus upcoming Council dates). `timelines.json` holds the full history per file for the file detail screen. `push-queue.json` lists today's push candidates; the sender applies per-user follows, toggles, caps and quiet hours. Events come from the EP Open Data procedure endpoint (`/api/v2/procedures/<year>-<number>`), the `next` dates in `files.json` and stage changes. State lives in `data-cache/updates/state.json`.
+`v1/updates/updates.json` is the latest feed for the priority files (last 90 days plus upcoming Council dates). `timelines.json` holds the full history per file for the file detail screen. `push-queue.json` lists today's push candidates; the sender applies per-user follows, toggles, caps and quiet hours. Events come from the EP Open Data procedure endpoint (`/api/v2/procedures/<year>-<number>`) for every procedure a file follows (committee referral, draft report, amendments, opinions, committee and plenary votes, trilogues, signature, publication), the `next` dates in `files.json` and stage changes. A procedure added to a file later seeds its history without push candidates. State lives in `data-cache/updates/state.json`.
 
 The Action "Update file stream" (`.github/workflows/updates.yml`) runs `scripts/build-updates.mjs` daily at 06:41 UTC and commits the result. The first run per file seeds history without push candidates. If a procedure cannot be fetched the previous events stay, the Action exits non-zero and opens an issue labelled `structural`. Tests: `node --test tests/updates/updates.test.mjs`. To run it by hand: `node scripts/build-updates.mjs --files v1/files.json --out v1/updates --state data-cache/updates --manifest v1/manifest.json`.
+
+Commission and cabinet changes that need a decision follow the same pattern as the MEP directory: one rolling branch `review/commission` and one open issue, rebuilt on every run.

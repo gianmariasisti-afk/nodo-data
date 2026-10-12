@@ -1,0 +1,102 @@
+{
+ "data": [
+  {
+   "id": "eli/dl/proc/2025-0571R",
+   "type": "Process",
+   "process_id": "2025-0571R",
+   "label": "2025/0571R(APP)",
+   "consists_of": [
+    {
+     "id": "eli/dl/event/R-1",
+     "activity_id": "R-1",
+     "activity_date": "2026-02-25",
+     "had_activity_type": "def/ep-activities/COMMITTEE_ADOPTING_OPINION",
+     "based_on_a_realization_of": [
+      "eli/dl/doc/R-DOC-1"
+     ]
+    },
+    {
+     "id": "eli/dl/event/R-2",
+     "activity_id": "R-2",
+     "activity_date": "2026-02-25",
+     "had_activity_type": "def/ep-activities/COMMITTEE_ADOPTING_OPINION",
+     "based_on_a_realization_of": [
+      "eli/dl/doc/R-DOC-2"
+     ]
+    },
+    {
+     "id": "eli/dl/event/R-3",
+     "activity_id": "R-3",
+     "activity_date": "2026-02-25",
+     "had_activity_type": "def/ep-activities/COMMITTEE_ADOPTING_OPINION",
+     "based_on_a_realization_of": [
+      "eli/dl/doc/R-DOC-3"
+     ]
+    },
+    {
+     "id": "eli/dl/event/R-4",
+     "activity_id": "R-4",
+     "activity_date": "2026-03-05",
+     "had_activity_type": "def/ep-activities/COMMITTEE_ADOPTING_OPINION",
+     "based_on_a_realization_of": [
+      "eli/dl/doc/R-DOC-4"
+     ]
+    },
+    {
+     "id": "eli/dl/event/R-5",
+     "activity_id": "R-5",
+     "activity_date": "2026-04-15",
+     "had_activity_type": "def/ep-activities/COMMITTEE_ADOPTING_REPORT",
+     "based_on_a_realization_of": [
+      "eli/dl/doc/R-DOC-5"
+     ]
+    },
+    {
+     "id": "eli/dl/event/R-6",
+     "activity_id": "R-6",
+     "activity_date": "2026-04-28",
+     "had_activity_type": "def/ep-activities/PLENARY_VOTE",
+     "based_on_a_realization_of": [
+      "eli/dl/doc/R-DOC-6"
+     ]
+    },
+    {
+     "id": "eli/dl/event/R-7",
+     "activity_id": "R-7",
+     "activity_date": "2026-04-28",
+     "had_activity_type": "def/ep-activities/PLENARY_VOTE_RESULTS",
+     "based_on_a_realization_of": [
+      "eli/dl/doc/R-DOC-7"
+     ]
+    },
+    {
+     "id": "eli/dl/event/R-8",
+     "activity_id": "R-8",
+     "activity_date": "2026-04-28",
+     "had_activity_type": "def/ep-activities/PLENARY_DEBATE",
+     "based_on_a_realization_of": [
+      "eli/dl/doc/R-DOC-8"
+     ]
+    },
+    {
+     "id": "eli/dl/event/R-10",
+     "activity_id": "R-10",
+     "activity_date": "2026-04-28",
+     "had_activity_type": "def/ep-activities/PLENARY_DECISION"
+    },
+    {
+     "id": "eli/dl/event/R-11",
+     "activity_id": "R-11",
+     "activity_date": "2026-04-21",
+     "had_activity_type": "def/ep-activities/TABLING_PLENARY"
+    },
+    {
+     "id": "eli/dl/event/R-12",
+     "activity_id": "R-12",
+     "activity_date": "2026-04-21",
+     "had_activity_type": "def/ep-activities/TABLING_PLENARY"
+    }
+   ]
+  }
+ ]
+}

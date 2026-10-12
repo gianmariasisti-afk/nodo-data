@@ -33,6 +33,9 @@
    "title": "Multiannual Financial Framework 2028–2034",
    "kind": "budget",
    "procedure": "2025/0571(APP)",
+   "procedures": [
+    "2025/0571R(APP)"
+   ],
    "stage": "council-negotiating-box",
    "status": "Cyprus Presidency tabled a first negotiating box on 11 June 2026 at €1,730bn (Commission proposal: €1,763bn, constant prices). The Presidency is preparing a revised box for the 15–16 October European Council. Unanimity in Council, then Parliament consent.",
    "next": [
@@ -498,7 +501,8 @@
    "short": "Industrial Accelerator Act",
    "title": "Industrial Accelerator Act ('Made in Europe')",
    "kind": "regulation",
-   "procedure": "COM(2026)100",
+   "procedure": "2026/0068(COD)",
+   "proposal": "COM(2026)100",
    "stage": "positions-in-preparation",
    "status": "Proposed 4 March 2026. The Irish Presidency circulated a 'partner origin' compromise in late July 2026, which departs substantially from the Commission text. Parliament's rapporteurs were due to table draft reports after the summer. Von der Leyen wants adoption in 2026, which looks like an aspiration.",
    "next": [
@@ -984,6 +988,7 @@
     {
      "id": "chips-act-2",
      "title": "Chips Act 2.0",
+     "procedure": "2026/0139(COD)",
      "meps": [
       {
        "id": "256979",
@@ -1011,6 +1016,7 @@
     {
      "id": "cada",
      "title": "Cloud and AI Development Act",
+     "procedure": "2026/0138(COD)",
      "meps": [
       {
        "id": "257021",
@@ -1141,7 +1147,7 @@
    "short": "AI Act after the Omnibus",
    "title": "AI Act implementation after the Digital Omnibus on AI",
    "kind": "implementation",
-   "procedure": null,
+   "procedure": "2025/0359(COD)",
    "stage": "in-force",
    "status": "The Digital Omnibus on AI entered into force on 27 July 2026. Annex III high-risk obligations now apply from 2 December 2027 and Annex I from 2 August 2028. Providers of generative AI already on the market have until 2 December 2026 for labelling measures. The live issues are standards, AI Office enforcement and national authority designation.",
    "next": [

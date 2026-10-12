@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { mkdtemp, cp, readFile, writeFile, rm } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { run, procedureId } from '../../scripts/build-updates.mjs';
+import { run, procedureId, procedureIds } from '../../scripts/build-updates.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const FIX = path.join(here, 'fixtures');
@@ -162,5 +162,42 @@ test('a file whose first fetch fails stays unseeded, so its history never pushes
     assert.equal(second.failures.length, 0);
     assert.equal(second.pushQueue.length, 0);
     assert.ok(second.timelines[OMNI].length > 10);
+  } finally { await w.cleanup(); }
+});
+
+test('procedureIds reads procedure, related procedures and parts; interim reports keep their R', () => {
+  assert.equal(procedureId('2025/0571R(APP)'), '2025-0571R');
+  assert.deepEqual(procedureIds({ procedure: '2025/0571(APP)', procedures: ['2025/0571R(APP)', '2025/0571(APP)'] }), ['2025-0571', '2025-0571R']);
+  assert.deepEqual(procedureIds({ procedure: null, parts: [{ procedure: '2026/0139(COD)' }, { procedure: '2026/0138(COD)' }] }), ['2026-0139', '2026-0138']);
+});
+
+test('a related procedure added later seeds its history without pushes, then pushes new milestones', async () => {
+  const w = await workspace();
+  try {
+    await run(opts(w, '2026-10-06'));
+    const body = JSON.parse(await readFile(w.files, 'utf8'));
+    body.files.find((f) => f.id === MFF).procedures = ['2025/0571R(APP)'];
+    await writeFile(w.files, JSON.stringify(body));
+
+    const r = await run(opts(w, '2026-10-07'));
+    assert.equal(r.failures.length, 0);
+    assert.equal(r.pushQueue.length, 0);
+    const mff = r.timelines[MFF];
+    const ops = mff.filter((e) => e.title === 'Committee opinions adopted');
+    assert.deepEqual(ops.map((e) => [e.date, e.count]).sort(), [['2026-02-25', 3], ['2026-03-05', 1]]);
+    assert.ok(ops.every((e) => e.id.includes(':2025-0571R:opinions:')));
+    assert.ok(mff.some((e) => e.title === 'Report adopted in committee' && e.date === '2026-04-15'));
+    assert.equal(mff.filter((e) => e.date === '2026-04-28' && e.title === 'Plenary vote').length, 1);
+    assert.ok(!mff.some((e) => /vote results/i.test(e.title)));
+    assert.ok(!mff.some((e) => e.title === 'Plenary decision'), 'a decision on the day of a vote is the vote');
+    assert.deepEqual(mff.filter((e) => e.title === 'Report tabled for plenary').map((e) => e.count), [2]);
+
+    const p = path.join(w.fixtures, '2025-0571R.json');
+    const proc = JSON.parse(await readFile(p, 'utf8'));
+    proc.data[0].consists_of.push({ id: 'eli/dl/event/R-9', activity_id: 'R-9', activity_date: '2026-10-07', had_activity_type: 'def/ep-activities/PLENARY_VOTE' });
+    await writeFile(p, JSON.stringify(proc));
+    const later = await run(opts(w, '2026-10-08'));
+    assert.equal(later.pushQueue.length, 1);
+    assert.equal(later.pushQueue[0].title, 'Plenary vote');
   } finally { await w.cleanup(); }
 });
