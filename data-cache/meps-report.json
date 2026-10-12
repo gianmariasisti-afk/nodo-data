@@ -1,0 +1,142 @@
+{
+ "run": "2026-10-12T10:13:42.177Z",
+ "checked": "2026-10-12",
+ "api": 719,
+ "nodo": 720,
+ "failed": [],
+ "auto": [
+  {
+   "id": "28399",
+   "name": "Antonio LÓPEZ-ISTÚRIZ WHITE",
+   "changes": {
+    "committees": {
+     "from": [
+      "AFCO Member",
+      "DROI Member",
+      "ECON Substitute",
+      "AFET Member"
+     ],
+     "to": [
+      "DROI Member",
+      "ECON Substitute",
+      "AFET Member",
+      "AFCO Vice Chair"
+     ]
+    }
+   }
+  },
+  {
+   "id": "256860",
+   "name": "András LÁSZLÓ",
+   "changes": {
+    "committees": {
+     "from": [
+      "IMCO Member",
+      "LIBE Member",
+      "DROI Member",
+      "ITRE Substitute"
+     ],
+     "to": [
+      "IMCO Member",
+      "LIBE Member",
+      "ITRE Substitute"
+     ]
+    }
+   }
+  },
+  {
+   "id": "198471",
+   "name": "Robert GABEL",
+   "changes": {
+    "committees": {
+     "from": [],
+     "to": [
+      "PECH Substitute",
+      "ENVI Substitute",
+      "SANT Substitute",
+      "AGRI Member"
+     ]
+    },
+    "delegations": {
+     "from": [],
+     "to": [
+      "D-AL Member",
+      "DSEE Member",
+      "D-MD Substitute"
+     ]
+    },
+    "party": {
+     "from": "",
+     "to": "Die Tierschutzpartei"
+    },
+    "family": {
+     "from": "GABEL",
+     "to": "Gabel"
+    }
+   }
+  },
+  {
+   "id": "197543",
+   "name": "Bernard GUETTA",
+   "changes": {
+    "delegations": {
+     "from": [
+      "DMAS Member",
+      "D-RU Member",
+      "D-UA Substitute",
+      "DEPA Member"
+     ],
+     "to": [
+      "DMAS Member",
+      "D-RU Member",
+      "D-UA Substitute",
+      "DEPA Member",
+      "D-CN Member"
+     ]
+    }
+   }
+  },
+  {
+   "id": "197490",
+   "name": "Magdalena ADAMOWICZ",
+   "changes": {
+    "party": {
+     "from": "Independent",
+     "to": "KO"
+    }
+   }
+  },
+  {
+   "id": "280663",
+   "name": "Balázs ORBÁN",
+   "changes": {
+    "committees": {
+     "from": [
+      "AFET Substitute"
+     ],
+     "to": [
+      "AFET Substitute",
+      "DROI Member",
+      "EMPL Member"
+     ]
+    },
+    "delegations": {
+     "from": [
+      "D-IN Substitute"
+     ],
+     "to": [
+      "D-IN Substitute",
+      "DSCA Member"
+     ]
+    }
+   }
+  }
+ ],
+ "structural": [],
+ "summary": {
+  "auto": 6,
+  "structural": 0,
+  "failed": 0,
+  "changed": true
+ }
+}
