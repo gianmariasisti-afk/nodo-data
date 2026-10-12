@@ -7,7 +7,7 @@ name: Publish health status
 
 on:
   workflow_run:
-    workflows: ["Update MEP activity", "Update plenary agenda", "Update Commission and cabinets", "Update file stream"]
+    workflows: ["Update MEP activity", "Update plenary agenda", "Update Commission and cabinets", "Update file stream", "Update MEP directory"]
     types: [completed]
   schedule:
     - cron: "20 6 * * 1-5"

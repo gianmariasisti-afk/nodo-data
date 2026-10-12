@@ -23,10 +23,25 @@ const GROUPS = {
   ECR: 'ECR', PFE: 'PfE', ESN: 'ESN', 'THE-LEFT': 'The Left',
 };
 
+// EP activity types. `group` folds same-day events into one with a count; `skip` drops duplicates of another event.
 const ACTIVITY = {
-  COMMITTEE_TABLING_REPORT: { kind: 'milestone', title: 'Draft report tabled', push: true },
-  COMMITTEE_TABLING_AMENDMENT: { kind: 'milestone', title: 'Amendments tabled in committee', push: true, group: true },
   REFERRAL: { kind: 'procedural', title: 'Referred to committee', push: false },
+  COMMITTEE_TABLING_REPORT: { kind: 'milestone', title: 'Draft report tabled', push: true },
+  COMMITTEE_TABLING_AMENDMENT: { kind: 'milestone', title: 'Amendments tabled in committee', push: true, group: 'amendments' },
+  COMMITTEE_ADOPTING_OPINION: { kind: 'milestone', title: 'Committee opinions adopted', push: false, group: 'opinions' },
+  COMMITTEE_ADOPTING_REPORT: { kind: 'milestone', title: 'Report adopted in committee', push: true },
+  COMMITTEE_APPROVE_PROVISIONAL_AGREEMENT: { kind: 'milestone', title: 'Committee endorsed the trilogue agreement', push: true },
+  PLENARY_REFER_COMMITTEE_INTERINSTITUTIONAL_NEGOTIATIONS: { kind: 'milestone', title: 'Trilogue mandate confirmed in plenary', push: true },
+  INTERINSTITUTIONAL_NEGOTIATION: { kind: 'milestone', title: 'Trilogue', push: true },
+  TABLING_PLENARY: { kind: 'procedural', title: 'Report tabled for plenary', push: false, group: 'tabled' },
+  PLENARY_DEBATE: { kind: 'milestone', title: 'Plenary debate', push: false },
+  PLENARY_AMEND: { kind: 'procedural', title: 'Plenary amendments', push: false },
+  PLENARY_VOTE: { kind: 'milestone', title: 'Plenary vote', push: true },
+  PLENARY_VOTE_RESULTS: { skip: true },
+  PLENARY_DECISION: { kind: 'procedural', title: 'Plenary decision', push: false, unlessSameDay: 'PLENARY_VOTE' },
+  PLENARY_ADOPT_POSITION: { kind: 'milestone', title: 'Parliament adopted its position', push: true },
+  SIGNATURE: { kind: 'milestone', title: 'Act signed', push: true },
+  PUBLICATION_OFFICIAL_JOURNAL: { kind: 'milestone', title: 'Published in the Official Journal', push: true },
 };
 
 const PEOPLE = {
@@ -42,36 +57,51 @@ const sha = (s) => createHash('sha1').update(String(s)).digest('hex').slice(0, 6
 const humanize = (s) => { const t = s.toLowerCase().replace(/_/g, ' '); return t[0].toUpperCase() + t.slice(1); };
 const stageLabel = (s) => String(s).replace(/-/g, ' ');
 
+// "2025/0360(COD)" -> "2025-0360"; an interim report such as "2025/0571R(APP)" -> "2025-0571R".
 export function procedureId(label) {
-  const m = /^(\d{4})\/(\d{4})\([A-Z]+\)$/.exec(label ?? '');
+  const m = /^(\d{4})\/(\d{4}[A-Z]?)\([A-Z]+\)$/.exec(label ?? '');
   return m ? `${m[1]}-${m[2]}` : null;
 }
 
-export function normaliseProcedure(file, proc) {
+// Every EP procedure a file follows: `procedure`, then `procedures` and the parts' procedures. The first is the main one.
+export function procedureIds(file) {
+  const labels = [file.procedure, ...(file.procedures ?? []), ...(file.parts ?? []).map((p) => p.procedure)];
+  return [...new Set(labels.map(procedureId).filter(Boolean))];
+}
+
+export function normaliseProcedure(file, proc, { pid = proc?.process_id, main = true } = {}) {
   const events = [];
-  const amendments = new Map();
+  const groups = new Map();
+  // Grouped events of the main procedure keep their original ids; other procedures add their id.
+  const gid = (name, date) => (main ? `${file.id}:ep:${name}:${date}` : `${file.id}:ep:${pid}:${name}:${date}`);
+
+  const typesOn = new Map();
+  for (const a of proc.consists_of ?? []) typesOn.set(`${a.activity_date}|${lastSeg(a.had_activity_type)}`, true);
 
   for (const a of proc.consists_of ?? []) {
     const date = a.activity_date;
     if (!date) continue;
     const type = lastSeg(a.had_activity_type);
     const rule = ACTIVITY[type] ?? { kind: 'procedural', title: humanize(type || 'activity'), push: false };
+    if (rule.skip || (rule.unlessSameDay && typesOn.has(`${date}|${rule.unlessSameDay}`))) continue;
     if (rule.group) {
-      amendments.set(date, (amendments.get(date) ?? 0) + 1);
+      const k = `${rule.group}|${date}`;
+      const g = groups.get(k) ?? { rule, date, count: 0 };
+      g.count++; groups.set(k, g);
       continue;
     }
     events.push({
       id: `${file.id}:ep:${a.activity_id ?? lastSeg(a.id)}`,
-      fileId: file.id, date, source: 'ep', kind: rule.kind, title: rule.title, push: rule.push,
+      fileId: file.id, date, source: 'ep', proc: pid, kind: rule.kind, title: rule.title, push: rule.push,
       ref: lastSeg((a.based_on_a_realization_of ?? [])[0]) || undefined,
     });
   }
 
-  for (const [date, count] of amendments) {
+  for (const { rule, date, count } of groups.values()) {
     events.push({
-      id: `${file.id}:ep:amendments:${date}`,
-      fileId: file.id, date, source: 'ep', kind: 'milestone',
-      title: ACTIVITY.COMMITTEE_TABLING_AMENDMENT.title, count, push: true,
+      id: gid(rule.group, date),
+      fileId: file.id, date, source: 'ep', proc: pid, kind: rule.kind,
+      title: rule.title, count, push: rule.push,
     });
   }
 
@@ -82,7 +112,7 @@ export function normaliseProcedure(file, proc) {
     if (!title) continue;
     events.push({
       id: `${file.id}:ep:${lastSeg(p.id)}`,
-      fileId: file.id, date: p.activity_date, source: 'ep', kind: 'people', title,
+      fileId: file.id, date: p.activity_date, source: 'ep', proc: pid, kind: 'people', title,
       personId: lastSeg(person),
       group: GROUPS[lastSeg(p.politicalGroup)] ?? undefined,
       committee: p.participation_in_name_of ? lastSeg(p.participation_in_name_of) : undefined,
@@ -136,6 +166,8 @@ export async function run({ filesPath, outDir, stateDir = outDir, fixturesDir, t
 
   const state = await readJson(path.join(stateDir, 'state.json'), { seen: {}, seeded: {}, stages: {}, pushed: {} });
   state.pushed ??= {};
+  // A procedure seen for the first time (a file gains a related procedure) seeds its history without pushes.
+  state.seededProcs ??= {};
   const prevTimelines = await readJson(path.join(outDir, 'timelines.json'), {});
 
   const timelines = {};
@@ -145,17 +177,20 @@ export async function run({ filesPath, outDir, stateDir = outDir, fixturesDir, t
 
   for (const file of files) {
     const prev = prevTimelines[file.id] ?? [];
-    const pid = procedureId(file.procedure);
+    const pids = procedureIds(file);
     let ep = [];
     let fetched = true;
+    const fetchedPids = [];
 
-    if (pid) {
+    for (const [i, pid] of pids.entries()) {
       try {
-        ep = normaliseProcedure(file, await loadProcedure(pid, { fixturesDir, fetchImpl }));
+        ep.push(...normaliseProcedure(file, await loadProcedure(pid, { fixturesDir, fetchImpl }), { pid, main: i === 0 }));
+        fetchedPids.push(pid);
       } catch (e) {
         fetched = false;
-        failures.push({ fileId: file.id, procedure: file.procedure, error: String(e.message ?? e) });
-        ep = prev.filter((x) => x.source === 'ep');
+        failures.push({ fileId: file.id, procedure: pid, error: String(e.message ?? e) });
+        // keep what this procedure showed before (events written before procedures were tagged belong to the main one)
+        ep.push(...prev.filter((x) => x.source === 'ep' && (x.proc ? x.proc === pid : i === 0)));
       }
     }
 
@@ -178,7 +213,8 @@ export async function run({ filesPath, outDir, stateDir = outDir, fixturesDir, t
       if (!state.seen[e.id]) {
         state.seen[e.id] = true;
         newEvents++;
-        if (!firstRun && e.push && e.kind !== 'scheduled') pushQueue.push({ ...e });
+        const newProc = e.source === 'ep' && e.proc && !state.seededProcs[e.proc];
+        if (!firstRun && !newProc && e.push && e.kind !== 'scheduled') pushQueue.push({ ...e });
       }
       if (e.kind === 'scheduled' && e.pushOn === today && !state.pushed[e.id]) {
         state.pushed[e.id] = true;
@@ -186,6 +222,7 @@ export async function run({ filesPath, outDir, stateDir = outDir, fixturesDir, t
       }
     }
 
+    for (const pid of fetchedPids) state.seededProcs[pid] = true;
     if (fetched) {
       state.seeded[file.id] = true;
       state.stages[file.id] = file.stage;

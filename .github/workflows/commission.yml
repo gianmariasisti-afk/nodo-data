@@ -64,23 +64,28 @@ jobs:
           done
           echo "Could not push after 4 tries"; exit 1
       - name: Review branch and issue for structural changes
-        if: always()
+        if: success()
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          [ -f "$RUNNER_TEMP/out/commission-structural.json" ] || exit 0
           [ -z "${{ inputs.report_only }}" ] || exit 0
-          B="review/commission-$(date -u +%F)"
-          git fetch -q origin main && git checkout -q -B "$B" origin/main
-          cp "$RUNNER_TEMP/out/commission-proposed.json" v1/commission.json
-          git add v1/commission.json && git commit -q -m "Proposed Commission and cabinet changes $(date -u +%F)" && git push -q -f origin "$B"
+          [ -z "${{ inputs.probe_urls }}" ] || exit 0
+          # One rolling branch and one open issue: each run rebuilds the proposal from main and updates the issue.
+          B="review/commission"; T="Commission/cabinets: changes to review"
           gh label create commission --color 5319E7 --description "Commission and cabinet changes" 2>/dev/null || true
           gh label create structural --color D93F0B --description "Needs a human decision" 2>/dev/null || true
-          T="Commission/cabinets: structural changes to review ($(date -u +%F))"
-          if ! gh issue list --state open --search "\"$T\" in:title" --json number --jq '.[0].number' | grep -q .; then
-            { echo "Small changes (phones, responsibilities) are already on main. These need a decision. The proposal is on branch \`$B\` (v1/commission.json); merge it to accept."; echo; echo '```json'; head -c 6000 "$RUNNER_TEMP/out/commission-structural.json"; echo '```'; } > issue.md
-            gh issue create --title "$T" --label commission --label structural --body-file issue.md
+          N=$(gh issue list --state open --label commission --search "\"$T\" in:title" --json number --jq '.[0].number' || true)
+          if [ ! -f "$RUNNER_TEMP/out/commission-structural.json" ]; then
+            [ -n "$N" ] && gh issue close "$N" --comment "Nothing left to review: the cabinets match the Commission's pages." || true
+            git push -q origin --delete "$B" 2>/dev/null || true
+            exit 0
           fi
+          git fetch -q origin main && git checkout -q -B "$B" origin/main
+          cp "$RUNNER_TEMP/out/commission-proposed.json" v1/commission.json
+          node -e 'const f=require("fs"),c=require("crypto");const b=f.readFileSync("v1/commission.json");const m=JSON.parse(f.readFileSync("v1/manifest.json","utf8"));m.files.commission={...m.files.commission,bytes:b.length,sha256:c.createHash("sha256").update(b).digest("hex")};f.writeFileSync("v1/manifest.json",JSON.stringify(m,null,1)+"\n")'
+          git add v1/commission.json v1/manifest.json && git commit -q -m "Proposed Commission and cabinet changes $(date -u +%F)" && git push -q -f origin "$B"
+          { echo "Small changes (phones, responsibilities) are already on main. These need a decision. The proposal is on branch \`$B\` (rebuilt from main on every run); merge it to accept."; echo; echo '```json'; head -c 6000 "$RUNNER_TEMP/out/commission-structural.json"; echo '```'; } > issue.md
+          if [ -n "$N" ]; then gh issue edit "$N" --body-file issue.md; else gh issue create --title "$T" --label commission --label structural --body-file issue.md; fi
       - name: Open an issue when the build failed
         if: failure()
         env:

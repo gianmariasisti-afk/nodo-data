@@ -18,8 +18,11 @@ const day = (v) => (v ? String(v).slice(0, 10) : null);
 const meps = read("meps.json"), council = read("council.json"), cal = read("calendar.json"), ec = read("commission.json");
 const ag = read("agenda.json"), act = read("activity/index.json"), upd = read("updates/updates.json"), files = read("files.json");
 
+/* The MEP directory is checked every weekday but only rewritten when something changes: its report holds the check date. */
+let mepsReport = null; try { mepsReport = JSON.parse(fs.readFileSync(path.join(ROOT, "data-cache", "meps-report.json"), "utf8")); } catch { /* not yet */ }
 const freshness = {
   meps: day(meps && meps.generated),
+  mepsChecked: day(mepsReport && mepsReport.checked),
   commission: day(ec && ec.fetched),
   council: day(council && council.fetched),
   calendar: day(cal && cal.fetched),

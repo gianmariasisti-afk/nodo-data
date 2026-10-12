@@ -1,0 +1,110 @@
+name: Update MEP directory
+
+# Refreshes v1/meps.json from the EP Open Data Portal (scripts/build-meps.mjs).
+# Seat, party and contact changes go straight to main. Arrivals, departures and group changes go to the
+# rolling branch review/meps with one open issue; merging that branch accepts them.
+
+on:
+  schedule:
+    - cron: "11 5 * * 1-5"
+  workflow_dispatch:
+    inputs:
+      report_only:
+        description: "1 = check and report only, change no data"
+        default: ""
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: meps
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Run tests
+        run: node --test tests/meps/meps.test.mjs
+      - name: Build
+        env:
+          REPORT_ONLY: ${{ inputs.report_only }}
+        run: set -o pipefail; node scripts/build-meps.mjs 2>&1 | tee build.log
+      - name: Commit to main
+        if: always()
+        env:
+          REPORT_ONLY: ${{ inputs.report_only }}
+        run: |
+          git config user.name "nodo-data bot"
+          git config user.email "actions@users.noreply.github.com"
+          rm -rf "$RUNNER_TEMP/out"; mkdir -p "$RUNNER_TEMP/out"
+          cp v1/meps.json "$RUNNER_TEMP/out/meps.json" 2>/dev/null || true
+          for f in meps-report.json meps-structural.json meps-proposed.json; do [ -f "data-cache/$f" ] && cp "data-cache/$f" "$RUNNER_TEMP/out/$f"; done
+          node -e 'const f=require("fs");let m={};try{m=JSON.parse(f.readFileSync("v1/manifest.json","utf8"))}catch{};f.writeFileSync(process.env.RUNNER_TEMP+"/out/entry.json",JSON.stringify((m.files&&m.files.meps)||null))'
+          for i in 1 2 3 4; do
+            git fetch -q origin main
+            git reset -q --hard origin/main
+            mkdir -p data-cache
+            if [ -z "$REPORT_ONLY" ]; then
+              cp "$RUNNER_TEMP/out/meps.json" v1/meps.json 2>/dev/null || true
+              node -e 'const f=require("fs");const e=JSON.parse(f.readFileSync(process.env.RUNNER_TEMP+"/out/entry.json","utf8"));if(e){const m=JSON.parse(f.readFileSync("v1/manifest.json","utf8"));m.files=m.files||{};if(JSON.stringify(m.files.meps)!==JSON.stringify(e)){m.files.meps=e;m.generated=new Date().toISOString();f.writeFileSync("v1/manifest.json",JSON.stringify(m,null,1)+"\n")}}'
+              # The 3.7 MB proposal never goes to main; it only feeds the review branch.
+              rm -f data-cache/meps-structural.json data-cache/meps-proposed.json
+              [ -f "$RUNNER_TEMP/out/meps-structural.json" ] && cp "$RUNNER_TEMP/out/meps-structural.json" data-cache/
+            fi
+            cp "$RUNNER_TEMP/out/meps-report.json" data-cache/ 2>/dev/null || true
+            git add v1 data-cache
+            if git diff --cached --quiet; then echo "Nothing new."; exit 0; fi
+            git commit -q -m "Update MEP directory $(date -u +%F)"
+            if git push -q origin HEAD:main; then echo "Pushed."; exit 0; fi
+            echo "Push rejected, retrying ($i)"; sleep 5
+          done
+          echo "Could not push after 4 tries"; exit 1
+      - name: Review branch and issue
+        if: success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPORT_ONLY: ${{ inputs.report_only }}
+        run: |
+          [ -z "$REPORT_ONLY" ] || exit 0
+          B="review/meps"; T="MEPs: changes to review"
+          gh label create meps --color 0E8A16 --description "MEP directory changes" 2>/dev/null || true
+          gh label create structural --color D93F0B --description "Needs a human decision" 2>/dev/null || true
+          N=$(gh issue list --state open --label meps --search "\"$T\" in:title" --json number --jq '.[0].number' || true)
+          if [ ! -f "$RUNNER_TEMP/out/meps-structural.json" ]; then
+            # Nothing waits any more: close the review and drop its branch.
+            [ -n "$N" ] && gh issue close "$N" --comment "Nothing left to review: the directory matches the Parliament's records." || true
+            git push -q origin --delete "$B" 2>/dev/null || true
+            exit 0
+          fi
+          git fetch -q origin main && git checkout -q -B "$B" origin/main
+          cp "$RUNNER_TEMP/out/meps-proposed.json" v1/meps.json
+          node -e 'const f=require("fs"),c=require("crypto");const b=f.readFileSync("v1/meps.json");const m=JSON.parse(f.readFileSync("v1/manifest.json","utf8"));m.files.meps={...m.files.meps,bytes:b.length,sha256:c.createHash("sha256").update(b).digest("hex")};f.writeFileSync("v1/manifest.json",JSON.stringify(m,null,1)+"\n")'
+          git add v1/meps.json v1/manifest.json && git commit -q -m "Proposed MEP directory changes $(date -u +%F)" && git push -q -f origin "$B"
+          node -e '
+            const s=JSON.parse(require("fs").readFileSync(process.env.RUNNER_TEMP+"/out/meps-structural.json","utf8"));
+            const line=(c)=>c.type==="arrived"?`- **Arrived:** ${c.name} (${c.country}, ${c.group}${c.party?", "+c.party:""}). No photo yet.`
+              :c.type==="left"?`- **Left:** ${c.name} (${c.country}, ${c.group})`
+              :c.type==="group"?`- **Group change:** ${c.name}: ${c.from} → ${c.to}`
+              :c.type==="all-committees-gone"?`- **All committee seats gone:** ${c.name} (was ${c.from.join(", ")}). Check before accepting.`
+              :c.type==="mass-change"?`- **${c.count} records changed at once**, held for review (committee reshuffle?)`:`- ${c.type}: ${c.name||""}`;
+            console.log(`Checked ${s.at} against the Parliament's open data. Seat, party and contact changes are already live.\n\nThese wait for your decision:\n\n${s.changes.map(line).join("\n")}\n\nMerge branch \`review/meps\` to accept them (it is rebuilt from main on every run).`);
+          ' > issue.md
+          if [ -n "$N" ]; then gh issue edit "$N" --body-file issue.md; else gh issue create --title "$T" --label meps --label structural --body-file issue.md; fi
+      - name: Open an issue when the build failed
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create structural --color D93F0B --description "Needs a human decision" 2>/dev/null || true
+          T="MEP directory build needs attention"
+          if ! gh issue list --state open --search "\"$T\" in:title" --json number --jq '.[0].number' | grep -q .; then
+            { echo "The MEP directory build failed. Last lines of the log:"; echo; echo '```'; tail -n 40 build.log; echo '```'; echo; echo "Run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"; } > issue.md
+            gh issue create --title "$T" --label structural --body-file issue.md
+          fi
