@@ -1,64 +1,84 @@
 {
   "mff-2028-2034": [
     {
-      "id": "mff-2028-2034:next:2026-11-03:a60a9d",
+      "id": "mff-2028-2034:next:2026-12-07:7cc675",
+      "fileId": "mff-2028-2034",
+      "date": "2026-12-07",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Council MFF working party (AHWP MFF)",
+      "push": true,
+      "pushOn": "2026-12-07"
+    },
+    {
+      "id": "mff-2028-2034:next:2026-11-17:7cc675",
+      "fileId": "mff-2028-2034",
+      "date": "2026-11-17",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Council MFF working party (AHWP MFF)",
+      "push": true,
+      "pushOn": "2026-11-17"
+    },
+    {
+      "id": "mff-2028-2034:next:2026-11-05:7cc675",
+      "fileId": "mff-2028-2034",
+      "date": "2026-11-05",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Council MFF working party (AHWP MFF)",
+      "push": true,
+      "pushOn": "2026-11-05"
+    },
+    {
+      "id": "mff-2028-2034:next:2026-11-03:265012",
       "fileId": "mff-2028-2034",
       "date": "2026-11-03",
       "source": "nodo",
       "kind": "scheduled",
-      "title": "AHWP MFF (national and regional partnerships)",
+      "title": "Council MFF working party: national and regional partnerships",
       "push": true,
       "pushOn": "2026-11-03"
     },
     {
-      "id": "mff-2028-2034:next:2026-10-30:a60a9d",
+      "id": "mff-2028-2034:next:2026-10-30:265012",
       "fileId": "mff-2028-2034",
       "date": "2026-10-30",
       "source": "nodo",
       "kind": "scheduled",
-      "title": "AHWP MFF (national and regional partnerships)",
+      "title": "Council MFF working party: national and regional partnerships",
       "push": true,
       "pushOn": "2026-10-30"
     },
     {
-      "id": "mff-2028-2034:next:2026-10-20:a60a9d",
+      "id": "mff-2028-2034:next:2026-10-20:265012",
       "fileId": "mff-2028-2034",
       "date": "2026-10-20",
       "source": "nodo",
       "kind": "scheduled",
-      "title": "AHWP MFF (national and regional partnerships)",
+      "title": "Council MFF working party: national and regional partnerships",
       "push": true,
       "pushOn": "2026-10-20"
     },
     {
-      "id": "mff-2028-2034:next:2026-10-15:4c1fd2",
+      "id": "mff-2028-2034:next:2026-10-15:8a9d72",
       "fileId": "mff-2028-2034",
       "date": "2026-10-15",
       "source": "nodo",
       "kind": "scheduled",
-      "title": "European Council, 15–16 October: revised negotiating box expected beforehand",
+      "title": "European Council, 15–16 October: leaders discuss the MFF",
       "push": true,
       "pushOn": "2026-10-15"
     },
     {
-      "id": "mff-2028-2034:next:2026-10-13:617eea",
+      "id": "mff-2028-2034:next:2026-10-13:dbafc5",
       "fileId": "mff-2028-2034",
       "date": "2026-10-13",
       "source": "nodo",
       "kind": "scheduled",
-      "title": "General Affairs Council: MFF policy debate (Luxembourg)",
+      "title": "General Affairs Council debates the MFF (Luxembourg)",
       "push": true,
       "pushOn": "2026-10-13"
-    },
-    {
-      "id": "mff-2028-2034:next:2026-10-09:a6fbc3",
-      "fileId": "mff-2028-2034",
-      "date": "2026-10-09",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "AHWP MFF (national and regional partnerships), 10:00",
-      "push": true,
-      "pushOn": "2026-10-09"
     },
     {
       "id": "mff-2028-2034:ep:MTG-PL-2026-04-28-PVCRE-ITM-10-8",
@@ -1407,42 +1427,12 @@
   ],
   "digital-omnibus-data": [
     {
-      "id": "digital-omnibus-data:next:2026-10-26:77c642",
-      "fileId": "digital-omnibus-data",
-      "date": "2026-10-26",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Antici Group (Simplification); agenda not confirmed to include the Omnibus",
-      "push": true,
-      "pushOn": "2026-10-26"
-    },
-    {
-      "id": "digital-omnibus-data:next:2026-10-23:77c642",
-      "fileId": "digital-omnibus-data",
-      "date": "2026-10-23",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Antici Group (Simplification); agenda not confirmed to include the Omnibus",
-      "push": true,
-      "pushOn": "2026-10-23"
-    },
-    {
-      "id": "digital-omnibus-data:next:2026-10-19:77c642",
-      "fileId": "digital-omnibus-data",
-      "date": "2026-10-19",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Antici Group (Simplification); agenda not confirmed to include the Omnibus",
-      "push": true,
-      "pushOn": "2026-10-19"
-    },
-    {
-      "id": "digital-omnibus-data:next:2026-10-13:f12fa3",
+      "id": "digital-omnibus-data:next:2026-10-13:72c56a",
       "fileId": "digital-omnibus-data",
       "date": "2026-10-13",
       "source": "nodo",
       "kind": "scheduled",
-      "title": "GAC: omnibus simplification packages, state of play",
+      "title": "General Affairs Council: Presidency reports on the omnibus simplification packages",
       "push": true,
       "pushOn": "2026-10-13"
     },
@@ -1809,44 +1799,14 @@
   ],
   "industrial-accelerator-act": [
     {
-      "id": "industrial-accelerator-act:next:2026-10-26:345611",
+      "id": "industrial-accelerator-act:next:2026-12-14:ec707f",
       "fileId": "industrial-accelerator-act",
-      "date": "2026-10-26",
+      "date": "2026-12-14",
       "source": "nodo",
       "kind": "scheduled",
-      "title": "Industry Working Party (file not specified)",
+      "title": "Parliament plenary vote (indicative date)",
       "push": true,
-      "pushOn": "2026-10-26"
-    },
-    {
-      "id": "industrial-accelerator-act:next:2026-10-19:345611",
-      "fileId": "industrial-accelerator-act",
-      "date": "2026-10-19",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Industry Working Party (file not specified)",
-      "push": true,
-      "pushOn": "2026-10-19"
-    },
-    {
-      "id": "industrial-accelerator-act:next:2026-10-13:345611",
-      "fileId": "industrial-accelerator-act",
-      "date": "2026-10-13",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Industry Working Party (file not specified)",
-      "push": true,
-      "pushOn": "2026-10-13"
-    },
-    {
-      "id": "industrial-accelerator-act:next:2026-10-12:ba073b",
-      "fileId": "industrial-accelerator-act",
-      "date": "2026-10-12",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Industry Working Party, 10:00 (file not specified; also covers Chips Act 2.0)",
-      "push": true,
-      "pushOn": "2026-10-12"
+      "pushOn": "2026-12-14"
     },
     {
       "id": "industrial-accelerator-act:ep:opinions:2026-10-05",
@@ -2247,12 +2207,12 @@
   ],
   "digital-networks-act": [
     {
-      "id": "digital-networks-act:next:2026-10-12:1bf3e8",
+      "id": "digital-networks-act:next:2026-10-12:96b240",
       "fileId": "digital-networks-act",
       "date": "2026-10-12",
       "source": "nodo",
       "kind": "scheduled",
-      "title": "Informal meeting of telecommunications ministers, 12–13 October (agenda not checked)",
+      "title": "Telecoms ministers discuss the Digital Networks Act (informal meeting, Limerick, 12–13 October)",
       "push": true,
       "pushOn": "2026-10-12"
     },
@@ -2498,47 +2458,28 @@
       "push": false
     }
   ],
-  "digital-fairness-act": [],
+  "digital-fairness-act": [
+    {
+      "id": "digital-fairness-act:next:2026-11-11:5a01ad",
+      "fileId": "digital-fairness-act",
+      "date": "2026-11-11",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Commission proposal expected (indicative date)",
+      "push": true,
+      "pushOn": "2026-11-11"
+    }
+  ],
   "tech-sovereignty-package": [
     {
-      "id": "tech-sovereignty-package:next:2026-10-26:345611",
-      "fileId": "tech-sovereignty-package",
-      "date": "2026-10-26",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Industry Working Party (file not specified)",
-      "push": true,
-      "pushOn": "2026-10-26"
-    },
-    {
-      "id": "tech-sovereignty-package:next:2026-10-19:345611",
-      "fileId": "tech-sovereignty-package",
-      "date": "2026-10-19",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Industry Working Party (file not specified)",
-      "push": true,
-      "pushOn": "2026-10-19"
-    },
-    {
-      "id": "tech-sovereignty-package:next:2026-10-13:345611",
+      "id": "tech-sovereignty-package:next:2026-10-13:d19e96",
       "fileId": "tech-sovereignty-package",
       "date": "2026-10-13",
       "source": "nodo",
       "kind": "scheduled",
-      "title": "Industry Working Party (file not specified)",
+      "title": "Council industry working party on the Chips Act 2.0",
       "push": true,
       "pushOn": "2026-10-13"
-    },
-    {
-      "id": "tech-sovereignty-package:next:2026-10-12:9c39bb",
-      "fileId": "tech-sovereignty-package",
-      "date": "2026-10-12",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Industry Working Party, 10:00 (Chips Act 2.0 probable; file not specified)",
-      "push": true,
-      "pushOn": "2026-10-12"
     },
     {
       "id": "tech-sovereignty-package:ep:2026-0138-NMSR-197574-2026-10-06",

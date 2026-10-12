@@ -297,7 +297,20 @@
     "ai-act-implementation:ep:2025-0359-NMSR-256987-2026-01-08": true,
     "ai-act-implementation:ep:2025-0359-NMSR-124884-2025-12-20": true,
     "ai-act-implementation:ep:2025-0359-NMSR-257457-2025-12-20": true,
-    "ai-act-implementation:ep:2025-0359-NMCP-197460-JURI-2025-12-03": true
+    "ai-act-implementation:ep:2025-0359-NMCP-197460-JURI-2025-12-03": true,
+    "mff-2028-2034:next:2026-12-07:7cc675": true,
+    "mff-2028-2034:next:2026-11-17:7cc675": true,
+    "mff-2028-2034:next:2026-11-05:7cc675": true,
+    "mff-2028-2034:next:2026-11-03:265012": true,
+    "mff-2028-2034:next:2026-10-30:265012": true,
+    "mff-2028-2034:next:2026-10-20:265012": true,
+    "mff-2028-2034:next:2026-10-15:8a9d72": true,
+    "mff-2028-2034:next:2026-10-13:dbafc5": true,
+    "digital-omnibus-data:next:2026-10-13:72c56a": true,
+    "industrial-accelerator-act:next:2026-12-14:ec707f": true,
+    "digital-networks-act:next:2026-10-12:96b240": true,
+    "digital-fairness-act:next:2026-11-11:5a01ad": true,
+    "tech-sovereignty-package:next:2026-10-13:d19e96": true
   },
   "seeded": {
     "mff-2028-2034": true,
@@ -321,7 +334,8 @@
     "mff-2028-2034:next:2026-10-09:a6fbc3": true,
     "industrial-accelerator-act:next:2026-10-12:ba073b": true,
     "digital-networks-act:next:2026-10-12:1bf3e8": true,
-    "tech-sovereignty-package:next:2026-10-12:9c39bb": true
+    "tech-sovereignty-package:next:2026-10-12:9c39bb": true,
+    "digital-networks-act:next:2026-10-12:96b240": true
   },
   "seededProcs": {
     "2025-0571": true,

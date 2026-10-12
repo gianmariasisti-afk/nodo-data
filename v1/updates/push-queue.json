@@ -1,4 +1,15 @@
 {
   "generatedAt": "2026-10-12T00:00:00Z",
-  "events": []
+  "events": [
+    {
+      "id": "digital-networks-act:next:2026-10-12:96b240",
+      "fileId": "digital-networks-act",
+      "date": "2026-10-12",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Telecoms ministers discuss the Digital Networks Act (informal meeting, Limerick, 12–13 October)",
+      "push": true,
+      "pushOn": "2026-10-12"
+    }
+  ]
 }
