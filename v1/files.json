@@ -1,6 +1,6 @@
 {
- "generated": "2026-10-04T11:21:42Z",
- "asOf": "2026-10-08",
+ "generated": "2026-10-12T19:24:21Z",
+ "asOf": "2026-10-12",
  "source": "Parliament Open Data Portal (basis ep-open-data); press and Council documents (basis press); commission.json for commissioners and cabinets",
  "legend": {
   "roles": [
@@ -37,31 +37,39 @@
     "2025/0571R(APP)"
    ],
    "stage": "council-negotiating-box",
-   "status": "Cyprus Presidency tabled a first negotiating box on 11 June 2026 at €1,730bn (Commission proposal: €1,763bn, constant prices). The Presidency is preparing a revised box for the 15–16 October European Council. Unanimity in Council, then Parliament consent.",
+   "status": "Cyprus Presidency tabled a first negotiating box on 11 June 2026 at €1,730bn (Commission proposal: €1,763bn, constant prices). The General Affairs Council debates the MFF on 13 October and leaders discuss it at the 15–16 October European Council, for which the Presidency is preparing a revised box. Unanimity in Council, then Parliament consent.",
    "next": [
     {
-     "date": "2026-10-09",
-     "what": "AHWP MFF (national and regional partnerships), 10:00"
-    },
-    {
      "date": "2026-10-13",
-     "what": "General Affairs Council: MFF policy debate (Luxembourg)"
+     "what": "General Affairs Council debates the MFF (Luxembourg)"
     },
     {
      "date": "2026-10-15",
-     "what": "European Council, 15–16 October: revised negotiating box expected beforehand"
+     "what": "European Council, 15–16 October: leaders discuss the MFF"
     },
     {
      "date": "2026-10-20",
-     "what": "AHWP MFF (national and regional partnerships)"
+     "what": "Council MFF working party: national and regional partnerships"
     },
     {
      "date": "2026-10-30",
-     "what": "AHWP MFF (national and regional partnerships)"
+     "what": "Council MFF working party: national and regional partnerships"
     },
     {
      "date": "2026-11-03",
-     "what": "AHWP MFF (national and regional partnerships)"
+     "what": "Council MFF working party: national and regional partnerships"
+    },
+    {
+     "date": "2026-11-05",
+     "what": "Council MFF working party (AHWP MFF)"
+    },
+    {
+     "date": "2026-11-17",
+     "what": "Council MFF working party (AHWP MFF)"
+    },
+    {
+     "date": "2026-12-07",
+     "what": "Council MFF working party (AHWP MFF)"
     }
    ],
    "ep": {
@@ -269,7 +277,7 @@
      {
       "name": "Ad Hoc Working Party on the Multiannual Financial Framework (AHWP MFF)",
       "basis": "source",
-      "note": "Only the 'National and Regional Partnerships' series was visible. Other AHWP MFF topic sessions may run in parallel."
+      "note": "Sessions run to December in several formats: the main AHWP MFF, national and regional partnerships, the European Competitiveness Fund and Global Europe."
      }
     ]
    },
@@ -299,6 +307,21 @@
      "id": "ep-open-data",
      "title": "European Parliament Open Data Portal (via nodo activity feeds)",
      "url": "https://data.europarl.europa.eu/"
+    },
+    {
+     "id": "council-gac-20261013",
+     "title": "Council: General Affairs Council, 13 Oct 2026, agenda highlights",
+     "url": "https://www.consilium.europa.eu/en/meetings/gac/2026/10/13/"
+    },
+    {
+     "id": "council-euco-20261015",
+     "title": "Council: European Council, 15–16 Oct 2026, agenda highlights",
+     "url": "https://www.consilium.europa.eu/en/meetings/european-council/2026/10/15-16/"
+    },
+    {
+     "id": "council-mpo-calendar",
+     "title": "Council: preparatory bodies meeting calendar",
+     "url": "https://www.consilium.europa.eu/en/meetings/calendar/?category=mpo"
     }
    ]
   },
@@ -313,19 +336,11 @@
    "next": [
     {
      "date": "2026-10-13",
-     "what": "GAC: omnibus simplification packages, state of play"
+     "what": "General Affairs Council: Presidency reports on the omnibus simplification packages"
     },
     {
-     "date": "2026-10-19",
-     "what": "Antici Group (Simplification); agenda not confirmed to include the Omnibus"
-    },
-    {
-     "date": "2026-10-23",
-     "what": "Antici Group (Simplification); agenda not confirmed to include the Omnibus"
-    },
-    {
-     "date": "2026-10-26",
-     "what": "Antici Group (Simplification); agenda not confirmed to include the Omnibus"
+     "date": null,
+     "what": "Joint ITRE-LIBE committee vote: no date set yet"
     }
    ],
    "ep": {
@@ -455,7 +470,7 @@
      {
       "name": "Antici Group (Simplification)",
       "basis": "inferred",
-      "note": "Received the Presidency compromise text on 27 Feb 2026. Not confirmed as the current venue. The Working Party on Data Protection agendas through September cover the EUDPR amendment, not the Omnibus."
+      "note": "Received the Presidency compromise text on 27 Feb 2026. Not confirmed as the current venue. The Working Party on Data Protection agendas through September cover the EUDPR amendment, not the Omnibus. Its 13 October agenda covered the environmental omnibus, not this file."
      }
     ]
    },
@@ -493,6 +508,16 @@
      "id": "ti-salla",
      "title": "Transparency International EU: call to withdraw rapporteur appointment",
      "url": "https://transparency.eu/call-to-withdraw-european-parliaments-digital-omnibus-rapporteur-appointment/"
+    },
+    {
+     "id": "oeil-2025-0360",
+     "title": "Legislative Observatory: 2025/0360(COD)",
+     "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2025/0360(COD)"
+    },
+    {
+     "id": "council-gac-20261013",
+     "title": "Council: General Affairs Council, 13 Oct 2026, agenda highlights",
+     "url": "https://www.consilium.europa.eu/en/meetings/gac/2026/10/13/"
     }
    ]
   },
@@ -504,23 +529,11 @@
    "procedure": "2026/0068(COD)",
    "proposal": "COM(2026)100",
    "stage": "positions-in-preparation",
-   "status": "Proposed 4 March 2026. The Irish Presidency circulated a 'partner origin' compromise in late July 2026, which departs substantially from the Commission text. Parliament's rapporteurs were due to table draft reports after the summer. Von der Leyen wants adoption in 2026, which looks like an aspiration.",
+   "status": "Proposed 4 March 2026. The Irish Presidency circulated a 'partner origin' compromise in late July 2026, which departs substantially from the Commission text. In Parliament, the joint INTA-ITRE-IMCO committee published its draft report on 11 September 2026; the indicative plenary vote is 14 December 2026. Von der Leyen wants adoption in 2026, which looks like an aspiration.",
    "next": [
     {
-     "date": "2026-10-12",
-     "what": "Industry Working Party, 10:00 (file not specified; also covers Chips Act 2.0)"
-    },
-    {
-     "date": "2026-10-13",
-     "what": "Industry Working Party (file not specified)"
-    },
-    {
-     "date": "2026-10-19",
-     "what": "Industry Working Party (file not specified)"
-    },
-    {
-     "date": "2026-10-26",
-     "what": "Industry Working Party (file not specified)"
+     "date": "2026-12-14",
+     "what": "Parliament plenary vote (indicative date)"
     }
    ],
    "ep": {
@@ -621,13 +634,13 @@
      {
       "name": "Working Party on Competitiveness and Growth (Industry)",
       "basis": "source",
-      "note": "Also handles Chips Act 2.0. The calendar does not say which file each session covers."
+      "note": "Also handles Chips Act 2.0. The agenda names the file a few days before each session; the 12 and 13 October sessions covered the Chips Act 2.0."
      }
     ]
    },
    "caveats": [
     "Parliament rapporteurs come from two press sources (Agence Europe, Vulcan Consulting). No shadow rapporteurs were named. Verify in the procedure file.",
-    "Sources differ on whether the file is already in trilogue. Treat Parliament's position as still forming."
+    "The Parliament's procedure file shows the file awaiting a committee vote (checked 12 October 2026): it is not in trilogue."
    ],
    "sources": [
     {
@@ -644,6 +657,11 @@
      "id": "vulcan-iaa",
      "title": "Vulcan Consulting: the IAA and the contested 'Made in Europe'",
      "url": "https://vulcanconsulting.eu/the-industrial-accelerator-act-and-the-highly-contested-made-in-europe/"
+    },
+    {
+     "id": "oeil-2026-0068",
+     "title": "Legislative Observatory: 2026/0068(COD), forecast and draft report",
+     "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2026/0068(COD)"
     }
    ]
   },
@@ -654,11 +672,15 @@
    "kind": "regulation",
    "procedure": "2026/0013(COD)",
    "stage": "positions-in-preparation",
-   "status": "Proposed 21 January 2026. It replaces the EECC, BEREC regulation and Radio Spectrum Policy Programme and extends authorisation rules to cloud providers and CDNs. The Council issued a progress report on 2 June 2026. IMCO and LIBE draft opinions were published in June.",
+   "status": "Proposed 21 January 2026. It replaces the EECC, BEREC regulation and Radio Spectrum Policy Programme and extends authorisation rules to cloud providers and CDNs. The Council issued a progress report on 2 June 2026, and telecoms ministers discuss the act at their informal meeting in Limerick on 12–13 October. IMCO and LIBE draft opinions were published in June.",
    "next": [
     {
      "date": "2026-10-12",
-     "what": "Informal meeting of telecommunications ministers, 12–13 October (agenda not checked)"
+     "what": "Telecoms ministers discuss the Digital Networks Act (informal meeting, Limerick, 12–13 October)"
+    },
+    {
+     "date": null,
+     "what": "ITRE committee vote: no date set yet"
     }
    ],
    "ep": {
@@ -711,7 +733,7 @@
      {
       "name": "Working Party on Telecommunications and Information Society",
       "basis": "source",
-      "note": "Article-by-article examination reached Part V (Art. 53–76) on 3 and 10 Sept 2026. No sessions after 12 Oct were visible."
+      "note": "Article-by-article examination reached Part V (Art. 53–76) on 3 and 10 Sept 2026. Further sessions are scheduled to 8 December; agendas are published a few days before each meeting."
      }
     ]
    },
@@ -738,6 +760,16 @@
      "id": "medialaws-dna",
      "title": "MediaLaws: Digital Networks Act tracker",
      "url": "https://www.medialaws.eu/digital-networks-act-legislative-tracker/"
+    },
+    {
+     "id": "ie-presidency-telecoms",
+     "title": "Irish Presidency: informal meeting of telecommunications ministers, 12–13 Oct 2026",
+     "url": "https://irish-presidency.consilium.europa.eu/en/events/informal-meeting-of-telecommunications-ministers-tte-telecoms/"
+    },
+    {
+     "id": "oeil-2026-0013",
+     "title": "Legislative Observatory: 2026/0013(COD)",
+     "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2026/0013(COD)"
     }
    ]
   },
@@ -748,11 +780,11 @@
    "kind": "pre-proposal",
    "procedure": null,
    "stage": "pre-proposal",
-   "status": "The Commission is on track to present the proposal in Q4 2026. Expected themes: dark patterns, addictive design, influencer marketing, unfair personalisation and minors. A bloc-wide social media minimum age may come alongside or inside it. Member States are moving first, for example Denmark's consultation on a minimum age of 15 launched 7 September 2026.",
+   "status": "The Commission's indicative planning of 29 September lists the proposal for 11 November 2026, in a consumer package; the date can still move. Expected themes: dark patterns, addictive design, influencer marketing, unfair personalisation and minors. A bloc-wide social media minimum age may come alongside or inside it. Member States are moving first, for example Denmark's consultation on a minimum age of 15 launched 7 September 2026.",
    "next": [
     {
-     "date": null,
-     "what": "Commission proposal expected in Q4 2026"
+     "date": "2026-11-11",
+     "what": "Commission proposal expected (indicative date)"
     }
    ],
    "ep": {
@@ -948,6 +980,11 @@
      "id": "ep-open-data",
      "title": "European Parliament Open Data Portal (via nodo activity feeds)",
      "url": "https://data.europarl.europa.eu/"
+    },
+    {
+     "id": "dfa-newsletter-20260929",
+     "title": "Digital Fairness Act Newsletter: proposal targeted for 11 November 2026 (Commission indicative planning)",
+     "url": "https://newsletter.digitalfairnessact.com/p/digital-fairness-act-targeted-for"
     }
    ]
   },
@@ -958,23 +995,15 @@
    "kind": "package",
    "procedure": null,
    "stage": "positions-in-preparation",
-   "status": "Both proposals went to Parliament and Council in May–June 2026 (sources differ on the exact date). The Chips Act 2.0 Council working party resumed talks on 2 September 2026. The CADA aims to triple EU data-centre capacity within five to seven years and creates a framework to assess cloud and AI sovereignty, which is the most contested element.",
+   "status": "The Commission proposed both on 3 June 2026. In Parliament, ITRE leads the Chips Act 2.0 (rapporteur Oliver Schenk) and ITRE and IMCO share the CADA (Diego Solier and Reinier van Lanschot). The Council's industry working party resumed talks on the Chips Act 2.0 on 2 September 2026 and met on it again on 12 and 13 October. The CADA aims to triple EU data-centre capacity within five to seven years and creates a framework to assess cloud and AI sovereignty, which is the most contested element.",
    "next": [
     {
-     "date": "2026-10-12",
-     "what": "Industry Working Party, 10:00 (Chips Act 2.0 probable; file not specified)"
-    },
-    {
      "date": "2026-10-13",
-     "what": "Industry Working Party (file not specified)"
+     "what": "Council industry working party on the Chips Act 2.0"
     },
     {
-     "date": "2026-10-19",
-     "what": "Industry Working Party (file not specified)"
-    },
-    {
-     "date": "2026-10-26",
-     "what": "Industry Working Party (file not specified)"
+     "date": null,
+     "what": "Parliament committee votes: no dates set yet"
     }
    ],
    "ep": {
@@ -1107,7 +1136,7 @@
     ],
     "configsBasis": "inferred",
     "presidency": "IE",
-    "note": "Working Party on Competitiveness resumed Chips Act 2.0 talks on 2 September 2026 (SEMI Europe).",
+    "note": "Working Party on Competitiveness resumed Chips Act 2.0 talks on 2 September 2026 (SEMI Europe) and met on it on 12 and 13 October (Council meeting documents).",
     "workingParties": [
      {
       "part": "chips-act-2",
@@ -1139,6 +1168,21 @@
      "id": "matheson-tech",
      "title": "Matheson: Technology Sovereignty Package",
      "url": "https://www.matheson.com/insights/european-commission-proposes-new-european-technology-sovereignty-package/"
+    },
+    {
+     "id": "council-industry-wp-20261013",
+     "title": "Council: industry working party, 13 Oct 2026 (Chips Act 2.0 documents)",
+     "url": "https://www.consilium.europa.eu/en/meetings/mpo/2026/10/wp-on-competitiveness-and-growth-compgro-industry-suite-22-(371418)/"
+    },
+    {
+     "id": "oeil-2026-0139",
+     "title": "Legislative Observatory: 2026/0139(COD), Chips Act 2.0",
+     "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2026/0139(COD)"
+    },
+    {
+     "id": "oeil-2026-0138",
+     "title": "Legislative Observatory: 2026/0138(COD), Cloud and AI Development Act",
+     "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2026/0138(COD)"
     }
    ]
   },

@@ -909,6 +909,8 @@ html.touring { overflow: hidden; }
 .eu-tile__label, .eu-stat__num, .eu-stat__title, .mh__cc, .mh__arch span, .stats b, h3, .eu-row__name, .prez__tx b { font-family: var(--font-display); }
 .eu-tile__label, .eu-stat__num, .mh__cc, .mh__arch span { letter-spacing: -0.03em; }
 #meBtn { font-family: var(--font-display); }
+/* initials are drawn by CSS so the button's only name is "Your profile" (WCAG 2.5.3) */
+#meBtn .ini::before { content: attr(data-ini); }
 
 /* Buttons carry no browser padding, so a photo or initials fill the disc instead of being squeezed. */
 .eu-iconbtn, .eu-tabbar__item { padding: 0; }
@@ -923,7 +925,7 @@ html.touring { overflow: hidden; }
 .mh .eu-headline { margin: var(--space-6) var(--space-1) 0; }
 .mh__row { display: flex; align-items: flex-end; gap: var(--space-3); margin-top: var(--space-4); }
 .mh__meta { flex: 1; min-width: 0; padding: 0 0 var(--space-6) var(--space-1); }
-.mh__cc { display: block; font-size: 64px; line-height: 60px; font-weight: 700; letter-spacing: -0.04em; color: var(--accent-sky); color: color-mix(in srgb, var(--gc) 50%, var(--surface)); }
+.mh__cc { display: block; font-size: 64px; line-height: 60px; font-weight: 700; letter-spacing: -0.04em; color: var(--ink-muted); color: color-mix(in srgb, var(--gc) 85%, var(--ink)); }
 .mh__where { margin-top: var(--space-2); font-weight: 500; color: var(--ink-muted); overflow-wrap: anywhere; }
 .mh .eu-row__tags { margin-top: var(--space-3); }
 .mh__arch { flex: 0 0 56%; aspect-ratio: 4 / 5; max-width: 100%; display: grid; place-items: center; border-radius: var(--radius-pill) var(--radius-pill) 0 0; overflow: hidden; isolation: isolate;
@@ -1294,7 +1296,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   const meFace = () => {
     const ch = chosenFace(), nm = state.me.name || (state.profile && state.profile.name) || "";
     if (ch) return `<img class="av" src="${esc(ch)}" alt="">`;
-    return state.me.id && state.me.avatarUrl ? `<img src="${esc(state.me.avatarUrl)}" alt="">` : nm ? esc(initialsOf(nm)) : icon("user");
+    return state.me.id && state.me.avatarUrl ? `<img src="${esc(state.me.avatarUrl)}" alt="">` : nm ? `<span class="ini" aria-hidden="true" data-ini="${esc(initialsOf(nm))}"></span>` : icon("user");
   };
   const initialsOf = (name) => { const p = String(name || "?").replace(/\(.*?\)/g, "").trim().split(/\s+/); return ((p[0] || "?")[0] + (p.length > 1 ? p[p.length - 1][0] : "")).toUpperCase(); };
   const gc = (g) => `var(--grp-${GROUP_MOD[g] || "ni"})`;
@@ -1701,8 +1703,10 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     extra: `<span class="row-hit">${d.hl(x.line)}</span>`, tail: starBtn(x.m.key, x.m.name) });
   /* Files that matter: followed files first, then the files with the nearest dated step. Curated order breaks ties. */
   const followBtn = (id, name) => `<button class="eu-iconbtn eu-iconbtn--sm star" type="button" data-follow="${esc(id)}" aria-pressed="${state.follow.has(id)}" aria-label="Follow ${esc(name)}">${icon("star")}</button>`;
-  const nextStep = (f) => { const n = f.next || []; return n.find((x) => x.date) || n[0] || null; };
-  const nextLine = (f) => { const n = nextStep(f); if (n) return (n.date ? fdDate(n.date) + " · " : "") + n.what; const c = countsOf(f); return `${c.ep} MEPs · ${c.ec} Commissioners · ${c.cab} cabinet`; };
+  /* The next step is the first one still ahead (dated today or later); undated steps come after; past steps are skipped. */
+  const stepsAhead = (f) => { const t = isoD(new Date()); const n = f.next || []; return [...n.filter((x) => x.date && x.date >= t), ...n.filter((x) => !x.date)]; };
+  const nextStep = (f) => stepsAhead(f)[0] || null;
+  const nextLine = (f) => { const n = nextStep(f); if (n) return (n.date ? fdDate(n.date) + " · " : "") + n.what; const c = countsOf(f); return `${c.ep} ${pl(c.ep, "MEP", "MEPs")} · ${c.ec} ${pl(c.ec, "Commissioner", "Commissioners")} · ${c.cab} cabinet staff`; };
   const homeFile = (f) => row({ attrs: tap(`data-file="${esc(f.id)}"`), lead: disc(fileIc(f)), name: esc(f.short), meta: esc(nextLine(f)), wrap: true,
     extra: `<span class="eu-row__tags">${stagePill(f.stage)}</span>`, tail: followBtn(f.id, f.short) });
   /* The Files door on Home: one wide tile, a way into each priority file, followed files marked with a star.
@@ -2086,7 +2090,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
         <p class="note">Standard qualified majority (Article 16(4) TEU) for Commission proposals: 55% of member states representing 65% of the EU population. A blocking minority needs at least four member states. Population figures for 2026 from Council Decision (EU, Euratom) 2025/2427.</p>`;
     }
     $("coBody").innerHTML = h;
-    $("coNote").textContent = tab === "qmv" ? "" : tab === "perms" ? `Ambassador and deputy names from Council participant lists, checked ${CO.fetched}. Any other name is one you added, saved on this device.` : `Sources: Council of the EU meeting calendar and participant lists, checked ${CO.fetched}.`;
+    $("coNote").textContent = tab === "qmv" ? "" : tab === "perms" ? `Ambassador and deputy names from the Council's participant lists and the Permanent Representations' official sources, checked ${CO.fetched}. Any other name is one you added, saved on this device.` : `Sources: Council of the EU meeting calendar and participant lists, checked ${CO.fetched}.`;
   }
 
   /* ---------- permanent representations ---------- */
@@ -2122,7 +2126,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   }
   function slotRow(cc, slot, lab, sub, forWp) {
     const i = slotInfo(cc, slot);
-    return row({ attrs: tap(`data-prsheet="${cc}|${slot}"`), lead: forWp ? codeAva(cc) : disc("user"), name: i.name ? esc(i.name) : `<span style="color:var(--ink-muted)">${slot === "pr" || slot === "dpr" ? "Not in the Council's lists" : "Not yet known"}</span>`,
+    return row({ attrs: tap(`data-prsheet="${cc}|${slot}"`), lead: forWp ? codeAva(cc) : disc("user"), name: i.name ? esc(i.name) : `<span style="color:var(--ink-muted)">${slot === "pr" || slot === "dpr" ? "Not in official sources" : "Not yet known"}</span>`,
       meta: esc(forWp ? countryName(cc) + (i.role ? " · " + i.role : "") : lab + (sub ? " · " + sub : "")), wrap: true,
       extra: `<span class="eu-row__tags">${stPill(i.kind, i.label)}</span>`, tail: go });
   }
@@ -2558,7 +2562,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const asOf = DATA.fl && DATA.fl.asOf ? ` Data as of ${fdDate(DATA.fl.asOf, true)}.` : "";
     $("filesBody").innerHTML = `<div class="list">${FILES.map((f) => {
       const c = countsOf(f), mine = !!state.lists[f.id];
-      return row({ el: "button", attrs: `type="button" data-file="${esc(f.id)}"`, lead: disc(fileIc(f)), name: esc(f.short), meta: `${c.ep} MEPs · ${c.ec} Commissioners · ${c.cab} cabinet`, wrap: true,
+      return row({ el: "button", attrs: `type="button" data-file="${esc(f.id)}"`, lead: disc(fileIc(f)), name: esc(f.short), meta: `${c.ep} ${pl(c.ep, "MEP", "MEPs")} · ${c.ec} ${pl(c.ec, "Commissioner", "Commissioners")} · ${c.cab} cabinet staff`, wrap: true,
         extra: `<span class="eu-row__tags">${stagePill(f.stage)}${state.follow.has(f.id) ? tag("Following") : ""}${mine ? tag("Your edits") : ""}</span>`, tail: go });
     }).join("")}</div>
     <p class="foot">Names marked Verified come from the Parliament's open data. Names marked From press are taken from published reporting and need a check in the Parliament's procedure file before external use.${asOf}</p>`;
@@ -2589,7 +2593,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
         + (ppl.length ? `<h3>People changes <small>${ppl.length}</small></h3><div class="list">${ppl.map((e) => evRow(e)).join("")}</div>` : "")
         + `<p class="note">Built daily from the Parliament's open data, the Council calendar and nodo's own file data. Procedural steps appear with a delay of up to a day.</p>`;
     } else {
-      const nx = f.next || [], cfs = ((f.council || {}).configs || []).map((cid) => CO_CONFS.find((x) => x.id === cid)).filter(Boolean);
+      const nx = stepsAhead(f), cfs = ((f.council || {}).configs || []).map((cid) => CO_CONFS.find((x) => x.id === cid)).filter(Boolean);
       body = `<h3>What happens next</h3>` + (nx.length ? `<div class="list">${nx.map((n) => row({ cls: "is-static", lead: disc("cal"), name: esc(n.what), meta: esc(fdDate(n.date, true)), wrap: true })).join("")}</div>` : `<div class="hint"><span>No dated step yet.</span></div>`)
         + (cfs.length ? `<h3>In the Council</h3><div class="list">${cfs.map(confRow).join("")}</div>` : "") + wpBlock(f) + (f.council && f.council.note && (cfs.length || wpBlock(f)) ? `<p class="note">${esc(f.council.note)}</p>` : "")
         + ((f.caveats || []).length ? `<h3>Check before you rely on it</h3>${f.caveats.map((x) => `<div class="block"><p>${esc(typeof x === "string" ? x : x.text || x.note || "")}</p></div>`).join("")}` : "")
