@@ -2431,7 +2431,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   const ROLE_MANY = { rapporteur: "Rapporteurs", shadow: "Shadows", "opinion-rapporteur": "Opinion rapporteurs", "opinion-shadow": "Opinion shadows", relevant: "Active on the topic" };
   const stagePill = (st) => { const x = STAGE[st] || [st, ""]; return `<span class="fd-pill ${x[1]}">${esc(x[0])}</span>`; };
   const baseOf = (f) => [
-    ...(f.meps || []).map((x) => ({ key: "ep:" + x.id, role: x.role, cmte: x.committee || "", basis: x.basis })),
+    ...(f.meps || []).map((x) => { const p = x.part && (f.parts || []).find((q) => q.id === x.part); return { key: "ep:" + x.id, role: x.role, cmte: [x.committee, p && (p.short || p.title)].filter(Boolean).join(" · "), basis: x.basis }; }),
     ...((f.commission || {}).lead || []).map((sl) => ({ key: "ec:" + sl, role: "lead" })),
     ...((f.commission || {}).associated || []).map((sl) => ({ key: "ec:" + sl, role: "associated" })),
     ...(f.cabinet || []).map((c) => ({ key: "cab:" + c.k, role: "cabinet", why: c.why })),
@@ -2459,7 +2459,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     if (!isBase(f, key) && !(l.add || []).includes(key)) l.add = [...(l.add || []), key];
     tidyList(f); saveLists();
   }
-  const tagBasis = (b) => (b === "press" ? `<span class="eu-group tag tg-press">From press</span>` : b === "ep-open-data" ? `<span class="eu-group tag tg-ok">Verified</span>` : "");
+  const tagBasis = (b) => (b === "press" ? `<span class="eu-group tag tg-press">From press</span>` : b === "ep-open-data" || b === "ep-procedure-file" ? `<span class="eu-group tag tg-ok">Verified</span>` : "");
   const tagMine = `<span class="eu-group tag tg-mine">Added by you</span>`;
   const rmBtn = (key, name) => `<button class="eu-iconbtn eu-iconbtn--sm" type="button" data-frm="${esc(key)}" aria-label="Remove ${esc(name)} from this list">${icon("x")}</button>`;
   const tailFor = (key, name) => (state.fedit ? rmBtn(key, name) : starBtn(key, name));
@@ -2565,7 +2565,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       return row({ el: "button", attrs: `type="button" data-file="${esc(f.id)}"`, lead: disc(fileIc(f)), name: esc(f.short), meta: `${c.ep} ${pl(c.ep, "MEP", "MEPs")} · ${c.ec} ${pl(c.ec, "Commissioner", "Commissioners")} · ${c.cab} cabinet staff`, wrap: true,
         extra: `<span class="eu-row__tags">${stagePill(f.stage)}${state.follow.has(f.id) ? tag("Following") : ""}${mine ? tag("Your edits") : ""}</span>`, tail: go });
     }).join("")}</div>
-    <p class="foot">Names marked Verified come from the Parliament's open data. Names marked From press are taken from published reporting and need a check in the Parliament's procedure file before external use.${asOf}</p>`;
+    <p class="foot">Names marked Verified come from the Parliament's open data or its Legislative Observatory procedure files. Names marked From press are taken from published reporting and need a check in the Parliament's procedure file before external use.${asOf}</p>`;
   }
 
   function openFile(id, keep, startTab) {

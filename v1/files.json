@@ -1,7 +1,7 @@
 {
  "generated": "2026-10-12T19:24:21Z",
  "asOf": "2026-10-12",
- "source": "Parliament Open Data Portal (basis ep-open-data); press and Council documents (basis press); commission.json for commissioners and cabinets",
+ "source": "Parliament Open Data Portal (basis ep-open-data); Parliament Legislative Observatory procedure files (basis ep-procedure-file); press and Council documents (basis press); commission.json for commissioners and cabinets",
  "legend": {
   "roles": [
    "rapporteur",
@@ -12,7 +12,8 @@
   ],
   "basis": {
    "ep-open-data": "read from the Parliament's open data and matched to the MEP id",
-   "press": "named in published reporting; verify in the Parliament's procedure file before external use"
+   "press": "named in published reporting; verify in the Parliament's procedure file before external use",
+   "ep-procedure-file": "read from the Parliament's Legislative Observatory procedure file, where each name links to the MEP id"
   },
   "stage": [
    "pre-proposal",
@@ -74,19 +75,11 @@
    ],
    "ep": {
     "lead": [
-     "BUDG",
-     "AFCO"
+     "BUDG"
     ],
-    "note": "Interim report co-rapporteurs from BUDG. Opinion rapporteurs listed for every committee that delivered an opinion on the MFF regulation."
+    "note": "Interim report co-rapporteurs and shadows from BUDG. Opinion rapporteurs for the 15 committees giving an opinion on the interim report; LIBE decided not to give one."
    },
    "meps": [
-    {
-     "id": "257071",
-     "role": "rapporteur",
-     "committee": "BUDG",
-     "basis": "ep-open-data",
-     "ref": "BUDG-PR-779351"
-    },
     {
      "id": "124802",
      "role": "rapporteur",
@@ -95,21 +88,14 @@
      "ref": "BUDG-PR-779351"
     },
     {
-     "id": "22858",
-     "role": "shadow",
+     "id": "257071",
+     "role": "rapporteur",
      "committee": "BUDG",
      "basis": "ep-open-data",
      "ref": "BUDG-PR-779351"
     },
     {
      "id": "96826",
-     "role": "shadow",
-     "committee": "BUDG",
-     "basis": "ep-open-data",
-     "ref": "BUDG-PR-779351"
-    },
-    {
-     "id": "257083",
      "role": "shadow",
      "committee": "BUDG",
      "basis": "ep-open-data",
@@ -123,7 +109,21 @@
      "ref": "BUDG-PR-779351"
     },
     {
+     "id": "22858",
+     "role": "shadow",
+     "committee": "BUDG",
+     "basis": "ep-open-data",
+     "ref": "BUDG-PR-779351"
+    },
+    {
      "id": "257044",
+     "role": "shadow",
+     "committee": "BUDG",
+     "basis": "ep-open-data",
+     "ref": "BUDG-PR-779351"
+    },
+    {
+     "id": "257083",
      "role": "shadow",
      "committee": "BUDG",
      "basis": "ep-open-data",
@@ -137,18 +137,18 @@
      "ref": "BUDG-PR-779351"
     },
     {
-     "id": "124736",
+     "id": "257110",
      "role": "opinion-rapporteur",
-     "committee": "TRAN",
+     "committee": "AFET",
      "basis": "ep-open-data",
-     "ref": "TRAN-AD-782412"
+     "ref": "AFET-AD-781487"
     },
     {
-     "id": "257068",
+     "id": "256926",
      "role": "opinion-rapporteur",
-     "committee": "CULT",
+     "committee": "SEDE",
      "basis": "ep-open-data",
-     "ref": "CULT-AD-781137"
+     "ref": "SEDE-AD-784497"
     },
     {
      "id": "251874",
@@ -158,11 +158,11 @@
      "ref": "DEVE-AD-781486"
     },
     {
-     "id": "197658",
+     "id": "257041",
      "role": "opinion-rapporteur",
-     "committee": "REGI",
+     "committee": "CONT",
      "basis": "ep-open-data",
-     "ref": "REGI-AD-781447"
+     "ref": "CONT-AD-781489"
     },
     {
      "id": "197579",
@@ -172,20 +172,6 @@
      "ref": "EMPL-AD-781335"
     },
     {
-     "id": "257108",
-     "role": "opinion-rapporteur",
-     "committee": "AGRI",
-     "basis": "ep-open-data",
-     "ref": "AGRI-AD-782190"
-    },
-    {
-     "id": "257041",
-     "role": "opinion-rapporteur",
-     "committee": "CONT",
-     "basis": "ep-open-data",
-     "ref": "CONT-AD-781489"
-    },
-    {
      "id": "256985",
      "role": "opinion-rapporteur",
      "committee": "ENVI",
@@ -193,11 +179,32 @@
      "ref": "ENVI-AD-781199"
     },
     {
-     "id": "197426",
+     "id": "257047",
      "role": "opinion-rapporteur",
-     "committee": "AFCO",
+     "committee": "ITRE",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0571R(APP)"
+    },
+    {
+     "id": "124736",
+     "role": "opinion-rapporteur",
+     "committee": "TRAN",
      "basis": "ep-open-data",
-     "ref": "AFCO-AD-782229"
+     "ref": "TRAN-AD-782412"
+    },
+    {
+     "id": "197658",
+     "role": "opinion-rapporteur",
+     "committee": "REGI",
+     "basis": "ep-open-data",
+     "ref": "REGI-AD-781447"
+    },
+    {
+     "id": "257108",
+     "role": "opinion-rapporteur",
+     "committee": "AGRI",
+     "basis": "ep-open-data",
+     "ref": "AGRI-AD-782190"
     },
     {
      "id": "197773",
@@ -207,11 +214,11 @@
      "ref": "PECH-AD-781214"
     },
     {
-     "id": "257110",
+     "id": "257068",
      "role": "opinion-rapporteur",
-     "committee": "AFET",
+     "committee": "CULT",
      "basis": "ep-open-data",
-     "ref": "AFET-AD-781487"
+     "ref": "CULT-AD-781137"
     },
     {
      "id": "88882",
@@ -221,11 +228,18 @@
      "ref": "JURI-AD-779629"
     },
     {
-     "id": "256926",
+     "id": "197426",
      "role": "opinion-rapporteur",
-     "committee": "SEDE",
+     "committee": "AFCO",
      "basis": "ep-open-data",
-     "ref": "SEDE-AD-784497"
+     "ref": "AFCO-AD-782229"
+    },
+    {
+     "id": "197702",
+     "role": "opinion-rapporteur",
+     "committee": "FEMM",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0571R(APP)"
     }
    ],
    "commission": {
@@ -322,6 +336,11 @@
      "id": "council-mpo-calendar",
      "title": "Council: preparatory bodies meeting calendar",
      "url": "https://www.consilium.europa.eu/en/meetings/calendar/?category=mpo"
+    },
+    {
+     "id": "oeil-2025-0571r-app",
+     "title": "Legislative Observatory: procedure file 2025/0571R(APP)",
+     "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2025/0571R(APP)"
     }
    ]
   },
@@ -348,79 +367,128 @@
      "LIBE",
      "ITRE"
     ],
-    "note": "Joint competence of LIBE and ITRE with co-rapporteurs."
+    "note": "Joint ITRE-LIBE committee with co-rapporteurs. IMCO and JURI give opinions."
    },
    "meps": [
-    {
-     "id": "197491",
-     "role": "rapporteur",
-     "committee": "LIBE",
-     "basis": "press",
-     "src": "agenceurope-13909"
-    },
     {
      "id": "98219",
      "role": "rapporteur",
      "committee": "ITRE",
-     "basis": "press",
-     "src": "agenceurope-13909",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0360(COD)",
      "note": "Civil society groups asked for her appointment to be withdrawn (Transparency International EU, Feb 2026)"
+    },
+    {
+     "id": "197491",
+     "role": "rapporteur",
+     "committee": "LIBE",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0360(COD)"
     },
     {
      "id": "256979",
      "role": "shadow",
-     "committee": "LIBE",
-     "basis": "press",
-     "src": "agenceurope-13797"
-    },
-    {
-     "id": "197447",
-     "role": "shadow",
-     "committee": "LIBE",
-     "basis": "press",
-     "src": "agenceurope-13797"
-    },
-    {
-     "id": "197549",
-     "role": "shadow",
-     "committee": "LIBE",
-     "basis": "press",
-     "src": "agenceurope-13797"
-    },
-    {
-     "id": "197684",
-     "role": "shadow",
-     "committee": "LIBE",
-     "basis": "press",
-     "src": "agenceurope-13797"
-    },
-    {
-     "id": "256806",
-     "role": "shadow",
-     "committee": "LIBE",
-     "basis": "press",
-     "src": "agenceurope-13797"
-    },
-    {
-     "id": "256957",
-     "role": "shadow",
-     "committee": "LIBE",
-     "basis": "press",
-     "src": "agenceurope-13797"
-    },
-    {
-     "id": "256872",
-     "role": "shadow",
-     "committee": "LIBE",
-     "basis": "press",
-     "src": "agenceurope-13797"
+     "committee": "ITRE-LIBE",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0360(COD)"
     },
     {
      "id": "257001",
      "role": "shadow",
-     "committee": "ITRE",
-     "basis": "press",
-     "src": "agenceurope-13909"
+     "committee": "ITRE-LIBE",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0360(COD)"
+    },
+    {
+     "id": "5736",
+     "role": "shadow",
+     "committee": "ITRE-LIBE",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0360(COD)"
+    },
+    {
+     "id": "256882",
+     "role": "shadow",
+     "committee": "ITRE-LIBE",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0360(COD)"
+    },
+    {
+     "id": "257021",
+     "role": "shadow",
+     "committee": "ITRE-LIBE",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0360(COD)"
+    },
+    {
+     "id": "256806",
+     "role": "shadow",
+     "committee": "ITRE-LIBE",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0360(COD)"
+    },
+    {
+     "id": "257300",
+     "role": "shadow",
+     "committee": "ITRE-LIBE",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0360(COD)"
+    },
+    {
+     "id": "197447",
+     "role": "shadow",
+     "committee": "ITRE-LIBE",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0360(COD)"
+    },
+    {
+     "id": "197439",
+     "role": "shadow",
+     "committee": "ITRE-LIBE",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0360(COD)"
+    },
+    {
+     "id": "197549",
+     "role": "shadow",
+     "committee": "ITRE-LIBE",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0360(COD)"
+    },
+    {
+     "id": "197684",
+     "role": "shadow",
+     "committee": "ITRE-LIBE",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0360(COD)"
+    },
+    {
+     "id": "257083",
+     "role": "shadow",
+     "committee": "ITRE-LIBE",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0360(COD)"
+    },
+    {
+     "id": "256957",
+     "role": "shadow",
+     "committee": "ITRE-LIBE",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0360(COD)"
+    },
+    {
+     "id": "197403",
+     "role": "opinion-rapporteur",
+     "committee": "IMCO",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0360(COD)"
+    },
+    {
+     "id": "124867",
+     "role": "opinion-rapporteur",
+     "committee": "JURI",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0360(COD)"
     }
    ],
    "commission": {
@@ -475,7 +543,7 @@
     ]
    },
    "caveats": [
-    "Rapporteurs and shadows come from Agence Europe reporting. Check the Parliament's procedure file before external use.",
+    "Rapporteurs, shadows and opinion rapporteurs come from the Parliament's procedure file (checked 12 October 2026). It lists the joint committee's shadows together, without saying which committee each one sits for.",
     "Sources disagree on whether the Council position is already adopted. The Council note of 22 June is a mandate text. EDRi's September letter says Member States were still close to agreeing."
    ],
    "sources": [
@@ -518,6 +586,11 @@
      "id": "council-gac-20261013",
      "title": "Council: General Affairs Council, 13 Oct 2026, agenda highlights",
      "url": "https://www.consilium.europa.eu/en/meetings/gac/2026/10/13/"
+    },
+    {
+     "id": "oeil-2025-0360-cod",
+     "title": "Legislative Observatory: procedure file 2025/0360(COD)",
+     "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2025/0360(COD)"
     }
    ]
   },
@@ -538,43 +611,173 @@
    ],
    "ep": {
     "lead": [
+     "INTA",
      "ITRE",
      "IMCO"
     ],
-    "note": "INTA involved on the trade angle."
+    "note": "Joint INTA-ITRE-IMCO committee with one co-rapporteur each. ENVI gives an opinion; BUDG decided not to."
    },
    "meps": [
+    {
+     "id": "86793",
+     "role": "rapporteur",
+     "committee": "INTA",
+     "basis": "ep-procedure-file",
+     "ref": "2026/0068(COD)"
+    },
     {
      "id": "197557",
      "role": "rapporteur",
      "committee": "ITRE",
-     "basis": "press",
-     "src": "agenceurope-13879",
-     "note": "Lead rapporteur"
+     "basis": "ep-procedure-file",
+     "ref": "2026/0068(COD)"
     },
     {
      "id": "256898",
      "role": "rapporteur",
      "committee": "IMCO",
-     "basis": "press",
-     "src": "agenceurope-13879",
-     "note": "Lead rapporteur in IMCO; works on geographical requirements"
+     "basis": "ep-procedure-file",
+     "ref": "2026/0068(COD)"
     },
     {
-     "id": "86793",
-     "role": "rapporteur",
-     "committee": "IMCO",
-     "basis": "press",
-     "src": "agenceurope-13879",
-     "note": "IMCO chair (meps.json)"
+     "id": "257030",
+     "role": "shadow",
+     "committee": "INTA-ITRE-IMCO",
+     "basis": "ep-procedure-file",
+     "ref": "2026/0068(COD)"
+    },
+    {
+     "id": "197417",
+     "role": "shadow",
+     "committee": "INTA-ITRE-IMCO",
+     "basis": "ep-procedure-file",
+     "ref": "2026/0068(COD)"
+    },
+    {
+     "id": "97399",
+     "role": "shadow",
+     "committee": "INTA-ITRE-IMCO",
+     "basis": "ep-procedure-file",
+     "ref": "2026/0068(COD)"
+    },
+    {
+     "id": "96833",
+     "role": "shadow",
+     "committee": "INTA-ITRE-IMCO",
+     "basis": "ep-procedure-file",
+     "ref": "2026/0068(COD)"
     },
     {
      "id": "5729",
-     "role": "relevant",
-     "committee": "INTA",
-     "basis": "press",
-     "src": "vulcan-iaa",
-     "note": "Named in a Vulcan Consulting briefing as pushing 'opt in, not opt out'; formal role not confirmed"
+     "role": "shadow",
+     "committee": "INTA-ITRE-IMCO",
+     "basis": "ep-procedure-file",
+     "ref": "2026/0068(COD)"
+    },
+    {
+     "id": "256853",
+     "role": "shadow",
+     "committee": "INTA-ITRE-IMCO",
+     "basis": "ep-procedure-file",
+     "ref": "2026/0068(COD)"
+    },
+    {
+     "id": "101039",
+     "role": "shadow",
+     "committee": "INTA-ITRE-IMCO",
+     "basis": "ep-procedure-file",
+     "ref": "2026/0068(COD)"
+    },
+    {
+     "id": "197580",
+     "role": "shadow",
+     "committee": "INTA-ITRE-IMCO",
+     "basis": "ep-procedure-file",
+     "ref": "2026/0068(COD)"
+    },
+    {
+     "id": "257143",
+     "role": "shadow",
+     "committee": "INTA-ITRE-IMCO",
+     "basis": "ep-procedure-file",
+     "ref": "2026/0068(COD)"
+    },
+    {
+     "id": "257058",
+     "role": "shadow",
+     "committee": "INTA-ITRE-IMCO",
+     "basis": "ep-procedure-file",
+     "ref": "2026/0068(COD)"
+    },
+    {
+     "id": "257145",
+     "role": "shadow",
+     "committee": "INTA-ITRE-IMCO",
+     "basis": "ep-procedure-file",
+     "ref": "2026/0068(COD)"
+    },
+    {
+     "id": "257259",
+     "role": "shadow",
+     "committee": "INTA-ITRE-IMCO",
+     "basis": "ep-procedure-file",
+     "ref": "2026/0068(COD)"
+    },
+    {
+     "id": "197780",
+     "role": "shadow",
+     "committee": "INTA-ITRE-IMCO",
+     "basis": "ep-procedure-file",
+     "ref": "2026/0068(COD)"
+    },
+    {
+     "id": "197503",
+     "role": "shadow",
+     "committee": "INTA-ITRE-IMCO",
+     "basis": "ep-procedure-file",
+     "ref": "2026/0068(COD)"
+    },
+    {
+     "id": "208722",
+     "role": "shadow",
+     "committee": "INTA-ITRE-IMCO",
+     "basis": "ep-procedure-file",
+     "ref": "2026/0068(COD)"
+    },
+    {
+     "id": "236053",
+     "role": "shadow",
+     "committee": "INTA-ITRE-IMCO",
+     "basis": "ep-procedure-file",
+     "ref": "2026/0068(COD)"
+    },
+    {
+     "id": "257092",
+     "role": "shadow",
+     "committee": "INTA-ITRE-IMCO",
+     "basis": "ep-procedure-file",
+     "ref": "2026/0068(COD)"
+    },
+    {
+     "id": "256890",
+     "role": "shadow",
+     "committee": "INTA-ITRE-IMCO",
+     "basis": "ep-procedure-file",
+     "ref": "2026/0068(COD)"
+    },
+    {
+     "id": "257070",
+     "role": "shadow",
+     "committee": "INTA-ITRE-IMCO",
+     "basis": "ep-procedure-file",
+     "ref": "2026/0068(COD)"
+    },
+    {
+     "id": "197691",
+     "role": "opinion-rapporteur",
+     "committee": "ENVI",
+     "basis": "ep-procedure-file",
+     "ref": "2026/0068(COD)"
     }
    ],
    "commission": {
@@ -639,7 +842,7 @@
     ]
    },
    "caveats": [
-    "Parliament rapporteurs come from two press sources (Agence Europe, Vulcan Consulting). No shadow rapporteurs were named. Verify in the procedure file.",
+    "Rapporteurs, shadows and the ENVI opinion rapporteur come from the Parliament's procedure file (checked 12 October 2026).",
     "The Parliament's procedure file shows the file awaiting a committee vote (checked 12 October 2026): it is not in trilogue."
    ],
    "sources": [
@@ -661,6 +864,11 @@
     {
      "id": "oeil-2026-0068",
      "title": "Legislative Observatory: 2026/0068(COD), forecast and draft report",
+     "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2026/0068(COD)"
+    },
+    {
+     "id": "oeil-2026-0068-cod",
+     "title": "Legislative Observatory: procedure file 2026/0068(COD)",
      "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2026/0068(COD)"
     }
    ]
@@ -687,16 +895,72 @@
     "lead": [
      "ITRE"
     ],
-    "note": "IMCO and LIBE draft opinions published June 2026. Their rapporteurs are not identified in the sources found."
+    "note": "IMCO (Stéphanie Yon-Courtin) and LIBE (Ana Vasconcelos) give opinions; their draft opinions were published in June 2026. BUDG decided not to give one."
    },
    "meps": [
     {
      "id": "257037",
      "role": "rapporteur",
      "committee": "ITRE",
-     "basis": "press",
-     "src": "xyz-kobosko",
+     "basis": "ep-procedure-file",
+     "ref": "2026/0013(COD)",
      "note": "Named lead rapporteur; also reported by Agence Europe and MLex"
+    },
+    {
+     "id": "28390",
+     "role": "shadow",
+     "committee": "ITRE",
+     "basis": "ep-procedure-file",
+     "ref": "2026/0013(COD)"
+    },
+    {
+     "id": "237465",
+     "role": "shadow",
+     "committee": "ITRE",
+     "basis": "ep-procedure-file",
+     "ref": "2026/0013(COD)"
+    },
+    {
+     "id": "256874",
+     "role": "shadow",
+     "committee": "ITRE",
+     "basis": "ep-procedure-file",
+     "ref": "2026/0013(COD)"
+    },
+    {
+     "id": "257163",
+     "role": "shadow",
+     "committee": "ITRE",
+     "basis": "ep-procedure-file",
+     "ref": "2026/0013(COD)"
+    },
+    {
+     "id": "197439",
+     "role": "shadow",
+     "committee": "ITRE",
+     "basis": "ep-procedure-file",
+     "ref": "2026/0013(COD)"
+    },
+    {
+     "id": "127766",
+     "role": "shadow",
+     "committee": "ITRE",
+     "basis": "ep-procedure-file",
+     "ref": "2026/0013(COD)"
+    },
+    {
+     "id": "197581",
+     "role": "opinion-rapporteur",
+     "committee": "IMCO",
+     "basis": "ep-procedure-file",
+     "ref": "2026/0013(COD)"
+    },
+    {
+     "id": "257061",
+     "role": "opinion-rapporteur",
+     "committee": "LIBE",
+     "basis": "ep-procedure-file",
+     "ref": "2026/0013(COD)"
     }
    ],
    "commission": {
@@ -738,7 +1002,7 @@
     ]
    },
    "caveats": [
-    "Only the lead rapporteur is named. Shadow rapporteurs were not found."
+    "Rapporteur, shadows and opinion rapporteurs come from the Parliament's procedure file (checked 12 October 2026)."
    ],
    "sources": [
     {
@@ -769,6 +1033,11 @@
     {
      "id": "oeil-2026-0013",
      "title": "Legislative Observatory: 2026/0013(COD)",
+     "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2026/0013(COD)"
+    },
+    {
+     "id": "oeil-2026-0013-cod",
+     "title": "Legislative Observatory: procedure file 2026/0013(COD)",
      "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2026/0013(COD)"
     }
    ]
@@ -1011,57 +1280,19 @@
      "ITRE",
      "IMCO"
     ],
-    "note": "Chips Act 2.0 sits in ITRE. CADA is shared between ITRE and IMCO."
+    "note": "Chips Act 2.0 sits in ITRE; JURI gives an opinion and IMCO has not named a rapporteur for its opinion. CADA is a joint ITRE-IMCO file; JURI and LIBE give opinions."
    },
    "parts": [
     {
      "id": "chips-act-2",
      "title": "Chips Act 2.0",
-     "procedure": "2026/0139(COD)",
-     "meps": [
-      {
-       "id": "256979",
-       "role": "rapporteur",
-       "committee": "ITRE",
-       "basis": "press",
-       "src": "semi-julaug"
-      },
-      {
-       "id": "237465",
-       "role": "shadow",
-       "committee": "ITRE",
-       "basis": "press",
-       "src": "semi-julaug"
-      },
-      {
-       "id": "197780",
-       "role": "shadow",
-       "committee": "ITRE",
-       "basis": "press",
-       "src": "semi-julaug"
-      }
-     ]
+     "procedure": "2026/0139(COD)"
     },
     {
      "id": "cada",
      "title": "Cloud and AI Development Act",
      "procedure": "2026/0138(COD)",
-     "meps": [
-      {
-       "id": "257021",
-       "role": "rapporteur",
-       "committee": "ITRE",
-       "basis": "press",
-       "src": "semi-julaug"
-      },
-      {
-       "id": "256978",
-       "role": "rapporteur",
-       "committee": "IMCO",
-       "basis": "press",
-       "src": "semi-julaug"
-      }
-     ]
+     "short": "CADA"
     }
    ],
    "meps": [
@@ -1069,36 +1300,153 @@
      "id": "256979",
      "role": "rapporteur",
      "committee": "ITRE",
-     "basis": "press",
-     "src": "semi-julaug"
+     "basis": "ep-procedure-file",
+     "ref": "2026/0139(COD)",
+     "part": "chips-act-2"
     },
     {
-     "id": "237465",
+     "id": "256860",
      "role": "shadow",
      "committee": "ITRE",
-     "basis": "press",
-     "src": "semi-julaug"
+     "basis": "ep-procedure-file",
+     "ref": "2026/0139(COD)",
+     "part": "chips-act-2"
+    },
+    {
+     "id": "257163",
+     "role": "shadow",
+     "committee": "ITRE",
+     "basis": "ep-procedure-file",
+     "ref": "2026/0139(COD)",
+     "part": "chips-act-2"
     },
     {
      "id": "197780",
      "role": "shadow",
      "committee": "ITRE",
-     "basis": "press",
-     "src": "semi-julaug"
+     "basis": "ep-procedure-file",
+     "ref": "2026/0139(COD)",
+     "part": "chips-act-2"
+    },
+    {
+     "id": "201945",
+     "role": "shadow",
+     "committee": "ITRE",
+     "basis": "ep-procedure-file",
+     "ref": "2026/0139(COD)",
+     "part": "chips-act-2"
+    },
+    {
+     "id": "127766",
+     "role": "shadow",
+     "committee": "ITRE",
+     "basis": "ep-procedure-file",
+     "ref": "2026/0139(COD)",
+     "part": "chips-act-2"
+    },
+    {
+     "id": "257070",
+     "role": "shadow",
+     "committee": "ITRE",
+     "basis": "ep-procedure-file",
+     "ref": "2026/0139(COD)",
+     "part": "chips-act-2"
+    },
+    {
+     "id": "257043",
+     "role": "opinion-rapporteur",
+     "committee": "JURI",
+     "basis": "ep-procedure-file",
+     "ref": "2026/0139(COD)",
+     "part": "chips-act-2"
     },
     {
      "id": "257021",
      "role": "rapporteur",
      "committee": "ITRE",
-     "basis": "press",
-     "src": "semi-julaug"
+     "basis": "ep-procedure-file",
+     "ref": "2026/0138(COD)",
+     "part": "cada"
     },
     {
      "id": "256978",
      "role": "rapporteur",
      "committee": "IMCO",
-     "basis": "press",
-     "src": "semi-julaug"
+     "basis": "ep-procedure-file",
+     "ref": "2026/0138(COD)",
+     "part": "cada"
+    },
+    {
+     "id": "28390",
+     "role": "shadow",
+     "committee": "ITRE-IMCO",
+     "basis": "ep-procedure-file",
+     "ref": "2026/0138(COD)",
+     "part": "cada"
+    },
+    {
+     "id": "28419",
+     "role": "shadow",
+     "committee": "ITRE-IMCO",
+     "basis": "ep-procedure-file",
+     "ref": "2026/0138(COD)",
+     "part": "cada"
+    },
+    {
+     "id": "257087",
+     "role": "shadow",
+     "committee": "ITRE-IMCO",
+     "basis": "ep-procedure-file",
+     "ref": "2026/0138(COD)",
+     "part": "cada"
+    },
+    {
+     "id": "256883",
+     "role": "shadow",
+     "committee": "ITRE-IMCO",
+     "basis": "ep-procedure-file",
+     "ref": "2026/0138(COD)",
+     "part": "cada"
+    },
+    {
+     "id": "257096",
+     "role": "shadow",
+     "committee": "ITRE-IMCO",
+     "basis": "ep-procedure-file",
+     "ref": "2026/0138(COD)",
+     "part": "cada"
+    },
+    {
+     "id": "257057",
+     "role": "shadow",
+     "committee": "ITRE-IMCO",
+     "basis": "ep-procedure-file",
+     "ref": "2026/0138(COD)",
+     "part": "cada"
+    },
+    {
+     "id": "183916",
+     "role": "shadow",
+     "committee": "ITRE-IMCO",
+     "basis": "ep-procedure-file",
+     "ref": "2026/0138(COD)",
+     "part": "cada"
+    },
+    {
+     "id": "197460",
+     "role": "opinion-rapporteur",
+     "committee": "JURI",
+     "basis": "ep-procedure-file",
+     "ref": "2026/0138(COD)",
+     "part": "cada"
+    },
+    {
+     "id": "34232",
+     "role": "opinion-rapporteur",
+     "committee": "LIBE",
+     "basis": "ep-procedure-file",
+     "ref": "2026/0138(COD)",
+     "part": "cada"
     }
    ],
    "commission": {
@@ -1151,7 +1499,7 @@
     ]
    },
    "caveats": [
-    "Rapporteurs and shadows come from one industry brief (SEMI Europe). Check the Parliament's procedure files."
+    "Rapporteurs, shadows and opinion rapporteurs come from the Parliament's procedure files (checked 12 October 2026). No S&D shadow is listed for the Chips Act 2.0 yet."
    ],
    "sources": [
     {
@@ -1183,6 +1531,16 @@
      "id": "oeil-2026-0138",
      "title": "Legislative Observatory: 2026/0138(COD), Cloud and AI Development Act",
      "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2026/0138(COD)"
+    },
+    {
+     "id": "oeil-2026-0139-cod",
+     "title": "Legislative Observatory: procedure file 2026/0139(COD)",
+     "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2026/0139(COD)"
+    },
+    {
+     "id": "oeil-2026-0138-cod",
+     "title": "Legislative Observatory: procedure file 2026/0138(COD)",
+     "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2026/0138(COD)"
     }
    ]
   },
@@ -1205,113 +1563,134 @@
      "IMCO",
      "LIBE"
     ],
-    "note": "Joint IMCO-LIBE file. CULT and JURI gave opinions."
+    "note": "Joint IMCO-LIBE file. CULT, JURI and TRAN were opinion committees; ITRE and BUDG decided not to give an opinion."
    },
    "meps": [
-    {
-     "id": "257300",
-     "role": "rapporteur",
-     "committee": "LIBE",
-     "basis": "press",
-     "src": "agenceurope-13797"
-    },
     {
      "id": "197406",
      "role": "rapporteur",
      "committee": "IMCO",
-     "basis": "press",
-     "src": "agenceurope-13797"
+     "basis": "ep-procedure-file",
+     "ref": "2025/0359(COD)"
+    },
+    {
+     "id": "257300",
+     "role": "rapporteur",
+     "committee": "LIBE",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0359(COD)"
     },
     {
      "id": "96761",
      "role": "shadow",
-     "committee": "LIBE",
-     "basis": "press",
-     "src": "agenceurope-13797"
-    },
-    {
-     "id": "34232",
-     "role": "shadow",
-     "committee": "LIBE",
-     "basis": "press",
-     "src": "agenceurope-13797"
-    },
-    {
-     "id": "197549",
-     "role": "shadow",
-     "committee": "LIBE",
-     "basis": "press",
-     "src": "agenceurope-13797"
-    },
-    {
-     "id": "197684",
-     "role": "shadow",
-     "committee": "LIBE",
-     "basis": "press",
-     "src": "agenceurope-13797"
-    },
-    {
-     "id": "256957",
-     "role": "shadow",
-     "committee": "LIBE",
-     "basis": "press",
-     "src": "agenceurope-13797"
-    },
-    {
-     "id": "220840",
-     "role": "shadow",
-     "committee": "LIBE",
-     "basis": "press",
-     "src": "agenceurope-13797"
+     "committee": "IMCO-LIBE",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0359(COD)"
     },
     {
      "id": "124867",
      "role": "shadow",
-     "committee": "IMCO",
-     "basis": "press",
-     "src": "agenceurope-13797"
+     "committee": "IMCO-LIBE",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0359(COD)"
     },
     {
-     "id": "197870",
+     "id": "34232",
      "role": "shadow",
-     "committee": "IMCO",
-     "basis": "press",
-     "src": "agenceurope-13797"
+     "committee": "IMCO-LIBE",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0359(COD)"
     },
     {
-     "id": "197444",
+     "id": "220840",
      "role": "shadow",
-     "committee": "IMCO",
-     "basis": "press",
-     "src": "agenceurope-13797"
+     "committee": "IMCO-LIBE",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0359(COD)"
     },
     {
      "id": "197627",
      "role": "shadow",
-     "committee": "IMCO",
-     "basis": "press",
-     "src": "agenceurope-13797"
+     "committee": "IMCO-LIBE",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0359(COD)"
     },
     {
-     "id": "197529",
+     "id": "197469",
      "role": "shadow",
-     "committee": "IMCO",
-     "basis": "press",
-     "src": "agenceurope-13797"
+     "committee": "IMCO-LIBE",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0359(COD)"
     },
     {
      "id": "257080",
      "role": "shadow",
-     "committee": "IMCO",
-     "basis": "press",
-     "src": "agenceurope-13797"
+     "committee": "IMCO-LIBE",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0359(COD)"
+    },
+    {
+     "id": "197444",
+     "role": "shadow",
+     "committee": "IMCO-LIBE",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0359(COD)"
+    },
+    {
+     "id": "197549",
+     "role": "shadow",
+     "committee": "IMCO-LIBE",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0359(COD)"
+    },
+    {
+     "id": "197870",
+     "role": "shadow",
+     "committee": "IMCO-LIBE",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0359(COD)"
+    },
+    {
+     "id": "197684",
+     "role": "shadow",
+     "committee": "IMCO-LIBE",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0359(COD)"
+    },
+    {
+     "id": "197529",
+     "role": "shadow",
+     "committee": "IMCO-LIBE",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0359(COD)"
+    },
+    {
+     "id": "256957",
+     "role": "shadow",
+     "committee": "IMCO-LIBE",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0359(COD)"
+    },
+    {
+     "id": "256937",
+     "role": "opinion-rapporteur",
+     "committee": "TRAN",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0359(COD)"
+    },
+    {
+     "id": "256902",
+     "role": "opinion-rapporteur",
+     "committee": "CULT",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0359(COD)"
     },
     {
      "id": "197460",
      "role": "opinion-rapporteur",
      "committee": "JURI",
-     "basis": "ep-open-data",
-     "ref": "JURI-AD-784179"
+     "basis": "ep-procedure-file",
+     "ref": "2025/0359(COD)"
     },
     {
      "id": "204400",
@@ -1347,13 +1726,6 @@
      "committee": "JURI",
      "basis": "ep-open-data",
      "ref": "JURI-AD-784179"
-    },
-    {
-     "id": "256902",
-     "role": "opinion-rapporteur",
-     "committee": "CULT",
-     "basis": "ep-open-data",
-     "ref": "CULT-AD-784261"
     },
     {
      "id": "257457",
@@ -1411,6 +1783,7 @@
     "note": "Final Council approval 29 June 2026."
    },
    "caveats": [
+    "Rapporteurs, shadows and opinion rapporteurs come from the Parliament's procedure file (checked 12 October 2026); opinion shadows from the committees' documents in the Parliament's open data.",
     "Sources disagree on the date of the provisional trilogue agreement (6–7 May versus 22 June 2026). The entry into force date of 27 July 2026 is consistent across sources."
    ],
    "sources": [
@@ -1433,6 +1806,11 @@
      "id": "ep-open-data",
      "title": "European Parliament Open Data Portal (via nodo activity feeds)",
      "url": "https://data.europarl.europa.eu/"
+    },
+    {
+     "id": "oeil-2025-0359-cod",
+     "title": "Legislative Observatory: procedure file 2025/0359(COD)",
+     "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2025/0359(COD)"
     }
    ]
   }
