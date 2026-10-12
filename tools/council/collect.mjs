@@ -115,6 +115,18 @@ export function calLine(m) {
   return `${start}${end && end !== start ? ">" + end : ""}|${code}|${T(title)}|${m.href}`;
 }
 
+/* Pieces of one line, in x order. The PDFs cut words into pieces ("M" + "r David VLAJČIĆ", "Ms Stipe" + "ŽUPAN"):
+   a gap wider than 1.2pt between the end of one piece and the start of the next is a space, a smaller one is not. */
+export function joinItems(items) {
+  let s = "", end = null;
+  for (const i of items) {
+    if (end != null && i.x - end > 1.2 && !/\s$/.test(s) && !/^\s/.test(i.s)) s += " ";
+    s += i.s;
+    end = i.x + i.w;
+  }
+  return T(s);
+}
+
 /* Text rows of a participants PDF: [{left, right}] top to bottom, page after page. Items within 2.5pt of height
    share a row; the name column is left of x=200, the function column right of it. */
 async function pdfRows(buf, pdfjs) {
@@ -128,12 +140,12 @@ async function pdfRows(buf, pdfjs) {
       const y = it.transform[5], x = it.transform[4];
       let row = rows.find((r) => Math.abs(r.y - y) < 2.5);
       if (!row) rows.push((row = { y, items: [] }));
-      row.items.push({ x, s: it.str });
+      row.items.push({ x, w: it.width || 0, s: it.str });
     }
     rows.sort((a, b) => b.y - a.y);
     for (const r of rows) {
       r.items.sort((a, b) => a.x - b.x);
-      out.push({ left: T(r.items.filter((i) => i.x < 200).map((i) => i.s).join(" ")), right: T(r.items.filter((i) => i.x >= 200).map((i) => i.s).join(" ")) });
+      out.push({ left: joinItems(r.items.filter((i) => i.x < 200)), right: joinItems(r.items.filter((i) => i.x >= 200)) });
     }
   }
   return out;
@@ -200,7 +212,8 @@ export async function collect(opts = {}) {
 
   step("formal meetings held");
   const since = opts.since || addDays(t, -60);
-  const held = (await calendar(q("meeting", since, t))).filter((m) => FORMAL.test(m.href) && !/^informal/i.test(m.title));
+  const held = (await calendar(q("meeting", since, addDays(t, 1))))
+    .filter((m) => FORMAL.test(m.href) && !/^informal/i.test(m.title) && calLine(m).slice(0, 10) <= t);
   let cache = null;
   if (!opts.all) {
     try { const c = await get(SITE + "data-cache/council-raw.json"); cache = c ? JSON.parse(c) : null; } catch { cache = null; }
