@@ -139,17 +139,27 @@ async function readJson(p, fallback) {
   }
 }
 
-async function loadProcedure(id, { fixturesDir, fetchImpl }) {
+async function loadProcedure(id, { fixturesDir, fetchImpl, retryDelay = 5000 }) {
   let body;
   if (fixturesDir) {
     body = JSON.parse(await readFile(path.join(fixturesDir, `${id}.json`), 'utf8'));
   } else {
-    const res = await fetchImpl(`${API}${id}?format=application%2Fld%2Bjson`, {
-      headers: { accept: 'application/ld+json' },
-      signal: AbortSignal.timeout(20000),
-    });
-    if (!res.ok) throw new Error(`HTTP ${res.status} for ${id}`);
-    body = await res.json();
+    // The EP API sometimes answers 500 or times out once; three tries, 5 and 15 seconds apart, before giving up.
+    for (let attempt = 0; ; attempt++) {
+      try {
+        const res = await fetchImpl(`${API}${id}?format=application%2Fld%2Bjson`, {
+          headers: { accept: 'application/ld+json' },
+          signal: AbortSignal.timeout(20000),
+        });
+        if (!res.ok) throw Object.assign(new Error(`HTTP ${res.status} for ${id}`), { retry: res.status === 429 || res.status >= 500 });
+        body = await res.json();
+        break;
+      } catch (e) {
+        const retry = e.retry ?? true;
+        if (!retry || attempt >= 2) throw e;
+        await new Promise((r) => setTimeout(r, retryDelay * (attempt === 0 ? 1 : 3)));
+      }
+    }
   }
   const proc = body?.data?.[0];
   if (!proc || proc.process_id !== id) throw new Error(`Unexpected response for ${id}`);
@@ -159,7 +169,7 @@ async function loadProcedure(id, { fixturesDir, fetchImpl }) {
 const byDateDesc = (a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : a.id < b.id ? -1 : 1);
 const addDays = (iso, n) => new Date(Date.parse(iso) + n * 86400000).toISOString().slice(0, 10);
 
-export async function run({ filesPath, outDir, stateDir = outDir, fixturesDir, today, fetchImpl = globalThis.fetch }) {
+export async function run({ filesPath, outDir, stateDir = outDir, fixturesDir, today, fetchImpl = globalThis.fetch, retryDelay = 5000 }) {
   const files = (JSON.parse(await readFile(filesPath, 'utf8'))).files;
   await mkdir(outDir, { recursive: true });
   await mkdir(stateDir, { recursive: true });
@@ -184,7 +194,7 @@ export async function run({ filesPath, outDir, stateDir = outDir, fixturesDir, t
 
     for (const [i, pid] of pids.entries()) {
       try {
-        ep.push(...normaliseProcedure(file, await loadProcedure(pid, { fixturesDir, fetchImpl }), { pid, main: i === 0 }));
+        ep.push(...normaliseProcedure(file, await loadProcedure(pid, { fixturesDir, fetchImpl, retryDelay }), { pid, main: i === 0 }));
         fetchedPids.push(pid);
       } catch (e) {
         fetched = false;

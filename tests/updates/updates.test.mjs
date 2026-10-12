@@ -201,3 +201,28 @@ test('a related procedure added later seeds its history without pushes, then pus
     assert.equal(later.pushQueue[0].title, 'Plenary vote');
   } finally { await w.cleanup(); }
 });
+
+test('a one-off server error is retried; a persistent one fails the file', async () => {
+  const w = await workspace();
+  try {
+    const body = JSON.parse(await readFile(path.join(FIX, '2025-0360.json'), 'utf8'));
+    const files = JSON.parse(await readFile(w.files, 'utf8'));
+    files.files = files.files.filter((f) => f.id === OMNI);
+    await writeFile(w.files, JSON.stringify(files));
+    let calls = 0;
+    const flaky = async () => (++calls === 1 ? { ok: false, status: 500 } : { ok: true, status: 200, json: async () => body });
+    const r = await run({ filesPath: w.files, outDir: w.out, today: '2026-10-06', fetchImpl: flaky, retryDelay: 1 });
+    assert.equal(r.failures.length, 0);
+    assert.equal(calls, 2);
+    let n = 0;
+    const down = async () => { n++; return { ok: false, status: 500 }; };
+    const r2 = await run({ filesPath: w.files, outDir: w.out, today: '2026-10-07', fetchImpl: down, retryDelay: 1 });
+    assert.equal(r2.failures.length, 1);
+    assert.equal(n, 3);
+    let m = 0;
+    const missing = async () => { m++; return { ok: false, status: 404 }; };
+    const r3 = await run({ filesPath: w.files, outDir: w.out, today: '2026-10-07', fetchImpl: missing, retryDelay: 1 });
+    assert.equal(r3.failures.length, 1);
+    assert.equal(m, 1, 'a 404 is not retried');
+  } finally { await w.cleanup(); }
+});
