@@ -19,11 +19,11 @@ concurrency:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
           node-version: 22
       - name: Run tests
@@ -49,7 +49,9 @@ jobs:
             mkdir -p v1 data-cache
             [ -d "$RUNNER_TEMP/out/updates" ] && { rm -rf v1/updates; cp -r "$RUNNER_TEMP/out/updates" v1/updates; }
             [ -d "$RUNNER_TEMP/out/state" ] && { rm -rf data-cache/updates; cp -r "$RUNNER_TEMP/out/state" data-cache/updates; }
-            node -e 'const f=require("fs");const e=JSON.parse(f.readFileSync(process.env.RUNNER_TEMP+"/out/entry.json","utf8"));if(e){const m=JSON.parse(f.readFileSync("v1/manifest.json","utf8"));m.files=m.files||{};m.files.updates=e;m.generated=new Date().toISOString();f.writeFileSync("v1/manifest.json",JSON.stringify(m,null,1)+"\n")}'
+            # Also keeps the manifest honest for files.json, which is edited by hand: its entry is recomputed from the file,
+            # and anything in the files map that is not an entry is removed.
+            node -e 'const f=require("fs"),c=require("crypto");const e=JSON.parse(f.readFileSync(process.env.RUNNER_TEMP+"/out/entry.json","utf8"));const m=JSON.parse(f.readFileSync("v1/manifest.json","utf8"));m.files=m.files||{};for(const k of Object.keys(m.files))if(!m.files[k]||typeof m.files[k]!=="object")delete m.files[k];if(e)m.files.updates=e;if(m.files.files&&f.existsSync("v1/files.json")){const b=f.readFileSync("v1/files.json");Object.assign(m.files.files,{bytes:b.length,sha256:c.createHash("sha256").update(b).digest("hex")})}m.generated=new Date().toISOString();f.writeFileSync("v1/manifest.json",JSON.stringify(m,null,1)+"\n")'
             git add v1 data-cache
             if git diff --cached --quiet; then echo "Nothing new."; exit 0; fi
             git commit -q -m "Update file stream $(date -u +%F)"

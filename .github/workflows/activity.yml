@@ -31,11 +31,11 @@ concurrency:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 350
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
           node-version: 22
       - name: Install pdftotext
@@ -54,17 +54,20 @@ jobs:
           git config user.name "nodo-data bot"
           git config user.email "actions@users.noreply.github.com"
           # Generated files always win: save them, move to the newest main, put them back, commit.
-          rm -rf "$RUNNER_TEMP/act" "$RUNNER_TEMP/dc"
+          # Only this job's own cache files are carried over. The other jobs write to data-cache/ while this one runs
+          # (it takes 1–3 hours), and copying the whole folder back would undo their changes.
+          OWN="questions.json docs.json pdf-diag.json pdf-probe.json"
+          rm -rf "$RUNNER_TEMP/act" "$RUNNER_TEMP/dc"; mkdir -p "$RUNNER_TEMP/dc"
           cp -r v1/activity "$RUNNER_TEMP/act" 2>/dev/null || true
-          cp -r data-cache "$RUNNER_TEMP/dc" 2>/dev/null || true
+          for f in $OWN; do [ -f "data-cache/$f" ] && cp "data-cache/$f" "$RUNNER_TEMP/dc/$f"; done
           node -e 'const f=require("fs");let m={};try{m=JSON.parse(f.readFileSync("v1/manifest.json","utf8"))}catch{};f.writeFileSync(process.env.RUNNER_TEMP+"/act-entry.json",JSON.stringify((m.files&&m.files.activity)||null))'
           for i in 1 2 3 4; do
             git fetch -q origin main
             git reset -q --hard origin/main
             mkdir -p v1 data-cache
-            rm -rf v1/activity data-cache
+            rm -rf v1/activity
             [ -d "$RUNNER_TEMP/act" ] && cp -r "$RUNNER_TEMP/act" v1/activity
-            [ -d "$RUNNER_TEMP/dc" ] && cp -r "$RUNNER_TEMP/dc" data-cache
+            for f in $OWN; do [ -f "$RUNNER_TEMP/dc/$f" ] && cp "$RUNNER_TEMP/dc/$f" "data-cache/$f"; done
             node -e 'const f=require("fs");const e=JSON.parse(f.readFileSync(process.env.RUNNER_TEMP+"/act-entry.json","utf8"));if(e){const m=JSON.parse(f.readFileSync("v1/manifest.json","utf8"));m.files=m.files||{};m.files.activity=e;m.generated=new Date().toISOString();f.writeFileSync("v1/manifest.json",JSON.stringify(m,null,1)+"\n")}'
             git add v1 data-cache
             if git diff --cached --quiet; then echo "Nothing new."; exit 0; fi
