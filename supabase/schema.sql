@@ -46,3 +46,30 @@ $$;
 
 revoke all on function public.delete_my_account() from public, anon;
 grant execute on function public.delete_my_account() to authenticated;
+
+-- Usage events (applied as migration usage_events, 8 Oct 2026). Each signed-in person writes and reads only their own
+-- rows; reading across people needs the SQL editor or the service role. Text columns are capped so an event cannot carry a document.
+create table if not exists public.events (
+  id bigint generated always as identity primary key,
+  user_id uuid not null references auth.users (id) on delete cascade,
+  session_id text,
+  name text not null check (char_length(name) <= 40),
+  section text check (char_length(section) <= 40),
+  item text check (char_length(item) <= 200),
+  query text check (char_length(query) <= 200),
+  results integer,
+  created_at timestamptz not null default now()
+);
+create index if not exists events_created_at_idx on public.events (created_at);
+create index if not exists events_user_created_idx on public.events (user_id, created_at);
+
+alter table public.events enable row level security;
+revoke all on public.events from anon;
+grant select, insert on public.events to authenticated;
+
+drop policy if exists "own events insert" on public.events;
+drop policy if exists "own events select" on public.events;
+create policy "own events insert" on public.events for insert to authenticated
+  with check ((select auth.uid()) = user_id);
+create policy "own events select" on public.events for select to authenticated
+  using ((select auth.uid()) = user_id);

@@ -5,7 +5,8 @@
      <mep id>.json      one file per MEP: speeches, written questions, rapporteur and shadow roles, newest first
      q/<question>.json  full question and answer text for one written question (loaded when a card is opened)
      index.json         counts and generation time
-   Cache (committed, not served to the app): data-cache/questions.json, data-cache/docs.json
+   Cache (committed, not served to the app): data-cache/questions.json (question metadata), data-cache/qtext/ (the text
+   extracted from each question's PDFs, one file per question, written once), data-cache/docs.json
 
    The job is resumable. Details of questions and committee documents are fetched newest first, up to MAX_DETAILS per run,
    so the first runs backfill the term and later runs only add what is new.
@@ -149,7 +150,37 @@ async function speeches() {
 }
 
 /* ---------- stage 2: written questions ---------- */
-const qCache = await readJson(path.join(CACHE, "questions.json"), {});
+/* The question cache is split: metadata in questions.json (rewritten every run, ~4 MB) and the extracted text in
+   qtext/<term-year>/<id>.json, written only when it changes. Kept in one 44 MB file, the text made the repository grow
+   by the whole file on every run. In memory the records look as before (qt and at on the record). */
+const QTEXT = path.join(CACHE, "qtext");
+const qtextPath = (id) => path.join(QTEXT, id.replace(/-\d+$/, ""), id + ".json");
+const qSaved = new Map();
+async function readQuestions() {
+  const q = await readJson(path.join(CACHE, "questions.json"), {});
+  for (const [id, r] of Object.entries(q)) {
+    if (!r.tx) continue;
+    delete r.tx;
+    const t = await readJson(qtextPath(id), null);
+    if (t) { r.qt = t.qt; r.at = t.at; qSaved.set(id, JSON.stringify(t)); }
+  }
+  return q;
+}
+async function writeQuestions(q) {
+  if (DRY) return;
+  const meta = {};
+  for (const [id, r] of Object.entries(q)) {
+    const { qt, at, ...m } = r;
+    if (qt || at) {
+      const t = { qt, at }, s = JSON.stringify(t);
+      if (qSaved.get(id) !== s) { await writeJson(qtextPath(id), t); qSaved.set(id, s); }
+      m.tx = 1;
+    }
+    meta[id] = m;
+  }
+  await writeJson(path.join(CACHE, "questions.json"), meta);
+}
+const qCache = await readQuestions();
 /* E-10-2026-000123 -> sortable number (term, year, sequence), so the newest questions come first */
 const qKey = (id) => { const m = /^[A-Z]-(\d+)-(\d{4})-(\d+)$/.exec(id); return m ? Number(m[1]) * 1e12 + Number(m[2]) * 1e8 + Number(m[3]) : 0; };
 async function questions() {
@@ -174,10 +205,10 @@ async function questions() {
       qCache[id] = { a: authors, to: addresseeName(to), d: String(w.document_date || "").slice(0, 10), t: titleOf(w), p: pdfOf(w), ad: ans ? String(ans.document_date || "").slice(0, 10) : "", ap: ans ? pdfOf(ans) : "", c: today, qt: qCache[id]?.qt, at: qCache[id]?.at };
       done++;
     } catch (e) { log("question failed", id, e.message); if (stats.failed > 60) { okStage.question = false; stageErr.question = e.message; break; } }
-    if (done % 200 === 0 && done) await writeJson(path.join(CACHE, "questions.json"), qCache);
+    if (done % 200 === 0 && done) await writeQuestions(qCache);
   }
   log("question details fetched:", done);
-  await writeJson(path.join(CACHE, "questions.json"), qCache);
+  await writeQuestions(qCache);
 }
 
 /* ---------- stage 3: rapporteur and shadow roles from committee documents ---------- */
@@ -264,9 +295,9 @@ async function texts() {
       }
       done++; pdfStreak = 0;
     } catch (e) { log("pdf failed", id, e.message); if (++pdfStreak >= 8) { log("pdf stage stopped: 8 failures in a row, will resume next run"); break; } }
-    if (done % 100 === 0 && done) await writeJson(path.join(CACHE, "questions.json"), qCache);
+    if (done % 100 === 0 && done) await writeQuestions(qCache);
   }
-  await writeJson(path.join(CACHE, "questions.json"), qCache);
+  await writeQuestions(qCache);
   await writeJson(path.join(CACHE, "pdf-diag.json"), { at: new Date().toISOString(), extracted: done, tried: cand.length, errors: pdfDiag });
   log("pdf texts extracted:", done);
 }
