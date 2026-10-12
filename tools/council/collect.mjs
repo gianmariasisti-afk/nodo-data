@@ -6,16 +6,18 @@
    - the Coreper I and II dates (category=mpo, PreparatoryBody=-3) over the same start and the next 9 months
    - the official list of participants (PDF, parsed with pdf.js) of every formal Council meeting of the last 60 days that the
      repository cache (data-cache/council-raw.json, read from GitHub Pages) does not hold yet
-   tools/council/pull.py merges the collection into the cache and rebuilds v1/council.json with tools/build-council.py.
+   tools/council/decode-result.py turns the browser's answer into a file and tools/council/pull.py merges it into the
+   cache and rebuilds v1/council.json with tools/build-council.py.
 
    Use, in the tab (javascript):
      const src = await (await fetch('https://gianmariasisti-afk.github.io/nodo-data/tools/council/collect.mjs', {cache: 'no-store'})).text();
      const m = await import(URL.createObjectURL(new Blob([src], {type: 'text/javascript'})));
-     m.start();                       // returns at once; the work goes on in the tab
-     window.__nodoCouncil.summary     // poll until state is "done" or "failed"
-     window.__nodoCouncil.payload     // the collection as one JSON string; summary.sha256 is its SHA-256
-   start() options: {since: 'YYYY-MM-DD'} reads participant lists from that date; {all: true} ignores the cache;
-   {post: true} also posts the collection to the Supabase table council_inbox (see tools/council/README.md). */
+     m.start()                              // returns at once; the work goes on in the tab
+     JSON.stringify(window.__nodoCouncil.summary)   // poll until state is "done" or "failed"
+     window.__nodoCouncil.text()            // "SUMMARY=<json>\n<collection>\n<padding>"; summary.sha256 is the collection's SHA-256
+   The padding makes the answer always longer than a tool result can show inline, so the agent harness saves it to a
+   file that decode-result.py reads: the collection never has to be copied by hand.
+   start() options: {since: 'YYYY-MM-DD'} reads participant lists from that date; {all: true} ignores the cache. */
 
 export const PARSER = "v4";
 const PDFJS = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.min.mjs";
@@ -182,20 +184,6 @@ async function sha256Hex(s) {
   return [...new Uint8Array(h)].map((b) => b.toString(16).padStart(2, "0")).join("");
 }
 
-async function post(body, sha) {
-  const cfg = await get(SITE + "config.js");
-  const url = cfg && cfg.match(/supabaseUrl:\s*"([^"]+)"/)?.[1];
-  const key = cfg && cfg.match(/supabaseAnonKey:\s*"([^"]+)"/)?.[1];
-  if (!url || !key) throw new Error("config.js has no Supabase project");
-  const r = await fetch(url + "/rest/v1/council_inbox", {
-    method: "POST",
-    headers: { apikey: key, "Content-Type": "application/json", Prefer: "return=minimal" },
-    body: JSON.stringify({ sha256: sha, body }),
-  });
-  if (!r.ok) throw new Error(`council_inbox answered ${r.status}: ${(await r.text()).slice(0, 200)}`);
-  return r.status;
-}
-
 export async function collect(opts = {}) {
   if (!/consilium\.europa\.eu$/.test(location.hostname)) throw new Error("run this on a www.consilium.europa.eu tab");
   const st = window.__nodoCouncil;
@@ -260,13 +248,13 @@ export async function collect(opts = {}) {
     held: held.length, cached: held.length - todo.length, read: parts.filter((p) => p.data && Object.keys(p.data).length).length,
     noList, partial, errors,
   });
-  if (opts.post) { step("posting"); st.summary.posted = await post(body, sha); }
   return st.summary;
 }
 
 /* Starts the collection without waiting for it, so each browser call stays short. */
 export function start(opts = {}) {
-  window.__nodoCouncil = { summary: { state: "running", started: new Date().toISOString(), step: "starting" }, payload: null };
+  const st = (window.__nodoCouncil = { summary: { state: "running", started: new Date().toISOString(), step: "starting" }, payload: null });
+  st.text = (pad = 250000) => `SUMMARY=${JSON.stringify(st.summary)}\n${st.payload || ""}\n${"#".repeat(Math.max(0, pad - (st.payload || "").length))}`;
   collect(opts).then(
     () => { window.__nodoCouncil.summary.state = "done"; },
     (e) => { Object.assign(window.__nodoCouncil.summary, { state: "failed", error: String(e && e.stack || e).slice(0, 600) }); },

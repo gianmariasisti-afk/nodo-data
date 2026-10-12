@@ -3,20 +3,19 @@
 
 The collection is merged into data-cache/council-raw.json (participant lists by meeting; the calendar and Coreper
 dates are replaced) and v1/council.json is rebuilt from the merged cache with tools/build-council.py.
-data-cache/council-inbox.json records the last collection applied, so the same one is never applied twice.
+data-cache/council-applied.json records the last collection applied, so the same one is never applied twice.
 
-Usage:
-  python3 tools/council/pull.py --body FILE        apply a collection saved to FILE (the JSON string from the browser)
-  python3 tools/council/pull.py --supabase         apply the latest approved row of the Supabase table council_inbox
-Options: --sha HEX checks the collection's SHA-256; --dry-run builds and checks without writing.
+Usage: python3 tools/council/pull.py --body FILE [--sha HEX] [--dry-run]
+  FILE is the collection written by tools/council/decode-result.py; --sha checks its SHA-256; --dry-run builds and checks
+  without writing.
 Exit codes: 0 applied or nothing new, 2 the collection or the rebuilt file failed a check (nothing written).
 """
-import hashlib, importlib.util, json, os, re, sys, urllib.request
+import hashlib, importlib.util, json, os, re, sys
 from datetime import date, datetime, timedelta, timezone
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 CACHE = os.path.join(ROOT, "data-cache", "council-raw.json")
-STATE = os.path.join(ROOT, "data-cache", "council-inbox.json")
+STATE = os.path.join(ROOT, "data-cache", "council-applied.json")
 EXTRA = os.path.join(ROOT, "tools", "council", "permreps-extra.json")
 COUNCIL = os.path.join(ROOT, "v1", "council.json")
 
@@ -110,30 +109,12 @@ def check_result(old, new):
         raise Rejected("; ".join(problems))
 
 
-def from_supabase():
-    cfg = open(os.path.join(ROOT, "config.js"), encoding="utf-8").read()
-    url = re.search(r'supabaseUrl:\s*"([^"]+)"', cfg).group(1)
-    key = os.environ.get("SUPABASE_KEY") or re.search(r'supabaseAnonKey:\s*"([^"]+)"', cfg).group(1)
-    q = "/rest/v1/council_inbox?select=id,created_at,sha256,body&approved_at=not.is.null&order=id.desc&limit=1"
-    req = urllib.request.Request(url + q, headers={"apikey": key, "Accept": "application/json"})
-    with urllib.request.urlopen(req, timeout=60) as r:
-        rows = json.load(r)
-    return rows[0] if rows else None
-
-
 def main(argv):
     today = datetime.now(timezone.utc).date()
     dry = "--dry-run" in argv
     state = load(STATE, {}) or {}
-    if "--supabase" in argv:
-        row = from_supabase()
-        if not row or (state.get("id") and row["id"] <= state["id"]):
-            print(json.dumps({"changed": False, "reason": "no new approved collection"}))
-            return 0
-        body, sha, rid = row["body"], row["sha256"], row["id"]
-    else:
-        body = open(argv[argv.index("--body") + 1], encoding="utf-8").read()
-        sha, rid = (argv[argv.index("--sha") + 1] if "--sha" in argv else None), None
+    body = open(argv[argv.index("--body") + 1], encoding="utf-8").read()
+    sha = argv[argv.index("--sha") + 1] if "--sha" in argv else None
     real = hashlib.sha256(body.encode("utf-8")).hexdigest()
     if sha and sha != real:
         raise Rejected(f"SHA-256 mismatch: expected {sha}, got {real}")
@@ -149,7 +130,7 @@ def main(argv):
     old = load(COUNCIL)
     new, unassigned = bc.build(old, merged, load(EXTRA))
     check_result(old, new)
-    summary = {"changed": True, "fetched": p["fetched"], "sha256": real, "row": rid, "meetings": len(new["meetings"]),
+    summary = {"changed": True, "fetched": p["fetched"], "sha256": real, "meetings": len(new["meetings"]),
                "coreper": len(new["coreper"]), "lists": len(merged["parts"]), "newLists": len(p["parts"]), "unassigned": unassigned,
                "pr": sum(1 for v in new["permreps"].values() if "pr" in v), "dpr": sum(1 for v in new["permreps"].values() if "dpr" in v)}
     if dry:
@@ -160,7 +141,7 @@ def main(argv):
         f.write(json.dumps(merged, ensure_ascii=False, separators=(",", ":")))
     bc.write(new, COUNCIL)
     with open(STATE, "w", encoding="utf-8") as f:
-        f.write(json.dumps({"id": rid, "sha256": real, "fetched": p["fetched"], "applied": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")}, indent=1) + "\n")
+        f.write(json.dumps({"sha256": real, "fetched": p["fetched"], "applied": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")}, indent=1) + "\n")
     print(json.dumps(summary, ensure_ascii=False))
     return 0
 

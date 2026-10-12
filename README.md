@@ -80,14 +80,21 @@ The Action "Update MEP directory" (`.github/workflows/meps.yml`, `scripts/build-
 
 ## council.json updates
 
-The Council website (consilium.europa.eu) answers 403 to GitHub runners, so `council.json` has no Action. A Claude session refreshes it through the desktop app's browser:
+The Council website (consilium.europa.eu) answers 403 to GitHub runners, so `council.json` has no Action. A scheduled Claude task on Gianmaria's Mac refreshes it every Monday at 09:37 Brussels time, through the Claude desktop app's built-in browser. It needs the Mac awake with the app open; the weekday check flags council data older than 9 days.
 
-1. In the browser, on consilium.europa.eu: read the meeting calendar (`category=meeting`, rest of the year), the Coreper dates (`category=mpo`) and, for every formal Council meeting of the year, the official list of participants (PDF, read with pdf.js). Country headers can arrive split ("CYPRU S"); the parser joins them.
-2. Return the collection as one JSON string from the browser together with its SHA-256; check the hash in the workspace.
-3. `python3 tools/build-council.py RAW.json tools/council/permreps-extra.json` rebuilds `v1/council.json` and its manifest entry. It keeps the presidency, population and configuration metadata, and rebuilds meetings, Coreper dates, each configuration's last meeting and representatives, and the ambassadors and deputies named in the lists.
-4. `tools/council/permreps-extra.json` holds ambassadors and deputies the lists do not name, from official sources (Permanent Representations' websites, Council documents), with the URL as third field. A newer participant list replaces them.
+1. In a browser tab on consilium.europa.eu, `tools/council/collect.mjs` (loaded from GitHub Pages) reads the meeting calendar (from the first of the month to the end of the year, at least 6 months ahead), the Coreper I and II dates (next 9 months) and, for every formal Council meeting of the last 60 days that `data-cache/council-raw.json` does not hold yet, the official list of participants (PDF, read with pdf.js). PDF text arrives in pieces ("M" + "r David VLAJČIĆ", "CYPRU S"); the parser joins pieces by the gap between them and recognises country headers with or without spaces.
+2. `window.__nodoCouncil.text()` returns the collection with its SHA-256, padded so the agent harness saves it to a file. `tools/council/decode-result.py` reads that file and checks the hash: the collection is never copied by hand.
+3. `tools/council/pull.py --body FILE --sha HEX` checks the collection (shape, dates, known countries, consilium meeting pages only), merges it into `data-cache/council-raw.json` (a readable list replaces an unreadable one; lists older than 400 days go, except the newest of each configuration) and rebuilds `v1/council.json` and its manifest entry with `tools/build-council.py`. It refuses a result that loses ambassadors, deputies or a configuration's representatives, or has fewer than 5 meetings or Coreper dates. `data-cache/council-applied.json` records the collection applied.
+4. The task commits those four files to main.
+5. `tools/council/permreps-extra.json` holds ambassadors and deputies the lists do not name, from official sources (Permanent Representations' websites, Council documents), with the URL as third field. A newer participant list replaces them.
 
-The weekday check reports the file's age on Mondays and asks for a refresh after 30 days.
+Tests: `node --test tests/council/collect.test.mjs` and `python3 -m unittest discover -s tests/council -p 'test_*.py'`.
+
+## MEP lists of the priority files
+
+`v1/files.json` lists rapporteurs, shadows and rapporteurs for opinion with a `basis`: `ep-procedure-file` (the Parliament's Legislative Observatory procedure file, each name linked to the MEP id), `ep-open-data` (committee documents in the Parliament's open data) or `press`. The app marks the first two Verified. Shadows of a joint committee carry the joint label (`ITRE-LIBE`) because the Observatory lists them together. Entries of a package carry `part` (the part's id), shown next to the committee.
+
+The Observatory also blocks GitHub runners. The weekly Council task runs `tools/oeil/check.mjs` in a tab on oeil.europarl.europa.eu: it compares every priority file with a procedure against the procedure file and reports new, gone or moved names. It changes nothing; a session with repository access applies the differences.
 
 ## activity/ (MEP feed)
 
