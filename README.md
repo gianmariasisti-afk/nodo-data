@@ -80,7 +80,14 @@ The Action "Update MEP directory" (`.github/workflows/meps.yml`, `scripts/build-
 
 ## council.json updates
 
-The Council website (consilium.europa.eu) answers 403 to GitHub runners, so `council.json` has no Action. A Claude session refreshes it through a desktop browser (meetings calendar, list-of-participants PDFs for representatives and ambassadors). The weekday check reports its age on Mondays.
+The Council website (consilium.europa.eu) answers 403 to GitHub runners, so `council.json` has no Action. A Claude session refreshes it through the desktop app's browser:
+
+1. In the browser, on consilium.europa.eu: read the meeting calendar (`category=meeting`, rest of the year), the Coreper dates (`category=mpo`) and, for every formal Council meeting of the year, the official list of participants (PDF, read with pdf.js). Country headers can arrive split ("CYPRU S"); the parser joins them.
+2. Return the collection as one JSON string from the browser together with its SHA-256; check the hash in the workspace.
+3. `python3 tools/build-council.py RAW.json tools/council/permreps-extra.json` rebuilds `v1/council.json` and its manifest entry. It keeps the presidency, population and configuration metadata, and rebuilds meetings, Coreper dates, each configuration's last meeting and representatives, and the ambassadors and deputies named in the lists.
+4. `tools/council/permreps-extra.json` holds ambassadors and deputies the lists do not name, from official sources (Permanent Representations' websites, Council documents), with the URL as third field. A newer participant list replaces them.
+
+The weekday check reports the file's age on Mondays and asks for a refresh after 30 days.
 
 ## activity/ (MEP feed)
 
