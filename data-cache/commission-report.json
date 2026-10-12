@@ -1,5 +1,5 @@
 {
- "run": "2026-10-12T07:28:58.119Z",
+ "run": "2026-10-12T07:33:45.434Z",
  "college": {
   "found": 26,
   "added": [],
@@ -192,27 +192,10 @@
    "removed": []
   }
  },
- "auto": [
-  {
-   "commissioner": "apostolos-tzitzikostas",
-   "name": "Francisca Von Hafe Garcia",
-   "fields": [
-    "resp"
-   ],
-   "diff": {
-    "resp": {
-     "from": [],
-     "to": [
-      "Preparation for EXCO",
-      "Parliamentary Questions (back-up)"
-     ]
-    }
-   }
-  }
- ],
+ "auto": [],
  "structural": [],
  "summary": {
-  "auto": 1,
+  "auto": 0,
   "structural": 0,
   "failed": 0
  }
