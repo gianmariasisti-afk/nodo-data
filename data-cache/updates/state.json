@@ -188,6 +188,9 @@
     "ai-act-implementation": "in-force"
   },
   "pushed": {
-    "mff-2028-2034:next:2026-10-09:a6fbc3": true
+    "mff-2028-2034:next:2026-10-09:a6fbc3": true,
+    "industrial-accelerator-act:next:2026-10-12:ba073b": true,
+    "digital-networks-act:next:2026-10-12:1bf3e8": true,
+    "tech-sovereignty-package:next:2026-10-12:9c39bb": true
   }
 }
