@@ -156,9 +156,17 @@ async function pdfRows(buf, pdfjs) {
 export function parseParticipants(rows) {
   const res = {};
   let cur = null, last = null;
-  for (const { left: lt, right: rt } of rows) {
-    const k = lt.replace(/\s+/g, "");
+  for (const row of rows) {
+    let { left: lt, right: rt } = row;
+    const k = lt.replace(/[\s*]+/g, "");
     if (k && k === k.toUpperCase() && COUNTRY[k]) { cur = COUNTRY[k]; res[cur] = res[cur] || []; last = null; continue; }
+    // A header can share a line with the last name of the previous country ("Mr Pieter Jan KLEIWEG DE ZWAAN AUSTRIA *").
+    const tail = lt.match(/^(.*\S)\s+([A-Z][A-Z ]{3,}?)\s*\*?$/);
+    if (tail && HONORIFIC.test(tail[1]) && COUNTRY[tail[2].replace(/\s+/g, "")] && cur) {
+      res[cur].push((last = [tail[1], rt]));
+      cur = COUNTRY[tail[2].replace(/\s+/g, "")]; res[cur] = res[cur] || []; last = null;
+      continue;
+    }
     if (OTHERS.test(lt)) { cur = null; last = null; continue; }
     if (!cur) continue;
     if (HONORIFIC.test(lt)) { last = [lt, rt]; res[cur].push(last); }
