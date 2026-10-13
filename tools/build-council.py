@@ -13,6 +13,7 @@ Permanent Representatives and deputies named in the lists. Extra names from othe
 in a JSON file ({country: {"pr"|"dpr": [name, date, source]}}): the participant lists win when they are newer.
 
 Usage: python3 tools/build-council.py RAW.json [EXTRA.json] [--out v1/council.json]
+The weekly refresh calls build() and write() through tools/council/pull.py, which keeps RAW in data-cache/council-raw.json.
 """
 import json, re, sys, hashlib, os
 
@@ -95,6 +96,26 @@ def pr_slot(title):
     return None
 
 
+def span(parts, fetched):
+    """"January to October 2026", or "November 2026 to February 2027" across a year end."""
+    first = min((date_of(p["href"]) for p in parts), default=fetched) or fetched
+    a, b = (MONTHS[int(first[5:7]) - 1], first[:4]), (MONTHS[int(fetched[5:7]) - 1], fetched[:4])
+    return f"{a[0]} to {b[0]} {b[1]}" if a[1] == b[1] else f"{a[0]} {a[1]} to {b[0]} {b[1]}"
+
+
+def write(new, out_path):
+    """Write council.json compactly and refresh its manifest entry."""
+    buf = json.dumps(new, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
+    open(out_path, "wb").write(buf)
+    man_path = os.path.join(os.path.dirname(out_path), "manifest.json")
+    if os.path.exists(man_path):
+        man = json.load(open(man_path, encoding="utf-8"))
+        if "council" in man.get("files", {}):
+            man["files"]["council"].update({"bytes": len(buf), "sha256": hashlib.sha256(buf).hexdigest()})
+            open(man_path, "w", encoding="utf-8").write(json.dumps(man, indent=1, ensure_ascii=False) + "\n")
+    return len(buf)
+
+
 def build(old, raw, extra=None):
     fetched = raw["fetched"]
     # meetings of the rest of the year
@@ -145,7 +166,7 @@ def build(old, raw, extra=None):
         "coreper": [[d, k] for d, k in raw["coreper"]],
         "permreps": prs,
         "sources": {**old.get("sources", {}),
-                    "participants": f"Council of the EU, lists of participants of formal Council meetings, January to {MONTHS[int(fetched[5:7]) - 1]} {fetched[:4]}",
+                    "participants": f"Council of the EU, lists of participants of formal Council meetings, {span(parts, fetched)}",
                     "calendar": f"Consilium meeting calendar, checked {fetched}"},
     })
     if extra:
@@ -163,14 +184,7 @@ if __name__ == "__main__":
     extra = json.load(open(args[1], encoding="utf-8")) if len(args) > 1 else None
     old = json.load(open(os.path.join(ROOT, "v1", "council.json"), encoding="utf-8"))
     new, unassigned = build(old, raw, extra)
-    buf = json.dumps(new, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
-    open(out_path, "wb").write(buf)
-    man_path = os.path.join(os.path.dirname(out_path), "manifest.json")
-    if os.path.exists(man_path):
-        man = json.load(open(man_path, encoding="utf-8"))
-        if "council" in man.get("files", {}):
-            man["files"]["council"].update({"bytes": len(buf), "sha256": hashlib.sha256(buf).hexdigest()})
-            open(man_path, "w", encoding="utf-8").write(json.dumps(man, indent=1, ensure_ascii=False) + "\n")
-    print(json.dumps({"bytes": len(buf), "meetings": len(new["meetings"]), "coreper": len(new["coreper"]),
+    size = write(new, out_path)
+    print(json.dumps({"bytes": size, "meetings": len(new["meetings"]), "coreper": len(new["coreper"]),
                       "unassigned": unassigned, "pr": sum(1 for v in new["permreps"].values() if "pr" in v),
                       "dpr": sum(1 for v in new["permreps"].values() if "dpr" in v)}, ensure_ascii=False))
