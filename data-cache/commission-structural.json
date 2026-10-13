@@ -1,0 +1,25 @@
+{
+ "at": "2026-10-13",
+ "changes": [
+  {
+   "type": "removed",
+   "commissioner": "dubravka-suica",
+   "name": "Nuran Saygili",
+   "role": "Assistant to Georgia Papagianni, Marco La Marca and Szabolcs Horvath"
+  },
+  {
+   "type": "role",
+   "commissioner": "marta-kos",
+   "name": "Katarina Gavlakova",
+   "from": "Assistant to the Head of Cabinet",
+   "to": "ASSISTANT TO THE HEAD OF CABINET AND ANDREJA VIHER-WHITE"
+  },
+  {
+   "type": "role",
+   "commissioner": "marta-kos",
+   "name": "Barbara De Angelis",
+   "from": "Assistant to Karolina Kottova, Andreja Viher White and Adele Marsullo",
+   "to": "ASSISTANT TO THE DEPUTY HEAD OF CABINET AND ADELE MARSULLO"
+  }
+ ]
+}

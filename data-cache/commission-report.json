@@ -1,5 +1,5 @@
 {
- "run": "2026-10-12T12:25:55.334Z",
+ "run": "2026-10-13T12:09:41.825Z",
  "college": {
   "found": 26,
   "added": [],
@@ -67,10 +67,12 @@
   },
   "dubravka-suica": {
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/dubravka-suica/dubravka-suicas-team_en",
-   "parsed": 16,
+   "parsed": 15,
    "existing": 16,
    "added": [],
-   "removed": []
+   "removed": [
+    "Nuran Saygili"
+   ]
   },
   "oliver-varhelyi": {
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/oliver-varhelyi/oliver-varhelyis-team_en",
@@ -193,10 +195,31 @@
   }
  },
  "auto": [],
- "structural": [],
+ "structural": [
+  {
+   "type": "removed",
+   "commissioner": "dubravka-suica",
+   "name": "Nuran Saygili",
+   "role": "Assistant to Georgia Papagianni, Marco La Marca and Szabolcs Horvath"
+  },
+  {
+   "type": "role",
+   "commissioner": "marta-kos",
+   "name": "Katarina Gavlakova",
+   "from": "Assistant to the Head of Cabinet",
+   "to": "ASSISTANT TO THE HEAD OF CABINET AND ANDREJA VIHER-WHITE"
+  },
+  {
+   "type": "role",
+   "commissioner": "marta-kos",
+   "name": "Barbara De Angelis",
+   "from": "Assistant to Karolina Kottova, Andreja Viher White and Adele Marsullo",
+   "to": "ASSISTANT TO THE DEPUTY HEAD OF CABINET AND ADELE MARSULLO"
+  }
+ ],
  "summary": {
   "auto": 0,
-  "structural": 0,
+  "structural": 3,
   "failed": 0
  }
 }
