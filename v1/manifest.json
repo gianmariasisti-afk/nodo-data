@@ -43,8 +43,8 @@
   "files": {
    "path": "files.json",
    "description": "Legislative files linked to MEPs, Commissioners, cabinet members and Council configurations",
-   "bytes": 42220,
-   "sha256": "278490d76138082deb141bfd9911f143d870917b5bc4f9265f231d06aaa0bb21"
+   "bytes": 52516,
+   "sha256": "896acc518789c0c14efc9be035a58946a48360610fc6bc3059e6b8f104f4d00b"
   },
   "updates": {
    "path": "updates/updates.json",
