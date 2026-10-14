@@ -144,20 +144,20 @@ async function loadProcedure(id, { fixturesDir, fetchImpl, retryDelay = 5000 }) 
   if (fixturesDir) {
     body = JSON.parse(await readFile(path.join(fixturesDir, `${id}.json`), 'utf8'));
   } else {
-    // The EP API sometimes answers 500 or times out once; three tries, 5 and 15 seconds apart, before giving up.
+    // The EP API sometimes answers 500 or times out; four tries, 5, 15 and 45 seconds apart, before giving up.
     for (let attempt = 0; ; attempt++) {
       try {
         const res = await fetchImpl(`${API}${id}?format=application%2Fld%2Bjson`, {
           headers: { accept: 'application/ld+json' },
-          signal: AbortSignal.timeout(20000),
+          signal: AbortSignal.timeout(45000),
         });
         if (!res.ok) throw Object.assign(new Error(`HTTP ${res.status} for ${id}`), { retry: res.status === 429 || res.status >= 500 });
         body = await res.json();
         break;
       } catch (e) {
         const retry = e.retry ?? true;
-        if (!retry || attempt >= 2) throw e;
-        await new Promise((r) => setTimeout(r, retryDelay * (attempt === 0 ? 1 : 3)));
+        if (!retry || attempt >= 3) throw e;
+        await new Promise((r) => setTimeout(r, retryDelay * 3 ** attempt));
       }
     }
   }

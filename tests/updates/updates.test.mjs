@@ -218,7 +218,7 @@ test('a one-off server error is retried; a persistent one fails the file', async
     const down = async () => { n++; return { ok: false, status: 500 }; };
     const r2 = await run({ filesPath: w.files, outDir: w.out, today: '2026-10-07', fetchImpl: down, retryDelay: 1 });
     assert.equal(r2.failures.length, 1);
-    assert.equal(n, 3);
+    assert.equal(n, 4);
     let m = 0;
     const missing = async () => { m++; return { ok: false, status: 404 }; };
     const r3 = await run({ filesPath: w.files, outDir: w.out, today: '2026-10-07', fetchImpl: missing, retryDelay: 1 });
