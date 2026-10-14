@@ -1,35 +1,4 @@
 {
-  "generatedAt": "2026-10-13T00:00:00Z",
-  "events": [
-    {
-      "id": "mff-2028-2034:next:2026-10-13:dbafc5",
-      "fileId": "mff-2028-2034",
-      "date": "2026-10-13",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "General Affairs Council debates the MFF (Luxembourg)",
-      "push": true,
-      "pushOn": "2026-10-13"
-    },
-    {
-      "id": "digital-omnibus-data:next:2026-10-13:72c56a",
-      "fileId": "digital-omnibus-data",
-      "date": "2026-10-13",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "General Affairs Council: Presidency reports on the omnibus simplification packages",
-      "push": true,
-      "pushOn": "2026-10-13"
-    },
-    {
-      "id": "tech-sovereignty-package:next:2026-10-13:d19e96",
-      "fileId": "tech-sovereignty-package",
-      "date": "2026-10-13",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Council industry working party on the Chips Act 2.0",
-      "push": true,
-      "pushOn": "2026-10-13"
-    }
-  ]
+  "generatedAt": "2026-10-14T00:00:00Z",
+  "events": []
 }
