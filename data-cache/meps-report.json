@@ -1,26 +1,15 @@
 {
- "run": "2026-10-13T12:40:06.637Z",
- "checked": "2026-10-13",
+ "run": "2026-10-14T10:07:17.333Z",
+ "checked": "2026-10-14",
  "api": 719,
  "nodo": 720,
  "failed": [],
- "auto": [
-  {
-   "id": "198471",
-   "name": "Robert GABEL",
-   "changes": {
-    "homepage": {
-     "from": "",
-     "to": "https://robert-gabel.eu/"
-    }
-   }
-  }
- ],
+ "auto": [],
  "structural": [],
  "summary": {
-  "auto": 1,
+  "auto": 0,
   "structural": 0,
   "failed": 0,
-  "changed": true
+  "changed": false
  }
 }
