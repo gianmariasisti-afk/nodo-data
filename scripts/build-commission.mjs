@@ -8,6 +8,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import crypto from "node:crypto";
 import { fileURLToPath } from "node:url";
+import { classifyCommission, isSeniorRole, logAuto } from "./autonomy.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const V1 = path.join(ROOT, "v1"), CACHE = path.join(ROOT, "data-cache");
@@ -61,8 +62,9 @@ export function parseTeam(lines) {
   return people;
 }
 const keepEmail = (e) => (/^cab-/.test(e) ? e : "");
-export const roleClass = (role) => (/head of cabinet|director of coordination|cabinet expert/i.test(role) ? "lead" : /assistant|officer|logistics|secretary|registry|document|mission/i.test(role) && !/adviser|member/i.test(role) ? "office" : "policy");
-export const tidyRole = (r) => r.toLowerCase().replace(/(^|[\s/(-])([a-z])/g, (m, a, b) => a + b.toUpperCase()).replace(/\bOf\b/g, "of").replace(/\bAnd\b/g, "and").replace(/\bTo\b/g, "to").replace(/\//g, " / ").replace(/\s+/g, " ").trim();
+// "Assistant to the Head of Cabinet" is office staff, not the lead: seniority is decided by isSeniorRole, not by a substring.
+export const roleClass = (role) => (isSeniorRole(role) ? "lead" : /policy assistant/i.test(role) ? "policy" : /assistant|officer|logistics|secretary|registry|document|mission/i.test(role) && !/adviser|member/i.test(role) ? "office" : "policy");
+export const tidyRole = (r) => r.toLowerCase().replace(/(^|[\s/(-])([a-z])/g, (m, a, b) => a + b.toUpperCase()).replace(/\bOf\b/g, "of").replace(/\bAnd\b/g, "and").replace(/\bTo\b/g, "to").replace(/\bThe\b/g, "the").replace(/\//g, " / ").replace(/\s+/g, " ").trim();
 
 async function main() {
   await fs.mkdir(CACHE, { recursive: true });
@@ -131,19 +133,25 @@ async function main() {
   for (const s of report.college.added) structural.push({ type: "commissioner-added", slug: s });
   for (const s of report.college.removed) structural.push({ type: "commissioner-removed", slug: s });
 
-  report.auto = auto.slice(0, 60); report.structural = structural;
-  report.summary = { auto: auto.length, structural: structural.length, failed };
+  // Autonomy: a small batch of ordinary cabinet changes goes live; anything senior or large waits for review.
+  const verdict = classifyCommission(structural);
+  const applyAll = structural.length > 0 && verdict.auto;
+  report.autonomy = { applied: applyAll, waits: applyAll ? [] : verdict.reasons };
+  report.auto = auto.slice(0, 60); report.structural = applyAll ? [] : structural;
+  report.summary = { auto: auto.length, structural: applyAll ? 0 : structural.length, autoApplied: applyAll ? structural.length : 0, failed };
   await fs.writeFile(path.join(CACHE, "commission-report.json"), JSON.stringify(report, null, 1) + "\n");
   if (!REPORT_ONLY) {
     const today = new Date().toISOString().slice(0, 10);
-    if (auto.length) {
-      next.fetched = today; next.source = cm.source;
-      const buf = Buffer.from(JSON.stringify(next));
+    if (auto.length || applyAll) {
+      const out = applyAll ? proposed : next; // the proposal already carries the small field updates
+      out.fetched = today; out.source = cm.source;
+      const buf = Buffer.from(JSON.stringify(out));
       await fs.writeFile(path.join(V1, "commission.json"), buf);
       const mp = path.join(V1, "manifest.json"), man = await readJson(mp, null);
       if (man && man.files && man.files.commission) { man.files.commission = { ...man.files.commission, bytes: buf.length, sha256: sha(buf) }; man.generated = new Date().toISOString(); await fs.writeFile(mp, JSON.stringify(man, null, 1) + "\n"); }
     }
-    if (structural.length) {
+    if (applyAll) await logAuto(CACHE, { source: "commission", changes: structural });
+    if (structural.length && !applyAll) {
       proposed.fetched = today;
       await fs.writeFile(path.join(CACHE, "commission-structural.json"), JSON.stringify({ at: today, changes: structural }, null, 1) + "\n");
       await fs.writeFile(path.join(CACHE, "commission-proposed.json"), JSON.stringify(proposed));

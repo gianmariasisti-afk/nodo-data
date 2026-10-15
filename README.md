@@ -118,6 +118,16 @@ The GitHub Action "Update plenary agenda" (`.github/workflows/agenda.yml`, `scri
 5. Rapporteur ids missing from `meps.json` go to `data-cache/agenda-unmatched.json`, a `review/agenda-<date>` branch and an issue.
 6. If the API fails, the run fails and opens an issue labelled `structural`. `scripts/probe-api.mjs` (workflow input `probe_paths`) fetches any API path for diagnosis.
 
+## Autonomy: what goes live without review
+
+Changes are sorted into three tiers. The policy lives in `scripts/autonomy.mjs`; its tests in `tests/commission/autonomy.test.mjs`.
+
+- **Tier 1, applied automatically.** Commission cabinet changes when a run finds at most 5 of them and none touches a Head of Cabinet, Deputy Head of Cabinet (including acting) or Director of Coordination. Additions, removals and role changes all qualify. Each application is appended to `data-cache/autonomy-log.json` and listed under `autonomy` in `status.json` for 7 days. Phone, responsibility and contact updates were already automatic.
+- **Tier 3, waits for a merge.** Senior cabinet roles, commissioners joining or leaving the College, and any batch over the limit. The rule is all-or-nothing per run: one change that needs review holds the whole batch on `review/commission`, and the issue says why.
+- **Failure issues close themselves.** The Commission, MEP directory, file stream and agenda workflows close their own "build needs attention" issue on the next successful run.
+
+The gate is `scripts/validate-data.mjs`. It checks counts, required fields, role classes, duplicate keys, ISO dates, https sources, and that every MEP id, cabinet key and commissioner slug in `files.json` resolves. With `--base <ref>` it also refuses a sudden drop in MEPs or cabinet members. The Commission and MEP workflows run it before every push and push nothing if it fails. `validate.yml` runs it on every pull request and every change to `v1/` on main, and opens an issue if main fails.
+
 ## Health status (status.json)
 
 The Action "Publish health status" (`.github/workflows/status.yml`) writes `status.json` to the `status` branch after every data workflow finishes (and on weekdays at 06:20 UTC as a backstop). It holds the latest run of each workflow, open issues, review branches, file counts, the build date of every data file (`freshness`), the dates still ahead for each priority file (`files`) and manifest entries that no longer match their file (`manifestProblems`, from `scripts/status-data.mjs`). The weekday Claude check reads it from `https://raw.githubusercontent.com/gianmariasisti-afk/nodo-data/status/status.json`.
