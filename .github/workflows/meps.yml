@@ -59,6 +59,7 @@ jobs:
               [ -f "$RUNNER_TEMP/out/meps-structural.json" ] && cp "$RUNNER_TEMP/out/meps-structural.json" data-cache/
             fi
             cp "$RUNNER_TEMP/out/meps-report.json" data-cache/ 2>/dev/null || true
+            node scripts/validate-data.mjs 2>&1 | tee -a build.log; [ "${PIPESTATUS[0]}" -eq 0 ] || { echo "Validation failed: nothing pushed"; exit 1; }
             git add v1 data-cache
             if git diff --cached --quiet; then echo "Nothing new."; exit 0; fi
             git commit -q -m "Update MEP directory $(date -u +%F)"
@@ -97,6 +98,16 @@ jobs:
             console.log(`Checked ${s.at} against the Parliament's open data. Seat, party and contact changes are already live.\n\nThese wait for your decision:\n\n${s.changes.map(line).join("\n")}\n\nMerge branch \`review/meps\` to accept them (it is rebuilt from main on every run).`);
           ' > issue.md
           if [ -n "$N" ]; then gh issue edit "$N" --body-file issue.md; else gh issue create --title "$T" --label meps --label structural --body-file issue.md; fi
+      - name: Close the failure issue when the build recovered
+        if: success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          T="MEP directory build needs attention"
+          for N in $(gh api "repos/$GITHUB_REPOSITORY/issues?state=open&per_page=100" --jq ".[] | select(.title == \"$T\") | .number"); do
+            gh api -X POST "repos/$GITHUB_REPOSITORY/issues/$N/comments" -f body="Recovered: run $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID succeeded. Closed automatically." >/dev/null
+            gh api -X PATCH "repos/$GITHUB_REPOSITORY/issues/$N" -f state=closed -f state_reason=completed >/dev/null
+          done
       - name: Open an issue when the build failed
         if: failure()
         env:

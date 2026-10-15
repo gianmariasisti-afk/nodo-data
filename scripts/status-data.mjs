@@ -48,4 +48,13 @@ else for (const [k, e] of Object.entries(man.files)) {
   if (buf.length !== e.bytes || sha !== e.sha256) manifest.push({ entry: k, problem: `size or checksum differs (manifest ${e.bytes} bytes, file ${buf.length} bytes)` });
 }
 
-console.log(JSON.stringify({ today, freshness, files: fileDates, manifest }));
+/* What the autonomy policy applied without review in the last 7 days (data-cache/autonomy-log.json). */
+let autonomy = [];
+try {
+  const since = new Date(Date.parse(today) - 7 * 864e5).toISOString();
+  autonomy = JSON.parse(fs.readFileSync(path.join(ROOT, "data-cache", "autonomy-log.json"), "utf8"))
+    .filter((e) => e.at >= since)
+    .map((e) => ({ at: day(e.at), source: e.source, changes: (e.changes || []).map((c) => `${c.type}: ${c.name || c.slug}${c.commissioner ? " (" + c.commissioner + ")" : ""}`) }));
+} catch { /* nothing applied yet */ }
+
+console.log(JSON.stringify({ today, freshness, files: fileDates, manifest, autonomy }));

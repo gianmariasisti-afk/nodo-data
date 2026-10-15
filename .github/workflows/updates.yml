@@ -59,6 +59,16 @@ jobs:
             echo "Push rejected, retrying ($i)"; sleep 5
           done
           echo "Could not push after 4 tries"; exit 1
+      - name: Close the failure issue when the build recovered
+        if: success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          T="File stream build needs attention"
+          for N in $(gh api "repos/$GITHUB_REPOSITORY/issues?state=open&per_page=100" --jq ".[] | select(.title == \"$T\") | .number"); do
+            gh api -X POST "repos/$GITHUB_REPOSITORY/issues/$N/comments" -f body="Recovered: run $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID succeeded. Closed automatically." >/dev/null
+            gh api -X PATCH "repos/$GITHUB_REPOSITORY/issues/$N" -f state=closed -f state_reason=completed >/dev/null
+          done
       - name: Open an issue when the build failed
         if: failure()
         env:

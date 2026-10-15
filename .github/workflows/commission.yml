@@ -29,6 +29,8 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: 22
+      - name: Run tests
+        run: node --test tests/commission/autonomy.test.mjs
       - name: Build
         env:
           PROBE_URLS: ${{ inputs.probe_urls }}
@@ -46,6 +48,7 @@ jobs:
           cp v1/commission.json "$RUNNER_TEMP/out/commission.json" 2>/dev/null || true
           cp data-cache/commission-report.json data-cache/commission-probe.json "$RUNNER_TEMP/out/" 2>/dev/null || true
           cp data-cache/commission-structural.json data-cache/commission-proposed.json "$RUNNER_TEMP/out/" 2>/dev/null || true
+          cp data-cache/autonomy-log.json "$RUNNER_TEMP/out/" 2>/dev/null || true
           node -e 'const f=require("fs");let m={};try{m=JSON.parse(f.readFileSync("v1/manifest.json","utf8"))}catch{};f.writeFileSync(process.env.RUNNER_TEMP+"/out/entry.json",JSON.stringify((m.files&&m.files.commission)||null))'
           for i in 1 2 3 4; do
             git fetch -q origin main
@@ -55,7 +58,9 @@ jobs:
             cp "$RUNNER_TEMP"/out/commission-report.json "$RUNNER_TEMP"/out/commission-probe.json data-cache/ 2>/dev/null || true
             rm -f data-cache/commission-structural.json data-cache/commission-proposed.json
             [ -f "$RUNNER_TEMP/out/commission-structural.json" ] && cp "$RUNNER_TEMP/out/commission-structural.json" data-cache/
+            [ -f "$RUNNER_TEMP/out/autonomy-log.json" ] && cp "$RUNNER_TEMP/out/autonomy-log.json" data-cache/
             node -e 'const f=require("fs");const e=JSON.parse(f.readFileSync(process.env.RUNNER_TEMP+"/out/entry.json","utf8"));if(e&&!process.env.SKIP){const m=JSON.parse(f.readFileSync("v1/manifest.json","utf8"));m.files=m.files||{};m.files.commission=e;m.generated=new Date().toISOString();f.writeFileSync("v1/manifest.json",JSON.stringify(m,null,1)+"\n")}'
+            node scripts/validate-data.mjs 2>&1 | tee -a build.log; [ "${PIPESTATUS[0]}" -eq 0 ] || { echo "Validation failed: nothing pushed"; exit 1; }
             git add v1 data-cache
             if git diff --cached --quiet; then echo "Nothing new."; exit 0; fi
             git commit -q -m "Update Commission and cabinets $(date -u +%F)"
@@ -76,7 +81,9 @@ jobs:
           gh label create structural --color D93F0B --description "Needs a human decision" 2>/dev/null || true
           N=$(gh issue list --state open --label commission --search "\"$T\" in:title" --json number --jq '.[0].number' || true)
           if [ ! -f "$RUNNER_TEMP/out/commission-structural.json" ]; then
-            [ -n "$N" ] && gh issue close "$N" --comment "Nothing left to review: the cabinets match the Commission's pages." || true
+            # Either nothing changed, or the autonomy policy applied a small batch of ordinary changes (see data-cache/autonomy-log.json).
+            MSG=$(node -e 'const r=JSON.parse(require("fs").readFileSync(process.env.RUNNER_TEMP+"/out/commission-report.json","utf8"));const a=r.autonomy||{};process.stdout.write(a.applied?"Applied automatically under the autonomy policy (logged in data-cache/autonomy-log.json); nothing left to review.":"Nothing left to review: the cabinets match the Commission'"'"'s pages.")' 2>/dev/null || echo "Nothing left to review.")
+            [ -n "$N" ] && gh api -X POST "repos/$GITHUB_REPOSITORY/issues/$N/comments" -f body="$MSG" >/dev/null && gh api -X PATCH "repos/$GITHUB_REPOSITORY/issues/$N" -f state=closed >/dev/null || true
             git push -q origin --delete "$B" 2>/dev/null || true
             exit 0
           fi
@@ -84,8 +91,19 @@ jobs:
           cp "$RUNNER_TEMP/out/commission-proposed.json" v1/commission.json
           node -e 'const f=require("fs"),c=require("crypto");const b=f.readFileSync("v1/commission.json");const m=JSON.parse(f.readFileSync("v1/manifest.json","utf8"));m.files.commission={...m.files.commission,bytes:b.length,sha256:c.createHash("sha256").update(b).digest("hex")};f.writeFileSync("v1/manifest.json",JSON.stringify(m,null,1)+"\n")'
           git add v1/commission.json v1/manifest.json && git commit -q -m "Proposed Commission and cabinet changes $(date -u +%F)" && git push -q -f origin "$B"
-          { echo "Small changes (phones, responsibilities) are already on main. These need a decision. The proposal is on branch \`$B\` (rebuilt from main on every run); merge it to accept."; echo; echo '```json'; head -c 6000 "$RUNNER_TEMP/out/commission-structural.json"; echo '```'; } > issue.md
+          WHY=$(node -e 'const r=JSON.parse(require("fs").readFileSync(process.env.RUNNER_TEMP+"/out/commission-report.json","utf8"));process.stdout.write(((r.autonomy||{}).waits||[]).map(x=>"- "+x).join("\n"))' 2>/dev/null || true)
+          { echo "Small changes (phones, responsibilities) are already on main. These need a decision."; echo; echo "Why they were not applied automatically:"; echo "$WHY"; echo; echo "The proposal is on branch \`$B\` (rebuilt from main on every run); merge it to accept."; echo; echo '```json'; head -c 6000 "$RUNNER_TEMP/out/commission-structural.json"; echo '```'; } > issue.md
           if [ -n "$N" ]; then gh issue edit "$N" --body-file issue.md; else gh issue create --title "$T" --label commission --label structural --body-file issue.md; fi
+      - name: Close the failure issue when the build recovered
+        if: success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          T="Commission build needs attention"
+          for N in $(gh api "repos/$GITHUB_REPOSITORY/issues?state=open&per_page=100" --jq ".[] | select(.title == \"$T\") | .number"); do
+            gh api -X POST "repos/$GITHUB_REPOSITORY/issues/$N/comments" -f body="Recovered: run $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID succeeded. Closed automatically." >/dev/null
+            gh api -X PATCH "repos/$GITHUB_REPOSITORY/issues/$N" -f state=closed -f state_reason=completed >/dev/null
+          done
       - name: Open an issue when the build failed
         if: failure()
         env:
