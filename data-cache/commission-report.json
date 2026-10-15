@@ -1,5 +1,5 @@
 {
- "run": "2026-10-14T09:43:19.431Z",
+ "run": "2026-10-15T09:24:12.382Z",
  "college": {
   "found": 26,
   "added": [],
@@ -68,11 +68,9 @@
   "dubravka-suica": {
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/dubravka-suica/dubravka-suicas-team_en",
    "parsed": 15,
-   "existing": 16,
+   "existing": 15,
    "added": [],
-   "removed": [
-    "Nuran Saygili"
-   ]
+   "removed": []
   },
   "oliver-varhelyi": {
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/oliver-varhelyi/oliver-varhelyis-team_en",
@@ -104,9 +102,11 @@
   },
   "jozef-sikela": {
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/jozef-sikela/jozef-sikelas-team_en",
-   "parsed": 14,
+   "parsed": 15,
    "existing": 14,
-   "added": [],
+   "added": [
+    "Vanesa Jover Bustillo"
+   ],
    "removed": []
   },
   "costas-kadis": {
@@ -194,32 +194,173 @@
    "removed": []
   }
  },
- "auto": [],
- "structural": [
+ "autonomy": {
+  "applied": true,
+  "waits": []
+ },
+ "auto": [
   {
-   "type": "removed",
-   "commissioner": "dubravka-suica",
-   "name": "Nuran Saygili",
-   "role": "Assistant to Georgia Papagianni, Marco La Marca and Szabolcs Horvath"
+   "commissioner": "jozef-sikela",
+   "name": "Roland Sourd",
+   "fields": [
+    "resp"
+   ],
+   "diff": {
+    "resp": {
+     "from": [
+      "Deputise for the Head of Cabinet",
+      "Group of Interinstitutional relations (GRI)",
+      "Africa, African Union",
+      "Post-Cotonou Agreement / EU-OACPS Partnership Agreement (the Samoa Agreement)",
+      "Ethics and Transparency",
+      "Humanitarian aid and nexus",
+      "Peace and security",
+      "Better regulation and Foresight Correspondent",
+      "Human Resources (incl. Blue Book trainees)"
+     ],
+     "to": [
+      "Deputise for the Head of Cabinet",
+      "Group of Interinstitutional relations (GRI)",
+      "Africa, African Union",
+      "Post-Cotonou Agreement / EU-OACPS Partnership Agreement (the Samoa Agreement)",
+      "Ethics and Transparency",
+      "Humanitarian aid and nexus",
+      "Peace and security",
+      "Better regulation and Foresight Correspondent",
+      "Human Resources (incl. BB trainees)"
+     ]
+    }
+   }
   },
   {
-   "type": "role",
-   "commissioner": "marta-kos",
-   "name": "Katarina Gavlakova",
-   "from": "Assistant to the Head of Cabinet",
-   "to": "ASSISTANT TO THE HEAD OF CABINET AND ANDREJA VIHER-WHITE"
+   "commissioner": "jozef-sikela",
+   "name": "Filippo Crestale",
+   "fields": [
+    "resp"
+   ],
+   "diff": {
+    "resp": {
+     "from": [
+      "Coordination of Cabinet’s administrative and logistical matters",
+      "Local Security Officer (LSO)",
+      "Transparency register",
+      "Training correspondent",
+      "Digital Ambassador/IT correspondent",
+      "Coordination of Parliamentary written questions",
+      "Publication of the mission expense reports of the Commissioner",
+      "Evacuation Guide",
+      "Coordination of Consultative Committees & EP Resolutions questions"
+     ],
+     "to": [
+      "Coordination of Cabinet’s administrative and logistical matters",
+      "Local Security Officer (LSO)",
+      "Transparency register",
+      "Training correspondent",
+      "Digital Ambassador/IT correspondent",
+      "Coordination of Parliamentary written questions",
+      "Publication of the mission expense reports of the Commissioner",
+      "Evacuation Guide",
+      "Cabinet Internet Page"
+     ]
+    }
+   }
   },
   {
-   "type": "role",
-   "commissioner": "marta-kos",
-   "name": "Barbara De Angelis",
-   "from": "Assistant to Karolina Kottova, Andreja Viher White and Adele Marsullo",
-   "to": "ASSISTANT TO THE DEPUTY HEAD OF CABINET AND ADELE MARSULLO"
+   "commissioner": "jozef-sikela",
+   "name": "Cristina Antonescu",
+   "fields": [
+    "resp"
+   ],
+   "diff": {
+    "resp": {
+     "from": [
+      "Access to Documents",
+      "Preparation for the Group on Inter-institutional Relations (GRI)",
+      "Correspondent for petitions and Ombudsman complaints",
+      "Back-up to DECIDE coordinator"
+     ],
+     "to": [
+      "Preparation for the Group on Inter-institutional Relations (GRI)"
+     ]
+    }
+   }
+  },
+  {
+   "commissioner": "jozef-sikela",
+   "name": "Zaloa Basarrate",
+   "fields": [
+    "resp"
+   ],
+   "diff": {
+    "resp": {
+     "from": [
+      "Commissioner’s social media",
+      "Commissioner’s website (calendar, blog) updates, press corner updates",
+      "Cabinet internet page",
+      "Speeches – publication",
+      "Coordination of press & media coverage needs",
+      "Contact point for media requests",
+      "Preparation for the Group for External Cooperation (EXCO)",
+      "Contact point Council of the European Union"
+     ],
+     "to": [
+      "Commissioner’s social media",
+      "Commissioner’s website (calendar, blog) updates, press corner updates",
+      "Speeches – publication",
+      "Coordination of press & media coverage needs",
+      "Contact point for media requests"
+     ]
+    }
+   }
+  },
+  {
+   "commissioner": "jozef-sikela",
+   "name": "Patricia Speybrouck",
+   "fields": [
+    "resp"
+   ],
+   "diff": {
+    "resp": {
+     "from": [
+      "Back-up to DMO",
+      "Coordination of stationery"
+     ],
+     "to": [
+      "Jour Fixe"
+     ]
+    }
+   }
+  },
+  {
+   "commissioner": "jozef-sikela",
+   "name": "Jennifer Rowan Somers",
+   "fields": [
+    "resp"
+   ],
+   "diff": {
+    "resp": {
+     "from": [
+      "Briefing coordinator",
+      "European Commission Library Correspondent"
+     ],
+     "to": [
+      "Briefing coordinator",
+      "EC Library Correspondent",
+      "Preparation for the Group for External Cooperation (EXCO)",
+      "Coordination of Parliamentary written questions",
+      "Coordination of Consultative Committees & EP Resolutions questions",
+      "Coordination with the Court of Auditors",
+      "Contact point Council of the European Union"
+     ]
+    }
+   }
   }
  ],
+ "structural": [],
  "summary": {
-  "auto": 0,
-  "structural": 3,
+  "auto": 6,
+  "structural": 0,
+  "autoApplied": 1,
   "failed": 0
  }
 }
