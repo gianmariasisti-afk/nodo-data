@@ -1,12 +1,12 @@
 {
  "schema": 1,
- "generated": "2026-10-15T09:55:51.690Z",
+ "generated": "2026-10-15T10:06:18.032Z",
  "files": {
   "meps": {
    "path": "meps.json",
    "description": "Members of the European Parliament: name, group, country, committees, contacts",
-   "bytes": 3694550,
-   "sha256": "f1fc7cf52b95326120e443f98dad35f048777c605ddeb7c8464c6b068133a727"
+   "bytes": 3694647,
+   "sha256": "d5eea8adc00338b74025fd5e5c325b68c0636c7741f1c0cd0dbf4c29c2cd6657"
   },
   "commission": {
    "path": "commission.json",

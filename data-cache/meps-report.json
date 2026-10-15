@@ -1,15 +1,51 @@
 {
- "run": "2026-10-14T10:07:17.333Z",
- "checked": "2026-10-14",
+ "run": "2026-10-15T09:49:58.892Z",
+ "checked": "2026-10-15",
  "api": 719,
  "nodo": 720,
  "failed": [],
- "auto": [],
+ "auto": [
+  {
+   "id": "190574",
+   "name": "Tomasz FROELICH",
+   "changes": {
+    "committees": {
+     "from": [
+      "DROI Member",
+      "AFET Substitute",
+      "DEVE Substitute",
+      "INTA Substitute"
+     ],
+     "to": [
+      "DROI Member",
+      "AFET Substitute",
+      "DEVE Substitute",
+      "INTA Substitute",
+      "ENVI Substitute"
+     ]
+    }
+   }
+  },
+  {
+   "id": "214839",
+   "name": "Emma WIESNER",
+   "changes": {
+    "name": {
+     "from": "Emma WIESNER",
+     "to": "Emma YTTERELL"
+    },
+    "family": {
+     "from": "Wiesner",
+     "to": "Ytterell"
+    }
+   }
+  }
+ ],
  "structural": [],
  "summary": {
-  "auto": 0,
+  "auto": 2,
   "structural": 0,
   "failed": 0,
-  "changed": false
+  "changed": true
  }
 }
