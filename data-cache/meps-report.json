@@ -1,50 +1,52 @@
 {
- "run": "2026-10-15T09:49:58.892Z",
- "checked": "2026-10-15",
+ "run": "2026-10-16T09:43:03.661Z",
+ "checked": "2026-10-16",
  "api": 719,
  "nodo": 720,
  "failed": [],
  "auto": [
   {
-   "id": "190574",
-   "name": "Tomasz FROELICH",
+   "id": "256955",
+   "name": "Maria ZACHARIA",
    "changes": {
     "committees": {
      "from": [
-      "DROI Member",
-      "AFET Substitute",
-      "DEVE Substitute",
-      "INTA Substitute"
+      "PETI Member",
+      "HOUS Member",
+      "EMPL Substitute"
      ],
      "to": [
-      "DROI Member",
-      "AFET Substitute",
-      "DEVE Substitute",
-      "INTA Substitute",
-      "ENVI Substitute"
+      "PETI Member",
+      "HOUS Member",
+      "EMPL Substitute",
+      "REGI Substitute"
      ]
-    }
-   }
-  },
-  {
-   "id": "214839",
-   "name": "Emma WIESNER",
-   "changes": {
-    "name": {
-     "from": "Emma WIESNER",
-     "to": "Emma YTTERELL"
-    },
-    "family": {
-     "from": "Wiesner",
-     "to": "Ytterell"
     }
    }
   }
  ],
- "structural": [],
+ "structural": [
+  {
+   "type": "arrived",
+   "id": "5565",
+   "name": "Brice HORTEFEUX",
+   "country": "FR",
+   "group": "",
+   "party": "",
+   "committees": [],
+   "note": "no photo yet"
+  },
+  {
+   "type": "left",
+   "id": "256921",
+   "name": "Laurent CASTILLO",
+   "country": "FR",
+   "group": "PfE"
+  }
+ ],
  "summary": {
-  "auto": 2,
-  "structural": 0,
+  "auto": 1,
+  "structural": 2,
   "failed": 0,
   "changed": true
  }

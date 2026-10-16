@@ -1,0 +1,22 @@
+{
+ "at": "2026-10-16",
+ "changes": [
+  {
+   "type": "arrived",
+   "id": "5565",
+   "name": "Brice HORTEFEUX",
+   "country": "FR",
+   "group": "",
+   "party": "",
+   "committees": [],
+   "note": "no photo yet"
+  },
+  {
+   "type": "left",
+   "id": "256921",
+   "name": "Laurent CASTILLO",
+   "country": "FR",
+   "group": "PfE"
+  }
+ ]
+}
