@@ -1,0 +1,38 @@
+{
+ "at": "2026-10-16",
+ "changes": [
+  {
+   "type": "role",
+   "commissioner": "glenn-micallef",
+   "name": "Agata Dziarnowska",
+   "from": "Member",
+   "to": "DEPUTY HEAD OF CABINET"
+  },
+  {
+   "type": "role",
+   "commissioner": "glenn-micallef",
+   "name": "Georgia Balla",
+   "from": "Assistant to Johanna Bernsel, Agata Dziarnowska and Stephanie Bonnici",
+   "to": "ASSISTANT TO AGATA DZIARNOWSKA AND STEPHANIE BONNICI"
+  },
+  {
+   "type": "role",
+   "commissioner": "glenn-micallef",
+   "name": "Agnieszka Breczewska Nowicka",
+   "from": "Assistant to Sevim Aktas",
+   "to": "ASSISTANT TO SEVIM AKTAS AND DESISLAVA DIMITROVA"
+  },
+  {
+   "type": "added",
+   "commissioner": "glenn-micallef",
+   "name": "Tamara Javorcikova",
+   "role": "ASSISTANT TO WENDY DUCATELLE AND MARK ANTHONY ZARB"
+  },
+  {
+   "type": "removed",
+   "commissioner": "glenn-micallef",
+   "name": "Johanna Bernsel",
+   "role": "Deputy Head of Cabinet"
+  }
+ ]
+}

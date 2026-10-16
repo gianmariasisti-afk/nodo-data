@@ -1,5 +1,5 @@
 {
- "run": "2026-10-15T09:24:12.382Z",
+ "run": "2026-10-16T09:17:11.610Z",
  "college": {
   "found": 26,
   "added": [],
@@ -103,10 +103,8 @@
   "jozef-sikela": {
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/jozef-sikela/jozef-sikelas-team_en",
    "parsed": 15,
-   "existing": 14,
-   "added": [
-    "Vanesa Jover Bustillo"
-   ],
+   "existing": 15,
+   "added": [],
    "removed": []
   },
   "costas-kadis": {
@@ -190,177 +188,326 @@
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/glenn-micallef/glenn-micallefs-team_en",
    "parsed": 14,
    "existing": 14,
-   "added": [],
-   "removed": []
+   "added": [
+    "Tamara Javorcikova"
+   ],
+   "removed": [
+    "Johanna Bernsel"
+   ]
   }
  },
  "autonomy": {
-  "applied": true,
-  "waits": []
+  "applied": false,
+  "waits": [
+   "senior role: Agata Dziarnowska (glenn-micallef), Member → DEPUTY HEAD OF CABINET",
+   "senior role: Johanna Bernsel (glenn-micallef), Deputy Head of Cabinet"
+  ]
  },
  "auto": [
   {
-   "commissioner": "jozef-sikela",
-   "name": "Roland Sourd",
+   "commissioner": "glenn-micallef",
+   "name": "Agata Dziarnowska",
    "fields": [
-    "resp"
+    "resp",
+    "outside",
+    "countries"
    ],
    "diff": {
     "resp": {
      "from": [
-      "Deputise for the Head of Cabinet",
-      "Group of Interinstitutional relations (GRI)",
-      "Africa, African Union",
-      "Post-Cotonou Agreement / EU-OACPS Partnership Agreement (the Samoa Agreement)",
-      "Ethics and Transparency",
-      "Humanitarian aid and nexus",
-      "Peace and security",
-      "Better regulation and Foresight Correspondent",
-      "Human Resources (incl. Blue Book trainees)"
+      "Sport policy",
+      "Sport diplomacy",
+      "Relations with the European Court of Auditors",
+      "Group for External Coordination (EXCO)",
+      "Foresight"
      ],
      "to": [
-      "Deputise for the Head of Cabinet",
-      "Group of Interinstitutional relations (GRI)",
-      "Africa, African Union",
-      "Post-Cotonou Agreement / EU-OACPS Partnership Agreement (the Samoa Agreement)",
-      "Ethics and Transparency",
-      "Humanitarian aid and nexus",
-      "Peace and security",
-      "Better regulation and Foresight Correspondent",
-      "Human Resources (incl. BB trainees)"
+      "Deputising for the Head of Cabinet",
+      "Management of Cabinet Assistants",
+      "Inter-institutional relations group (GRI)",
+      "Commission Work Programme",
+      "Budget & MFF negotiations",
+      "Simplification, Implementation and Enforcement",
+      "Jour Fixe coordination",
+      "Sport policy",
+      "Sport diplomacy",
+      "Relations with the European Court of Auditors",
+      "Group for External Coordination (EXCO)",
+      "Foresight"
+     ]
+    },
+    "outside": {
+     "from": [
+      "Education (DG EAC)",
+      "Education and Culture Executive Agency (EACEA)",
+      "Research and Innovation (DG RTD)",
+      "Enlargement and Eastern Neighbourhood (DG ENEST)",
+      "Economic and Financial Affairs (DG ECFIN)",
+      "Relations with the UK (SG)",
+      "Transport /mobility (DG MOVE)",
+      "Foreign affairs (EEAS)"
+     ],
+     "to": [
+      "European Anti-Fraud Office (OLAF)",
+      "Budget and Own Resources (DG BUDG)",
+      "Climate (DG CLIMA)",
+      "Environment (DG ENV)",
+      "Energy, climate and environmental policy (DG ENER)",
+      "Education (DG EAC)",
+      "Education and Culture Executive Agency (EACEA)",
+      "Research and Innovation (DG RTD)",
+      "Enlargement and Eastern Neighbourhood (DG ENEST)",
+      "Economic and Financial Affairs (DG ECFIN)",
+      "Relations with the UK (SG)",
+      "Transport /mobility (DG MOVE)",
+      "Foreign affairs (EEAS)"
+     ]
+    },
+    "countries": {
+     "from": [
+      "PL",
+      "CY",
+      "LU"
+     ],
+     "to": [
+      "PL",
+      "CY",
+      "LU",
+      "ES"
      ]
     }
    }
   },
   {
-   "commissioner": "jozef-sikela",
-   "name": "Filippo Crestale",
+   "commissioner": "glenn-micallef",
+   "name": "Wendy Ducatelle",
    "fields": [
-    "resp"
+    "resp",
+    "countries"
    ],
    "diff": {
     "resp": {
      "from": [
-      "Coordination of Cabinet’s administrative and logistical matters",
-      "Local Security Officer (LSO)",
-      "Transparency register",
-      "Training correspondent",
-      "Digital Ambassador/IT correspondent",
-      "Coordination of Parliamentary written questions",
-      "Publication of the mission expense reports of the Commissioner",
-      "Evacuation Guide",
-      "Coordination of Consultative Committees & EP Resolutions questions"
+      "Youth",
+      "Children",
+      "Mental Health",
+      "Impact of Social Media"
      ],
      "to": [
-      "Coordination of Cabinet’s administrative and logistical matters",
-      "Local Security Officer (LSO)",
-      "Transparency register",
-      "Training correspondent",
-      "Digital Ambassador/IT correspondent",
-      "Coordination of Parliamentary written questions",
-      "Publication of the mission expense reports of the Commissioner",
-      "Evacuation Guide",
-      "Cabinet Internet Page"
+      "Youth",
+      "Children",
+      "Mental Health",
+      "Impact of Social Media",
+      "Intergenerational Fairness",
+      "RRF, European Semester, Reform Technical Support Instrument (DG REFORM)"
+     ]
+    },
+    "countries": {
+     "from": [
+      "MT",
+      "HU",
+      "IT",
+      "PT"
+     ],
+     "to": [
+      "MT",
+      "HU",
+      "IT",
+      "PT",
+      "FR"
      ]
     }
    }
   },
   {
-   "commissioner": "jozef-sikela",
-   "name": "Cristina Antonescu",
+   "commissioner": "glenn-micallef",
+   "name": "Desislava Dimitrova",
    "fields": [
-    "resp"
+    "resp",
+    "countries"
    ],
    "diff": {
     "resp": {
      "from": [
-      "Access to Documents",
-      "Preparation for the Group on Inter-institutional Relations (GRI)",
-      "Correspondent for petitions and Ombudsman complaints",
-      "Back-up to DECIDE coordinator"
+      "Relations with the European Parliament, including Parliamentary questions and Parliamentary resolutions",
+      "Culture",
+      "Support on international dimension of Culture",
+      "Working conditions for the cultural and creative industries and sectors",
+      "AI in the cultural and creative industries and sectors",
+      "Creative Europe programme"
      ],
      "to": [
-      "Preparation for the Group on Inter-institutional Relations (GRI)"
+      "Relations with the European Parliament, including Parliamentary questions and Parliamentary resolutions",
+      "Culture",
+      "Support on international dimension of Culture",
+      "Working conditions for the cultural and creative industries and sectors",
+      "AI in the cultural and creative industries and sectors",
+      "Creative Europe programme",
+      "Budget & MFF negotiations",
+      "Internal Market and Industrial Policy (DG GROW)"
+     ]
+    },
+    "countries": {
+     "from": [
+      "BG",
+      "RO",
+      "GR"
+     ],
+     "to": [
+      "BG",
+      "RO",
+      "GR",
+      "FI"
      ]
     }
    }
   },
   {
-   "commissioner": "jozef-sikela",
-   "name": "Zaloa Basarrate",
+   "commissioner": "glenn-micallef",
+   "name": "Stephanie Bonnici",
    "fields": [
-    "resp"
+    "resp",
+    "countries"
    ],
    "diff": {
     "resp": {
      "from": [
-      "Commissioner’s social media",
-      "Commissioner’s website (calendar, blog) updates, press corner updates",
-      "Cabinet internet page",
-      "Speeches – publication",
-      "Coordination of press & media coverage needs",
-      "Contact point for media requests",
-      "Preparation for the Group for External Cooperation (EXCO)",
-      "Contact point Council of the European Union"
+      "International cultural relations and partnerships",
+      "Youth Cultural Ambassadors Network",
+      "EU Structured Dialogue with cultural stakeholders",
+      "European Authors Day",
+      "Support on culture",
+      "Support on Group for External Coordination (EXCO)",
+      "Support on Foresight"
      ],
      "to": [
-      "Commissioner’s social media",
-      "Commissioner’s website (calendar, blog) updates, press corner updates",
-      "Speeches – publication",
-      "Coordination of press & media coverage needs",
-      "Contact point for media requests"
+      "International cultural relations and partnerships",
+      "Youth Cultural Ambassadors Network",
+      "EU Structured Dialogue with cultural stakeholders",
+      "European Authors Day",
+      "Support on culture",
+      "Support on Group for External Coordination (EXCO)",
+      "Support on Foresight",
+      "European Civil Protection and Humanitarian Aid Operations (DG ECHO)",
+      "Competition Policy (DG COMP)"
+     ]
+    },
+    "countries": {
+     "from": [
+      "IE",
+      "BE",
+      "HR",
+      "SI"
+     ],
+     "to": [
+      "IE",
+      "BE",
+      "HR",
+      "SI",
+      "SE"
      ]
     }
    }
   },
   {
-   "commissioner": "jozef-sikela",
-   "name": "Patricia Speybrouck",
+   "commissioner": "glenn-micallef",
+   "name": "Mark Anthony Zarb",
    "fields": [
-    "resp"
+    "resp",
+    "countries"
    ],
    "diff": {
     "resp": {
      "from": [
-      "Back-up to DMO",
-      "Coordination of stationery"
+      "Youth policy dialogues",
+      "Engagements with Youth Stakeholders",
+      "Cyberbullying – Relations with Better Internet Centers",
+      "National Parliaments",
+      "Relations with the Council"
      ],
      "to": [
-      "Jour Fixe"
+      "Youth policy dialogues",
+      "Engagements with Youth Stakeholders",
+      "Cyberbullying – Relations with Better Internet Centers",
+      "National Parliaments",
+      "Relations with the Council",
+      "Cyberbullying",
+      "Consultative Committees (EESC and CoR)",
+      "Taxation and Customs Union (DG TAXUD)"
+     ]
+    },
+    "countries": {
+     "from": [
+      "EE",
+      "LT",
+      "LV",
+      "CZ",
+      "SK"
+     ],
+     "to": [
+      "EE",
+      "LT",
+      "LV",
+      "CZ",
+      "SK",
+      "DK"
      ]
     }
    }
   },
   {
-   "commissioner": "jozef-sikela",
-   "name": "Jennifer Rowan Somers",
+   "commissioner": "glenn-micallef",
+   "name": "Agnieszka Breczewska Nowicka",
    "fields": [
-    "resp"
+    "phone"
    ],
    "diff": {
-    "resp": {
-     "from": [
-      "Briefing coordinator",
-      "European Commission Library Correspondent"
-     ],
-     "to": [
-      "Briefing coordinator",
-      "EC Library Correspondent",
-      "Preparation for the Group for External Cooperation (EXCO)",
-      "Coordination of Parliamentary written questions",
-      "Coordination of Consultative Committees & EP Resolutions questions",
-      "Coordination with the Court of Auditors",
-      "Contact point Council of the European Union"
-     ]
+    "phone": {
+     "from": "+32 2 29 66985",
+     "to": "+32 2 29 80118"
     }
    }
   }
  ],
- "structural": [],
+ "structural": [
+  {
+   "type": "role",
+   "commissioner": "glenn-micallef",
+   "name": "Agata Dziarnowska",
+   "from": "Member",
+   "to": "DEPUTY HEAD OF CABINET"
+  },
+  {
+   "type": "role",
+   "commissioner": "glenn-micallef",
+   "name": "Georgia Balla",
+   "from": "Assistant to Johanna Bernsel, Agata Dziarnowska and Stephanie Bonnici",
+   "to": "ASSISTANT TO AGATA DZIARNOWSKA AND STEPHANIE BONNICI"
+  },
+  {
+   "type": "role",
+   "commissioner": "glenn-micallef",
+   "name": "Agnieszka Breczewska Nowicka",
+   "from": "Assistant to Sevim Aktas",
+   "to": "ASSISTANT TO SEVIM AKTAS AND DESISLAVA DIMITROVA"
+  },
+  {
+   "type": "added",
+   "commissioner": "glenn-micallef",
+   "name": "Tamara Javorcikova",
+   "role": "ASSISTANT TO WENDY DUCATELLE AND MARK ANTHONY ZARB"
+  },
+  {
+   "type": "removed",
+   "commissioner": "glenn-micallef",
+   "name": "Johanna Bernsel",
+   "role": "Deputy Head of Cabinet"
+  }
+ ],
  "summary": {
   "auto": 6,
-  "structural": 0,
-  "autoApplied": 1,
+  "structural": 5,
+  "autoApplied": 0,
   "failed": 0
  }
 }

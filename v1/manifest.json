@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generated": "2026-10-15T19:57:12.030Z",
+ "generated": "2026-10-16T09:18:48.250Z",
  "files": {
   "meps": {
    "path": "meps.json",
@@ -11,8 +11,8 @@
   "commission": {
    "path": "commission.json",
    "description": "European Commission: College, cabinets, portfolios",
-   "bytes": 1745442,
-   "sha256": "6c7a23cecc88b1a9c33cd8d9591c9878e32b8954b52eba25e857d32890fbfbce"
+   "bytes": 1746262,
+   "sha256": "b5548d99d3bda6f6a23721e2d3c889a4e90d78ab4526472bafcfc488e8e44a60"
   },
   "calendar": {
    "path": "calendar.json",
