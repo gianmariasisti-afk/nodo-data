@@ -1,15 +1,4 @@
 {
-  "generatedAt": "2026-10-15T00:00:00Z",
-  "events": [
-    {
-      "id": "mff-2028-2034:next:2026-10-15:8a9d72",
-      "fileId": "mff-2028-2034",
-      "date": "2026-10-15",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "European Council, 15–16 October: leaders discuss the MFF",
-      "push": true,
-      "pushOn": "2026-10-15"
-    }
-  ]
+  "generatedAt": "2026-10-16T00:00:00Z",
+  "events": []
 }

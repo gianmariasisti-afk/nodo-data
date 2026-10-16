@@ -2207,6 +2207,16 @@
   ],
   "digital-networks-act": [
     {
+      "id": "digital-networks-act:next:2026-12-01:4e0163",
+      "fileId": "digital-networks-act",
+      "date": "2026-12-01",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Telecoms Council: Presidency progress report on the Digital Networks Act (planned)",
+      "push": true,
+      "pushOn": "2026-12-01"
+    },
+    {
       "id": "digital-networks-act:next:2026-10-12:96b240",
       "fileId": "digital-networks-act",
       "date": "2026-10-12",
