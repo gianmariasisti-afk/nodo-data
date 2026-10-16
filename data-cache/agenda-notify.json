@@ -1,5 +1,15 @@
 {
- "pending": [
+ "latest": [
+  {
+   "session": "2026-10-19",
+   "place": "SXB",
+   "stage": "final-draft",
+   "link": "https://www.europarl.europa.eu/plenary/en/agendas.html",
+   "at": "2026-10-16T17:25:31.089Z",
+   "items": 57
+  }
+ ],
+ "log": [
   {
    "session": "2026-10-05",
    "stage": "updated",
@@ -13,6 +23,14 @@
    "link": "https://www.europarl.europa.eu/plenary/en/agendas.html",
    "at": "2026-10-08T19:17:55.481Z",
    "items": 11
+  },
+  {
+   "session": "2026-10-19",
+   "place": "SXB",
+   "stage": "final-draft",
+   "link": "https://www.europarl.europa.eu/plenary/en/agendas.html",
+   "at": "2026-10-16T17:25:31.089Z",
+   "items": 57
   }
  ]
 }
