@@ -1,6 +1,6 @@
 {
- "generated": "2026-10-12T19:24:21Z",
- "asOf": "2026-10-12",
+ "generated": "2026-10-16T09:00:00Z",
+ "asOf": "2026-10-16",
  "source": "Parliament Open Data Portal (basis ep-open-data); Parliament Legislative Observatory procedure files (basis ep-procedure-file); press and Council documents (basis press); commission.json for commissioners and cabinets",
  "legend": {
   "roles": [
@@ -351,7 +351,7 @@
    "kind": "regulation",
    "procedure": "2025/0360(COD)",
    "stage": "positions-in-preparation",
-   "status": "The Commission proposed it on 19 November 2025. Member States are close to a Council position (EDRi letter, 18 September 2026). Parliament's position is still being built in joint ITRE-LIBE work and will take months. Open fights: personal data and pseudonymisation, AI training on personal data, and whether cookie rules move into the GDPR or stay in ePrivacy.",
+   "status": "The Commission proposed it on 19 November 2025. The Council has no negotiating position yet: EU ambassadors were due to agree one on 7 October 2026, but the item was postponed, and their 11 October meeting did not take up the Irish Presidency's compromise (Agence Europe). Parliament's position is still being built in joint ITRE-LIBE work and will take months. Open fights: personal data and pseudonymisation, AI training on personal data, trade secrets under the Data Act, and whether cookie rules move into the GDPR or stay in ePrivacy.",
    "next": [
     {
      "date": "2026-10-13",
@@ -544,7 +544,7 @@
    },
    "caveats": [
     "Rapporteurs, shadows and opinion rapporteurs come from the Parliament's procedure file (checked 12 October 2026). It lists the joint committee's shadows together, without saying which committee each one sits for.",
-    "Sources disagree on whether the Council position is already adopted. The Council note of 22 June is a mandate text. EDRi's September letter says Member States were still close to agreeing."
+    "The postponed 7 October vote and the 11 October meeting come from Agence Europe reporting, not yet checked against Coreper agendas. No new Coreper date is set."
    ],
    "sources": [
     {
@@ -591,6 +591,11 @@
      "id": "oeil-2025-0360-cod",
      "title": "Legislative Observatory: procedure file 2025/0360(COD)",
      "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2025/0360(COD)"
+    },
+    {
+     "id": "agenceurope-13958",
+     "title": "Agence Europe: Digital Omnibus still in limbo as Member States fail to agree",
+     "url": "https://agenceurope.eu/en/bulletin/article/13958/17/future-of-digital-omnibus-still-in-limbo-as-member-states-fail-to-agree"
     }
    ]
   },
@@ -880,11 +885,15 @@
    "kind": "regulation",
    "procedure": "2026/0013(COD)",
    "stage": "positions-in-preparation",
-   "status": "Proposed 21 January 2026. It replaces the EECC, BEREC regulation and Radio Spectrum Policy Programme and extends authorisation rules to cloud providers and CDNs. The Council issued a progress report on 2 June 2026, and telecoms ministers discuss the act at their informal meeting in Limerick on 12–13 October. IMCO and LIBE draft opinions were published in June.",
+   "status": "Proposed 21 January 2026. It replaces the EECC, BEREC regulation and Radio Spectrum Policy Programme and extends authorisation rules to cloud providers and CDNs. The Council issued a progress report on 2 June 2026, and telecoms ministers discussed the act at their informal meeting in Limerick on 12–13 October. The Irish Presidency aims to present a progress report at the Telecoms Council on 1 December. IMCO and LIBE draft opinions were published in June.",
    "next": [
     {
      "date": "2026-10-12",
      "what": "Telecoms ministers discuss the Digital Networks Act (informal meeting, Limerick, 12–13 October)"
+    },
+    {
+     "date": "2026-12-01",
+     "what": "Telecoms Council: Presidency progress report on the Digital Networks Act (planned)"
     },
     {
      "date": null,
@@ -1002,7 +1011,8 @@
     ]
    },
    "caveats": [
-    "Rapporteur, shadows and opinion rapporteurs come from the Parliament's procedure file (checked 12 October 2026)."
+    "Rapporteur, shadows and opinion rapporteurs come from the Parliament's procedure file (checked 12 October 2026).",
+    "The 1 December progress report comes from the Irish Presidency programme, which plans one for the act. The Council agenda for that meeting is not published yet."
    ],
    "sources": [
     {
@@ -1039,6 +1049,11 @@
      "id": "oeil-2026-0013-cod",
      "title": "Legislative Observatory: procedure file 2026/0013(COD)",
      "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2026/0013(COD)"
+    },
+    {
+     "id": "ie-presidency-programme",
+     "title": "Programme of the Irish Presidency of the Council (July–December 2026)",
+     "url": "https://irish-presidency.consilium.europa.eu/media/3wkh4tto/irish-presidency-of-the-council-of-the-european-union-2026.pdf"
     }
    ]
   },
