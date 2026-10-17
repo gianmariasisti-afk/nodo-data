@@ -1,0 +1,160 @@
+{
+  "generated": "2026-10-17T18:26:01Z",
+  "manifestGenerated": "2026-10-17T18:25:40.628Z",
+  "counts": {
+    "activityFiles": 721,
+    "questionFiles": 10251
+  },
+  "freshness": {
+    "meps": "2026-10-16",
+    "mepsChecked": "2026-10-16",
+    "commission": "2026-10-16",
+    "council": "2026-10-13",
+    "calendar": "2026-10-01",
+    "agendaChecked": "2026-10-16",
+    "activity": "2026-10-17",
+    "updates": "2026-10-17",
+    "filesAsOf": "2026-10-16"
+  },
+  "files": [
+    {
+      "id": "mff-2028-2034",
+      "short": "MFF 2028–2034",
+      "lastNext": "2026-12-07",
+      "upcoming": 6
+    },
+    {
+      "id": "digital-omnibus-data",
+      "short": "Digital Omnibus (data)",
+      "lastNext": "2026-10-13",
+      "upcoming": 0
+    },
+    {
+      "id": "industrial-accelerator-act",
+      "short": "Industrial Accelerator Act",
+      "lastNext": "2026-12-14",
+      "upcoming": 1
+    },
+    {
+      "id": "digital-networks-act",
+      "short": "Digital Networks Act",
+      "lastNext": "2026-12-01",
+      "upcoming": 1
+    },
+    {
+      "id": "digital-fairness-act",
+      "short": "Digital Fairness Act",
+      "lastNext": "2026-11-11",
+      "upcoming": 1
+    },
+    {
+      "id": "tech-sovereignty-package",
+      "short": "Chips Act 2.0 and CADA",
+      "lastNext": "2026-10-13",
+      "upcoming": 0
+    },
+    {
+      "id": "ai-act-implementation",
+      "short": "AI Act after the Omnibus",
+      "lastNext": "2026-12-02",
+      "upcoming": 1
+    }
+  ],
+  "manifestProblems": [],
+  "workflows": [
+    {
+      "name": "Update Commission and cabinets",
+      "latest": {
+        "conclusion": "success",
+        "at": "2026-10-16T09:16:57Z",
+        "event": "schedule",
+        "url": "https://github.com/gianmariasisti-afk/nodo-data/actions/runs/38879381732"
+      },
+      "lastSuccessAt": "2026-10-16T09:16:57Z"
+    },
+    {
+      "name": "Update MEP activity",
+      "latest": {
+        "conclusion": "success",
+        "at": "2026-10-17T17:53:11Z",
+        "event": "schedule",
+        "url": "https://github.com/gianmariasisti-afk/nodo-data/actions/runs/39055695188"
+      },
+      "lastSuccessAt": "2026-10-17T17:53:11Z"
+    },
+    {
+      "name": "Update MEP directory",
+      "latest": {
+        "conclusion": "failure",
+        "at": "2026-10-16T09:42:52Z",
+        "event": "schedule",
+        "url": "https://github.com/gianmariasisti-afk/nodo-data/actions/runs/38882339457"
+      },
+      "lastSuccessAt": "2026-10-15T09:49:47Z"
+    },
+    {
+      "name": "Update file stream",
+      "latest": {
+        "conclusion": "success",
+        "at": "2026-10-17T11:08:24Z",
+        "event": "schedule",
+        "url": "https://github.com/gianmariasisti-afk/nodo-data/actions/runs/39027551476"
+      },
+      "lastSuccessAt": "2026-10-17T11:08:24Z"
+    },
+    {
+      "name": "Update plenary agenda",
+      "latest": {
+        "conclusion": "success",
+        "at": "2026-10-16T17:24:41Z",
+        "event": "schedule",
+        "url": "https://github.com/gianmariasisti-afk/nodo-data/actions/runs/38939474944"
+      },
+      "lastSuccessAt": "2026-10-16T17:24:41Z"
+    },
+    {
+      "name": "Validate data",
+      "latest": {
+        "conclusion": "success",
+        "at": "2026-10-16T05:54:00Z",
+        "event": "push",
+        "url": "https://github.com/gianmariasisti-afk/nodo-data/actions/runs/38858202529"
+      },
+      "lastSuccessAt": "2026-10-16T05:54:00Z"
+    }
+  ],
+  "openIssues": [
+    {
+      "number": 30,
+      "title": "Agenda found (2026-10-16 17:25)",
+      "labels": [
+        "agenda"
+      ],
+      "createdAt": "2026-10-16T17:25:37Z",
+      "url": "https://github.com/gianmariasisti-afk/nodo-data/issues/30"
+    },
+    {
+      "number": 29,
+      "title": "MEP directory build needs attention",
+      "labels": [
+        "structural"
+      ],
+      "createdAt": "2026-10-16T09:59:31Z",
+      "url": "https://github.com/gianmariasisti-afk/nodo-data/issues/29"
+    },
+    {
+      "number": 28,
+      "title": "Commission/cabinets: changes to review",
+      "labels": [
+        "structural",
+        "commission"
+      ],
+      "createdAt": "2026-10-16T09:18:56Z",
+      "url": "https://github.com/gianmariasisti-afk/nodo-data/issues/28"
+    }
+  ],
+  "reviewBranches": [
+    "review/commission",
+    "review/meps"
+  ]
+}
