@@ -394,6 +394,7 @@
     EE: { name: "Town Hall Square", place: "Tallinn", credit: "Judith Prins", r: 1.5, f: 0.04 },
     EL: { name: "Acropolis", place: "Athens", credit: "Ken Nagata", r: 1.5, f: 0.05 },
     ES: { name: "Casa Batlló", place: "Barcelona", year: "1906", credit: "Theodor Vasile", r: 1.652, f: 0.3 },
+    FI: { name: "Helsinki Cathedral", place: "Helsinki", credit: "Illia Panasenko", r: 1.5, f: 0.3 },
     FR: { name: "Eiffel Tower", place: "Paris", year: "1889", credit: "Pedro Gandra", r: 1.5, f: 0 },
     HR: { name: "City walls", place: "Dubrovnik", credit: "mana5280", r: 1.246, f: 0.18 },
     HU: { name: "Chain Bridge", place: "Budapest", year: "1849", credit: "Ákos Szócska", r: 1.5, f: 0.25 },
