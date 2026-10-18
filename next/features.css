@@ -1,0 +1,39 @@
+/* nodo preview features: styles. Injected by tools/preview/build.mjs. Uses the app's own tokens. */
+.nx-fix { background: var(--tint-butter); color: var(--ink); }
+.nx-fix b { font-weight: 700; }
+.nx-wait, .nx-more { margin: var(--space-3) var(--space-1) 0; }
+.nx-sub { margin: var(--space-4) var(--space-1) var(--space-2); }
+.nx-req p { margin: 0 0 var(--space-2); }
+.nx-req .eu-btn { margin-top: var(--space-3); }
+.nx-req .eu-btn[disabled] { opacity: 1; cursor: default; }
+.nx-doctitle { font-size: 28px; line-height: 32px; }
+.nx-prov { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-3); margin: var(--space-3) var(--space-1) 0; }
+.nx-prov .eu-group.tag { display: inline-flex; align-items: center; gap: 4px; }
+.nx-prov .eu-icon { width: 16px; height: 16px; }
+.nx-lnk { display: inline-flex; align-items: center; gap: 4px; min-height: 44px; padding: 0; border: 0; background: none; color: var(--brand); font: inherit; font-size: 13px; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.nx-lnk .eu-icon { width: 16px; height: 16px; }
+.nx-yours { margin-bottom: var(--space-2); }
+.nx-acts { display: grid; gap: var(--space-2); margin-top: var(--space-4); }
+.nx-acts .eu-icon { width: 20px; height: 20px; }
+.nx-notify { display: grid; gap: var(--space-4); }
+.nx-notify .cap { margin: 0; }
+.nx-set { display: flex; align-items: center; gap: var(--space-3); }
+.nx-set__tx { flex: 1; min-width: 0; display: grid; gap: 2px; }
+.nx-set__tx b { font-size: 15px; line-height: 22px; font-weight: 600; color: var(--ink); }
+.nx-switch { position: relative; flex: none; width: 52px; height: 32px; padding: 0; border: 0; border-radius: var(--radius-pill); background: var(--border-control); cursor: pointer; transition: background .15s ease-out; }
+.nx-switch::after { content: ""; position: absolute; top: 4px; left: 4px; width: 24px; height: 24px; border-radius: 50%; background: var(--surface); transition: transform .15s ease-out; }
+.nx-switch[aria-checked="true"] { background: var(--brand); }
+.nx-switch[aria-checked="true"]::after { transform: translateX(20px); }
+.nx-switch:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+.nx-dotlead { position: relative; display: inline-flex; flex: none; }
+.nx-dotlead .nx-dot { position: absolute; top: 0; right: -2px; box-shadow: 0 0 0 3px var(--surface-sunken); }
+.nx-dot { display: inline-block; flex: none; width: 10px; height: 10px; border-radius: 50%; background: var(--node); }
+.nx-wk .list { margin-top: var(--space-2); }
+.nx-wk .eu-row { background: var(--surface); }
+.nx-wk__h { display: flex; align-items: center; gap: var(--space-2); margin: 0; font-size: 17px; line-height: 22px; }
+.nx-wk .eu-btn { margin-top: var(--space-3); background: var(--surface); }
+.nx-pick { margin-top: var(--space-4); }
+.nx-skip { margin-top: var(--space-2); }
+@media (prefers-reduced-motion: reduce) { .nx-switch, .nx-switch::after { transition: none; } }
+.fd-ft { flex-wrap: wrap; }
+.fd-ft .nx-who { flex-basis: 100%; }
