@@ -166,3 +166,28 @@
 .edm-tip { margin: 0 var(--space-1); font-size: 14px; line-height: 20px; color: var(--ink-muted); }
 .edm-count { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: var(--brand); color: var(--on-brand); font: 700 17px/1 var(--font-display); }
 @media (prefers-reduced-motion: reduce) { .edm-node { transition: none; } }
+
+/* ---------- 3. People landing page ---------- */
+#vPeople h1.eu-headline { margin-bottom: var(--space-3); }
+.pp-lead { margin: 0 var(--space-1) var(--space-6); font-size: 15px; line-height: 22px; color: var(--ink-muted); }
+.pp-cards { display: grid; gap: var(--space-4); }
+.pp-card { position: relative; display: flex; flex-direction: column; width: 100%; padding: var(--space-5) var(--space-4) var(--space-3); border: 0; border-radius: var(--radius-lg); color: var(--ink); text-align: left; cursor: pointer; }
+.pp-card--ep { background: var(--tint-sky); } .pp-card--ec { background: var(--tint-apricot); } .pp-card--co { background: var(--tint-mint); }
+.pp-card:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 3px; }
+.pp-mon.mon { height: 190px; margin-bottom: 0; }
+.pp-mon .mon__col { height: calc(190px - var(--off)); border-radius: 28px 28px 12px 12px; }
+.pp-mon .mon__col img { filter: saturate(.9) contrast(1.05); }
+.pp-band { display: block; height: 10px; margin: 10px 2px 0; border-radius: 5px; }
+.pp-card--ep .pp-band { background: var(--accent-sky); } .pp-card--ec .pp-band { background: var(--accent-apricot); } .pp-card--co .pp-band { background: var(--accent-mint); }
+.pp-row { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--space-3); margin-top: var(--space-4); }
+.pp-tx { display: flex; flex-direction: column; min-width: 0; }
+.pp-k { font-size: 13px; line-height: 16px; font-weight: 600; color: var(--ink-muted); }
+.pp-t { font: 700 32px/36px var(--font-display); letter-spacing: -.03em; }
+.pp-m { margin-top: 4px; font-size: 13px; line-height: 18px; color: var(--ink-muted); }
+.pp-go { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 50%; background: var(--ink); color: var(--ink-inverse); }
+.pp-go .eu-icon { width: 22px; height: 22px; }
+.pp-credit { margin-top: var(--space-3); font-size: 11px; line-height: 14px; color: var(--ink-muted); }
+.dirhost { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
+.pp-back { gap: 4px; padding-left: 10px; }
+.pp-back .eu-icon { width: 18px; height: 18px; }
+@media (prefers-reduced-motion: no-preference) { .pp-card { transition: transform .15s ease-out; } .pp-card:active { transform: scale(.985); } }

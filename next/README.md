@@ -24,7 +24,8 @@ Workflow:
 
 - Home, "the Monday edition" (since 18 Oct 2026): masthead with the date, a headline that names the week, search and a week card; Your files with a five-step track from idea to law; Who ties them together; Coming up; Saved people and Recently viewed. Removed from Home: the calendar hero, news block, Files tile, the four institution tiles, cabinet of the day, country desk and seats by group. With no followed file, it uses all files and says so.
 - The map of your files: files in bands by stage, lines between files that share people, tap a file to see whom it shares. Opens from Map on Home and from the Files view.
-- Tab bar: deep blue bar, labels only, the current tab a light pill with a gold node (every screen in the preview).
+- Tab bar: Today, People, Calendar, Files (News opens from the Files view). Deep blue bar, labels only, the current tab a light pill with a gold node.
+- People landing page: three photo blocks (Parliament, Commission, Council) cut into columns like the country pages; each opens its section, which keeps a "People" back button. Photos hotlinked from Unsplash (Paolo Margari, Carl Campbell, Christian Lue), credited on each block.
 
 Promoted to the live app on 18 Oct 2026:
 

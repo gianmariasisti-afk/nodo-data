@@ -19,6 +19,10 @@
         With no followed file, the sections use all of nodo's files and say so.
 
      Features 1 to 8 of the previous round were promoted to the live app on 18 Oct 2026.
+     3. Navigation and People (since 18 Oct 2026): four tabs, Today, People, Calendar, Files (News opens from the Files view).
+        People opens on a landing page with three photo blocks, Parliament, Commission and Council, each cut into columns like the
+        country pages; a block opens its section, and each section has a way back to People. Photos: Unsplash, hotlinked as its
+        terms ask, credited on each block.
      ===================================================================== */
 
   /* ---------- 1. home: the Monday edition ---------- */
@@ -327,4 +331,55 @@
   renderFilesView = function () {
     edFilesViewBase();
     if (FILES.length) $("filesBody").insertAdjacentHTML("afterbegin", `<button class="eu-btn eu-btn--block ed-mapbtn" type="button" data-edmap="">${icon("share")}See your files on a map</button>`);
+  };
+
+
+  /* ---------- 3. navigation and the People landing page ---------- */
+  const PP_PHOTO = (id) => `https://images.unsplash.com/photo-${id}?ixlib=rb-4.1.0&w=900&q=75&fm=jpg&fit=max`;
+  const PP = [
+    { v: "ep", k: "European", t: "Parliament", meta: "metaEp", img: PP_PHOTO("1639864281528-907c82a361c3"), credit: "Paolo Margari", place: "European Parliament, Brussels", r: 0.667, z: 1.3 },
+    { v: "ec", k: "European", t: "Commission", meta: "metaEc", img: PP_PHOTO("1615997299664-e14af3b04637"), credit: "Carl Campbell", place: "Berlaymont, Brussels", r: 0.562, z: 1.45 },
+    { v: "co", k: "Council of the", t: "European Union", meta: "metaCo", img: PP_PHOTO("1608817576136-0f3a56922823"), credit: "Christian Lue", place: "Member states' flags, Brussels", r: 0.667, z: 1.3 },
+  ];
+  const ppMeta = (id) => { const el = $(id); if (!el) return ""; const kids = [...el.children].map((c) => c.textContent.trim()).filter(Boolean); return kids.length ? kids.join(" · ") : el.textContent.trim(); };
+  function renderPeople() {
+    const card = (p) => `<button class="pp-card pp-card--${p.v}" type="button" data-dir="${p.v}" aria-label="${esc(`${p.k} ${p.t}. ${ppMeta(p.meta)}`)}">
+        <span class="mon pp-mon" aria-hidden="true" style="--r:${p.r};--f:0;--z:${p.z};--x:${((p.z - 1) / 2).toFixed(3)}">${MON_COLS.map((off, i) =>
+          `<span class="mon__col" style="--off:${off}px;--i:${i}"><img src="${p.img}" alt="" decoding="async" loading="lazy"></span>`).join("")}</span>
+        <span class="pp-band" aria-hidden="true"></span>
+        <span class="pp-row"><span class="pp-tx"><span class="pp-k">${esc(p.k)}</span><span class="pp-t">${esc(p.t)}</span><span class="pp-m">${esc(ppMeta(p.meta))}</span></span>
+          <span class="pp-go" aria-hidden="true">${icon("arrow")}</span></span>
+        <span class="pp-credit">${esc(p.place)} · Photo: ${esc(p.credit)} / Unsplash</span></button>`;
+    $("vPeople").innerHTML = `<h1 class="eu-headline">Who do you need to <strong>reach?</strong></h1>
+      <p class="pp-lead">Every MEP, Commissioner, cabinet member and Council delegation, one tap away.</p>
+      <div class="pp-cards">${PP.map(card).join("")}</div>`;
+  }
+  (function ppMount() {
+    if ($("vPeople")) return;
+    $("vEp").insertAdjacentHTML("beforebegin", `<main id="vPeople" class="view" hidden aria-label="People"></main>`);
+    VIEW_IDS.people = "vPeople";
+    /* Tab bar: Today, People, Calendar, Files. News stays as a view, opened from Files. */
+    const label = (id, txt) => { const b = $(id); [...b.childNodes].forEach((n) => { if (n.nodeType === 3 && n.textContent.trim()) n.textContent = txt; }); };
+    label("navHome", "Today"); label("navDir", "People");
+    $("navNews").hidden = true;
+    $("navDir").addEventListener("click", (e) => { e.stopImmediatePropagation(); setView("people"); }, true);
+  })();
+  const ppRenderView = renderView;
+  renderView = function () { ppRenderView(); if (state.view === "people") renderPeople(); };
+  const ppSyncDock = syncDock;
+  syncDock = function () {
+    ppSyncDock();
+    const v = state.view;
+    if (v === "people") $("navDir").setAttribute("aria-current", "page");
+    if (v === "news") $("navFiles").setAttribute("aria-current", "page");
+    /* Each section keeps its switcher, with a way back to the People page in front of it. */
+    document.querySelectorAll(".dirhost").forEach((h) => {
+      if (h.querySelector(".pp-back")) return;
+      h.insertAdjacentHTML("afterbegin", `<button class="eu-btn eu-btn--sm pp-back" type="button" data-view="people">${icon("back")}People</button>`);
+    });
+  };
+  const ppFilesView = renderFilesView;
+  renderFilesView = function () {
+    ppFilesView();
+    $("filesBody").insertAdjacentHTML("afterbegin", `<button class="eu-btn eu-btn--outline eu-btn--block ed-mapbtn" type="button" data-view="news">${icon("news") || ""}Latest news on your files</button>`);
   };
