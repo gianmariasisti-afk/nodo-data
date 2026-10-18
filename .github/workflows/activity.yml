@@ -71,6 +71,8 @@ jobs:
             for f in $OWN; do [ -f "$RUNNER_TEMP/dc/$f" ] && cp "$RUNNER_TEMP/dc/$f" "data-cache/$f"; done
             if [ -d "$RUNNER_TEMP/dc/qtext" ]; then rm -rf data-cache/qtext; cp -r "$RUNNER_TEMP/dc/qtext" data-cache/qtext; fi
             node -e 'const f=require("fs");const e=JSON.parse(f.readFileSync(process.env.RUNNER_TEMP+"/act-entry.json","utf8"));if(e){const m=JSON.parse(f.readFileSync("v1/manifest.json","utf8"));m.files=m.files||{};m.files.activity=e;m.generated=new Date().toISOString();f.writeFileSync("v1/manifest.json",JSON.stringify(m,null,1)+"\n")}'
+            # The automatic pages index is built from the activity files, so it follows them.
+            node scripts/build-reports.mjs
             git add v1 data-cache
             if git diff --cached --quiet; then echo "Nothing new."; exit 0; fi
             git commit -q -m "Update MEP activity $(date -u +%F)"
