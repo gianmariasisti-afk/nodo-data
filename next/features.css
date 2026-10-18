@@ -194,3 +194,8 @@
 .pp-flags { position: relative; display: flex; align-items: flex-end; justify-content: space-between; gap: 2px; height: 190px; }
 .pp-flags::before { content: ""; position: absolute; top: -6px; left: calc(50% - 6px); width: 12px; height: 12px; border-radius: 50%; background: var(--spark); }
 .pp-flags i { flex: 1; min-width: 0; border-radius: 6px 6px 3px 3px; box-shadow: inset 0 0 0 1px rgba(13,21,53,.12); }
+.pp-wrap { position: relative; border-radius: var(--radius-lg); }
+.pp-wrap--ep { background: var(--tint-sky); } .pp-wrap--ec { background: var(--tint-apricot); } .pp-wrap--co { background: var(--tint-mint); }
+.pp-wrap .pp-card { background: none; padding-bottom: 0; }
+.pp-wrap .pp-credit { margin: 0; padding: var(--space-3) var(--space-4) var(--space-4); }
+.pp-credit a { color: var(--ink-muted); text-decoration: underline; text-underline-offset: 2px; }
