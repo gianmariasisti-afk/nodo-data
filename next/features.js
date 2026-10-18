@@ -12,6 +12,7 @@
      7. "Which files do you track?": asked once after sign-in, reachable any time from the Files view.
      8. "Your week": what the Monday email would hold. Nothing is sent yet.
      9. Country pages: a photo of a national monument, cut into five columns, above the country code.
+    10. Country pages: a band in the national flag's colours under the columns.
      ===================================================================== */
   const NX = { docs: null, byId: new Map(), loading: null, vocab: null, pick: null, ASKED: "nodo.next.askedFiles", REQ: "nodo.next.requested" };
   const nxRequested = () => { try { return new Set(JSON.parse(store.get(NX.REQ) || "[]")); } catch { return new Set(); } };
@@ -413,6 +414,47 @@
     SK: { name: "Bratislava Castle", place: "Bratislava", credit: "Martin Katler", r: 1.25, f: 0.37, z: 1.8, x: 0.4 },
   };
   const NX_COLS = [0, 28, 14, 28, 0];
+  /* ---------- 10. country pages: the flag band ----------
+     A thin band in the national flag's colours under the columns, right of the country code.
+     Colours: each country's specified values (law, decree or government guide) where one exists; sources in next/README.md. */
+  const nxStripes = (dir, list) => { const t = list.reduce((a, x) => a + (x[1] || 1), 0); let at = 0;
+    return `linear-gradient(${dir}, ${list.map(([c, w = 1]) => { const a = at; at += w; return `${c} ${(a / t * 100).toFixed(2)}% ${(at / t * 100).toFixed(2)}%`; }).join(", ")})`; };
+  const nxH = (...l) => nxStripes("to bottom", l), nxV = (...l) => nxStripes("to right", l);
+  const nxCross = (field, arm, x) => ({ bg: `linear-gradient(to bottom, transparent 33.33%, ${arm} 33.33% 66.66%, transparent 66.66%), ${field}`,
+    parts: [`left:${x}%;top:0;width:5px;height:100%;background:${arm}`] });
+  const nxDot = (at, bg, w = 10) => `left:calc(${at}% - ${w / 2}px);top:1px;width:${w}px;height:10px;border-radius:5px;background:${bg};box-shadow:0 0 0 2px var(--surface)`;
+  const NX_FLAG = {
+    AT: { bg: nxH(["#C8102E"], ["#FFFFFF"], ["#C8102E"]) },
+    BE: { bg: nxV(["#000000"], ["#FDDA24"], ["#EF3340"]) },
+    BG: { bg: nxH(["#FFFFFF"], ["#00966E"], ["#D62612"]) },
+    CY: { bg: "#FFFFFF", parts: [nxDot(50, "#D57800", 24), nxDot(42, "#4E5B31", 6), nxDot(58, "#4E5B31", 6)] },
+    CZ: { bg: nxH(["#FFFFFF"], ["#D7141A"]), parts: ["left:0;top:0;width:22px;height:100%;background:#11457E;clip-path:polygon(0 0,100% 50%,0 100%)"] },
+    DE: { bg: nxH(["#000000"], ["#D00000"], ["#FFCE00"]) },
+    DK: nxCross("#C8102E", "#FFFFFF", 35),
+    EE: { bg: nxH(["#0072CE"], ["#000000"], ["#FFFFFF"]) },
+    EL: { bg: `repeating-linear-gradient(to bottom, #014488 0 1.333px, #FFFFFF 1.333px 2.667px)`,
+      parts: ["left:0;top:0;width:22px;height:6.67px;background:linear-gradient(to right, transparent 40%, #FFFFFF 40% 60%, transparent 60%), linear-gradient(to bottom, transparent 30%, #FFFFFF 30% 70%, transparent 70%), #014488"] },
+    ES: { bg: nxH(["#AD1519"], ["#FABD00", 2], ["#AD1519"]) },
+    FI: nxCross("#FFFFFF", "#18447E", 28),
+    FR: { bg: nxV(["#000091"], ["#FFFFFF"], ["#E1000F"]) },
+    HR: { bg: nxH(["#FF0000"], ["#FFFFFF"], ["#171796"]), parts: [nxDot(50, "repeating-conic-gradient(#FF0000 0 25%, #FFFFFF 0 50%) 0 0 / 4px 4px")] },
+    HU: { bg: nxH(["#CE2939"], ["#FFFFFF"], ["#477050"]) },
+    IE: { bg: nxV(["#169B62"], ["#FFFFFF"], ["#FF883E"]) },
+    IT: { bg: nxV(["#008C45"], ["#F4F5F0"], ["#CD212A"]) },
+    LT: { bg: nxH(["#FDB913"], ["#006A44"], ["#C1272D"]) },
+    LU: { bg: nxH(["#EF3340"], ["#FFFFFF"], ["#00A3E0"]) },
+    LV: { bg: nxH(["#9D2235", 2], ["#FFFFFF", 1], ["#9D2235", 2]) },
+    MT: { bg: nxV(["#FFFFFF"], ["#CF142B"]) },
+    NL: { bg: nxH(["#AD1D25"], ["#FFFFFF"], ["#1E4785"]) },
+    PL: { bg: nxH(["#E9E8E7"], ["#D4213D"]) },
+    PT: { bg: nxV(["#006600", 2], ["#FF0000", 3]), parts: [nxDot(40, "#FFE900")] },
+    RO: { bg: nxV(["#002B7F"], ["#FCD116"], ["#CE1126"]) },
+    SE: nxCross("#005583", "#FFC200", 31),
+    SI: { bg: nxH(["#FFFFFF"], ["#0000FF"], ["#FF0000"]), parts: [nxDot(22, "#0000FF")] },
+    SK: { bg: nxH(["#FFFFFF"], ["#0035AD"], ["#D21034"]), parts: [nxDot(18, "#D21034")] },
+  };
+  const nxFlagBand = (cc) => { const f = NX_FLAG[cc === "GR" ? "EL" : cc]; if (!f) return "";
+    return `<span class="nx-flag" style="background:${f.bg}">${(f.parts || []).map((p) => `<i style="${p}"></i>`).join("")}</span>`; };
   const nxCountryBase = openCountry;
   openCountry = function (cc) {
     nxCountryBase(cc);
@@ -425,6 +467,6 @@
     const src = "monuments/" + (cc === "GR" ? "el" : cc.toLowerCase()) + ".jpg";
     hero.insertAdjacentHTML("afterbegin", `<div class="nx-mon" aria-hidden="true" style="--r:${m.r};--f:${m.f};--z:${m.z || 1};--x:${m.x || 0}">${NX_COLS.map((off, i) =>
       `<span class="nx-mon__col" style="--off:${off}px;--i:${i}"><img src="${src}" alt="" decoding="async"></span>`).join("")}
-      <span class="nx-mon__credit">Photo: ${esc(m.credit)} / Unsplash</span></div>`);
+      ${nxFlagBand(cc)}<span class="nx-mon__credit">Photo: ${esc(m.credit)} / Unsplash</span></div>`);
   };
   /* ===================== end of nodo preview features ===================== */
