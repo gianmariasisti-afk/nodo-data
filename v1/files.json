@@ -42,35 +42,43 @@
    "next": [
     {
      "date": "2026-10-13",
-     "what": "General Affairs Council debates the MFF (Luxembourg)"
+     "what": "General Affairs Council debates the MFF (Luxembourg)",
+     "src": "council-gac-20261013"
     },
     {
      "date": "2026-10-15",
-     "what": "European Council, 15–16 October: leaders discuss the MFF"
+     "what": "European Council, 15–16 October: leaders discuss the MFF",
+     "src": "council-euco-20261015"
     },
     {
      "date": "2026-10-20",
-     "what": "Council MFF working party: national and regional partnerships"
+     "what": "Council MFF working party: national and regional partnerships",
+     "src": "council-mpo-calendar"
     },
     {
      "date": "2026-10-30",
-     "what": "Council MFF working party: national and regional partnerships"
+     "what": "Council MFF working party: national and regional partnerships",
+     "src": "council-mpo-calendar"
     },
     {
      "date": "2026-11-03",
-     "what": "Council MFF working party: national and regional partnerships"
+     "what": "Council MFF working party: national and regional partnerships",
+     "src": "council-mpo-calendar"
     },
     {
      "date": "2026-11-05",
-     "what": "Council MFF working party (AHWP MFF)"
+     "what": "Council MFF working party (AHWP MFF)",
+     "src": "council-mpo-calendar"
     },
     {
      "date": "2026-11-17",
-     "what": "Council MFF working party (AHWP MFF)"
+     "what": "Council MFF working party (AHWP MFF)",
+     "src": "council-mpo-calendar"
     },
     {
      "date": "2026-12-07",
-     "what": "Council MFF working party (AHWP MFF)"
+     "what": "Council MFF working party (AHWP MFF)",
+     "src": "council-mpo-calendar"
     }
    ],
    "ep": {
@@ -355,11 +363,13 @@
    "next": [
     {
      "date": "2026-10-13",
-     "what": "General Affairs Council: Presidency reports on the omnibus simplification packages"
+     "what": "General Affairs Council: Presidency reports on the omnibus simplification packages",
+     "src": "council-gac-20261013"
     },
     {
      "date": null,
-     "what": "Joint ITRE-LIBE committee vote: no date set yet"
+     "what": "Joint ITRE-LIBE committee vote: no date set yet",
+     "src": "oeil-2025-0360-cod"
     }
    ],
    "ep": {
@@ -611,7 +621,8 @@
    "next": [
     {
      "date": "2026-12-14",
-     "what": "Parliament plenary vote (indicative date)"
+     "what": "Parliament plenary vote (indicative date)",
+     "src": "oeil-2026-0068"
     }
    ],
    "ep": {
@@ -889,15 +900,18 @@
    "next": [
     {
      "date": "2026-10-12",
-     "what": "Telecoms ministers discuss the Digital Networks Act (informal meeting, Limerick, 12–13 October)"
+     "what": "Telecoms ministers discuss the Digital Networks Act (informal meeting, Limerick, 12–13 October)",
+     "src": "ie-presidency-telecoms"
     },
     {
      "date": "2026-12-01",
-     "what": "Telecoms Council: Presidency progress report on the Digital Networks Act (planned)"
+     "what": "Telecoms Council: Presidency progress report on the Digital Networks Act (planned)",
+     "src": "council-tte-tel-20261201"
     },
     {
      "date": null,
-     "what": "ITRE committee vote: no date set yet"
+     "what": "ITRE committee vote: no date set yet",
+     "src": "oeil-2026-0013-cod"
     }
    ],
    "ep": {
@@ -1054,6 +1068,11 @@
      "id": "ie-presidency-programme",
      "title": "Programme of the Irish Presidency of the Council (July–December 2026)",
      "url": "https://irish-presidency.consilium.europa.eu/media/3wkh4tto/irish-presidency-of-the-council-of-the-european-union-2026.pdf"
+    },
+    {
+     "id": "council-tte-tel-20261201",
+     "title": "Council: Telecommunications Council, 1 Dec 2026",
+     "url": "https://www.consilium.europa.eu/en/meetings/tte/2026/12/01/"
     }
    ]
   },
@@ -1068,7 +1087,8 @@
    "next": [
     {
      "date": "2026-11-11",
-     "what": "Commission proposal expected (indicative date)"
+     "what": "Commission proposal expected (indicative date)",
+     "src": "dfa-newsletter-20260929"
     }
    ],
    "ep": {
@@ -1283,11 +1303,13 @@
    "next": [
     {
      "date": "2026-10-13",
-     "what": "Council industry working party on the Chips Act 2.0"
+     "what": "Council industry working party on the Chips Act 2.0",
+     "src": "council-industry-wp-20261013"
     },
     {
      "date": null,
-     "what": "Parliament committee votes: no dates set yet"
+     "what": "Parliament committee votes: no dates set yet",
+     "src": "oeil-2026-0139-cod"
     }
    ],
    "ep": {
@@ -1570,7 +1592,8 @@
    "next": [
     {
      "date": "2026-12-02",
-     "what": "Labelling cut-off for generative AI systems already on the market"
+     "what": "Labelling cut-off for generative AI systems already on the market",
+     "src": "lewis-silkin-ai"
     }
    ],
    "ep": {

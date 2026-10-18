@@ -89,6 +89,9 @@ if (files) {
     for (const n of f.next || []) {
       if (n.date !== null && !ISO.test(String(n.date))) bad(`${at}: next date "${n.date}" is not YYYY-MM-DD or null`);
       if (!n.what) bad(`${at}: next item without text`);
+      /* A dated step must name the source that gives its date (an id from this file's sources). */
+      if (n.src !== undefined && !(f.sources || []).some((x) => x.id === n.src && /^https:\/\//.test(x.url || ""))) bad(`${at}: next item "${n.what}" points to unknown or non-https source "${n.src}"`);
+      if (n.date && !n.src) bad(`${at}: dated next item "${n.what}" has no source`);
     }
     for (const m of f.meps || []) if (mepIds.size && !mepIds.has(String(m.id))) bad(`${at}: MEP id ${m.id} not in meps.json`);
     for (const c of f.cabinet || []) if (cabKeys.size && !cabKeys.has(c.k)) bad(`${at}: cabinet key ${c.k} not in commission.json`);

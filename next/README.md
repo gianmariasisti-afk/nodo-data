@@ -38,6 +38,7 @@ Workflow:
     - Official Pantone, hex from Wikipedia or FOTW: BE (Belgian protocol guide), BG (textile Pantone), CY (2006 Pantone), HR (Parliament site), LU (Grand-Ducal Regulation 1993).
     - No official shade: CZ (Wikipedia via FOTW), EL (2010 Ministry of Culture emblem guide), PT (Presidency recommendation via Wikipedia), SK (Album des Pavillons 2023).
     - Simplified on purpose: Nordic crosses and Greece's canton keep their layout; coats of arms (HR, PT, SI, SK) and Cyprus's map and branches become small marks.
+11. Curated files: each step in "What happens next" links to the source that gives its date (`src` in `v1/files.json`, an id from the file's sources). `scripts/validate-data.mjs` fails a dated step without a source. Shown in the preview only; the live app ignores `src`.
 
 Rules for preview features:
 

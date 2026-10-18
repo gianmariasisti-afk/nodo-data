@@ -13,6 +13,7 @@
      8. "Your week": what the Monday email would hold. Nothing is sent yet.
      9. Country pages: a photo of a national monument, cut into five columns, above the country code.
     10. Country pages: a band in the national flag's colours under the columns.
+    11. Curated files: each next step links to the source page that gives its date.
      ===================================================================== */
   const NX = { docs: null, byId: new Map(), loading: null, vocab: null, pick: null, ASKED: "nodo.next.askedFiles", REQ: "nodo.next.requested" };
   const nxRequested = () => { try { return new Set(JSON.parse(store.get(NX.REQ) || "[]")); } catch { return new Set(); } };
@@ -468,5 +469,27 @@
     hero.insertAdjacentHTML("afterbegin", `<div class="nx-mon" aria-hidden="true" style="--r:${m.r};--f:${m.f};--z:${m.z || 1};--x:${m.x || 0}">${NX_COLS.map((off, i) =>
       `<span class="nx-mon__col" style="--off:${off}px;--i:${i}"><img src="${src}" alt="" decoding="async"></span>`).join("")}
       ${nxFlagBand(cc)}<span class="nx-mon__credit">Photo: ${esc(m.credit)} / Unsplash</span></div>`);
+  };
+  /* ---------- 11. curated files: each next step links to its source ----------
+     files.json gives every dated step a "src", the id of the entry in the file's sources that gives the date.
+     The row becomes a link to that page (opens in the browser), with the site under the date. */
+  const nxHost = (u) => { try { return new URL(u).hostname.replace(/^www\./, ""); } catch { return ""; } };
+  const nxStepsBase = openFile;
+  openFile = function (id, keep, startTab) {
+    nxStepsBase(id, keep, startTab);
+    const f = FILE_BY[id];
+    if (!f || (state.ftab || "ep") !== "next") return;
+    const h = [...document.querySelectorAll("#profileBody h3")].find((x) => x.textContent.trim() === "What happens next");
+    const list = h && h.nextElementSibling && h.nextElementSibling.classList.contains("list") ? h.nextElementSibling : null;
+    if (!list) return;
+    const steps = stepsAhead(f), rows = [...list.children];
+    steps.forEach((n, i) => {
+      const s = n.src && (f.sources || []).find((x) => x.id === n.src), u = s && safeUrl(s.url), el = rows[i];
+      if (!u || !el) return;
+      const when = n.date ? fdDate(n.date, true) : "";
+      el.outerHTML = row({ el: "a", attrs: `href="${esc(u)}" target="_blank" rel="noopener" aria-label="${esc(n.what)}, source: ${esc(s.title)}"`, lead: disc("cal"),
+        name: esc(n.what), meta: esc([when, nxHost(u)].filter(Boolean).join(" · ")), wrap: true,
+        tail: `<span class="eu-iconbtn eu-iconbtn--sm" aria-hidden="true">${icon("ext")}</span>` });
+    });
   };
   /* ===================== end of nodo preview features ===================== */
