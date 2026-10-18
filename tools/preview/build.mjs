@@ -68,6 +68,7 @@ const html = patch(readFileSync(join(ROOT, "index.html"), "utf8"), "index.html",
   ["avatars", '<script src="avatars.js">', '<script src="../avatars.js">'],
   ["data", '? "v1/" :', '? "../v1/" :'],
   ["photos", "fetch(`photos/${f}.json`)", "fetch(`../photos/${f}.json`)"],
+  ["monument photos", 'const MON_BASE = "monuments/";', 'const MON_BASE = "../monuments/";'],
   ["supabase library", 'sc.src = "vendor/supabase.js"', 'sc.src = "../vendor/supabase.js"'],
   /* Preview events carry a session id starting "next-", so the usage dashboard can tell them apart. */
   ["usage tag", "sid: Math.random().toString(36).slice(2, 12)", 'sid: "next-" + Math.random().toString(36).slice(2, 10)'],

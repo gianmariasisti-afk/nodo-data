@@ -1014,6 +1014,18 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
 .pr-sheet .chips { margin-top: 0; }
 .pr-sheet .eu-search { margin-top: 0; }
 .pr-sheet .eu-btn { margin-top: var(--space-2); }
+/* Country pages: monument photo in five columns, flag band, place name in the top bar. The large code disc is left out here. */
+.mon__place { margin: 0; display: grid; justify-items: end; text-align: right; }
+.mon__place b { font: 700 17px/20px var(--font-display); letter-spacing: -0.01em; color: var(--ink); }
+.mon__place span { font-size: 12px; line-height: 16px; font-weight: 500; color: var(--ink-muted); }
+.mon-hero { margin-top: var(--space-5); }
+.mon { position: relative; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; align-items: end; height: 288px; margin-bottom: 46px; container-type: inline-size; }
+.mon::before { content: ""; position: absolute; top: -6px; left: calc(50% - 6px); width: 12px; height: 12px; border-radius: 50%; background: var(--spark); }
+.mon__col { position: relative; overflow: hidden; height: calc(288px - var(--off)); border-radius: 32px 32px 14px 14px; background: var(--surface-sunken); }
+.mon__col img { position: absolute; left: calc(var(--i) * -1 * (100% + 8px) - var(--x) * 100cqw); top: calc(-1 * var(--f) * var(--z) * var(--r) * 100cqw - var(--off)); width: calc(var(--z) * 100cqw); max-width: none; height: auto; filter: saturate(.8) contrast(1.05); }
+.mon__credit { position: absolute; right: var(--space-1); bottom: -44px; font-size: 11px; line-height: 14px; color: var(--ink-muted); }
+.flag-band { position: absolute; left: var(--space-1); right: var(--space-1); bottom: -24px; height: 12px; border-radius: 6px; overflow: hidden; box-shadow: inset 0 0 0 1px var(--hairline); }
+.flag-band i { position: absolute; display: block; }
 </style>
 
 <section id="boot" class="boot" aria-live="polite"><div>
@@ -1715,6 +1727,15 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   /* Files that matter: followed files first, then the files with the nearest dated step. Curated order breaks ties. */
   const followBtn = (id, name) => `<button class="eu-iconbtn eu-iconbtn--sm star" type="button" data-follow="${esc(id)}" aria-pressed="${state.follow.has(id)}" aria-label="Follow ${esc(name)}">${icon("star")}</button>`;
   /* The next step is the first one still ahead (dated today or later); undated steps come after; past steps are skipped. */
+  const hostOf = (u) => { try { return new URL(u).hostname.replace(/^www\./, ""); } catch { return ""; } };
+  /* A next step links to the source that gives its date (src: an id from the file's sources), with the site under the date. */
+  const stepRow = (f, n) => {
+    const s = n.src && (f.sources || []).find((x) => x.id === n.src), u = s && safeUrl(s.url);
+    if (!u) return row({ cls: "is-static", lead: disc("cal"), name: esc(n.what), meta: esc(fdDate(n.date, true)), wrap: true });
+    return row({ el: "a", attrs: `href="${esc(u)}" target="_blank" rel="noopener" aria-label="${esc(n.what)}, source: ${esc(s.title)}"`, lead: disc("cal"),
+      name: esc(n.what), meta: esc([n.date ? fdDate(n.date, true) : "", hostOf(u)].filter(Boolean).join(" · ")), wrap: true,
+      tail: `<span class="eu-iconbtn eu-iconbtn--sm" aria-hidden="true">${icon("ext")}</span>` });
+  };
   const stepsAhead = (f) => { const t = isoD(new Date()); const n = f.next || []; return [...n.filter((x) => x.date && x.date >= t), ...n.filter((x) => !x.date)]; };
   const nextStep = (f) => stepsAhead(f)[0] || null;
   const nextLine = (f) => { const n = nextStep(f); if (n) return (n.date ? fdDate(n.date) + " · " : "") + n.what; const c = countsOf(f); return `${c.ep} ${pl(c.ep, "MEP", "MEPs")} · ${c.ec} ${pl(c.ec, "Commissioner", "Commissioners")} · ${c.cab} cabinet staff`; };
@@ -2262,6 +2283,85 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     else if (state.open && state.open.startsWith("wp:")) { const id = state.open.slice(3); $("prWpList").innerHTML = wpListHtml(id); }
     else renderCo();
   }
+  /* Country pages: a national monument photo cut into five columns, and a band in the flag's colours.
+     Photos in monuments/ (Unsplash, credited on the page). r: photo height ÷ width. f: how far down the photo the columns start.
+     z: zoom. x: sideways shift when zoomed. Years only where a source gives one completion or opening date.
+     Flag colours: each country's specified values where one exists; sources in README.md. */
+  const MON_BASE = "../monuments/";
+  const MONUMENTS = {
+    AT: { name: "Votivkirche", place: "Vienna", year: "1879", credit: "Daniel Koo", r: 1.506, f: 0.04 },
+    BE: { name: "Grand-Place", place: "Brussels", credit: "Alicia Abeloos", r: 1.5, f: 0 },
+    BG: { name: "Alexander Nevsky Cathedral", place: "Sofia", year: "1912", credit: "Alf Redo", r: 1.504, f: 0.12 },
+    CY: { name: "Petra tou Romiou", place: "Paphos", credit: "Dylan Sosso", r: 1.25, f: 0.2 },
+    CZ: { name: "St Nicholas Church", place: "Prague", credit: "Samuel Quek", r: 1.5, f: 0.08 },
+    DE: { name: "Brandenburg Gate", place: "Berlin", year: "1791", credit: "Tim Hüfner", r: 1.5, f: 0.04 },
+    DK: { name: "Nyhavn", place: "Copenhagen", year: "1673", credit: "Daria Strategy", r: 1.25, f: 0.15 },
+    EE: { name: "Town Hall Square", place: "Tallinn", credit: "Judith Prins", r: 1.5, f: 0.04 },
+    EL: { name: "Acropolis", place: "Athens", credit: "Ken Nagata", r: 1.5, f: 0.05 },
+    ES: { name: "Casa Batlló", place: "Barcelona", year: "1906", credit: "Theodor Vasile", r: 1.652, f: 0.3 },
+    FI: { name: "Helsinki Cathedral", place: "Helsinki", credit: "Illia Panasenko", r: 1.5, f: 0.3 },
+    FR: { name: "Eiffel Tower", place: "Paris", year: "1889", credit: "Pedro Gandra", r: 1.5, f: 0 },
+    HR: { name: "City walls", place: "Dubrovnik", credit: "mana5280", r: 1.246, f: 0.18 },
+    HU: { name: "Chain Bridge", place: "Budapest", year: "1849", credit: "Ákos Szócska", r: 1.5, f: 0.25 },
+    IE: { name: "Rock of Cashel", place: "Tipperary", credit: "Irina Shishkina", r: 1.333, f: 0 },
+    IT: { name: "Colosseum", place: "Rome", year: "AD 80", credit: "Redd Francisco", r: 1.5, f: 0.25 },
+    LT: { name: "Cathedral Bell Tower", place: "Vilnius", credit: "Tadas Petrokas", r: 1.25, f: 0 },
+    LU: { name: "Grund", place: "Luxembourg City", credit: "Alena Praslova", r: 1.333, f: 0.25 },
+    LV: { name: "House of the Blackheads", place: "Riga", credit: "Aleksei Smagin", r: 1.5, f: 0.2 },
+    MT: { name: "Valletta", place: "Malta", credit: "Reuben Farrugia", r: 1.333, f: 0.1 },
+    NL: { name: "Canal houses", place: "Amsterdam", credit: "Matheo JBT", r: 1.25, f: 0.08 },
+    PL: { name: "Palace of Culture and Science", place: "Warsaw", year: "1955", credit: "Victor Malyushev", r: 1.333, f: 0.02 },
+    PT: { name: "Belém Tower", place: "Lisbon", year: "1519", credit: "Angel Ceballos", r: 1.778, f: 0.2 },
+    RO: { name: "Romanian Athenaeum", place: "Bucharest", year: "1888", credit: "Emilia Morariu", r: 1.25, f: 0.1 },
+    SE: { name: "Stockholm City Hall", place: "Stockholm", year: "1923", credit: "Stockholm Paris Studio", r: 1.333, f: 0.22, z: 1.3, x: 0.15 },
+    SI: { name: "Bled Island", place: "Bled", credit: "Pavel Golasowski", r: 1.25, f: 0.1 },
+    SK: { name: "Bratislava Castle", place: "Bratislava", credit: "Martin Katler", r: 1.25, f: 0.37, z: 1.8, x: 0.4 },
+  };
+  const MON_COLS = [0, 28, 14, 28, 0];
+  const flagStripes = (dir, list) => { const t = list.reduce((a, x) => a + (x[1] || 1), 0); let at = 0;
+    return `linear-gradient(${dir}, ${list.map(([c, w = 1]) => { const a = at; at += w; return `${c} ${(a / t * 100).toFixed(2)}% ${(at / t * 100).toFixed(2)}%`; }).join(", ")})`; };
+  const flagH = (...l) => flagStripes("to bottom", l), flagV = (...l) => flagStripes("to right", l);
+  const flagCross = (field, arm, x) => ({ bg: `linear-gradient(to bottom, transparent 33.33%, ${arm} 33.33% 66.66%, transparent 66.66%), ${field}`,
+    parts: [`left:${x}%;top:0;width:5px;height:100%;background:${arm}`] });
+  const flagDot = (at, bg, w = 10) => `left:calc(${at}% - ${w / 2}px);top:1px;width:${w}px;height:10px;border-radius:5px;background:${bg};box-shadow:0 0 0 2px var(--surface)`;
+  const FLAGS = {
+    AT: { bg: flagH(["#C8102E"], ["#FFFFFF"], ["#C8102E"]) },
+    BE: { bg: flagV(["#000000"], ["#FDDA24"], ["#EF3340"]) },
+    BG: { bg: flagH(["#FFFFFF"], ["#00966E"], ["#D62612"]) },
+    CY: { bg: "#FFFFFF", parts: [flagDot(50, "#D57800", 24), flagDot(42, "#4E5B31", 6), flagDot(58, "#4E5B31", 6)] },
+    CZ: { bg: flagH(["#FFFFFF"], ["#D7141A"]), parts: ["left:0;top:0;width:22px;height:100%;background:#11457E;clip-path:polygon(0 0,100% 50%,0 100%)"] },
+    DE: { bg: flagH(["#000000"], ["#D00000"], ["#FFCE00"]) },
+    DK: flagCross("#C8102E", "#FFFFFF", 35),
+    EE: { bg: flagH(["#0072CE"], ["#000000"], ["#FFFFFF"]) },
+    EL: { bg: `repeating-linear-gradient(to bottom, #014488 0 1.333px, #FFFFFF 1.333px 2.667px)`,
+      parts: ["left:0;top:0;width:22px;height:6.67px;background:linear-gradient(to right, transparent 40%, #FFFFFF 40% 60%, transparent 60%), linear-gradient(to bottom, transparent 30%, #FFFFFF 30% 70%, transparent 70%), #014488"] },
+    ES: { bg: flagH(["#AD1519"], ["#FABD00", 2], ["#AD1519"]) },
+    FI: flagCross("#FFFFFF", "#18447E", 28),
+    FR: { bg: flagV(["#000091"], ["#FFFFFF"], ["#E1000F"]) },
+    HR: { bg: flagH(["#FF0000"], ["#FFFFFF"], ["#171796"]), parts: [flagDot(50, "repeating-conic-gradient(#FF0000 0 25%, #FFFFFF 0 50%) 0 0 / 4px 4px")] },
+    HU: { bg: flagH(["#CE2939"], ["#FFFFFF"], ["#477050"]) },
+    IE: { bg: flagV(["#169B62"], ["#FFFFFF"], ["#FF883E"]) },
+    IT: { bg: flagV(["#008C45"], ["#F4F5F0"], ["#CD212A"]) },
+    LT: { bg: flagH(["#FDB913"], ["#006A44"], ["#C1272D"]) },
+    LU: { bg: flagH(["#EF3340"], ["#FFFFFF"], ["#00A3E0"]) },
+    LV: { bg: flagH(["#9D2235", 2], ["#FFFFFF", 1], ["#9D2235", 2]) },
+    MT: { bg: flagV(["#FFFFFF"], ["#CF142B"]) },
+    NL: { bg: flagH(["#AD1D25"], ["#FFFFFF"], ["#1E4785"]) },
+    PL: { bg: flagH(["#E9E8E7"], ["#D4213D"]) },
+    PT: { bg: flagV(["#006600", 2], ["#FF0000", 3]), parts: [flagDot(40, "#FFE900")] },
+    RO: { bg: flagV(["#002B7F"], ["#FCD116"], ["#CE1126"]) },
+    SE: flagCross("#005583", "#FFC200", 31),
+    SI: { bg: flagH(["#FFFFFF"], ["#0000FF"], ["#FF0000"]), parts: [flagDot(22, "#0000FF")] },
+    SK: { bg: flagH(["#FFFFFF"], ["#0035AD"], ["#D21034"]), parts: [flagDot(18, "#D21034")] },
+  };
+  const flagBand = (cc) => { const f = FLAGS[cc === "GR" ? "EL" : cc]; if (!f) return "";
+    return `<span class="flag-band" style="background:${f.bg}">${(f.parts || []).map((p) => `<i style="${p}"></i>`).join("")}</span>`; };
+  const monOf = (cc) => MONUMENTS[cc === "GR" ? "EL" : cc];
+  const monPlace = (m) => `<p class="mon__place"><b>${esc(m.name)}</b><span>${esc(m.year ? m.place + " · " + m.year : m.place)}</span></p>`;
+  const monCols = (cc, m) => { const src = MON_BASE + (cc === "GR" ? "el" : cc.toLowerCase()) + ".jpg";
+    return `<div class="mon" aria-hidden="true" style="--r:${m.r};--f:${m.f};--z:${m.z || 1};--x:${m.x || 0}">${MON_COLS.map((off, i) =>
+      `<span class="mon__col" style="--off:${off}px;--i:${i}"><img src="${src}" alt="" decoding="async"></span>`).join("")}
+      ${flagBand(cc)}<span class="mon__credit">Photo: ${esc(m.credit)} / Unsplash</span></div>`; };
   function openCountry(cc) {
     state.open = "country:" + cc;
     const P = CO.presidency, today = isoD(new Date()), pr = CO.permreps[cc] || {};
@@ -2273,9 +2373,10 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const mx = Math.max(1, ...groups.map((x) => x[1]));
     const prRow = (k, lab, sub) => row({ cls: "is-static", lead: disc("user"), name: pr[k] ? esc(person(pr[k][0])) : "Not listed in 2026 Council lists", wrap: true,
       meta: `${esc(lab)}${pr[k] ? " · listed " + esc(fmtIso(pr[k][1], { day: "numeric", month: "short", year: "numeric" })) : ""}`, tail: `<span class="row-aside">${esc(sub)}</span>` });
+    const mon = monOf(cc);
     showProfile(`
-      <div class="tb"><button class="eu-iconbtn" type="button" data-close aria-label="Back">${icon("back")}</button></div>
-      <div class="hero">${codeAva(cc, "big")}<h2 class="eu-headline" id="pName"><strong>${esc(countryName(cc))}</strong></h2>
+      <div class="tb"><button class="eu-iconbtn" type="button" data-close aria-label="Back">${icon("back")}</button>${mon ? monPlace(mon) : ""}</div>
+      <div class="hero${mon ? " mon-hero" : ""}">${mon ? monCols(cc, mon) : codeAva(cc, "big")}<h2 class="eu-headline" id="pName"><strong>${esc(countryName(cc))}</strong></h2>
         <p class="bio">${pct(share(cc))} of the EU population · ${(POP[cc] / 1e6).toFixed(1)} million</p>
         ${pres ? `<p class="pf-line">${pres === presOf(new Date()) ? "Holds the Council Presidency until " : "Next Council Presidency: "}${esc(pres === presOf(new Date()) ? fmtD(new Date(+pres[2].slice(0, 4), +pres[2].slice(5, 7), 0), { day: "numeric", month: "long", year: "numeric" }) : fmtD(new Date(+pres[1].slice(0, 4), +pres[1].slice(5, 7) - 1, 1), { month: "long", year: "numeric" }))}</p>` : ""}</div>
       <div class="stats"><div><b>${meps.length}</b><span>${pl(meps.length, "MEP", "MEPs")}</span></div><div><b>${com ? 1 : 0}</b><span>${pl(com ? 1 : 0, "Commissioner", "Commissioners")}</span></div><div><b>${desk.length}</b><span>${pl(desk.length, "Cabinet desk", "Cabinet desks")}</span></div></div>
@@ -2605,7 +2706,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
         + `<p class="note">Built daily from the Parliament's open data, the Council calendar and nodo's own file data. Procedural steps appear with a delay of up to a day.</p>`;
     } else {
       const nx = stepsAhead(f), cfs = ((f.council || {}).configs || []).map((cid) => CO_CONFS.find((x) => x.id === cid)).filter(Boolean);
-      body = `<h3>What happens next</h3>` + (nx.length ? `<div class="list">${nx.map((n) => row({ cls: "is-static", lead: disc("cal"), name: esc(n.what), meta: esc(fdDate(n.date, true)), wrap: true })).join("")}</div>` : `<div class="hint"><span>No dated step yet.</span></div>`)
+      body = `<h3>What happens next</h3>` + (nx.length ? `<div class="list">${nx.map((n) => stepRow(f, n)).join("")}</div>` : `<div class="hint"><span>No dated step yet.</span></div>`)
         + (cfs.length ? `<h3>In the Council</h3><div class="list">${cfs.map(confRow).join("")}</div>` : "") + wpBlock(f) + (f.council && f.council.note && (cfs.length || wpBlock(f)) ? `<p class="note">${esc(f.council.note)}</p>` : "")
         + ((f.caveats || []).length ? `<h3>Check before you rely on it</h3>${f.caveats.map((x) => `<div class="block"><p>${esc(typeof x === "string" ? x : x.text || x.note || "")}</p></div>`).join("")}` : "")
         + ((f.sources || []).filter((x) => safeUrl(x.url)).length ? `<h3>Sources</h3><div class="list">${f.sources.filter((x) => safeUrl(x.url)).map((x) => extRow(esc(x.title), esc(safeUrl(x.url)))).join("")}</div>` : "");
@@ -4186,9 +4287,6 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
      6. Files view: "Your files", what moved this week, and email and alert settings.
      7. "Which files do you track?": asked once after sign-in, reachable any time from the Files view.
      8. "Your week": what the Monday email would hold. Nothing is sent yet.
-     9. Country pages: a photo of a national monument, cut into five columns, above the country code.
-    10. Country pages: a band in the national flag's colours under the columns.
-    11. Curated files: each next step links to the source page that gives its date.
      ===================================================================== */
   const NX = { docs: null, byId: new Map(), loading: null, vocab: null, pick: null, ASKED: "nodo.next.askedFiles", REQ: "nodo.next.requested" };
   const nxRequested = () => { try { return new Set(JSON.parse(store.get(NX.REQ) || "[]")); } catch { return new Set(); } };
@@ -4553,120 +4651,6 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   }, true);
   nxLoadDocs();
 
-  /* ---------- 9. country pages: a monument photo cut into columns ----------
-     One photo per country, served from next/monuments/. The five strips are one picture: each strip shows its own
-     slice, offset by its column, so the photo reads whole across the gaps. Countries without an entry keep the
-     plain page. The photo loads only when the country page opens. */
-  /* r: photo height ÷ width. f: how far down the photo the columns start (share of its height).
-     z: zoom (1 = the photo spans the five columns). x: sideways shift when zoomed (share of the columns' width).
-     Years only where a source gives a single completion or opening date. */
-  const NX_MON = {
-    AT: { name: "Votivkirche", place: "Vienna", year: "1879", credit: "Daniel Koo", r: 1.506, f: 0.04 },
-    BE: { name: "Grand-Place", place: "Brussels", credit: "Alicia Abeloos", r: 1.5, f: 0 },
-    BG: { name: "Alexander Nevsky Cathedral", place: "Sofia", year: "1912", credit: "Alf Redo", r: 1.504, f: 0.12 },
-    CY: { name: "Petra tou Romiou", place: "Paphos", credit: "Dylan Sosso", r: 1.25, f: 0.2 },
-    CZ: { name: "St Nicholas Church", place: "Prague", credit: "Samuel Quek", r: 1.5, f: 0.08 },
-    DE: { name: "Brandenburg Gate", place: "Berlin", year: "1791", credit: "Tim Hüfner", r: 1.5, f: 0.04 },
-    DK: { name: "Nyhavn", place: "Copenhagen", year: "1673", credit: "Daria Strategy", r: 1.25, f: 0.15 },
-    EE: { name: "Town Hall Square", place: "Tallinn", credit: "Judith Prins", r: 1.5, f: 0.04 },
-    EL: { name: "Acropolis", place: "Athens", credit: "Ken Nagata", r: 1.5, f: 0.05 },
-    ES: { name: "Casa Batlló", place: "Barcelona", year: "1906", credit: "Theodor Vasile", r: 1.652, f: 0.3 },
-    FI: { name: "Helsinki Cathedral", place: "Helsinki", credit: "Illia Panasenko", r: 1.5, f: 0.3 },
-    FR: { name: "Eiffel Tower", place: "Paris", year: "1889", credit: "Pedro Gandra", r: 1.5, f: 0 },
-    HR: { name: "City walls", place: "Dubrovnik", credit: "mana5280", r: 1.246, f: 0.18 },
-    HU: { name: "Chain Bridge", place: "Budapest", year: "1849", credit: "Ákos Szócska", r: 1.5, f: 0.25 },
-    IE: { name: "Rock of Cashel", place: "Tipperary", credit: "Irina Shishkina", r: 1.333, f: 0 },
-    IT: { name: "Colosseum", place: "Rome", year: "AD 80", credit: "Redd Francisco", r: 1.5, f: 0.25 },
-    LT: { name: "Cathedral Bell Tower", place: "Vilnius", credit: "Tadas Petrokas", r: 1.25, f: 0 },
-    LU: { name: "Grund", place: "Luxembourg City", credit: "Alena Praslova", r: 1.333, f: 0.25 },
-    LV: { name: "House of the Blackheads", place: "Riga", credit: "Aleksei Smagin", r: 1.5, f: 0.2 },
-    MT: { name: "Valletta", place: "Malta", credit: "Reuben Farrugia", r: 1.333, f: 0.1 },
-    NL: { name: "Canal houses", place: "Amsterdam", credit: "Matheo JBT", r: 1.25, f: 0.08 },
-    PL: { name: "Palace of Culture and Science", place: "Warsaw", year: "1955", credit: "Victor Malyushev", r: 1.333, f: 0.02 },
-    PT: { name: "Belém Tower", place: "Lisbon", year: "1519", credit: "Angel Ceballos", r: 1.778, f: 0.2 },
-    RO: { name: "Romanian Athenaeum", place: "Bucharest", year: "1888", credit: "Emilia Morariu", r: 1.25, f: 0.1 },
-    SE: { name: "Stockholm City Hall", place: "Stockholm", year: "1923", credit: "Stockholm Paris Studio", r: 1.333, f: 0.22, z: 1.3, x: 0.15 },
-    SI: { name: "Bled Island", place: "Bled", credit: "Pavel Golasowski", r: 1.25, f: 0.1 },
-    SK: { name: "Bratislava Castle", place: "Bratislava", credit: "Martin Katler", r: 1.25, f: 0.37, z: 1.8, x: 0.4 },
-  };
-  const NX_COLS = [0, 28, 14, 28, 0];
-  /* ---------- 10. country pages: the flag band ----------
-     A thin band in the national flag's colours under the columns, right of the country code.
-     Colours: each country's specified values (law, decree or government guide) where one exists; sources in next/README.md. */
-  const nxStripes = (dir, list) => { const t = list.reduce((a, x) => a + (x[1] || 1), 0); let at = 0;
-    return `linear-gradient(${dir}, ${list.map(([c, w = 1]) => { const a = at; at += w; return `${c} ${(a / t * 100).toFixed(2)}% ${(at / t * 100).toFixed(2)}%`; }).join(", ")})`; };
-  const nxH = (...l) => nxStripes("to bottom", l), nxV = (...l) => nxStripes("to right", l);
-  const nxCross = (field, arm, x) => ({ bg: `linear-gradient(to bottom, transparent 33.33%, ${arm} 33.33% 66.66%, transparent 66.66%), ${field}`,
-    parts: [`left:${x}%;top:0;width:5px;height:100%;background:${arm}`] });
-  const nxDot = (at, bg, w = 10) => `left:calc(${at}% - ${w / 2}px);top:1px;width:${w}px;height:10px;border-radius:5px;background:${bg};box-shadow:0 0 0 2px var(--surface)`;
-  const NX_FLAG = {
-    AT: { bg: nxH(["#C8102E"], ["#FFFFFF"], ["#C8102E"]) },
-    BE: { bg: nxV(["#000000"], ["#FDDA24"], ["#EF3340"]) },
-    BG: { bg: nxH(["#FFFFFF"], ["#00966E"], ["#D62612"]) },
-    CY: { bg: "#FFFFFF", parts: [nxDot(50, "#D57800", 24), nxDot(42, "#4E5B31", 6), nxDot(58, "#4E5B31", 6)] },
-    CZ: { bg: nxH(["#FFFFFF"], ["#D7141A"]), parts: ["left:0;top:0;width:22px;height:100%;background:#11457E;clip-path:polygon(0 0,100% 50%,0 100%)"] },
-    DE: { bg: nxH(["#000000"], ["#D00000"], ["#FFCE00"]) },
-    DK: nxCross("#C8102E", "#FFFFFF", 35),
-    EE: { bg: nxH(["#0072CE"], ["#000000"], ["#FFFFFF"]) },
-    EL: { bg: `repeating-linear-gradient(to bottom, #014488 0 1.333px, #FFFFFF 1.333px 2.667px)`,
-      parts: ["left:0;top:0;width:22px;height:6.67px;background:linear-gradient(to right, transparent 40%, #FFFFFF 40% 60%, transparent 60%), linear-gradient(to bottom, transparent 30%, #FFFFFF 30% 70%, transparent 70%), #014488"] },
-    ES: { bg: nxH(["#AD1519"], ["#FABD00", 2], ["#AD1519"]) },
-    FI: nxCross("#FFFFFF", "#18447E", 28),
-    FR: { bg: nxV(["#000091"], ["#FFFFFF"], ["#E1000F"]) },
-    HR: { bg: nxH(["#FF0000"], ["#FFFFFF"], ["#171796"]), parts: [nxDot(50, "repeating-conic-gradient(#FF0000 0 25%, #FFFFFF 0 50%) 0 0 / 4px 4px")] },
-    HU: { bg: nxH(["#CE2939"], ["#FFFFFF"], ["#477050"]) },
-    IE: { bg: nxV(["#169B62"], ["#FFFFFF"], ["#FF883E"]) },
-    IT: { bg: nxV(["#008C45"], ["#F4F5F0"], ["#CD212A"]) },
-    LT: { bg: nxH(["#FDB913"], ["#006A44"], ["#C1272D"]) },
-    LU: { bg: nxH(["#EF3340"], ["#FFFFFF"], ["#00A3E0"]) },
-    LV: { bg: nxH(["#9D2235", 2], ["#FFFFFF", 1], ["#9D2235", 2]) },
-    MT: { bg: nxV(["#FFFFFF"], ["#CF142B"]) },
-    NL: { bg: nxH(["#AD1D25"], ["#FFFFFF"], ["#1E4785"]) },
-    PL: { bg: nxH(["#E9E8E7"], ["#D4213D"]) },
-    PT: { bg: nxV(["#006600", 2], ["#FF0000", 3]), parts: [nxDot(40, "#FFE900")] },
-    RO: { bg: nxV(["#002B7F"], ["#FCD116"], ["#CE1126"]) },
-    SE: nxCross("#005583", "#FFC200", 31),
-    SI: { bg: nxH(["#FFFFFF"], ["#0000FF"], ["#FF0000"]), parts: [nxDot(22, "#0000FF")] },
-    SK: { bg: nxH(["#FFFFFF"], ["#0035AD"], ["#D21034"]), parts: [nxDot(18, "#D21034")] },
-  };
-  const nxFlagBand = (cc) => { const f = NX_FLAG[cc === "GR" ? "EL" : cc]; if (!f) return "";
-    return `<span class="nx-flag" style="background:${f.bg}">${(f.parts || []).map((p) => `<i style="${p}"></i>`).join("")}</span>`; };
-  const nxCountryBase = openCountry;
-  openCountry = function (cc) {
-    nxCountryBase(cc);
-    const m = NX_MON[cc === "GR" ? "EL" : cc], body = $("profileBody");
-    if (!m || !body) return;
-    const tb = body.querySelector(".tb"), hero = body.querySelector(".hero");
-    if (!tb || !hero || hero.querySelector(".nx-mon")) return;
-    tb.insertAdjacentHTML("beforeend", `<p class="nx-mon__place"><b>${esc(m.name)}</b><span>${esc(m.year ? m.place + " · " + m.year : m.place)}</span></p>`);
-    hero.classList.add("nx-mon-hero");
-    const src = "monuments/" + (cc === "GR" ? "el" : cc.toLowerCase()) + ".jpg";
-    hero.insertAdjacentHTML("afterbegin", `<div class="nx-mon" aria-hidden="true" style="--r:${m.r};--f:${m.f};--z:${m.z || 1};--x:${m.x || 0}">${NX_COLS.map((off, i) =>
-      `<span class="nx-mon__col" style="--off:${off}px;--i:${i}"><img src="${src}" alt="" decoding="async"></span>`).join("")}
-      ${nxFlagBand(cc)}<span class="nx-mon__credit">Photo: ${esc(m.credit)} / Unsplash</span></div>`);
-  };
-  /* ---------- 11. curated files: each next step links to its source ----------
-     files.json gives every dated step a "src", the id of the entry in the file's sources that gives the date.
-     The row becomes a link to that page (opens in the browser), with the site under the date. */
-  const nxHost = (u) => { try { return new URL(u).hostname.replace(/^www\./, ""); } catch { return ""; } };
-  const nxStepsBase = openFile;
-  openFile = function (id, keep, startTab) {
-    nxStepsBase(id, keep, startTab);
-    const f = FILE_BY[id];
-    if (!f || (state.ftab || "ep") !== "next") return;
-    const h = [...document.querySelectorAll("#profileBody h3")].find((x) => x.textContent.trim() === "What happens next");
-    const list = h && h.nextElementSibling && h.nextElementSibling.classList.contains("list") ? h.nextElementSibling : null;
-    if (!list) return;
-    const steps = stepsAhead(f), rows = [...list.children];
-    steps.forEach((n, i) => {
-      const s = n.src && (f.sources || []).find((x) => x.id === n.src), u = s && safeUrl(s.url), el = rows[i];
-      if (!u || !el) return;
-      const when = n.date ? fdDate(n.date, true) : "";
-      el.outerHTML = row({ el: "a", attrs: `href="${esc(u)}" target="_blank" rel="noopener" aria-label="${esc(n.what)}, source: ${esc(s.title)}"`, lead: disc("cal"),
-        name: esc(n.what), meta: esc([when, nxHost(u)].filter(Boolean).join(" · ")), wrap: true,
-        tail: `<span class="eu-iconbtn eu-iconbtn--sm" aria-hidden="true">${icon("ext")}</span>` });
-    });
-  };
   /* ===================== end of nodo preview features ===================== */
 
   initHome(); initEp(); initEc();
@@ -4735,21 +4719,6 @@ if ("serviceWorker" in navigator && /github\.io$/.test(location.hostname)) addEv
 .fd-ft .nx-who { flex-basis: 100%; }
 .nx-any { margin: var(--space-8) 0 var(--space-6); }
 .nx-any .eu-search { margin-bottom: var(--space-3); }
-/* 9. Country pages: monument photo in five columns. */
-.nx-mon__place { margin: 0; display: grid; justify-items: end; text-align: right; }
-.nx-mon__place b { font: 700 17px/20px var(--font-display); letter-spacing: -0.01em; color: var(--ink); }
-.nx-mon__place span { font-size: 12px; line-height: 16px; font-weight: 500; color: var(--ink-muted); }
-.nx-mon-hero { margin-top: var(--space-5); }
-.nx-mon { position: relative; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; align-items: end; height: 288px; margin-bottom: 46px; container-type: inline-size; }
-.nx-mon::before { content: ""; position: absolute; top: -6px; left: calc(50% - 6px); width: 12px; height: 12px; border-radius: 50%; background: var(--spark); }
-.nx-mon__col { position: relative; overflow: hidden; height: calc(288px - var(--off)); border-radius: 32px 32px 14px 14px; background: var(--surface-sunken); }
-.nx-mon__col img { position: absolute; left: calc(var(--i) * -1 * (100% + 8px) - var(--x) * 100cqw); top: calc(-1 * var(--f) * var(--z) * var(--r) * 100cqw - var(--off)); width: calc(var(--z) * 100cqw); max-width: none; height: auto; filter: saturate(.8) contrast(1.05); }
-.nx-mon__credit { position: absolute; right: var(--space-1); bottom: -44px; font-size: 11px; line-height: 14px; color: var(--ink-muted); }
-/* The photo, the flag band and the name say which country it is, so the large code disc is hidden here. */
-.nx-mon-hero > .ava.big { display: none; }
-/* 10. Country pages: flag band under the columns, full width. */
-.nx-flag { position: absolute; left: var(--space-1); right: var(--space-1); bottom: -24px; height: 12px; border-radius: 6px; overflow: hidden; box-shadow: inset 0 0 0 1px var(--hairline); }
-.nx-flag i { position: absolute; display: block; }
 </style>
 <div id="nxBadge" aria-hidden="true">PREVIEW</div>
 </body></html>

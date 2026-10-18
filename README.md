@@ -147,3 +147,17 @@ Data comes from the European Parliament, European Commission and Council of the 
 The Action "Update file stream" (`.github/workflows/updates.yml`) runs `scripts/build-updates.mjs` daily at 06:41 UTC and commits the result. The first run per file seeds history without push candidates. If a procedure cannot be fetched the previous events stay, the Action exits non-zero and opens an issue labelled `structural`. Tests: `node --test tests/updates/updates.test.mjs`. To run it by hand: `node scripts/build-updates.mjs --files v1/files.json --out v1/updates --state data-cache/updates --manifest v1/manifest.json`.
 
 Commission and cabinet changes that need a decision follow the same pattern as the MEP directory: one rolling branch `review/commission` and one open issue, rebuilt on every run.
+
+## Country pages: monument photos and flag band
+
+Each country page shows a national monument photo cut into five columns, a band in the flag's colours, and the monument's name in the top bar. Photos live in `monuments/` (from Unsplash, 900 px wide, photographer credited on the page). Name, place, year, crop and flag layout per country are in `MONUMENTS` and `FLAGS` in `index.html`. Years appear only where a source gives one completion or opening date.
+
+Flag colour sources:
+- Specified by the country (law, decree, standard or government guide): AT (Ministry of Defence regulation 2018), DE (federal corporate design 1999), DK (DS 359:2005), EE (Parliament and Government Office), ES (Royal Decree 441/1981, sRGB conversion), FI (Government Decision 827/1993, sRGB approximation), FR (government colour table), HU (MSZ 1361:2009), IE (Department of the Taoiseach), IT (Gazzetta Ufficiale 174/2006 Pantone, hex from FOTW), LT (flag law Pantone, suggested hex), LV (2018 amendment, Pantone 201 C), MT (Graphical Specifications 2008), NL (NEN 1958), PL (Coat of Arms Act 1980, sRGB conversion), RO (Law 75/1994 as revised 2023), SE (NCS), SI (Official Gazette table).
+- Official Pantone, hex from Wikipedia or FOTW: BE (Belgian protocol guide), BG (textile Pantone), CY (2006 Pantone), HR (Parliament site), LU (Grand-Ducal Regulation 1993).
+- No official shade: CZ (Wikipedia via FOTW), EL (2010 Ministry of Culture emblem guide), PT (Presidency recommendation via Wikipedia; sphere yellow approximated), SK (Album des Pavillons 2023).
+- Simplified on purpose: Nordic crosses and Greece's canton keep their layout; coats of arms (HR, PT, SI, SK) and Cyprus's map and branches become small marks.
+
+## Next steps link to their sources
+
+Every dated step under a file's "What happens next" names the source that gives its date (`src` in `v1/files.json`, an id from the file's `sources`). The app shows the step as a link to that page. `scripts/validate-data.mjs` fails a dated step without a source.

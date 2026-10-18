@@ -32,13 +32,8 @@ Workflow:
 6. Files view: Your files, what moved in the last 7 days, and Monday email and alert switches (saved on the profile as `notify`; nothing is sent).
 7. "Which files do you track?": asked once after sign-in, and from the Files view.
 8. Your week: the Monday email's content, shown in the app.
-9. Country pages: a photo of a national monument in five columns above the country name (the large code disc is hidden on these pages). Photos in `monuments/` (Unsplash, credited on the page); name, place, year and crop per country in `NX_MON` in `features.js`. Years only where a source gives one completion or opening date.
-10. Country pages: a full-width band in the national flag's colours under the photo columns (`NX_FLAG` in `features.js`). Colour sources:
-    - Specified by the country (law, decree, standard or government guide): AT (Ministry of Defence regulation 2018), DE (federal corporate design 1999), DK (DS 359:2005), EE (Parliament and Government Office), ES (Royal Decree 441/1981, sRGB conversion), FI (Government Decision 827/1993, sRGB approximation), FR (government colour table), HU (MSZ 1361:2009), IE (Department of the Taoiseach), IT (Gazzetta Ufficiale 174/2006 Pantone, hex from FOTW), LT (flag law Pantone, suggested hex), LV (2018 amendment, Pantone 201 C), MT (Graphical Specifications 2008), NL (NEN 1958), PL (Coat of Arms Act 1980, sRGB conversion), RO (Law 75/1994 as revised 2023), SE (NCS), SI (Official Gazette table).
-    - Official Pantone, hex from Wikipedia or FOTW: BE (Belgian protocol guide), BG (textile Pantone), CY (2006 Pantone), HR (Parliament site), LU (Grand-Ducal Regulation 1993).
-    - No official shade: CZ (Wikipedia via FOTW), EL (2010 Ministry of Culture emblem guide), PT (Presidency recommendation via Wikipedia), SK (Album des Pavillons 2023).
-    - Simplified on purpose: Nordic crosses and Greece's canton keep their layout; coats of arms (HR, PT, SI, SK) and Cyprus's map and branches become small marks.
-11. Curated files: each step in "What happens next" links to the source that gives its date (`src` in `v1/files.json`, an id from the file's sources). `scripts/validate-data.mjs` fails a dated step without a source. Shown in the preview only; the live app ignores `src`.
+
+Promoted to the live app on 18 Oct 2026: country-page monument photos and flag band, and source links on next steps (now in the root `index.html`; photos in `/monuments`, flag colour sources in the root README).
 
 Rules for preview features:
 
