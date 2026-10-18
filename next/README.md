@@ -22,7 +22,7 @@ Workflow:
 
 ## Features in testing
 
-None right now.
+- Home, "the Monday edition" (since 18 Oct 2026): a masthead with the date, a headline that names the week, search and a week card (the plenary, dated steps on your files that week, the agenda button); Your files with a five-step track from idea to law; Who ties them together (people named on more than one of your files); Coming up (the four weeks after); the Parliament, Commission, Council and Calendar tiles under Browse. The old calendar hero, news block and Files tile are hidden on Home only. With no followed file, it uses all files and says so.
 
 Promoted to the live app on 18 Oct 2026:
 
