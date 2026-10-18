@@ -25,6 +25,7 @@ v1/
   calendar.json   Parliament calendar
   agenda.json     Plenary agendas
   files.json      Legislative files with linked MEPs, Commissioners, cabinet members
+  reports.json    Parliament reports and opinions with rapporteur and shadows (automatic pages)
 ```
 
 `v1` is the schema version. Fields can be added inside v1. A rename or removal creates `v2` and `v1` stays online for installed apps.
@@ -105,6 +106,8 @@ The Observatory also blocks GitHub runners. The weekly Council task runs `tools/
 
 The GitHub Action "Update MEP activity" (`.github/workflows/activity.yml`) runs `scripts/build-activity.mjs` twice a day (03:30 and 15:30 UTC) and commits the result, together with the cache in `data-cache/`. Details are fetched newest first and capped per run (`max_details`, 8000 by default), so the first backfill takes a few days. The job owns `data-cache/questions.json` (question metadata), `data-cache/qtext/` (the text extracted from each question's PDFs, one file per question, written once so the twice-daily commits stay small), `docs.json`, `pdf-diag.json` and `pdf-probe.json` and commits only those: the other jobs write to `data-cache/` while it runs. For a faster backfill start the workflow by hand with `max_details` set to 20000. To test, start it by hand with `only` set to a few MEP ids, for example `257041,256810`. If a stage fails, the previous items of that stage stay in place and the Action opens an issue labelled `structural`.
 
+After the activity files are put back, the same job runs `scripts/build-reports.mjs`, which writes `v1/reports.json`: every report and opinion found in the feeds, with its rapporteur and shadows. The app uses it for automatic pages (a file with no curated page still shows who works on it) and for search. Nothing extra is fetched.
+
 Source: European Parliament Open Data Portal (API v2), CC BY 4.0.
 
 ## Plenary agenda automation
@@ -161,3 +164,12 @@ Flag colour sources:
 ## Next steps link to their sources
 
 Every dated step under a file's "What happens next" names the source that gives its date (`src` in `v1/files.json`, an id from the file's `sources`). The app shows the step as a link to that page. `scripts/validate-data.mjs` fails a dated step without a source.
+
+## Search, automatic pages and your files
+
+- Search forgives typos: a name or a word close to one in the data is matched, with a "Showing results for" line.
+- A search with no curated file offers "Request a full page", logged as a `request` usage event.
+- Automatic pages: each report or opinion in `v1/reports.json` opens a page with its rapporteur, shadows, other committees on the same file and the PDF. Report and opinion cards in an MEP's activity open it.
+- A curated file shows the date its data was checked, its sources and its Legislative Observatory link under the title.
+- The Files view starts with Your files and what moved in the last 7 days. "Which files do you track?" is asked once after sign-in. Your week shows what the Monday email will hold.
+- The Monday email and alert switches are saved on the profile as `notify`. Nothing is sent yet.

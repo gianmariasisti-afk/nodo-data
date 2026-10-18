@@ -1,9 +1,9 @@
 #!/usr/bin/env node
-/* Builds next/data/reports.json: every Parliament report and opinion found in the MEP activity files
- * (v1/activity/<mepId>.json), with its rapporteur and shadows. The preview uses it for automatic pages:
+/* Builds v1/reports.json: every Parliament report and opinion found in the MEP activity files
+ * (v1/activity/<mepId>.json), with its rapporteur and shadows. The app uses it for automatic pages:
  * a file that has no curated page still shows who handles it.
  *
- *   node tools/preview/build-reports.mjs
+ *   node scripts/build-reports.mjs
  *
  * Source: the Parliament's open data, as already collected by the "Update MEP activity" workflow.
  * Nothing is fetched here. Re-run after the activity data refreshes to bring the index up to date.
@@ -12,9 +12,9 @@ import { readFileSync, writeFileSync, readdirSync, mkdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
-const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
+const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const ACT = join(ROOT, "v1", "activity");
-const OUT = join(ROOT, "next", "data");
+const OUT = join(ROOT, "v1");
 
 /* "DRAFT REPORT on the proposal for a regulation … amending X" → "Regulation amending X". Keeps the words that name the file. */
 function shortTitle(t) {
@@ -59,7 +59,6 @@ for (const f of readdirSync(ACT)) {
 }
 
 const list = [...docs.values()].sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : a.id.localeCompare(b.id)));
-mkdirSync(OUT, { recursive: true });
 const out = { generated: new Date().toISOString(), source: "European Parliament open data, via nodo's MEP activity files (v1/activity)", count: list.length, docs: list };
 writeFileSync(join(OUT, "reports.json"), JSON.stringify(out));
 console.log(`reports.json: ${list.length} documents, ${list.filter((d) => d.rap.length).length} with a rapporteur in nodo's MEP list`);
