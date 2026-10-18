@@ -11,6 +11,7 @@
      6. Files view: "Your files", what moved this week, and email and alert settings.
      7. "Which files do you track?": asked once after sign-in, reachable any time from the Files view.
      8. "Your week": what the Monday email would hold. Nothing is sent yet.
+     9. Country pages: a photo of a national monument, cut into five columns, above the country code.
      ===================================================================== */
   const NX = { docs: null, byId: new Map(), loading: null, vocab: null, pick: null, ASKED: "nodo.next.askedFiles", REQ: "nodo.next.requested" };
   const nxRequested = () => { try { return new Set(JSON.parse(store.get(NX.REQ) || "[]")); } catch { return new Set(); } };
@@ -374,4 +375,26 @@
     if (t.closest("[data-nxpdone]")) return nxPickDone();
   }, true);
   nxLoadDocs();
+
+  /* ---------- 9. country pages: a monument photo cut into columns ----------
+     One photo per country, served from next/monuments/. The five strips are one picture: each strip shows its own
+     slice, offset by its column, so the photo reads whole across the gaps. Countries without an entry keep the
+     plain page. The photo loads only when the country page opens. */
+  const NX_MON = {
+    DE: { src: "monuments/de.jpg", name: "Brandenburger Tor", place: "Berlin", year: "1791", credit: "Tim Hüfner" },
+  };
+  const NX_COLS = [0, 28, 14, 28, 0];
+  const nxCountryBase = openCountry;
+  openCountry = function (cc) {
+    nxCountryBase(cc);
+    const m = NX_MON[cc], body = $("profileBody");
+    if (!m || !body) return;
+    const tb = body.querySelector(".tb"), hero = body.querySelector(".hero");
+    if (!tb || !hero || hero.querySelector(".nx-mon")) return;
+    tb.insertAdjacentHTML("beforeend", `<p class="nx-mon__place"><b>${esc(m.name)}</b><span>${esc(m.place)} · ${esc(m.year)}</span></p>`);
+    hero.classList.add("nx-mon-hero");
+    hero.insertAdjacentHTML("afterbegin", `<div class="nx-mon" aria-hidden="true">${NX_COLS.map((off, i) =>
+      `<span class="nx-mon__col" style="--off:${off}px;--i:${i}"><img src="${esc(m.src)}" alt="" decoding="async"></span>`).join("")}
+      <span class="nx-mon__credit">Photo: ${esc(m.credit)} / Unsplash</span></div>`);
+  };
   /* ===================== end of nodo preview features ===================== */
