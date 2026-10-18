@@ -113,3 +113,21 @@
 
 @media (prefers-reduced-motion: no-preference) { .ed-file, .ed-up, .ed-ev, .ed-hero { transition: transform .15s ease-out; } .ed-file:active, .ed-up:active, .ed-ev:active, .ed-hero:active { transform: scale(.99); } }
 .ed-mast .topbar__id { text-align: left; }
+
+/* Second pass (18 Oct): the rest of Home in the edition's style */
+#vHome .ed-gone { display: none !important; }
+#vHome #homeBody > h3, #vHome #recentWrap > h3 { margin: var(--space-8) var(--space-1) 0; font: 700 26px/30px var(--font-display); letter-spacing: -.03em; color: var(--ink); }
+#vHome #homeBody > h3 .more { font-family: var(--font-sans); letter-spacing: 0; }
+#vHome #homeTiles { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-2); }
+#vHome #homeTiles .eu-tile { min-height: 0; gap: var(--space-2); padding: var(--space-3) 2px; align-items: center; justify-content: flex-start; text-align: center; border-radius: var(--radius-md); }
+#vHome #homeTiles .eu-tile > span:last-child { min-width: 0; width: 100%; }
+#vHome #homeTiles .eu-tile__disc { width: 40px; height: 40px; }
+#vHome #homeTiles .eu-tile__label { font-size: 12px; line-height: 16px; letter-spacing: -.01em; font-weight: 600; overflow-wrap: normal; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#vHome #homeTiles .eu-tile__meta { display: none; }
+#vHome #srcNote { margin-top: var(--space-6); }
+
+/* Tab bar: the current tab sits in a light pill on the ink bar */
+.eu-tabbar__item { transition: background-color .15s ease-out, color .15s ease-out; }
+.eu-tabbar__item[aria-current="page"] { background: var(--canvas); color: var(--ink); }
+.eu-tabbar__item[aria-current="page"]:focus-visible { outline-color: var(--canvas); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { .eu-tabbar__item { transition: none; } }

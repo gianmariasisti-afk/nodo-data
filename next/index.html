@@ -4704,9 +4704,10 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
         - Your files: each followed file with a five-step track from idea to law, what moved in the last 7 days and the next date;
         - Who ties them together: the people named on more than one of your files;
         - Coming up: dated steps on your files and plenary sittings in the four weeks after this one;
-        - Browse: the Parliament, Commission, Council and Calendar tiles, moved under the new sections.
+        - Saved people and Recently viewed, restyled; then Browse: the Parliament, Commission, Council and Calendar tiles as one compact row.
+        - Removed from Home: the calendar hero, the news block, the Files tile, cabinet of the day, the country desk and seats by group.
+        - The tab bar takes the edition's look: the current tab is a light pill (app-wide in the preview).
         With no followed file, the sections use all of nodo's files and say so.
-        The old home hero, the news block and the Files tile are hidden on Home; their views are unchanged.
 
      Features 1 to 8 of the previous round were promoted to the live app on 18 Oct 2026.
      ===================================================================== */
@@ -4901,6 +4902,15 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       <section id="edNext" class="ed-sec" aria-label="Coming up"></section>
       <h2 class="ed-h ed-browse">Browse</h2></div>`);
     $("hq").placeholder = "A name, a file, a committee, a date";
+    /* What the new home replaces leaves Home: cabinet of the day, country desk and seats by group (their data stays in the
+       Commission and Parliament views). Saved and recently viewed stay, then Browse as one compact row, then the data note. */
+    const body = $("homeBody"), gone = (el) => el && el.classList.add("ed-gone");
+    gone($("spotDate") && $("spotDate").closest("h3")); gone($("spot"));
+    gone($("deskCountry").previousElementSibling); gone($("deskCountry")); gone($("deskOut"));
+    gone($("bars").previousElementSibling); gone($("bars"));
+    const sh = $("seeSaved").closest("h3"); if (sh && sh.firstChild && sh.firstChild.nodeType === 3) sh.firstChild.textContent = "Saved people ";
+    const br = $("edBody").querySelector(".ed-browse");
+    $("srcNote").before(br, $("homeTiles"));
   })();
 
   const edHomeBase = renderHome;
@@ -5054,6 +5064,24 @@ if ("serviceWorker" in navigator && /github\.io$/.test(location.hostname)) addEv
 
 @media (prefers-reduced-motion: no-preference) { .ed-file, .ed-up, .ed-ev, .ed-hero { transition: transform .15s ease-out; } .ed-file:active, .ed-up:active, .ed-ev:active, .ed-hero:active { transform: scale(.99); } }
 .ed-mast .topbar__id { text-align: left; }
+
+/* Second pass (18 Oct): the rest of Home in the edition's style */
+#vHome .ed-gone { display: none !important; }
+#vHome #homeBody > h3, #vHome #recentWrap > h3 { margin: var(--space-8) var(--space-1) 0; font: 700 26px/30px var(--font-display); letter-spacing: -.03em; color: var(--ink); }
+#vHome #homeBody > h3 .more { font-family: var(--font-sans); letter-spacing: 0; }
+#vHome #homeTiles { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-2); }
+#vHome #homeTiles .eu-tile { min-height: 0; gap: var(--space-2); padding: var(--space-3) 2px; align-items: center; justify-content: flex-start; text-align: center; border-radius: var(--radius-md); }
+#vHome #homeTiles .eu-tile > span:last-child { min-width: 0; width: 100%; }
+#vHome #homeTiles .eu-tile__disc { width: 40px; height: 40px; }
+#vHome #homeTiles .eu-tile__label { font-size: 12px; line-height: 16px; letter-spacing: -.01em; font-weight: 600; overflow-wrap: normal; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#vHome #homeTiles .eu-tile__meta { display: none; }
+#vHome #srcNote { margin-top: var(--space-6); }
+
+/* Tab bar: the current tab sits in a light pill on the ink bar */
+.eu-tabbar__item { transition: background-color .15s ease-out, color .15s ease-out; }
+.eu-tabbar__item[aria-current="page"] { background: var(--canvas); color: var(--ink); }
+.eu-tabbar__item[aria-current="page"]:focus-visible { outline-color: var(--canvas); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { .eu-tabbar__item { transition: none; } }
 </style>
 <div id="nxBadge" aria-hidden="true">PREVIEW</div>
 </body></html>

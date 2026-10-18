@@ -9,9 +9,10 @@
         - Your files: each followed file with a five-step track from idea to law, what moved in the last 7 days and the next date;
         - Who ties them together: the people named on more than one of your files;
         - Coming up: dated steps on your files and plenary sittings in the four weeks after this one;
-        - Browse: the Parliament, Commission, Council and Calendar tiles, moved under the new sections.
+        - Saved people and Recently viewed, restyled; then Browse: the Parliament, Commission, Council and Calendar tiles as one compact row.
+        - Removed from Home: the calendar hero, the news block, the Files tile, cabinet of the day, the country desk and seats by group.
+        - The tab bar takes the edition's look: the current tab is a light pill (app-wide in the preview).
         With no followed file, the sections use all of nodo's files and say so.
-        The old home hero, the news block and the Files tile are hidden on Home; their views are unchanged.
 
      Features 1 to 8 of the previous round were promoted to the live app on 18 Oct 2026.
      ===================================================================== */
@@ -206,6 +207,15 @@
       <section id="edNext" class="ed-sec" aria-label="Coming up"></section>
       <h2 class="ed-h ed-browse">Browse</h2></div>`);
     $("hq").placeholder = "A name, a file, a committee, a date";
+    /* What the new home replaces leaves Home: cabinet of the day, country desk and seats by group (their data stays in the
+       Commission and Parliament views). Saved and recently viewed stay, then Browse as one compact row, then the data note. */
+    const body = $("homeBody"), gone = (el) => el && el.classList.add("ed-gone");
+    gone($("spotDate") && $("spotDate").closest("h3")); gone($("spot"));
+    gone($("deskCountry").previousElementSibling); gone($("deskCountry")); gone($("deskOut"));
+    gone($("bars").previousElementSibling); gone($("bars"));
+    const sh = $("seeSaved").closest("h3"); if (sh && sh.firstChild && sh.firstChild.nodeType === 3) sh.firstChild.textContent = "Saved people ";
+    const br = $("edBody").querySelector(".ed-browse");
+    $("srcNote").before(br, $("homeTiles"));
   })();
 
   const edHomeBase = renderHome;
