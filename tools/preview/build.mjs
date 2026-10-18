@@ -10,10 +10,11 @@
  * Every patch must match exactly once. If the live app changes so that a patch no longer matches,
  * the build stops and names the patch, instead of shipping a preview that half works.
  *
- * Re-run this after every change to the live app, then add the preview's new features on top
- * (in next/index.html) until they are promoted to the live app. See next/README.md.
+ * Preview features live in next/features.js and next/features.css; this build injects them. next/index.html
+ * is generated: edit the feature files, never the generated page. See next/README.md.
  */
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
+import { createHash } from "node:crypto";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -27,7 +28,7 @@ function patch(text, file, rules) {
   for (const [label, from, to] of rules) {
     const n = text.split(from).length - 1;
     if (n !== 1) throw new Error(`${file}: patch "${label}" matched ${n} times, expected 1`);
-    text = text.replace(from, () => to);
+    text = text.replace(from, () => (typeof to === "function" ? to() : to));
   }
   return text;
 }
@@ -73,12 +74,16 @@ const html = patch(readFileSync(join(ROOT, "index.html"), "utf8"), "index.html",
   /* Accounts not on the list stop here: no sync, no usage log, the private screen instead. */
   ["gate", "async function onSignedIn(user) {", "async function onSignedIn(user) {\n    if (!(window.NODO_PREVIEW && window.NODO_PREVIEW.accounts.includes(user.id))) { window.nodoPreviewDenied(); return; }"],
   ["marker", "</body>", gate],
+  /* The preview's features (next/features.js, next/features.css) run inside the app's script, just before start-up. */
+  ["features", "  initHome(); initEp(); initEc();", () => readFileSync(join(OUT, "features.js"), "utf8") + "\n  initHome(); initEp(); initEc();"],
+  ["feature styles", "<div id=\"nxBadge\"", () => "<style>\n" + readFileSync(join(OUT, "features.css"), "utf8") + "</style>\n<div id=\"nxBadge\""],
 ]);
 
 /* Its own service worker: scope next/, its own cache name, and it only clears its own old caches,
    so it never deletes the live app's caches on the same site. */
 const sw = patch(readFileSync(join(ROOT, "sw.js"), "utf8"), "sw.js", [
-  ["cache name", 'const VERSION = "nodo-v', 'const VERSION = "nodo-next-v'],
+  /* The cache name carries a fingerprint of the built page, so every rebuild reaches the phone on its next start. */
+  ["cache name", 'const VERSION = "nodo-v', 'const VERSION = "nodo-next-' + createHash("sha256").update(html).digest("hex").slice(0, 8) + "-v"],
   ["shell", '"config.js", "avatars.js", "vendor/supabase.js", "manifest.webmanifest", "icons/icon-192.png", "icons/icon-512.png", "icons/apple-touch-icon.png"', '"../config.js", "../avatars.js", "../vendor/supabase.js", "manifest.webmanifest", "../icons/icon-192.png", "../icons/icon-512.png", "../icons/apple-touch-icon.png"'],
   ["cleanup", "ks.filter((k) => k !== VERSION && k !== DATA)", 'ks.filter((k) => k.startsWith("nodo-next-") && k !== VERSION)'],
 ]);

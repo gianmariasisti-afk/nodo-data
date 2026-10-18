@@ -10,19 +10,33 @@ A private copy of the app for testing features before they reach everyone.
 
 ## How it is built
 
-`node tools/preview/build.mjs` generates `index.html`, `sw.js` and `manifest.webmanifest` here from the live files at the repository root, and applies a short list of patches: paths one level up, the preview name and icon label, its own service worker cache, the account gate and the PREVIEW marker. Each patch must match exactly once, or the build stops and names it.
+`node tools/preview/build.mjs` generates `index.html`, `sw.js` and `manifest.webmanifest` here from the live files at the repository root, and applies a short list of patches: paths one level up, the preview name and icon label, its own service worker cache, the account gate and the PREVIEW marker. It then injects the preview's features from `features.js` and `features.css`. Each patch must match exactly once, or the build stops and names it.
+
+`index.html` here is generated. Edit `features.js` and `features.css`, never the generated page.
+
+`node tools/preview/build-reports.mjs` writes `data/reports.json`, the index behind automatic pages: every Parliament report and opinion in nodo's MEP activity data (`v1/activity`) with its rapporteur and shadows. Re-run it to bring the index up to date with the activity data.
 
 Workflow:
 
-1. Rebuild from the live app: `node tools/preview/build.mjs`.
-2. Add the feature under test to `next/index.html`.
-3. Test on the phone at the preview address.
-4. When approved, move the feature into the root `index.html`, then rebuild the preview from it.
+1. Rebuild from the live app: `node tools/preview/build-reports.mjs && node tools/preview/build.mjs`.
+2. Change a feature in `features.js` / `features.css`, rebuild, test on the phone.
+3. When approved, move the feature into the root `index.html`, then rebuild the preview from it.
+
+## Features in testing
+
+1. Forgiving search: misspelt names and words find the closest match, with a "Showing results for" line.
+2. Request a full page: a search with no curated file offers a request, logged as a `request` usage event.
+3. Automatic pages: Parliament reports and opinions with rapporteur, shadows, related committees and the document.
+4. MEP activity: report and opinion cards open their automatic page.
+5. Curated files: a line under the title with the checked date, the sources and the Observatory link.
+6. Files view: Your files, what moved in the last 7 days, and Monday email and alert switches (saved on the profile as `notify`; nothing is sent).
+7. "Which files do you track?": asked once after sign-in, and from the Files view.
+8. Your week: the Monday email's content, shown in the app.
 
 Rules for preview features:
 
 - Never change the shape of what is saved in `user_state` in a way the live app cannot read. Add new fields; leave existing ones as they are.
-- Keep the patches in `build.mjs` small. Feature code belongs in `next/index.html`, not in the build script.
+- Keep the patches in `build.mjs` small. Feature code belongs in `next/features.js`, not in the build script.
 
 ## One-time Supabase setting
 
