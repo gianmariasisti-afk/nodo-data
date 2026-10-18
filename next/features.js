@@ -341,7 +341,7 @@
     { v: "ec", k: "European", t: "Commission", meta: "metaEc", img: PP_PHOTO("1615997299664-e14af3b04637"), credit: "Carl Campbell", place: "Berlaymont, Brussels", r: 0.562, z: 1.45 },
     /* The Council's Europa building (Philippe Samyn), from Wikimedia Commons under CC BY-SA 4.0, stored in monuments/.
        The licence asks for credit, a licence link and a note that the photo was changed (cut into columns). */
-    { v: "co", k: "Council of the", t: "European Union", meta: "metaCo", img: MON_BASE + "council-europa.jpg", place: "Europa building, Brussels", r: 1, z: 1, f: 0.12,
+    { v: "co", k: "Council of the", t: "European Union", meta: "metaCo", img: MON_BASE + "council-europa.jpg", place: "Europa building by Philippe Samyn, Brussels", r: 1, z: 1, f: 0.12,
       creditHtml: `Photo: <a href="https://commons.wikimedia.org/wiki/File:Europa_Building_in_Brussels.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a>, cropped` },
   ];
   const ppMeta = (id) => { const el = $(id); if (!el) return ""; const kids = [...el.children].map((c) => c.textContent.trim()).filter(Boolean); return kids.length ? kids.join(" · ") : el.textContent.trim(); };
