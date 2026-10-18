@@ -21,8 +21,8 @@
      Features 1 to 8 of the previous round were promoted to the live app on 18 Oct 2026.
      3. Navigation and People (since 18 Oct 2026): four tabs, Today, People, Calendar, Files (News opens from the Files view).
         People opens on a landing page with three photo blocks, Parliament, Commission and Council, each cut into columns like the
-        country pages; a block opens its section, and each section has a way back to People. Photos: Unsplash, hotlinked as its
-        terms ask, credited on each block.
+        country pages; a block opens its section, and each section has a way back to People. Parliament and Commission photos: Unsplash,
+        hotlinked as its terms ask, credited on each block. The Council block draws the 27 member-state flags.
      ===================================================================== */
 
   /* ---------- 1. home: the Monday edition ---------- */
@@ -339,17 +339,23 @@
   const PP = [
     { v: "ep", k: "European", t: "Parliament", meta: "metaEp", img: PP_PHOTO("1639864281528-907c82a361c3"), credit: "Paolo Margari", place: "European Parliament, Brussels", r: 0.667, z: 1.3 },
     { v: "ec", k: "European", t: "Commission", meta: "metaEc", img: PP_PHOTO("1615997299664-e14af3b04637"), credit: "Carl Campbell", place: "Berlaymont, Brussels", r: 0.562, z: 1.45 },
-    { v: "co", k: "Council of the", t: "European Union", meta: "metaCo", img: PP_PHOTO("1608817576136-0f3a56922823"), credit: "Christian Lue", place: "Member states' flags, Brussels", r: 0.667, z: 1.3 },
+    /* No licensed photo of the Council's Europa building could be confirmed, so the Council block draws its members instead:
+       the 27 flags, from the app's own flag colours, in the Council's protocol order. */
+    { v: "co", k: "Council of the", t: "European Union", meta: "metaCo", flags: true, place: "The 27 member states, in the Council's protocol order" },
   ];
   const ppMeta = (id) => { const el = $(id); if (!el) return ""; const kids = [...el.children].map((c) => c.textContent.trim()).filter(Boolean); return kids.length ? kids.join(" · ") : el.textContent.trim(); };
   function renderPeople() {
+    const PROTOCOL = ["BE", "BG", "CZ", "DK", "DE", "EE", "IE", "EL", "ES", "FR", "HR", "IT", "CY", "LV", "LT", "LU", "HU", "MT", "NL", "AT", "PL", "PT", "RO", "SI", "SK", "FI", "SE"];
+    const flagsArt = () => `<span class="pp-flags" aria-hidden="true">${PROTOCOL.map((cc, i) => { const f = FLAGS[cc] || {}, d = (i - 13) / 13;
+      return `<i style="height:${Math.round(110 + 80 * (1 - d * d))}px;background:${f.bg || "var(--surface)"}"></i>`; }).join("")}</span>`;
+    const photoArt = (p) => `<span class="mon pp-mon" aria-hidden="true" style="--r:${p.r};--f:0;--z:${p.z};--x:${((p.z - 1) / 2).toFixed(3)}">${MON_COLS.map((off, i) =>
+          `<span class="mon__col" style="--off:${off}px;--i:${i}"><img src="${p.img}" alt="" decoding="async" loading="lazy"></span>`).join("")}</span>`;
     const card = (p) => `<button class="pp-card pp-card--${p.v}" type="button" data-dir="${p.v}" aria-label="${esc(`${p.k} ${p.t}. ${ppMeta(p.meta)}`)}">
-        <span class="mon pp-mon" aria-hidden="true" style="--r:${p.r};--f:0;--z:${p.z};--x:${((p.z - 1) / 2).toFixed(3)}">${MON_COLS.map((off, i) =>
-          `<span class="mon__col" style="--off:${off}px;--i:${i}"><img src="${p.img}" alt="" decoding="async" loading="lazy"></span>`).join("")}</span>
+        ${p.flags ? flagsArt() : photoArt(p)}
         <span class="pp-band" aria-hidden="true"></span>
         <span class="pp-row"><span class="pp-tx"><span class="pp-k">${esc(p.k)}</span><span class="pp-t">${esc(p.t)}</span><span class="pp-m">${esc(ppMeta(p.meta))}</span></span>
           <span class="pp-go" aria-hidden="true">${icon("arrow")}</span></span>
-        <span class="pp-credit">${esc(p.place)} · Photo: ${esc(p.credit)} / Unsplash</span></button>`;
+        <span class="pp-credit">${esc(p.place)}${p.credit ? ` · Photo: ${esc(p.credit)} / Unsplash` : ""}</span></button>`;
     $("vPeople").innerHTML = `<h1 class="eu-headline">Who do you need to <strong>reach?</strong></h1>
       <p class="pp-lead">Every MEP, Commissioner, cabinet member and Council delegation, one tap away.</p>
       <div class="pp-cards">${PP.map(card).join("")}</div>`;
