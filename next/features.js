@@ -9,9 +9,13 @@
         - Your files: each followed file with a five-step track from idea to law, what moved in the last 7 days and the next date;
         - Who ties them together: the people named on more than one of your files;
         - Coming up: dated steps on your files and plenary sittings in the four weeks after this one;
-        - Saved people and Recently viewed, restyled; then Browse: the Parliament, Commission, Council and Calendar tiles as one compact row.
-        - Removed from Home: the calendar hero, the news block, the Files tile, cabinet of the day, the country desk and seats by group.
-        - The tab bar takes the edition's look: the current tab is a light pill (app-wide in the preview).
+        - Saved people and Recently viewed, restyled.
+        - Removed from Home: the calendar hero, the news block, the Files tile, the Parliament, Commission, Council and Calendar
+          tiles (the Directory and Calendar tabs reach them), cabinet of the day, the country desk and seats by group.
+        - The tab bar takes the edition's look: a deep blue bar, labels only, the current tab in a light pill with a gold node (app-wide in the preview).
+     2. The map of your files (since 18 Oct 2026): files in bands by stage, a line between two files when they share an MEP,
+        a Commissioner or a cabinet member, thicker when they share more. Tap a file to see whom it shares and with which files.
+        Opens from Map on Home and in the Files view.
         With no followed file, the sections use all of nodo's files and say so.
 
      Features 1 to 8 of the previous round were promoted to the live app on 18 Oct 2026.
@@ -113,7 +117,7 @@
     };
     const cap = sc.mine ? `${list.length} followed${UPD.status === "done" ? ` · ${nMoved} moved in the last 7 days` : ""}` : `All ${list.length} files nodo follows`;
     return `<div class="ed-sh"><div><h2 class="ed-h" id="edFilesH">Your files</h2><p class="ed-cap">${esc(cap)}</p></div>
-        <button class="eu-btn eu-btn--sm ed-sh__btn" type="button" data-view="files">All files</button></div>
+        <span class="ed-sh__acts"><button class="eu-btn eu-btn--sm ed-sh__btn ed-sh__btn--map" type="button" data-edmap="">${icon("share")}Map</button><button class="eu-btn eu-btn--sm ed-sh__btn" type="button" data-view="files">All files</button></span></div>
       ${sc.mine ? "" : `<div class="hint ed-hint"><span>Follow the files you work on and this page is built around them.</span><button class="eu-btn eu-btn--sm" type="button" data-nxpick>Choose files</button></div>`}
       <div class="ed-files"><div class="ed-files__key" aria-hidden="true"><span>File</span><span>Idea → Law</span></div>${list.map(item).join("")}</div>`;
   }
@@ -214,8 +218,9 @@
     gone($("deskCountry").previousElementSibling); gone($("deskCountry")); gone($("deskOut"));
     gone($("bars").previousElementSibling); gone($("bars"));
     const sh = $("seeSaved").closest("h3"); if (sh && sh.firstChild && sh.firstChild.nodeType === 3) sh.firstChild.textContent = "Saved people ";
-    const br = $("edBody").querySelector(".ed-browse");
-    $("srcNote").before(br, $("homeTiles"));
+    /* Browse is gone: the Directory tab switches between Parliament, Commission and Council, and Calendar has its own tab. */
+    $("edBody").querySelector(".ed-browse").remove();
+    gone($("homeTiles"));
   })();
 
   const edHomeBase = renderHome;
@@ -228,3 +233,98 @@
   /* Follows, the "which files" sheet and the file timelines (loaded after start-up) all call renderFiles. */
   const edFilesBase = renderFiles;
   renderFiles = function () { edFilesBase(); if (state.view === "home" && !state.hq) edRender(); };
+
+
+  /* ---------- 2. the map of your files ---------- */
+  /* Who each file names, as a set of keys, from the same lists the file pages show. */
+  const edPeople = (f) => { const m = membersOf(f); return new Set([...m.base, ...m.added].map((x) => x.key).filter((k) => BYKEY.has(k))); };
+  function edPairs(files) {
+    const sets = new Map(files.map((f) => [f.id, edPeople(f)])), out = [];
+    for (let i = 0; i < files.length; i++) for (let j = i + 1; j < files.length; j++) {
+      const a = sets.get(files[i].id), b = sets.get(files[j].id), shared = [...a].filter((k) => b.has(k));
+      if (shared.length) out.push({ a: files[i], b: files[j], shared });
+    }
+    return out;
+  }
+  const ED_RANK = { ec: 0, cab: 1, ep: 2 };
+  const edByRank = (keys) => keys.slice().sort((x, y) => ED_RANK[BYKEY.get(x).t] - ED_RANK[BYKEY.get(y).t] || BYKEY.get(x).o.name.localeCompare(BYKEY.get(y).o.name));
+  function edMapHtml(sel, W) {
+    const sc = edScope(), files = sc.files, pairs = edPairs(files);
+    /* Bands top to bottom: idea to law. Up to two files side by side in a band, then a new row. */
+    const nodes = new Map(); let y = 0; const bands = [];
+    ED_STAGE.forEach((st, i) => {
+      const fs = files.filter((f) => f.stage === st), rows = Math.max(1, Math.ceil(fs.length / 2)), h = 30 + (fs.length ? rows * 60 : 26) + 10;
+      bands.push({ i, y, h, n: fs.length });
+      fs.forEach((f, k) => {
+        const r = Math.floor(k / 2), inRow = Math.min(2, fs.length - r * 2), c = k % 2;
+        const w = inRow === 1 ? Math.min(220, W - 32) : (W - 40) / 2;
+        const x = inRow === 1 ? (W - w) / 2 : 12 + c * (w + 16);
+        nodes.set(f.id, { f, x, y: y + 30 + r * 60, w, h: 50 });
+      });
+      y += h;
+    });
+    const H = y;
+    const mid = (n) => [n.x + n.w / 2, n.y + n.h / 2];
+    const lit = (p) => sel && (p.a.id === sel || p.b.id === sel);
+    const edge = (p) => { const [x1, y1] = mid(nodes.get(p.a.id)), [x2, y2] = mid(nodes.get(p.b.id));
+      const bend = (x1 === x2 ? 40 : 0) + (y1 === y2 ? -30 : 0), cx = (x1 + x2) / 2 + bend, cy = (y1 + y2) / 2 + (y1 === y2 ? -26 : 0);
+      const w = (1.5 + Math.min(p.shared.length, 8) * 0.6).toFixed(1);
+      return `<path class="${lit(p) ? "on" : sel ? "dim" : ""}" d="M${x1.toFixed(1)} ${y1.toFixed(1)}Q${cx.toFixed(1)} ${cy.toFixed(1)} ${x2.toFixed(1)} ${y2.toFixed(1)}" style="stroke-width:${lit(p) ? (+w + 1.5).toFixed(1) : w}"/>`; };
+    const svg = `<svg class="edm-lines" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" aria-hidden="true">${pairs.filter((p) => !lit(p)).map(edge).join("")}${pairs.filter(lit).map(edge).join("")}</svg>`;
+    const band = (b) => `<div class="edm-band${b.i % 2 ? "" : " alt"}" style="top:${b.y}px;height:${b.h}px"><span class="edm-band__l">${b.i + 1} · ${esc(ED_STEP[b.i])}</span>${b.n ? "" : `<span class="edm-band__none">None of ${sc.mine ? "your" : "nodo's"} files</span>`}</div>`;
+    const links = new Map(); pairs.forEach((p) => { links.set(p.a.id, (links.get(p.a.id) || 0) + 1); links.set(p.b.id, (links.get(p.b.id) || 0) + 1); });
+    const node = ({ f, x, y: ny, w, h }) => { const on = f.id === sel, l = links.get(f.id) || 0, moved = typeof nxMoved === "function" && nxMoved(f).length;
+      return `<button class="edm-node${on ? " is-on" : sel && !pairs.some((p) => lit(p) && (p.a.id === f.id || p.b.id === f.id)) ? " is-dim" : ""}" type="button" data-edmap="${esc(f.id)}" aria-pressed="${on}"
+        style="left:${x.toFixed(1)}px;top:${ny}px;width:${w.toFixed(1)}px;height:${h}px" aria-label="${esc(`${f.short}. Shares people with ${l} other ${pl(l, "file", "files")}.${moved ? " Moved in the last 7 days." : ""}`)}">${moved ? `<i class="ed-dot"></i>` : ""}<span>${esc(f.short)}</span></button>`; };
+    /* Under the map: the selected file, the files it shares people with, and who those people are. */
+    let panel;
+    if (sel && nodes.has(sel)) {
+      const f = FILE_BY[sel], mine = pairs.filter(lit).map((p) => ({ other: p.a.id === sel ? p.b : p.a, shared: edByRank(p.shared) })).sort((a, b) => b.shared.length - a.shared.length);
+      const others = files.length - 1;
+      const item = ({ other, shared }) => { const names = shared.slice(0, 3).map((k) => BYKEY.get(k).o.name), more = shared.length - names.length;
+        return row({ attrs: tap(`data-edmap="${esc(other.id)}"`), lead: `<span class="edm-count">${shared.length}</span>`, name: esc(other.short),
+          meta: esc(names.join(", ") + (more > 0 ? ` and ${more} more` : "")), wrap: true }); };
+      panel = `<div class="edm-panel"><div class="ed-sh"><div><h3 class="ed-h edm-h">${esc(f.short)}</h3>
+          <p class="ed-cap">${mine.length ? `Shares people with ${mine.length} of ${sc.mine ? "your" : "nodo's"} other ${others} files` : "Shares no one with the other files on this map"}</p></div>
+          <button class="eu-btn eu-btn--sm ed-sh__btn" type="button" data-file="${esc(f.id)}">Open</button></div>
+        ${mine.length ? `<div class="list">${mine.map(item).join("")}</div>` : ""}</div>`;
+    } else {
+      const top = [...links].sort((a, b) => b[1] - a[1])[0];
+      panel = `<div class="edm-panel"><p class="edm-tip">Tap a file to see whom it shares and with which files.${top ? ` ${esc(FILE_BY[top[0]].short)} shares people with the most: ${top[1]} ${pl(top[1], "file", "files")}.` : ""}</p></div>`;
+    }
+    return `<div class="edm" style="height:${H}px">${bands.map(band).join("")}${svg}${[...nodes.values()].map(node).join("")}</div>${panel}`;
+  }
+  function edOpenMap(sel) {
+    const sc = edScope();
+    if (!FILES.length) return;
+    if (state.open && state.open.startsWith("map:") && $("edmHost")) { edMapPaint(sel); return; }
+    state.open = "map:" + (sel || "");
+    showProfile(`<div class="tb">${backBtn}${icon("back")}</button></div>
+      <div class="hero"><h2 class="eu-headline" id="pName">Untangle <strong>your files.</strong></h2>
+        <p class="bio">Each band is a stage, from idea to law. A line joins two files that name the same MEP, Commissioner or cabinet member; the thicker the line, the more people they share.${sc.mine ? "" : " You follow no file yet, so this map shows all of nodo's files."}</p></div>
+      <div id="edmHost"></div>
+      <p class="foot">Built from the people listed on each file page, including the ones you added or removed.</p>`);
+    edMapPaint(sel);
+  }
+  function edMapPaint(sel) {
+    const host = $("edmHost"); if (!host) return;
+    const W = Math.max(300, Math.min(host.clientWidth || 358, 488));
+    host.innerHTML = edMapHtml(sel || "", W);
+    if (sel) { const p = host.querySelector(".edm-panel"); if (p && p.getBoundingClientRect().top > innerHeight - 120) p.scrollIntoView({ behavior: "smooth", block: "start" }); }
+    Track.log("map", { section: "files", item: sel || "" });
+  }
+  const edRouteBase = openRoute;
+  openRoute = function (key) { if (key && key.startsWith("map:")) return edOpenMap(key.slice(4)); return edRouteBase(key); };
+  document.addEventListener("click", (e) => {
+    const m = e.target.closest("[data-edmap]"); if (!m) return;
+    e.stopPropagation(); e.preventDefault();
+    const id = m.dataset.edmap, cur = state.open && state.open.startsWith("map:") ? state.open.slice(4) : null;
+    const next = cur !== null && id === cur ? "" : id;
+    if (cur !== null) { state.open = "map:" + next; edMapPaint(next); } else edOpenMap(id);
+  }, true);
+  /* The map also opens from the Files view. */
+  const edFilesViewBase = renderFilesView;
+  renderFilesView = function () {
+    edFilesViewBase();
+    if (FILES.length) $("filesBody").insertAdjacentHTML("afterbegin", `<button class="eu-btn eu-btn--block ed-mapbtn" type="button" data-edmap="">${icon("share")}See your files on a map</button>`);
+  };
