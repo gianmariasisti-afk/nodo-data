@@ -4555,21 +4555,50 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
      One photo per country, served from next/monuments/. The five strips are one picture: each strip shows its own
      slice, offset by its column, so the photo reads whole across the gaps. Countries without an entry keep the
      plain page. The photo loads only when the country page opens. */
+  /* r: photo height ÷ width. f: how far down the photo the columns start (share of its height).
+     z: zoom (1 = the photo spans the five columns). x: sideways shift when zoomed (share of the columns' width).
+     Years only where a source gives a single completion or opening date. */
   const NX_MON = {
-    DE: { src: "monuments/de.jpg", name: "Brandenburger Tor", place: "Berlin", year: "1791", credit: "Tim Hüfner" },
+    AT: { name: "Votivkirche", place: "Vienna", year: "1879", credit: "Daniel Koo", r: 1.506, f: 0.04 },
+    BE: { name: "Grand-Place", place: "Brussels", credit: "Alicia Abeloos", r: 1.5, f: 0 },
+    BG: { name: "Alexander Nevsky Cathedral", place: "Sofia", year: "1912", credit: "Alf Redo", r: 1.504, f: 0.12 },
+    CY: { name: "Petra tou Romiou", place: "Paphos", credit: "Dylan Sosso", r: 1.25, f: 0.2 },
+    CZ: { name: "St Nicholas Church", place: "Prague", credit: "Samuel Quek", r: 1.5, f: 0.08 },
+    DE: { name: "Brandenburg Gate", place: "Berlin", year: "1791", credit: "Tim Hüfner", r: 1.5, f: 0.04 },
+    DK: { name: "Nyhavn", place: "Copenhagen", year: "1673", credit: "Daria Strategy", r: 1.25, f: 0.15 },
+    EE: { name: "Town Hall Square", place: "Tallinn", credit: "Judith Prins", r: 1.5, f: 0.04 },
+    EL: { name: "Acropolis", place: "Athens", credit: "Ken Nagata", r: 1.5, f: 0.05 },
+    ES: { name: "Casa Batlló", place: "Barcelona", year: "1906", credit: "Theodor Vasile", r: 1.652, f: 0.3 },
+    FR: { name: "Eiffel Tower", place: "Paris", year: "1889", credit: "Pedro Gandra", r: 1.5, f: 0 },
+    HR: { name: "City walls", place: "Dubrovnik", credit: "mana5280", r: 1.246, f: 0.18 },
+    HU: { name: "Chain Bridge", place: "Budapest", year: "1849", credit: "Ákos Szócska", r: 1.5, f: 0.25 },
+    IE: { name: "Rock of Cashel", place: "Tipperary", credit: "Irina Shishkina", r: 1.333, f: 0 },
+    IT: { name: "Colosseum", place: "Rome", year: "AD 80", credit: "Redd Francisco", r: 1.5, f: 0.25 },
+    LT: { name: "Cathedral Bell Tower", place: "Vilnius", credit: "Tadas Petrokas", r: 1.25, f: 0 },
+    LU: { name: "Grund", place: "Luxembourg City", credit: "Alena Praslova", r: 1.333, f: 0.25 },
+    LV: { name: "House of the Blackheads", place: "Riga", credit: "Aleksei Smagin", r: 1.5, f: 0.2 },
+    MT: { name: "Valletta", place: "Malta", credit: "Reuben Farrugia", r: 1.333, f: 0.1 },
+    NL: { name: "Canal houses", place: "Amsterdam", credit: "Matheo JBT", r: 1.25, f: 0.08 },
+    PL: { name: "Palace of Culture and Science", place: "Warsaw", year: "1955", credit: "Victor Malyushev", r: 1.333, f: 0.02 },
+    PT: { name: "Belém Tower", place: "Lisbon", year: "1519", credit: "Angel Ceballos", r: 1.778, f: 0.2 },
+    RO: { name: "Romanian Athenaeum", place: "Bucharest", year: "1888", credit: "Emilia Morariu", r: 1.25, f: 0.1 },
+    SE: { name: "Stockholm City Hall", place: "Stockholm", year: "1923", credit: "Stockholm Paris Studio", r: 1.333, f: 0.22, z: 1.3, x: 0.15 },
+    SI: { name: "Bled Island", place: "Bled", credit: "Pavel Golasowski", r: 1.25, f: 0.1 },
+    SK: { name: "Bratislava Castle", place: "Bratislava", credit: "Martin Katler", r: 1.25, f: 0.37, z: 1.8, x: 0.4 },
   };
   const NX_COLS = [0, 28, 14, 28, 0];
   const nxCountryBase = openCountry;
   openCountry = function (cc) {
     nxCountryBase(cc);
-    const m = NX_MON[cc], body = $("profileBody");
+    const m = NX_MON[cc === "GR" ? "EL" : cc], body = $("profileBody");
     if (!m || !body) return;
     const tb = body.querySelector(".tb"), hero = body.querySelector(".hero");
     if (!tb || !hero || hero.querySelector(".nx-mon")) return;
-    tb.insertAdjacentHTML("beforeend", `<p class="nx-mon__place"><b>${esc(m.name)}</b><span>${esc(m.place)} · ${esc(m.year)}</span></p>`);
+    tb.insertAdjacentHTML("beforeend", `<p class="nx-mon__place"><b>${esc(m.name)}</b><span>${esc(m.year ? m.place + " · " + m.year : m.place)}</span></p>`);
     hero.classList.add("nx-mon-hero");
-    hero.insertAdjacentHTML("afterbegin", `<div class="nx-mon" aria-hidden="true">${NX_COLS.map((off, i) =>
-      `<span class="nx-mon__col" style="--off:${off}px;--i:${i}"><img src="${esc(m.src)}" alt="" decoding="async"></span>`).join("")}
+    const src = "monuments/" + (cc === "GR" ? "el" : cc.toLowerCase()) + ".jpg";
+    hero.insertAdjacentHTML("afterbegin", `<div class="nx-mon" aria-hidden="true" style="--r:${m.r};--f:${m.f};--z:${m.z || 1};--x:${m.x || 0}">${NX_COLS.map((off, i) =>
+      `<span class="nx-mon__col" style="--off:${off}px;--i:${i}"><img src="${src}" alt="" decoding="async"></span>`).join("")}
       <span class="nx-mon__credit">Photo: ${esc(m.credit)} / Unsplash</span></div>`);
   };
   /* ===================== end of nodo preview features ===================== */
@@ -4645,10 +4674,10 @@ if ("serviceWorker" in navigator && /github\.io$/.test(location.hostname)) addEv
 .nx-mon__place b { font: 700 17px/20px var(--font-display); letter-spacing: -0.01em; color: var(--ink); }
 .nx-mon__place span { font-size: 12px; line-height: 16px; font-weight: 500; color: var(--ink-muted); }
 .nx-mon-hero { margin-top: var(--space-5); }
-.nx-mon { position: relative; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; align-items: end; height: 288px; margin-bottom: 22px; }
+.nx-mon { position: relative; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; align-items: end; height: 288px; margin-bottom: 22px; container-type: inline-size; }
 .nx-mon::before { content: ""; position: absolute; top: -6px; left: calc(50% - 6px); width: 12px; height: 12px; border-radius: 50%; background: var(--spark); }
 .nx-mon__col { position: relative; overflow: hidden; height: calc(288px - var(--off)); border-radius: 32px 32px 14px 14px; background: var(--surface-sunken); }
-.nx-mon__col img { position: absolute; left: calc(var(--i) * -1 * (100% + 8px)); top: calc(-20px - var(--off)); width: calc(500% + 32px); max-width: none; height: auto; filter: saturate(.8) contrast(1.05); }
+.nx-mon__col img { position: absolute; left: calc(var(--i) * -1 * (100% + 8px) - var(--x) * 100cqw); top: calc(-1 * var(--f) * var(--z) * var(--r) * 100cqw - var(--off)); width: calc(var(--z) * 100cqw); max-width: none; height: auto; filter: saturate(.8) contrast(1.05); }
 .nx-mon__credit { position: absolute; right: var(--space-1); bottom: -20px; font-size: 11px; line-height: 14px; color: var(--ink-muted); }
 .nx-mon-hero .ava.big { position: relative; margin: -56px 0 0 var(--space-1); box-shadow: 0 0 0 5px var(--surface); }
 </style>

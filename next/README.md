@@ -32,6 +32,7 @@ Workflow:
 6. Files view: Your files, what moved in the last 7 days, and Monday email and alert switches (saved on the profile as `notify`; nothing is sent).
 7. "Which files do you track?": asked once after sign-in, and from the Files view.
 8. Your week: the Monday email's content, shown in the app.
+9. Country pages: a photo of a national monument in five columns above the country code. Photos in `monuments/` (Unsplash, credited on the page); name, place, year and crop per country in `NX_MON` in `features.js`. Years only where a source gives one completion or opening date.
 
 Rules for preview features:
 
