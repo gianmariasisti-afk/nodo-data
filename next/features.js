@@ -34,14 +34,29 @@
       });
       NX.docs = docs; NX.vocab = null;
       if (state.view === "home" && state.hq) renderHome();
+      if (NX.dq && $("nxdres")) $("nxdres").innerHTML = nxAnyHtml(NX.dq);
       return docs;
     }).catch(() => { NX.loading = null; return []; });
     return NX.loading;
   }
+  /* Report titles spell files out in full, so the acronyms people type are expanded before matching ("eu ets" → eu emissions trading). */
+  const NX_ALIAS = {
+    ets: "emissions trading", cbam: "carbon border adjustment", afir: "alternative fuels infrastructure", eudr: "deforestation",
+    csrd: "corporate sustainability reporting", csddd: "corporate sustainability due diligence", cs3d: "corporate sustainability due diligence",
+    sep: "standard essential patents", seps: "standard essential patents", gdpr: "data protection", dsa: "digital services", dma: "digital markets",
+    nzia: "net zero industry", crma: "critical raw materials", ppwr: "packaging waste", epbd: "energy performance of buildings",
+    mff: "multiannual financial framework", gsp: "generalised scheme of preferences", cra: "cyber resilience", ehds: "health data space",
+    psd3: "payment services", mica: "crypto assets", amla: "anti money laundering", gei: "global europe", ndici: "global europe",
+  };
+  const nxExpand = (t) => t.flatMap((x) => (NX_ALIAS[x] ? NX_ALIAS[x].split(" ") : [x]));
   function nxDocs(t) {
     if (!NX.docs) { nxLoadDocs(); return null; }
     if (!t.length) return [];
-    return NX.docs.filter((r) => hits(r._hay, t)).sort((a, b) => (hits(b._nm, t) - hits(a._nm, t)) || (b.rap.length - a.rap.length) || (a.date < b.date ? 1 : -1));
+    const run = (u) => NX.docs.filter((r) => hits(r._hay, u)).sort((a, b) => (hits(b._nm, u) - hits(a._nm, u)) || (b.rap.length - a.rap.length) || (a.date < b.date ? 1 : -1));
+    const plain = run(t);
+    if (!t.some((x) => NX_ALIAS[x])) return plain;
+    const seen = new Set(plain.map((r) => r.id));
+    return [...plain, ...run(nxExpand(t)).filter((r) => !seen.has(r.id))];
   }
 
   /* ---------- 1. forgiving search ---------- */
@@ -242,7 +257,32 @@
   renderFilesView = function () {
     nxFilesViewBase();
     if (FILES.length) $("filesBody").insertAdjacentHTML("afterbegin", nxFilesHtml());
+    const allH = $("filesBody").querySelector(".nx-yours > h3:last-of-type");
+    (allH || $("filesBody")).insertAdjacentHTML(allH ? "beforebegin" : "beforeend", `<section class="nx-any" aria-labelledby="nxAnyH">
+      <h3 id="nxAnyH">Any other file</h3>
+      <p class="cap nx-sub">Search every Parliament report and opinion in nodo: who the rapporteur and the shadows are.</p>
+      <label class="eu-search">${icon("search")}<input id="nxdq" type="search" placeholder="A file, an acronym or a committee" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Search Parliament reports and opinions" value="${esc(NX.dq || "")}"></label>
+      <div id="nxdres" aria-live="polite">${nxAnyHtml(NX.dq || "")}</div></section>`);
   };
+  function nxAnyHtml(q) {
+    const t = terms(q);
+    if (!t.length) return "";
+    const rp = nxDocs(t);
+    if (rp == null) return `<p class="cap nx-wait">Loading Parliament reports and opinions…</p>`;
+    return (rp.length ? `<div class="list">${rp.slice(0, 10).map(nxDocRow).join("")}</div>${rp.length > 10 ? `<p class="cap nx-more">Showing 10 of ${rp.length}. Add a word to narrow it down.</p>` : ""}`
+      : `<div class="hint"><span>No Parliament report or opinion matches “${esc(q)}”.</span></div>`) + (q.trim().length >= 3 ? nxRequestCard(q, rp.length ? "Want a full page?" : "Not in nodo yet") : "");
+  }
+  let nxDqTimer = 0;
+  document.addEventListener("input", (e) => {
+    if (e.target.id !== "nxdq") return;
+    NX.dq = e.target.value;
+    clearTimeout(nxDqTimer);
+    nxDqTimer = setTimeout(() => {
+      const host = $("nxdres"); if (!host) return;
+      host.innerHTML = nxAnyHtml(NX.dq);
+      const t = terms(NX.dq); if (t.length && NX.docs) Track.search("files-docs", NX.dq, nxDocs(t).length);
+    }, 250);
+  });
   function nxSetNotify(k, btn) {
     if (!state.profile) state.profile = {};
     const n = nxNotify(); n[k] = !n[k];

@@ -37,3 +37,5 @@
 @media (prefers-reduced-motion: reduce) { .nx-switch, .nx-switch::after { transition: none; } }
 .fd-ft { flex-wrap: wrap; }
 .fd-ft .nx-who { flex-basis: 100%; }
+.nx-any { margin: var(--space-8) 0 var(--space-6); }
+.nx-any .eu-search { margin-bottom: var(--space-3); }
