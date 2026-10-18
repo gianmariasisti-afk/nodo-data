@@ -44,9 +44,9 @@
 .nx-mon__place b { font: 700 17px/20px var(--font-display); letter-spacing: -0.01em; color: var(--ink); }
 .nx-mon__place span { font-size: 12px; line-height: 16px; font-weight: 500; color: var(--ink-muted); }
 .nx-mon-hero { margin-top: var(--space-5); }
-.nx-mon { position: relative; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; align-items: end; height: 288px; margin-bottom: 22px; }
+.nx-mon { position: relative; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; align-items: end; height: 288px; margin-bottom: 22px; container-type: inline-size; }
 .nx-mon::before { content: ""; position: absolute; top: -6px; left: calc(50% - 6px); width: 12px; height: 12px; border-radius: 50%; background: var(--spark); }
 .nx-mon__col { position: relative; overflow: hidden; height: calc(288px - var(--off)); border-radius: 32px 32px 14px 14px; background: var(--surface-sunken); }
-.nx-mon__col img { position: absolute; left: calc(var(--i) * -1 * (100% + 8px)); top: calc(-20px - var(--off)); width: calc(500% + 32px); max-width: none; height: auto; filter: saturate(.8) contrast(1.05); }
+.nx-mon__col img { position: absolute; left: calc(var(--i) * -1 * (100% + 8px) - var(--x) * 100cqw); top: calc(-1 * var(--f) * var(--z) * var(--r) * 100cqw - var(--off)); width: calc(var(--z) * 100cqw); max-width: none; height: auto; filter: saturate(.8) contrast(1.05); }
 .nx-mon__credit { position: absolute; right: var(--space-1); bottom: -20px; font-size: 11px; line-height: 14px; color: var(--ink-muted); }
 .nx-mon-hero .ava.big { position: relative; margin: -56px 0 0 var(--space-1); box-shadow: 0 0 0 5px var(--surface); }
