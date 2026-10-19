@@ -104,8 +104,39 @@ if (files) {
   }
 }
 
+/* Council presidency profiles: the app shows motto, priorities and links from presidency.current or presidency.next */
+const council = load("council.json");
+if (council && council.presidency) {
+  const P = council.presidency, rot = P.rotation || [];
+  for (const k of ["current", "next"]) {
+    const x = P[k]; if (!x) continue;
+    const at = `council.json presidency.${k}`;
+    if (!rot.some((r) => r[0] === x.country)) bad(`${at}: country ${x.country} not in the rotation`);
+    if (!Array.isArray(x.pillars) || !x.pillars.every((y) => Array.isArray(y) && y.length === 2)) bad(`${at}: pillars must be [name, text] pairs`);
+    if (!Array.isArray(x.also)) bad(`${at}: also must be a list`);
+    for (const u of [x.site, x.trioProgramme]) if (u && !/^https:\/\//.test(u)) bad(`${at}: link ${u} is not https`);
+  }
+  if (P.current && P.next && P.current.country === P.next.country) bad("council.json: presidency.current and presidency.next are the same country");
+}
+
+/* Parliament calendar */
+const cal = load("calendar.json");
+if (cal) {
+  if (!Array.isArray(cal.sessions) || cal.sessions.length < 10) bad(`calendar.json: ${cal.sessions ? cal.sessions.length : 0} plenary sessions`);
+  for (const x of cal.sessions || []) if (!ISO.test(x.start) || !ISO.test(x.end) || x.end < x.start || !["SXB", "BRU"].includes(x.place)) bad(`calendar.json: bad session ${JSON.stringify(x)}`);
+  if (cal.checked !== undefined && !ISO.test(String(cal.checked))) bad(`calendar.json: checked "${cal.checked}" is not a date`);
+}
+
+/* Hand-added permanent representatives: [name, date checked, https source] */
+try {
+  const extra = JSON.parse(fs.readFileSync(path.join(ROOT, "tools/council/permreps-extra.json"), "utf8"));
+  for (const [cc, slots] of Object.entries(extra)) for (const [slot, v] of Object.entries(slots)) {
+    if (!["pr", "dpr"].includes(slot) || !Array.isArray(v) || !v[0] || !ISO.test(String(v[1])) || !/^https:\/\//.test(String(v[2]))) bad(`permreps-extra.json: ${cc}.${slot} must be [name, YYYY-MM-DD, https source]`);
+  }
+} catch (e) { bad(`permreps-extra.json: does not parse (${e.message.slice(0, 80)})`); }
+
 /* Everything else must at least parse */
-for (const rel of ["council.json", "calendar.json", "agenda.json", "manifest.json"]) load(rel);
+for (const rel of ["agenda.json", "manifest.json"]) load(rel);
 
 if (problems.length) { console.log(problems.join("\n")); process.exit(1); }
 console.log(`valid: ${mepIds.size} MEPs, ${cabKeys.size} cabinet members, ${(files && files.files.length) || 0} files`);

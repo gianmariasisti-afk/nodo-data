@@ -2094,6 +2094,8 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     let h = "";
     if (tab === "presidency") {
       const P = CO.presidency, cur = presOf(now), ci = CO.presidency.rotation.indexOf(cur);
+      /* The profile (motto, priorities, links) of the Presidency in office: presidency.current or, after the handover, presidency.next. */
+      const PR = [P.current, P.next].find((x) => x && x.country === cur[0]) || null;
       const end = new Date(+cur[2].slice(0, 4), +cur[2].slice(5, 7), 0), left = Math.round((end - new Date(now.getFullYear(), now.getMonth(), now.getDate())) / 864e5);
       const mIn = Math.max(1, Math.min(6, (now.getFullYear() - +cur[1].slice(0, 4)) * 12 + now.getMonth() + 1 - +cur[1].slice(5, 7) + 1));
       const per = (r) => `${fmtD(new Date(+r[1].slice(0, 4), +r[1].slice(5, 7) - 1, 1), { month: "short", year: "numeric" })} – ${fmtD(new Date(+r[2].slice(0, 4), +r[2].slice(5, 7), 0), { month: "short", year: "numeric" })}`;
@@ -2105,9 +2107,9 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       h = `<section class="eu-stat eu-stat--mint mt"><div class="eu-stat__head"><span class="eu-tile__disc">${icon("flag")}</span><span class="eu-stat__title">${esc(countryName(cur[0]))} Presidency</span><span class="eu-badge">Month ${mIn} of 6</span></div>
           <div class="eu-stat__figure"><span class="eu-stat__num">${left}</span><span class="eu-stat__of">days left · ${esc(per(cur))}</span></div>
           <div class="eu-meter" role="img" aria-label="Month ${mIn} of 6 of the Presidency">${segs(6, mIn)}</div>
-          ${P.current.country === cur[0] ? `<p class="eu-stat__foot">“${esc(P.current.motto)}”${P.current.mottoGa ? ` · ${esc(P.current.mottoGa)}` : ""}</p>` : ""}</section>
-        ${P.current.country === cur[0] ? `<h3>Priorities</h3><div class="block">${P.current.pillars.map(([n, d]) => `<section><h4>${esc(n)}</h4><p>${esc(d)}</p></section>`).join("")}
-          <section><h4>Overarching</h4><p>${esc(P.current.overarching)}</p><ul>${P.current.also.map((x) => `<li>${esc(x)}</li>`).join("")}</ul></section></div>` : ""}
+          ${PR ? `<p class="eu-stat__foot">“${esc(PR.motto)}”${PR.mottoGa ? ` · ${esc(PR.mottoGa)}` : ""}</p>` : ""}</section>
+        ${PR ? `<h3>Priorities</h3><div class="block">${PR.pillars.map(([n, d]) => `<section><h4>${esc(n)}</h4><p>${esc(d)}</p></section>`).join("")}
+          <section><h4>Overarching</h4><p>${esc(PR.overarching)}</p><ul>${PR.also.map((x) => `<li>${esc(x)}</li>`).join("")}</ul></section></div>` : ""}
         <h3>Trio <small>${esc(trio.map(countryName).join(", "))}</small></h3>
         <div class="trio">${trio.map((cc) => { const r = P.rotation.find((x) => x[0] === cc); return `<div class="${cc === cur[0] ? "now" : ""}"><b>${esc(countryName(cc))}</b><span>${esc(per(r))}</span></div>`; }).join("")}</div>
         <h3>Next Coreper</h3><div class="list">${corRow("II", "Coreper II · ambassadors", "ECOFIN, FAC, GAC, JHA")}${corRow("I", "Coreper I · deputy ambassadors", "AGRIFISH, COMPET, EPSCO, ENVI, EYCS, TTE")}</div>
@@ -2115,7 +2117,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
           name: esc(m.kind === "ec" ? m.title : m.conf ? CONF_BY[m.conf].short + (m.informal ? " (informal)" : "") : m.title), wrap: true,
           meta: `${esc(fmtIso(m.start, { weekday: "short", day: "numeric", month: "short" }))}${m.end !== m.start ? "–" + esc(fmtIso(m.end, { day: "numeric", month: "short" })) : ""}${m.kind === "ec" ? " · heads of state or government" : ""}`, tail: m.conf ? go : "" })).join("")}</div>
         <h3>Rotation</h3><div class="rot">${P.rotation.slice(ci).map((r) => `<div>${esc(countryName(r[0]))}<br><span>${esc(per(r))}</span></div>`).join("")}</div>
-        <div class="links"><a class="eu-btn eu-btn--sm" href="${esc(P.current.site)}" target="_blank" rel="noopener">Presidency website${icon("ext")}</a><a class="eu-btn eu-btn--sm" href="${esc(P.current.trioProgramme)}" target="_blank" rel="noopener">Trio programme (PDF)${icon("ext")}</a></div>`;
+        ${PR ? `<div class="links">${PR.site ? `<a class="eu-btn eu-btn--sm" href="${esc(PR.site)}" target="_blank" rel="noopener">Presidency website${icon("ext")}</a>` : ""}${PR.trioProgramme ? `<a class="eu-btn eu-btn--sm" href="${esc(PR.trioProgramme)}" target="_blank" rel="noopener">Trio programme (PDF)${icon("ext")}</a>` : ""}</div>` : ""}`;
     } else if (tab === "perms") {
       h = prHub(now);
     } else if (tab === "countries") {

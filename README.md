@@ -81,7 +81,7 @@ The Action "Update MEP directory" (`.github/workflows/meps.yml`, `scripts/build-
 
 ## council.json updates
 
-The Council website (consilium.europa.eu) answers 403 to GitHub runners, so `council.json` has no Action. A scheduled Claude task on Gianmaria's Mac refreshes it every Monday at 09:37 Brussels time, through the Claude desktop app's built-in browser. It needs the Mac awake with the app open; the weekday check flags Council data older than 9 days.
+The Council website (consilium.europa.eu) answers 403 to GitHub runners, so `council.json` has no Action. A scheduled Claude task on Gianmaria's Mac refreshes it on Mondays and Thursdays at 07:30 Brussels time (the Thursday run catches a Monday the Mac was asleep), through the Claude desktop app's built-in browser. It needs the Mac awake with the app open; the weekday check flags Council data older than 9 days.
 
 The task's auto mode refuses to run code fetched from the web, so the browser part is two short snippets that travel inside the task's prompt (`tools/browser/council.js`, `tools/browser/oeil.js`). They load no code and only fetch pages; all parsing runs in the repository's Python. After editing a snippet, print the new prompt with `python3 tools/browser/routine-prompt.py` and update the task.
 
@@ -89,7 +89,7 @@ The task's auto mode refuses to run code fetched from the web, so the browser pa
 2. The device bridge cuts tool answers above about 260,000 characters and a participant list is about 230,000 characters in base64, so the collection comes in slices of 180,000 characters: `await window.__nodoNext()` answers one slice at a time, padded so the agent harness saves it to a file.
 3. `tools/council/from_browser.py SLICES... --out FILE` joins the slices, checks the SHA-256 of the whole collection, reads the PDFs with pdfplumber and builds the collection. PDF text arrives in pieces ("M" + "r David VLAJČIĆ", "CYPRU S"); letters closer than 1.5pt join into one word and country headers are recognised with or without spaces. A header sharing a line with a name ("KLEIWEG DE ZWAAN AUSTRIA *") is split.
 4. `tools/council/pull.py --body FILE` checks the collection (shape, dates, known countries, consilium meeting pages only), merges it into `data-cache/council-raw.json` (a readable list replaces an unreadable one; lists older than 400 days go, except the newest of each configuration) and rebuilds `v1/council.json` and its manifest entry with `tools/build-council.py`. It refuses a result that loses ambassadors, deputies or a configuration's representatives, or has fewer than 5 meetings or Coreper dates. `data-cache/council-applied.json` records the collection applied.
-5. The task commits those four files to main.
+5. The task commits those four files to main. A run with nothing new changes nothing.
 6. `tools/council/permreps-extra.json` holds ambassadors and deputies the lists do not name, from official sources (Permanent Representations' websites, Council documents), with the URL as third field. A newer participant list replaces them.
 
 Tests: `python3 -m unittest discover -s tests/council -p 'test_*.py'` (two real participant lists are fixtures).
@@ -98,7 +98,7 @@ Tests: `python3 -m unittest discover -s tests/council -p 'test_*.py'` (two real 
 
 `v1/files.json` lists rapporteurs, shadows and rapporteurs for opinion with a `basis`: `ep-procedure-file` (the Parliament's Legislative Observatory procedure file, each name linked to the MEP id), `ep-open-data` (committee documents in the Parliament's open data) or `press`. The app marks the first two Verified. Shadows of a joint committee carry the joint label (`ITRE-LIBE`) because the Observatory lists them together. Entries of a package carry `part` (the part's id), shown next to the committee.
 
-The Observatory also blocks GitHub runners. The weekly Council task runs `tools/browser/oeil.js` in a tab on oeil.europarl.europa.eu: it compares every priority file with a procedure against the procedure file and reports new, gone or moved names. It changes nothing; a session with repository access applies the differences.
+The Observatory also blocks GitHub runners. The weekly Council task runs `tools/browser/oeil.js` in a tab on oeil.europarl.europa.eu: it compares every priority file with a procedure against the procedure file and reports new, gone or moved names. The task then applies them with `tools/files/apply_mep_diff.py` (new names with basis `ep-procedure-file`, names that left removed, committee moves updated; MEPs not yet in meps.json skipped; more than 25 differences refused) and pushes through the validator and `scripts/refresh-guard.mjs --scope meps`.
 
 ## activity/ (MEP feed)
 
@@ -165,13 +165,23 @@ Flag colour sources:
 
 Every dated step under a file's "What happens next" names the source that gives its date (`src` in `v1/files.json`, an id from the file's `sources`). The app shows the step as a link to that page. `scripts/validate-data.mjs` fails a dated step without a source.
 
-### Weekly files refresh
+### Scheduled checks
 
-Status texts and next steps in `files.json` are editorial and have no data feed, so a scheduled Claude task refreshes them every Monday at 08:07 Brussels time ("Weekly nodo files refresh"). It reads the Parliament's Legislative Observatory, Council meeting pages and documents, Commission and Presidency pages, and press only where no official page exists. It drops dates that have passed, adds dates an official page ties to the file, rewrites a status only when something changed, and sets `checked` on every file it confirmed.
+Data with a feed is refreshed by GitHub Actions (above). Everything editorial or behind a site that blocks GitHub is checked by scheduled Claude tasks. Each one pushes only through `scripts/validate-data.mjs` and, where it edits data by hand, `scripts/refresh-guard.mjs`.
 
-- `checked` (per file) is the day status and next steps were last confirmed against sources. The file screen shows it as "Status checked". `scripts/validate-data.mjs` refuses a `checked` date in the future and any `next` date earlier than `checked`.
-- `scripts/files-guard.mjs --base origin/main` limits what the task may change: per file `status`, `stage`, `next`, `sources`, `caveats`, `checked` and `council.note`; at the top level `asOf` and `generated`. Adding or removing a file, or changing MEPs, commissioners, cabinet, DGs or working parties, stops the push.
-- `status.json` lists `checked`, `checkedDays` and `past` (dates already gone) for each file. The weekday check flags a file not checked for more than 9 days.
+| Task | When | Covers |
+|---|---|---|
+| Weekly nodo Council refresh | Mon and Thu 07:30, on Gianmaria's Mac (built-in browser) | council.json meetings, Coreper, participant lists; applies Legislative Observatory differences to the MEP lists of files.json (`tools/files/apply_mep_diff.py`, scope `meps`) |
+| Weekly nodo reference refresh | Mon 08:07, cloud | files.json status and next steps (scope `files`); Parliament calendar (`calendar`); Presidency handover (`presidency`); hand-added permanent representatives (`permreps`) |
+| nodo weekly requests and backend | Mon 08:52, cloud | file requests and empty searches from Supabase events; Supabase security and performance advisors, auth and API errors; one email |
+| Weekday nodo data check | Mon–Fri 07:30, cloud | reads status.json: workflows, freshness, files `checkedDays`, `reference` (calendar age, days to the Presidency handover and whether the next profile exists, oldest hand-added perm rep check), open issues |
+
+- `checked` (per file) is the day status and next steps were last confirmed against sources. The file screen shows it as "Status checked". The validator refuses a `checked` date in the future and any `next` date earlier than `checked`.
+- `scripts/refresh-guard.mjs --scope <list> [--sync-manifest]` refuses any change outside the named scopes: `files` (per file status, stage, next, sources, caveats, checked, council.note; top-level asOf and generated), `meps` (the meps lists), `calendar` (v1/calendar.json), `presidency` (presidency.current and presidency.next in council.json), `permreps` (tools/council/permreps-extra.json). `--sync-manifest` updates bytes and sha256 of changed v1 files. Adding or removing a priority file, or changing commissioners, cabinet, DGs or working parties, always stops the push.
+- Presidency: the app shows motto, priorities and links from whichever of `presidency.current` or `presidency.next` matches the Presidency in office by date, and nothing when neither does. The reference task adds `next` once the incoming Presidency publishes its programme, and from the handover moves it to `current`.
+- `tools/council/permreps-extra.json` holds ambassadors and deputies not named in Council participant lists, as [name, date checked, https source]. The reference task rechecks each entry against its source once a month and updates the date. The Council refresh merges the file into council.json.
+- `calendar.json` carries `checked`, set by the reference task after comparing plenary sessions and the published calendar with the Parliament's official calendar pages.
+- The Commission updater reads the President's cabinet like the others; its people changes always wait for review on `review/commission`.
 
 ## Search, automatic pages and your files
 

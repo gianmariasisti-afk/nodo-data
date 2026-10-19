@@ -39,6 +39,21 @@ const fileDates = ((files && files.files) || []).map((f) => {
   return { id: f.id, short: f.short, checked: f.checked || null, checkedDays, lastNext: dates[dates.length - 1] || null, upcoming: dates.filter((d) => d >= today).length, past };
 });
 
+/* Checks without a data feed: Parliament calendar, the Presidency handover, hand-added permanent representatives */
+const ageDays = (iso) => (iso ? Math.round((Date.parse(today) - Date.parse(String(iso).slice(0, 10))) / 864e5) : null);
+const rot = (council && council.presidency && council.presidency.rotation) || [];
+const ym = today.slice(0, 7), ci = rot.findIndex((r) => ym >= r[1] && ym <= r[2]), nxt = ci >= 0 ? rot[ci + 1] : null;
+const prof = (cc) => ["current", "next"].some((k) => council && council.presidency && council.presidency[k] && council.presidency[k].country === cc);
+let extra = {};
+try { extra = JSON.parse(fs.readFileSync(path.join(ROOT, "tools/council/permreps-extra.json"), "utf8")); } catch { extra = {}; }
+const extraDates = Object.values(extra).flatMap((s) => Object.values(s).map((v) => v[1])).filter(Boolean).sort();
+const reference = {
+  calendar: { checked: (cal && (cal.checked || cal.fetched)) || null, checkedDays: ageDays(cal && (cal.checked || cal.fetched)), lastSession: (cal && cal.sessions && cal.sessions.length && cal.sessions[cal.sessions.length - 1].start) || null },
+  presidency: { current: ci >= 0 ? rot[ci][0] : null, currentProfile: ci >= 0 ? prof(rot[ci][0]) : false, next: nxt ? nxt[0] : null, nextStarts: nxt ? nxt[1] + "-01" : null,
+    daysToHandover: nxt ? Math.round((Date.parse(nxt[1] + "-01") - Date.parse(today)) / 864e5) : null, nextProfile: nxt ? prof(nxt[0]) : false },
+  permrepsExtra: { entries: extraDates.length, oldestCheck: extraDates[0] || null, oldestDays: ageDays(extraDates[0]) },
+};
+
 const manifest = [];
 const man = read("manifest.json");
 if (!man || !man.files) manifest.push({ entry: "*", problem: "manifest.json missing or has no files map" });
@@ -59,4 +74,4 @@ try {
     .map((e) => ({ at: day(e.at), source: e.source, changes: (e.changes || []).map((c) => `${c.type}: ${c.name || c.slug}${c.commissioner ? " (" + c.commissioner + ")" : ""}`) }));
 } catch { /* nothing applied yet */ }
 
-console.log(JSON.stringify({ today, freshness, files: fileDates, manifest, autonomy }));
+console.log(JSON.stringify({ today, freshness, files: fileDates, reference, manifest, autonomy }));

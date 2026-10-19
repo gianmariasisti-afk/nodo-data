@@ -81,7 +81,7 @@ async function main() {
   let failed = 0;
 
   for (const m of cm.college) {
-    if (m.kind === "president") { report.teams[m.slug] = { skipped: "president: cabinet page not covered yet" }; continue; }
+    // The President's cabinet is read like the others; its structural changes always wait for review (see below).
     const idx = cm.college.indexOf(m);
     let teamUrl = null;
     try {
@@ -135,6 +135,9 @@ async function main() {
 
   // Autonomy: a small batch of ordinary cabinet changes goes live; anything senior or large waits for review.
   const verdict = classifyCommission(structural);
+  // The President's cabinet joined the updater on 19 Oct 2026: its people changes go to review until the parse has proven itself.
+  const presSlugs = new Set(cm.college.filter((m) => m.kind === "president").map((m) => m.slug));
+  if (structural.some((c) => presSlugs.has(c.commissioner))) { verdict.auto = false; verdict.reasons.push("President's cabinet changes always go to review"); }
   const applyAll = structural.length > 0 && verdict.auto;
   report.autonomy = { applied: applyAll, waits: applyAll ? [] : verdict.reasons };
   report.auto = auto.slice(0, 60); report.structural = applyAll ? [] : structural;

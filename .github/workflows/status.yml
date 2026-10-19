@@ -60,6 +60,7 @@ jobs:
               counts: { activityFiles: $act, questionFiles: $qf },
               freshness: $data[0].freshness,
               files: $data[0].files,
+              reference: $data[0].reference,
               manifestProblems: $data[0].manifest,
               workflows: (
                 [ $runs[0].workflow_runs[]
