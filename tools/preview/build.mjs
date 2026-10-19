@@ -50,7 +50,7 @@ window.nodoPreviewDenied = function () {
 </script>`;
 
 const gate = `<style>
-#nxBadge{position:fixed;top:calc(env(safe-area-inset-top,0px) + 6px);right:10px;z-index:2147483000;pointer-events:none;padding:3px 9px;border-radius:999px;background:#141413;color:#fff;font:700 11px/16px -apple-system,BlinkMacSystemFont,sans-serif;letter-spacing:.06em}
+#nxBadge{position:fixed;bottom:calc(env(safe-area-inset-bottom,0px) + 8px);left:10px;z-index:2147483000;pointer-events:none;padding:3px 9px;border-radius:999px;background:#141413;color:#fff;font:700 11px/16px -apple-system,BlinkMacSystemFont,sans-serif;letter-spacing:.06em}
 #nxDenied{position:fixed;inset:0;z-index:2147483001;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:32px;background:#0E1B4D;color:#fff;text-align:center;font:16px/24px -apple-system,BlinkMacSystemFont,sans-serif}
 #nxDenied h1{margin:0;font-size:28px;line-height:34px}
 #nxDenied a{display:inline-block;padding:14px 24px;border-radius:999px;background:#fff;color:#0E1B4D;font-weight:600;text-decoration:none}

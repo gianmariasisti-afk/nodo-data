@@ -24,7 +24,7 @@ Workflow:
 
 - Home, "the Monday edition" (since 18 Oct 2026): masthead with the date, a headline that names the week, search and a week card; Your files with a five-step track from idea to law; Who ties them together; Coming up; Saved people and Recently viewed. Removed from Home: the calendar hero, news block, Files tile, the four institution tiles, cabinet of the day, country desk and seats by group. With no followed file, it uses all files and says so.
 - The map of your files: files in bands by stage, lines between files that share people, tap a file to see whom it shares. Opens from Map on Home and from the Files view.
-- Tab bar: Today, People, Calendar, Files (News opens from the Files view). Deep blue bar, labels only, the current tab a light pill with a gold node.
+- Burger menu (since 19 Oct 2026), replacing the floating tab bar: a top bar on every view with the wordmark (back to Today), your profile and a Menu button; deep blue on Today, light elsewhere. Menu opens a drawer from the right with Today, People (Parliament, Commission, Council), Calendar and Files, then News on the files, Saved people and your profile. Escape or the scrim closes it; focus returns to Menu. The PREVIEW marker now sits bottom left.
 - People landing page: three photo blocks (Parliament, Commission, Council) cut into columns like the country pages; each opens its section, which keeps a "People" back button. Parliament and Commission photos hotlinked from Unsplash (Paolo Margari, Carl Campbell), credited on each block; the Council block uses a photo of the Europa building from Wikimedia Commons (CC BY-SA 4.0, cropped), stored in monuments/council-europa.jpg.
 
 Promoted to the live app on 18 Oct 2026:

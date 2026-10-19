@@ -12,7 +12,6 @@
         - Saved people and Recently viewed, restyled.
         - Removed from Home: the calendar hero, the news block, the Files tile, the Parliament, Commission, Council and Calendar
           tiles (the Directory and Calendar tabs reach them), cabinet of the day, the country desk and seats by group.
-        - The tab bar takes the edition's look: a deep blue bar, labels only, the current tab in a light pill with a gold node (app-wide in the preview).
      2. The map of your files (since 18 Oct 2026): files in bands by stage, a line between two files when they share an MEP,
         a Commissioner or a cabinet member, thicker when they share more. Tap a file to see whom it shares and with which files.
         Opens from Map on Home and in the Files view.
@@ -23,6 +22,9 @@
         People opens on a landing page with three photo blocks, Parliament, Commission and Council, each cut into columns like the
         country pages; a block opens its section, and each section has a way back to People. Parliament and Commission photos: Unsplash,
         hotlinked as its terms ask, credited on each block. The Council photo (Europa building) is from Wikimedia Commons, CC BY-SA 4.0, kept in monuments/.
+     4. Burger menu (since 19 Oct 2026): the floating tab bar is replaced by a top bar (wordmark back to Today, your profile, Menu)
+        and a drawer from the right: Today, People with Parliament, Commission and Council, Calendar, Files, then News, Saved
+        people and your profile card. The bar takes the masthead's deep ground on Today and the light surface elsewhere.
      ===================================================================== */
 
   /* ---------- 1. home: the Monday edition ---------- */
@@ -390,3 +392,116 @@
     ppFilesView();
     $("filesBody").insertAdjacentHTML("afterbegin", `<button class="eu-btn eu-btn--outline eu-btn--block ed-mapbtn" type="button" data-view="news">${icon("news") || ""}Latest news on your files</button>`);
   };
+
+  /* ---------- 4. navigation: the burger menu ---------- */
+  /* The floating tab bar is gone. A top bar holds the wordmark (back to Today), your profile and a Menu button.
+     Menu opens a drawer from the right: Today, People (Parliament, Commission, Council), Calendar, Files, then News, Saved
+     and your profile. The tab bar buttons stay hidden in the page, so syncDock and the tour keep working. */
+  const NX_SVG = {
+    menu: '<svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"/></svg>',
+    close: '<svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>',
+    chev: '<svg class="eu-icon nx-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>',
+  };
+  const NX_ICON = (id) => { const b = $(id), s = b && b.querySelector("svg"); return s ? s.outerHTML : ""; };
+  const NX_PEOPLE = ["people", "ep", "ec", "co"];
+  (function nxMount() {
+    if ($("nxBar")) return;
+    const mark = document.querySelector(".topbar .wordmark");
+    const wm = mark ? mark.cloneNode(true).outerHTML : "nodo";
+    document.body.insertAdjacentHTML("afterbegin", `<header id="nxBar" class="nx-bar"><div class="nx-bar__in">
+        <button class="nx-home" type="button" data-view="home" aria-label="nodo, go to Today">${wm}</button>
+        <span class="nx-bar__r" id="nxBarR"><button id="nxOpen" class="nx-menubtn" type="button" aria-haspopup="dialog" aria-controls="nxMenu" aria-expanded="false">${NX_SVG.menu}Menu</button></span>
+      </div></header>`);
+    /* Your profile button moves from the Home masthead into the bar, so it is there on every view. */
+    $("nxBarR").prepend($("meBtn"));
+    document.body.insertAdjacentHTML("beforeend", `<div id="nxScrim" class="nx-scrim" hidden></div>
+      <section id="nxMenu" class="nx-menu" role="dialog" aria-modal="true" aria-label="Menu" hidden>
+        <div class="nx-menu__top"><span class="nx-menu__wm">${wm}</span>
+          <button class="eu-iconbtn nx-close" type="button" data-nx-close aria-label="Close menu">${NX_SVG.close}</button></div>
+        <p class="nx-week" id="nxWeek"></p>
+        <nav aria-label="Main"><ul class="nx-list">
+          <li><button class="nx-item" type="button" data-view="home" data-nx="home">${NX_ICON("navHome")}Today</button></li>
+          <li><div class="nx-split"><button class="nx-item" type="button" data-view="people" data-nx="people">${NX_ICON("navDir")}People</button>
+              <button class="nx-tog" type="button" id="nxTog" aria-expanded="true" aria-controls="nxSub" aria-label="Parliament, Commission and Council">${NX_SVG.chev}</button></div>
+            <ul class="nx-sub" id="nxSub">
+              <li><button class="nx-subitem" type="button" data-dir="ep" data-nx="ep"><span class="nx-dot nx-dot--ep" aria-hidden="true"></span>Parliament</button></li>
+              <li><button class="nx-subitem" type="button" data-dir="ec" data-nx="ec"><span class="nx-dot nx-dot--ec" aria-hidden="true"></span>Commission</button></li>
+              <li><button class="nx-subitem" type="button" data-dir="co" data-nx="co"><span class="nx-dot nx-dot--co" aria-hidden="true"></span>Council</button></li>
+            </ul></li>
+          <li><button class="nx-item" type="button" data-view="cal" data-nx="cal">${NX_ICON("navCal")}Calendar</button></li>
+          <li><button class="nx-item" type="button" data-view="files" data-nx="files">${NX_ICON("navFiles")}Files</button></li>
+        </ul>
+        <hr class="nx-rule">
+        <ul class="nx-list nx-list--2">
+          <li><button class="nx-subitem" type="button" data-view="news" data-nx="news">News on the files</button></li>
+          <li><button class="nx-subitem" type="button" data-view="saved" data-nx="saved">Saved people</button></li>
+        </ul></nav>
+        <button class="nx-me" type="button" data-nx-me><span class="nx-me__face" id="nxFace" aria-hidden="true"></span>
+          <span class="nx-me__tx"><span class="nx-me__n" id="nxName">Your profile</span><span class="nx-me__s">Profile, files you follow, countries you cover</span></span></button>
+      </section>`);
+    document.body.classList.add("nx-burger");
+
+    const menu = $("nxMenu"), scrim = $("nxScrim"), open = $("nxOpen");
+    const cur = () => (state.view === "agenda" ? "cal" : state.view);
+    function nxSync() {
+      const v = cur();
+      menu.querySelectorAll("[data-nx]").forEach((b) => { if (b.dataset.nx === v) b.setAttribute("aria-current", "page"); else b.removeAttribute("aria-current"); });
+      const pp = NX_PEOPLE.includes(v);
+      menu.querySelector('[data-nx="people"]').classList.toggle("nx-in", pp && v !== "people");
+      document.body.classList.toggle("nx-on-home", v === "home");
+    }
+    function nxOpen() {
+      nxSync();
+      const wk = weekOf(edMonday()), phrase = ED_WEEK[wk.place || wk.kind];
+      $("nxWeek").textContent = `Week ${isoWeek(edMonday())}${phrase ? " · " + phrase.replace(/^an? /, "").replace(/^./, (c) => c.toUpperCase()) : ""}`;
+      $("nxFace").innerHTML = $("meBtn").innerHTML;
+      const fn = firstName(); $("nxName").textContent = fn || "Your profile";
+      scrim.hidden = false; menu.hidden = false;
+      requestAnimationFrame(() => { menu.classList.add("is-open"); scrim.classList.add("is-open"); });
+      open.setAttribute("aria-expanded", "true");
+      nxLayers();
+      (menu.querySelector(".nx-item[aria-current], .nx-subitem[aria-current]") || menu.querySelector(".nx-close")).focus();
+    }
+    function nxClose(restore) {
+      if (menu.hidden) return;
+      menu.classList.remove("is-open"); scrim.classList.remove("is-open");
+      menu.hidden = true; scrim.hidden = true;
+      open.setAttribute("aria-expanded", "false");
+      nxLayers();
+      if (restore) open.focus();
+    }
+    /* While the menu is open, everything behind it is inert. */
+    function nxLayers() {
+      const m = !menu.hidden;
+      document.querySelectorAll("main.view").forEach((v) => { if (m) v.inert = true; });
+      $("nxBar").inert = m || !$("onb").hidden || !$("sheet").hidden || !!state.touring;
+      if (!m) nxSyncLayers();
+    }
+    const nxSyncLayers = syncLayers;
+    syncLayers = function () { nxSyncLayers(); if (!menu.hidden) document.querySelectorAll("main.view").forEach((v) => { v.inert = true; }); $("nxBar").inert = !menu.hidden || !$("onb").hidden || !$("sheet").hidden || !!state.touring; };
+
+    open.addEventListener("click", nxOpen);
+    scrim.addEventListener("click", () => nxClose(true));
+    $("nxTog").addEventListener("click", (e) => {
+      const b = e.currentTarget, on = b.getAttribute("aria-expanded") !== "true";
+      b.setAttribute("aria-expanded", String(on)); $("nxSub").hidden = !on;
+    });
+    /* A destination closes the menu first; the app's own click handler then changes the view. */
+    menu.addEventListener("click", (e) => {
+      const t = e.target;
+      if (t.closest("[data-nx-close]")) return nxClose(true);
+      if (t.closest("[data-nx-me]")) { nxClose(false); return openMe(); }
+      if (t.closest("[data-view], [data-dir]")) nxClose(false);
+    });
+    menu.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") { e.preventDefault(); return nxClose(true); }
+      if (e.key !== "Tab") return;
+      const f = [...menu.querySelectorAll("button:not([hidden])")].filter((b) => b.offsetParent);
+      const a = f[0], z = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === a) { e.preventDefault(); z.focus(); }
+      else if (!e.shiftKey && document.activeElement === z) { e.preventDefault(); a.focus(); }
+    });
+    const nxDock = syncDock;
+    syncDock = function () { nxDock(); nxSync(); };
+    nxSync();
+  })();

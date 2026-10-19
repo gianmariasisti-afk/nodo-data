@@ -126,17 +126,72 @@
 #vHome #homeTiles .eu-tile__meta { display: none; }
 #vHome #srcNote { margin-top: var(--space-6); }
 
-/* Tab bar, the edition's look: a deep blue bar in both themes, labels only, the current tab a light pill with a gold node. */
-.dock .eu-tabbar { gap: 2px; padding: 6px; background: #0E1B4D; box-shadow: 0 12px 32px rgba(6,10,30,.35), inset 0 0 0 1px rgba(255,255,255,.08); }
-.dock .eu-tabbar__item { flex-direction: row; gap: 6px; width: auto; min-width: 0; height: 48px; padding: 0 14px; color: #C9D3F5; font-size: 13px; transition: background-color .15s ease-out, color .15s ease-out; }
-.dock .eu-tabbar__item .eu-icon { display: none; }
-.dock .eu-tabbar__item[aria-current="page"] { background: #FFFFFF; color: #0E1B4D; }
-.dock .eu-tabbar__item[aria-current="page"]::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #B07A00; }
-.dock .eu-tabbar__item:focus-visible { outline: 2px solid #FFFFFF; outline-offset: -2px; }
-.dock .eu-tabbar__item[aria-current="page"]:focus-visible { outline-color: #0E1B4D; }
-@media (max-width: 380px) { .dock .eu-tabbar__item { padding: 0 10px; font-size: 12px; } }
-@media (max-width: 340px) { .dock .eu-tabbar__item { padding: 0 7px; } .dock .eu-tabbar__item[aria-current="page"]::before { display: none; } }
-@media (prefers-reduced-motion: reduce) { .dock .eu-tabbar__item { transition: none; } }
+/* Navigation: the burger menu. The floating tab bar is hidden; a top bar carries the wordmark, your profile and Menu. */
+:root { --nx-bar: calc(env(safe-area-inset-top, 0px) + 68px); }
+.nx-burger .dock { display: none; }
+.nx-bar { position: fixed; z-index: 18; top: 0; left: 0; right: 0; padding-top: env(safe-area-inset-top, 0px); background: var(--surface); color: var(--ink); box-shadow: 0 1px 0 var(--hairline); }
+.nx-bar__in { width: min(520px, 100%); margin-inline: auto; box-sizing: border-box; height: 68px; padding: 0 var(--space-4); display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); }
+.nx-home { display: flex; align-items: center; height: 44px; padding: 0; border: 0; background: none; color: inherit; cursor: pointer; }
+.nx-home .wordmark, .nx-menu__wm .wordmark { display: block; width: 92px; height: auto; }
+.nx-home .wordmark svg, .nx-menu__wm .wordmark svg { display: block; width: 100%; height: auto; }
+.nx-bar__r { display: flex; align-items: center; gap: var(--space-2); }
+.nx-bar #meBtn { width: 44px; height: 44px; }
+.nx-bar #meBtn > img { width: 44px; height: 44px; }
+.nx-menubtn { display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 16px 0 13px; border: 0; border-radius: var(--radius-pill); background: var(--ink); color: var(--ink-inverse); font: 700 15px/1 var(--font-sans); cursor: pointer; }
+.nx-menubtn .eu-icon { width: 22px; height: 22px; stroke-width: 2.25; }
+.nx-menubtn:focus-visible, .nx-home:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+/* On Today the bar takes the masthead's deep ground, so the two read as one. */
+.nx-on-home .nx-bar { background: var(--brand-deep); color: var(--on-brand-deep); box-shadow: none; }
+.nx-on-home .nx-bar .wordmark { color: var(--on-brand-deep); }
+.nx-on-home .nx-bar .wm-node { fill: var(--node-on-deep); }
+.nx-on-home .nx-menubtn { background: var(--on-brand-deep); color: var(--brand-deep); }
+.nx-on-home .nx-menubtn:focus-visible, .nx-on-home .nx-home:focus-visible { outline-color: var(--on-brand-deep); }
+.nx-burger .view { padding-top: calc(var(--nx-bar) + var(--space-4)); padding-bottom: calc(env(safe-area-inset-bottom, 0px) + var(--space-12, 48px)); }
+.nx-burger .ed-mast { margin-top: calc(-1 * (var(--nx-bar) + var(--space-4))); padding-top: calc(var(--nx-bar) + var(--space-2)); }
+@media (min-width: 600px) { .nx-burger .ed-mast { margin-top: 0; padding-top: var(--space-5); } }
+.nx-burger .ed-mast .topbar { display: none; }
+/* The drawer */
+.nx-scrim { position: fixed; inset: 0; z-index: 60; background: var(--scrim); opacity: 0; transition: opacity .2s ease-out; }
+.nx-scrim.is-open { opacity: 1; }
+.nx-menu { position: fixed; z-index: 61; top: 0; right: 0; bottom: 0; width: min(340px, calc(100% - 48px)); box-sizing: border-box; overflow-y: auto; display: flex; flex-direction: column;
+  padding: calc(env(safe-area-inset-top, 0px) + var(--space-4)) var(--space-4) calc(env(safe-area-inset-bottom, 0px) + var(--space-5));
+  background: var(--surface); color: var(--ink); border-radius: var(--radius-xl) 0 0 var(--radius-xl); box-shadow: var(--shadow-float); transform: translateX(24px); opacity: 0; transition: transform .2s ease-out, opacity .2s ease-out; }
+.nx-menu.is-open { transform: none; opacity: 1; }
+.nx-menu[hidden], .nx-scrim[hidden] { display: none; }
+.nx-menu__top { display: flex; align-items: center; justify-content: space-between; padding-left: var(--space-2); }
+.nx-close { width: 44px; height: 44px; }
+.nx-week { align-self: flex-start; margin: var(--space-4) 0 0 var(--space-2); padding: 6px 12px; border-radius: var(--radius-pill); background: var(--tint-butter); color: var(--ink); font: 700 13px/16px var(--font-sans); }
+.nx-week:empty { display: none; }
+.nx-list { list-style: none; margin: var(--space-4) 0 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+.nx-list--2 { margin-top: 0; gap: 0; }
+.nx-item { width: 100%; height: 52px; display: flex; align-items: center; gap: 14px; padding: 0 16px; border: 0; border-radius: 18px; background: none; color: var(--ink); font: 600 22px/1 var(--font-display); letter-spacing: -0.02em; text-align: left; cursor: pointer; }
+.nx-item .eu-icon { width: 22px; height: 22px; flex: none; }
+.nx-item .spk { display: none; }
+.nx-item:hover { background: var(--surface-sunken); }
+.nx-item[aria-current="page"], .nx-item.nx-in { background: var(--brand-deep); color: var(--on-brand-deep); font-weight: 700; }
+.nx-item[aria-current="page"] .eu-icon, .nx-item.nx-in .eu-icon { color: var(--node-on-deep); stroke-width: 2.25; }
+.nx-split { display: flex; align-items: center; gap: 4px; }
+.nx-split .nx-item { flex: 1; min-width: 0; }
+.nx-tog { width: 44px; height: 44px; flex: none; display: inline-flex; align-items: center; justify-content: center; border: 0; border-radius: var(--radius-pill); background: var(--surface-sunken); color: var(--ink); cursor: pointer; }
+.nx-tog .nx-chev { width: 20px; height: 20px; transition: transform .15s ease-out; }
+.nx-tog[aria-expanded="true"] .nx-chev { transform: rotate(180deg); }
+.nx-sub { list-style: none; margin: 0; padding: 0 0 4px 52px; }
+.nx-sub[hidden] { display: none; }
+.nx-subitem { width: 100%; min-height: 44px; display: flex; align-items: center; gap: 12px; padding: 0 12px 0 0; border: 0; border-radius: var(--radius-md); background: none; color: var(--ink); font: 600 16px/20px var(--font-sans); text-align: left; cursor: pointer; }
+.nx-list--2 .nx-subitem { padding-left: 16px; font-size: 15px; color: var(--ink-muted); }
+.nx-subitem[aria-current="page"] { color: var(--ink); font-weight: 700; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+.nx-dot { width: 10px; height: 10px; border-radius: 50%; flex: none; }
+.nx-dot--ep { background: var(--accent-sky); } .nx-dot--ec { background: var(--accent-apricot); } .nx-dot--co { background: var(--accent-mint); }
+.nx-rule { border: 0; height: 1px; background: var(--hairline); margin: var(--space-3) var(--space-2); }
+.nx-me { margin-top: auto; display: flex; align-items: center; gap: 12px; padding: 12px; border: 0; border-radius: var(--radius-lg); background: var(--surface-sunken); color: var(--ink); text-align: left; cursor: pointer; }
+.nx-me__face { width: 44px; height: 44px; flex: none; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; background: var(--brand-deep); color: var(--on-brand-deep); font: 700 17px/1 var(--font-display); }
+.nx-me__face img { width: 100%; height: 100%; object-fit: cover; }
+.nx-me__face .ini::before { content: attr(data-ini); }
+.nx-me__tx { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.nx-me__n { font: 700 16px/20px var(--font-sans); }
+.nx-me__s { font: 500 13px/16px var(--font-sans); color: var(--ink-muted); }
+.nx-menu button:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { .nx-menu, .nx-scrim, .nx-tog .nx-chev { transition: none; } }
 
 /* Your files header: Map and All files */
 .ed-sh__acts { flex: none; display: flex; gap: var(--space-2); }
