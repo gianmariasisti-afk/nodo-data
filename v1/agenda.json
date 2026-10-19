@@ -1,5 +1,5 @@
 {
- "checked": "2026-10-16",
+ "checked": "2026-10-19",
  "source": "https://www.europarl.europa.eu/plenary/en/agendas.html",
  "sessions": {
   "2026-10-05": {
@@ -478,12 +478,12 @@
    }
   },
   "2026-10-19": {
-   "stage": "final-draft",
-   "updated": "2026-10-16",
+   "stage": "agenda",
+   "updated": "2026-10-19",
    "link": "https://www.europarl.europa.eu/plenary/en/agendas.html",
    "src": {
     "api": "foreseen-activities",
-    "sha256": "7f4be559445b3f4403ecd6a2fc81ffc521c4d54ff2b0a9229b27cd2b37de0014"
+    "sha256": "a23d3568314133b9e4aa444dc5167a9c2d702ef64a614229ccee6cbdc32c37e6"
    },
    "days": {
     "2026-10-19": [
@@ -532,7 +532,7 @@
       "committee": "ENVI"
      },
      {
-      "time": "19:00–20:00",
+      "time": "19:00–19:15",
       "type": "debate",
       "title": "Cohesion policy – the driving force in implementing the EU agenda for cities",
       "sub": "A10-0263/2026 · 2026/2027(INI)",
@@ -543,7 +543,13 @@
       "committee": "REGI"
      },
      {
-      "time": "19:00–20:00",
+      "time": "19:15–21:00",
+      "type": "debate",
+      "title": "France, Italy and Belgium: Latest anti-democratic violence by radical far-left groups, implications on public order and the legitimate right to protest",
+      "sub": "2026/2943(RSP)"
+     },
+     {
+      "time": "19:15–21:00",
       "type": "debate",
       "title": "One-minute speeches (Rule 179)"
      }
@@ -715,11 +721,6 @@
      {
       "time": "19:15–20:00",
       "type": "debate",
-      "title": "Explanations of votes"
-     },
-     {
-      "time": "19:15–20:00",
-      "type": "debate",
       "title": "Boosting skills in the Union – opportunities for vocational education and training in times of transition",
       "sub": "A10-0259/2026 · 2026/2070(INI)",
       "rapporteur": "Brigitte van den Berg",
@@ -727,6 +728,17 @@
        "256976"
       ],
       "committee": "EMPL"
+     },
+     {
+      "time": "20:00–21:00",
+      "type": "debate",
+      "title": "Explanations of votes"
+     },
+     {
+      "time": "20:00–21:00",
+      "type": "debate",
+      "title": "The Trump administration waiving of sanctions and tariffs required on Russia under the Graham Act",
+      "sub": "2026/2944(RSP)"
      }
     ],
     "2026-10-21": [
