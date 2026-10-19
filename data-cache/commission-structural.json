@@ -1,6 +1,44 @@
 {
- "at": "2026-10-16",
+ "at": "2026-10-19",
  "changes": [
+  {
+   "type": "role",
+   "commissioner": "dan-jorgensen",
+   "name": "Aleksander Vigne",
+   "from": "Personal Assistant / Member",
+   "to": "MEMBER"
+  },
+  {
+   "type": "role",
+   "commissioner": "dan-jorgensen",
+   "name": "Astrid Leborgne",
+   "from": "Assistant to Anne Katherina Weidenbach and Kamil Talbi",
+   "to": "ASSISTANT TO ANNE KATHERINA WEIDENBACH AND ANNE-MAUD ORLINSKI"
+  },
+  {
+   "type": "added",
+   "commissioner": "dan-jorgensen",
+   "name": "Anne-Maud Orlinski",
+   "role": "MEMBER"
+  },
+  {
+   "type": "added",
+   "commissioner": "dan-jorgensen",
+   "name": "Christine Møller Nielsen",
+   "role": "PERSONAL ASSISTANT / MEMBER"
+  },
+  {
+   "type": "added",
+   "commissioner": "dan-jorgensen",
+   "name": "Päivi Roybin",
+   "role": "ASSISTANT TO STELLA KALTSOUNI AND ALEKSANDER VIGNE"
+  },
+  {
+   "type": "removed",
+   "commissioner": "dan-jorgensen",
+   "name": "Kamil Talbi",
+   "role": "Member"
+  },
   {
    "type": "role",
    "commissioner": "glenn-micallef",
