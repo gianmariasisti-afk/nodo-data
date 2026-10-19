@@ -165,6 +165,14 @@ Flag colour sources:
 
 Every dated step under a file's "What happens next" names the source that gives its date (`src` in `v1/files.json`, an id from the file's `sources`). The app shows the step as a link to that page. `scripts/validate-data.mjs` fails a dated step without a source.
 
+### Weekly files refresh
+
+Status texts and next steps in `files.json` are editorial and have no data feed, so a scheduled Claude task refreshes them every Monday at 08:07 Brussels time ("Weekly nodo files refresh"). It reads the Parliament's Legislative Observatory, Council meeting pages and documents, Commission and Presidency pages, and press only where no official page exists. It drops dates that have passed, adds dates an official page ties to the file, rewrites a status only when something changed, and sets `checked` on every file it confirmed.
+
+- `checked` (per file) is the day status and next steps were last confirmed against sources. The file screen shows it as "Status checked". `scripts/validate-data.mjs` refuses a `checked` date in the future and any `next` date earlier than `checked`.
+- `scripts/files-guard.mjs --base origin/main` limits what the task may change: per file `status`, `stage`, `next`, `sources`, `caveats`, `checked` and `council.note`; at the top level `asOf` and `generated`. Adding or removing a file, or changing MEPs, commissioners, cabinet, DGs or working parties, stops the push.
+- `status.json` lists `checked`, `checkedDays` and `past` (dates already gone) for each file. The weekday check flags a file not checked for more than 9 days.
+
 ## Search, automatic pages and your files
 
 - Search forgives typos: a name or a word close to one in the data is matched, with a "Showing results for" line.

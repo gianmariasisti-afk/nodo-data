@@ -85,6 +85,10 @@ if (files) {
     if (ids.has(f.id)) bad(`${at}: duplicate id`);
     ids.add(f.id);
     if (!f.title || !f.status) bad(`${at}: missing title or status`);
+    /* checked: the day someone last confirmed status and next steps against sources. No date in next may sit before it. */
+    if (f.checked !== undefined && !ISO.test(String(f.checked))) bad(`${at}: checked "${f.checked}" is not a date`);
+    if (f.checked && f.checked > new Date().toISOString().slice(0, 10)) bad(`${at}: checked ${f.checked} is in the future`);
+    if (f.checked) for (const n of f.next || []) if (n.date && n.date < f.checked) bad(`${at}: next item "${n.what}" (${n.date}) is before the checked date ${f.checked}; move it out of next`);
     if (stages.size && !stages.has(f.stage)) bad(`${at}: unknown stage "${f.stage}"`);
     for (const n of f.next || []) {
       if (n.date !== null && !ISO.test(String(n.date))) bad(`${at}: next date "${n.date}" is not YYYY-MM-DD or null`);

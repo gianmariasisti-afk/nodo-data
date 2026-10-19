@@ -2763,7 +2763,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       <div class="tb">${backBtn}${icon("back")}</button><span class="tbr"><button class="eu-btn eu-btn--sm" type="button" data-follow="${esc(f.id)}" data-label="1" aria-pressed="${state.follow.has(f.id)}">${state.follow.has(f.id) ? "Following" : "Follow"}</button><button class="eu-btn eu-btn--sm${edit ? " eu-btn--brand" : ""}" type="button" data-fedit>${edit ? "Done" : "Edit list"}</button></span></div>
       <div class="hero"><div class="eu-row__tags">${stagePill(f.stage)}${changed ? tag("Your edits") : ""}</div>
         <h2 class="eu-headline" id="pName"><strong>${esc(f.short)}</strong></h2>
-        <p class="bio">${esc(f.status || "")}</p></div>
+        <p class="bio">${esc(f.status || "")}</p>${f.checked ? `<p class="cap">Status checked ${fdDate(f.checked, true)}</p>` : ""}</div>
       <div class="stats"><div><b>${c.ep}</b><span>${pl(c.ep, "MEP", "MEPs")}</span></div><div><b>${c.ec}</b><span>${pl(c.ec, "Commissioner", "Commissioners")}</span></div><div><b>${c.cab}</b><span>Cabinet staff</span></div></div>
       <div class="chips wrap" role="group" aria-label="View">${[["ep", "Parliament"], ["ec", "Commission"], ["next", "Next steps"], ["upd", "Timeline"]].map(([k, n]) => `<button class="eu-chip" type="button" data-ftab="${k}" aria-pressed="${tab === k}">${n}</button>`).join("")}</div>
       ${body}${tools}

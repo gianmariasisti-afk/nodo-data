@@ -34,7 +34,9 @@ const freshness = {
 
 const fileDates = ((files && files.files) || []).map((f) => {
   const dates = (f.next || []).map((n) => n.date).filter(Boolean).sort();
-  return { id: f.id, short: f.short, lastNext: dates[dates.length - 1] || null, upcoming: dates.filter((d) => d >= today).length };
+  const past = dates.filter((d) => d < today).length;
+  const checkedDays = f.checked ? Math.round((Date.parse(today) - Date.parse(f.checked)) / 864e5) : null;
+  return { id: f.id, short: f.short, checked: f.checked || null, checkedDays, lastNext: dates[dates.length - 1] || null, upcoming: dates.filter((d) => d >= today).length, past };
 });
 
 const manifest = [];
