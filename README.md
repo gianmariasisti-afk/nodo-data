@@ -171,7 +171,7 @@ Data with a feed is refreshed by GitHub Actions (above). Everything editorial or
 
 | Task | When | Covers |
 |---|---|---|
-| Weekly nodo Council refresh | Mon and Thu 07:30, on Gianmaria's Mac (built-in browser) | council.json meetings, Coreper, participant lists; applies Legislative Observatory differences to the MEP lists of files.json (`tools/files/apply_mep_diff.py`, scope `meps`) |
+| nodo Council refresh (Mon and Thu) | Mon and Thu 07:30, on Gianmaria's Mac (built-in browser) | council.json meetings, Coreper, participant lists; applies Legislative Observatory differences to the MEP lists of files.json (`tools/files/apply_mep_diff.py`, scope `meps`) |
 | Weekly nodo reference refresh | Mon 08:07, cloud | files.json status and next steps (scope `files`); Parliament calendar (`calendar`); Presidency handover (`presidency`); hand-added permanent representatives (`permreps`) |
 | nodo weekly requests and backend | Mon 08:52, cloud | file requests and empty searches from Supabase events; Supabase security and performance advisors, auth and API errors; one email |
 | Weekday nodo data check | Mon–Fri 07:30, cloud | reads status.json: workflows, freshness, files `checkedDays`, `reference` (calendar age, days to the Presidency handover and whether the next profile exists, oldest hand-added perm rep check), open issues |
