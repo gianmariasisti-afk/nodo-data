@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-18T00:00:00Z",
+  "generatedAt": "2026-10-19T00:00:00Z",
   "events": [
     {
       "id": "industrial-accelerator-act:next:2026-12-14:ec707f",
@@ -92,6 +92,56 @@
       "pushOn": "2026-10-30"
     },
     {
+      "id": "industrial-accelerator-act:next:2026-10-27:e1808d",
+      "fileId": "industrial-accelerator-act",
+      "date": "2026-10-27",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Council industry working party on the IAA",
+      "push": true,
+      "pushOn": "2026-10-27"
+    },
+    {
+      "id": "industrial-accelerator-act:next:2026-10-26:e1808d",
+      "fileId": "industrial-accelerator-act",
+      "date": "2026-10-26",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Council industry working party on the IAA",
+      "push": true,
+      "pushOn": "2026-10-26"
+    },
+    {
+      "id": "digital-networks-act:next:2026-10-22:99e481",
+      "fileId": "digital-networks-act",
+      "date": "2026-10-22",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Council telecoms working party on the Presidency compromise text (Art. 1–12, 87–114)",
+      "push": true,
+      "pushOn": "2026-10-22"
+    },
+    {
+      "id": "mff-2028-2034:next:2026-10-22:b1fcfd",
+      "fileId": "mff-2028-2034",
+      "date": "2026-10-22",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Council MFF working party: Global Europe Instrument",
+      "push": true,
+      "pushOn": "2026-10-22"
+    },
+    {
+      "id": "digital-omnibus-data:next:2026-10-21:0e67e4",
+      "fileId": "digital-omnibus-data",
+      "date": "2026-10-21",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Coreper II: mandate for negotiations with the European Parliament (doc 13886/2/26 REV 2)",
+      "push": true,
+      "pushOn": "2026-10-21"
+    },
+    {
       "id": "mff-2028-2034:next:2026-10-20:265012",
       "fileId": "mff-2028-2034",
       "date": "2026-10-20",
@@ -100,56 +150,6 @@
       "title": "Council MFF working party: national and regional partnerships",
       "push": true,
       "pushOn": "2026-10-20"
-    },
-    {
-      "id": "mff-2028-2034:next:2026-10-15:8a9d72",
-      "fileId": "mff-2028-2034",
-      "date": "2026-10-15",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "European Council, 15–16 October: leaders discuss the MFF",
-      "push": true,
-      "pushOn": "2026-10-15"
-    },
-    {
-      "id": "digital-omnibus-data:next:2026-10-13:72c56a",
-      "fileId": "digital-omnibus-data",
-      "date": "2026-10-13",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "General Affairs Council: Presidency reports on the omnibus simplification packages",
-      "push": true,
-      "pushOn": "2026-10-13"
-    },
-    {
-      "id": "mff-2028-2034:next:2026-10-13:dbafc5",
-      "fileId": "mff-2028-2034",
-      "date": "2026-10-13",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "General Affairs Council debates the MFF (Luxembourg)",
-      "push": true,
-      "pushOn": "2026-10-13"
-    },
-    {
-      "id": "tech-sovereignty-package:next:2026-10-13:d19e96",
-      "fileId": "tech-sovereignty-package",
-      "date": "2026-10-13",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Council industry working party on the Chips Act 2.0",
-      "push": true,
-      "pushOn": "2026-10-13"
-    },
-    {
-      "id": "digital-networks-act:next:2026-10-12:96b240",
-      "fileId": "digital-networks-act",
-      "date": "2026-10-12",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Telecoms ministers discuss the Digital Networks Act (informal meeting, Limerick, 12–13 October)",
-      "push": true,
-      "pushOn": "2026-10-12"
     },
     {
       "id": "tech-sovereignty-package:ep:2026-0138-NMSR-197574-2026-10-06",
@@ -467,30 +467,6 @@
       "kind": "milestone",
       "title": "Published in the Official Journal",
       "push": true
-    },
-    {
-      "id": "digital-omnibus-data:ep:2025-0360-NMSR-197503-2026-07-20",
-      "fileId": "digital-omnibus-data",
-      "date": "2026-07-20",
-      "source": "ep",
-      "proc": "2025-0360",
-      "kind": "people",
-      "title": "Opinion shadow rapporteur recorded",
-      "personId": "197503",
-      "group": "Greens/EFA",
-      "push": false
-    },
-    {
-      "id": "tech-sovereignty-package:ep:2026-0139-NMSR-124785-2026-07-20",
-      "fileId": "tech-sovereignty-package",
-      "date": "2026-07-20",
-      "source": "ep",
-      "proc": "2026-0139",
-      "kind": "people",
-      "title": "Opinion shadow rapporteur recorded",
-      "personId": "124785",
-      "group": "S&D",
-      "push": false
     }
   ]
 }
