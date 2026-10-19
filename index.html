@@ -4450,10 +4450,11 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   const nxDocRow = (d) => row({ attrs: tap(`data-nxdoc="${esc(d.id)}"`), lead: disc("file"), name: esc(nxClip(d.title, 140)),
     meta: esc([d.kind + " · " + d.cmte, d._rapLabel ? "Rapporteur " + d._rapLabel : "", d.date ? fdDate(d.date, true) : ""].filter(Boolean).join(" · ")), wrap: true,
     extra: `<span class="eu-row__tags"><span class="eu-group tag">Automatic page</span></span>`, tail: go });
+  const nxNum = (n) => ["zero","one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve"][n] || String(n);
   function nxRequestCard(q, lead) {
     const done = nxRequested().has(fold(q).trim());
     return `<div class="block nx-req"><p><b>${lead}</b></p>
-      <p class="cap">A full page adds the Commission lead, cabinet contacts, the Council and checked sources. The most requested files get one first.</p>
+      <p class="cap">${FILES.length ? `nodo follows ${nxNum(FILES.length)} priority files for now, and we are adding more.` : "nodo is adding files all the time."} Request this one: the most requested files get a full page first, with the Commission lead, cabinet contacts, the Council and checked sources.</p>
       <button class="eu-btn ${done ? "" : "eu-btn--brand "}eu-btn--block" type="button" data-nxreq="${esc(q)}"${done ? " disabled" : ""}>${done ? "Requested" + icon("check") : "Request a full page for “" + esc(nxClip(q, 40)) + "”"}</button></div>`;
   }
   const nxResultsBase = resultsHtml;
