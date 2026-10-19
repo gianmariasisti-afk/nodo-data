@@ -4,7 +4,8 @@ The weekly Council task runs OEIL CODE in the browser, which answers with
 {"checked", "procedures", "differences": [{file, ref, change, role, id, name, committee, was?}], "errors"}.
 This script applies those differences:
   new        add {id, role, committee, basis "ep-procedure-file", ref[, part]}
-  gone       remove the entry with that id and role (and part, for a package)
+  gone       remove the entry with that id and role (and part, for a package); entries with basis
+             ep-open-data are kept and reported, since the Observatory does not list every opinion
   committee  set the committee of that entry
 A new MEP whose id is not in v1/meps.json is skipped and reported. Nothing else in files.json changes.
 
@@ -58,6 +59,12 @@ def main(argv):
                 e["part"] = part
             meps.append(e)
         elif d["change"] == "gone":
+            # Only names the Observatory gave us (or press) can be taken away by the Observatory;
+            # names read from committee documents in the open data stay and are reported.
+            keep = [e for e in meps if same(e) and e.get("basis") == "ep-open-data"]
+            if keep:
+                skipped.append({**d, "why": "basis ep-open-data: check by hand"})
+                continue
             before = len(meps)
             f["meps"] = [e for e in meps if not same(e)]
             if len(f["meps"]) == before:
