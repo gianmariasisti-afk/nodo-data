@@ -1,37 +1,17 @@
 {
- "run": "2026-10-16T09:43:03.661Z",
- "checked": "2026-10-16",
+ "run": "2026-10-19T10:42:20.253Z",
+ "checked": "2026-10-19",
  "api": 719,
  "nodo": 720,
  "failed": [],
- "auto": [
-  {
-   "id": "256955",
-   "name": "Maria ZACHARIA",
-   "changes": {
-    "committees": {
-     "from": [
-      "PETI Member",
-      "HOUS Member",
-      "EMPL Substitute"
-     ],
-     "to": [
-      "PETI Member",
-      "HOUS Member",
-      "EMPL Substitute",
-      "REGI Substitute"
-     ]
-    }
-   }
-  }
- ],
+ "auto": [],
  "structural": [
   {
    "type": "arrived",
    "id": "5565",
    "name": "Brice HORTEFEUX",
    "country": "FR",
-   "group": "",
+   "group": "EPP",
    "party": "",
    "committees": [],
    "note": "no photo yet"
@@ -45,9 +25,9 @@
   }
  ],
  "summary": {
-  "auto": 1,
+  "auto": 0,
   "structural": 2,
   "failed": 0,
-  "changed": true
+  "changed": false
  }
 }
