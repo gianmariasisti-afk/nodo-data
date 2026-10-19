@@ -8,7 +8,8 @@
           (Monday to Friday, the plenary, dated steps on your files that week, the agenda or the next plenary);
         - Your files: each followed file with a five-step track from idea to law, what moved in the last 7 days and the next date;
         - Who ties them together: the people named on more than one of your files;
-        - Coming up: dated steps on your files and plenary sittings in the four weeks after this one;
+        - Coming up: dated steps on your files and plenary sittings in the four weeks after this one, one card per week in a
+          sideways carousel (since 19 Oct 2026; replaced the vertical timeline);
         - Saved people and Recently viewed, restyled.
         - Removed from Home: the calendar hero, the news block, the Files tile, the Parliament, Commission, Council and Calendar
           tiles (the Directory and Calendar tabs reach them), cabinet of the day, the country desk and seats by group.
@@ -170,22 +171,49 @@
       ${rest ? `<div class="list">${rest}</div>` : ""}`;
   }
 
-  /* After the week on the card: four weeks of dated steps and plenary sittings. */
+  /* After the week on the card: four weeks of dated steps and plenary sittings, one card per week in a carousel
+     (since 19 Oct 2026). A meeting on consecutive days of the same week shows once, as a range ("26–27"). */
   function edNextHtml() {
-    const sc = edScope(), from = isoD(addD(edMonday(), 7)), to = isoD(addD(edMonday(), 34));
-    const items = edSteps(sc.files, from, to).map((s) => ({ date: s.date, what: s.what, meta: s.files.map((f) => f.short).join(" · "), inst: edInst(s.what), attrs: `data-file="${esc(s.files[0].id)}" data-filetab="next"` }));
+    const sc = edScope(), mon0 = addD(edMonday(), 7), from = isoD(mon0), to = isoD(addD(edMonday(), 34));
+    const items = edSteps(sc.files, from, to).map((s) => ({ date: s.date, end: s.date, what: s.what, meta: s.files.map((f) => f.short).join(" · "), files: s.files.map((f) => f.id), inst: edInst(s.what), attrs: `data-file="${esc(s.files[0].id)}" data-filetab="next"` }));
     CAL.sessions.filter((s) => s.start >= from && s.start <= to).forEach((s) => {
-      const a = fromIso(s.start), b = fromIso(s.end);
-      items.push({ date: s.start, end: s.end, what: `Plenary · ${PLACE[s.place]}`, meta: "Parliament", inst: "ep", attrs: `data-view="cal"`, range: s.start === s.end ? "" : `${a.getDate()}–${b.getDate()}` });
+      items.push({ date: s.start, end: s.end, what: `Plenary · ${PLACE[s.place]}`, meta: "Parliament", files: [], inst: "ep", attrs: `data-view="cal"` });
     });
-    items.sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0));
     if (!items.length) return "";
-    const it = (x) => { const d = fromIso(x.date);
-      return `<button class="ed-up" type="button" ${x.attrs}><i class="ed-mark ed-mark--${x.inst}" aria-hidden="true"></i>
-        <span class="ed-up__d"><b>${esc(x.range || String(d.getDate()))}</b><span>${esc(fmtD(d, { month: "short" }))}${x.range ? "" : " · " + esc(fmtD(d, { weekday: "short" }))}</span></span>
-        <span class="ed-up__tx"><span class="ed-up__w">${esc(x.what)}</span><span class="ed-up__m">${esc(x.meta)}</span></span></button>`; };
+    items.sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0));
+    const weeks = [0, 1, 2, 3].map((k) => ({ mon: addD(mon0, 7 * k), list: [] }));
+    items.forEach((x) => {
+      const w = weeks[Math.min(3, Math.floor(Math.round((fromIso(x.date) - mon0) / 864e5) / 7))], prev = w.list.find((y) => y.what === x.what && y.meta === x.meta && isoD(addD(fromIso(y.end), 1)) === x.date);
+      if (prev) prev.end = x.end; else w.list.push(x);
+    });
+    const day = (x) => { const a = fromIso(x.date), b = fromIso(x.end), same = x.date === x.end;
+      return same ? `${fmtD(a, { weekday: "short" })} ${a.getDate()}` : `${fmtD(a, { weekday: "short" })}–${fmtD(b, { weekday: "short" })} ${a.getDate()}–${b.getDate()}`; };
+    const it = (x) => `<button class="ed-wk__it" type="button" ${x.attrs}><i class="ed-mark ed-mark--${x.inst}" aria-hidden="true"></i>
+        <span class="ed-wk__tx"><span class="ed-wk__d">${esc(day(x))}</span><span class="ed-wk__w">${esc(x.what)}</span><span class="ed-wk__m">${esc(x.meta)}</span></span></button>`;
+    const card = (w) => {
+      const n = w.list.length, nf = new Set(w.list.flatMap((x) => x.files)).size, wk = weekOf(w.mon), ph = ED_WEEK[wk.place || wk.kind];
+      const kind = ph ? ph.replace(/^an? /, "").replace(/^./, (c) => c.toUpperCase()) : "";
+      const count = n ? [`${n} ${n === 1 ? "item" : "items"}`, nf ? `${nf} ${nf === 1 ? "file" : "files"}` : ""].filter(Boolean).join(" · ") : "Nothing dated yet";
+      const title = `Week of ${w.mon.getDate()} ${fmtD(w.mon, { month: "short" })}`, more = n - 3;
+      return `<section class="ed-wk" aria-label="${esc(`${title}, ${count}`)}">
+        <div class="ed-wk__h"><span class="ed-wk__t">${esc(title)}</span><span class="ed-wk__c">${esc(["Week " + isoWeek(w.mon), kind].filter(Boolean).join(" · "))}</span><span class="ed-wk__c">${esc(count)}</span></div>
+        ${n ? w.list.slice(0, 3).map(it).join("") : `<p class="ed-wk__none">${sc.mine ? "No dated step on your files this week." : "No dated step on nodo's files this week."}</p>`}
+        ${more > 0 ? `<button class="ed-wk__more" type="button" data-view="cal">${more} more in the calendar</button>` : ""}</section>`;
+    };
     return `<div class="ed-sh"><div><h2 class="ed-h">Coming up</h2><p class="ed-cap">The four weeks after this one</p></div></div>
-      <div class="ed-ups">${items.slice(0, 6).map(it).join("")}</div>`;
+      <div class="ed-wks" id="edWks" tabindex="0" role="region" aria-label="Coming up, one card per week. Scroll sideways for later weeks.">${weeks.map(card).join("")}</div>
+      <div class="ed-dots" aria-hidden="true">${weeks.map((_, i) => `<i${i ? "" : ' class="is-on"'}></i>`).join("")}</div>`;
+  }
+  /* The dots follow the card that is in view. */
+  function edWksWire() {
+    const t = $("edWks"); if (!t) return;
+    const dots = [...$("edNext").querySelectorAll(".ed-dots i")];
+    let raf = 0;
+    t.addEventListener("scroll", () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(() => {
+      const c = t.querySelector(".ed-wk"), step = c ? c.offsetWidth + 8 : 1;
+      let i = Math.round(t.scrollLeft / step); if (t.scrollLeft + t.clientWidth >= t.scrollWidth - 4) i = dots.length - 1;
+      dots.forEach((d, k) => d.classList.toggle("is-on", k === i));
+    }); }, { passive: true });
   }
 
   function edRender() {
@@ -196,7 +224,7 @@
     $("edWeek").innerHTML = edWeekHtml();
     $("edFiles").innerHTML = edFilesHtml();
     $("edTies").innerHTML = edTiesHtml();
-    $("edNext").innerHTML = edNextHtml();
+    $("edNext").innerHTML = edNextHtml(); edWksWire();
     ["edFiles", "edTies", "edNext"].forEach((id) => { $(id).hidden = !$(id).innerHTML.trim(); });
   }
 
