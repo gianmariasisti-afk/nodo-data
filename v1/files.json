@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-19T06:00:00Z",
+ "generated": "2026-10-19T06:18:31Z",
  "asOf": "2026-10-19",
  "source": "Parliament Open Data Portal (basis ep-open-data); Parliament Legislative Observatory procedure files (basis ep-procedure-file); press and Council documents (basis press); commission.json for commissioners and cabinets",
  "legend": {
@@ -370,8 +370,13 @@
    "kind": "regulation",
    "procedure": "2025/0360(COD)",
    "stage": "positions-in-preparation",
-   "status": "The Commission proposed it on 19 November 2025. The Council has no negotiating position yet: EU ambassadors postponed the vote on 7 October and did not take up the Irish Presidency's compromise on 11 October, with Germany still holding out on trade secrets under the Data Act (Agence Europe). No new date is set. In Parliament, the ITRE-LIBE draft report came out on 22 June 2026 and amendments were tabled on 27 July; no committee vote date is set. Open fights: personal data and pseudonymisation, AI training on personal data, trade secrets under the Data Act, and whether cookie rules move into the GDPR or stay in ePrivacy.",
+   "status": "The Commission proposed it on 19 November 2025. The Council has no negotiating position yet: EU ambassadors postponed the vote on 7 October and did not take up the Irish Presidency's compromise on 11 October, with Germany still holding out on trade secrets under the Data Act (Agence Europe). The Presidency has put the negotiating mandate back on the Coreper II agenda for 21 October (revised text 13886/2/26 REV 2). In Parliament, the ITRE-LIBE draft report came out on 22 June 2026 and amendments were tabled on 27 July; no committee vote date is set. Open fights: personal data and pseudonymisation, AI training on personal data, trade secrets under the Data Act, and whether cookie rules move into the GDPR or stay in ePrivacy.",
    "next": [
+    {
+     "date": "2026-10-21",
+     "what": "Coreper II: mandate for negotiations with the European Parliament (doc 13886/2/26 REV 2)",
+     "src": "council-cm-4577-26"
+    },
     {
      "date": null,
      "what": "Joint ITRE-LIBE committee vote: no date set yet",
@@ -560,7 +565,7 @@
    },
    "caveats": [
     "Rapporteurs, shadows and opinion rapporteurs come from the Parliament's procedure file (checked 12 October 2026). It lists the joint committee's shadows together, without saying which committee each one sits for.",
-    "The postponed 7 October vote and the 11 October meeting come from Agence Europe reporting, not yet checked against Coreper agendas. No new Coreper date is set."
+    "The postponed 7 October vote and the 11 October meeting come from Agence Europe reporting, not yet checked against Coreper agendas. The 21 October Coreper II item comes from the Council's notice of meeting of 16 October."
    ],
    "sources": [
     {
@@ -612,6 +617,11 @@
      "id": "agenceurope-13958",
      "title": "Agence Europe: Digital Omnibus still in limbo as Member States fail to agree",
      "url": "https://agenceurope.eu/en/bulletin/article/13958/17/future-of-digital-omnibus-still-in-limbo-as-member-states-fail-to-agree"
+    },
+    {
+     "id": "council-cm-4577-26",
+     "title": "Council: Coreper II notice of meeting and provisional agenda, 21 Oct 2026 (CM 4577/26)",
+     "url": "https://data.consilium.europa.eu/doc/document/CM-4577-2026-INIT/en/pdf"
     }
    ],
    "checked": "2026-10-19"
