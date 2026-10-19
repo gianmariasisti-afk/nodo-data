@@ -1,6 +1,6 @@
 """Apply the Legislative Observatory differences to the MEP lists of v1/files.json.
 
-The weekly Council task runs OEIL CODE in the browser, which answers with
+tools/files/oeil_diff.py (cloud) or OEIL CODE in the browser (tools/browser/oeil.js) answer with
 {"checked", "procedures", "differences": [{file, ref, change, role, id, name, committee, was?}], "errors"}.
 This script applies those differences:
   new        add {id, role, committee, basis "ep-procedure-file", ref[, part]}

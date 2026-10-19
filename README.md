@@ -81,9 +81,9 @@ The Action "Update MEP directory" (`.github/workflows/meps.yml`, `scripts/build-
 
 ## council.json updates
 
-The Council website (consilium.europa.eu) answers 403 to GitHub runners, so `council.json` has no Action. A scheduled Claude task on Gianmaria's Mac refreshes it on Mondays and Thursdays at 07:30 Brussels time (the Thursday run catches a Monday the Mac was asleep), through the Claude desktop app's built-in browser. It needs the Mac awake with the app open; the weekday check flags Council data older than 9 days.
+The Council website (www.consilium.europa.eu) sits behind a Cloudflare bot check that answers 403 to GitHub runners and to cloud sessions (tested 19 Oct 2026 with the domain allowed), so `council.json` has no Action and no cloud task. data.consilium.europa.eu (the document register) is reachable from the cloud; participant lists, the meeting calendar and Coreper dates are not. A scheduled Claude task on Gianmaria's Mac refreshes it on Mondays and Thursdays at 07:30 Brussels time (the Thursday run catches a Monday the Mac was asleep), through the Claude desktop app's built-in browser. It needs the Mac awake with the app open; the weekday check flags Council data older than 9 days.
 
-The task's auto mode refuses to run code fetched from the web, so the browser part is two short snippets that travel inside the task's prompt (`tools/browser/council.js`, `tools/browser/oeil.js`). They load no code and only fetch pages; all parsing runs in the repository's Python. After editing a snippet, print the new prompt with `python3 tools/browser/routine-prompt.py` and update the task.
+The task's auto mode refuses to run code fetched from the web, so the browser part is a short snippet that travels inside the task's prompt (`tools/browser/council.js`). They load no code and only fetch pages; all parsing runs in the repository's Python. After editing a snippet, print the new prompt with `python3 tools/browser/routine-prompt.py` and update the task.
 
 1. `tools/browser/council.js`, in a tab on consilium.europa.eu, reads the meeting calendar (from the first of the month to the end of the year, at least 6 months ahead), the Coreper I and II dates (next 9 months) and, for every formal Council meeting of the last 60 days that `data-cache/council-raw.json` does not hold yet, the official list of participants (PDF, passed as base64).
 2. The device bridge cuts tool answers above about 260,000 characters and a participant list is about 230,000 characters in base64, so the collection comes in slices of 180,000 characters: `await window.__nodoNext()` answers one slice at a time, padded so the agent harness saves it to a file.
@@ -98,7 +98,7 @@ Tests: `python3 -m unittest discover -s tests/council -p 'test_*.py'` (two real 
 
 `v1/files.json` lists rapporteurs, shadows and rapporteurs for opinion with a `basis`: `ep-procedure-file` (the Parliament's Legislative Observatory procedure file, each name linked to the MEP id), `ep-open-data` (committee documents in the Parliament's open data) or `press`. The app marks the first two Verified. Shadows of a joint committee carry the joint label (`ITRE-LIBE`) because the Observatory lists them together. Entries of a package carry `part` (the part's id), shown next to the committee.
 
-The Observatory also blocks GitHub runners. The weekly Council task runs `tools/browser/oeil.js` in a tab on oeil.europarl.europa.eu: it compares every priority file with a procedure against the procedure file and reports new, gone or moved names. The task then applies them with `tools/files/apply_mep_diff.py` (new names with basis `ep-procedure-file`, names that left removed, committee moves updated; MEPs not yet in meps.json skipped; more than 25 differences refused) and pushes through the validator and `scripts/refresh-guard.mjs --scope meps`.
+The Observatory blocks GitHub runners but answers cloud sessions. The Weekly nodo reference refresh runs `tools/files/oeil_diff.py` (a Python port of `tools/browser/oeil.js`, kept for runs from the Mac): it compares every priority file with a procedure against the procedure file and lists new, gone or moved names. The task then applies them with `tools/files/apply_mep_diff.py` (new names with basis `ep-procedure-file`, names that left removed, committee moves updated; MEPs not yet in meps.json skipped; more than 25 differences refused) and pushes through the validator and `scripts/refresh-guard.mjs --scope meps`.
 
 ## activity/ (MEP feed)
 
@@ -171,8 +171,8 @@ Data with a feed is refreshed by GitHub Actions (above). Everything editorial or
 
 | Task | When | Covers |
 |---|---|---|
-| nodo Council refresh (Mon and Thu) | Mon and Thu 07:30, on Gianmaria's Mac (built-in browser) | council.json meetings, Coreper, participant lists; applies Legislative Observatory differences to the MEP lists of files.json (`tools/files/apply_mep_diff.py`, scope `meps`) |
-| Weekly nodo reference refresh | Mon 08:07, cloud | files.json status and next steps (scope `files`); Parliament calendar (`calendar`); Presidency handover (`presidency`); hand-added permanent representatives (`permreps`) |
+| nodo Council refresh (Mon and Thu) | Mon and Thu 07:30, on Gianmaria's Mac (built-in browser) | council.json meetings, Coreper, participant lists (the Council site's bot check blocks the cloud) |
+| Weekly nodo reference refresh | Mon 08:07, cloud | files.json status and next steps (scope `files`); MEP lists against the Observatory (`tools/files/oeil_diff.py` then `apply_mep_diff.py`, scope `meps`); Parliament calendar (`calendar`); Presidency handover (`presidency`); hand-added permanent representatives (`permreps`) |
 | nodo weekly requests and backend | Mon 08:52, cloud | file requests and empty searches from Supabase events; Supabase security and performance advisors, auth and API errors; one email |
 | Weekday nodo data check | Mon–Fri 07:30, cloud | reads status.json: workflows, freshness, files `checkedDays`, `reference` (calendar age, days to the Presidency handover and whether the next profile exists, oldest hand-added perm rep check), open issues |
 
