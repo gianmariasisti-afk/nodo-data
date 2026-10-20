@@ -737,3 +737,132 @@
   nxRequestCard = function (q, lead) {
     return nxReqBase(q, lead).replace(/<\/div>\s*$/, `<p class="cap nx-reqmail">Want to say more? <button class="linkbtn" type="button" data-nxreqmail="${esc(nxClip(q, 80))}">Write to ${NX_MAIL}</button></p></div>`);
   };
+
+
+  /* ---------- 7. Files: the files come first (since 20 Oct 2026) ---------- */
+  /* The Files view opens on the files themselves. Three views under one switch:
+     - Line: the five stages from idea to law as a vertical line, each file hanging off its stage, with a one-line status,
+       the next step and a star to follow it. An empty stage says so. "Any other file" search sits under the line.
+     - Next up: every dated step on nodo's files, soonest first, by week and then by month; files with no date set listed apart.
+     - Following: the files you follow with their track, then the Monday email and alert switches, which only concern them.
+     News and Map become two small buttons beside the count. The "Choose the files you track" block and the empty-state
+     text above the list are gone: the star on each file is how you follow it. This override runs last and replaces the
+     body the earlier Files overrides built. */
+  const FL_STATION = ["Pre-proposal", "Positions in preparation", "Council negotiating box", "Trilogue", "In force"];
+  const FL_SVG = {
+    news: '<svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 9h8M8 13h8M8 17h5"/></svg>',
+    map: '<svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.3 10.8l7.4-3.6M8.3 13.2l7.4 3.6"/></svg>',
+    plus: '<svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>',
+  };
+  const flNext = (f) => { const t = todayIso(), xs = f.next || [];
+    return xs.filter((s) => s.date && s.date >= t).sort((a, b) => (a.date < b.date ? -1 : 1))[0] || xs.find((s) => !s.date) || null; };
+  const flSoon = (s) => !!(s && s.date && s.date <= isoD(addD(new Date(), 7)));
+  const flDay = (iso) => fmtD(fromIso(iso), { weekday: "short", day: "numeric", month: "short" });
+  /* The card line: an optional short "lede" in files.json, else the status without its opening "Proposed on …" sentence. */
+  function flStatus(f) {
+    if (f.lede) return f.lede;
+    const xs = String(f.status || "").split(/(?<=[.;])\s+(?=[A-Z])/);
+    if (xs.length > 1 && /^(Proposed|The Commission proposed)\b/.test(xs[0])) xs.shift();
+    return nxClip(xs.join(" "), 120);
+  }
+  function flMeta(f) {
+    const c = countsOf(f), lead = (f.ep && f.ep.lead) || [];
+    return [lead.join(" · "), `${c.ep} ${pl(c.ep, "MEP", "MEPs")}`].filter(Boolean).join(" · ");
+  }
+  function flNextLine(f) {
+    const s = flNext(f);
+    if (!s) return `<span class="fl-next"><i class="fl-dot fl-dot--none" aria-hidden="true"></i><span>No next step recorded</span></span>`;
+    return `<span class="fl-next"><i class="fl-dot${flSoon(s) ? " fl-dot--soon" : s.date ? "" : " fl-dot--none"}" aria-hidden="true"></i>
+      <span><b>${s.date ? esc(flDay(s.date)) : "No date set"}</b> · ${esc(s.what)}</span></span>`;
+  }
+  function flCard(f, track) {
+    const at = ED_STAGE.indexOf(f.stage);
+    return `<article class="fl-card">
+      <div class="fl-card__top">
+        <button class="fl-card__open" type="button" data-file="${esc(f.id)}">
+          ${track ? `<span class="fl-card__stage">${esc(FL_STATION[at] || (STAGE[f.stage] || [f.stage])[0])} · ${at + 1} of 5</span>` : ""}
+          <span class="fl-card__n">${esc(f.short)}</span>
+          <span class="fl-card__m">${esc(flMeta(f))}</span>
+        </button>
+        ${followBtn(f.id, f.short)}
+      </div>
+      ${track ? edTrack(f) : ""}
+      ${f.status || f.lede ? `<p class="fl-card__s">${esc(flStatus(f))}</p>` : ""}
+      <button class="fl-card__nx" type="button" data-file="${esc(f.id)}" data-filetab="next">${flNextLine(f)}</button>
+    </article>`;
+  }
+  function flLine() {
+    const by = ED_STAGE.map((st) => FILES.filter((f) => f.stage === st));
+    const other = FILES.filter((f) => !ED_STAGE.includes(f.stage));
+    return `<p class="cap fl-lead">From first idea to law in force. Tap the star on a file to follow it.</p>
+      <ol class="fl-line">${ED_STAGE.map((st, i) => { const xs = by[i];
+        return `<li class="fl-st${xs.length ? "" : " is-empty"}"><h3 class="fl-st__h"><i class="fl-st__node" aria-hidden="true"></i>${esc(FL_STATION[i])} <small>${xs.length ? `${xs.length} ${pl(xs.length, "file", "files")}` : ""}</small></h3>
+          ${xs.length ? xs.map((f) => flCard(f, false)).join("") : `<p class="cap fl-st__none">No file at this stage right now.</p>`}</li>`; }).join("")}
+        ${other.length ? `<li class="fl-st"><h3 class="fl-st__h"><i class="fl-st__node" aria-hidden="true"></i>Other <small>${other.length}</small></h3>${other.map((f) => flCard(f, false)).join("")}</li>` : ""}
+      </ol>
+      <section class="nx-any" aria-labelledby="nxAnyH">
+        <h3 id="nxAnyH">Any other file</h3>
+        <p class="cap nx-sub">Search every Parliament report and opinion in nodo: who the rapporteur and the shadows are.</p>
+        <label class="eu-search">${icon("search")}<input id="nxdq" type="search" placeholder="A file, an acronym or a committee" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Search Parliament reports and opinions" value="${esc(NX.dq || "")}"></label>
+        <div id="nxdres" aria-live="polite">${nxAnyHtml(NX.dq || "")}</div></section>`;
+  }
+  function flNextUp() {
+    const t = new Date(), tIso = todayIso(), mon = mondayOf(t), sun = isoD(addD(mon, 6)), sun2 = isoD(addD(mon, 13));
+    const steps = edSteps(FILES, tIso, "9999-12-31"), groups = [];
+    const put = (k, label, now, s) => { let g = groups.find((x) => x.k === k); if (!g) groups.push((g = { k, label, now, xs: [] })); g.xs.push(s); };
+    steps.forEach((s) => {
+      if (s.date <= sun) put("w0", "This week", true, s);
+      else if (s.date <= sun2) put("w1", "Next week", false, s);
+      else { const d = fromIso(s.date); put(s.date.slice(0, 7), fmtD(d, d.getFullYear() === t.getFullYear() ? { month: "long" } : { month: "long", year: "numeric" }), false, s); }
+    });
+    const item = (s) => { const d = fromIso(s.date), f = s.files[0];
+      return `<button class="fl-ev" type="button" data-file="${esc(f.id)}" data-filetab="next">
+        <span class="fl-ev__d"><span>${esc(fmtD(d, { weekday: "short" }))}</span><b>${d.getDate()}</b><span>${esc(fmtD(d, { month: "short" }))}</span></span>
+        <span class="fl-ev__tx"><span class="fl-ev__f">${esc(s.files.map((x) => x.short).join(" · "))}</span><span class="fl-ev__w">${esc(s.what)}</span></span></button>`; };
+    const undated = [];
+    FILES.forEach((f) => (f.next || []).forEach((s) => { if (!s.date) undated.push({ f, what: s.what }); }));
+    return `<p class="cap fl-lead">Every dated step on nodo's ${FILES.length} files, soonest first. Today is ${esc(fmtD(t, { weekday: "short", day: "numeric", month: "short" }))}.</p>
+      ${groups.length ? groups.map((g) => `<section class="fl-wk"><h3>${g.now ? `<i class="fl-dot fl-dot--soon" aria-hidden="true"></i>` : ""}${esc(g.label)} <small>${g.xs.length}</small></h3>${g.xs.map(item).join("")}</section>`).join("")
+        : `<div class="hint"><span>No dated step on nodo's files yet.</span></div>`}
+      ${undated.length ? `<section class="fl-wk"><h3>No date set yet <small>${undated.length}</small></h3><div class="fl-und">${undated.map((u) =>
+        `<button class="fl-und__r" type="button" data-file="${esc(u.f.id)}" data-filetab="next"><b>${esc(u.f.short)}</b><span>${esc(nxClip(u.what.replace(/:\s*no dates? set yet$/i, ""), 60))}</span></button>`).join("")}</div></section>` : ""}
+      <p class="foot">A date appears only when an official source ties it to the file.</p>`;
+  }
+  function flFollowing() {
+    const fol = followedFiles();
+    return `${fol.length ? fol.map((f) => flCard(f, true)).join("")
+        : `<div class="hint"><span>You follow no file yet. Tap the star on a file in Line or Next up, and it comes here.</span></div>
+           <button class="eu-btn eu-btn--block" type="button" data-nxpick>${icon("star")}Choose from the list</button>`}
+      ${fol.length ? `<button class="fl-more" type="button" data-fview="line">${FL_SVG.plus}Follow more files</button>` : ""}
+      <section class="block nx-notify fl-notify" aria-label="What nodo sends you">${nxSwitch("weekly", "Monday email", fol.length ? `What moved on ${fol.length === 1 ? "this file" : `these ${fol.length} files`} last week` : "What moved on your files last week")}${nxSwitch("alerts", "Same-day alerts", "When a stage or a date changes")}
+        <p class="cap">${esc((state.profile && state.profile.email) || "Your sign-in email")} · Testing: nothing is sent yet.</p>
+        ${fol.length ? `<button class="eu-btn eu-btn--outline eu-btn--block" type="button" data-nxweek>${icon("mail")}Preview your Monday email</button>` : ""}</section>`;
+  }
+  const flFilesViewBase = renderFilesView;
+  renderFilesView = function () {
+    flFilesViewBase();
+    if (!FILES.length) return;
+    const v = ["line", "next", "following"].includes(state.fview) ? state.fview : "line", n = state.follow.size;
+    const checked = FILES.map((f) => f.checked).filter(Boolean).sort()[0] || (DATA.fl && DATA.fl.asOf);
+    $("filesCount").hidden = true;
+    const tab = (k, label, extra) => `<button class="fl-tab" type="button" role="tab" id="flTab-${k}" aria-controls="flPanel" aria-selected="${v === k}" tabindex="${v === k ? 0 : -1}" data-fview="${k}">${label}${extra || ""}</button>`;
+    $("filesBody").innerHTML = `<div class="fl-top"><p class="cap">${FILES.length} files${checked ? ` · statuses checked ${esc(fdDate(checked))}` : ""}</p>
+        <span class="fl-top__acts"><button class="fl-pill" type="button" data-view="news">${FL_SVG.news}News</button><button class="fl-pill" type="button" data-edmap="">${FL_SVG.map}Map</button></span></div>
+      <div class="fl-tabs" role="tablist" aria-label="Files views">${tab("line", "Line")}${tab("next", "Next up")}${tab("following", "Following", `<span class="fl-count">${n}</span>`)}</div>
+      <div id="flPanel" role="tabpanel" aria-labelledby="flTab-${v}" class="fl-panel">${v === "next" ? flNextUp() : v === "following" ? flFollowing() : flLine()}</div>
+      <p class="foot">Names marked Verified come from the Parliament's open data or its Legislative Observatory procedure files. Names marked From press are taken from published reporting and need a check in the Parliament's procedure file before external use.</p>`;
+  };
+  document.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-fview]"); if (!b) return;
+    state.fview = b.dataset.fview; renderFilesView();
+    const now = document.querySelector(`.fl-tab[data-fview="${state.fview}"]`);
+    /* Keep focus on the switch after a tab press (the old button is gone); from "Follow more files", go back to the top. */
+    if (now && b.classList.contains("fl-tab")) now.focus({ preventScroll: true, focusVisible: false });
+    if (now && b.classList.contains("fl-more")) { $("filesBody").scrollIntoView({ block: "start" }); now.focus({ preventScroll: true }); }
+    Track.log("view", { section: "files-" + state.fview });
+  });
+  document.addEventListener("keydown", (e) => {
+    const t = e.target.closest && e.target.closest(".fl-tab"); if (!t || (e.key !== "ArrowRight" && e.key !== "ArrowLeft")) return;
+    const ks = ["line", "next", "following"], i = ks.indexOf(t.dataset.fview), k = ks[(i + (e.key === "ArrowRight" ? 1 : 2)) % 3];
+    e.preventDefault(); document.querySelector(`.fl-tab[data-fview="${k}"]`).click();
+  });
