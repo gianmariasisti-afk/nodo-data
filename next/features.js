@@ -7,11 +7,12 @@
         - a masthead on the deep ground: date and week number, a headline that names the week, search, and a week card
           (Monday to Friday, the plenary, dated steps on your files that week, the agenda or the next plenary);
         - Your files: each followed file with a five-step track from idea to law, what moved in the last 7 days and the next date;
-        - Who ties them together: the people named on more than one of your files;
         - Coming up: dated steps on your files and plenary sittings in the four weeks after this one, one card per week in a
           sideways carousel (since 19 Oct 2026; replaced the vertical timeline);
         - On these files (since 20 Oct 2026): the rapporteurs, lead commissioner and cabinet leads on the files of the week card
           in view, saved people first, then the Council working party; it follows the carousel;
+        - Also on (since 20 Oct 2026): under each person on a file page and in On these files, the other nodo files they are
+          named on. Replaced "Who ties them together" (removed 20 Oct 2026); profiles already list a person's files.
         - Saved people and Recently viewed, restyled.
         - Removed from Home: the calendar hero, the news block, the Files tile, the Parliament, Commission, Council and Calendar
           tiles (the Directory and Calendar tabs reach them), cabinet of the day, the country desk and seats by group.
@@ -131,47 +132,20 @@
       <div class="ed-files"><div class="ed-files__key" aria-hidden="true"><span>File</span><span>Idea → Law</span></div>${list.map(item).join("")}</div>`;
   }
 
-  /* People named on more than one file in scope, from the same lists the file pages show (your edits included). */
-  function edTies(files) {
-    const by = new Map();
-    files.forEach((f) => {
-      const m = membersOf(f), seen = new Set();
-      [...m.base, ...m.added].forEach((x) => {
-        if (seen.has(x.key) || !BYKEY.has(x.key)) return; seen.add(x.key);
-        if (!by.has(x.key)) by.set(x.key, { key: x.key, t: BYKEY.get(x.key).t, on: [] });
-        by.get(x.key).on.push({ f, role: x.role });
-      });
-    });
-    const tRank = { ec: 0, cab: 1, ep: 2 }, rRank = (p) => Math.min(...p.on.map((o) => { const i = ["lead", "rapporteur", "associated", "cabinet", "shadow", "opinion-rapporteur", "opinion-shadow", "relevant", "added"].indexOf(o.role); return i < 0 ? 9 : i; }));
-    return [...by.values()].filter((p) => p.on.length > 1)
-      .sort((a, b) => b.on.length - a.on.length || tRank[a.t] - tRank[b.t] || rRank(a) - rRank(b) || BYKEY.get(a.key).o.name.localeCompare(BYKEY.get(b.key).o.name));
+  /* Also on (since 20 Oct 2026): the other nodo files a person is named on, shown under their row on a file page and in
+     On these files. It replaces the Home section "Who ties them together", which repeated the people the file pages list. */
+  function edAlsoOn(key, except) {
+    return FILES.filter((f) => !except.has(f.id) && (() => { const m = membersOf(f); return [...m.base, ...m.added].some((x) => x.key === key); })());
   }
-  const ED_ROLE = { lead: "Lead", associated: "Associated", cabinet: "Cabinet", added: "Added by you" };
-  /* Roles grouped: "Rapporteur on Chips · Shadow on Omnibus"; a cabinet member reads "Cabinet Virkkunen · DNA, DFA". */
-  const edRoles = (p) => {
-    const o = BYKEY.get(p.key).o;
-    if (p.t === "cab") return `Cabinet ${o.com.short} · ${p.on.map((x) => fileTag(x.f)).join(", ")}`;
-    const g = new Map(); p.on.forEach((x) => { const r = ED_ROLE[x.role] || ROLE_ONE[x.role] || x.role; g.set(r, [...(g.get(r) || []), fileTag(x.f)]); });
-    return [...g].map(([r, t]) => `${r} on ${t.join(", ")}`).join(" · ");
+  const edAlsoHtml = (key, except) => { const fs = edAlsoOn(key, except);
+    return fs.length ? `<span class="ed-also">Also on ${fs.map((f) => `<b>${esc(fileTag(f))}</b>`).join(", ")}</span>` : ""; };
+  /* File page rows: the live fileRow, with "Also on" added at the end of the row body (before the star or remove button). */
+  const edFileRow0 = fileRow;
+  fileRow = (x) => {
+    const h = edFileRow0(x), f = curFile(); if (!f) return h;
+    const add = edAlsoHtml(x.key, new Set([f.id])), i = h.lastIndexOf('<button class="eu-iconbtn');
+    return add && i > 7 && h.slice(i - 7, i) === "</span>" ? h.slice(0, i - 7) + add + h.slice(i - 7) : h;
   };
-  function edTiesHtml() {
-    const sc = edScope(), ties = edTies(sc.files);
-    if (!ties.length) return "";
-    const top = ties[0], o = BYKEY.get(top.key).o, n = top.on.length, of = sc.mine ? "your" : "nodo's";
-    const who = top.t === "ec" ? `${o.title}. Lead or associated commissioner on ${n} of ${of} files.`
-      : top.t === "cab" ? `${o.role} · Cabinet ${o.com.short}. Named on ${n} of ${of} files.`
-      : `${countryName(o.country)} · ${o.group}. ${edRoles(top)}.`;
-    const tint = top.t === "ep" ? "sky" : "apricot";
-    const k = Math.min(n, 8), spokes = Array.from({ length: k }, (_, i) => { const a = -Math.PI / 2 + i * 2 * Math.PI / k; return [56 + 44 * Math.cos(a), 56 + 44 * Math.sin(a)]; });
-    const net = `<svg class="ed-net__svg" viewBox="0 0 112 112" aria-hidden="true">${spokes.map(([x, y]) => `<path d="M56 56L${x.toFixed(1)} ${y.toFixed(1)}"/>`).join("")}${spokes.map(([x, y]) => `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="7"/>`).join("")}</svg>`;
-    const rest = ties.slice(1, 6).map((p) => { const q = BYKEY.get(p.key).o;
-      return row({ attrs: tap(`data-open="${esc(p.key)}"`), lead: avaOf(p.key), name: esc(q.name), meta: esc(edRoles(p)), wrap: true, tail: `<span class="eu-badge ed-badge">${p.on.length} files</span>` }); }).join("");
-    return `<div class="ed-sh"><div><h2 class="ed-h">Who ties them together</h2><p class="ed-cap">People named on more than one of ${of} files</p></div></div>
-      <button class="ed-hero ed-hero--${tint}" type="button" data-open="${esc(top.key)}" aria-label="${esc(`${o.name}, named on ${n} of ${of} files. Open profile.`)}">
-        <span class="ed-hero__tx"><span class="ed-hero__n">${n}<small> of ${sc.files.length}</small></span><span class="ed-hero__name">${esc(o.name)}</span><span class="ed-hero__who">${esc(who)}</span></span>
-        <span class="ed-net">${net}<span class="ed-net__hub">${avaOf(top.key)}</span></span></button>
-      ${rest ? `<div class="list">${rest}</div>` : ""}`;
-  }
 
   /* After the week on the card: four weeks of dated steps and plenary sittings, one card per week in a carousel
      (since 19 Oct 2026). A meeting on consecutive days of the same week shows once, as a range ("26–27"). */
@@ -263,7 +237,7 @@
     const cap = `${when} · rapporteurs, commissioners and cabinet leads on ${n}`;
     const shown = edRoomAll ? ppl : ppl.slice(0, 5);
     const rows = shown.map((p) => { const o = BYKEY.get(p.key).o;
-      return row({ attrs: tap(`data-open="${esc(p.key)}"`), lead: avaOf(p.key), name: esc(o.name), meta: esc(edRoomRole(p)), wrap: true, tail: starBtn(p.key, o.name) }); }).join("");
+      return row({ attrs: tap(`data-open="${esc(p.key)}"`), lead: avaOf(p.key), name: esc(o.name), meta: esc(edRoomRole(p)), wrap: true, extra: edAlsoHtml(p.key, new Set(ids)), tail: starBtn(p.key, o.name) }); }).join("");
     const more = ppl.length > 5 ? `<button class="ed-room__more" type="button" data-edroom="${edRoomAll ? "less" : "all"}">${edRoomAll ? "Show fewer" : `Show all ${ppl.length}`}</button>` : "";
     const note = noRap.length ? `<p class="ed-room__note">No rapporteur yet on ${esc(noRap.map((f) => f.short).join(", "))}. Parliament names one once the file reaches it.</p>` : "";
     const pres = presOf(w.mon), wps = files.flatMap((f) => ((f.council || {}).workingParties || []).map((x) => x.name));
@@ -289,13 +263,12 @@
     renderGreeting();
     $("edWeek").innerHTML = edWeekHtml();
     $("edFiles").innerHTML = edFilesHtml();
-    $("edTies").innerHTML = edTiesHtml();
     const sl = $("edWks") ? $("edWks").scrollLeft : 0;
     $("edNext").innerHTML = edNextHtml(); edWksWire();
     if (edWkI >= edWeeks.length) edWkI = 0;
     if ($("edWks") && sl) $("edWks").scrollLeft = sl;
     edRoomPaint();
-    ["edFiles", "edTies", "edNext"].forEach((id) => { $(id).hidden = !$(id).innerHTML.trim(); });
+    ["edFiles", "edNext"].forEach((id) => { $(id).hidden = !$(id).innerHTML.trim(); });
   }
 
   /* Rebuild Home around the masthead. Existing parts move; none is removed, so every handler on them still works. */
@@ -311,7 +284,6 @@
     mast.after($("homeResults"));
     $("homeResults").insertAdjacentHTML("afterend", `<div id="edBody">
       <section id="edFiles" class="ed-sec" aria-labelledby="edFilesH"></section>
-      <section id="edTies" class="ed-sec" aria-label="Who ties your files together"></section>
       <section id="edNext" class="ed-sec" aria-label="Coming up"></section>
       <section id="edRoom" class="ed-sec ed-room" aria-label="On these files"></section>
       <h2 class="ed-h ed-browse">Browse</h2></div>`);
