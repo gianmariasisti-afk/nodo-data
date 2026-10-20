@@ -29,6 +29,9 @@
      4. Burger menu (since 19 Oct 2026): the floating tab bar is replaced by a top bar (wordmark back to Today, your profile, Menu)
         and a drawer from the right: Today, People with Parliament, Commission and Council, Calendar, Files, then News, Saved
         people and your profile card. The bar takes the masthead's deep ground on Today and the light surface elsewhere.
+     6. About nodo and feedback (since 20 Oct 2026): an About view from the menu (what nodo covers, where the data comes from,
+        how fresh it is, what it is not) and one inbox, feedback@nodo.eu. Send feedback in the menu, the About page and the
+        search request card open an email with the screen you came from filled in.
      ===================================================================== */
 
   /* ---------- 1. home: the Monday edition ---------- */
@@ -507,6 +510,8 @@
         <ul class="nx-list nx-list--2">
           <li><button class="nx-subitem" type="button" data-view="news" data-nx="news">News on the files</button></li>
           <li><button class="nx-subitem" type="button" data-view="saved" data-nx="saved">Saved people</button></li>
+          <li><button class="nx-subitem" type="button" data-view="about" data-nx="about">About nodo</button></li>
+          <li><button class="nx-subitem" type="button" data-nx-mail>Send feedback</button></li>
         </ul></nav>
         <button class="nx-me" type="button" data-nx-me><span class="nx-me__face" id="nxFace" aria-hidden="true"></span>
           <span class="nx-me__tx"><span class="nx-me__n" id="nxName">Your profile</span><span class="nx-me__s">Profile, files you follow, countries you cover</span></span></button>
@@ -563,6 +568,7 @@
       const t = e.target;
       if (t.closest("[data-nx-close]")) return nxClose(true);
       if (t.closest("[data-nx-me]")) { nxClose(false); return openMe(); }
+      if (t.closest("[data-nx-mail]")) { nxClose(true); return nxMail("nodo feedback"); }
       if (t.closest("[data-view], [data-dir]")) nxClose(false);
     });
     menu.addEventListener("keydown", (e) => {
@@ -634,3 +640,111 @@
   leaveAccount = function () { nxNames.uid = null; clearTimeout(nxNames.timer); return nxLeave.apply(this, arguments); };
   const nxToast = toast;
   toast = function (msg, ...rest) { return nxToast(msg === "Saved on this device" ? "Saved to your account" : msg, ...rest); };
+
+
+  /* ---------- 6. About nodo and feedback (since 20 Oct 2026) ----------
+     An About view, opened from the menu: what nodo covers, where the data comes from, how fresh it is and what it is not.
+     One inbox for everything, feedback@nodo.eu. Send feedback (menu and About) and the search request card open an email
+     with the screen the person came from, so a report can be acted on. No form and nothing stored: it is the person's own mail app. */
+  const NX_MAIL = "feedback@nodo.eu";
+  const NX_SCREEN = { home: "Today", people: "People", ep: "Parliament", ec: "Commission", co: "Council", cal: "Calendar", agenda: "Plenary agenda",
+    saved: "Saved people", files: "Files", news: "News on the files", about: "About" };
+  let nxFrom = "home";
+  function nxMail(subject, lines) {
+    const v = state.view === "about" ? nxFrom : state.view;
+    const ua = navigator.userAgent, dev = /iPhone|iPad/.test(ua) ? "iPhone or iPad" : /Android/.test(ua) ? "Android" : "Computer";
+    const ctx = ["Screen: " + (NX_SCREEN[v] || v) + (state.open ? " · " + state.open : ""), "App: nodo preview · " + dev,
+      "Standalone: " + (matchMedia("(display-mode: standalone)").matches || navigator.standalone ? "yes" : "no")];
+    const body = [...(lines || []), "", "", "—", ...ctx].join("\n");
+    Track.log("feedback_mail", { section: v, item: subject.slice(0, 120) });
+    location.href = "mailto:" + NX_MAIL + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+  }
+
+  /* The view itself. */
+  VIEW_IDS.about = "vAbout";
+  $("vNews").insertAdjacentHTML("afterend", `<main id="vAbout" class="view" hidden aria-label="About nodo"></main>`);
+  const nxSetView = setView;
+  setView = function (v) { if (v === "about" && state.view !== "about") nxFrom = state.view; return nxSetView(v); };
+  const nxRenderView = renderView;
+  renderView = function () { nxRenderView(); if (state.view === "about") renderAbout(); };
+
+  function renderAbout() {
+    const wm = (document.querySelector(".topbar .wordmark") || {}).outerHTML || "nodo";
+    const n = FILES.length;
+    const tile = (cls, ic, t, s) => `<div class="ab-tile ab-tile--${cls}"><span class="ab-disc" aria-hidden="true">${icon(ic)}</span><b>${t}</b><span>${s}</span></div>`;
+    const src = (cls, t, s) => `<li><i class="ab-dot ab-dot--${cls}" aria-hidden="true"></i><span><b>${t}</b><span>${s}</span></span></li>`;
+    const fr = (t, s) => `<li><span>${t}</span><b>${s}</b></li>`;
+    $("vAbout").innerHTML = `
+      <section class="ab-hero" aria-labelledby="abTitle">
+        <div class="ab-hero__wm">${wm}</div>
+        <h1 class="eu-headline" id="abTitle" tabindex="-1">Untangle <strong>the EU.</strong></h1>
+        <p>A pocket directory of the people behind EU policy: MEPs, Commissioners and their cabinets, Council delegations, the calendar, and the files that tie them together.</p>
+        <p class="ab-hero__meta"><i aria-hidden="true"></i>Beta · An independent project</p>
+      </section>
+
+      <h2 class="ab-h">What’s inside</h2>
+      <div class="ab-grid">
+        ${tile("ep", "bank", "Parliament", "Every MEP, committee seat and role, with their activity")}
+        ${tile("ec", "group", "Commission", "The College and every cabinet member, by portfolio")}
+        ${tile("co", "flag", "Council", "Presidency, meetings and the 27 permanent representations")}
+        ${tile("cal", "cal", "Calendar", "Plenary weeks, agendas and Council meetings")}
+        <div class="ab-tile ab-tile--files"><span class="ab-disc" aria-hidden="true">${icon("files")}</span><span class="ab-tile__tx"><b>Files</b><span>${n ? n + " priority file" + (n === 1 ? "" : "s") : "Priority files"}, linked to the people working on them</span></span></div>
+      </div>
+
+      <h2 class="ab-h">Where the data comes from</h2>
+      <ul class="ab-card ab-src">
+        ${src("ep", "European Parliament", "Open Data Portal and the Legislative Observatory procedure files")}
+        ${src("ec", "European Commission", "Commissioners’ and cabinet team pages")}
+        ${src("co", "Council of the EU", "Meeting calendar, Council documents and the Presidency programme")}
+        ${src("pr", "Published reporting", "Used only where no official source exists yet, and labelled as such")}
+      </ul>
+      <div class="ab-card ab-labels">
+        <p><b>How to read the labels</b></p>
+        <p><span class="ab-chip ab-chip--ok">${icon("check")}Verified</span><span>Read from an official source and matched to the person’s record</span></p>
+        <p><span class="ab-chip">${icon("news")}Press</span><span>Named in published reporting. Check the official file before you rely on it</span></p>
+      </div>
+
+      <h2 class="ab-h">How fresh it is</h2>
+      <ul class="ab-card ab-fresh">
+        ${fr("MEPs and Commission cabinets", "Every weekday")}
+        ${fr("Plenary agendas", "As published")}
+        ${fr("Council meetings and delegations", "Twice a week")}
+        ${fr("File status and next steps", "Every week")}
+      </ul>
+      <p class="cap ab-note">Each file shows the date its status was last checked.</p>
+
+      <section class="ab-card ab-know" aria-labelledby="abKnow">
+        <h2 class="ab-h" id="abKnow">Good to know</h2>
+        <p>nodo is independent. It is not affiliated with, or endorsed by, the European Parliament, the Commission, the Council or any other EU body.</p>
+        <p>It is a working tool, not legal or professional advice. Some gaps are structural: the Council does not publish its working-party attachés, for example. Where a list is incomplete, the screen says so.</p>
+      </section>
+
+      <section class="ab-contact" aria-labelledby="abContact">
+        <h2 class="eu-headline" id="abContact">Spotted an error? Missing a file? <strong>Say so.</strong></h2>
+        <p>Feedback, corrections and requests all go to one inbox. Every message is read.</p>
+        <button class="eu-btn eu-btn--brand eu-btn--block" type="button" data-abmail>${icon("mail")}Send feedback</button>
+        <div class="ab-addr"><span>${NX_MAIL}</span><button class="eu-btn eu-btn--outline" type="button" data-abcopy>${icon("copy")}Copy</button></div>
+        <p class="cap">The email opens with the screen you came from, so a fix can start right away.</p>
+      </section>
+
+      <p class="cap ab-foot">nodo · Untangle the EU<br>Portraits and texts belong to the institutions that publish them.</p>`;
+  }
+
+  document.addEventListener("click", (e) => {
+    const t = e.target;
+    if (t.closest("[data-abmail]")) return nxMail("nodo feedback");
+    const cp = t.closest("[data-abcopy]");
+    if (cp) {
+      const done = () => { cp.innerHTML = icon("check") + "Copied"; toast("Address copied"); setTimeout(() => { cp.innerHTML = icon("copy") + "Copy"; }, 1800); };
+      try { navigator.clipboard.writeText(NX_MAIL).then(done, () => toast(NX_MAIL)); } catch (_) { toast(NX_MAIL); }
+      return;
+    }
+    const rq = t.closest("[data-nxreqmail]");
+    if (rq) return nxMail("File request: " + rq.dataset.nxreqmail, ["I'd like nodo to follow: " + rq.dataset.nxreqmail, "Why it matters to me:"]);
+  });
+
+  /* The search request card keeps its one-tap request and adds a way to write, for anything a request can't say. */
+  const nxReqBase = nxRequestCard;
+  nxRequestCard = function (q, lead) {
+    return nxReqBase(q, lead).replace(/<\/div>\s*$/, `<p class="cap nx-reqmail">Want to say more? <button class="linkbtn" type="button" data-nxreqmail="${esc(nxClip(q, 80))}">Write to ${NX_MAIL}</button></p></div>`);
+  };
