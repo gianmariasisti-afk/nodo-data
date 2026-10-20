@@ -73,3 +73,24 @@ create policy "own events insert" on public.events for insert to authenticated
   with check ((select auth.uid()) = user_id);
 create policy "own events select" on public.events for select to authenticated
   using ((select auth.uid()) = user_id);
+
+-- Council names (applied as migration user_council_names, 20 Oct 2026; used by the preview first).
+-- The names a person adds for delegations and working parties (attachés, counsellors), synced across their devices.
+-- Kept apart from user_state because the live app rewrites user_state.body whole and would drop them.
+create table if not exists public.user_council_names (
+  user_id uuid primary key references auth.users (id) on delete cascade,
+  body jsonb not null default '{}'::jsonb check (pg_column_size(body) < 200000),
+  updated bigint not null default 0,
+  created_at timestamptz not null default now()
+);
+alter table public.user_council_names enable row level security;
+revoke all on public.user_council_names from anon;
+grant select, insert, update, delete on public.user_council_names to authenticated;
+create policy "own names select" on public.user_council_names for select to authenticated
+  using ((select auth.uid()) = user_id);
+create policy "own names insert" on public.user_council_names for insert to authenticated
+  with check ((select auth.uid()) = user_id);
+create policy "own names update" on public.user_council_names for update to authenticated
+  using ((select auth.uid()) = user_id) with check ((select auth.uid()) = user_id);
+create policy "own names delete" on public.user_council_names for delete to authenticated
+  using ((select auth.uid()) = user_id);

@@ -74,6 +74,16 @@ const html = patch(readFileSync(join(ROOT, "index.html"), "utf8"), "index.html",
   ["usage tag", "sid: Math.random().toString(36).slice(2, 12)", 'sid: "next-" + Math.random().toString(36).slice(2, 10)'],
   /* Accounts not on the list stop here: no sync, no usage log, the private screen instead. */
   ["gate", "async function onSignedIn(user) {", "async function onSignedIn(user) {\n    if (!(window.NODO_PREVIEW && window.NODO_PREVIEW.accounts.includes(user.id))) { window.nodoPreviewDenied(); return; }"],
+  /* Attachés on the file page and Council names that sync to the account (20 Oct 2026). Copy only; the sync is in features.js. */
+  ["file page attachés", '<p class="cap">Venue inferred, not confirmed.</p>` : ""}</div>`).join("")}</div>`; };',
+    '<p class="cap">Venue inferred, not confirmed.</p>` : ""}</div>`).join("")}</div><p class="fp-att">Attachés who cover ${w.length > 1 ? "these working parties" : "this working party"} aren\'t in nodo. The Council doesn\'t publish them.${((f.council || {}).configs || []).find((c) => CONF_BY[c]) ? ` <button type="button" data-prwp="${esc(((f.council || {}).configs || []).find((c) => CONF_BY[c]))}">Add the ones you know</button>` : ""}</p>`; };'],
+  ["notes count", 'notes.length + " on this device" : "saved on this device"', 'notes.length + " in your account" : "saved to your account"'],
+  ["wp foot", "The names here are the ones you add, saved on this device.", "The names here are the ones you add, saved to your account."],
+  ["added by you", '", saved on this device"', '", saved to your account"'],
+  ["sheet note", "It is saved on this device and is not sent to anyone.", "It is saved to your account and is not shared with anyone."],
+  ["delegation foot", "The names you add are saved on this device only.", "The names you add are saved to your account."],
+  ["council note", "Any other name is one you added, saved on this device.", "Any other name is one you added, saved to your account."],
+  ["sheet note 2", '"Saved on this device. Check a name', '"Saved to your account. Check a name'],
   ["marker", "</body>", gate],
   /* The preview's features (next/features.js, next/features.css) run inside the app's script, just before start-up. */
   ["features", "  initHome(); initEp(); initEc();", () => readFileSync(join(OUT, "features.js"), "utf8") + "\n  initHome(); initEp(); initEc();"],

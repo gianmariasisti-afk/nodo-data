@@ -124,6 +124,10 @@
 .ed-room__k .ed-mark { width: 10px; height: 10px; }
 .ed-room__wp { font-size: 15px; line-height: 20px; font-weight: 600; }
 .ed-room__m { font-size: 12px; line-height: 16px; color: var(--ink-muted); }
+.ed-room__att { margin: var(--space-2) 0 0; padding-top: var(--space-2); border-top: 1px solid var(--hairline); font-size: 13px; line-height: 18px; color: var(--ink); }
+.ed-room__add { display: inline; min-height: 44px; padding: 0; border: 0; background: none; color: var(--brand); font: 600 13px/18px var(--font-sans); text-decoration: underline; text-underline-offset: 2px; cursor: pointer; }
+.fp-att { margin: var(--space-2) var(--space-1) 0; font-size: 13px; line-height: 18px; color: var(--ink-muted); }
+.fp-att button { min-height: 44px; padding: 0; border: 0; background: none; color: var(--brand); font: 600 13px/18px var(--font-sans); text-decoration: underline; text-underline-offset: 2px; cursor: pointer; }
 .ed-room__files { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); }
 .ed-room__more:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; border-radius: var(--radius-pill); }
 .ed-dots { display: flex; justify-content: center; gap: 6px; padding-top: var(--space-3); }

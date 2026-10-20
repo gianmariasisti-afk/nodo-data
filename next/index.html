@@ -2081,7 +2081,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   const dgBlock = (f) => { const d = f.dg; if (!d || !(d.lead || []).length) return "";
     return `<h3>DG holding the pen</h3><div class="block">${d.lead.map((x) => `<h4>DG ${esc(x)}</h4><p>${esc(DG_NAMES[x] || "")}</p>`).join("")}<p class="cap">${d.basis === "source" ? "Named in a Parliament or Commission document." : "Deduced from the Commissioner's portfolio. Verify before external use."}${d.note ? " " + esc(d.note) : ""}</p></div>`; };
   const wpBlock = (f) => { const w = ((f.council || {}).workingParties || []); if (!w.length) return "";
-    return `<h3>Working party</h3><div class="list">${w.map((x) => `<div class="block"><h4>${esc(x.name)}</h4>${x.note ? `<p class="cap">${esc(x.note)}</p>` : ""}${x.basis === "inferred" ? `<p class="cap">Venue inferred, not confirmed.</p>` : ""}</div>`).join("")}</div>`; };
+    return `<h3>Working party</h3><div class="list">${w.map((x) => `<div class="block"><h4>${esc(x.name)}</h4>${x.note ? `<p class="cap">${esc(x.note)}</p>` : ""}${x.basis === "inferred" ? `<p class="cap">Venue inferred, not confirmed.</p>` : ""}</div>`).join("")}</div><p class="fp-att">Attachés who cover ${w.length > 1 ? "these working parties" : "this working party"} aren't in nodo. The Council doesn't publish them.${((f.council || {}).configs || []).find((c) => CONF_BY[c]) ? ` <button type="button" data-prwp="${esc(((f.council || {}).configs || []).find((c) => CONF_BY[c]))}">Add the ones you know</button>` : ""}</p>`; };
   const confRow = (c) => row({ attrs: tap(`data-conf="${c.id}"`), lead: disc("bank"), name: esc(c.short),
     meta: c.next.length ? `Next: ${esc(fmtIso(c.next[0].start, { weekday: "short", day: "numeric", month: "short" }))}${c.next[0].informal ? " · informal" : ""}` : "No meeting before January", tail: go });
   function councilWeek(mon, big) {
@@ -2165,7 +2165,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
         <p class="note">Standard qualified majority (Article 16(4) TEU) for Commission proposals: 55% of member states representing 65% of the EU population. A blocking minority needs at least four member states. Population figures for 2026 from Council Decision (EU, Euratom) 2025/2427.</p>`;
     }
     $("coBody").innerHTML = h;
-    $("coNote").textContent = tab === "qmv" ? "" : tab === "perms" ? `Ambassador and deputy names from the Council's participant lists and the Permanent Representations' official sources, checked ${CO.fetched}. Any other name is one you added, saved on this device.` : `Sources: Council of the EU meeting calendar and participant lists, checked ${CO.fetched}.`;
+    $("coNote").textContent = tab === "qmv" ? "" : tab === "perms" ? `Ambassador and deputy names from the Council's participant lists and the Permanent Representations' official sources, checked ${CO.fetched}. Any other name is one you added, saved to your account.` : `Sources: Council of the EU meeting calendar and participant lists, checked ${CO.fetched}.`;
   }
 
   /* ---------- permanent representations ---------- */
@@ -2248,13 +2248,13 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
         <div class="eu-row__tags" style="margin-top:12px">${stPill("plain", "Coreper I and II")}${stPill("ok", "Council lists checked " + dShort(CO.fetched))}</div></div>
       <h3>Leadership <small>from the Council's lists</small></h3>
       <div class="list">${slotRow(cc, "pr", "Ambassador", "Coreper II")}${slotRow(cc, "dpr", "Deputy Permanent Representative", "Coreper I")}</div>
-      <h3>Your notes <small>${notes.length ? notes.length + " on this device" : "saved on this device"}</small></h3>
+      <h3>Your notes <small>${notes.length ? notes.length + " in your account" : "saved to your account"}</small></h3>
       ${notes.length ? `<div class="list">${notes.map((k) => { const slot = k.slice(cc.length + 1); return slotRow(cc, slot, slotLabel(slot), ""); }).join("")}</div>`
         : `<div class="hint"><span>The Council publishes the ambassador and the deputy only. Add the Antici, Mertens and working-party counsellors you know, and they stay here.</span></div>`}
       <div class="pr-btns"><button class="eu-btn eu-btn--brand eu-btn--block" type="button" data-prsheet="${cc}|new">Add a name</button></div>
       <h3>In the Council <small>last meeting of each</small></h3>
       <button class="eu-btn eu-btn--block" type="button" data-country="${cc}">Open the ${esc(countryName(cc))} country page</button>
-      <p class="foot">Ambassador and deputy come from official Council participant lists (${esc(CO.fetched)}). Counsellors and attachés are not published there. The names you add are saved on this device only.</p>`);
+      <p class="foot">Ambassador and deputy come from official Council participant lists (${esc(CO.fetched)}). Counsellors and attachés are not published there. The names you add are saved to your account.</p>`);
   }
   /* Working party: the names the person has, then one fold to add a name for any other delegation. */
   function wpListHtml(id) {
@@ -2274,7 +2274,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       <div class="eu-tile eu-tile--mint"><span class="eu-tile__disc">${icon("flag")}</span><span><span class="eu-tile__label">${esc(c.name)}</span><span class="eu-tile__meta">Prepared by Coreper ${esc(c.coreper)}</span></span></div>
       <div id="prWpList">${wpListHtml(id)}</div>
       <button class="eu-btn eu-btn--block mt" type="button" data-conf="${id}">Open the Council configuration</button>
-      <p class="foot">Working-party attachés are not published by the Council. The names here are the ones you add, saved on this device.</p>`);
+      <p class="foot">Working-party attachés are not published by the Council. The names here are the ones you add, saved to your account.</p>`);
   }
   const prSheetState = { cc: "", slot: "", kind: "" };
   /* A known name opens as a small card: who, where the name comes from, and a note the person can leave for themselves.
@@ -2291,7 +2291,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     $("sheet").innerHTML = `<div class="sheet__bar"><button class="eu-iconbtn eu-iconbtn--sm" type="button" data-sheet-close aria-label="Close">${icon("x")}</button></div>
       <div class="pr-sheet"><p class="cap">${esc(countryName(cc))}${slot !== "new" ? " · " + esc(slotLabel(slot)) : ""}</p>
       ${has ? `<h2 class="eu-headline" id="sName" style="margin:8px 0 8px;font-size:30px;line-height:34px">${twoW(i.name)}</h2>
-        <p class="cap pr-src">${i.mine ? "Added by you " + esc(dShort(prx.names[key].date)) + ", saved on this device" : src ? "From the Council's participant list of " + esc(fmtIso(src[1], { day: "numeric", month: "long", year: "numeric" })) : ""}${i.role ? " · " + esc(i.role) : ""}</p>
+        <p class="cap pr-src">${i.mine ? "Added by you " + esc(dShort(prx.names[key].date)) + ", saved to your account" : src ? "From the Council's participant list of " + esc(fmtIso(src[1], { day: "numeric", month: "long", year: "numeric" })) : ""}${i.role ? " · " + esc(i.role) : ""}</p>
         <span class="pr-lab">Still the ${esc(slotLabel(slot).toLowerCase())}?</span>
         <div class="chips wrap" id="prKinds" role="group" aria-label="Still correct">${[["yes", "Yes, still correct"], ["moved", "Moved to another role"], ["left", "Left the delegation"]].map(([k, n]) => `<button class="eu-chip" type="button" data-prk="${k}" aria-pressed="${k === prSheetState.kind}">${n}</button>`).join("")}</div>
         <span class="pr-lab">Successor, if you know who (optional)</span><label class="eu-search"><input id="prName" type="text" placeholder="First and last name" aria-label="Successor name"></label>`
@@ -2299,7 +2299,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
         ${slot === "new" ? `<span class="pr-lab" style="margin-top:0">Role</span><select id="prSlot" class="pr-sel" aria-label="Role">${opts}</select>` : ""}
         <span class="pr-lab"${slot === "new" ? "" : ' style="margin-top:0"'}>Name</span><label class="eu-search"><input id="prName" type="text" placeholder="First and last name" aria-label="Name"></label>
         <span class="pr-lab">Job title (optional)</span><label class="eu-search"><input id="prRole" type="text" placeholder="For example Counsellor" aria-label="Job title"></label>`}
-      <p class="note pr-top-note">${has ? "Your answer is a note for you. It is saved on this device and is not sent to anyone." : "Saved on this device. Check a name against a source you trust before you rely on it."}</p>
+      <p class="note pr-top-note">${has ? "Your answer is a note for you. It is saved to your account and is not shared with anyone." : "Saved to your account. Check a name against a source you trust before you rely on it."}</p>
       <button class="eu-btn eu-btn--brand eu-btn--block" type="button" data-prsend style="margin-top:16px">${has ? "Save my note" : "Save name"}</button>
       <button class="eu-btn eu-btn--block" type="button" data-sheet-close>Cancel</button></div>`;
     $("scrim").hidden = false; $("sheet").hidden = false; $("sheet").scrollTop = 0;
@@ -4967,9 +4967,16 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const pres = presOf(w.mon), wps = files.flatMap((f) => ((f.council || {}).workingParties || []).map((x) => x.name));
     const council = wps.length ? `<div class="ed-room__co"><span class="ed-room__k"><i class="ed-mark ed-mark--co" aria-hidden="true"></i>Council working ${new Set(wps).size > 1 ? "parties" : "party"}</span>
       <span class="ed-room__wp">${esc([...new Set(wps)].join(" · "))}</span>
-      <span class="ed-room__m">Where member states discuss ${files.length > 1 ? "these files" : "the file"}${pres ? ` · chaired by the Presidency, ${esc(countryName(pres[0]))}` : ""}</span></div>` : "";
+      <span class="ed-room__m">Where member states discuss ${files.length > 1 ? "these files" : "the file"}${pres ? ` · chaired by the Presidency, ${esc(countryName(pres[0]))}` : ""}</span>
+      ${edAttache(files, new Set(wps).size > 1)}</div>` : "";
     const links = `<div class="ed-room__files">${files.map((f) => `<button class="eu-chip" type="button" data-file="${esc(f.id)}">Everyone on ${esc(f.short)}</button>`).join("")}</div>`;
     return `${head(cap)}${note}${rows ? `<div class="list">${rows}</div>` : ""}${more}${council}${links}`;
+  }
+  /* Said where the gap shows (20 Oct 2026): the attachés who cover a working party are not in nodo, because the Council
+     does not publish them. The link opens "Who covers…" for the file's Council configuration, where people add names. */
+  function edAttache(files, many) {
+    const conf = files.map((f) => ((f.council || {}).configs || [])[0]).find((c) => c && CONF_BY[c]);
+    return `<p class="ed-room__att">Attachés who cover ${many ? "these working parties" : "this working party"} aren't in nodo. The Council doesn't publish them.${conf ? ` <button class="ed-room__add" type="button" data-prwp="${esc(conf)}">Add the ones you know</button>` : ""}</p>`;
   }
   function edRoomPaint() { const el = $("edRoom"); if (!el) return; el.innerHTML = edRoomHtml(); el.hidden = !el.innerHTML.trim(); }
 
@@ -5297,6 +5304,63 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     nxSync();
   })();
 
+
+  /* ---------- 5. Council names sync to your account (since 20 Oct 2026) ----------
+     The names you add for delegations and working parties (attachés, counsellors) used to stay on the phone.
+     They now sync to your account in their own Supabase table, user_council_names, so they follow you to another phone.
+     They are kept out of user_state because the live app rewrites that row whole and would drop them.
+     The first time a phone meets the account, its names and the account's are merged; after that the newer copy wins. */
+  const NXN_UPD = "nodo.permreps.updated", NXN_SYNCED = "nodo.permreps.synced";
+  const nxNames = {
+    uid: null, timer: null, quiet: false,
+    body: () => ({ names: prx.names, corr: prx.corr }),
+    write() { this.quiet = true; store.set(PRX_KEY, JSON.stringify(prx)); this.quiet = false; },
+    async connect(uid) {
+      const sb = SB.client; if (!sb || !uid) return;
+      const { data, error } = await sb.from("user_council_names").select("body,updated").eq("user_id", uid).maybeSingle();
+      if (error) return;
+      this.uid = uid;
+      const first = store.get(NXN_SYNCED) !== uid, localUpd = Number(store.get(NXN_UPD) || 0), r = (data && data.body) || {}, rUpd = data ? Number(data.updated) || 0 : 0;
+      store.set(NXN_SYNCED, uid);
+      if (data && first) {
+        const newer = (a, b) => !a || (b && (b.date || "") > (a.date || ""));
+        Object.entries(r.names || {}).forEach(([k, v]) => { if (newer(prx.names[k], v)) prx.names[k] = v; });
+        Object.entries(r.corr || {}).forEach(([k, v]) => { if (newer(prx.corr[k], v)) prx.corr[k] = v; });
+        this.write(); this.push(true);
+      } else if (data && rUpd >= localUpd) {
+        Object.keys(prx.names).forEach((k) => delete prx.names[k]); Object.assign(prx.names, r.names || {});
+        Object.keys(prx.corr).forEach((k) => delete prx.corr[k]); Object.assign(prx.corr, r.corr || {});
+        store.set(NXN_UPD, String(rUpd)); this.write();
+      } else if (Object.keys(prx.names).length || Object.keys(prx.corr).length || data) this.push(true);
+      if (state.open && state.open.startsWith("deleg:")) openDelegation(state.open.slice(6));
+    },
+    push(now) {
+      if (!this.uid) return;
+      clearTimeout(this.timer);
+      const go = () => { const upd = Number(store.get(NXN_UPD) || Date.now());
+        SB.client.from("user_council_names").upsert({ user_id: this.uid, body: this.body(), updated: upd })
+          .then(({ error }) => { if (error) toast("Could not save to your account. Your names are kept on this phone."); }); };
+      if (now) go(); else this.timer = setTimeout(go, 500);
+    },
+  };
+  /* Every save of the names goes through store.set(PRX_KEY): stamp it and send it. */
+  const nxStoreSet = store.set;
+  store.set = function (k, v) {
+    const ok = nxStoreSet.call(this, k, v);
+    if (k === PRX_KEY && ok && !nxNames.quiet) { nxStoreSet.call(this, NXN_UPD, String(Date.now())); nxNames.push(); }
+    return ok;
+  };
+  const nxConnectSb = Store.connectSb;
+  Store.connectSb = async function (user) {
+    const out = await nxConnectSb.call(this, user);
+    nxNames.connect(user && user.id).catch(() => {});
+    return out;
+  };
+  const nxLeave = leaveAccount;
+  leaveAccount = function () { nxNames.uid = null; clearTimeout(nxNames.timer); return nxLeave.apply(this, arguments); };
+  const nxToast = toast;
+  toast = function (msg, ...rest) { return nxToast(msg === "Saved on this device" ? "Saved to your account" : msg, ...rest); };
+
   initHome(); initEp(); initEc();
   let startView = "home";
   try { const h = (location.hash || "").slice(1); startView = { parliament: "ep", commission: "ec", council: "co", calendar: "cal", agenda: "agenda", saved: "saved", files: "files", news: "news" }[h] || "home"; } catch { /* ignore */ }
@@ -5448,6 +5512,10 @@ if ("serviceWorker" in navigator && /github\.io$/.test(location.hostname)) addEv
 .ed-room__k .ed-mark { width: 10px; height: 10px; }
 .ed-room__wp { font-size: 15px; line-height: 20px; font-weight: 600; }
 .ed-room__m { font-size: 12px; line-height: 16px; color: var(--ink-muted); }
+.ed-room__att { margin: var(--space-2) 0 0; padding-top: var(--space-2); border-top: 1px solid var(--hairline); font-size: 13px; line-height: 18px; color: var(--ink); }
+.ed-room__add { display: inline; min-height: 44px; padding: 0; border: 0; background: none; color: var(--brand); font: 600 13px/18px var(--font-sans); text-decoration: underline; text-underline-offset: 2px; cursor: pointer; }
+.fp-att { margin: var(--space-2) var(--space-1) 0; font-size: 13px; line-height: 18px; color: var(--ink-muted); }
+.fp-att button { min-height: 44px; padding: 0; border: 0; background: none; color: var(--brand); font: 600 13px/18px var(--font-sans); text-decoration: underline; text-underline-offset: 2px; cursor: pointer; }
 .ed-room__files { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); }
 .ed-room__more:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; border-radius: var(--radius-pill); }
 .ed-dots { display: flex; justify-content: center; gap: 6px; padding-top: var(--space-3); }

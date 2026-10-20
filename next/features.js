@@ -269,9 +269,16 @@
     const pres = presOf(w.mon), wps = files.flatMap((f) => ((f.council || {}).workingParties || []).map((x) => x.name));
     const council = wps.length ? `<div class="ed-room__co"><span class="ed-room__k"><i class="ed-mark ed-mark--co" aria-hidden="true"></i>Council working ${new Set(wps).size > 1 ? "parties" : "party"}</span>
       <span class="ed-room__wp">${esc([...new Set(wps)].join(" · "))}</span>
-      <span class="ed-room__m">Where member states discuss ${files.length > 1 ? "these files" : "the file"}${pres ? ` · chaired by the Presidency, ${esc(countryName(pres[0]))}` : ""}</span></div>` : "";
+      <span class="ed-room__m">Where member states discuss ${files.length > 1 ? "these files" : "the file"}${pres ? ` · chaired by the Presidency, ${esc(countryName(pres[0]))}` : ""}</span>
+      ${edAttache(files, new Set(wps).size > 1)}</div>` : "";
     const links = `<div class="ed-room__files">${files.map((f) => `<button class="eu-chip" type="button" data-file="${esc(f.id)}">Everyone on ${esc(f.short)}</button>`).join("")}</div>`;
     return `${head(cap)}${note}${rows ? `<div class="list">${rows}</div>` : ""}${more}${council}${links}`;
+  }
+  /* Said where the gap shows (20 Oct 2026): the attachés who cover a working party are not in nodo, because the Council
+     does not publish them. The link opens "Who covers…" for the file's Council configuration, where people add names. */
+  function edAttache(files, many) {
+    const conf = files.map((f) => ((f.council || {}).configs || [])[0]).find((c) => c && CONF_BY[c]);
+    return `<p class="ed-room__att">Attachés who cover ${many ? "these working parties" : "this working party"} aren't in nodo. The Council doesn't publish them.${conf ? ` <button class="ed-room__add" type="button" data-prwp="${esc(conf)}">Add the ones you know</button>` : ""}</p>`;
   }
   function edRoomPaint() { const el = $("edRoom"); if (!el) return; el.innerHTML = edRoomHtml(); el.hidden = !el.innerHTML.trim(); }
 
@@ -598,3 +605,60 @@
     syncDock = function () { nxDock(); nxSync(); };
     nxSync();
   })();
+
+
+  /* ---------- 5. Council names sync to your account (since 20 Oct 2026) ----------
+     The names you add for delegations and working parties (attachés, counsellors) used to stay on the phone.
+     They now sync to your account in their own Supabase table, user_council_names, so they follow you to another phone.
+     They are kept out of user_state because the live app rewrites that row whole and would drop them.
+     The first time a phone meets the account, its names and the account's are merged; after that the newer copy wins. */
+  const NXN_UPD = "nodo.permreps.updated", NXN_SYNCED = "nodo.permreps.synced";
+  const nxNames = {
+    uid: null, timer: null, quiet: false,
+    body: () => ({ names: prx.names, corr: prx.corr }),
+    write() { this.quiet = true; store.set(PRX_KEY, JSON.stringify(prx)); this.quiet = false; },
+    async connect(uid) {
+      const sb = SB.client; if (!sb || !uid) return;
+      const { data, error } = await sb.from("user_council_names").select("body,updated").eq("user_id", uid).maybeSingle();
+      if (error) return;
+      this.uid = uid;
+      const first = store.get(NXN_SYNCED) !== uid, localUpd = Number(store.get(NXN_UPD) || 0), r = (data && data.body) || {}, rUpd = data ? Number(data.updated) || 0 : 0;
+      store.set(NXN_SYNCED, uid);
+      if (data && first) {
+        const newer = (a, b) => !a || (b && (b.date || "") > (a.date || ""));
+        Object.entries(r.names || {}).forEach(([k, v]) => { if (newer(prx.names[k], v)) prx.names[k] = v; });
+        Object.entries(r.corr || {}).forEach(([k, v]) => { if (newer(prx.corr[k], v)) prx.corr[k] = v; });
+        this.write(); this.push(true);
+      } else if (data && rUpd >= localUpd) {
+        Object.keys(prx.names).forEach((k) => delete prx.names[k]); Object.assign(prx.names, r.names || {});
+        Object.keys(prx.corr).forEach((k) => delete prx.corr[k]); Object.assign(prx.corr, r.corr || {});
+        store.set(NXN_UPD, String(rUpd)); this.write();
+      } else if (Object.keys(prx.names).length || Object.keys(prx.corr).length || data) this.push(true);
+      if (state.open && state.open.startsWith("deleg:")) openDelegation(state.open.slice(6));
+    },
+    push(now) {
+      if (!this.uid) return;
+      clearTimeout(this.timer);
+      const go = () => { const upd = Number(store.get(NXN_UPD) || Date.now());
+        SB.client.from("user_council_names").upsert({ user_id: this.uid, body: this.body(), updated: upd })
+          .then(({ error }) => { if (error) toast("Could not save to your account. Your names are kept on this phone."); }); };
+      if (now) go(); else this.timer = setTimeout(go, 500);
+    },
+  };
+  /* Every save of the names goes through store.set(PRX_KEY): stamp it and send it. */
+  const nxStoreSet = store.set;
+  store.set = function (k, v) {
+    const ok = nxStoreSet.call(this, k, v);
+    if (k === PRX_KEY && ok && !nxNames.quiet) { nxStoreSet.call(this, NXN_UPD, String(Date.now())); nxNames.push(); }
+    return ok;
+  };
+  const nxConnectSb = Store.connectSb;
+  Store.connectSb = async function (user) {
+    const out = await nxConnectSb.call(this, user);
+    nxNames.connect(user && user.id).catch(() => {});
+    return out;
+  };
+  const nxLeave = leaveAccount;
+  leaveAccount = function () { nxNames.uid = null; clearTimeout(nxNames.timer); return nxLeave.apply(this, arguments); };
+  const nxToast = toast;
+  toast = function (msg, ...rest) { return nxToast(msg === "Saved on this device" ? "Saved to your account" : msg, ...rest); };
