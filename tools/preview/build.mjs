@@ -97,6 +97,11 @@ const sw = patch(readFileSync(join(ROOT, "sw.js"), "utf8"), "sw.js", [
   ["cache name", 'const VERSION = "nodo-v', 'const VERSION = "nodo-next-' + createHash("sha256").update(html).digest("hex").slice(0, 8) + "-v"],
   ["shell", '"config.js", "avatars.js", "vendor/supabase.js", "manifest.webmanifest", "icons/icon-192.png", "icons/icon-512.png", "icons/apple-touch-icon.png"', '"../config.js", "../avatars.js", "../vendor/supabase.js", "manifest.webmanifest", "../icons/icon-192.png", "../icons/icon-512.png", "../icons/apple-touch-icon.png"'],
   ["cleanup", "ks.filter((k) => k !== VERSION && k !== DATA)", 'ks.filter((k) => k.startsWith("nodo-next-") && k !== VERSION)'],
+  /* The page itself comes from the network first (the saved copy only after 3 seconds or offline), so a new preview
+     build shows on the next open instead of the one after; the rest of the shell stays stale-while-revalidate. */
+  ["page network first", "  if (url.origin === location.origin || /(^|\\.)(googleapis|gstatic)\\.com$/.test(url.hostname)) return e.respondWith(staleWhileRevalidate(req));",
+    "  if (url.origin === location.origin && (req.mode === \"navigate\" || /\\/next\\/(index\\.html)?$/.test(url.pathname) || /\\/next\\/europe-dots\\.json$/.test(url.pathname))) return e.respondWith(pageFirst(req));\n  if (url.origin === location.origin || /(^|\\.)(googleapis|gstatic)\\.com$/.test(url.hostname)) return e.respondWith(staleWhileRevalidate(req));"],
+  ["page helper", "self.addEventListener(\"fetch\", (e) => {", "const pageFirst = (req) => new Promise((resolve) => {\n  let done = false; const settle = (r) => { if (!done && r) { done = true; resolve(r); } };\n  const saved = caches.match(req); const t = setTimeout(() => saved.then(settle), 3000);\n  fetch(req, { cache: \"no-cache\" }).then((r) => { clearTimeout(t); if (r.ok) { const c = r.clone(); caches.open(VERSION).then((x) => x.put(req, c)); } settle(r); })\n    .catch(() => { clearTimeout(t); saved.then((h) => settle(h || Response.error())); });\n});\nself.addEventListener(\"fetch\", (e) => {"],
 ]);
 
 const manifest = JSON.parse(readFileSync(join(ROOT, "manifest.webmanifest"), "utf8"));

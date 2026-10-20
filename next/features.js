@@ -1408,3 +1408,20 @@
     const k = t.closest("[data-cok]");
     if (k) { state.co.k = k.dataset.cok; $("coConfBox").innerHTML = coConfsHtml(); const f = $("coConfBox").querySelector(`[data-cok="${k.dataset.cok}"]`); if (f) f.focus({ preventScroll: true }); }
   });
+
+
+  /* ---------- 12. Updates reach the phone (since 20 Oct 2026) ---------- */
+  /* A Home Screen app on iPhone resumes instead of restarting, so it kept showing the build it had saved. When the app
+     comes back to the foreground it asks for a new service worker; when one takes over, the page reloads once, unless
+     a sheet, a profile or the onboarding is open (then it waits for the next return). */
+  if ("serviceWorker" in navigator && /github\.io$/.test(location.hostname)) {
+    let nxHadCtl = !!navigator.serviceWorker.controller, nxReloadDue = false;
+    const nxBusy = () => !$("sheet").hidden || !$("profile").hidden || !$("onb").hidden;
+    const nxReload = () => { if (nxBusy()) { nxReloadDue = true; return; } location.reload(); };
+    navigator.serviceWorker.addEventListener("controllerchange", () => { if (nxHadCtl) nxReload(); nxHadCtl = true; });
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState !== "visible") return;
+      if (nxReloadDue) return nxReload();
+      navigator.serviceWorker.getRegistration().then((r) => r && r.update()).catch(() => {});
+    });
+  }
