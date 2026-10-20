@@ -1,21 +1,10 @@
 {
- "run": "2026-10-20T09:58:42.262Z",
+ "run": "2026-10-20T11:17:29.510Z",
  "checked": "2026-10-20",
  "api": 719,
  "nodo": 720,
  "failed": [],
- "auto": [
-  {
-   "id": "247735",
-   "name": "Laura BALLARÍN CEREZA",
-   "changes": {
-    "party": {
-     "from": "PSOE",
-     "to": "PSC-PSOE"
-    }
-   }
-  }
- ],
+ "auto": [],
  "structural": [
   {
    "type": "arrived",
@@ -36,9 +25,9 @@
   }
  ],
  "summary": {
-  "auto": 1,
+  "auto": 0,
   "structural": 2,
   "failed": 0,
-  "changed": true
+  "changed": false
  }
 }
