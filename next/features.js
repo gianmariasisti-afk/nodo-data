@@ -27,10 +27,10 @@
         country pages; a block opens its section, and each section has a way back to People. Parliament and Commission photos: Unsplash,
         hotlinked as its terms ask, credited on each block. The Council photo (Europa building) is from Wikimedia Commons, CC BY-SA 4.0, kept in monuments/.
      4. Burger menu (since 19 Oct 2026): the floating tab bar is replaced by a top bar (wordmark back to Today, your profile, Menu)
-        and a drawer from the right: Today, People with Parliament, Commission and Council, Calendar, Files, then News, Saved
-        people and your profile card. The bar takes the masthead's deep ground on Today and the light surface elsewhere.
+        and a drawer from the right: Today, People with Parliament, Commission and Council, Calendar, Files, then About nodo
+        and your profile card (News opens from Files; Saved people from your profile and Today). The bar takes the masthead's deep ground on Today and the light surface elsewhere.
      6. About nodo and feedback (since 20 Oct 2026): an About view from the menu (what nodo covers, where the data comes from,
-        how fresh it is, what it is not) and one inbox, feedback@nodo.eu. Send feedback in the menu, the About page and the
+        how fresh it is, what it is not) and one inbox, feedback@nodo.eu. Send feedback on the About page and the
         search request card open an email with the screen you came from filled in.
      ===================================================================== */
 
@@ -508,10 +508,7 @@
         </ul>
         <hr class="nx-rule">
         <ul class="nx-list nx-list--2">
-          <li><button class="nx-subitem" type="button" data-view="news" data-nx="news">News on the files</button></li>
-          <li><button class="nx-subitem" type="button" data-view="saved" data-nx="saved">Saved people</button></li>
           <li><button class="nx-subitem" type="button" data-view="about" data-nx="about">About nodo</button></li>
-          <li><button class="nx-subitem" type="button" data-nx-mail>Send feedback</button></li>
         </ul></nav>
         <button class="nx-me" type="button" data-nx-me><span class="nx-me__face" id="nxFace" aria-hidden="true"></span>
           <span class="nx-me__tx"><span class="nx-me__n" id="nxName">Your profile</span><span class="nx-me__s">Profile, files you follow, countries you cover</span></span></button>
@@ -568,7 +565,6 @@
       const t = e.target;
       if (t.closest("[data-nx-close]")) return nxClose(true);
       if (t.closest("[data-nx-me]")) { nxClose(false); return openMe(); }
-      if (t.closest("[data-nx-mail]")) { nxClose(true); return nxMail("nodo feedback"); }
       if (t.closest("[data-view], [data-dir]")) nxClose(false);
     });
     menu.addEventListener("keydown", (e) => {
@@ -644,7 +640,7 @@
 
   /* ---------- 6. About nodo and feedback (since 20 Oct 2026) ----------
      An About view, opened from the menu: what nodo covers, where the data comes from, how fresh it is and what it is not.
-     One inbox for everything, feedback@nodo.eu. Send feedback (menu and About) and the search request card open an email
+     One inbox for everything, feedback@nodo.eu. Send feedback on the About page and the search request card open an email
      with the screen the person came from, so a report can be acted on. No form and nothing stored: it is the person's own mail app. */
   const NX_MAIL = "feedback@nodo.eu";
   const NX_SCREEN = { home: "Today", people: "People", ep: "Parliament", ec: "Commission", co: "Council", cal: "Calendar", agenda: "Plenary agenda",
