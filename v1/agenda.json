@@ -483,7 +483,7 @@
    "link": "https://www.europarl.europa.eu/plenary/en/agendas.html",
    "src": {
     "api": "foreseen-activities",
-    "sha256": "c41d06784035ed305f98e217037cad4303d7dbaf6f974e231f19aeb08bc65cbf"
+    "sha256": "168d8fc5aaa3faa5085b4db260c7ccf6ce909eaac4995f38c29c528fbbb52217"
    },
    "days": {
     "2026-10-19": [
@@ -937,6 +937,12 @@
        "257080"
       ],
       "committee": "ENVI"
+     },
+     {
+      "time": "12:00–14:00",
+      "type": "votes",
+      "title": "Reduction of methane emissions in the energy sector: postponement of certain obligations",
+      "sub": "C10-0258/2026 · ***I"
      },
      {
       "time": "12:00–14:00",
