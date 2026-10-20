@@ -115,6 +115,17 @@
 .ed-wk__m { font-size: 12px; line-height: 16px; color: var(--ink-muted); }
 .ed-wk__none { margin: 0; padding-top: var(--space-3); border-top: 1px solid var(--hairline); font-size: 14px; line-height: 20px; color: var(--ink-muted); }
 .ed-wk__more { align-self: flex-start; min-height: 44px; margin-top: auto; padding: 0; border: 0; background: none; color: var(--brand); font: 600 14px/20px var(--font-sans); cursor: pointer; }
+/* On these files: follows the week card in view (since 20 Oct 2026). */
+.ed-room .list { margin-top: var(--space-2); }
+.ed-room__note { margin: var(--space-2) 0 0; padding: var(--space-3) 14px; border-radius: var(--radius-md); background: var(--surface-sunken); font-size: 14px; line-height: 20px; color: var(--ink); }
+.ed-room__more { min-height: 44px; margin-top: var(--space-1); padding: 0 var(--space-1); border: 0; background: none; color: var(--brand); font: 600 15px/20px var(--font-sans); cursor: pointer; }
+.ed-room__co { display: flex; flex-direction: column; gap: 2px; margin-top: var(--space-2); padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); background: var(--surface-sunken); color: var(--ink); }
+.ed-room__k { display: flex; align-items: center; gap: 8px; font: 600 12px/16px var(--font-sans); color: var(--ink-muted); }
+.ed-room__k .ed-mark { width: 10px; height: 10px; }
+.ed-room__wp { font-size: 15px; line-height: 20px; font-weight: 600; }
+.ed-room__m { font-size: 12px; line-height: 16px; color: var(--ink-muted); }
+.ed-room__files { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); }
+.ed-room__more:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; border-radius: var(--radius-pill); }
 .ed-dots { display: flex; justify-content: center; gap: 6px; padding-top: var(--space-3); }
 .ed-dots i { width: 8px; height: 8px; border-radius: var(--radius-pill); background: var(--border-control); opacity: .5; transition: width .15s ease-out, opacity .15s ease-out; }
 .ed-dots i.is-on { width: 20px; background: var(--ink); opacity: 1; }

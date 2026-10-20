@@ -4708,6 +4708,8 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
         - Who ties them together: the people named on more than one of your files;
         - Coming up: dated steps on your files and plenary sittings in the four weeks after this one, one card per week in a
           sideways carousel (since 19 Oct 2026; replaced the vertical timeline);
+        - On these files (since 20 Oct 2026): the rapporteurs, lead commissioner and cabinet leads on the files of the week card
+          in view, saved people first, then the Council working party; it follows the carousel;
         - Saved people and Recently viewed, restyled.
         - Removed from Home: the calendar hero, the news block, the Files tile, the Parliament, Commission, Council and Calendar
           tiles (the Directory and Calendar tabs reach them), cabinet of the day, the country desk and seats by group.
@@ -4871,15 +4873,17 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
 
   /* After the week on the card: four weeks of dated steps and plenary sittings, one card per week in a carousel
      (since 19 Oct 2026). A meeting on consecutive days of the same week shows once, as a range ("26–27"). */
+  let edWeeks = [], edWkI = 0, edRoomAll = false;
   function edNextHtml() {
     const sc = edScope(), mon0 = addD(edMonday(), 7), from = isoD(mon0), to = isoD(addD(edMonday(), 34));
     const items = edSteps(sc.files, from, to).map((s) => ({ date: s.date, end: s.date, what: s.what, meta: s.files.map((f) => f.short).join(" · "), files: s.files.map((f) => f.id), inst: edInst(s.what), attrs: `data-file="${esc(s.files[0].id)}" data-filetab="next"` }));
     CAL.sessions.filter((s) => s.start >= from && s.start <= to).forEach((s) => {
       items.push({ date: s.start, end: s.end, what: `Plenary · ${PLACE[s.place]}`, meta: "Parliament", files: [], inst: "ep", attrs: `data-view="cal"` });
     });
+    edWeeks = [];
     if (!items.length) return "";
     items.sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0));
-    const weeks = [0, 1, 2, 3].map((k) => ({ mon: addD(mon0, 7 * k), list: [] }));
+    const weeks = edWeeks = [0, 1, 2, 3].map((k) => ({ mon: addD(mon0, 7 * k), list: [] }));
     items.forEach((x) => {
       const w = weeks[Math.min(3, Math.floor(Math.round((fromIso(x.date) - mon0) / 864e5) / 7))], prev = w.list.find((y) => y.what === x.what && y.meta === x.meta && isoD(addD(fromIso(y.end), 1)) === x.date);
       if (prev) prev.end = x.end; else w.list.push(x);
@@ -4900,7 +4904,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     };
     return `<div class="ed-sh"><div><h2 class="ed-h">Coming up</h2><p class="ed-cap">The four weeks after this one</p></div></div>
       <div class="ed-wks" id="edWks" tabindex="0" role="region" aria-label="Coming up, one card per week. Scroll sideways for later weeks.">${weeks.map(card).join("")}</div>
-      <div class="ed-dots" aria-hidden="true">${weeks.map((_, i) => `<i${i ? "" : ' class="is-on"'}></i>`).join("")}</div>`;
+      <div class="ed-dots" aria-hidden="true">${weeks.map((_, i) => `<i${i === edWkI ? ' class="is-on"' : ""}></i>`).join("")}</div>`;
   }
   /* The dots follow the card that is in view. */
   function edWksWire() {
@@ -4911,8 +4915,63 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       const c = t.querySelector(".ed-wk"), step = c ? c.offsetWidth + 8 : 1;
       let i = Math.round(t.scrollLeft / step); if (t.scrollLeft + t.clientWidth >= t.scrollWidth - 4) i = dots.length - 1;
       dots.forEach((d, k) => d.classList.toggle("is-on", k === i));
+      if (i !== edWkI) { edWkI = i; edRoomAll = false; edRoomPaint(); }
     }); }, { passive: true });
   }
+
+  /* On these files (since 20 Oct 2026): the people who hold the files of the week card in view. It names roles on the
+     files, never attendance: MEPs and cabinets do not sit in Council working parties, and a proposal date has no room.
+     Key people per file: rapporteurs, the lead commissioner and the first two cabinet members the file lists (the file
+     data lists them in order of relevance). Shadows, opinion rapporteurs and everyone else stay on the file page. */
+  function edRoomPeople(files) {
+    const by = new Map();
+    files.forEach((f) => {
+      const m = membersOf(f), all = [...m.base, ...m.added];
+      const key = all.filter((x) => x.role === "rapporteur" || x.role === "lead" || x.role === "added")
+        .concat(all.filter((x) => x.role === "cabinet").slice(0, 2));
+      key.forEach((x) => {
+        if (!BYKEY.has(x.key)) return;
+        if (!by.has(x.key)) by.set(x.key, { key: x.key, t: BYKEY.get(x.key).t, role: x.role, cmte: x.cmte, files: [] });
+        by.get(x.key).files.push(f);
+      });
+    });
+    /* Saved people first, then one of each kind in turn (rapporteur, commissioner, cabinet) so the first five show all three sides. */
+    const nm = (a, b) => BYKEY.get(a.key).o.name.localeCompare(BYKEY.get(b.key).o.name), all = [...by.values()];
+    const fav = all.filter((p) => state.favs.has(p.key)).sort(nm), rest = all.filter((p) => !state.favs.has(p.key));
+    const q = [["rapporteur", "added"], ["lead"], ["cabinet"]].map((r) => rest.filter((p) => r.includes(p.role)).sort(nm)), out = [...fav];
+    while (q.some((x) => x.length)) q.forEach((x) => { if (x.length) out.push(x.shift()); });
+    return out;
+  }
+  const edRoomRole = (p) => {
+    const o = BYKEY.get(p.key).o, on = p.files.map((f) => f.short).join(", ");
+    if (p.t === "cab") return `${o.role} · Cabinet ${o.com.short} · ${on}`;
+    if (p.t === "ec") return `Lead commissioner · ${on}`;
+    if (p.role === "added") return `Added by you · ${on}`;
+    const c = (p.cmte || "").split(" · ")[0];
+    return `${ROLE_ONE[p.role] || p.role}${c ? ", " + c : ""} · ${o.group} · ${on}`;
+  };
+  function edRoomHtml() {
+    const w = edWeeks[edWkI]; if (!w) return "";
+    const ids = [...new Set(w.list.flatMap((x) => x.files))], files = ids.map((id) => FILES.find((f) => f.id === id)).filter(Boolean);
+    const when = `Week of ${w.mon.getDate()} ${fmtD(w.mon, { month: "short" })}`;
+    const head = (cap) => `<div class="ed-sh"><div><h2 class="ed-h">On these files</h2><p class="ed-cap" aria-live="polite">${esc(cap)}</p></div></div>`;
+    if (!files.length) return head(`${when} · no file dated this week`);
+    const ppl = edRoomPeople(files), noRap = files.filter((f) => !membersOf(f).base.some((x) => x.role === "rapporteur"));
+    const n = files.length === 1 ? "this week's file" : `this week's ${files.length} files`;
+    const cap = `${when} · rapporteurs, commissioners and cabinet leads on ${n}`;
+    const shown = edRoomAll ? ppl : ppl.slice(0, 5);
+    const rows = shown.map((p) => { const o = BYKEY.get(p.key).o;
+      return row({ attrs: tap(`data-open="${esc(p.key)}"`), lead: avaOf(p.key), name: esc(o.name), meta: esc(edRoomRole(p)), wrap: true, tail: starBtn(p.key, o.name) }); }).join("");
+    const more = ppl.length > 5 ? `<button class="ed-room__more" type="button" data-edroom="${edRoomAll ? "less" : "all"}">${edRoomAll ? "Show fewer" : `Show all ${ppl.length}`}</button>` : "";
+    const note = noRap.length ? `<p class="ed-room__note">No rapporteur yet on ${esc(noRap.map((f) => f.short).join(", "))}. Parliament names one once the file reaches it.</p>` : "";
+    const pres = presOf(w.mon), wps = files.flatMap((f) => ((f.council || {}).workingParties || []).map((x) => x.name));
+    const council = wps.length ? `<div class="ed-room__co"><span class="ed-room__k"><i class="ed-mark ed-mark--co" aria-hidden="true"></i>Council working ${new Set(wps).size > 1 ? "parties" : "party"}</span>
+      <span class="ed-room__wp">${esc([...new Set(wps)].join(" · "))}</span>
+      <span class="ed-room__m">Where member states discuss ${files.length > 1 ? "these files" : "the file"}${pres ? ` · chaired by the Presidency, ${esc(countryName(pres[0]))}` : ""}</span></div>` : "";
+    const links = `<div class="ed-room__files">${files.map((f) => `<button class="eu-chip" type="button" data-file="${esc(f.id)}">Everyone on ${esc(f.short)}</button>`).join("")}</div>`;
+    return `${head(cap)}${note}${rows ? `<div class="list">${rows}</div>` : ""}${more}${council}${links}`;
+  }
+  function edRoomPaint() { const el = $("edRoom"); if (!el) return; el.innerHTML = edRoomHtml(); el.hidden = !el.innerHTML.trim(); }
 
   function edRender() {
     if (!$("edMast")) return;
@@ -4922,7 +4981,11 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     $("edWeek").innerHTML = edWeekHtml();
     $("edFiles").innerHTML = edFilesHtml();
     $("edTies").innerHTML = edTiesHtml();
+    const sl = $("edWks") ? $("edWks").scrollLeft : 0;
     $("edNext").innerHTML = edNextHtml(); edWksWire();
+    if (edWkI >= edWeeks.length) edWkI = 0;
+    if ($("edWks") && sl) $("edWks").scrollLeft = sl;
+    edRoomPaint();
     ["edFiles", "edTies", "edNext"].forEach((id) => { $(id).hidden = !$(id).innerHTML.trim(); });
   }
 
@@ -4941,8 +5004,10 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       <section id="edFiles" class="ed-sec" aria-labelledby="edFilesH"></section>
       <section id="edTies" class="ed-sec" aria-label="Who ties your files together"></section>
       <section id="edNext" class="ed-sec" aria-label="Coming up"></section>
+      <section id="edRoom" class="ed-sec ed-room" aria-label="On these files"></section>
       <h2 class="ed-h ed-browse">Browse</h2></div>`);
     $("hq").placeholder = "A name, a file, a committee, a date";
+    $("edRoom").addEventListener("click", (e) => { const b = e.target.closest("[data-edroom]"); if (!b) return; edRoomAll = b.dataset.edroom === "all"; edRoomPaint(); });
     /* What the new home replaces leaves Home: cabinet of the day, country desk and seats by group (their data stays in the
        Commission and Parliament views). Saved and recently viewed stay, then Browse as one compact row, then the data note. */
     const body = $("homeBody"), gone = (el) => el && el.classList.add("ed-gone");
@@ -5374,6 +5439,17 @@ if ("serviceWorker" in navigator && /github\.io$/.test(location.hostname)) addEv
 .ed-wk__m { font-size: 12px; line-height: 16px; color: var(--ink-muted); }
 .ed-wk__none { margin: 0; padding-top: var(--space-3); border-top: 1px solid var(--hairline); font-size: 14px; line-height: 20px; color: var(--ink-muted); }
 .ed-wk__more { align-self: flex-start; min-height: 44px; margin-top: auto; padding: 0; border: 0; background: none; color: var(--brand); font: 600 14px/20px var(--font-sans); cursor: pointer; }
+/* On these files: follows the week card in view (since 20 Oct 2026). */
+.ed-room .list { margin-top: var(--space-2); }
+.ed-room__note { margin: var(--space-2) 0 0; padding: var(--space-3) 14px; border-radius: var(--radius-md); background: var(--surface-sunken); font-size: 14px; line-height: 20px; color: var(--ink); }
+.ed-room__more { min-height: 44px; margin-top: var(--space-1); padding: 0 var(--space-1); border: 0; background: none; color: var(--brand); font: 600 15px/20px var(--font-sans); cursor: pointer; }
+.ed-room__co { display: flex; flex-direction: column; gap: 2px; margin-top: var(--space-2); padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); background: var(--surface-sunken); color: var(--ink); }
+.ed-room__k { display: flex; align-items: center; gap: 8px; font: 600 12px/16px var(--font-sans); color: var(--ink-muted); }
+.ed-room__k .ed-mark { width: 10px; height: 10px; }
+.ed-room__wp { font-size: 15px; line-height: 20px; font-weight: 600; }
+.ed-room__m { font-size: 12px; line-height: 16px; color: var(--ink-muted); }
+.ed-room__files { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); }
+.ed-room__more:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; border-radius: var(--radius-pill); }
 .ed-dots { display: flex; justify-content: center; gap: 6px; padding-top: var(--space-3); }
 .ed-dots i { width: 8px; height: 8px; border-radius: var(--radius-pill); background: var(--border-control); opacity: .5; transition: width .15s ease-out, opacity .15s ease-out; }
 .ed-dots i.is-on { width: 20px; background: var(--ink); opacity: 1; }
