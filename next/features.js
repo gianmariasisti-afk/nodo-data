@@ -1175,3 +1175,151 @@
     if (t.closest("[data-ecclear]")) { state.ec = { ...state.ec, tab: "college", q: "", who: "", country: "", role: "" }; ecOffAll = false; renderEc();
       if (t.closest("[data-eckeep]") && state.sheet === "ecf") ecSheetPaint(); else { scrollTo({ top: 0 }); $("ecq").focus({ preventScroll: true }); } }
   });
+
+
+  /* ---------- 10. Council: the Presidency clock, then the people (since 20 Oct 2026) ---------- */
+  /* One page instead of five tabs. The green Presidency card stays (months labelled, the next Presidency named) and opens
+     the priorities, trio and rotation; "Next in the Council" lists the coming Coreper and Council sittings; Delegations
+     lists the 27 in protocol order, Presidency first, with ambassador and deputy; the configurations follow, grouped by
+     Coreper, with the nodo files they handle. Search and a QMV button sit in the bottom bar. QMV opens as a sheet "by
+     weight": two gauges, a population ribbon against the 65% line, the verdict, presets, and the 27 as tappable rows.
+     The perm reps hub (working parties, your notes) stays one tap away. */
+  const CO_PROTO = ["BE", "BG", "CZ", "DK", "DE", "EE", "IE", "GR", "ES", "FR", "HR", "IT", "CY", "LV", "LT", "LU", "HU", "MT", "NL", "AT", "PL", "PT", "RO", "SI", "SK", "FI", "SE"];
+  const coShort = (iso) => fmtIso(iso, { weekday: "short", day: "numeric", month: "short" });
+  const coFilesOf = (cid) => FILES.filter((f) => ((f.council || {}).configs || []).includes(cid));
+  function coPresCard() {
+    const now = new Date(), P = CO.presidency, cur = presOf(now); if (!cur) return "";
+    const ci = P.rotation.indexOf(cur), nx = P.rotation[ci + 1];
+    const PR = [P.current, P.next].find((x) => x && x.country === cur[0]) || null;
+    const end = new Date(+cur[2].slice(0, 4), +cur[2].slice(5, 7), 0), left = Math.round((end - new Date(now.getFullYear(), now.getMonth(), now.getDate())) / 864e5);
+    const mIn = Math.max(1, Math.min(6, (now.getFullYear() - +cur[1].slice(0, 4)) * 12 + now.getMonth() + 1 - +cur[1].slice(5, 7) + 1));
+    const months = [0, 1, 2, 3, 4, 5].map((i) => fmtD(new Date(+cur[1].slice(0, 4), +cur[1].slice(5, 7) - 1 + i, 1), { month: "short" }));
+    return `<button class="eu-stat eu-stat--mint co-pres" type="button" data-cov="pres" aria-label="${esc(`${countryName(cur[0])} Presidency, ${left} days left, month ${mIn} of 6. Open priorities, trio and rotation.`)}">
+        <span class="eu-stat__head"><span class="eu-tile__disc">${icon("flag")}</span><span class="eu-stat__title">${esc(countryName(cur[0]))} Presidency</span><span class="eu-badge">Month ${mIn} of 6</span></span>
+        <span class="eu-stat__figure"><span class="eu-stat__num">${left}</span><span class="eu-stat__of">days left · ends ${esc(fmtD(end, { day: "numeric", month: "short" }))}</span></span>
+        <span class="eu-meter" aria-hidden="true">${segs(6, mIn)}</span>
+        <span class="co-months" aria-hidden="true">${months.map((m, i) => `<span${i === mIn - 1 ? ' class="is-now"' : ""}>${esc(m)}</span>`).join("")}</span>
+        <span class="co-pres__foot">${PR ? `<span>“${esc(PR.motto)}”</span>` : "<span></span>"}${nx ? `<span>Next: <b>${esc(countryName(nx[0]))}</b> from 1 ${esc(fmtD(new Date(+nx[1].slice(0, 4), +nx[1].slice(5, 7) - 1, 1), { month: "short" }))}</span>` : ""}</span>
+      </button>`;
+  }
+  function coNext() {
+    const today = todayIso(), xs = [];
+    CO.coreper.filter(([d]) => d >= today).slice(0, 6).forEach(([d, k]) => xs.push({ d, t: "Coreper " + k.join(" and "), s: k.length > 1 ? "Ambassadors and deputies" : k[0] === "II" ? "Ambassadors" : "Deputies", attrs: `data-view="cal"` }));
+    CO.meetings.filter((m) => m.start >= today && (m.kind === "council" || m.kind === "ec")).slice(0, 8).forEach((m) => {
+      const c = m.conf && CONF_BY[m.conf];
+      xs.push({ d: m.start, t: m.kind === "ec" ? "European Council" : c ? c.short : m.title, s: [m.informal ? "Informal" : "", m.end !== m.start ? fmtIso(m.start, { day: "numeric" }) + "–" + fmtIso(m.end, { day: "numeric", month: "short" }) : ""].filter(Boolean).join(", ") || (m.kind === "ec" ? "Heads of state or government" : c ? c.name : ""), attrs: c ? `data-conf="${esc(c.id)}"` : `data-view="cal"` });
+    });
+    xs.sort((a, b) => (a.d < b.d ? -1 : a.d > b.d ? 1 : 0));
+    return xs.slice(0, 8).map((x) => `<button class="co-next" type="button" ${x.attrs}><span class="co-next__d">${esc(coShort(x.d))}</span><span class="co-next__t">${esc(x.t)}</span><span class="co-next__s">${esc(x.s)}</span></button>`).join("");
+  }
+  function coDelRow(cc, presCc) {
+    const a = slotInfo(cc, "pr"), b = slotInfo(cc, "dpr");
+    return row({ attrs: tap(`data-country="${cc}"`), lead: codeAva(cc), name: esc(countryName(cc)) + (cc === presCc ? ` <span class="co-tag">Presidency</span>` : ""), wrap: true,
+      meta: a.name ? "Ambassador " + esc(a.name) : "Ambassador not in official sources",
+      extra: `<span class="co-dpr">${b.name ? "Deputy " + esc(b.name) : "Deputy not in official sources"}</span>`, tail: go });
+  }
+  function coConfRow(c) {
+    const n = c.next[0], fs = coFilesOf(c.id);
+    const d = n ? fromIso(n.start) : null;
+    return `<button class="co-conf" type="button" data-conf="${esc(c.id)}">
+      <span class="co-conf__d">${d ? `<b>${d.getDate()}</b><span>${esc(fmtD(d, { month: "short" }))}</span>` : `<span>–</span>`}</span>
+      <span class="co-conf__tx"><span class="co-conf__n">${esc(c.name)}</span>
+        <span class="co-conf__m">${esc([c.short, n ? (n.informal ? "informal" : "") + (n.end !== n.start ? (n.informal ? ", " : "") + fmtIso(n.start, { day: "numeric" }) + "–" + fmtIso(n.end, { day: "numeric", month: "short" }) : "") : "no meeting before January"].filter(Boolean).join(" · "))}</span>
+        ${fs.length ? `<span class="ep-files"><i aria-hidden="true"></i>On ${esc(fs.map(fileTag).join(", "))}</span>` : ""}</span></button>`;
+  }
+  function coHome() {
+    const q = state.co.q || "", t = terms(q), presCc = (presOf(new Date()) || [])[0];
+    const order = [presCc, ...CO_PROTO.filter((c) => c !== presCc)].filter((c) => POP[c]);
+    const delHit = (cc) => !t.length || hits(words([countryName(cc), cc, slotInfo(cc, "pr").name, slotInfo(cc, "dpr").name].join(" ")), t);
+    const dels = order.filter(delHit), confs = CO_CONFS.filter((c) => !t.length || hits(c._hay, t));
+    const nextIso = (k) => (CO.coreper.find(([d, w]) => d >= todayIso() && w.includes(k)) || [])[0];
+    const grp = (k, label) => { const xs = confs.filter((c) => (k === "II" ? c.coreper === "II" : c.coreper !== "II")).sort((a, b) => ((a.next[0] || {}).start || "9") < ((b.next[0] || {}).start || "9") ? -1 : 1);
+      return xs.length ? `<div class="co-grp"><span>${label}</span><span>${nextIso(k) ? "Next " + esc(coShort(nextIso(k))) : ""}</span></div>${xs.map(coConfRow).join("")}` : ""; };
+    $("coCount").textContent = t.length ? `${dels.length + confs.length} ${pl(dels.length + confs.length, "match", "matches")}` : `${order.length} delegations`;
+    $("coCount").classList.toggle("is-on", !!t.length);
+    if (t.length) Track.search("co", q, dels.length + confs.length);
+    return `${t.length ? "" : coPresCard()}
+      ${t.length ? "" : `<h3 class="ec-h">Next in the Council <button class="co-all" type="button" data-view="cal">Calendar</button></h3><div class="co-strip">${coNext()}</div>`}
+      ${dels.length ? `<h3 class="ec-h">Delegations <small>${dels.length}</small></h3><div class="list">${dels.map((cc) => coDelRow(cc, presCc)).join("")}</div>
+        <button class="ec-fold ec-fold--box co-perms" type="button" data-cov="perms"><span>Working parties and your notes<small>Who covers each working party, the names you added, what needs a check</small></span>${icon("arrow")}</button>` : ""}
+      ${confs.length ? `<h3 class="ec-h">Council configurations <small>${confs.length}</small></h3>${grp("II", "Prepared by Coreper II · ambassadors")}${grp("I", "Prepared by Coreper I · deputies")}
+        <p class="cap co-att">The attachés who cover each working party are not in nodo: the Council does not publish them.</p>` : ""}
+      ${!dels.length && !confs.length ? `<div class="hint"><span>No delegation or configuration matches “${esc(q)}”.</span></div>` : ""}`;
+  }
+  (function coMount() {
+    const v = $("vCo"); if (!v || v.querySelector(".ep-head")) return;
+    v.classList.add("ep-v2", "co-v2");
+    v.insertAdjacentHTML("afterbegin", `<div class="ep-head">
+        <span class="ep-head__l"><button class="eu-iconbtn ep-back" type="button" data-view="people" aria-label="Back to People">${icon("back")}</button>
+          <h1 class="ep-title"><button class="ep-switch" type="button" data-epswitch="co" aria-haspopup="dialog">Council${NX_SVG.chev}</button></h1></span>
+        <span class="ep-head__r"><p class="cap count" id="coCount" aria-live="polite"></p></span></div>`);
+    v.insertAdjacentHTML("beforeend", `<div class="ep-dock" id="coDock"><label class="eu-search">${icon("search")}<input id="coq" type="search" placeholder="Search the Council" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Search delegations and configurations"></label>
+      <button class="ep-filter" type="button" data-coqmv aria-label="Count a qualified majority"><svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v16M5 20h14M5 8h14M8 8l-3 6h6zM16 8l-3 6h6z"/></svg>QMV</button></div>`);
+    let tm; $("coq").addEventListener("input", (e) => { clearTimeout(tm); tm = setTimeout(() => { state.co.q = e.target.value; state.co.v = "home"; renderCo(); }, 150); });
+  })();
+
+  const coBase = renderCo;
+  renderCo = function () {
+    const v = state.co.v || "home";
+    $("coTabs").hidden = true;
+    if (v === "pres" || v === "perms") {
+      state.co.tab = v === "pres" ? "presidency" : "perms";
+      coBase(); $("coTabs").hidden = true;
+      $("coBody").insertAdjacentHTML("afterbegin", `<button class="eu-btn eu-btn--sm co-backhome" type="button" data-cov="home">${icon("back")}Council</button>`);
+      $("coCount").textContent = v === "pres" ? "Presidency" : "Perm reps"; $("coCount").classList.remove("is-on");
+    } else {
+      $("coBody").innerHTML = coHome();
+      $("coNote").textContent = `Sources: Council of the EU meeting calendar and participant lists, checked ${CO.fetched}.`;
+    }
+    if (!$("sheet").hidden && state.sheet === "qmv") coQmvPaint();
+  };
+
+  /* QMV by weight. state.qmv holds the states in favour, as in the live calculator, so its presets and toggles still apply. */
+  function coQmvPaint() {
+    if (!state.qmv) state.qmv = new Set(Object.keys(POP));
+    const fav = state.qmv, all = Object.keys(POP).sort((a, b) => POP[b] - POP[a]), nF = fav.size, nA = 27 - nF;
+    const pF = all.filter((c) => fav.has(c)).reduce((s, c) => s + POP[c], 0) / POPT * 100, pA = 100 - pF;
+    const okS = nF >= 15, okP = pF >= 65, reached = (okS && okP) || (nF > 0 && nA <= 3), blocking = nA >= 4 && pA > 35;
+    const why = reached ? (okS && okP ? `${nF} member states and ${pct(pF)} of the population in favour.` : "Fewer than four member states against, so the majority is deemed reached.")
+      : !okS ? `Needs at least 15 member states in favour; ${nF} so far.` : `Needs 65% of the population in favour; ${pct(pF)} so far.${blocking ? ` The ${nA} states not in favour form a blocking minority with ${pct(pA)}.` : ""}`;
+    const L = Math.PI * 60;
+    const gauge = (f, thr, big, of, need, ok, aria) => { const a = Math.PI * (1 - thr), x1 = 75 + 48 * Math.cos(a), y1 = 75 - 48 * Math.sin(a), x2 = 75 + 72 * Math.cos(a), y2 = 75 - 72 * Math.sin(a);
+      return `<div class="qw-g"><svg role="img" aria-label="${esc(aria)}" viewBox="0 0 150 84"><path d="M 15 75 A 60 60 0 0 1 135 75" class="qw-g__tr"/><path d="M 15 75 A 60 60 0 0 1 135 75" class="qw-g__on" stroke-dasharray="${(Math.max(0, Math.min(1, f)) * L).toFixed(1)} ${L.toFixed(1)}"/><line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" class="qw-g__tk"/></svg>
+        <b>${big}</b><span>${of}</span><em class="${ok ? "ok" : "no"}">${ok ? icon("check") : ""}${need}${ok ? " · met" : " · not met"}</em></div>`; };
+    const rib = [...all.filter((c) => fav.has(c)), ...all.filter((c) => !fav.has(c))];
+    const max = POP[all[0]] / POPT * 100, pres = (presOf(new Date()) || [])[0];
+    $("qwBody").innerHTML = `<div class="qw-gs">${gauge(nF / 27, 15 / 27, String(nF), "of 27 member states", "Needs 15", okS, `${nF} of 27 member states in favour; 15 needed`)}${gauge(pF / 100, 0.65, pct(pF), "of the EU population", "Needs 65%", okP, `${pct(pF)} of the EU population in favour; 65% needed`)}</div>
+      <div class="qw-rib"><p><span>The EU population, state by state</span><span>65% line</span></p>
+        <div class="qw-rib__bar" aria-hidden="true">${rib.map((c) => `<i class="${fav.has(c) ? "on" : ""}" style="flex:${POP[c]} 1 0">${POP[c] / POPT > 0.07 ? c : ""}</i>`).join("")}<b></b></div></div>
+      <div class="verdict ${reached ? "ok" : "no"}">${icon(reached ? "check" : "flag")}<div><b>${reached ? "Qualified majority reached" : "No qualified majority"}</b><small>${esc(why)}</small></div></div>
+      <div class="ep-opts qw-pre"><button class="ep-opt" type="button" data-qmvset="all">All in favour</button><button class="ep-opt" type="button" data-qmvset="big4">Big four against</button><button class="ep-opt" type="button" data-qmvset="none">None</button></div>
+      <ul class="qw-list">${all.map((c) => { const on = fav.has(c), sh = share(c);
+        return `<li><button type="button" data-qmv="${c}" aria-pressed="${on}" aria-label="${esc(`${countryName(c)}, ${pct(sh)} of the population, ${on ? "in favour" : "not in favour"}`)}">
+          <span class="qw-l__tx"><span class="qw-l__n">${esc(countryName(c))}${c === pres ? " · Presidency" : ""}<span>${pct(sh)}</span></span><span class="qw-l__bar"><i style="width:${(sh / max * 100).toFixed(1)}%"></i></span></span>
+          <span class="qw-l__v">${on ? "In favour" : "Against"}</span></button></li>`; }).join("")}</ul>
+      <p class="note">Standard qualified majority (Article 16(4) TEU) for Commission proposals: 55% of member states representing 65% of the EU population. A blocking minority needs at least four member states. Abstentions count as not in favour. Population figures for 2026 from Council Decision (EU, Euratom) 2025/2427.</p>`;
+  }
+  function coOpenQmv() {
+    state.sheet = "qmv";
+    if ($("sheet").hidden) layer.sheet = document.activeElement;
+    $("sheet").innerHTML = `<div class="sheet__bar"><button class="eu-iconbtn eu-iconbtn--sm" type="button" data-sheet-close aria-label="Close">${icon("x")}</button></div>
+      <div class="top"><div class="top__tx"><h2 id="sName">Count a qualified majority</h2><div class="cap">Tap a state to switch it between in favour and against.</div></div></div><div id="qwBody" class="qw"></div>`;
+    $("scrim").hidden = false; $("sheet").hidden = false; $("sheet").scrollTop = 0;
+    syncLayers(); coQmvPaint();
+    const f = $("sheet").querySelector("[data-sheet-close]"); if (f) f.focus({ preventScroll: true });
+  }
+  document.addEventListener("click", (e) => {
+    const t = e.target;
+    if (t.closest("[data-coqmv]")) return coOpenQmv();
+    const cv = t.closest("[data-cov]");
+    if (cv) { e.stopPropagation(); state.co.v = cv.dataset.cov; if (state.view !== "co") { coKeep = true; return setView("co"); } renderCo(); scrollTo({ top: 0 });
+      const f = $("coBody").querySelector(".co-backhome") || $("coq"); if (f && cv.dataset.cov !== "home") f.focus({ preventScroll: true }); return; }
+    /* A QMV toggle keeps its place and focus in the sheet after the repaint. */
+    const qm = t.closest("#sheet [data-qmv], #sheet [data-qmvset]");
+    if (qm) { const k = qm.dataset.qmv, s = qm.dataset.qmvset, top = $("sheet").scrollTop;
+      setTimeout(() => { $("sheet").scrollTop = top; const b = $("sheet").querySelector(k ? `[data-qmv="${k}"]` : `[data-qmvset="${s}"]`); if (b) b.focus({ preventScroll: true }); }, 0); }
+  }, true);
+  /* The doorway from elsewhere ("Council" on Home and the People page) opens the new home. */
+  const coSetView0 = setView;
+  let coKeep = false;
+  setView = function (v) { if (v === "co" && state.view !== "co" && !coKeep) state.co.v = "home"; coKeep = false; return coSetView0(v); };
