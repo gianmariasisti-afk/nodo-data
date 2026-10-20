@@ -723,7 +723,6 @@
         <h2 class="eu-headline" id="abContact">Spotted an error? Missing a file? <strong>Say so.</strong></h2>
         <p>Feedback, corrections and requests all go to one inbox. Every message is read.</p>
         <button class="eu-btn eu-btn--brand eu-btn--block" type="button" data-abmail>${icon("mail")}Send feedback</button>
-        <div class="ab-addr"><span>${NX_MAIL}</span><button class="eu-btn eu-btn--outline" type="button" data-abcopy>${icon("copy")}Copy</button></div>
         <p class="cap">The email opens with the screen you came from, so a fix can start right away.</p>
       </section>
 
@@ -733,12 +732,6 @@
   document.addEventListener("click", (e) => {
     const t = e.target;
     if (t.closest("[data-abmail]")) return nxMail("nodo feedback");
-    const cp = t.closest("[data-abcopy]");
-    if (cp) {
-      const done = () => { cp.innerHTML = icon("check") + "Copied"; toast("Address copied"); setTimeout(() => { cp.innerHTML = icon("copy") + "Copy"; }, 1800); };
-      try { navigator.clipboard.writeText(NX_MAIL).then(done, () => toast(NX_MAIL)); } catch (_) { toast(NX_MAIL); }
-      return;
-    }
     const rq = t.closest("[data-nxreqmail]");
     if (rq) return nxMail("File request: " + rq.dataset.nxreqmail, ["I'd like nodo to follow: " + rq.dataset.nxreqmail, "Why it matters to me:"]);
   });
