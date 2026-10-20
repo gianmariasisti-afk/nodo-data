@@ -1023,3 +1023,155 @@
   });
   /* "Clear" in the sheet clears and keeps the sheet open (the live handler for data-epclear clears and re-renders). */
   document.addEventListener("click", (e) => { if (e.target.closest("[data-epkeep]")) setTimeout(() => { state.ep.cr = "member"; if (state.sheet === "epf") epSheetPaint(); }, 0); });
+
+
+  /* ---------- 9. Commission: the College first (since 20 Oct 2026) ---------- */
+  /* Same frame as Parliament: one title row ("Commission ▾", the count), search and Filter at the bottom, filters in a sheet.
+     The College/Cabinets switch goes: each Commissioner's cabinet unfolds under their row (heads and policy advisers, with
+     their top responsibilities and country desks; office staff folded). Search covers the College and all cabinets at once,
+     policy staff first, office staff folded into one line. Rows name the nodo files the person is on. */
+  const EC_ROLE = { com: "Commissioners", lead: "Heads and deputies", policy: "Policy advisers", office: "Office staff" };
+  const ecOpen = new Set(), ecOffOpen = new Set();
+  let ecOffAll = false;
+  function ecFilesHtml(key, isCom) {
+    const xs = epFilesOf(key); if (!xs.length) return "";
+    const lead = xs.filter((x) => x.role === "lead"), on = xs.filter((x) => x.role !== "lead");
+    const tg = (l) => l.map((x) => fileTag(x.f)).join(", ");
+    const txt = isCom ? [lead.length ? "Leads " + tg(lead) : "", on.length ? (lead.length ? "on " : "On ") + tg(on) : ""].filter(Boolean).join(", ") : "On " + tg(xs);
+    return `<span class="ep-files"><i aria-hidden="true"></i>${esc(txt)}</span>`;
+  }
+  const ecPill = (c, open) => `<button class="ec-pill${open ? " is-open" : ""}" type="button" data-ecx="${esc(c.slug)}" aria-expanded="${open}" aria-controls="ecCab-${esc(c.slug)}" aria-label="${open ? "Fold" : "Open"} the cabinet of ${esc(c.name)}, ${c.cabinet.length} people">${c.cabinet.length}${NX_SVG.chev}</button>`;
+  const ecPortrait = (c, big) => `<span class="ec-ph${big ? " ec-ph--big" : ""}" aria-hidden="true">${c.photo ? `<img src="${c.photo}" alt="" loading="lazy" decoding="async">` : `<b>${esc(c.name.split(" ").map((w) => w[0]).slice(0, 2).join(""))}</b>`}</span>`;
+  /* Up to three published responsibilities, each kept short, the whole line clipped so a row stays three lines or fewer. */
+  function ecResp(m) { return nxClip((m.resp || []).map((x) => (typeof x === "string" ? x : x.h || "")).filter(Boolean).slice(0, 3).map((x) => nxClip(x, 44)).join(" · "), 110); }
+  function ecCabRow(m) {
+    const r = ecResp(m), desk = (m.countries || []).filter((c) => /^[A-Z]{2}$/.test(c));
+    return `<div class="ec-mem ec-mem--${m.cls}">
+      ${row({ attrs: tap(`data-open="${esc(m.key)}"`), lead: avaOf(m.key), name: esc(m.name), meta: esc(m.role), wrap: true,
+        extra: (r ? `<span class="ec-resp">${esc(r)}</span>` : "") + (desk.length ? `<span class="ec-desk">Covers ${esc(desk.join(" "))}</span>` : "") + ecFilesHtml(m.key, false), tail: starBtn(m.key, m.name) })}</div>`;
+  }
+  function ecCabinet(c) {
+    const lead = c.cabinet.filter((m) => m.cls === "lead"), pol = c.cabinet.filter((m) => m.cls === "policy"), off = c.cabinet.filter((m) => m.cls === "office");
+    const offOpen = ecOffOpen.has(c.slug);
+    return `<div class="ec-cab" id="ecCab-${esc(c.slug)}">${[...lead, ...pol].map(ecCabRow).join("")}
+      ${off.length ? `<button class="ec-fold" type="button" data-ecoff="${esc(c.slug)}" aria-expanded="${offOpen}">${off.length} office ${pl(off.length, "contact", "staff")}${NX_SVG.chev}</button>${offOpen ? off.map(ecCabRow).join("") : ""}` : ""}
+      <button class="ec-fold ec-fold--page" type="button" data-open="${esc(c.key)}">Open ${esc(c.name)}'s page${icon("arrow")}</button></div>`;
+  }
+  function ecComRow(c, big) {
+    const open = ecOpen.has(c.slug);
+    const meta = c.kind === "president" ? "" : c.kind === "hrvp" ? "High Representative · " + c.portfolio.join(" · ") : c.portfolio.join(" · ");
+    return `<div class="ec-com${c.kind === "president" ? " ec-com--pres" : ""}${open ? " is-open" : ""}">
+      ${row({ attrs: tap(`data-open="${esc(c.key)}"`), lead: ecPortrait(c, big), name: (c.kind === "president" ? `<span class="ec-k">President</span>` : "") + esc(c.name), meta: esc(meta), wrap: true,
+        extra: ecFilesHtml(c.key, true), tail: ecPill(c, open) })}
+      ${open ? ecCabinet(c) : ""}</div>`;
+  }
+
+  (function ecMount() {
+    const v = $("vEc"); if (!v || v.querySelector(".ep-head")) return;
+    v.classList.add("ep-v2", "ec-v2");
+    v.insertAdjacentHTML("afterbegin", `<div class="ep-head">
+        <span class="ep-head__l"><button class="eu-iconbtn ep-back" type="button" data-view="people" aria-label="Back to People">${icon("back")}</button>
+          <h1 class="ep-title"><button class="ep-switch" type="button" data-epswitch="ec" aria-haspopup="dialog">Commission${NX_SVG.chev}</button></h1></span>
+        <span class="ep-head__r" id="ecHeadR"></span></div><div class="ep-chips" id="ecChips" hidden></div>`);
+    $("ecHeadR").append($("ecCount"));
+    const s = $("ecq").closest(".eu-search");
+    v.insertAdjacentHTML("beforeend", `<div class="ep-dock" id="ecDock"></div>`);
+    $("ecDock").append(s);
+    $("ecDock").insertAdjacentHTML("beforeend", `<button class="ep-filter" type="button" data-ecfilter aria-label="Filter by role, country desk or cabinet">
+      <svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M7 12h10M10 17h4"/></svg>Filter<span class="ep-filter__n" id="ecFiltN" hidden></span></button>`);
+  })();
+
+  renderEc = function () {
+    const s = state.ec, t = terms(s.q), role = s.role || "";
+    /* Links from elsewhere still set tab "cabinets" with staff "all": a cabinet search or a country desk. */
+    if (s.tab === "cabinets" && !s.q && !s.who && !s.country && !role) s.tab = "college";
+    $("ecq").value = s.q;
+    $("ecq").placeholder = "Name or topic";
+    const any = !!(t.length || s.who || s.country || role);
+    const nf = [s.who, s.country, role].filter(Boolean).length;
+    $("ecFiltN").hidden = !nf; $("ecFiltN").textContent = nf;
+    const chips = [];
+    if (role) chips.push(`<button class="ep-chip" type="button" data-ecrm="role" aria-label="Remove filter ${esc(EC_ROLE[role])}">${esc(EC_ROLE[role])}${icon("x")}</button>`);
+    if (s.country) chips.push(`<button class="ep-chip" type="button" data-ecrm="country" aria-label="Remove filter covers ${esc(countryName(s.country))}">Covers ${esc(countryName(s.country))}${icon("x")}</button>`);
+    if (s.who) { const c = COLL.find((x) => x.slug === s.who); chips.push(`<button class="ep-chip" type="button" data-ecrm="who" aria-label="Remove filter cabinet ${esc(c ? c.name : s.who)}">Cabinet ${esc(c ? c.short : s.who)}${icon("x")}</button>`); }
+    $("ecChips").hidden = !chips.length;
+    $("ecChips").innerHTML = chips.join("") + (chips.length > 1 || (chips.length && s.q) ? `<button class="ep-clear" type="button" data-ecclear>Clear all</button>` : "");
+
+    if (!any) {
+      const cabN = COLL.reduce((a, c) => a + c.cabinet.length, 0);
+      $("ecCount").textContent = `${COLL.length} · ${cabN} in cabinets`; $("ecCount").classList.remove("is-on");
+      const pres = COLL.filter((c) => c.kind === "president"), vps = COLL.filter((c) => c.kind === "evp" || c.kind === "hrvp"), coms = COLL.filter((c) => c.kind === "commissioner");
+      $("ecBody").innerHTML = `${pres.map((c) => ecComRow(c, true)).join("")}
+        ${vps.length ? `<h3 class="ec-h">Executive Vice-Presidents <small>${vps.length}</small></h3>${vps.map((c) => ecComRow(c)).join("")}` : ""}
+        ${coms.length ? `<h3 class="ec-h">Commissioners <small>${coms.length}</small></h3>${coms.map((c) => ecComRow(c)).join("")}` : ""}`;
+      return;
+    }
+    const coms = (!role || role === "com") && !s.country ? COLL.filter((c) => (!s.who || c.slug === s.who) && (!t.length || lineHits(c, t))) : [];
+    let cab = role === "com" ? [] : CAB.filter((m) => (!s.who || m.com.slug === s.who) && (!s.country || (m.countries || []).includes(s.country)) && (!role || m.cls === role) && (!t.length || lineHits(m, t)));
+    if (t.length) cab = rankCab(cab, t);
+    const main = role === "office" ? cab : cab.filter((m) => m.cls !== "office"), off = role === "office" ? [] : cab.filter((m) => m.cls === "office");
+    const n = coms.length + cab.length;
+    $("ecCount").textContent = `${n} ${pl(n, "person", "people")}`; $("ecCount").classList.add("is-on");
+    Track.search("ec", s.q, n);
+    const r = (m) => (t.length ? `<div class="ec-mem ec-mem--${m.cls}">${rowCab(m, t)}</div>`.replace(/(<\/span>)(<button class="eu-iconbtn eu-iconbtn--sm star")/, (_, a, b) => ecFilesHtml(m.key, false) + a + b) : ecCabRow(m));
+    const sub = (m) => `<span class="ec-of">${avaOf(m.com.key, "xs")}Cabinet ${esc(m.com.short)}</span>`;
+    const grouped = (xs) => { if (t.length || s.who) return xs.map(r).join("");
+      let h = "", cur = null; xs.forEach((m) => { if (m.com !== cur) { cur = m.com; h += `<p class="ec-sect">${sub(m)}</p>`; } h += r(m); }); return h; };
+    $("ecBody").innerHTML = (n ? "" : `<div class="hint"><span>Nobody matches. Remove a filter or try a broader word.</span></div>`)
+      + (coms.length ? `<h3 class="ec-h">Commissioners <small>${coms.length}</small></h3>${coms.map((c) => ecComRow(c)).join("")}` : "")
+      + (main.length ? `<h3 class="ec-h">${role === "office" ? "Office staff" : role === "lead" ? "Heads and deputies" : role === "policy" ? "Policy advisers" : "In the cabinets"} <small>${main.length}</small></h3>${grouped(main)}` : "")
+      + (off.length ? `<h3 class="ec-h">Office staff <small>${off.length}</small></h3><button class="ec-fold ec-fold--box" type="button" data-ecoffall aria-expanded="${ecOffAll}"><span>${esc(t.length ? "Matching office contacts" : "Office staff")} in ${new Set(off.map((m) => m.com)).size} ${pl(new Set(off.map((m) => m.com)).size, "cabinet", "cabinets")}<small>${esc([...new Set(off.map((m) => m.com.short))].slice(0, 6).join(", "))}${new Set(off.map((m) => m.com)).size > 6 ? "…" : ""}</small></span>${NX_SVG.chev}</button>${ecOffAll ? grouped(off) : ""}` : "")
+      + (t.length ? `<p class="foot">Matches the names, portfolios and responsibilities each cabinet publishes. Advisers come first; office staff are folded.</p>` : "");
+    if (!$("sheet").hidden && state.sheet === "ecf") ecSheetPaint();
+  };
+
+  function ecSheetPaint() {
+    const s = state.ec, role = s.role || "", on = (x) => `aria-pressed="${x}"`;
+    const nRole = (k) => (k === "com" ? COLL.length : CAB.filter((m) => m.cls === k).length);
+    const ccs = [...new Set(CAB.flatMap((m) => m.countries || []))].filter((c) => /^[A-Z]{2}$/.test(c)).sort((a, b) => countryName(a).localeCompare(countryName(b)));
+    $("ecfBody").innerHTML = `
+      <h3>Who</h3><div class="ep-opts">${Object.entries(EC_ROLE).map(([k, n]) => `<button class="ep-opt" type="button" data-ecset="role" data-v="${k}" ${on(role === k)}>${esc(n)}<span>${nRole(k)}</span></button>`).join("")}</div>
+      <h3>Covers the country</h3><div class="ep-cc">${ccs.map((c) => `<button class="ep-opt" type="button" data-ecset="country" data-v="${c}" ${on(s.country === c)} aria-label="${esc(countryName(c))}">${c}</button>`).join("")}</div>
+      ${s.country ? `<p class="ep-cname">${esc(countryName(s.country))} · the cabinet member in each cabinet who follows it</p>` : ""}
+      <h3>Cabinet</h3><div class="ep-opts">${COLL.map((c) => `<button class="ep-opt" type="button" data-ecset="who" data-v="${esc(c.slug)}" ${on(s.who === c.slug)} title="${esc(c.name)}">${esc(c.short)}</button>`).join("")}</div>`;
+    const n = parseInt($("ecCount").textContent, 10);
+    $("ecfShow").textContent = !(s.q || s.who || s.country || role) ? "Show the College" : n ? `Show ${n} ${pl(n, "person", "people")}` : "Nobody matches";
+  }
+  function ecOpenSheet() {
+    state.sheet = "ecf";
+    if ($("sheet").hidden) layer.sheet = document.activeElement;
+    $("sheet").innerHTML = `<div class="sheet__bar"><button class="eu-iconbtn eu-iconbtn--sm" type="button" data-sheet-close aria-label="Close">${icon("x")}</button></div>
+      <div class="top"><div class="top__tx"><h2 id="sName">Filter the Commission</h2></div></div>
+      <div id="ecfBody" class="ep-sheet"></div>
+      <div class="ep-sheet__foot"><button class="eu-btn eu-btn--outline" type="button" data-ecclear data-eckeep>Clear</button><button class="eu-btn eu-btn--ink eu-btn--block" type="button" id="ecfShow" data-sheet-close></button></div>`;
+    $("scrim").hidden = false; $("sheet").hidden = false; $("sheet").scrollTop = 0;
+    syncLayers(); ecSheetPaint();
+    const f = $("sheet").querySelector('[aria-pressed="true"]') || $("sheet").querySelector("[data-sheet-close]"); if (f) f.focus({ preventScroll: true });
+  }
+  /* The institution switcher from Parliament, reused: it marks the view it was opened from. */
+  const ecSwitchBase = epOpenSwitch;
+  epOpenSwitch = function () {
+    ecSwitchBase();
+    const cur = state.view;
+    $("sheet").querySelectorAll("[data-dir]").forEach((b) => { const me = b.dataset.dir === cur; if (me) b.setAttribute("aria-current", "page"); else b.removeAttribute("aria-current");
+      const tl = b.lastElementChild; if (tl) tl.outerHTML = me ? icon("check") : go; });
+    const f = $("sheet").querySelector(`[data-dir="${cur}"]`); if (f) f.focus({ preventScroll: true });
+  };
+  document.addEventListener("click", (e) => {
+    const t = e.target;
+    const x = t.closest("[data-ecx]");
+    if (x) { e.stopPropagation(); e.preventDefault(); const k = x.dataset.ecx; if (ecOpen.has(k)) ecOpen.delete(k); else ecOpen.add(k); renderEc(); const b = $("ecBody").querySelector(`[data-ecx="${CSS.escape(k)}"]`); if (b) b.focus({ preventScroll: true }); return; }
+    const o = t.closest("[data-ecoff]");
+    if (o) { e.stopPropagation(); const k = o.dataset.ecoff; if (ecOffOpen.has(k)) ecOffOpen.delete(k); else ecOffOpen.add(k); renderEc(); const b = $("ecBody").querySelector(`[data-ecoff="${CSS.escape(k)}"]`); if (b) b.focus({ preventScroll: true }); return; }
+    if (t.closest("[data-ecoffall]")) { e.stopPropagation(); ecOffAll = !ecOffAll; renderEc(); const b = $("ecBody").querySelector("[data-ecoffall]"); if (b) b.focus({ preventScroll: true }); return; }
+  }, true);
+  document.addEventListener("click", (e) => {
+    const t = e.target;
+    if (t.closest("[data-ecfilter]")) return ecOpenSheet();
+    const set = t.closest("[data-ecset]");
+    if (set) { const k = set.dataset.ecset; state.ec[k] = state.ec[k] === set.dataset.v ? "" : set.dataset.v; if (k !== "role") state.ec.tab = "cabinets"; renderEc(); const b = $("sheet").querySelector(`[data-ecset="${k}"][data-v="${CSS.escape(set.dataset.v)}"]`); if (b) b.focus({ preventScroll: true }); return; }
+    const rm = t.closest("[data-ecrm]");
+    if (rm) { state.ec[rm.dataset.ecrm] = ""; renderEc(); const f = $("ecChips").querySelector("button") || $("ecq"); f.focus({ preventScroll: true }); return; }
+    if (t.closest("[data-ecclear]")) { state.ec = { ...state.ec, tab: "college", q: "", who: "", country: "", role: "" }; ecOffAll = false; renderEc();
+      if (t.closest("[data-eckeep]") && state.sheet === "ecf") ecSheetPaint(); else { scrollTo({ top: 0 }); $("ecq").focus({ preventScroll: true }); } }
+  });
