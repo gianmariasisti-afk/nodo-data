@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-19T00:00:00Z",
+  "generatedAt": "2026-10-20T00:00:00Z",
   "events": [
     {
       "id": "industrial-accelerator-act:next:2026-12-14:ec707f",
@@ -152,6 +152,53 @@
       "pushOn": "2026-10-20"
     },
     {
+      "id": "industrial-accelerator-act:ep:amendments:2026-10-19",
+      "fileId": "industrial-accelerator-act",
+      "date": "2026-10-19",
+      "source": "ep",
+      "proc": "2026-0068",
+      "kind": "milestone",
+      "title": "Amendments tabled in committee",
+      "count": 18,
+      "push": true
+    },
+    {
+      "id": "tech-sovereignty-package:ep:2026-0138-NMCP-34232-LIBE-2026-10-19",
+      "fileId": "tech-sovereignty-package",
+      "date": "2026-10-19",
+      "source": "ep",
+      "proc": "2026-0138",
+      "kind": "people",
+      "title": "Opinion rapporteur named",
+      "personId": "34232",
+      "group": "S&D",
+      "committee": "LIBE",
+      "push": false
+    },
+    {
+      "id": "industrial-accelerator-act:ep:amendments:2026-10-13",
+      "fileId": "industrial-accelerator-act",
+      "date": "2026-10-13",
+      "source": "ep",
+      "proc": "2026-0068",
+      "kind": "milestone",
+      "title": "Amendments tabled in committee",
+      "count": 3,
+      "push": true
+    },
+    {
+      "id": "tech-sovereignty-package:ep:2026-0138-NMSR-197462-2026-10-09",
+      "fileId": "tech-sovereignty-package",
+      "date": "2026-10-09",
+      "source": "ep",
+      "proc": "2026-0138",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "197462",
+      "group": "Greens/EFA",
+      "push": false
+    },
+    {
       "id": "tech-sovereignty-package:ep:2026-0138-NMSR-197574-2026-10-06",
       "fileId": "tech-sovereignty-package",
       "date": "2026-10-06",
@@ -187,18 +234,6 @@
       "push": false
     },
     {
-      "id": "tech-sovereignty-package:ep:2026-0138-NMSR-197549-2026-10-01",
-      "fileId": "tech-sovereignty-package",
-      "date": "2026-10-01",
-      "source": "ep",
-      "proc": "2026-0138",
-      "kind": "people",
-      "title": "Opinion shadow rapporteur recorded",
-      "personId": "197549",
-      "group": "Greens/EFA",
-      "push": false
-    },
-    {
       "id": "tech-sovereignty-package:ep:2026-0138-NMSR-256860-2026-10-01",
       "fileId": "tech-sovereignty-package",
       "date": "2026-10-01",
@@ -220,19 +255,6 @@
       "title": "Opinion shadow rapporteur recorded",
       "personId": "257014",
       "group": "Renew",
-      "push": false
-    },
-    {
-      "id": "tech-sovereignty-package:ep:2026-0138-NMCP-34232-LIBE-2026-09-30",
-      "fileId": "tech-sovereignty-package",
-      "date": "2026-09-30",
-      "source": "ep",
-      "proc": "2026-0138",
-      "kind": "people",
-      "title": "Opinion rapporteur named",
-      "personId": "34232",
-      "group": "S&D",
-      "committee": "LIBE",
       "push": false
     },
     {

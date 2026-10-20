@@ -316,7 +316,11 @@
     "digital-omnibus-data:next:2026-10-21:0e67e4": true,
     "industrial-accelerator-act:next:2026-10-27:e1808d": true,
     "industrial-accelerator-act:next:2026-10-26:e1808d": true,
-    "digital-networks-act:next:2026-10-22:99e481": true
+    "digital-networks-act:next:2026-10-22:99e481": true,
+    "industrial-accelerator-act:ep:amendments:2026-10-19": true,
+    "industrial-accelerator-act:ep:amendments:2026-10-13": true,
+    "tech-sovereignty-package:ep:2026-0138-NMCP-34232-LIBE-2026-10-19": true,
+    "tech-sovereignty-package:ep:2026-0138-NMSR-197462-2026-10-09": true
   },
   "seeded": {
     "mff-2028-2034": true,
@@ -342,7 +346,8 @@
     "digital-networks-act:next:2026-10-12:1bf3e8": true,
     "tech-sovereignty-package:next:2026-10-12:9c39bb": true,
     "digital-networks-act:next:2026-10-12:96b240": true,
-    "mff-2028-2034:next:2026-10-15:8a9d72": true
+    "mff-2028-2034:next:2026-10-15:8a9d72": true,
+    "mff-2028-2034:next:2026-10-20:265012": true
   },
   "seededProcs": {
     "2025-0571": true,
