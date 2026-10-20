@@ -1323,3 +1323,88 @@
   const coSetView0 = setView;
   let coKeep = false;
   setView = function (v) { if (v === "co" && state.view !== "co" && !coKeep) state.co.v = "home"; coKeep = false; return coSetView0(v); };
+
+
+  /* ---------- 11. Council: the 27 on a dot map (since 20 Oct 2026) ---------- */
+  /* The delegation list gives way to a dot map of the EU (Natural Earth 1:50m, next/europe-dots.json, loaded on first
+     visit). Each state has a node with its code; tapping it, or a name in the row under the map, selects it: its dots
+     turn gold, the node pulses (unless reduced motion), and a card gives the Presidency dates, the population share and
+     the delegation. "Presidencies" colours the current trio, "Voting weight" colours by population. The configurations
+     sit behind one Coreper II / Coreper I switch, as two-column cards. Searching still lists delegations and configurations. */
+  let CO_DOTS = null, coDotsLoading = false;
+  function coDotsLoad() {
+    if (CO_DOTS || coDotsLoading) return; coDotsLoading = true;
+    fetch("europe-dots.json").then((r) => r.json()).then((j) => { CO_DOTS = j; if (state.view === "co") renderCo(); })
+      .catch(() => { coDotsLoading = false; const b = $("coMapBox"); if (b) b.innerHTML = `<div class="hint"><span>The map could not load. The delegations are in search.</span></div>`; });
+  }
+  const CO_RIGHT = new Set(["FI", "EE", "LV", "LT", "RO", "BG", "GR", "HU", "SK", "PL", "HR"]);
+  function coPresLine(cc) {
+    const t = todayIso().slice(0, 7), r = CO.presidency.rotation.find((x) => x[0] === cc && x[2] >= t);
+    if (!r) return "";
+    const cur = r === presOf(new Date());
+    return cur ? `Presidency until ${fmtD(new Date(+r[2].slice(0, 4), +r[2].slice(5, 7), 0), { day: "numeric", month: "short", year: "numeric" })}`
+      : `Presidency from ${fmtD(new Date(+r[1].slice(0, 4), +r[1].slice(5, 7) - 1, 1), { month: "short", year: "numeric" })}`;
+  }
+  function coMapHtml() {
+    if (!CO_DOTS) { coDotsLoad(); return `<div class="cm cm--load" aria-busy="true"><span class="cap">Drawing the map…</span></div>`; }
+    const pres = (presOf(new Date()) || [])[0], trio = (CO.presidency.trios.find((x) => x.includes(pres)) || []).filter((c) => c !== pres);
+    const sel = state.co.sel && POP[state.co.sel] ? state.co.sel : pres, mode = state.co.mapMode || "pres";
+    const popC = (p) => (p >= 10 ? 5 : p >= 4 ? 4 : p >= 2 ? 3 : p >= 1 ? 2 : 1);
+    const cls = (cc) => (cc === sel ? "sel" : mode === "pres" ? (cc === pres ? "now" : trio.includes(cc) ? "trio" : "") : "w" + popC(share(cc)));
+    const order = [pres, ...CO_PROTO.filter((c) => c !== pres)];
+    const W = CO_DOTS.w, H = CO_DOTS.h;
+    const nodes = order.map((cc) => { const [x, y] = CO_DOTS.lab[cc] || [0, 0], on = cc === sel, right = on || CO_RIGHT.has(cc);
+      return `<button class="cm-n${on ? " is-sel" : ""}${cc === pres && mode === "pres" ? " is-now" : ""}${right ? "" : " is-left"}" type="button" data-comap="${cc}" aria-pressed="${on}"
+        aria-label="${esc(countryName(cc) + (coPresLine(cc) ? ", " + coPresLine(cc) : ""))}" style="left:${(x / W * 100).toFixed(2)}%;top:${(y / H * 100).toFixed(2)}%">
+        <i aria-hidden="true"></i><span aria-hidden="true">${esc(on ? countryName(cc) : cc)}</span></button>`; }).join("");
+    const legend = mode === "pres" ? [["now", "Presidency now"], ["trio", "Next in the trio"]] : [["w5", "10% or more of the EU"], ["w3", "2 to 4%"], ["w1", "Under 1%"]];
+    const pl2 = coPresLine(sel);
+    return `<div class="cm-head"><h3 class="ec-h">The 27</h3><div class="cm-modes" role="radiogroup" aria-label="Colour the map by">${[["pres", "Presidencies"], ["pop", "Voting weight"]].map(([k, n]) => `<button type="button" role="radio" data-comode="${k}" aria-checked="${mode === k}">${n}</button>`).join("")}</div></div>
+      <div class="cm" style="aspect-ratio:${W}/${H}">
+        <svg viewBox="0 0 ${W} ${H}" aria-hidden="true" focusable="false"><path class="cm-land" d="${CO_DOTS.land}"/>${CO_DOTS.eu.map((s) => `<path class="cm-s ${cls(s.cc)}" d="${s.d}"/>`).join("")}</svg>
+        ${nodes}
+        <div class="cm-leg" aria-hidden="true">${legend.map(([k, n]) => `<span><i class="${k}"></i>${n}</span>`).join("")}<b>Tap a country</b></div>
+      </div>
+      <div class="cm-card"><span class="cm-card__tx"><b>${esc(countryName(sel))}</b><span>${esc([pl2, pct(share(sel)) + " of the EU population"].filter(Boolean).join(" · "))}</span></span>
+        <button class="eu-btn eu-btn--ink" type="button" data-country="${sel}">Delegation${icon("arrow")}</button></div>
+      <div class="cm-strip" role="radiogroup" aria-label="Choose a member state">${order.map((cc) => `<button type="button" role="radio" data-comap="${cc}" aria-checked="${cc === sel}">${esc(countryName(cc))}</button>`).join("")}</div>`;
+  }
+  function coConfsHtml() {
+    const k = state.co.k === "I" ? "I" : "II";
+    const xs = CO_CONFS.filter((c) => (k === "II" ? c.coreper === "II" : c.coreper !== "II")).sort((a, b) => (((a.next[0] || {}).start || "9") < ((b.next[0] || {}).start || "9") ? -1 : 1));
+    const nII = CO_CONFS.filter((c) => c.coreper === "II").length, nI = CO_CONFS.length - nII;
+    const nextIso = (w) => (CO.coreper.find(([d, ks]) => d >= todayIso() && ks.includes(w)) || [])[0];
+    return `<h3 class="ec-h">Council configurations <small>${CO_CONFS.length}</small></h3>
+      <div class="cm-seg" role="radiogroup" aria-label="Prepared by">${[["II", "Coreper II", "Ambassadors · " + nII], ["I", "Coreper I", "Deputies · " + nI]].map(([id, n, s]) => `<button type="button" role="radio" data-cok="${id}" aria-checked="${k === id}"><b>${n}</b><span>${s}</span></button>`).join("")}</div>
+      ${nextIso(k) ? `<p class="cap cm-cor">Coreper ${k} next meets ${esc(coShort(nextIso(k)))}.</p>` : ""}
+      <div class="cm-confs">${xs.map((c) => { const n = c.next[0], fs = coFilesOf(c.id);
+        return `<button class="cm-conf" type="button" data-conf="${esc(c.id)}"><span class="cm-conf__h"><b>${esc(c.short)}</b><span>${n ? esc(fmtIso(n.start, { day: "numeric", month: "short" })) : "–"}</span></span>
+          ${fs.length ? `<span class="ep-files"><i aria-hidden="true"></i>On ${esc(fs.map(fileTag).join(", "))}</span>` : `<span class="cm-conf__s">${esc(n && n.informal ? "Informal" : n ? c.name : "No meeting before January")}</span>`}</button>`; }).join("")}</div>
+      <p class="cap co-att">The attachés who cover each working party are not in nodo: the Council does not publish them.</p>`;
+  }
+  const coHome0 = coHome;
+  coHome = function () {
+    if ((state.co.q || "").trim()) return coHome0();
+    $("coCount").textContent = "27 member states"; $("coCount").classList.remove("is-on");
+    return `${coPresCard()}
+      <h3 class="ec-h">Next in the Council <button class="co-all" type="button" data-view="cal">Calendar</button></h3><div class="co-strip">${coNext()}</div>
+      <div id="coMapBox">${coMapHtml()}</div>
+      <button class="ec-fold ec-fold--box co-perms" type="button" data-cov="perms"><span>Delegations, working parties and your notes<small>Ambassadors, deputies, who covers each working party, the names you added</small></span>${icon("arrow")}</button>
+      <div id="coConfBox">${coConfsHtml()}</div>`;
+  };
+  function coMapRepaint(focusCc) {
+    const b = $("coMapBox"); if (!b) return renderCo();
+    const sx = b.querySelector(".cm-strip") ? b.querySelector(".cm-strip").scrollLeft : 0;
+    b.innerHTML = coMapHtml();
+    const s = b.querySelector(".cm-strip"); if (s) s.scrollLeft = sx;
+    if (focusCc) { const f = b.querySelector(`${focusCc.strip ? ".cm-strip " : ".cm "}[data-comap="${focusCc.cc}"]`); if (f) { f.focus({ preventScroll: true }); if (focusCc.strip) f.scrollIntoView({ inline: "nearest", block: "nearest" }); } }
+  }
+  document.addEventListener("click", (e) => {
+    const t = e.target;
+    const m = t.closest("[data-comap]");
+    if (m) { state.co.sel = m.dataset.comap; Track.log("open", { section: "co-map", item: m.dataset.comap }); return coMapRepaint({ cc: m.dataset.comap, strip: !!m.closest(".cm-strip") }); }
+    const md = t.closest("[data-comode]");
+    if (md) { state.co.mapMode = md.dataset.comode; coMapRepaint(); const f = $("coMapBox").querySelector(`[data-comode="${md.dataset.comode}"]`); if (f) f.focus({ preventScroll: true }); return; }
+    const k = t.closest("[data-cok]");
+    if (k) { state.co.k = k.dataset.cok; $("coConfBox").innerHTML = coConfsHtml(); const f = $("coConfBox").querySelector(`[data-cok="${k.dataset.cok}"]`); if (f) f.focus({ preventScroll: true }); }
+  });
