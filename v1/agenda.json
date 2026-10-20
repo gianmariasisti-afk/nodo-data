@@ -1,5 +1,5 @@
 {
- "checked": "2026-10-19",
+ "checked": "2026-10-20",
  "source": "https://www.europarl.europa.eu/plenary/en/agendas.html",
  "sessions": {
   "2026-10-05": {
@@ -478,12 +478,12 @@
    }
   },
   "2026-10-19": {
-   "stage": "agenda",
-   "updated": "2026-10-19",
+   "stage": "updated",
+   "updated": "2026-10-20",
    "link": "https://www.europarl.europa.eu/plenary/en/agendas.html",
    "src": {
     "api": "foreseen-activities",
-    "sha256": "a23d3568314133b9e4aa444dc5167a9c2d702ef64a614229ccee6cbdc32c37e6"
+    "sha256": "c41d06784035ed305f98e217037cad4303d7dbaf6f974e231f19aeb08bc65cbf"
    },
    "days": {
     "2026-10-19": [
@@ -621,6 +621,12 @@
      {
       "time": "12:00–13:00",
       "type": "votes",
+      "title": "Reduction of methane emissions in the energy sector: postponement of certain obligations",
+      "sub": "C10-0258/2026 · ***I"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
       "title": "Protection of adults: jurisdiction, applicable law, recognition and enforcement of measures and cooperation",
       "sub": "C9-0192/2023 · A10-0128/2025 · ***I",
       "rapporteur": "Jana Toom",
@@ -650,11 +656,6 @@
        "256968"
       ],
       "committee": "ENVI"
-     },
-     {
-      "time": "12:00–13:00",
-      "type": "votes",
-      "title": "(possibly) Votes on requests for urgent procedure (Rule 170)"
      },
      {
       "time": "12:00–13:00",
@@ -1011,7 +1012,7 @@
       "time": "12:00–14:00",
       "type": "votes",
       "title": "Revised heat and fuel benchmark values for 2026-2030",
-      "sub": "C10-0189/2026 · ***I",
+      "sub": "C10-0189/2026 · A10-0276/2026 · ***I",
       "rapporteur": "Adam Jarubas",
       "rapporteurs": [
        "197517"
