@@ -95,7 +95,7 @@ jobs:
               :c.type==="group"?`- **Group change:** ${c.name}: ${c.from} → ${c.to}`
               :c.type==="all-committees-gone"?`- **All committee seats gone:** ${c.name} (was ${c.from.join(", ")}). Check before accepting.`
               :c.type==="mass-change"?`- **${c.count} records changed at once**, held for review (committee reshuffle?)`:`- ${c.type}: ${c.name||""}`;
-            console.log(`Checked ${s.at} against the Parliament's open data. Seat, party and contact changes are already live.\n\nThese wait for your decision:\n\n${s.changes.map(line).join("\n")}\n\nMerge branch \`review/meps\` to accept them (it is rebuilt from main on every run).`);
+            console.log(`Checked ${s.at} against the Parliament’s open data. Seat, party and contact changes are already live.\n\nThese wait for your decision:\n\n${s.changes.map(line).join("\n")}\n\nMerge branch \`review/meps\` to accept them (it is rebuilt from main on every run).`);
           ' > issue.md
           if [ -n "$N" ]; then gh issue edit "$N" --body-file issue.md; else gh issue create --title "$T" --label meps --label structural --body-file issue.md; fi
       - name: Close the failure issue when the build recovered
