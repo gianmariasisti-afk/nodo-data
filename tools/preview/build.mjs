@@ -21,6 +21,28 @@ import { fileURLToPath } from "node:url";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
 const OUT = join(ROOT, "next");
 
+/* Files in testing (21 Oct 2026): next/files-next.json is merged into the live files list as it loads, so only the
+   preview shows them. "files" adds new files (a live file with the same id wins); "extend" adds parts, MEPs, next steps,
+   working parties, caveats and sources to a live file, and statusAdd is appended to its status. Without the file, or if
+   it fails to load, the preview shows the live list unchanged. */
+const MERGE_FILES = `((d, x) => {
+      const out = { ...d, files: [...(d.files || [])] }, have = new Set(out.files.map((f) => f.id));
+      for (const f of x.files || []) if (!have.has(f.id)) out.files.push({ ...f, asOf: f.asOf || x.asOf });
+      for (const e of x.extend || []) {
+        const i = out.files.findIndex((f) => f.id === e.id); if (i < 0) continue;
+        const f = { ...out.files[i], council: { ...(out.files[i].council || {}) } }, by = (k) => (a, b) => { const s = new Set(a.map(k)); return [...a, ...b.filter((y) => !s.has(k(y)))]; };
+        f.parts = by((p) => p.id)(f.parts || [], e.parts || []);
+        f.meps = by((m) => [m.id, m.role, m.part || ""].join("|"))(f.meps || [], e.meps || []);
+        f.next = [...(f.next || []), ...(e.next || [])].sort((a, b) => (a.date || "9999") < (b.date || "9999") ? -1 : (a.date || "9999") > (b.date || "9999") ? 1 : 0);
+        f.council.workingParties = [...(f.council.workingParties || []), ...(e.workingParties || [])];
+        f.caveats = [...(f.caveats || []), ...(e.caveats || [])];
+        f.sources = by((s) => s.id)(f.sources || [], e.sources || []);
+        if (e.statusAdd) f.status = (f.status ? f.status + " " : "") + e.statusAdd;
+        out.files[i] = f;
+      }
+      return out;
+    })`;
+
 /* Who can open the preview: Supabase user ids. Add a tester's id here to let them in. */
 const PREVIEW_ACCOUNTS = ["16f3b8c5-9a37-492e-81af-1c89792751df"];
 
@@ -67,6 +89,9 @@ const html = patch(readFileSync(join(ROOT, "index.html"), "utf8"), "index.html",
   ["config", '<script src="config.js">', '<script src="../config.js">'],
   ["avatars", '<script src="avatars.js">', '<script src="../avatars.js">'],
   ["data", '? "v1/" :', '? "../v1/" :'],
+  /* A file in testing shows the day its own data was checked, not the live list's. */
+  ["files in testing: checked badge", "const asOf = DATA.fl && DATA.fl.asOf, n =", "const asOf = f.asOf || (DATA.fl && DATA.fl.asOf), n ="],
+  ["files in testing", 'getData("files").catch(() => ({ files: [] })),', 'getData("files").catch(() => ({ files: [] })).then((d) => fetchJson("files-next.json").then((x) => ' + MERGE_FILES + '(d, x)).catch(() => d)),'],
   ["photos", "fetch(`photos/${f}.json`)", "fetch(`../photos/${f}.json`)"],
   ["monument photos", 'const MON_BASE = "monuments/";', 'const MON_BASE = "../monuments/";'],
   ["supabase library", 'sc.src = "vendor/supabase.js"', 'sc.src = "../vendor/supabase.js"'],
@@ -104,7 +129,7 @@ const sw = patch(readFileSync(join(ROOT, "sw.js"), "utf8"), "sw.js", [
   /* The page itself comes from the network first (the saved copy only after 3 seconds or offline), so a new preview
      build shows on the next open instead of the one after; the rest of the shell stays stale-while-revalidate. */
   ["page network first", "  if (url.origin === location.origin || /(^|\\.)(googleapis|gstatic)\\.com$/.test(url.hostname)) return e.respondWith(staleWhileRevalidate(req));",
-    "  if (url.origin === location.origin && (req.mode === \"navigate\" || /\\/next\\/(index\\.html)?$/.test(url.pathname) || /\\/next\\/europe-dots\\.json$/.test(url.pathname))) return e.respondWith(pageFirst(req));\n  if (url.origin === location.origin || /(^|\\.)(googleapis|gstatic)\\.com$/.test(url.hostname)) return e.respondWith(staleWhileRevalidate(req));"],
+    "  if (url.origin === location.origin && (req.mode === \"navigate\" || /\\/next\\/(index\\.html)?$/.test(url.pathname) || /\\/next\\/(europe-dots|files-next)\\.json$/.test(url.pathname))) return e.respondWith(pageFirst(req));\n  if (url.origin === location.origin || /(^|\\.)(googleapis|gstatic)\\.com$/.test(url.hostname)) return e.respondWith(staleWhileRevalidate(req));"],
   ["page helper", "self.addEventListener(\"fetch\", (e) => {", "const pageFirst = (req) => new Promise((resolve) => {\n  let done = false; const settle = (r) => { if (!done && r) { done = true; resolve(r); } };\n  const saved = caches.match(req); const t = setTimeout(() => saved.then(settle), 3000);\n  fetch(req, { cache: \"no-cache\" }).then((r) => { clearTimeout(t); if (r.ok) { const c = r.clone(); caches.open(VERSION).then((x) => x.put(req, c)); } settle(r); })\n    .catch(() => { clearTimeout(t); saved.then((h) => settle(h || Response.error())); });\n});\nself.addEventListener(\"fetch\", (e) => {"],
 ]);
 
