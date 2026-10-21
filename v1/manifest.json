@@ -5,14 +5,14 @@
   "meps": {
    "path": "meps.json",
    "description": "Members of the European Parliament: name, group, country, committees, contacts",
-   "bytes": 3694605,
-   "sha256": "1c843c5fc00e14b4f78d2905e163718d9b742113aafd7426cd2bd936ed6e5d7c"
+   "bytes": 3689879,
+   "sha256": "24b6be5f0a75268d95fcc23ad6320e3b26e67e068946f2dbbad437934e95adbb"
   },
   "commission": {
    "path": "commission.json",
    "description": "European Commission: College, cabinets, portfolios",
-   "bytes": 1744514,
-   "sha256": "20f5edda091460dc35d081b9bedaed08625b10afce80cd72f9137acee202c9dc"
+   "bytes": 1739559,
+   "sha256": "6a717b5def727ea9aa66213c825b2ad3b8d9446ad7798e2010e138a215002459"
   },
   "calendar": {
    "path": "calendar.json",
