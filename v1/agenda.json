@@ -1,5 +1,5 @@
 {
- "checked": "2026-10-20",
+ "checked": "2026-10-21",
  "source": "https://www.europarl.europa.eu/plenary/en/agendas.html",
  "sessions": {
   "2026-10-05": {
@@ -1035,6 +1035,238 @@
       "type": "debate",
       "title": "Lifting of EU sanctions on the import of Russian sable fur",
       "sub": "2026/2936(RSP)"
+     }
+    ]
+   }
+  },
+  "2026-11-11": {
+   "stage": "draft",
+   "updated": "2026-10-21",
+   "link": "https://www.europarl.europa.eu/plenary/en/agendas.html",
+   "src": {
+    "api": "foreseen-activities",
+    "sha256": "220a880e08801812e86cabf9dfb2b19fdb2c903a8b0d9e7f3dcba6346b0ae7e3"
+   },
+   "days": {
+    "2026-11-11": [
+     {
+      "time": "15:00–20:00",
+      "type": "debate",
+      "title": "One-minute speeches (Rule 179)"
+     },
+     {
+      "time": "15:00–20:00",
+      "type": "debate",
+      "title": "Commission Work Programme 2027",
+      "sub": "2026/2899(RSP)"
+     },
+     {
+      "time": "15:00–20:00",
+      "type": "debate",
+      "title": "Resumption of session and order of business"
+     }
+    ],
+    "2026-11-12": [
+     {
+      "time": "09:00–10:50",
+      "type": "other",
+      "title": "Debates"
+     },
+     {
+      "time": "11:00–13:00",
+      "type": "votes",
+      "title": "From prototypes to capabilities – enabling new defence actors to scale up",
+      "sub": "A10-0268/2026 · 2026/2025(INI)",
+      "rapporteur": "Mārtiņš Staķis",
+      "rapporteurs": [
+       "256916"
+      ],
+      "committee": "SEDE"
+     },
+     {
+      "time": "11:00–13:00",
+      "type": "debate",
+      "title": "Texts on which debate is closed"
+     },
+     {
+      "time": "11:00–13:00",
+      "type": "votes",
+      "title": "EU-Switzerland broad package of agreements to consolidate, deepen and expand their bilateral relations – interim report",
+      "sub": "A10-0235/2026 · 2025/0162R(NLE)",
+      "rapporteur": "Christophe Grudler",
+      "rapporteurs": [
+       "197557"
+      ],
+      "committee": "AFET"
+     },
+     {
+      "time": "11:00–13:00",
+      "type": "votes",
+      "title": "Geographical indications: aligning EU rules with changes to the provisions under the Lisbon Agreement",
+      "sub": "C10-0030/2026 · A10-0211/2026 · ***I",
+      "rapporteur": "Dainius Žalimas",
+      "rapporteurs": [
+       "256807"
+      ],
+      "committee": "JURI"
+     },
+     {
+      "time": "11:00–13:00",
+      "type": "votes",
+      "title": "Modernisation of the key information document",
+      "sub": "C9-0180/2023 · A9-0160/2024 · ***I",
+      "rapporteur": "Stéphanie Yon-Courtin",
+      "rapporteurs": [
+       "197581"
+      ],
+      "committee": "ECON"
+     },
+     {
+      "time": "11:00–13:00",
+      "type": "votes",
+      "title": "Justice programme 2028-2034",
+      "sub": "C10-0197/2025 · ***I",
+      "rapporteur": "Tineke Strik, Jaroslav Bžoch",
+      "rapporteurs": [
+       "197772",
+       "220840"
+      ],
+      "committee": "JURI"
+     },
+     {
+      "time": "11:00–13:00",
+      "type": "votes",
+      "title": "Association of the overseas countries and territories with the EU including EU/Greenland/Denmark relations",
+      "sub": "C10-0248/2025 · A10-0275/2026 · *",
+      "rapporteur": "Barry Andrews",
+      "rapporteurs": [
+       "204332"
+      ],
+      "committee": "DEVE"
+     },
+     {
+      "time": "11:00–13:00",
+      "type": "votes",
+      "title": "EU agri-food promotion policy",
+      "sub": "A10-0269/2026 · 2025/2089(INI)",
+      "rapporteur": "Salvatore De Meo",
+      "rapporteurs": [
+       "204333"
+      ],
+      "committee": "AGRI"
+     },
+     {
+      "time": "11:00–13:00",
+      "type": "votes",
+      "title": "EU-Switzerland broad package of agreements to consolidate, deepen and expand their bilateral relations",
+      "sub": "C10-0075/2026 · A10-0236/2026 · ***",
+      "rapporteur": "Christophe Grudler",
+      "rapporteurs": [
+       "197557"
+      ],
+      "committee": "AFET"
+     },
+     {
+      "time": "11:00–13:00",
+      "type": "votes",
+      "title": "Amendments to the Statute for Members of the European Parliament, regarding proxy voting",
+      "sub": "A10-0270/2026 · 2026/2052(INL)",
+      "rapporteur": "Lara Wolters",
+      "rapporteurs": [
+       "5392"
+      ],
+      "committee": "JURI"
+     },
+     {
+      "time": "11:00–13:00",
+      "type": "votes",
+      "title": "Multiannual plan for the fisheries exploiting demersal stocks in the western Mediterranean Sea",
+      "sub": "2026/2074(INI)",
+      "rapporteur": "Carmen Crespo Díaz",
+      "rapporteurs": [
+       "257034"
+      ],
+      "committee": "PECH"
+     },
+     {
+      "time": "11:00–13:00",
+      "type": "votes",
+      "title": "Placing on the market of genetically modified micro-organisms and the processing of organs",
+      "sub": "C10-0358/2025 · ***I",
+      "rapporteur": "Marta Temido, Adam Jarubas",
+      "rapporteurs": [
+       "210480",
+       "197517"
+      ],
+      "committee": "ENVI"
+     },
+     {
+      "time": "11:00–13:00",
+      "type": "votes",
+      "title": "European Chemicals Agency and amending regulations",
+      "sub": "C10-0141/2025 · A10-0093/2026 · ***I",
+      "rapporteur": "Christophe Clergeau",
+      "rapporteurs": [
+       "245018"
+      ],
+      "committee": "ENVI"
+     },
+     {
+      "time": "11:00–13:00",
+      "type": "votes",
+      "title": "Europe’s Beating Cancer Plan",
+      "sub": "A10-0261/2026 · 2025/2139(INI)",
+      "rapporteur": "Vlad Vasile-Voiculescu",
+      "rapporteurs": [
+       "257112"
+      ],
+      "committee": "SANT"
+     },
+     {
+      "time": "11:00–13:00",
+      "type": "votes",
+      "title": "Union retail investor protection rules",
+      "sub": "C9-0182/2023 · A9-0162/2024 · ***I",
+      "rapporteur": "Stéphanie Yon-Courtin",
+      "rapporteurs": [
+       "197581"
+      ],
+      "committee": "ECON"
+     },
+     {
+      "time": "11:00–13:00",
+      "type": "votes",
+      "title": "Establishing Global Europe",
+      "sub": "C10-0175/2025 · ***I",
+      "rapporteur": "Michael Gahler, Robert Biedroń",
+      "rapporteurs": [
+       "2341",
+       "197498"
+      ],
+      "committee": "AFET"
+     },
+     {
+      "time": "11:00–13:00",
+      "type": "votes",
+      "title": "Union Civil Protection Mechanism and Union support for health emergency preparedness and response",
+      "sub": "C10-0174/2025 · A10-0271/2026 · ***I",
+      "rapporteur": "Leire Pajín, Aurelijus Veryga",
+      "rapporteurs": [
+       "256993",
+       "256811"
+      ],
+      "committee": "ENVI"
+     },
+     {
+      "time": "11:00–13:00",
+      "type": "votes",
+      "title": "Institutional aspects of artificial intelligence in the context of European integration",
+      "sub": "2025/2118(INI)",
+      "rapporteur": "Emmanouil Kefalogiannis",
+      "rapporteurs": [
+       "125068"
+      ],
+      "committee": "AFCO"
      }
     ]
    }
