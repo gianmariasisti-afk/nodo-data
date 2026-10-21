@@ -1,5 +1,5 @@
 {
- "run": "2026-10-20T09:37:15.309Z",
+ "run": "2026-10-21T09:37:35.566Z",
  "college": {
   "found": 26,
   "added": [],
@@ -210,37 +210,7 @@
    "senior role: Johanna Bernsel (glenn-micallef), Deputy Head of Cabinet"
   ]
  },
- "auto": [
-  {
-   "commissioner": "apostolos-tzitzikostas",
-   "name": "Florian Flachenecker",
-   "fields": [
-    "outside"
-   ],
-   "diff": {
-    "outside": {
-     "from": [
-      "Climate, environment and the circular economy",
-      "National and Regional Partnership Plans",
-      "Financial services, and the savings and investments union",
-      "European Semester",
-      "Clean Industrial Deal",
-      "Affordable Housing and short-term rental",
-      "External relations: Japana, South Korea"
-     ],
-     "to": [
-      "Climate, environment and the circular economy",
-      "National and Regional Partnership Plans",
-      "Financial services, and the savings and investments union",
-      "European Semester",
-      "Clean Industrial Deal",
-      "Affordable Housing and short-term rental",
-      "External relations: Japan, South Korea"
-     ]
-    }
-   }
-  }
- ],
+ "auto": [],
  "structural": [
   {
    "type": "role",
@@ -315,7 +285,7 @@
   }
  ],
  "summary": {
-  "auto": 1,
+  "auto": 0,
   "structural": 11,
   "autoApplied": 0,
   "failed": 0
