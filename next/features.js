@@ -1602,3 +1602,236 @@
   const yuRefresh = () => { if (state.open === "me" && !$("profile").hidden) openMe(true); };
   nxPickDone = function () { const r = yuPickBase.apply(this, arguments); yuRefresh(); return r; };
   identityChanged = function () { const r = yuIdBase.apply(this, arguments); yuRefresh(); return r; };
+
+
+  /* ---------- 10. Admin (since 21 Oct 2026) ----------
+     A read-only console for the owner, in the menu for admin accounts only: what needs him, the data runs, the users
+     and what people look for. Who is an admin lives in Supabase (public.admins). public.is_admin() and
+     public.admin_overview() are the only ways in, and the overview refuses every other account, so hiding the menu row
+     is convenience, not the protection. Data health comes from status.json on the `status` branch, which the
+     "Publish health status" workflow rewrites after every data run. Nothing here writes: each card links to where the
+     action happens today (GitHub, Supabase). Approve, edit and delete come in step 2. */
+  const AD_STATUS = "https://raw.githubusercontent.com/gianmariasisti-afk/nodo-data/status/status.json";
+  const AD_REPO = "https://github.com/gianmariasisti-afk/nodo-data";
+  const AD_USERS = "https://supabase.com/dashboard/project/dmishwyqipqbfgtdpalk/auth/users";
+  const ad = { on: false, status: null, over: null, err: { status: "", over: "" }, at: 0, busy: null, all: false };
+  const adAge = (d) => (d ? Math.round((Date.parse(todayIso()) - Date.parse(String(d).slice(0, 10))) / 864e5) : null);
+  const adDay = (d) => (d ? fmtD(fromIso(String(d).slice(0, 10)), { day: "numeric", month: "short" }) : "not yet");
+  const adWhen = (iso) => {
+    if (!iso) return "never";
+    const d = new Date(iso), t = new Date(), y = new Date(t); y.setDate(t.getDate() - 1);
+    const hm = d.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
+    if (d.toDateString() === t.toDateString()) return "today " + hm;
+    if (d.toDateString() === y.toDateString()) return "yesterday " + hm;
+    return d.toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short" });
+  };
+  const adPl = (n, one, many) => n + " " + (n === 1 ? one : many || one + "s");
+  const adMB = (b) => (b / 1048576).toFixed(b < 10485760 ? 1 : 0);
+
+  /* Who is an admin: asked once per sign-in. */
+  async function adCheck() {
+    const sb = SB.client; ad.on = false;
+    if (sb && acct.user) { try { const { data, error } = await sb.rpc("is_admin"); ad.on = !error && data === true; } catch { /* stays off */ } }
+    adEntry();
+    if (ad.on) adLoad().then(adEntry);
+    else if (state.view === "admin") setView("home");
+  }
+  const adConnect = Store.connectSb;
+  Store.connectSb = async function (user) { const out = await adConnect.call(this, user); adCheck(); return out; };
+  const adLeave = leaveAccount;
+  leaveAccount = function () { ad.on = false; ad.status = ad.over = null; ad.at = 0; adEntry(); return adLeave.apply(this, arguments); };
+
+  /* The menu row, last before your profile, shown only to admins, with a count of what needs you. */
+  $("nxMenu").querySelector("[data-nx-me]").insertAdjacentHTML("beforebegin",
+    `<button class="ad-entry" type="button" data-view="admin" data-nx="admin" hidden><span class="ad-entry__disc" aria-hidden="true">${icon("lock")}</span>
+      <span class="ad-entry__tx"><span class="ad-entry__n">Admin</span><span class="ad-entry__s">Only your account sees this</span></span>
+      <span class="ad-entry__count" id="adCount" hidden></span></button>`);
+  function adEntry() {
+    const b = $("nxMenu").querySelector(".ad-entry"); b.hidden = !ad.on;
+    const n = ad.status ? adNeeds().length : 0, c = $("adCount");
+    c.hidden = !n; c.textContent = n; c.setAttribute("aria-label", adPl(n, "thing needs", "things need") + " you");
+  }
+
+  /* The view. */
+  VIEW_IDS.admin = "vAdmin";
+  $("vNews").insertAdjacentHTML("afterend", `<main id="vAdmin" class="view" hidden aria-label="Admin"></main>`);
+  const adSetView = setView;
+  setView = function (v) { return adSetView(v === "admin" && !ad.on ? "home" : v); };
+  const adRenderView = renderView;
+  renderView = function () { adRenderView(); if (state.view === "admin") { renderAdmin(); if (Date.now() - ad.at > 60000) adLoad().then(() => { if (state.view === "admin") renderAdmin(); }); } };
+
+  function adLoad() {
+    if (ad.busy) return ad.busy;
+    const st = fetch(AD_STATUS + "?t=" + Date.now(), { cache: "no-store" })
+      .then((r) => { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+      .then((j) => { ad.status = j; ad.err.status = ""; })
+      .catch(() => { ad.err.status = "Could not read the status file from GitHub."; });
+    const ov = SB.client ? SB.client.rpc("admin_overview").then(({ data, error }) => {
+      if (error) { ad.err.over = error.code === "42501" ? "This account is not an admin." : "Could not read users from Supabase."; return; }
+      ad.over = data; ad.err.over = "";
+    }, () => { ad.err.over = "Could not read users from Supabase."; }) : Promise.resolve();
+    ad.busy = Promise.all([st, ov]).then(() => { ad.at = Date.now(); ad.busy = null; adEntry(); });
+    return ad.busy;
+  }
+
+  /* What needs you, from status.json. The limits follow the weekday data check. */
+  const AD_WF = { "Update MEP directory": "MEP directory", "Update Commission and cabinets": "Commission cabinets", "Update plenary agenda": "Plenary agenda",
+    "Update MEP activity": "MEP activity", "Update file stream": "News on the files", "Validate data": "Data validation" };
+  const AD_FRESH = [["council", 5, "Council data"], ["commission", 3, "Commission cabinets"], ["mepsChecked", 3, "The MEP directory check"],
+    ["agendaChecked", 2, "The plenary agenda check"], ["activity", 2, "MEP activity"], ["calendar", 45, "The Parliament calendar"]];
+  function adNeeds() {
+    const s = ad.status, out = [];
+    if (!s) return out;
+    (s.openIssues || []).forEach((i) => {
+      const L = i.labels || [];
+      if (L.includes("agenda")) return;
+      if (L.includes("structural")) out.push({ tone: "review", ic: "user", t: i.title.replace(/\/cabinets/, " cabinets"),
+        s: "Waiting since " + adDay(i.createdAt) + ". Senior roles and large batches always wait for you; merging the review branch accepts them.", href: i.url, cta: "Open the review on GitHub" });
+      else out.push({ tone: "bad", ic: "warn", t: i.title, s: "Open since " + adDay(i.createdAt) + ".", href: i.url, cta: "Open on GitHub" });
+    });
+    (s.workflows || []).forEach((w) => {
+      if (w.latest && w.latest.conclusion !== "success") out.push({ tone: "bad", ic: "warn", t: (AD_WF[w.name] || w.name) + ": the last run failed",
+        s: "Failed " + adWhen(w.latest.at) + ". Last good run " + adWhen(w.lastSuccessAt) + ".", href: w.latest.url, cta: "See the run" });
+    });
+    const f = s.freshness || {};
+    AD_FRESH.forEach(([k, n, label]) => { const a = adAge(f[k]); if (a != null && a > n) out.push({ tone: "warn", ic: "cal", t: label + " is " + adPl(a, "day") + " old", s: "Expected within " + adPl(n, "day") + ". Last update " + adDay(f[k]) + "." }); });
+    (s.files || []).forEach((x) => {
+      if (x.past) out.push({ tone: "warn", ic: "files", t: x.short + ": " + (x.past === 1 ? "a next step is" : x.past + " next steps are") + " in the past", s: "The app hides past dates. The Monday refresh replaces them; status checked " + adDay(x.checked) + "." });
+      if (x.checkedDays > 8) out.push({ tone: "warn", ic: "files", t: x.short + ": status not checked for " + adPl(x.checkedDays, "day"), s: "Last checked " + adDay(x.checked) + "." });
+    });
+    const r = s.reference || {}, p = r.presidency, pr = r.permrepsExtra;
+    if (p && p.next && !p.nextProfile && p.daysToHandover <= 60) out.push({ tone: "warn", ic: "flag", t: "No profile yet for the " + p.next + " Presidency", s: "It takes over in " + adPl(p.daysToHandover, "day") + "." });
+    if (pr && pr.oldestDays > 40) out.push({ tone: "warn", ic: "group", t: "Hand-added perm reps need a recheck", s: adPl(pr.entries, "entry", "entries") + ". The oldest was checked " + adPl(pr.oldestDays, "day") + " ago." });
+    if ((s.manifestProblems || []).length) out.push({ tone: "bad", ic: "warn", t: "The data manifest is out of step", s: adPl(s.manifestProblems.length, "entry", "entries") + " no longer match their file." });
+    const h = (Date.now() - Date.parse(s.generated)) / 36e5;
+    if (h > 36) out.push({ tone: "warn", ic: "warn", t: "The status snapshot is " + Math.round(h) + " hours old", s: "It is rewritten after every data run. Nothing has run since " + adWhen(s.generated) + "." });
+    return out;
+  }
+
+  /* One row per data source: the workflow's last run, or the file date for sources refreshed outside GitHub. */
+  function adRuns() {
+    const s = ad.status || {}, f = s.freshness || {}, c = s.counts || {}, files = s.files || [];
+    const wf = Object.fromEntries((s.workflows || []).map((w) => [w.name, w]));
+    const fromWf = (name, label, sub) => {
+      const w = wf[name]; if (!w) return null;
+      const ok = w.latest.conclusion === "success", lateH = (Date.now() - Date.parse(w.lastSuccessAt || 0)) / 36e5;
+      return { n: label, sub: sub + " · last run " + adWhen(w.latest.at), st: !ok ? "bad" : lateH > 72 && name !== "Validate data" ? "warn" : "ok", href: w.latest.url };
+    };
+    const fromDate = (d, max, label, sub) => { const a = adAge(d); return { n: label, sub: sub + " · updated " + adDay(d), st: a == null ? "warn" : a > max ? "warn" : "ok" }; };
+    const maxChecked = files.reduce((m, x) => Math.max(m, x.checkedDays || 0), 0);
+    return [
+      fromWf("Update MEP directory", "MEP directory", "Weekdays"),
+      fromWf("Update Commission and cabinets", "Commission cabinets", "Weekdays"),
+      fromDate(f.council, 5, "Council and perm reps", "Mon and Thu on the Mac"),
+      fromWf("Update plenary agenda", "Plenary agenda", "Twice a day"),
+      fromWf("Update MEP activity", "MEP activity", (c.activityFiles || 0) + " feeds, " + (c.questionFiles || 0).toLocaleString("en-GB") + " questions"),
+      fromWf("Update file stream", "News on the files", "Daily"),
+      { ...fromDate(f.filesAsOf, 8, "Files status", "Mondays · " + adPl(files.length, "file")), st: maxChecked > 8 ? "warn" : adAge(f.filesAsOf) > 8 ? "warn" : "ok" },
+      fromDate(f.calendar, 45, "Parliament calendar", "When the Parliament publishes"),
+      fromWf("Validate data", "Data validation", "On every data push"),
+    ].filter(Boolean);
+  }
+
+  function renderAdmin() {
+    const v = $("vAdmin"), s = ad.status, o = ad.over;
+    if (!s && !o && !ad.err.status && !ad.err.over) { v.innerHTML = `<div class="ad-wrap"><p class="cap ad-loading">Loading the admin overview…</p></div>`; return; }
+    const needs = adNeeds(), runs = adRuns();
+    const pill = (st) => st === "ok" ? `<span class="ad-pill ad-pill--ok">${icon("check")}OK</span>` : st === "bad" ? `<span class="ad-pill ad-pill--bad">${icon("warn")}Failed</span>` : `<span class="ad-pill ad-pill--warn">${icon("warn")}Late</span>`;
+    const err = (m) => (m ? `<p class="ad-err" role="status">${icon("warn")}${esc(m)}</p>` : "");
+    const ext = (href, t) => `<a class="ad-link" href="${esc(href)}" target="_blank" rel="noopener">${esc(t)}${icon("ext")}</a>`;
+    const bad = runs.filter((r) => r.st !== "ok").length;
+    const lead = !s ? "The data status could not be read." : needs.length
+      ? adPl(needs.length, "thing needs", "things need") + " you. " + (bad ? adPl(bad, "data source is", "data sources are") + " late or failing." : "All data runs are green.")
+      : "Nothing needs you. All data runs are green.";
+
+    /* Users */
+    let users = err(ad.err.over);
+    if (o) {
+      const days = o.daily || [], top = Math.max(1, ...days.map((d) => d.users));
+      const people = o.people || [], shown = ad.all ? people : people.slice(0, 5);
+      const bars = days.map((d) => {
+        const h = d.users ? Math.max(6, Math.round((d.users / top) * 96)) : 2, dt = fromIso(d.day), wk = dt.getDay() === 1;
+        return `<div class="ad-bar${d.users ? "" : " ad-bar--0"}"><span class="ad-bar__n">${d.users}</span><i style="height:${h}px"></i><span class="ad-bar__d${wk ? " ad-bar__d--mon" : ""}">${dt.getDate()}</span></div>`;
+      }).join("");
+      const label = days.map((d) => fmtD(fromIso(d.day), { day: "numeric", month: "short" }) + " " + d.users).join(", ");
+      users += `
+        <div class="ad-stats">
+          <div class="ad-stat ad-stat--ep"><b>${o.accounts}</b><span>Accounts</span></div>
+          <div class="ad-stat ad-stat--co"><b>${o.new7}</b><span>New in 7 days</span></div>
+          <div class="ad-stat ad-stat--cal"><b>${o.active7}</b><span>Active in 7 days</span></div>
+        </div>
+        <section class="ad-card ad-chart" aria-labelledby="adActive">
+          <h3 class="ad-h3" id="adActive">Active people per day</h3>
+          <div class="ad-bars" role="img" aria-label="Active people, last 14 days: ${esc(label)}">${bars}</div>
+          <p class="cap">${esc(fmtD(fromIso(days[0].day)) + " to " + fmtD(fromIso(days[days.length - 1].day)))}, live app only. Mondays in bold; preview sessions are left out.</p>
+        </section>
+        <section class="ad-card ad-people" aria-labelledby="adPeople">
+          <div class="ad-row-h"><h3 class="ad-h3" id="adPeople">People</h3>${ext(AD_USERS, "Manage in Supabase")}</div>
+          <ul class="ad-list">${shown.map((p) => {
+            const nm = (p.name || "").trim(), meta = [nm ? p.email : "", p.org, "joined " + adDay(p.created), p.seen ? "seen " + adWhen(p.seen) : "not seen in the app"].filter(Boolean);
+            return `<li><span class="ad-face" aria-hidden="true">${esc((nm || p.email || "?").trim().charAt(0).toUpperCase())}</span><span class="ad-li__tx"><b>${esc(nm || p.email || "No email")}${p.admin ? ` <span class="ad-tag">Admin</span>` : ""}</b><span>${esc(meta.join(" · "))}</span></span></li>`;
+          }).join("")}</ul>
+          ${people.length > 5 ? `<button class="eu-btn eu-btn--sm eu-btn--outline ad-more" type="button" data-adall aria-expanded="${ad.all}">${ad.all ? "Show fewer" : "Show all " + people.length}</button>` : ""}
+        </section>`;
+    }
+
+    /* What people look for */
+    let look = "";
+    if (o) {
+      const req = o.requests || [], emp = o.empty || [];
+      look = `
+        <section class="ad-card" aria-labelledby="adReq">
+          <div class="ad-row-h"><h3 class="ad-h3" id="adReq">Files requested</h3><span class="cap">Request a full page</span></div>
+          ${req.length ? `<ul class="ad-chips">${req.map((r) => `<li class="ad-chip">${esc(r.q)}${r.n > 1 ? ` <b>×${r.n}</b>` : ""}</li>`).join("")}</ul>` : `<p class="cap">No requests yet.</p>`}
+        </section>
+        <section class="ad-card" aria-labelledby="adEmpty">
+          <div class="ad-row-h"><h3 class="ad-h3" id="adEmpty">Searches with no result</h3><span class="ad-num">${o.empty30} of ${o.searches30}</span></div>
+          ${emp.length ? `<ul class="ad-list ad-list--q">${emp.map((r) => `<li><span>${esc(r.q)}</span><span class="cap">${r.n > 1 ? r.n + " times · " : ""}${adWhen(r.last)}</span></li>`).join("")}</ul>` : `<p class="cap">None in the last 30 days.</p>`}
+          <p class="cap">Counts: live app, last 30 days. The list includes the preview.${o.feedback30 ? " " + adPl(o.feedback30, "feedback email") + " started in that time." : ""}</p>
+        </section>`;
+    }
+
+    const big = s && s.sizes && (s.sizes.largest || [])[0];
+    v.innerHTML = `<div class="ad-wrap">
+      <header class="ad-head">
+        <p class="ad-eyebrow"><span class="ad-badge">${icon("lock")}Admin</span><span class="cap">Only your account sees this</span></p>
+        <h1 class="ad-title" tabindex="-1">How is nodo <strong>doing today?</strong></h1>
+        <p class="ad-lead">${esc(lead)}</p>
+        <p class="cap ad-stamp">${s ? "Status from " + adWhen(s.generated) : "No status"}${o ? " · users from " + adWhen(o.generated) : ""}
+          <button class="linkbtn ad-refresh" type="button" data-adrefresh>${ad.busy ? "Refreshing…" : "Refresh"}</button></p>
+      </header>
+      ${err(ad.err.status)}
+
+      <section aria-labelledby="adNeeds">
+        <div class="ad-row-h"><h2 class="ad-h" id="adNeeds">Needs you</h2><span class="ad-num">${needs.length}</span></div>
+        ${needs.length ? `<ul class="ad-needs">${needs.map((n) => `<li class="ad-need ad-need--${n.tone}"><span class="ad-need__disc" aria-hidden="true">${icon(n.ic)}</span>
+          <span class="ad-need__tx"><b>${esc(n.t)}</b><span>${esc(n.s)}</span>${n.href ? ext(n.href, n.cta) : ""}</span></li>`).join("")}</ul>`
+          : `<p class="ad-card ad-clear">${icon("check")}Nothing waits for you.</p>`}
+      </section>
+
+      <section aria-labelledby="adRuns">
+        <div class="ad-row-h"><h2 class="ad-h" id="adRuns">Data runs</h2>${ext(AD_REPO + "/actions", "All runs")}</div>
+        <ul class="ad-card ad-runs">${runs.map((r) => `<li>${r.href ? `<a href="${esc(r.href)}" target="_blank" rel="noopener">` : "<div>"}
+          <span class="ad-li__tx"><b>${esc(r.n)}</b><span>${esc(r.sub)}</span></span>${pill(r.st)}${r.href ? "</a>" : "</div>"}</li>`).join("")}
+          ${big ? `<li class="ad-size"><div class="ad-row-h"><b>Largest data file</b><span class="ad-num">${adMB(big.bytes)} of 100 MB</span></div>
+            <span class="ad-meter" aria-hidden="true"><i style="width:${Math.min(100, (big.bytes / 104857600) * 100).toFixed(1)}%" class="${big.bytes > 52428800 ? "is-warn" : ""}"></i></span>
+            <span class="cap">${esc(big.path)}. GitHub warns at 50 MB and refuses a file at 100 MB.</span></li>` : ""}
+        </ul>
+      </section>
+
+      <section aria-labelledby="adUsers">
+        <h2 class="ad-h" id="adUsers">Users</h2>
+        ${users}
+      </section>
+
+      ${o ? `<section aria-labelledby="adLook"><h2 class="ad-h" id="adLook">What people look for</h2>${look}</section>` : ""}
+
+      <p class="cap ad-foot">Read-only for now. Approve, edit and delete come in step 2.</p>
+    </div>`;
+  }
+
+  document.addEventListener("click", (e) => {
+    const t = e.target;
+    if (t.closest("[data-adrefresh]")) { ad.at = 0; adLoad().then(() => { if (state.view === "admin") renderAdmin(); }); return renderAdmin(); }
+    if (t.closest("[data-adall]")) { ad.all = !ad.all; renderAdmin(); }
+  });

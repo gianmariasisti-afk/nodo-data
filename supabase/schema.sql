@@ -94,3 +94,77 @@ create policy "own names update" on public.user_council_names for update to auth
   using ((select auth.uid()) = user_id) with check ((select auth.uid()) = user_id);
 create policy "own names delete" on public.user_council_names for delete to authenticated
   using ((select auth.uid()) = user_id);
+
+-- Admin console (applied as migration admin_console, 21 Oct 2026). public.admins lists the admin accounts; it has row-level
+-- security and no grants, so it is read only through the two functions below. is_admin() tells the app whether to show the
+-- Admin entry; admin_overview() returns account and usage counts, the people list and what people search for, and raises
+-- 42501 for anyone who is not an admin. Both run as security definer with an empty search_path.
+create table if not exists public.admins (
+  user_id uuid primary key references auth.users (id) on delete cascade,
+  added_at timestamptz not null default now()
+);
+alter table public.admins enable row level security;
+revoke all on public.admins from anon, authenticated;
+-- Add an admin: insert into public.admins (user_id) values ('<auth user id>');
+
+create or replace function public.is_admin()
+returns boolean language sql stable security definer set search_path = ''
+as $$ select exists (select 1 from public.admins a where a.user_id = (select auth.uid())); $$;
+revoke execute on function public.is_admin() from public, anon;
+grant execute on function public.is_admin() to authenticated;
+
+create or replace function public.admin_overview()
+returns jsonb language plpgsql stable security definer set search_path = ''
+as $$
+declare
+  today date := (now() at time zone 'Europe/Brussels')::date;
+  out jsonb;
+begin
+  if not public.is_admin() then
+    raise exception 'not allowed' using errcode = '42501';
+  end if;
+  with live as (
+    -- Usage from the live app only: preview sessions start with "next-".
+    select * from public.events
+    where created_at > now() - interval '31 days' and coalesce(session_id, '') not like 'next-%'
+  ),
+  days as (select d::date as day from generate_series(today - 13, today, interval '1 day') d),
+  per_day as (
+    select (created_at at time zone 'Europe/Brussels')::date as day, count(distinct user_id) as n from live group by 1
+  ),
+  last_seen as (select user_id, max(created_at) as at from public.events group by user_id)
+  select jsonb_build_object(
+    'generated', now(),
+    'accounts', (select count(*) from auth.users),
+    'new7', (select count(*) from auth.users where created_at > now() - interval '7 days'),
+    'active7', (select count(distinct user_id) from live where created_at > now() - interval '7 days'),
+    'daily', (select coalesce(jsonb_agg(jsonb_build_object('day', d.day, 'users', coalesce(p.n, 0)) order by d.day), '[]'::jsonb)
+              from days d left join per_day p on p.day = d.day),
+    'searches30', (select count(*) from live where name = 'search'),
+    'empty30', (select count(*) from live where name = 'search' and results = 0),
+    'empty', (select coalesce(jsonb_agg(jsonb_build_object('q', q, 'n', n, 'last', last) order by last desc), '[]'::jsonb) from (
+                select lower(btrim(query)) as q, count(*) as n, max(created_at) as last
+                from public.events
+                where name = 'search' and results = 0 and query is not null and char_length(btrim(query)) > 1
+                  and created_at > now() - interval '31 days'
+                group by 1 order by max(created_at) desc limit 12) s),
+    'requests', (select coalesce(jsonb_agg(jsonb_build_object('q', q, 'n', n, 'last', last) order by last desc), '[]'::jsonb) from (
+                select lower(btrim(coalesce(query, item))) as q, count(*) as n, max(created_at) as last
+                from public.events
+                where name = 'request' and coalesce(query, item) is not null
+                group by 1 order by max(created_at) desc limit 12) r),
+    'feedback30', (select count(*) from public.events where name = 'feedback_mail' and created_at > now() - interval '31 days'),
+    'people', (select coalesce(jsonb_agg(jsonb_build_object(
+                  'email', u.email, 'name', s.body -> 'profile' ->> 'name', 'org', s.body -> 'profile' ->> 'org',
+                  'method', s.body -> 'profile' ->> 'method', 'created', u.created_at, 'seen', l.at,
+                  'admin', exists (select 1 from public.admins a where a.user_id = u.id)
+                ) order by coalesce(l.at, u.created_at) desc), '[]'::jsonb)
+               from auth.users u
+               left join public.user_state s on s.user_id = u.id
+               left join last_seen l on l.user_id = u.id)
+  ) into out;
+  return out;
+end;
+$$;
+revoke execute on function public.admin_overview() from public, anon;
+grant execute on function public.admin_overview() to authenticated;

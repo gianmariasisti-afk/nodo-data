@@ -46,10 +46,14 @@ jobs:
           ACT=$(ls v1/activity/*.json 2>/dev/null | wc -l)
           QF=$(ls v1/activity/q 2>/dev/null | wc -l)
           node scripts/status-data.mjs > "$RUNNER_TEMP/data.json"
+          # The three largest tracked files, for the admin console's size meter (GitHub refuses a file over 100 MB).
+          git ls-files -z | xargs -0 stat -c '%s %n' 2>/dev/null | sort -rn | head -3 \
+            | jq -R 'capture("^(?<bytes>[0-9]+) (?<path>.+)$") | .bytes |= tonumber' | jq -s '{ largest: . }' > "$RUNNER_TEMP/sizes.json"
           jq -n \
             --slurpfile runs "$RUNNER_TEMP/runs.json" \
             --slurpfile issues "$RUNNER_TEMP/issues.json" \
             --slurpfile data "$RUNNER_TEMP/data.json" \
+            --slurpfile sizes "$RUNNER_TEMP/sizes.json" \
             --rawfile branches "$RUNNER_TEMP/branches.txt" \
             --arg generated "$(date -u +%FT%TZ)" \
             --argjson act "$ACT" --argjson qf "$QF" \
@@ -62,6 +66,7 @@ jobs:
               files: $data[0].files,
               reference: $data[0].reference,
               manifestProblems: $data[0].manifest,
+              sizes: $sizes[0],
               workflows: (
                 [ $runs[0].workflow_runs[]
                   | select(.name != "pages build and deployment" and .name != "Publish health status" and .status == "completed") ]
