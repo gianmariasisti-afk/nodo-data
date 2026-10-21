@@ -1249,23 +1249,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       const [mep, ec, cal, co, ag, fl] = await Promise.all([
         ...["meps", "commission", "calendar", "council"].map((f) => getData(f).then((d) => { bootMsg.textContent = `Loading the directory · ${++got} of 4`; return d; })),
         getData("agenda").catch(() => ({ checked: null, sessions: {} })),
-        getData("files").catch(() => ({ files: [] })).then((d) => fetchJson("files-next.json").then((x) => ((d, x) => {
-      const out = { ...d, files: [...(d.files || [])] }, have = new Set(out.files.map((f) => f.id));
-      for (const f of x.files || []) if (!have.has(f.id)) out.files.push({ ...f, asOf: f.asOf || x.asOf });
-      for (const e of x.extend || []) {
-        const i = out.files.findIndex((f) => f.id === e.id); if (i < 0) continue;
-        const f = { ...out.files[i], council: { ...(out.files[i].council || {}) } }, by = (k) => (a, b) => { const s = new Set(a.map(k)); return [...a, ...b.filter((y) => !s.has(k(y)))]; };
-        f.parts = by((p) => p.id)(f.parts || [], e.parts || []);
-        f.meps = by((m) => [m.id, m.role, m.part || ""].join("|"))(f.meps || [], e.meps || []);
-        f.next = [...(f.next || []), ...(e.next || [])].sort((a, b) => (a.date || "9999") < (b.date || "9999") ? -1 : (a.date || "9999") > (b.date || "9999") ? 1 : 0);
-        f.council.workingParties = [...(f.council.workingParties || []), ...(e.workingParties || [])];
-        f.caveats = [...(f.caveats || []), ...(e.caveats || [])];
-        f.sources = by((s) => s.id)(f.sources || [], e.sources || []);
-        if (e.statusAdd) f.status = (f.status ? f.status + " " : "") + e.statusAdd;
-        out.files[i] = f;
-      }
-      return out;
-    })(d, x)).catch(() => d)),
+        getData("files").catch(() => ({ files: [] })),
       ]);
       DATA = { mep, ec, cal, co, ag, fl };
     } catch {
@@ -2590,7 +2574,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   }
 
   /* ---------- Files ----------
-     Seven priority legislative files from files.json. Each links MEPs, Commissioners and cabinet staff.
+     Priority legislative files from files.json. Each links MEPs, Commissioners and cabinet staff.
      A person edits a list by adding and removing people; those edits are stored as keys on top of the shared data
      (state.lists[fileId] = { add: [key], rem: [key] }) and sync with the account. */
   const FILES = (DATA.fl && DATA.fl.files) || [];

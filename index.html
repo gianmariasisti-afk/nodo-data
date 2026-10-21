@@ -2563,7 +2563,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   }
 
   /* ---------- Files ----------
-     Seven priority legislative files from files.json. Each links MEPs, Commissioners and cabinet staff.
+     Priority legislative files from files.json. Each links MEPs, Commissioners and cabinet staff.
      A person edits a list by adding and removing people; those edits are stored as keys on top of the shared data
      (state.lists[fileId] = { add: [key], rem: [key] }) and sync with the account. */
   const FILES = (DATA.fl && DATA.fl.files) || [];
@@ -4529,7 +4529,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     nxOpenFileBase(id, keep, startTab);
     const f = FILE_BY[id], hero = document.querySelector("#profileBody .hero");
     if (!f || !hero || hero.querySelector(".nx-prov")) return;
-    const asOf = DATA.fl && DATA.fl.asOf, n = (f.sources || []).filter((x) => safeUrl(x.url)).length;
+    const asOf = f.asOf || (DATA.fl && DATA.fl.asOf), n = (f.sources || []).filter((x) => safeUrl(x.url)).length;
     const obs = f.procedure ? "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=" + encodeURIComponent(f.procedure) : "";
     hero.insertAdjacentHTML("beforeend", `<div class="nx-prov">
       ${asOf ? `<span class="eu-group tag tg-ok">${icon("check")}Checked ${esc(fdDate(asOf, true))}</span>` : ""}
