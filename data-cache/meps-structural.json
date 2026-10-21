@@ -1,5 +1,5 @@
 {
- "at": "2026-10-20",
+ "at": "2026-10-21",
  "changes": [
   {
    "type": "arrived",
@@ -10,6 +10,24 @@
    "party": "Les Républicains",
    "committees": [],
    "note": "no photo yet"
+  },
+  {
+   "type": "all-committees-gone",
+   "from": [
+    "SANT",
+    "ENVI",
+    "IMCO",
+    "INTA"
+   ],
+   "id": "23699",
+   "name": "Kateřina KONEČNÁ"
+  },
+  {
+   "type": "group",
+   "from": "NI",
+   "to": "PfE",
+   "id": "23699",
+   "name": "Kateřina KONEČNÁ"
   },
   {
    "type": "left",

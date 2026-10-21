@@ -1,10 +1,25 @@
 {
- "run": "2026-10-20T11:17:29.510Z",
- "checked": "2026-10-20",
+ "run": "2026-10-21T10:04:27.965Z",
+ "checked": "2026-10-21",
  "api": 719,
  "nodo": 720,
  "failed": [],
- "auto": [],
+ "auto": [
+  {
+   "id": "23699",
+   "name": "Kateřina KONEČNÁ",
+   "changes": {
+    "delegations": {
+     "from": [
+      "DAFR Member",
+      "DACP Member",
+      "D-CN Member"
+     ],
+     "to": []
+    }
+   }
+  }
+ ],
  "structural": [
   {
    "type": "arrived",
@@ -17,6 +32,24 @@
    "note": "no photo yet"
   },
   {
+   "type": "all-committees-gone",
+   "from": [
+    "SANT",
+    "ENVI",
+    "IMCO",
+    "INTA"
+   ],
+   "id": "23699",
+   "name": "Kateřina KONEČNÁ"
+  },
+  {
+   "type": "group",
+   "from": "NI",
+   "to": "PfE",
+   "id": "23699",
+   "name": "Kateřina KONEČNÁ"
+  },
+  {
    "type": "left",
    "id": "256921",
    "name": "Laurent CASTILLO",
@@ -25,9 +58,9 @@
   }
  ],
  "summary": {
-  "auto": 0,
-  "structural": 2,
+  "auto": 1,
+  "structural": 4,
   "failed": 0,
-  "changed": false
+  "changed": true
  }
 }
