@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-20T00:00:00Z",
+  "generatedAt": "2026-10-21T00:00:00Z",
   "events": [
     {
       "id": "industrial-accelerator-act:next:2026-12-14:ec707f",
@@ -140,6 +140,17 @@
       "title": "Coreper II: mandate for negotiations with the European Parliament (doc 13886/2/26 REV 2)",
       "push": true,
       "pushOn": "2026-10-21"
+    },
+    {
+      "id": "digital-networks-act:ep:ITRE-PR-791994-DEPOT-2026-10-20",
+      "fileId": "digital-networks-act",
+      "date": "2026-10-20",
+      "source": "ep",
+      "proc": "2026-0013",
+      "kind": "milestone",
+      "title": "Draft report tabled",
+      "push": true,
+      "ref": "ITRE-PR-791994"
     },
     {
       "id": "mff-2028-2034:next:2026-10-20:265012",

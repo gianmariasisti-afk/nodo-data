@@ -1,37 +1,26 @@
 {
-  "generatedAt": "2026-10-20T00:00:00Z",
+  "generatedAt": "2026-10-21T00:00:00Z",
   "events": [
     {
-      "id": "mff-2028-2034:next:2026-10-20:265012",
-      "fileId": "mff-2028-2034",
-      "date": "2026-10-20",
+      "id": "digital-omnibus-data:next:2026-10-21:0e67e4",
+      "fileId": "digital-omnibus-data",
+      "date": "2026-10-21",
       "source": "nodo",
       "kind": "scheduled",
-      "title": "Council MFF working party: national and regional partnerships",
+      "title": "Coreper II: mandate for negotiations with the European Parliament (doc 13886/2/26 REV 2)",
       "push": true,
-      "pushOn": "2026-10-20"
+      "pushOn": "2026-10-21"
     },
     {
-      "id": "industrial-accelerator-act:ep:amendments:2026-10-19",
-      "fileId": "industrial-accelerator-act",
-      "date": "2026-10-19",
+      "id": "digital-networks-act:ep:ITRE-PR-791994-DEPOT-2026-10-20",
+      "fileId": "digital-networks-act",
+      "date": "2026-10-20",
       "source": "ep",
-      "proc": "2026-0068",
+      "proc": "2026-0013",
       "kind": "milestone",
-      "title": "Amendments tabled in committee",
-      "count": 18,
-      "push": true
-    },
-    {
-      "id": "industrial-accelerator-act:ep:amendments:2026-10-13",
-      "fileId": "industrial-accelerator-act",
-      "date": "2026-10-13",
-      "source": "ep",
-      "proc": "2026-0068",
-      "kind": "milestone",
-      "title": "Amendments tabled in committee",
-      "count": 3,
-      "push": true
+      "title": "Draft report tabled",
+      "push": true,
+      "ref": "ITRE-PR-791994"
     }
   ]
 }
