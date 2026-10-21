@@ -1599,11 +1599,11 @@
   {
    "id": "digital-fairness-act",
    "short": "Digital Fairness Act",
-   "title": "Digital Fairness Act (and a possible EU social media minimum age)",
+   "title": "Digital Fairness Act",
    "kind": "pre-proposal",
    "procedure": null,
    "stage": "pre-proposal",
-   "status": "The Commission's indicative planning lists the proposal for 11 November 2026, in a consumer package (also reported by MLex); the date can still move. Expected themes: dark patterns, addictive design, influencer marketing, unfair personalisation and minors. A bloc-wide social media minimum age may come alongside or inside it. Member States are moving first, for example Denmark's consultation on a minimum age of 15 launched 7 September 2026.",
+   "status": "The Commission's indicative planning lists the proposal for 11 November 2026, in a consumer package (also reported by MLex); the date can still move. Expected themes: dark patterns, addictive design, influencer marketing, unfair personalisation and minors. The social media minimum age is no longer part of it: the Commission proposed it separately in the EU KIDS Act on 17 September 2026 (minimum age of 15), which nodo follows as its own file. Member States had moved first on a minimum age, for example Denmark's consultation on a minimum age of 15 launched 7 September 2026.",
    "next": [
     {
      "date": "2026-11-11",
@@ -1809,9 +1809,14 @@
      "id": "dfa-newsletter-20260929",
      "title": "Digital Fairness Act Newsletter: proposal targeted for 11 November 2026 (Commission indicative planning)",
      "url": "https://newsletter.digitalfairnessact.com/p/digital-fairness-act-targeted-for"
+    },
+    {
+     "id": "lw-kids",
+     "title": "Latham & Watkins: the EU KIDS Act proposal (29 Sep 2026)",
+     "url": "https://www.lw.com/en/insights/eu-kids-act-eu-commission-publishes-proposal-on-child-protection-online"
     }
    ],
-   "checked": "2026-10-19"
+   "checked": "2026-10-21"
   },
   {
    "id": "tech-sovereignty-package",
