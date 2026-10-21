@@ -1425,3 +1425,180 @@
       navigator.serviceWorker.getRegistration().then((r) => r && r.update()).catch(() => {});
     });
   }
+
+
+  /* ---------- 13. You: profile and settings (since 21 Oct 2026) ----------
+     The profile stops imitating a social profile: nobody else sees it. A compact header (face, name, email and sign-in method),
+     then "Make nodo yours" (countries, files, saved people, each saying what it changes) while all three are empty, and
+     "What you cover" once one is set. Settings below open as their own pages: Notifications (switches saved on profile.notify;
+     weekly and alerts are the Files view's switches, the others are new keys) and Account and privacy (name, sign-in, export,
+     what nodo stores, delete). Removed: the 0/0/0 counters, organisation and role, the Synced pill (now a footer line).
+     When promoted, openMe in the live app takes this code and openRoute the me:notify and me:account keys. */
+  const yuSvg = (d, sw) => `<svg class="yu-ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="${sw || 1.75}" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
+  const YU_IC = {
+    bell: '<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10 21h4"/>',
+    user: '<circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/>',
+    route: '<circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8.5 18H15a3 3 0 0 0 0-6H9a3 3 0 0 1 0-6h6.5"/>',
+    info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/>',
+    chev: '<path d="M9 6l6 6-6 6"/>',
+    tick: '<path d="M5 12l4 4 10-10"/>',
+  };
+  const YU_NOTE = { alerts: 1, people: 1, agenda: 1, cabinets: 1, weekly: 1 };
+  const yuNotify = () => Object.assign({ weekly: false, alerts: false, people: false, agenda: false, cabinets: false, quietEve: true, quietWkd: true }, (state.profile && state.profile.notify) || {});
+  const yuOn = () => { const n = yuNotify(); return Object.keys(YU_NOTE).filter((k) => n[k]).length; };
+  const yuDate = (iso) => { const d = new Date(iso + "T12:00:00"); return d.toLocaleDateString("en-GB", { day: "numeric", month: "short" }); };
+  const yuNext = (f) => { const t = todayIso(); return (f.next || []).filter((s) => s.date && s.date >= t).sort((a, b) => (a.date < b.date ? -1 : 1))[0] || null; };
+  const yuRow = (attrs, ic, name, meta) => `<button class="yu-row" type="button" ${attrs}><span class="yu-disc">${yuSvg(YU_IC[ic])}</span><span class="yu-row__name">${name}</span>${meta ? `<span class="yu-row__meta">${meta}</span>` : ""}${yuSvg(YU_IC.chev, 2)}</button>`;
+  const yuSwitch = (k, title, sub) => `<div class="yu-set"><span class="yu-set__tx" id="yuL-${k}"><b>${title}</b><span>${sub}</span></span>
+    <button class="nx-switch" type="button" role="switch" data-yuset="${k}" aria-checked="${!!yuNotify()[k]}" aria-labelledby="yuL-${k}"></button></div>`;
+  const yuTop = `<div class="tb">${backBtn}${icon("back")}</button></div>`;
+
+  function yuHead(p, nm) {
+    const mail = (acct.user && acct.user.email) || p.email || "";
+    const how = p.method ? METHOD_LABEL[p.method] || "" : "";
+    return `<div class="yu-head">
+      <button class="yu-face" type="button" data-avatar aria-label="Change profile picture"><span class="eu-row__avatar ava">${meFace()}</span><i aria-hidden="true"></i></button>
+      <div class="yu-head__tx"><h2 class="yu-name" id="pName">${nm ? twoW(nm) : "Your <strong>profile</strong>"}</h2>
+        ${mail || how ? `<p class="yu-meta">${esc([mail, how].filter(Boolean).join(" · "))}</p>` : ""}</div>
+      <button class="yu-pill" type="button" data-yugo="me:account">Edit</button></div>`;
+  }
+  function yuStepsHtml() {
+    const step = (n, attrs, title, sub) => `<button class="yu-step" type="button" ${attrs}><span class="yu-step__n" aria-hidden="true">${n}</span>
+      <span class="yu-step__tx"><b>${title}</b><span>${sub}</span></span>${yuSvg(YU_IC.chev, 2)}</button>`;
+    return `<section class="yu-card" aria-labelledby="yuSetT">
+      <div class="yu-card__top"><h3 class="yu-h" id="yuSetT">Make nodo <strong>yours</strong></h3><span class="yu-meta">0 of 3</span></div>
+      <div class="yu-bar" aria-hidden="true"><i></i><i></i><i></i></div>
+      <p class="yu-lead">Each step changes what your home shows first.</p>
+      ${step(1, `data-edit="2"`, "Pick the countries you cover", "Their MEPs and each cabinet's country desk come first")}
+      ${step(2, `data-nxpick`, "Follow the files you work on", "Their next dates lead your home and your alerts")}
+      ${step(3, `data-view="people"`, "Save the people you meet", "Tap the star on any MEP, Commissioner or adviser")}
+    </section>`;
+  }
+  function yuCoverHtml(cs, fol, favs) {
+    const head = (t, n, attrs, act) => `<div class="yu-sub"><h4>${t}${n ? ` · ${n}` : ""}</h4><button class="yu-link" type="button" ${attrs}>${act}</button></div>`;
+    const t7 = addD(new Date(), 7).toISOString().slice(0, 10);
+    const countries = cs.length ? `<div class="yu-chips">${cs.length >= EU27.length ? `<span class="yu-chip">All ${EU27.length} countries</span>` : cs.map((c) => `<span class="yu-chip"><span class="yu-cc">${esc(c)}</span>${esc(countryName(c))}</span>`).join("")}</div>`
+      : `<p class="yu-empty">None yet. Their MEPs and country desks will come first.</p>`;
+    const files = fol.length ? `<div class="yu-files">${fol.map((f) => { const n = yuNext(f), soon = n && n.date <= t7;
+        return `<button class="yu-file" type="button" data-file="${esc(f.id)}"><span class="yu-file__tx"><b>${esc(f.short)}</b><span>${n ? esc(n.what.replace(/\s*\(.*?\)\s*$/, "")) + " · " + yuDate(n.date) : "No date set yet"}</span></span>${soon ? `<i class="yu-soon" role="img" aria-label="Next date within a week"></i>` : ""}</button>`; }).join("")}</div>`
+      : `<p class="yu-empty">None yet. Followed files lead your home.</p>`;
+    const by = { ep: 0, ec: 0, cab: 0 }; favs.forEach((k) => { const t = BYKEY.get(k).t; if (by[t] !== undefined) by[t]++; });
+    const mix = [by.ep && `${by.ep} ${pl(by.ep, "MEP", "MEPs")}`, by.cab && `${by.cab} cabinet`, by.ec && `${by.ec} ${pl(by.ec, "Commissioner", "Commissioners")}`].filter(Boolean).join(" · ");
+    const people = favs.length ? `<button class="yu-faces" type="button" data-view="saved" aria-label="${esc(favs.length + " saved: " + mix)}"><span class="yu-stack" aria-hidden="true">${favs.slice(0, 5).map((k) => avaOf(k)).join("")}${favs.length > 5 ? `<span class="yu-more">+${favs.length - 5}</span>` : ""}</span><span class="yu-meta">${esc(mix)}</span></button>`
+      : `<p class="yu-empty">Nobody yet. Tap the star on any profile.</p>`;
+    return `<section class="yu-card" aria-labelledby="yuCovT"><h3 class="yu-h" id="yuCovT">What you <strong>cover</strong></h3>
+      <div>${head("Countries", cs.length && cs.length < EU27.length ? cs.length : "", `data-edit="2"`, cs.length ? "Edit" : "Add")}${countries}</div>
+      <div>${head("Files you follow", fol.length, fol.length ? `data-view="files"` : "data-nxpick", fol.length ? "All files" : "Choose")}${files}</div>
+      <div>${head("Saved people", favs.length, favs.length ? `data-view="saved"` : `data-view="people"`, favs.length ? "See all" : "Find people")}${people}</div>
+    </section>`;
+  }
+  openMe = function (keepScroll) {
+    state.open = "me";
+    const p = state.profile || {}, nm = state.me.name || p.name || "";
+    const fol = followedFiles(), cs = p.countries || [], favs = [...state.favs].filter((k) => BYKEY.has(k));
+    const top = $("profile").scrollTop;
+    const on = yuOn();
+    const sync = acct.user ? ({ synced: "Synced across your devices", syncing: "Syncing…", offline: "Offline. Syncs when you are back", error: "Sync paused. Will retry" }[Store.status] || "Syncing…") : "Saved in this browser";
+    showProfile(`${yuTop}<div class="yu">
+      ${yuHead(p, nm)}
+      ${!cs.length && !fol.length && !favs.length ? yuStepsHtml() : yuCoverHtml(cs, fol, favs)}
+      <section aria-labelledby="yuSetH"><h3 class="yu-cap" id="yuSetH">Settings</h3><div class="yu-list">
+        ${yuRow(`data-yugo="me:notify"`, "bell", "Notifications", on ? `${on} on` : "Off")}
+        ${yuRow(`data-yugo="me:account"`, "user", "Account and privacy")}
+        ${yuRow(`data-tour-start`, "route", "Take the tour", "1 min")}
+        ${yuRow(`data-view="about"`, "info", "About nodo and feedback")}
+      </div></section>
+      <div class="yu-end">${acct.user || p.method ? `<button class="eu-btn eu-btn--outline" id="outBtn" type="button">Sign out</button>` : `<button class="eu-btn eu-btn--brand" id="inBtn" type="button">Sign in or create an account</button>`}
+        <p class="yu-meta yu-sync">${Store.status === "synced" && acct.user ? yuSvg(YU_IC.tick, 2.2) : ""}${esc(sync)}</p></div>
+    </div>`);
+    if (keepScroll) $("profile").scrollTop = top;
+    if ($("outBtn")) $("outBtn").onclick = signOut;
+    if ($("inBtn")) $("inBtn").onclick = () => openOnb(0, false);
+  };
+
+  function yuOpenNotify() {
+    state.open = "me:notify";
+    showProfile(`${yuTop}<div class="yu">
+      <div><h2 class="yu-title" id="pName">Tell me <strong>when</strong></h2><p class="yu-lead">nodo alerts you only when something changes on what you follow.</p></div>
+      <section aria-labelledby="yuN1"><h3 class="yu-cap" id="yuN1">On your phone</h3><div class="yu-list">
+        ${yuSwitch("alerts", "Files you follow", "New dates, stage changes, new rapporteurs")}
+        ${yuSwitch("people", "People you saved", "New role, committee seat or replacement")}
+        ${yuSwitch("agenda", "Plenary agenda", "When the draft agenda is published")}
+        ${yuSwitch("cabinets", "Cabinets for your countries", "Arrivals and departures in Commission cabinets")}
+      </div></section>
+      <section aria-labelledby="yuN2"><h3 class="yu-cap" id="yuN2">By email</h3><div class="yu-list">
+        ${yuSwitch("weekly", "Monday email", "What moved on your files last week")}
+      </div></section>
+      <section aria-labelledby="yuN3"><h3 class="yu-cap" id="yuN3">Quiet hours</h3><div class="yu-list">
+        ${yuSwitch("quietEve", "Evenings", "Hold alerts from 20:00 to 08:00")}
+        ${yuSwitch("quietWkd", "Weekends", "Hold alerts on Saturday and Sunday")}
+      </div></section>
+      <p class="yu-note"><i aria-hidden="true"></i>In testing: your choices are saved, nothing is sent yet. Times are Brussels time.</p>
+    </div>`);
+  }
+
+  function yuOpenAccount() {
+    state.open = "me:account";
+    const p = state.profile || {}, nm = String(state.me.name || p.name || "").trim();
+    const first = nm.split(/\s+/)[0] || "", last = nm.split(/\s+/).slice(1).join(" ");
+    const mail = (acct.user && acct.user.email) || p.email || "";
+    const chev = yuSvg(YU_IC.chev, 2);
+    showProfile(`${yuTop}<div class="yu">
+      <h2 class="yu-title" id="pName">Account and <strong>privacy</strong></h2>
+      <div class="yu-photo"><button class="yu-face" type="button" data-avatar aria-label="Change profile picture"><span class="eu-row__avatar ava">${meFace()}</span></button>
+        <div><button class="yu-pill" type="button" data-avatar>${chosenFace() ? "Change photo" : "Add a photo"}</button><p class="yu-meta">Only you see it</p></div></div>
+      <section aria-labelledby="yuA1"><h3 class="yu-cap" id="yuA1">Your name</h3><div class="yu-list yu-form">
+        <div class="field"><label for="yuFirst">First name</label><input id="yuFirst" value="${esc(first)}" autocomplete="given-name"></div>
+        <div class="field"><label for="yuLast">Last name</label><input id="yuLast" value="${esc(last)}" autocomplete="family-name"></div>
+        <button class="eu-btn eu-btn--brand eu-btn--block" id="yuSaveName" type="button">Save name</button>
+      </div></section>
+      <section aria-labelledby="yuA2"><h3 class="yu-cap" id="yuA2">Sign-in</h3><div class="yu-list">
+        <div class="yu-set"><span class="yu-set__tx"><b>${esc(mail || "No email on file")}</b><span>${p.method ? "Signed in with " + esc(METHOD_LABEL[p.method] || "your account") : acct.user ? "Signed in" : "Not signed in"}</span></span></div>
+      </div></section>
+      <section aria-labelledby="yuA3"><h3 class="yu-cap" id="yuA3">Your data</h3><div class="yu-list">
+        <button class="yu-set yu-set--go" type="button" id="yuExp"><span class="yu-set__tx"><b>Download your data</b><span>Profile, saved people, lists and files you follow</span></span>${chev}</button>
+        <button class="yu-set yu-set--go" type="button" id="yuWhat"><span class="yu-set__tx"><b>What nodo stores</b><span>And who can read it</span></span>${chev}</button>
+      </div></section>
+      <div class="yu-end" id="yuDelBox">${acct.user ? `<button class="eu-btn eu-btn--outline danger" id="yuDel" type="button">Delete account</button><p class="yu-meta">Removes your account and everything you saved, on every device.</p>` : ""}</div>
+    </div>`);
+    $("yuSaveName").onclick = () => {
+      const n = [$("yuFirst").value, $("yuLast").value].map((x) => x.trim()).filter(Boolean).join(" ");
+      if (!n) { $("yuFirst").focus(); return toast("Add your first name"); }
+      state.profile = { ...(state.profile || {}), name: n }; saveProfile(); identityChanged();
+      toast("Name saved");
+    };
+    $("yuExp").onclick = exportData;
+    $("yuWhat").onclick = openDataSheet;
+    if ($("yuDel")) $("yuDel").onclick = () => {
+      $("yuDelBox").innerHTML = `<div class="block"><p>This permanently deletes your account, your profile, saved people and file lists on every device. It cannot be undone.</p>
+        <div class="acts"><button class="eu-btn" id="yuNoDel" type="button">Keep my account</button><button class="eu-btn eu-btn--ink" id="yuYesDel" type="button">Delete everything</button></div></div>`;
+      $("yuNoDel").onclick = () => { const t = $("profile").scrollTop; yuOpenAccount(); $("profile").scrollTop = t; };
+      $("yuYesDel").onclick = deleteAccount;
+    };
+  }
+
+  const yuRouteBase = openRoute;
+  openRoute = function (key) {
+    if (key === "me:notify") return yuOpenNotify();
+    if (key === "me:account") return yuOpenAccount();
+    return yuRouteBase(key);
+  };
+  document.addEventListener("click", (e) => {
+    const t = e.target;
+    const g = t.closest("[data-yugo]"); if (g) return openRoute(g.dataset.yugo);
+    const s = t.closest("[data-yuset]");
+    if (s) {
+      const k = s.dataset.yuset;
+      if (!state.profile) state.profile = {};
+      const n = yuNotify(); n[k] = !n[k];
+      state.profile.notify = n; saveProfile();
+      Track.log("notify", { section: k, item: n[k] ? "on" : "off" });
+      s.setAttribute("aria-checked", String(n[k]));
+      if (YU_NOTE[k]) toast(n[k] ? "On (testing, nothing is sent yet)" : "Off");
+    }
+  });
+  /* The profile refreshes when a step done from it changes what it shows (files picked, countries or name saved). */
+  const yuPickBase = nxPickDone, yuIdBase = identityChanged;
+  const yuRefresh = () => { if (state.open === "me" && !$("profile").hidden) openMe(true); };
+  nxPickDone = function () { const r = yuPickBase.apply(this, arguments); yuRefresh(); return r; };
+  identityChanged = function () { const r = yuIdBase.apply(this, arguments); yuRefresh(); return r; };
