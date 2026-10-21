@@ -47,7 +47,9 @@ jobs:
           QF=$(ls v1/activity/q 2>/dev/null | wc -l)
           node scripts/status-data.mjs > "$RUNNER_TEMP/data.json"
           # The three largest tracked files, for the admin console's size meter (GitHub refuses a file over 100 MB).
-          git ls-files -z | xargs -0 stat -c '%s %n' 2>/dev/null | sort -rn | head -3 \
+          # Sorted into a file first: with pipefail, `sort | head` fails when head closes the pipe early.
+          git ls-files -z | xargs -0 stat -c '%s %n' 2>/dev/null | sort -rn > "$RUNNER_TEMP/sizes.txt"
+          head -3 "$RUNNER_TEMP/sizes.txt" \
             | jq -R 'capture("^(?<bytes>[0-9]+) (?<path>.+)$") | .bytes |= tonumber' | jq -s '{ largest: . }' > "$RUNNER_TEMP/sizes.json"
           jq -n \
             --slurpfile runs "$RUNNER_TEMP/runs.json" \
