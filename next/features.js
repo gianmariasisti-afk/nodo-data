@@ -92,7 +92,7 @@
       act = `<button class="eu-btn eu-btn--on-deep" type="button" data-view="cal">Open the calendar${icon("arrow")}</button>
         <span class="ed-act__cap">${esc(np ? `Next plenary: ${PLACE[np.place]}, ${p.s}` : p.t)}</span>`;
     }
-    return `<div class="ed-week__head"><h2 class="ed-week__t">${edAhead() ? "Next week" : "This week"}</h2><span class="ed-week__w">Week ${isoWeek(mon)}</span></div>
+    return `<div class="ed-week__head"><h2 class="ed-week__t">${edAhead() ? "Next week" : "This week"}</h2></div>
       <p class="ed-week__lead">${esc(wk.lead)}</p>
       <div class="ed-strip" aria-hidden="true"><span class="ed-strip__thread"></span>${days.map(col).join("")}</div>
       ${bar}
@@ -177,7 +177,7 @@
       const count = n ? [`${n} ${n === 1 ? "item" : "items"}`, nf ? `${nf} ${nf === 1 ? "file" : "files"}` : ""].filter(Boolean).join(" · ") : "Nothing dated yet";
       const title = `Week of ${w.mon.getDate()} ${fmtD(w.mon, { month: "short" })}`, more = n - 3;
       return `<section class="ed-wk" aria-label="${esc(`${title}, ${count}`)}">
-        <div class="ed-wk__h"><span class="ed-wk__t">${esc(title)}</span><span class="ed-wk__c">${esc(["Week " + isoWeek(w.mon), kind].filter(Boolean).join(" · "))}</span><span class="ed-wk__c">${esc(count)}</span></div>
+        <div class="ed-wk__h"><span class="ed-wk__t">${esc(title)}</span><span class="ed-wk__c">${esc(kind || "")}</span><span class="ed-wk__c">${esc(count)}</span></div>
         ${n ? w.list.slice(0, 3).map(it).join("") : `<p class="ed-wk__none">${sc.mine ? "No dated step on your files this week." : "No dated step on nodo's files this week."}</p>`}
         ${more > 0 ? `<button class="ed-wk__more" type="button" data-view="cal">${more} more in the calendar</button>` : ""}</section>`;
     };
@@ -262,7 +262,7 @@
   function edRender() {
     if (!$("edMast")) return;
     const now = new Date();
-    $("edDate").textContent = `${now.toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" })} · Week ${isoWeek(now)}`;
+    $("edDate").textContent = `${now.toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" })}`;
     renderGreeting();
     $("edWeek").innerHTML = edWeekHtml();
     $("edFiles").innerHTML = edFilesHtml();
@@ -527,7 +527,7 @@
     function nxOpen() {
       nxSync();
       const wk = weekOf(edMonday()), phrase = ED_WEEK[wk.place || wk.kind];
-      $("nxWeek").textContent = `Week ${isoWeek(edMonday())}${phrase ? " · " + phrase.replace(/^an? /, "").replace(/^./, (c) => c.toUpperCase()) : ""}`;
+      $("nxWeek").textContent = phrase ? phrase.replace(/^an? /, "").replace(/^./, (c) => c.toUpperCase()) : "";
       $("nxFace").innerHTML = $("meBtn").innerHTML;
       const fn = firstName(); $("nxName").textContent = fn || "Your profile";
       scrim.hidden = false; menu.hidden = false;

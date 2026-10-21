@@ -84,6 +84,10 @@ const html = patch(readFileSync(join(ROOT, "index.html"), "utf8"), "index.html",
   ["delegation foot", "The names you add are saved on this device only.", "The names you add are saved to your account."],
   ["council note", "Any other name is one you added, saved on this device.", "Any other name is one you added, saved to your account."],
   ["sheet note 2", '"Saved on this device. Check a name', '"Saved to your account. Check a name'],
+  /* No week numbers anywhere (21 Oct 2026). */
+  ["no week: calendar hero", "This week in Parliament · W${isoWeek(mon)}", "This week in Parliament"],
+  ["no week: calendar rows", "</b><span>W${isoWeek(w)}</span></div>", "</b></div>"],
+  ["no week: calendar eyebrow", "This week · W${isoWeek(mon)} · ", "This week · "],
   ["marker", "</body>", gate],
   /* The preview's features (next/features.js, next/features.css) run inside the app's script, just before start-up. */
   ["features", "  initHome(); initEp(); initEc();", () => readFileSync(join(OUT, "features.js"), "utf8") + "\n  initHome(); initEp(); initEc();"],

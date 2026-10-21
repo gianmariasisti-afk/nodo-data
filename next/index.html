@@ -1911,7 +1911,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const tail = np.n === "Now" ? np.s : np.n === "–" ? np.t : `${np.t}, in ${np.n} ${np.u}`;
     $("metaCal").innerHTML = `<span>${esc(wk.label)}</span><span>${esc(np.n === "Now" ? "Plenary in session" : np.n === "–" ? "No plenary scheduled" : `Plenary in ${np.n} ${np.u}`)}</span>`;
     $("homeCal").innerHTML = `<section class="eu-hero">
-      <div class="eu-hero__eyebrow">This week in Parliament · W${isoWeek(mon)}</div>
+      <div class="eu-hero__eyebrow">This week in Parliament</div>
       <h2 class="eu-hero__title">${heroTitle(wk)}</h2>
       <p class="eu-hero__text">${esc(wk.where ? wk.label + ". " : "")}${esc(tail)}.</p>
       <button class="eu-btn eu-btn--on-deep" type="button" data-view="cal">Open the calendar</button></section>`;
@@ -1935,7 +1935,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       if (addD(w, 3).getMonth() !== m) continue;
       const wk = weekOf(w);
       const sub = wk.kind === "P" ? (wk.place === "SXB" ? "MEPs in Strasbourg" : "MEPs in Brussels") : wk.kind === "C" || wk.kind === "G" ? "MEPs in Brussels" : wk.kind === "X" ? "MEPs away from Brussels" : "";
-      rows += `<div class="wk${isoD(w) === isoD(mon) ? " cur" : ""}"><div class="wd"><b>${esc(rangeTxt(w, addD(w, 6)))}</b><span>W${isoWeek(w)}</span></div>
+      rows += `<div class="wk${isoD(w) === isoD(mon) ? " cur" : ""}"><div class="wd"><b>${esc(rangeTxt(w, addD(w, 6)))}</b></div>
         <div class="cells">${wk.days.map((x) => cellHtml(x, today)).join("")}</div>
         <div class="wl">${esc(wk.label)}${sub ? `<small>${esc(sub)}</small>` : ""}</div>${councilWeek(w)}</div>`;
     }
@@ -1977,7 +1977,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const today = new Date(), mon = mondayOf(today), wk = weekOf(mon), np = plenaryLine(nextPlenary(today), today);
     const yr = String(today.getFullYear()), ys = CAL.sessions.filter((s) => s.start.slice(0, 4) === yr), held = ys.filter((s) => s.end < isoD(today)).length;
     $("calNow").innerHTML = `<section class="eu-hero">
-        <div class="eu-hero__eyebrow">This week · W${isoWeek(mon)} · ${esc(fmtD(mon))} – ${esc(fmtD(addD(mon, 6)))}</div>
+        <div class="eu-hero__eyebrow">This week · ${esc(fmtD(mon))} – ${esc(fmtD(addD(mon, 6)))}</div>
         <h2 class="eu-hero__title">${heroTitle(wk)}</h2>
         <p class="eu-hero__text">${esc(wk.label)}. ${esc(wk.lead)}</p>${councilWeek(mon, true)}</section>
       <div class="strip5">${wk.days.slice(0, 5).map((x) => `<div class="d5${x.k === isoD(today) ? " today" : ""}"><small>${esc(fmtD(x.d, { weekday: "short" }))}</small><b>${x.d.getDate()}</b>
@@ -4790,7 +4790,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       act = `<button class="eu-btn eu-btn--on-deep" type="button" data-view="cal">Open the calendar${icon("arrow")}</button>
         <span class="ed-act__cap">${esc(np ? `Next plenary: ${PLACE[np.place]}, ${p.s}` : p.t)}</span>`;
     }
-    return `<div class="ed-week__head"><h2 class="ed-week__t">${edAhead() ? "Next week" : "This week"}</h2><span class="ed-week__w">Week ${isoWeek(mon)}</span></div>
+    return `<div class="ed-week__head"><h2 class="ed-week__t">${edAhead() ? "Next week" : "This week"}</h2></div>
       <p class="ed-week__lead">${esc(wk.lead)}</p>
       <div class="ed-strip" aria-hidden="true"><span class="ed-strip__thread"></span>${days.map(col).join("")}</div>
       ${bar}
@@ -4875,7 +4875,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       const count = n ? [`${n} ${n === 1 ? "item" : "items"}`, nf ? `${nf} ${nf === 1 ? "file" : "files"}` : ""].filter(Boolean).join(" · ") : "Nothing dated yet";
       const title = `Week of ${w.mon.getDate()} ${fmtD(w.mon, { month: "short" })}`, more = n - 3;
       return `<section class="ed-wk" aria-label="${esc(`${title}, ${count}`)}">
-        <div class="ed-wk__h"><span class="ed-wk__t">${esc(title)}</span><span class="ed-wk__c">${esc(["Week " + isoWeek(w.mon), kind].filter(Boolean).join(" · "))}</span><span class="ed-wk__c">${esc(count)}</span></div>
+        <div class="ed-wk__h"><span class="ed-wk__t">${esc(title)}</span><span class="ed-wk__c">${esc(kind || "")}</span><span class="ed-wk__c">${esc(count)}</span></div>
         ${n ? w.list.slice(0, 3).map(it).join("") : `<p class="ed-wk__none">${sc.mine ? "No dated step on your files this week." : "No dated step on nodo's files this week."}</p>`}
         ${more > 0 ? `<button class="ed-wk__more" type="button" data-view="cal">${more} more in the calendar</button>` : ""}</section>`;
     };
@@ -4960,7 +4960,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   function edRender() {
     if (!$("edMast")) return;
     const now = new Date();
-    $("edDate").textContent = `${now.toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" })} · Week ${isoWeek(now)}`;
+    $("edDate").textContent = `${now.toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" })}`;
     renderGreeting();
     $("edWeek").innerHTML = edWeekHtml();
     $("edFiles").innerHTML = edFilesHtml();
@@ -5225,7 +5225,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     function nxOpen() {
       nxSync();
       const wk = weekOf(edMonday()), phrase = ED_WEEK[wk.place || wk.kind];
-      $("nxWeek").textContent = `Week ${isoWeek(edMonday())}${phrase ? " · " + phrase.replace(/^an? /, "").replace(/^./, (c) => c.toUpperCase()) : ""}`;
+      $("nxWeek").textContent = phrase ? phrase.replace(/^an? /, "").replace(/^./, (c) => c.toUpperCase()) : "";
       $("nxFace").innerHTML = $("meBtn").innerHTML;
       const fn = firstName(); $("nxName").textContent = fn || "Your profile";
       scrim.hidden = false; menu.hidden = false;
@@ -6465,7 +6465,7 @@ if ("serviceWorker" in navigator && /github\.io$/.test(location.hostname)) addEv
 /* Navigation: the burger menu. The floating tab bar is hidden; a top bar carries the wordmark, your profile and Menu. */
 :root { --nx-bar: calc(env(safe-area-inset-top, 0px) + 68px); }
 .nx-burger .dock { display: none; }
-.nx-bar { position: fixed; z-index: 18; top: 0; left: 0; right: 0; padding-top: env(safe-area-inset-top, 0px); background: var(--surface); color: var(--ink); box-shadow: 0 1px 0 var(--hairline); }
+.nx-bar { position: absolute; z-index: 18; top: 0; left: 0; right: 0; padding-top: env(safe-area-inset-top, 0px); background: var(--surface); color: var(--ink); box-shadow: 0 1px 0 var(--hairline); }
 .nx-bar__in { width: min(520px, 100%); margin-inline: auto; box-sizing: border-box; height: 68px; padding: 0 var(--space-4); display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); }
 .nx-home { display: flex; align-items: center; height: 44px; padding: 0; border: 0; background: none; color: inherit; cursor: pointer; }
 .nx-home .wordmark, .nx-menu__wm .wordmark { display: block; width: 92px; height: auto; }
@@ -6482,10 +6482,12 @@ if ("serviceWorker" in navigator && /github\.io$/.test(location.hostname)) addEv
 .nx-on-home .nx-bar .wm-node { fill: var(--node-on-deep); }
 .nx-on-home .nx-menubtn { background: var(--on-brand-deep); color: var(--brand-deep); }
 .nx-on-home .nx-menubtn:focus-visible, .nx-on-home .nx-home:focus-visible { outline-color: var(--on-brand-deep); }
+/* 21 Oct: the bar scrolls with the page (position: absolute), so iOS 26 has no fixed bar to blur under the status bar; the page padding no longer counts the safe area twice. */
 /* iOS 26 paints a blurred edge under the status bar from the page background when a fixed top bar differs from it (WebKit bug 305546). On Today the page background is the deep ground too, so there is nothing to blur. */
 html:has(body.nx-on-home) { background: var(--brand-deep); }
-.nx-burger .view { padding-top: calc(var(--nx-bar) + var(--space-4)); padding-bottom: calc(env(safe-area-inset-bottom, 0px) + var(--space-12, 48px)); }
-.nx-burger .ed-mast { margin-top: calc(-1 * (var(--nx-bar) + var(--space-4))); padding-top: calc(var(--nx-bar) + var(--space-2)); }
+.nx-burger .view { padding-top: calc(68px + var(--space-4)); padding-bottom: calc(env(safe-area-inset-bottom, 0px) + var(--space-12, 48px)); }
+.nx-burger .ed-mast { margin-top: calc(-1 * (var(--nx-bar) + var(--space-4))); padding-top: calc(var(--nx-bar) + var(--space-1)); }
+.nx-burger .ed-eyebrow { margin-top: var(--space-2); }
 @media (min-width: 600px) { .nx-burger .ed-mast { margin-top: 0; padding-top: var(--space-5); } }
 .nx-burger .ed-mast .topbar { display: none; }
 /* The drawer */

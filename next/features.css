@@ -137,7 +137,7 @@
 /* Navigation: the burger menu. The floating tab bar is hidden; a top bar carries the wordmark, your profile and Menu. */
 :root { --nx-bar: calc(env(safe-area-inset-top, 0px) + 68px); }
 .nx-burger .dock { display: none; }
-.nx-bar { position: fixed; z-index: 18; top: 0; left: 0; right: 0; padding-top: env(safe-area-inset-top, 0px); background: var(--surface); color: var(--ink); box-shadow: 0 1px 0 var(--hairline); }
+.nx-bar { position: absolute; z-index: 18; top: 0; left: 0; right: 0; padding-top: env(safe-area-inset-top, 0px); background: var(--surface); color: var(--ink); box-shadow: 0 1px 0 var(--hairline); }
 .nx-bar__in { width: min(520px, 100%); margin-inline: auto; box-sizing: border-box; height: 68px; padding: 0 var(--space-4); display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); }
 .nx-home { display: flex; align-items: center; height: 44px; padding: 0; border: 0; background: none; color: inherit; cursor: pointer; }
 .nx-home .wordmark, .nx-menu__wm .wordmark { display: block; width: 92px; height: auto; }
@@ -154,10 +154,12 @@
 .nx-on-home .nx-bar .wm-node { fill: var(--node-on-deep); }
 .nx-on-home .nx-menubtn { background: var(--on-brand-deep); color: var(--brand-deep); }
 .nx-on-home .nx-menubtn:focus-visible, .nx-on-home .nx-home:focus-visible { outline-color: var(--on-brand-deep); }
+/* 21 Oct: the bar scrolls with the page (position: absolute), so iOS 26 has no fixed bar to blur under the status bar; the page padding no longer counts the safe area twice. */
 /* iOS 26 paints a blurred edge under the status bar from the page background when a fixed top bar differs from it (WebKit bug 305546). On Today the page background is the deep ground too, so there is nothing to blur. */
 html:has(body.nx-on-home) { background: var(--brand-deep); }
-.nx-burger .view { padding-top: calc(var(--nx-bar) + var(--space-4)); padding-bottom: calc(env(safe-area-inset-bottom, 0px) + var(--space-12, 48px)); }
-.nx-burger .ed-mast { margin-top: calc(-1 * (var(--nx-bar) + var(--space-4))); padding-top: calc(var(--nx-bar) + var(--space-2)); }
+.nx-burger .view { padding-top: calc(68px + var(--space-4)); padding-bottom: calc(env(safe-area-inset-bottom, 0px) + var(--space-12, 48px)); }
+.nx-burger .ed-mast { margin-top: calc(-1 * (var(--nx-bar) + var(--space-4))); padding-top: calc(var(--nx-bar) + var(--space-1)); }
+.nx-burger .ed-eyebrow { margin-top: var(--space-2); }
 @media (min-width: 600px) { .nx-burger .ed-mast { margin-top: 0; padding-top: var(--space-5); } }
 .nx-burger .ed-mast .topbar { display: none; }
 /* The drawer */

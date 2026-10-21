@@ -58,3 +58,4 @@ Add `https://gianmariasisti-afk.github.io/nodo-data/next/` under Authentication 
 ## On the phone
 
 Open the address in Safari, sign in, then Share → Add to Home Screen. It installs as a separate app named "nodo next", next to the main nodo. A Home Screen app on iPhone keeps its own sign-in, so sign in once inside it.
+- No week numbers, a quieter top (since 21 Oct 2026): week numbers are gone everywhere (date line, week card, Coming up cards, the menu, the calendar). The top bar scrolls with the page instead of staying fixed, so iOS 26 no longer blurs the strip under the status bar, and the page no longer adds the safe area twice, which removes about 60 points of empty space above the date. When promoted, the live app's calendar drops its `W${isoWeek(…)}` labels and `.nx-bar` moves with the burger menu.
