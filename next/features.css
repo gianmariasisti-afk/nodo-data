@@ -663,3 +663,60 @@ body:has(#profile:not([hidden])) .ep-dock, body:has(#profile:not([hidden])) .ep-
 .yu-form .field input { min-height: 48px; padding: 0 14px; border: 0; border-radius: var(--radius-md); background: var(--surface); color: var(--ink); box-shadow: inset 0 0 0 1px var(--border-control); font: 500 16px/1 var(--font-sans); }
 .yu-step:focus-visible, .yu-file:focus-visible, .yu-row:focus-visible, .yu-set--go:focus-visible, .yu-faces:focus-visible, .yu-face:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; border-radius: var(--radius-md); }
 @media (prefers-reduced-motion: no-preference) { .yu-row, .yu-step, .yu-file { transition: background-color .15s ease-out; } }
+
+/* ---------- Today in light: "Paper" (since 21 Oct 2026) ----------
+   In the light theme the masthead and the Today page sit on a warm paper ground with navy ink; the dark theme keeps the
+   deep blue masthead. Every rule above that paints the masthead reads these --ed-* values, set here for light and
+   reset to the deep values for dark. */
+:root {
+  --ed-ground: #F7F5EF; --ed-ink: var(--ink); --ed-muted: var(--ink-muted); --ed-gold: #8A5F00;
+  --ed-node: #EAB83A; --ed-node-ring: var(--ink); --ed-wm-node: #B97C00;
+  --ed-card: var(--surface); --ed-card-edge: #E4E0D4; --ed-gap: var(--surface); --ed-thread: #D9D5C8;
+  --ed-day: var(--surface); --ed-day-edge: var(--border-control); --ed-day-p: var(--ink); --ed-past: 1; --ed-past-ink: var(--ink-muted);
+  --ed-ev: #F7F5EF; --ed-btn: var(--ink); --ed-on-btn: var(--ink-inverse); --ed-search-edge: var(--border-control);
+  --ed-menu: var(--surface); --ed-on-menu: var(--ink); --ed-menu-edge: var(--ink); --ed-focus: var(--focus-ring);
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --ed-ground: var(--brand-deep); --ed-ink: var(--on-brand-deep); --ed-muted: var(--on-brand-deep-muted); --ed-gold: var(--node-on-deep);
+  --ed-node: var(--node-on-deep); --ed-node-ring: var(--node-on-deep); --ed-wm-node: var(--node-on-deep);
+  --ed-card: rgba(255,255,255,.08); --ed-card-edge: rgba(255,255,255,.14); --ed-gap: var(--brand-deep); --ed-thread: rgba(255,255,255,.22);
+  --ed-day: var(--brand-deep); --ed-day-edge: rgba(255,255,255,.55); --ed-day-p: var(--on-brand-deep); --ed-past: .6; --ed-past-ink: inherit;
+  --ed-ev: var(--surface); --ed-btn: var(--on-brand-deep); --ed-on-btn: var(--brand-deep); --ed-search-edge: transparent;
+  --ed-menu: var(--on-brand-deep); --ed-on-menu: var(--brand-deep); --ed-menu-edge: transparent; --ed-focus: var(--on-brand-deep);
+} }
+:root[data-theme="dark"] {
+  --ed-ground: var(--brand-deep); --ed-ink: var(--on-brand-deep); --ed-muted: var(--on-brand-deep-muted); --ed-gold: var(--node-on-deep);
+  --ed-node: var(--node-on-deep); --ed-node-ring: var(--node-on-deep); --ed-wm-node: var(--node-on-deep);
+  --ed-card: rgba(255,255,255,.08); --ed-card-edge: rgba(255,255,255,.14); --ed-gap: var(--brand-deep); --ed-thread: rgba(255,255,255,.22);
+  --ed-day: var(--brand-deep); --ed-day-edge: rgba(255,255,255,.55); --ed-day-p: var(--on-brand-deep); --ed-past: .6; --ed-past-ink: inherit;
+  --ed-ev: var(--surface); --ed-btn: var(--on-brand-deep); --ed-on-btn: var(--brand-deep); --ed-search-edge: transparent;
+  --ed-menu: var(--on-brand-deep); --ed-on-menu: var(--brand-deep); --ed-menu-edge: transparent; --ed-focus: var(--on-brand-deep);
+}
+/* Page and bar: one paper ground under the status bar, the bar and the masthead. */
+body.nx-on-home { --ground: var(--ed-ground); }
+html:has(body.nx-on-home) { background: var(--ed-ground); }
+.nx-on-home .nx-bar { background: var(--ed-ground); color: var(--ed-ink); }
+.nx-on-home .nx-bar .wordmark { color: var(--ed-ink); }
+.nx-on-home .nx-bar .wm-node { fill: var(--ed-wm-node); }
+.nx-on-home .nx-menubtn { background: var(--ed-menu); color: var(--ed-on-menu); box-shadow: inset 0 0 0 1.5px var(--ed-menu-edge); }
+.nx-on-home .nx-menubtn:focus-visible, .nx-on-home .nx-home:focus-visible { outline-color: var(--ed-focus); }
+/* Masthead */
+.ed-mast { background: var(--ed-ground); color: var(--ed-ink); }
+.ed-mast .wordmark, .ed-mast h1.eu-headline { color: var(--ed-ink); }
+.ed-mast .wm-node { fill: var(--ed-wm-node); }
+.ed-eyebrow, .ed-day.is-today .ed-day__w { color: var(--ed-gold); }
+.ed-mast .eu-search { box-shadow: inset 0 0 0 1.5px var(--ed-search-edge); }
+.ed-mast .eu-search:focus-within { outline-color: var(--ed-focus); }
+/* Week card */
+.ed-week { background: var(--ed-card); box-shadow: inset 0 0 0 1px var(--ed-card-edge); }
+.ed-week__w, .ed-week__lead, .ed-day__w, .ed-week__none, .ed-act__cap { color: var(--ed-muted); }
+.ed-strip__thread { background: var(--ed-thread); }
+.ed-day__node { border-color: var(--ed-day-edge); background: var(--ed-day); }
+.ed-day__node.is-p { background: var(--ed-day-p); }
+.ed-day.is-past .ed-day__n, .ed-day.is-past .ed-day__w { opacity: var(--ed-past); color: var(--ed-past-ink); }
+.ed-day.is-today .ed-day__node { background: var(--ed-node); box-shadow: 0 0 0 3px var(--ed-gap), 0 0 0 5px var(--ed-node-ring); }
+.ed-ev { background: var(--ed-ev); }
+.ed-ev:focus-visible { outline-color: var(--ed-focus); }
+.ed-more { color: var(--ed-ink); }
+.ed-mast .eu-btn--on-deep { background: var(--ed-btn); color: var(--ed-on-btn); }
+.ed-mast .eu-btn--on-deep:focus-visible { outline-color: var(--ed-focus); }
