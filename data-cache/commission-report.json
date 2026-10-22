@@ -1,5 +1,5 @@
 {
- "run": "2026-10-21T09:37:35.566Z",
+ "run": "2026-10-22T09:37:25.220Z",
  "college": {
   "found": 26,
   "added": [],
@@ -11,10 +11,15 @@
   },
   "teresa-ribera": {
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/teresa-ribera/teresa-riberas-team_en",
-   "parsed": 21,
+   "parsed": 22,
    "existing": 21,
-   "added": [],
-   "removed": []
+   "added": [
+    "Luca Perez",
+    "Elisabet Mate"
+   ],
+   "removed": [
+    "Elisabeth Martin"
+   ]
   },
   "henna-virkkunen": {
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/henna-virkkunen/henna-virkkunens-team_en",
@@ -152,15 +157,9 @@
   "dan-jorgensen": {
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/dan-jorgensen/dan-jorgensens-team_en",
    "parsed": 18,
-   "existing": 16,
-   "added": [
-    "Anne-Maud Orlinski",
-    "Christine Møller Nielsen",
-    "Päivi Roybin"
-   ],
-   "removed": [
-    "Kamil Talbi"
-   ]
+   "existing": 18,
+   "added": [],
+   "removed": []
   },
   "ekaterina-zaharieva": {
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/ekaterina-zaharieva/ekaterina-zaharievas-team_en",
@@ -194,100 +193,231 @@
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/glenn-micallef/glenn-micallefs-team_en",
    "parsed": 14,
    "existing": 14,
-   "added": [
-    "Tamara Javorcikova"
-   ],
-   "removed": [
-    "Johanna Bernsel"
-   ]
+   "added": [],
+   "removed": []
   }
  },
  "autonomy": {
-  "applied": false,
-  "waits": [
-   "11 changes in one run (limit 5)",
-   "senior role: Agata Dziarnowska (glenn-micallef), Member → DEPUTY HEAD OF CABINET",
-   "senior role: Johanna Bernsel (glenn-micallef), Deputy Head of Cabinet"
-  ]
+  "applied": true,
+  "waits": []
  },
- "auto": [],
- "structural": [
+ "auto": [
   {
-   "type": "role",
-   "commissioner": "dan-jorgensen",
-   "name": "Aleksander Vigne",
-   "from": "Personal Assistant / Member",
-   "to": "MEMBER"
+   "commissioner": "teresa-ribera",
+   "name": "Aleksandra Baranska",
+   "fields": [
+    "outside"
+   ],
+   "diff": {
+    "outside": {
+     "from": [
+      "Energy Intensive Industries",
+      "Coordination with OECD",
+      "GRI back-up"
+     ],
+     "to": [
+      "Energy Intensive Industries",
+      "Coordination with OECD",
+      "GRI back-up",
+      "Green finance/ Taxonomy/European Semester/ financial stability, financial services and Capital Markets Union /relations with EIB; relations with FISMA and ECFIN; coordination with Cabinets Albuquerque and Dombrovskis"
+     ]
+    }
+   }
   },
   {
-   "type": "role",
-   "commissioner": "dan-jorgensen",
-   "name": "Astrid Leborgne",
-   "from": "Assistant to Anne Katherina Weidenbach and Kamil Talbi",
-   "to": "ASSISTANT TO ANNE KATHERINA WEIDENBACH AND ANNE-MAUD ORLINSKI"
+   "commissioner": "teresa-ribera",
+   "name": "Thomas Woolfson",
+   "fields": [
+    "outside"
+   ],
+   "diff": {
+    "outside": {
+     "from": [
+      "Industry: Clean Tech, critical raw materials",
+      "Trade: Economic security",
+      "EU-UK relations coordinator",
+      "Defence and space",
+      "Coordination with Cabinets Séjourné (DG GROW), Šefčovič (DG TRADE)",
+      "Coordination with RTD and JRC"
+     ],
+     "to": [
+      "Industry: Clean Tech, critical raw materials",
+      "Trade: Economic security",
+      "EU-UK relations coordinator",
+      "Defence and space",
+      "Coordination with Cabinets Séjourné (DG GROW), Šefčovič (DG TRADE)",
+      "Coordination with RTD and JRC",
+      "Multiannual Financial Framework for a Clean, Just and Competitive Transition (except European Competitiveness Fund), relations with BUDG and coordination with Cabinet Serafin"
+     ]
+    }
+   }
   },
   {
-   "type": "added",
-   "commissioner": "dan-jorgensen",
-   "name": "Anne-Maud Orlinski",
-   "role": "MEMBER"
+   "commissioner": "teresa-ribera",
+   "name": "Julia Lemke",
+   "fields": [
+    "note",
+    "outside",
+    "countries"
+   ],
+   "diff": {
+    "note": {
+     "from": "",
+     "to": "absent"
+    },
+    "outside": {
+     "from": [
+      "Financial stability",
+      "Financial services and Capital Markets Union (FISMA)",
+      "Budget (BUDG)",
+      "Humanitarian aid (ECHO)",
+      "International partnerships (INTPA)",
+      "Neighbourhood",
+      "Coordination with Cabinets Hoekstra (DG TAXUD), Roswall (DG ENV), Albuquerque (DG FISMA), Dombrovskis (DG ECFIN)",
+      "Coordination with the Council and the EEAS"
+     ],
+     "to": []
+    },
+    "countries": {
+     "from": [
+      "DE",
+      "AT",
+      "IT"
+     ],
+     "to": []
+    }
+   }
   },
   {
-   "type": "added",
-   "commissioner": "dan-jorgensen",
-   "name": "Christine Møller Nielsen",
-   "role": "PERSONAL ASSISTANT / MEMBER"
+   "commissioner": "teresa-ribera",
+   "name": "Petra Nemeckova",
+   "fields": [
+    "outside"
+   ],
+   "diff": {
+    "outside": {
+     "from": [
+      "Health: Pharmaceuticals and Critical Medicines Act",
+      "Transport",
+      "IP related files (not falling under other areas of responsibilities)",
+      "Infringement coordinator",
+      "Ombudsman coordination",
+      "Court of Auditors",
+      "Ethics and Transparency",
+      "Coordination with Cabinets Várhelyi (DG SANTE), Tzitzikostas (DG MOVE)"
+     ],
+     "to": [
+      "Health: Pharmaceuticals and Critical Medicines Act",
+      "Transport",
+      "IP related files (not falling under other areas of responsibilities)",
+      "Infringement coordinator",
+      "Ombudsman coordination",
+      "Court of Auditors",
+      "Ethics and Transparency",
+      "Coordination with Cabinets Várhelyi (DG SANTE), Tzitzikostas (DG MOVE)",
+      "General taxation and relations with Cabinet Hoekstra on taxation",
+      "European Competitiveness Fund"
+     ]
+    }
+   }
   },
   {
-   "type": "added",
-   "commissioner": "dan-jorgensen",
-   "name": "Päivi Roybin",
-   "role": "ASSISTANT TO STELLA KALTSOUNI AND ALEKSANDER VIGNE"
+   "commissioner": "teresa-ribera",
+   "name": "Sean Mernagh",
+   "fields": [
+    "countries"
+   ],
+   "diff": {
+    "countries": {
+     "from": [
+      "IE",
+      "GR",
+      "MT",
+      "CY"
+     ],
+     "to": [
+      "IE",
+      "GR",
+      "MT",
+      "CY",
+      "DE",
+      "AT"
+     ]
+    }
+   }
   },
   {
-   "type": "removed",
-   "commissioner": "dan-jorgensen",
-   "name": "Kamil Talbi",
-   "role": "Member"
+   "commissioner": "teresa-ribera",
+   "name": "Klevisa Ceka",
+   "fields": [
+    "resp"
+   ],
+   "diff": {
+    "resp": {
+     "from": [
+      "Local Security Officer",
+      "Organisation of missions for the Executive Vice-President",
+      "Atmos contact point"
+     ],
+     "to": [
+      "Agenda of the Executive Vice-President",
+      "Organisation of missions for the Executive Vice-President"
+     ]
+    }
+   }
   },
   {
-   "type": "role",
-   "commissioner": "glenn-micallef",
-   "name": "Agata Dziarnowska",
-   "from": "Member",
-   "to": "DEPUTY HEAD OF CABINET"
+   "commissioner": "teresa-ribera",
+   "name": "Virginie Blancher",
+   "fields": [
+    "resp"
+   ],
+   "diff": {
+    "resp": {
+     "from": [],
+     "to": [
+      "Agenda of the Executive Vice-President",
+      "Atmos contact point for missions of the Executive Vice-President",
+      "Deputy Local Security Officer"
+     ]
+    }
+   }
   },
   {
-   "type": "role",
-   "commissioner": "glenn-micallef",
-   "name": "Georgia Balla",
-   "from": "Assistant to Johanna Bernsel, Agata Dziarnowska and Stephanie Bonnici",
-   "to": "ASSISTANT TO AGATA DZIARNOWSKA AND STEPHANIE BONNICI"
-  },
-  {
-   "type": "role",
-   "commissioner": "glenn-micallef",
-   "name": "Agnieszka Breczewska Nowicka",
-   "from": "Assistant to Sevim Aktas",
-   "to": "ASSISTANT TO SEVIM AKTAS AND DESISLAVA DIMITROVA"
-  },
-  {
-   "type": "added",
-   "commissioner": "glenn-micallef",
-   "name": "Tamara Javorcikova",
-   "role": "ASSISTANT TO WENDY DUCATELLE AND MARK ANTHONY ZARB"
-  },
-  {
-   "type": "removed",
-   "commissioner": "glenn-micallef",
-   "name": "Johanna Bernsel",
-   "role": "Deputy Head of Cabinet"
+   "commissioner": "teresa-ribera",
+   "name": "Marta Jalal",
+   "fields": [
+    "resp"
+   ],
+   "diff": {
+    "resp": {
+     "from": [
+      "Human Resources and Cabinet Budget Coordination",
+      "Business Continuity Officer",
+      "Deputy Local Security Officer",
+      "Equality Officer",
+      "Trainees (Blue Book and NEPT)",
+      "Special Advisers",
+      "Digital Ambassador"
+     ],
+     "to": [
+      "Human Resources and Cabinet Budget Coordination",
+      "Business Continuity Officer",
+      "Local Security Officer",
+      "Equality Officer",
+      "Trainees (Blue Book and NEPT)",
+      "Special Advisers",
+      "Digital Ambassador"
+     ]
+    }
+   }
   }
  ],
+ "structural": [],
  "summary": {
-  "auto": 0,
-  "structural": 11,
-  "autoApplied": 0,
+  "auto": 8,
+  "structural": 0,
+  "autoApplied": 3,
   "failed": 0
  }
 }

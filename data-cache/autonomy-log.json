@@ -10,5 +10,29 @@
     "role": "DOCUMENT MANAGEMENT OFFICER (DMO)"
    }
   ]
+ },
+ {
+  "at": "2026-10-22T09:39:03.770Z",
+  "source": "commission",
+  "changes": [
+   {
+    "type": "added",
+    "commissioner": "teresa-ribera",
+    "name": "Luca Perez",
+    "role": "MEMBER"
+   },
+   {
+    "type": "added",
+    "commissioner": "teresa-ribera",
+    "name": "Elisabet Mate",
+    "role": "ASSISTANT TO ALINA NEDEA AND LUCA PEREZ"
+   },
+   {
+    "type": "removed",
+    "commissioner": "teresa-ribera",
+    "name": "Elisabeth Martin",
+    "role": "Assistant to Iolanda Marmol Lorenzo and Thomas Auger"
+   }
+  ]
  }
 ]
