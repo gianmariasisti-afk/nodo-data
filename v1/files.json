@@ -720,6 +720,11 @@
       "part": "nrpp",
       "name": "Ad Hoc Working Party on the MFF (national and regional partnerships)",
       "basis": "source"
+     },
+     {
+      "part": "global-europe",
+      "name": "Ad Hoc Working Party on the MFF (Global Europe)",
+      "basis": "source"
      }
     ]
    },

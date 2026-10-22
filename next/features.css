@@ -103,7 +103,6 @@
 /* On these files: follows the week card in view (since 20 Oct 2026). */
 .ed-room .list { margin-top: var(--space-2); }
 .ed-room__note { margin: var(--space-2) 0 0; padding: var(--space-3) 14px; border-radius: var(--radius-md); background: var(--surface-sunken); font-size: 14px; line-height: 20px; color: var(--ink); }
-.ed-room__more { min-height: 44px; margin-top: var(--space-1); padding: 0 var(--space-1); border: 0; background: none; color: var(--brand); font: 600 15px/20px var(--font-sans); cursor: pointer; }
 .ed-room__co { display: flex; flex-direction: column; gap: 2px; margin-top: var(--space-2); padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); background: var(--surface-sunken); color: var(--ink); }
 .ed-room__k { display: flex; align-items: center; gap: 8px; font: 600 12px/16px var(--font-sans); color: var(--ink-muted); }
 .ed-room__k .ed-mark { width: 10px; height: 10px; }
@@ -113,8 +112,13 @@
 .ed-room__add { display: inline; min-height: 44px; padding: 0; border: 0; background: none; color: var(--brand); font: 600 13px/18px var(--font-sans); text-decoration: underline; text-underline-offset: 2px; cursor: pointer; }
 .fp-att { margin: var(--space-2) var(--space-1) 0; font-size: 13px; line-height: 18px; color: var(--ink-muted); }
 .fp-att button { min-height: 44px; padding: 0; border: 0; background: none; color: var(--brand); font: 600 13px/18px var(--font-sans); text-decoration: underline; text-underline-offset: 2px; cursor: pointer; }
-.ed-room__files { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); }
-.ed-room__more:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; border-radius: var(--radius-pill); }
+.ed-room__files { display: flex; flex-direction: column; align-items: flex-start; margin-top: var(--space-2); }
+.ed-room__coline { display: flex; flex-direction: column; gap: 2px; width: 100%; min-height: 44px; padding: 0; border: 0; background: none; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+.ed-room__coline + .ed-room__coline { margin-top: var(--space-2); padding-top: var(--space-2); border-top: 1px solid var(--hairline); }
+.ed-room__all { min-height: 44px; margin: 0; padding: 0 var(--space-1); border: 0; background: none; color: var(--brand); font: 600 15px/20px var(--font-sans); text-align: left; cursor: pointer; }
+.ed-room__coline:focus-visible, .ed-room__all:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; border-radius: var(--radius-md); }
+.block .fp-wpfmt, .fp-wpfmt { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0 0; padding: 0; list-style: none; }
+.fp-wpfmt li { flex: 0 0 auto; width: auto; margin: 0; padding: 4px 10px; border: 1px solid var(--hairline); border-radius: var(--radius-pill); font-size: 13px; line-height: 18px; color: var(--ink); }
 .ed-dots { display: flex; justify-content: center; gap: 6px; padding-top: var(--space-3); }
 .ed-dots i { width: 8px; height: 8px; border-radius: var(--radius-pill); background: var(--border-control); opacity: .5; transition: width .15s ease-out, opacity .15s ease-out; }
 .ed-dots i.is-on { width: 20px; background: var(--ink); opacity: 1; }
@@ -825,3 +829,4 @@ html:has(body.nx-on-home) { background: var(--ed-ground); }
 .ad-chip { display: inline-flex; align-items: center; gap: 4px; min-height: 32px; padding: 0 12px; border-radius: var(--radius-pill); background: var(--surface-sunken); font-size: 13px; line-height: 16px; font-weight: 600; }
 .ad-card > .cap { margin: 0; }
 .ad-foot { margin: 0; text-align: center; }
+.fp-totab { display: inline; min-height: 44px; padding: 0; border: 0; background: none; color: var(--brand); font: inherit; font-weight: 600; text-decoration: underline; text-underline-offset: 2px; cursor: pointer; }
