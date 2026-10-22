@@ -1,26 +1,35 @@
 {
-  "generatedAt": "2026-10-21T00:00:00Z",
+  "generatedAt": "2026-10-22T00:00:00Z",
   "events": [
     {
-      "id": "digital-omnibus-data:next:2026-10-21:0e67e4",
-      "fileId": "digital-omnibus-data",
-      "date": "2026-10-21",
+      "id": "mff-2028-2034:next:2026-10-22:b1fcfd",
+      "fileId": "mff-2028-2034",
+      "date": "2026-10-22",
       "source": "nodo",
       "kind": "scheduled",
-      "title": "Coreper II: mandate for negotiations with the European Parliament (doc 13886/2/26 REV 2)",
+      "title": "Council MFF working party: Global Europe Instrument",
       "push": true,
-      "pushOn": "2026-10-21"
+      "pushOn": "2026-10-22"
     },
     {
-      "id": "digital-networks-act:ep:ITRE-PR-791994-DEPOT-2026-10-20",
+      "id": "digital-networks-act:next:2026-10-22:99e481",
       "fileId": "digital-networks-act",
-      "date": "2026-10-20",
-      "source": "ep",
-      "proc": "2026-0013",
-      "kind": "milestone",
-      "title": "Draft report tabled",
+      "date": "2026-10-22",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Council telecoms working party on the Presidency compromise text (Art. 1–12, 87–114)",
       "push": true,
-      "ref": "ITRE-PR-791994"
+      "pushOn": "2026-10-22"
+    },
+    {
+      "id": "co2-cars:next:2026-10-22:ee916f",
+      "fileId": "co2-cars",
+      "date": "2026-10-22",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "ITRE and TRAN vote their opinions (reported)",
+      "push": true,
+      "pushOn": "2026-10-22"
     }
   ]
 }
