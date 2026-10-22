@@ -71,7 +71,7 @@
      no doc or article numbers, the file named once with its institution in words, one plenary band instead of a
      thread, nodes and a chip, and one action named after what it opens. */
   const ED_HOME_TAG = { "digital-omnibus-data": "Digital Omnibus", "tech-sovereignty-package": "Chips Act 2.0 · CADA", "ai-act-implementation": "AI Act" };
-  const edTag = (f) => ED_HOME_TAG[f.id] || FILE_TAG[f.id] || f.short;
+  const edTag = (f) => ED_HOME_TAG[f.id] || f.short;
   const ED_INST = { co: "Council", ec: "Commission", ep: "Parliament" };
   /* Home wording for a step: drops a trailing reference in brackets (doc, articles) and the file's own short tag
      when the meta line already names the file. The file page keeps the full wording. */
@@ -79,6 +79,8 @@
     let w = String(s.what).replace(/\s*\((?:doc|docs|art|arts|article|articles|ST|COM|CM)\b[^)]*\)\s*$/i, "");
     const t = s.files.length === 1 && FILE_TAG[s.files[0].id];
     if (t && t.length <= 4) w = w.replace(new RegExp(`\\b${t}\\s+(?=\\S)`), "");
+    /* The meta line names the institution: "Council Audiovisual…" reads "Audiovisual…". */
+    if (/^Council\s+(?!of\b)/.test(w) && edInst(s.what) === "co") w = w.replace(/^Council\s+/, "").replace(/^./, (c) => c.toUpperCase());
     return w;
   }
   function edWeekHtml() {
@@ -176,7 +178,7 @@
     return FILES.filter((f) => !except.has(f.id) && (() => { const m = membersOf(f); return [...m.base, ...m.added].some((x) => x.key === key); })());
   }
   const edAlsoHtml = (key, except) => { const fs = edAlsoOn(key, except);
-    return fs.length ? `<span class="ed-also">Also on ${fs.map((f) => `<b>${esc(fileTag(f))}</b>`).join(", ")}</span>` : ""; };
+    return fs.length ? `<span class="ed-also">Also on ${fs.map((f) => `<b>${esc(edTag(f))}</b>`).join(", ")}</span>` : ""; };
   /* File page rows: the live fileRow, with "Also on" added at the end of the row body (before the star or remove button). */
   const edFileRow0 = fileRow;
   fileRow = (x) => {
@@ -324,20 +326,203 @@
   }
   function edRoomPaint() { const el = $("edRoom"); if (!el) return; el.innerHTML = edRoomHtml(); el.hidden = !el.innerHTML.trim(); }
 
+  /* ---------- 1b. Today, three questions (since 22 Oct 2026) ----------
+     Replaces the week card, Your files with its tracks, the Coming up carousel, Saved people and Recently viewed.
+     Each fact shows once:
+     - Since you last looked: what happened on your files (update stream milestones, procedure steps and people), dated
+       and labelled, plus decision points that took place with no published outcome ("Outcome not published yet");
+       routine working parties stay out. A closing line names the files with nothing new.
+     - Next 7 days: a rolling window from today, from tomorrow after 18:00. A strip of the seven days, the dated steps
+       with a meeting on consecutive days shown once, plenary sittings with the agenda items that carry a followed
+       file's procedure number, then "After that" and the next plenary.
+     - On these files: key people on the files with a step in the window, the no-rapporteur note and the Council line.
+     - Your files as chips. With nothing followed, the headline asks which files you work on and a picker leads.
+     The last visit is kept per device (localStorage): at most 14 days back and at least 24 hours, so a quick reopen
+     still shows the last day. */
+  const TD_WEEK = { SXB: "Plenary in Strasbourg", BRU: "Plenary in Brussels", C: "Committee week in Parliament", G: "Group week in Parliament", X: "Constituency week in Parliament", _: "Quiet week in Parliament" };
+  const TD_SEEN = "nodo.today.seen";
+  const TD_DECISION = /coreper|\bcouncil\b|ministers|\bvote|trilogue|adopt|plenary|european council|\bgac\b/i;
+  const TD_INST = { ep: "Parliament", council: "Council", co: "Council", ec: "Commission" };
+  let tdSinceD = null;
+  const tdPick = new Set();
+  function tdSinceDate() {
+    if (tdSinceD) return tdSinceD;
+    const now = new Date(); let prev = null;
+    try { prev = localStorage.getItem(TD_SEEN); } catch (e) { prev = null; }
+    let d = prev ? new Date(prev) : addD(now, -7);
+    if (isNaN(d)) d = addD(now, -7);
+    const floor = new Date(now.getTime() - 864e5), cap = addD(now, -14);
+    if (d > floor) d = floor; if (d < cap) d = cap;
+    tdSinceD = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+    try { localStorage.setItem(TD_SEEN, now.toISOString()); } catch (e) { /* private mode: the default window applies */ }
+    return tdSinceD;
+  }
+  function tdWindow() {
+    const now = new Date(), late = now.getHours() >= 18, s0 = late ? addD(now, 1) : now;
+    const start = new Date(s0.getFullYear(), s0.getMonth(), s0.getDate());
+    return { start, end: addD(start, 6), late };
+  }
+  /* The week most of the window's working days fall in, and whether it is this week. */
+  function tdWeek(w) {
+    const n = new Map();
+    for (let d = w.start; d <= w.end; d = addD(d, 1)) if (d.getDay() % 6) { const k = isoD(mondayOf(d)); n.set(k, (n.get(k) || 0) + 1); }
+    const k = [...n.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))[0];
+    const mon = k ? fromIso(k[0]) : mondayOf(w.start);
+    return { wk: weekOf(mon), now: isoD(mon) === isoD(mondayOf(new Date())) };
+  }
+  const tdProcs = (f) => [f.procedure, ...(f.procedures || []), ...((f.parts || []).map((p) => p.procedure))].filter(Boolean);
+  function tdGreeting() {
+    const h = new Date().getHours(), fn = firstName();
+    const hello = `${h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening"}${fn ? ", " + esc(fn) : ""}.`;
+    if (!followedFiles().length) return `${hello} <strong>Which files do you work on?</strong>`;
+    const t = tdWeek(tdWindow()), kind = t.wk.place || t.wk.kind, phrase = ED_WEEK[kind];
+    return `${hello} <strong>${phrase ? `${t.now ? "It's" : "Next up:"} ${phrase}.` : "Here are your next 7 days."}</strong>`;
+  }
+  renderGreeting = function () { const g = $("greet"); if (g) g.innerHTML = tdGreeting(); };
+
+  /* What happened on the files since a date. */
+  function tdSinceItems(files, since) {
+    const ids = new Set(files.map((f) => f.id)), s = isoD(since), t = isoD(new Date()), out = [], seen = new Set();
+    UPD.feed.filter((e) => ids.has(e.fileId) && e.kind !== "scheduled" && e.date && e.date >= s && e.date <= t)
+      .sort((a, b) => b.date.localeCompare(a.date))
+      .forEach((e) => {
+        const k = e.fileId + "|" + (e.personId || "") + "|" + e.title; if (seen.has(k)) return; seen.add(k);
+        out.push({ date: e.date, f: FILE_BY[e.fileId], html: evName(e).replace(/ <small>(\d+)<\/small>/, " <small>($1)</small>"), inst: TD_INST[e.source] || "", verified: e.source === "ep", src: e.source === "ep" ? "Legislative Observatory" : "" });
+      });
+    files.forEach((f) => (f.next || []).forEach((x) => {
+      if (!x.date || x.date < s || x.date >= t) return;
+      if (!TD_DECISION.test(x.what) || /working part|indicative|expected|planned/i.test(x.what)) return;
+      if (out.some((o) => o.f.id === f.id && o.date === x.date)) return;
+      out.push({ date: x.date, f, html: esc(edWhat({ what: x.what, files: [f] })), inst: TD_INST[edInst(x.what)] || "", pending: true, src: "on the meeting agenda" });
+    }));
+    return out.sort((a, b) => b.date.localeCompare(a.date));
+  }
+  const tdList = (l) => l.length < 2 ? l.join("") : l.slice(0, -1).join(", ") + " and " + l[l.length - 1];
+  function tdSinceHtml(files) {
+    const since = tdSinceDate(), items = tdSinceItems(files, since);
+    const d = (iso) => fmtD(fromIso(iso), { weekday: "short", day: "numeric", month: "short" });
+    const it = (x) => `<button class="td-row" type="button" data-file="${esc(x.f.id)}" data-filetab="next">
+        <span class="td-row__top"><span class="td-row__f">${esc(edTag(x.f))}</span><span class="td-row__d">${esc(d(x.date))}</span></span>
+        <span class="td-row__what">${x.html}</span>
+        ${x.pending ? `<span class="td-pend">${icon("warn")}Outcome not published yet</span>` : ""}
+        <span class="td-row__m">${esc([x.inst, x.src].filter(Boolean).join(" · "))}${x.verified ? ` <b class="td-ok">Verified</b>` : ""}</span></button>`;
+    const quiet = files.filter((f) => !items.some((x) => x.f.id === f.id)).map(edTag);
+    const quietTxt = !quiet.length ? "" : items.length ? (quiet.length > 4 ? `Nothing new on ${quiet.length} of your files.` : `Nothing new on ${tdList(quiet)}.`) : "Nothing new on your files.";
+    return `<div class="td-h"><h2 class="td-t" id="tdSinceH">Since you last looked</h2><span class="td-h__s">${esc(d(isoD(since)))}</span></div>
+      <p class="td-cap">What happened on your files, dated and sourced.</p>
+      ${items.slice(0, 6).map(it).join("")}
+      ${items.length > 6 ? `<button class="td-link" type="button" data-view="news">${items.length - 6} more in the news on your files</button>` : ""}
+      ${quietTxt ? `<p class="td-quiet">${esc(quietTxt)}</p>` : ""}`;
+  }
+
+  /* The steps and sittings in the window. */
+  function tdNextItems(files, w) {
+    const from = isoD(w.start), to = isoD(w.end), out = [];
+    edSteps(files, from, to).forEach((s) => {
+      const ids = s.files.map((f) => f.id).join(","), prev = out.find((y) => !y.plen && y.what === s.what && y.ids === ids && isoD(addD(fromIso(y.end), 1)) === s.date);
+      if (prev) prev.end = s.date; else out.push({ date: s.date, end: s.date, what: s.what, files: s.files, ids });
+    });
+    CAL.sessions.filter((s) => s.end >= from && s.start <= to).forEach((s) => {
+      const e = agEntry(s), hits = [];
+      Object.values(e.days || {}).forEach((l) => (l || []).forEach((it) => {
+        const f = files.find((ff) => it.sub && tdProcs(ff).some((p) => it.sub.includes(p)));
+        if (f && !hits.some((h) => h.t === it.title)) hits.push({ t: it.title, type: it.type, f });
+      }));
+      out.push({ date: s.start < from ? from : s.start, end: s.end, plen: s, hits, ready: e.stage !== "none" && agHasItems(e), upd: agUpdated(e) });
+    });
+    return out.sort((a, b) => a.date.localeCompare(b.date));
+  }
+  function tdNextHtml(files, mine) {
+    const w = tdWindow(), items = tdNextItems(files, w), t = tdWeek(w), kind = t.wk.place || t.wk.kind;
+    const tIso = isoD(new Date()), tmIso = isoD(addD(new Date(), 1));
+    const nSteps = items.filter((x) => !x.plen).length, nFiles = new Set(items.filter((x) => !x.plen).flatMap((x) => x.files.map((f) => f.id))).size;
+    const lead = `${TD_WEEK[kind] || "Parliament calendar not published"}. ${nSteps ? `${nSteps} ${pl(nSteps, "step", "steps")} on ${nFiles} of ${mine ? "your" : "nodo's"} files.` : `No dated step on ${mine ? "your" : "nodo's"} files.`}`;
+    const days = [...Array(7)].map((_, i) => addD(w.start, i)), pIdx = days.map((d, i) => (SESS.has(isoD(d)) ? i : -1)).filter((i) => i >= 0);
+    const busy = (d) => { const k = isoD(d); return items.some((x) => !x.plen && x.date <= k && x.end >= k); };
+    const col = (d, i) => { const we = d.getDay() % 6 === 0, rel = i === 0 && isoD(d) === tIso;
+      return `<div class="td-day${we ? " is-we" : ""}${rel ? " is-today" : ""}"><span class="td-day__w">${esc(fmtD(d, { weekday: "short" }).toUpperCase())}</span><span class="td-day__n">${d.getDate()}</span><i class="td-day__dot${busy(d) ? " on" : ""}"></i></div>`; };
+    const band = pIdx.length ? `<span class="td-pband" style="grid-column:${pIdx[0] + 1} / ${pIdx[pIdx.length - 1] + 2}"></span>` : "";
+    const when = (x) => { const a = fromIso(x.date), b = fromIso(x.end), same = x.date === x.end;
+      const k = same ? (x.date === tIso ? "TODAY" : x.date === tmIso ? "TOMORROW" : fmtD(a, { weekday: "short" }).toUpperCase()) : `${fmtD(a, { weekday: "short" })}–${fmtD(b, { weekday: "short" })}`.toUpperCase();
+      return `<span class="td-when"><span class="td-when__k${same && (x.date === tIso || x.date === tmIso) ? " is-rel" : ""}">${esc(k)}</span><span class="td-when__n">${same ? a.getDate() : `${a.getDate()}–${b.getDate()}`}</span></span>`; };
+    const it = (x) => x.plen
+      ? `<div class="td-ev td-ev--p"><button class="td-ev__b" type="button" data-view="${x.ready ? "agenda" : "cal"}">${when(x)}<span class="td-ev__tx"><span class="td-ev__what">Plenary in ${esc(PLACE[x.plen.place])}</span><span class="td-ev__m">${esc(x.ready ? `Parliament · agenda ${x.upd ? x.upd.toLowerCase() : "in nodo"}` : "Parliament · agenda not in nodo yet")}</span></span></button>
+          ${x.hits.map((h) => `<button class="td-hit" type="button" data-file="${esc(h.f.id)}" data-filetab="next"><span class="td-hit__k">${esc(h.type === "votes" ? "Vote" : h.type === "debate" ? "Debate" : "On the agenda")}</span><span class="td-hit__t">${esc(h.t)}</span><span class="td-ev__m">${esc(edTag(h.f))}</span></button>`).join("")}</div>`
+      : `<button class="td-ev" type="button" data-file="${esc(x.files[0].id)}" data-filetab="next">${when(x)}<span class="td-ev__tx"><span class="td-ev__what">${esc(edWhat(x))}</span><span class="td-ev__m">${esc([TD_INST[edInst(x.what)], x.files.map(edTag).join(" · ")].filter(Boolean).join(" · "))}</span></span></button>`;
+    const after = edSteps(files, isoD(addD(w.end, 1)), isoD(addD(w.end, 90)))[0];
+    const np = CAL.sessions.find((s) => s.start > isoD(w.end));
+    const tail = [after ? `<span><strong>After that:</strong> ${esc(fmtD(fromIso(after.date), { weekday: "short", day: "numeric", month: "short" }))}, ${esc(edWhat(after))} (${esc(after.files.map(edTag).join(", "))}).</span>` : "",
+      !pIdx.length && np ? `<span><strong>Next plenary:</strong> ${esc(PLACE[np.place])}, ${esc(rangeTxt(fromIso(np.start), fromIso(np.end)))}.</span>` : ""].filter(Boolean).join("");
+    return `<div class="td-h"><h2 class="td-t" id="tdNextH">Next 7 days</h2><span class="td-h__s">${esc(`${fmtD(w.start, { weekday: "short", day: "numeric" })} – ${fmtD(w.end, { weekday: "short", day: "numeric", month: "short" })}`)}</span></div>
+      <p class="td-cap">${esc(lead)}</p>
+      <div class="td-strip" aria-hidden="true">${days.map(col).join("")}${band}</div>
+      ${items.length ? `<div class="td-evs">${items.map(it).join("")}</div>` : ""}
+      ${tail ? `<div class="td-tail">${tail}</div>` : ""}
+      <button class="td-link" type="button" data-view="cal">Open the calendar${icon("arrow")}</button>`;
+  }
+
+  /* Key people on the files with a step in the window. */
+  function tdRoomHtml(files, w) {
+    if (!files.length) return "";
+    const ppl = edRoomPeople(files), ids = new Set(files.map((f) => f.id)), noRap = files.filter((f) => !membersOf(f).base.some((x) => x.role === "rapporteur"));
+    const cap = files.length === 1 ? `The people named on ${edTag(files[0])}, the file with a step in the next 7 days.` : `The people named on the ${files.length} files with a step in the next 7 days.`;
+    const role = (p) => edRoomRole(p).replace(p.files.map((f) => f.short).join(", "), p.files.length > 1 && p.files.length === files.length ? `on ${files.length === 2 ? "both" : "all " + files.length} files` : p.files.map(edTag).join(", "));
+    const rows = ppl.slice(0, 5).map((p) => { const o = BYKEY.get(p.key).o;
+      return row({ attrs: tap(`data-open="${esc(p.key)}"`), lead: avaOf(p.key), name: esc(o.name), meta: esc(role(p)), wrap: true, extra: edAlsoHtml(p.key, ids), tail: starBtn(p.key, o.name) }); }).join("");
+    const note = noRap.length ? `<p class="td-note"><strong>${esc(tdList(noRap.map(edTag)))}:</strong> no rapporteur named yet.</p>` : "";
+    const pres = presOf(w.start), coFiles = files.filter((f) => wpGroups(f).length);
+    const council = coFiles.length ? `<div class="td-co">${coFiles.map((f) => { const g = wpGroups(f), nx = wpNext(f, w.start);
+      const what = g.map((x) => wpShort(x.name) + (x.formats.length ? `, plus ${x.formats.length} ${x.formats.length > 1 ? "formats" : "format"}` : "")).join(" · ");
+      const k = `COUNCIL${nx ? " · " + fmtD(fromIso(nx.date), { weekday: "short", day: "numeric", month: "short" }).toUpperCase() : ""}`;
+      return `<button class="td-co__l" type="button" data-file="${esc(f.id)}" data-filetab="co" aria-label="${esc(`Council: ${what}. ${edTag(f)}. Open the Council tab`)}"><span class="td-co__k">${esc(k)}</span><span class="td-co__wp">${esc(what)}</span><span class="td-co__m">${esc([edTag(f), pres ? `${countryName(pres[0])} chairs` : ""].filter(Boolean).join(" · "))}</span></button>`; }).join("")}</div>` : "";
+    const links = files.map((f) => { const c = countsOf(f), n = c.ep + c.ec + c.cab;
+      return `<button class="td-link" type="button" data-file="${esc(f.id)}">Everyone on ${esc(edTag(f))} (${n})${icon("arrow")}</button>`; }).join("");
+    return `<h2 class="td-t" id="tdRoomH">On these files</h2><p class="td-cap">${esc(cap)}</p>
+      ${rows ? `<div class="list td-ppl">${rows}</div>` : ""}${note}${council}${links}`;
+  }
+
+  function tdMineHtml(files) {
+    return `<div class="td-h"><h2 class="td-t" id="tdMineH">Your ${files.length} ${pl(files.length, "file", "files")}</h2><button class="td-link td-link--inline" type="button" data-view="files">Manage</button></div>
+      <div class="td-chips">${files.map((f) => `<button class="td-chip" type="button" data-file="${esc(f.id)}">${esc(edTag(f))}</button>`).join("")}</div>`;
+  }
+  /* First visit: pick the files you work on. The suggestions are the files with the most dated steps in the next 60 days. */
+  function tdPickHtml() {
+    const t = isoD(new Date()), far = isoD(addD(new Date(), 60));
+    const busy = (f) => (f.next || []).filter((x) => x.date && x.date >= t && x.date <= far).length;
+    const list = FILES.slice().sort((a, b) => busy(b) - busy(a) || a.short.localeCompare(b.short)).slice(0, 10), k = tdPick.size;
+    return `<h2 class="td-t" id="tdPickH">Make Today yours</h2>
+      <p class="td-lead">Pick the files you work on. Today then shows what changed on them, the next 7 days and the people named on them.</p>
+      <div class="td-chips">${list.map((f) => { const on = tdPick.has(f.id);
+        return `<button class="td-chip td-chip--pick${on ? " is-on" : ""}" type="button" data-tdpick="${esc(f.id)}" aria-pressed="${on}">${on ? icon("check") : ""}${esc(edTag(f))}</button>`; }).join("")}</div>
+      <button class="td-link" type="button" data-view="files">See all ${FILES.length} files</button>
+      <button class="eu-btn eu-btn--block td-follow" type="button" data-tdfollow=""${k ? "" : " disabled"}>${k ? `Follow ${k} ${pl(k, "file", "files")}` : "Pick at least one file"}</button>`;
+  }
+
   function edRender() {
     if (!$("edMast")) return;
     const now = new Date();
     $("edDate").textContent = `${now.toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" })}`;
     renderGreeting();
-    $("edWeek").innerHTML = edWeekHtml();
-    $("edFiles").innerHTML = edFilesHtml();
-    const sl = $("edWks") ? $("edWks").scrollLeft : 0;
-    $("edNext").innerHTML = edNextHtml(); edWksWire();
-    if (edWkI >= edWeeks.length) edWkI = 0;
-    if ($("edWks") && sl) $("edWks").scrollLeft = sl;
-    edRoomPaint();
-    ["edFiles", "edNext"].forEach((id) => { $(id).hidden = !$(id).innerHTML.trim(); });
+    const mine = followedFiles(), files = mine.length ? mine : FILES, w = tdWindow();
+    const set = (id, html) => { const el = $(id); el.innerHTML = html; el.hidden = !html.trim(); };
+    set("tdPick", mine.length || !FILES.length ? "" : tdPickHtml());
+    set("tdSince", mine.length && UPD.status === "done" ? tdSinceHtml(mine) : "");
+    set("tdNext", FILES.length ? tdNextHtml(files, !!mine.length) : "");
+    const winFiles = [...new Set(tdNextItems(files, w).filter((x) => !x.plen).flatMap((x) => x.files.map((f) => f.id)))].map((id) => FILE_BY[id]).filter(Boolean);
+    set("tdRoom", mine.length ? tdRoomHtml(winFiles, w) : "");
+    set("tdMine", mine.length ? tdMineHtml(mine) : "");
+    const dates = [String((typeof mepRaw !== "undefined" && mepRaw.generated) || "").slice(0, 10), String((typeof ecRaw !== "undefined" && ecRaw.fetched) || "").slice(0, 10)].filter(Boolean).sort();
+    if ($("srcNote") && dates.length) $("srcNote").textContent = `Parliament and Commission data checked ${dates[0] === isoD(now) ? "today" : fmtD(fromIso(dates[0]), { weekday: "short", day: "numeric", month: "short" })}.`;
   }
+  document.addEventListener("click", (e) => {
+    const p = e.target.closest("[data-tdpick]");
+    if (p) { e.stopPropagation(); e.preventDefault(); const id = p.dataset.tdpick; tdPick.has(id) ? tdPick.delete(id) : tdPick.add(id); $("tdPick").innerHTML = tdPickHtml(); const b = $("tdPick").querySelector(`[data-tdpick="${CSS.escape(id)}"]`); if (b) b.focus({ preventScroll: true }); return; }
+    const g = e.target.closest("[data-tdfollow]");
+    if (g) { e.stopPropagation(); e.preventDefault(); if (!tdPick.size) return;
+      tdPick.forEach((id) => { if (!state.follow.has(id)) { state.follow.add(id); Track.log("follow", { section: "today", item: id }); } });
+      const n = tdPick.size; tdPick.clear(); saveFollow(); renderFiles(); renderNews(); renderSpot();
+      toast(`Following ${n} ${pl(n, "file", "files")}`); }
+  }, true);
 
   /* Rebuild Home around the masthead. Existing parts move; none is removed, so every handler on them still works. */
   (function edMount() {
@@ -348,23 +533,21 @@
     mast.append(v.querySelector(".topbar"));
     mast.insertAdjacentHTML("beforeend", `<p class="ed-eyebrow" id="edDate"></p>`);
     mast.append($("homeTop"), v.querySelector(":scope > .eu-search"), $("topics"));
-    mast.insertAdjacentHTML("beforeend", `<section id="edWeek" class="ed-week" aria-label="Your week"></section>`);
     mast.after($("homeResults"));
-    $("homeResults").insertAdjacentHTML("afterend", `<div id="edBody">
-      <section id="edFiles" class="ed-sec" aria-labelledby="edFilesH"></section>
-      <section id="edNext" class="ed-sec" aria-label="Coming up"></section>
-      <section id="edRoom" class="ed-sec ed-room" aria-label="On these files"></section>
-      <h2 class="ed-h ed-browse">Browse</h2></div>`);
+    $("homeResults").insertAdjacentHTML("afterend", `<div id="edBody" class="td-body">
+      <section id="tdPick" class="td-card" aria-labelledby="tdPickH"></section>
+      <section id="tdSince" class="td-card" aria-labelledby="tdSinceH"></section>
+      <section id="tdNext" class="td-card" aria-labelledby="tdNextH"></section>
+      <section id="tdRoom" class="td-card ed-room" aria-labelledby="tdRoomH"></section>
+      <section id="tdMine" class="td-sec" aria-labelledby="tdMineH"></section></div>`);
     $("hq").placeholder = "A name, a file, a committee, a date";
-    /* What the new home replaces leaves Home: cabinet of the day, country desk and seats by group (their data stays in the
-       Commission and Parliament views). Saved and recently viewed stay, then Browse as one compact row, then the data note. */
-    const body = $("homeBody"), gone = (el) => el && el.classList.add("ed-gone");
+    /* Gone from Today: cabinet of the day, country desk, seats by group, the institution tiles, Saved people and
+       Recently viewed (Saved people opens from the profile; the data stays in their views). */
+    const gone = (el) => el && el.classList.add("ed-gone");
     gone($("spotDate") && $("spotDate").closest("h3")); gone($("spot"));
     gone($("deskCountry").previousElementSibling); gone($("deskCountry")); gone($("deskOut"));
     gone($("bars").previousElementSibling); gone($("bars"));
-    const sh = $("seeSaved").closest("h3"); if (sh && sh.firstChild && sh.firstChild.nodeType === 3) sh.firstChild.textContent = "Saved people ";
-    /* Browse is gone: the Directory tab switches between Parliament, Commission and Council, and Calendar has its own tab. */
-    $("edBody").querySelector(".ed-browse").remove();
+    gone($("seeSaved").closest("h3")); gone($("savedStrip")); gone($("recentWrap"));
     gone($("homeTiles"));
   })();
 
@@ -372,10 +555,10 @@
   renderHome = function () {
     edHomeBase();
     const searching = !$("homeResults").hidden;
-    $("edWeek").hidden = searching; $("edBody").hidden = searching;
+    $("edBody").hidden = searching;
     if (!searching) edRender();
   };
-  /* Follows, the "which files" sheet and the file timelines (loaded after start-up) all call renderFiles. */
+  /* Follows, the "which files" sheet and the update stream (loaded after start-up) all call renderFiles. */
   const edFilesBase = renderFiles;
   renderFiles = function () { edFilesBase(); if (state.view === "home" && !state.hq) edRender(); };
 
