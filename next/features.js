@@ -1883,6 +1883,8 @@
   const mnDay = (iso) => fmtIso(iso, { day: "numeric", month: "short" });
   const mnDays = (ds) => { const s = ds.slice().sort(); return s.length === 1 ? mnDay(s[0]) : s.length === 2 ? `${fromIso(s[0]).getDate()} and ${mnDay(s[1])}` : `latest ${mnDay(s[s.length - 1])}`; };
   const mnTimes = (n) => (n === 1 ? "Spoke" : n === 2 ? "Spoke twice" : `Spoke ${n} times`);
+  /* "Spoke on 28 Sept" once, "Spoke twice · 2 and 28 Sept" more often. */
+  const mnSpoke = (s) => (s.n === 1 && s.dates.length === 1 ? `Spoke on ${mnDay(s.dates[0])}` : `${mnTimes(s.n)} · ${mnDays(s.dates)}`);
   /* Everyone the file's lists name (and the people you added), as keys. */
   const mnOnList = (f) => { const m = membersOf(f); return new Set([...m.base, ...m.added].map((x) => x.key)); };
   function mnVoices(f) {
@@ -1896,7 +1898,7 @@
     const open = mnOpen.has(f.id), shown = open ? v : v.slice(0, 3), more = v.length - 3;
     const rowOf = (s) => { const o = BYKEY.get(s.key).o;
       return row({ attrs: tap(`data-open="${esc(s.key)}"`), lead: avaOf(s.key), name: esc(o.name), wrap: true,
-        meta: esc(`${mnTimes(s.n)} · ${s.n === 1 && s.dates.length === 1 ? mnDay(s.dates[0]) : mnDays(s.dates)}`),
+        meta: esc(mnSpoke(s)),
         extra: `<span class="eu-row__tags">${gtag(o.group)}</span>${edAlsoHtml(s.key, new Set([f.id]))}`, tail: tailFor(s.key, o.name) }); };
     return `<section class="mn-spoke" aria-labelledby="mnH">
       <h3 id="mnH">Also spoke in committee <small>${v.length}</small></h3>
@@ -1930,7 +1932,7 @@
     if (!L.length) return base;
     return base + `<h3>Spoke in committee <small>${L.length}</small></h3><p class="mn-cap">Files this MEP has no role on but spoke about in committee.</p>
       <div class="list">${L.map(({ f, s }) => row({ el: "button", attrs: `type="button" data-file="${esc(f.id)}"`, lead: disc("file"), name: esc(f.short), wrap: true,
-        meta: esc(`${mnTimes(s.n)} · ${mnDays(s.dates)}`), tail: go })).join("")}</div>`;
+        meta: esc(mnSpoke(s)), tail: go })).join("")}</div>`;
   };
   /* News and timeline: one People item per file and meeting where MEPs with no role spoke for the first time. */
   let mnMerged = false;
@@ -1950,6 +1952,9 @@
     }
     if (typeof renderNews === "function") renderNews();
   }
+  /* A People item from the minutes opens the file on its Parliament tab, where "Also spoke in committee" is. */
+  const mnNewsRow0 = newsRow;
+  newsRow = (e) => (e.minutes ? mnNewsRow0(e).replace('data-filetab="upd"', 'data-filetab="ep"') : mnNewsRow0(e));
   fetchJson(DATA_BASE + "minutes.json").then((j) => {
     MIN = j;
     const f = curFile(); if (f) openFile(f.id, true);

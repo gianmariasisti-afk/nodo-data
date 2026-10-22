@@ -94,8 +94,8 @@ const html = patch(readFileSync(join(ROOT, "index.html"), "utf8"), "index.html",
   /* Who spoke in committee (22 Oct 2026): the blocks are spokeBlock, offBlock and mnDgCap in features.js, fed by v1/minutes.json. */
   ["file page: spoke in committee", '+ (f.ep && f.ep.note ? `<p class="note">${esc(f.ep.note)}</p>` : "");', '+ spokeBlock(f) + (f.ep && f.ep.note ? `<p class="note">${esc(f.ep.note)}</p>` : "");'],
   ["file page: officials", 'body = dgBlock(f) + sec("Added by you", mineCo)', 'body = dgBlock(f) + offBlock(f) + sec("Added by you", mineCo)'],
-  ["file page: dg caption", '${d.basis === "source" ? "Named in a Parliament or Commission document." : "Deduced from the Commissioner\'s portfolio. Verify before external use."}',
-    '${mnDgCap(f) || (d.basis === "source" ? "Named in a Parliament or Commission document." : "Deduced from the Commissioner\'s portfolio. Verify before external use.")}'],
+  ["file page: dg caption", '${d.basis === "source" ? "Named in a Parliament or Commission document." : "Deduced from the Commissioner\'s portfolio. Verify before external use."}${d.note ? " " + esc(d.note) : ""}',
+    '${mnDgCap(f) || ((d.basis === "source" ? "Named in a Parliament or Commission document." : "Deduced from the Commissioner\'s portfolio. Verify before external use.") + (d.note ? " " + esc(d.note) : ""))}'],
   /* No week numbers anywhere (21 Oct 2026). */
   ["no week: calendar hero", "This week in Parliament · W${isoWeek(mon)}", "This week in Parliament"],
   ["no week: calendar rows", "</b><span>W${isoWeek(w)}</span></div>", "</b></div>"],
