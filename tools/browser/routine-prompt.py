@@ -41,7 +41,7 @@ git pull --rebase origin main && git push origin HEAD:main (if the push is rejec
 
 6. Close the Council tab. Go on with step 7 whatever happened in steps 2 to 5.
 
-7. Committee minutes. Open https://www.europarl.europa.eu/committees/en/itre/meetings/minutes in the built-in browser and run MINUTES CODE in that tab. It answers "started". Then run `await window.__nodoNext()` in the same tab exactly as in step 2 (WAIT, RESULT with saved paths until more=false, FAILED: note it and go to step 11). The Parliament's site sometimes answers with a bot check; the code retries, and a minutes document it still cannot read comes back as an error in the collection, not as a failure.
+7. Committee minutes. Open https://www.europarl.europa.eu/committees/en/itre/meetings/minutes in the built-in browser and run MINUTES CODE in that tab. It answers "started". Then run `await window.__nodoNext()` in the same tab as in step 2, except that reading the minutes takes longer: on "WAIT ..." call again about every 30 seconds and give up after 30 minutes (RESULT: note every saved path until more=false; FAILED: note it and go to step 11). The Parliament's site sometimes answers with a bot check; the code retries, and a minutes document it still cannot read comes back as an error in the collection, not as a failure.
 
 8. Parse: python3 tools/minutes/from_browser.py <every saved path> --out /tmp/minutes.json
 It joins the slices, checks the SHA-256 and reads each set of minutes (agenda items, procedure numbers, speakers, Commission attendance). Missing slice k: run `await window.__nodoNext(k)` and run the script again with the new path added.

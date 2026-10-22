@@ -9,18 +9,28 @@
    again and again. "WAIT ..." = call again in about 20 seconds; "RESULT sha256=... part=i of=n more=..." = one slice
    (saved to a file by the harness), keep every file until more=false; "FAILED ..." = the reading stopped. */
 await (async () => {
-  const OPTS = { since: null, all: false, only: null, max: 40, pdfjs: null }; // since: "YYYY-MM-DD" (default 75 days back); all: ignore the repository cache; only: [PV ids]; max: minutes per run; pdfjs: folder holding pdf.min.mjs (default nodo's vendor/pdfjs/)
+  const OPTS = { since: null, all: false, only: null, max: 25, pdfjs: null }; // since: "YYYY-MM-DD" (default 75 days back); all: ignore the repository cache; only: [PV ids]; max: minutes per run; pdfjs: folder holding pdf.min.mjs (default nodo's vendor/pdfjs/)
   const SITE = "https://gianmariasisti-afk.github.io/nodo-data/";
   const SLICE = 180000, PAD = 150000;
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   const today = new Date().toLocaleDateString("sv-SE", { timeZone: "Europe/Brussels" });
   const addDays = (iso, n) => { const d = new Date(iso + "T12:00:00Z"); d.setUTCDate(d.getUTCDate() + n); return d.toISOString().slice(0, 10); };
-  /* The Parliament's bot check sometimes answers with an empty 202 (and always does to cache:"no-store"): retry. */
+  /* The Parliament's site sits behind an AWS WAF bot check. When its token expires, fetch() gets an empty 202 (and it
+     always does with cache:"no-store"). Loading the same address once in a hidden frame lets the check run and renew
+     the token (cookie aws-waf-token); the next fetch then works. */
+  async function renew(url) {
+    const f = document.createElement("iframe");
+    f.style.display = "none"; f.setAttribute("aria-hidden", "true"); f.src = url;
+    document.body.appendChild(f);
+    await sleep(8000);
+    f.remove();
+  }
   async function get(url, buffer) {
     for (let i = 1; ; i++) {
       try {
         const r = await fetch(url);
         if (r.status === 404) return null;
+        if (r.status === 202 && url.startsWith("/")) { await renew(url); throw new Error(`HTTP 202 (bot check) for ${url}`); }
         if (r.status !== 200) throw new Error(`HTTP ${r.status} for ${url}`);
         if (buffer && !/pdf/i.test(r.headers.get("content-type") || "")) throw new Error(`not a PDF: ${url}`);
         return buffer ? await r.arrayBuffer() : await r.text();
@@ -80,7 +90,7 @@ await (async () => {
         const buf = await get(`/doceo/document/${id}_EN.pdf`, true);
         pvs.push(buf ? { id, lines: await lines(pdfjs, buf) } : { id, error: "not found" });
       } catch (e) { pvs.push({ id, error: String(e && e.message || e).slice(0, 200) }); }
-      await sleep(400);
+      await sleep(800);
     }
     S.text = JSON.stringify({ fetched: today, since, committees, listed: [...listed].sort(), todo: todo.length, more: open.length > todo.length, reader: "pdfjs-4.4.168", pvs });
     const h = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(S.text));

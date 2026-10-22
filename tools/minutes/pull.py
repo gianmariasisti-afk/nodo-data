@@ -19,6 +19,7 @@ REPORT = os.path.join(ROOT, "data-cache", "minutes-report.json")
 OUT = os.path.join(ROOT, "v1", "minutes.json")
 MANIFEST = os.path.join(ROOT, "v1", "manifest.json")
 KEEP_DAYS = 400
+PROCEDURAL = re.compile(r"^(Adoption of (the )?(agenda|minutes)|Approval of minutes|Chair.s announcement|Any other business|Date of next meeting)", re.I)
 STAGE = re.compile(r"^(Consideration|Adoption|Vote|Exchange of views|Presentation|Reporting back|Public hearing|Statement)", re.I)
 EP_DGS = {"PRES", "IPOL", "EXPO", "EPRS", "COMM", "PERS", "INLO", "LINC", "TRAD", "FINS", "ITEC", "SAFE", "CASP", "IUST", "ECTI", "PART"}
 
@@ -100,13 +101,15 @@ def build(cache, files, meps, today):
     for pv in sorted(cache["pvs"].values(), key=lambda p: (p["date"], p["id"])):
         chairs = {norm(n) for n in pv.get("presiding", [])}
         att = {norm(p["name"]): p for p in pv.get("commission", [])}
-        touched = set()
+        touched, other = set(), 0
         for it in pv["items"]:
             title = it.get("title", "").lower()
             # An item counts when it was discussed or decided: speakers, or a stage line. Coordinators' annexes and
             # "date of next meetings" also carry procedure numbers and would otherwise look like meetings on the file.
             real = it["speakers"] or any(STAGE.match(s) for s in it.get("stage", []))
             hits = [fid for fid, (procs, names) in keys.items() if real and (set(it.get("procs", [])) & procs or any(n in title for n in names))]
+            if it["speakers"] and not hits and not PROCEDURAL.match(it.get("title", "")):
+                other += 1
             for fid in hits:
                 touched.add(fid)
                 o = out[fid]
@@ -138,12 +141,11 @@ def build(cache, files, meps, today):
                         s["dates"].append(pv["date"])
                     if pv["id"] not in s["pvs"]:
                         s["pvs"].append(pv["id"])
-        # Officials named in the attendance list of a meeting that dealt with one nodo file only: present for that file.
-        if len(touched) == 1:
+        # Officials named in the attendance list of a meeting whose every discussed item was about one nodo file: present
+        # for that file. A meeting that also discussed other business says nothing about who came for which item.
+        if len(touched) == 1 and not other:
             fid = touched.pop()
             for k, a in att.items():
-                if not dg_of(a.get("tag")) and k not in out[fid]["officials"]:
-                    continue
                 e = out[fid]["officials"].setdefault(k, {"name": a["name"], "dg": dg_of(a.get("tag")), "spoke": [], "present": []})
                 if pv["date"] not in e["spoke"] and pv["date"] not in e["present"]:
                     e["present"].append(pv["date"])
