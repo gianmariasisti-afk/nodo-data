@@ -67,26 +67,54 @@
   }
   renderGreeting = function () { const g = $("greet"); if (g) g.innerHTML = edGreeting(); };
 
+  /* The week card (reworked 22 Oct 2026): one date per day, today and the days ahead first, past steps folded,
+     no doc or article numbers, the file named once with its institution in words, one plenary band instead of a
+     thread, nodes and a chip, and one action named after what it opens. */
+  const ED_HOME_TAG = { "digital-omnibus-data": "Digital Omnibus", "tech-sovereignty-package": "Chips Act 2.0 · CADA", "ai-act-implementation": "AI Act" };
+  const edTag = (f) => ED_HOME_TAG[f.id] || FILE_TAG[f.id] || f.short;
+  const ED_INST = { co: "Council", ec: "Commission", ep: "Parliament" };
+  /* Home wording for a step: drops a trailing reference in brackets (doc, articles) and the file's own short tag
+     when the meta line already names the file. The file page keeps the full wording. */
+  function edWhat(s) {
+    let w = String(s.what).replace(/\s*\((?:doc|docs|art|arts|article|articles|ST|COM|CM)\b[^)]*\)\s*$/i, "");
+    const t = s.files.length === 1 && FILE_TAG[s.files[0].id];
+    if (t && t.length <= 4) w = w.replace(new RegExp(`\\b${t}\\s+(?=\\S)`), "");
+    return w;
+  }
   function edWeekHtml() {
     const today = new Date(), tIso = isoD(today), mon = edMonday(), wk = weekOf(mon), days = wk.days.slice(0, 5);
     const fri = isoD(addD(mon, 4)), sc = edScope();
     const pIdx = days.map((x, i) => (x.am === "P" || x.pm === "P" ? i : -1)).filter((i) => i >= 0);
     const col = (x) => {
-      const isT = x.k === tIso, past = x.k < tIso, plen = x.am === "P" || x.pm === "P";
+      const isT = x.k === tIso, past = x.k < tIso;
       return `<div class="ed-day${isT ? " is-today" : ""}${past ? " is-past" : ""}"><span class="ed-day__w">${esc(fmtD(x.d, { weekday: "short" }))}</span>
-        <span class="ed-day__n">${x.d.getDate()}</span><i class="ed-day__node${plen ? " is-p" : ""}"></i></div>`;
+        <span class="ed-day__n">${x.d.getDate()}</span></div>`;
     };
-    const bar = pIdx.length ? `<div class="ed-bars"><span class="ed-bar ed-bar--ep" style="grid-column:${pIdx[0] + 1} / ${pIdx[pIdx.length - 1] + 2}"><i></i>${esc(wk.label)}</span></div>` : "";
-    const steps = edSteps(sc.files, isoD(mon), fri), shown = steps.slice(0, 3);
-    const ev = (s) => `<button class="ed-ev" type="button" data-file="${esc(s.files[0].id)}" data-filetab="next">
-        <span class="ed-ev__d"><b>${esc(fmtD(fromIso(s.date), { weekday: "short" }))}</b>${fromIso(s.date).getDate()}</span>
-        <span class="ed-ev__tx"><span class="ed-ev__what">${esc(s.what)}</span><span class="ed-ev__f"><i class="ed-mark ed-mark--${edInst(s.what)}"></i>${esc(s.files.map(fileTag).join(" · "))}</span></span></button>`;
+    const band = pIdx.length ? `<span class="ed-pband" style="grid-column:${pIdx[0] + 1} / ${pIdx[pIdx.length - 1] + 2}"></span>` : "";
+    const steps = edSteps(sc.files, isoD(mon), fri);
+    const ahead = steps.filter((s) => s.date >= tIso), earlier = steps.filter((s) => s.date < tIso);
+    /* Up to three steps, cut at a day boundary so a day never shows half its steps; the first day always shows. */
+    const dayL = [...new Set(ahead.map((s) => s.date))].map((d) => ahead.filter((s) => s.date === d));
+    let shown = dayL.length ? dayL[0].slice(0, 3) : [];
+    for (const l of dayL.slice(1)) { if (shown.length + l.length > 3) break; shown = shown.concat(l); }
+    const rest = ahead.slice(shown.length);
+    const byDay = (l) => { const m = new Map(); l.forEach((s) => { if (!m.has(s.date)) m.set(s.date, []); m.get(s.date).push(s); }); return [...m.entries()]; };
+    const it = (s) => {
+      const inst = ED_INST[edInst(s.what)], meta = [inst, s.files.map(edTag).join(" · ")].filter(Boolean).join(" · ");
+      return `<button class="ed-it" type="button" data-file="${esc(s.files[0].id)}" data-filetab="next"><span class="ed-it__what">${esc(edWhat(s))}</span><span class="ed-it__m">${esc(meta)}</span></button>`;
+    };
+    const groups = (l, past) => byDay(l).map(([d, l2]) => { const dt = fromIso(d);
+      return `<div class="ed-dg${past ? " is-past" : ""}"><span class="ed-dg__d"><b>${esc(fmtD(dt, { weekday: "short" }))}</b>${dt.getDate()}</span><div class="ed-dg__l">${l2.map(it).join("")}</div></div>`; }).join("");
+    const label = [rest.length && `${rest.length} more`, earlier.length && `${earlier.length} earlier`].filter(Boolean).join(" · ");
+    const fold = label ? `<div class="ed-fold" id="edFold" hidden>${groups(rest, false)}${earlier.length ? `<p class="ed-fold__k">Earlier this week</p>${groups(earlier, true)}` : ""}</div>
+      <button class="ed-more" type="button" data-edmore="" aria-expanded="false" aria-controls="edFold" data-label="${esc(label + " this week")}">${esc(label)} this week</button>` : "";
+    const none = sc.mine ? "Nothing left on your files this week." : "Nothing left on nodo's files this week.";
     const np = nextPlenary(today);
     let act;
     if (np && np.start <= isoD(addD(mon, 6)) && np.end >= tIso) {
-      const e = agEntry(np), ready = e.stage !== "none" && agHasItems(e), n = Object.values(e.days || {}).reduce((a, l) => a + ((l && l.length) || 0), 0);
-      act = `<button class="eu-btn eu-btn--on-deep" type="button" data-view="agenda">${ready ? "Open the agenda" : "See the plenary"}${icon("arrow")}</button>
-        <span class="ed-act__cap">${ready ? `${n} ${pl(n, "item", "items")} · ${esc((AG_LABEL[e.stage] || "Agenda").toLowerCase())}` : "Agenda not in nodo yet"}</span>`;
+      const e = agEntry(np), ready = e.stage !== "none" && agHasItems(e);
+      act = `<button class="eu-btn eu-btn--on-deep" type="button" data-view="agenda">${ready ? "Plenary agenda" : "See the plenary"}${icon("arrow")}</button>
+        <span class="ed-act__cap">${esc(ready ? agUpdated(e) || AG_LABEL[e.stage] || "" : "Agenda not in nodo yet")}</span>`;
     } else {
       const p = plenaryLine(np, today);
       act = `<button class="eu-btn eu-btn--on-deep" type="button" data-view="cal">Open the calendar${icon("arrow")}</button>
@@ -94,12 +122,19 @@
     }
     return `<div class="ed-week__head"><h2 class="ed-week__t">${edAhead() ? "Next week" : "This week"}</h2></div>
       <p class="ed-week__lead">${esc(wk.lead)}</p>
-      <div class="ed-strip" aria-hidden="true"><span class="ed-strip__thread"></span>${days.map(col).join("")}</div>
-      ${bar}
-      ${shown.length ? `<div class="ed-evs">${shown.map(ev).join("")}</div>` : `<p class="ed-week__none">${sc.mine ? "No dated step on your files this week." : "No dated step on nodo's files this week."}</p>`}
-      ${steps.length > shown.length ? `<button class="ed-more" type="button" data-view="cal">${steps.length - shown.length} more this week</button>` : ""}
+      <div class="ed-strip" aria-hidden="true">${days.map(col).join("")}${band}</div>
+      <p class="ed-week__k">${sc.mine ? "On your files" : "On nodo's files"}</p>
+      ${shown.length ? `<div class="ed-evs">${groups(shown, false)}</div>` : `<p class="ed-week__none">${none}</p>`}
+      ${fold}
       <div class="ed-act">${act}</div>`;
   }
+  document.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-edmore]"); if (!b) return;
+    e.stopPropagation(); e.preventDefault();
+    const f = $("edFold"); if (!f) return;
+    const open = f.hidden; f.hidden = !open; b.setAttribute("aria-expanded", String(open));
+    b.textContent = open ? "Show less" : b.dataset.label;
+  }, true);
 
   /* A five-step track from idea to law. The words beside it carry the same information. */
   function edTrack(f) {

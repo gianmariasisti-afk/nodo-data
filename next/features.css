@@ -727,6 +727,30 @@ html:has(body.nx-on-home) { background: var(--ed-ground); }
 .ed-mast .eu-btn--on-deep { background: var(--ed-btn); color: var(--ed-on-btn); }
 .ed-mast .eu-btn--on-deep:focus-visible { outline-color: var(--ed-focus); }
 
+/* Week card, reworked 22 Oct 2026: today as a gold disc, one plenary band, steps grouped by day. */
+.ed-strip { row-gap: 8px; margin-top: var(--space-4); }
+.ed-day { gap: 6px; }
+.ed-day__n { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; }
+.ed-day.is-today .ed-day__n { background: var(--ed-node); color: var(--brand-deep); box-shadow: 0 0 0 2px var(--ed-gap), 0 0 0 4px var(--ed-node-ring); }
+.ed-day.is-past .ed-day__n, .ed-day.is-past .ed-day__w { opacity: var(--ed-past); color: var(--ed-past-ink); }
+.ed-pband { grid-row: 2; height: 4px; margin: 0 14px; border-radius: 2px; background: var(--ed-day-p); }
+.ed-week__k { margin: var(--space-4) 0 0; font-size: 12px; line-height: 16px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--ed-muted); }
+.ed-evs, .ed-fold { display: grid; gap: var(--space-1); margin-top: var(--space-2); }
+.ed-dg { display: flex; gap: var(--space-3); padding: 4px 12px; border-radius: var(--radius-md); background: var(--ed-ev); color: var(--ink); }
+.ed-dg__d { flex: none; display: flex; flex-direction: column; align-items: center; width: 34px; padding-top: 10px; font: 700 18px/20px var(--font-display); }
+.ed-dg__d b { font: 600 11px/14px var(--font-sans); color: var(--ink-muted); text-transform: uppercase; letter-spacing: .04em; }
+.ed-dg__l { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.ed-it { display: flex; flex-direction: column; gap: 2px; width: 100%; padding: 10px 0; border: 0; background: none; color: inherit; text-align: left; cursor: pointer; }
+.ed-it + .ed-it { border-top: 1px solid var(--hairline); }
+.ed-it__what { font-size: 15px; line-height: 20px; font-weight: 600; }
+.ed-it__m { font-size: 13px; line-height: 18px; color: var(--ink-muted); }
+.ed-it:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; border-radius: var(--radius-sm); }
+.ed-dg.is-past { opacity: .75; }
+.ed-fold[hidden] { display: none; }
+.ed-fold__k { margin: var(--space-2) 0 0; font-size: 12px; line-height: 16px; font-weight: 600; color: var(--ed-muted); }
+.ed-more { min-height: 44px; }
+@media (prefers-reduced-motion: no-preference) { .ed-it { transition: transform .15s ease-out; } .ed-it:active { transform: scale(.99); } }
+
 /* ---------- 10. Admin ---------- */
 .ad-entry { margin-top: auto; display: flex; align-items: center; gap: 12px; min-height: 64px; padding: 10px 12px; border: 0; border-radius: var(--radius-lg); background: var(--ink); color: var(--ink-inverse); text-align: left; cursor: pointer; font: inherit; }
 .ad-entry[hidden] { display: none; }
