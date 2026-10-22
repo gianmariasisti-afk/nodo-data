@@ -91,6 +91,11 @@ const html = patch(readFileSync(join(ROOT, "index.html"), "utf8"), "index.html",
   ["file tab: council body", '} else if (tab === "upd") {', '} else if (tab === "co") {\n      body = fileCoTab(f);\n    } else if (tab === "upd") {'],
   ["file tab: council out of next steps", '+ (cfs.length ? `<h3>In the Council</h3><div class="list">${cfs.map(confRow).join("")}</div>` : "") + wpBlock(f) + (f.council && f.council.note && (cfs.length || wpBlock(f)) ? `<p class="note">${esc(f.council.note)}</p>` : "")',
     '+ (fileHasCo(f) ? `<p class="note">The Council side of this file is on its <button type="button" class="fp-totab" data-ftab="co">Council tab</button>.</p>` : "")'],
+  /* Who spoke in committee (22 Oct 2026): the blocks are spokeBlock, offBlock and mnDgCap in features.js, fed by v1/minutes.json. */
+  ["file page: spoke in committee", '+ (f.ep && f.ep.note ? `<p class="note">${esc(f.ep.note)}</p>` : "");', '+ spokeBlock(f) + (f.ep && f.ep.note ? `<p class="note">${esc(f.ep.note)}</p>` : "");'],
+  ["file page: officials", 'body = dgBlock(f) + sec("Added by you", mineCo)', 'body = dgBlock(f) + offBlock(f) + sec("Added by you", mineCo)'],
+  ["file page: dg caption", '${d.basis === "source" ? "Named in a Parliament or Commission document." : "Deduced from the Commissioner\'s portfolio. Verify before external use."}',
+    '${mnDgCap(f) || (d.basis === "source" ? "Named in a Parliament or Commission document." : "Deduced from the Commissioner\'s portfolio. Verify before external use.")}'],
   /* No week numbers anywhere (21 Oct 2026). */
   ["no week: calendar hero", "This week in Parliament · W${isoWeek(mon)}", "This week in Parliament"],
   ["no week: calendar rows", "</b><span>W${isoWeek(w)}</span></div>", "</b></div>"],

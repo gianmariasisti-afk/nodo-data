@@ -1864,3 +1864,101 @@
     if (t.closest("[data-adrefresh]")) { ad.at = 0; adLoad().then(() => { if (state.view === "admin") renderAdmin(); }); return renderAdmin(); }
     if (t.closest("[data-adall]")) { ad.all = !ad.all; renderAdmin(); }
   });
+
+  /* ---------- 15. Who spoke in committee (since 22 Oct 2026) ----------
+     v1/minutes.json comes from the Parliament committees' minutes (tools/minutes, run by the Mon and Thu refresh on the
+     Mac): for each file, the meetings that dealt with it, the MEPs who spoke on it (whoever presided is left out) and
+     the Commission officials who spoke or attended. Roles are decided here, against the file's own lists, so a
+     rapporteur or shadow never shows twice.
+     - Parliament tab: "Also spoke in committee", the MEPs with no role on the file, most active first, three shown and
+       "Show N more"; each row says how often and when, plus the existing "Also on" line.
+     - Commission tab: "Presented in committee", the officials the minutes name; the DG caption says when the minutes
+       name the lead DG that was deduced from the portfolio.
+     - Profiles: "Spoke in committee" under "On these files", the files an MEP spoke on without a role.
+     - News and the file timeline: a People item when MEPs with no role speak on a file for the first time.
+     When promoted, the Parliament and Commission blocks go into openFile, the DG caption into dgBlock, the profile list
+     into fileLinks, and the news items into the update stream builder (scripts/build-updates.mjs). */
+  let MIN = null;
+  const mnOpen = new Set();
+  const mnDay = (iso) => fmtIso(iso, { day: "numeric", month: "short" });
+  const mnDays = (ds) => { const s = ds.slice().sort(); return s.length === 1 ? mnDay(s[0]) : s.length === 2 ? `${fromIso(s[0]).getDate()} and ${mnDay(s[1])}` : `latest ${mnDay(s[s.length - 1])}`; };
+  const mnTimes = (n) => (n === 1 ? "Spoke" : n === 2 ? "Spoke twice" : `Spoke ${n} times`);
+  /* Everyone the file's lists name (and the people you added), as keys. */
+  const mnOnList = (f) => { const m = membersOf(f); return new Set([...m.base, ...m.added].map((x) => x.key)); };
+  function mnVoices(f) {
+    const o = MIN && MIN.files && MIN.files[f.id]; if (!o) return [];
+    const on = mnOnList(f);
+    return (o.speakers || []).map((s) => ({ ...s, key: "ep:" + s.id })).filter((s) => BYKEY.has(s.key) && !on.has(s.key));
+  }
+  const mnThrough = (f) => { const o = MIN && MIN.files && MIN.files[f.id]; return o && o.meetings.length ? o.meetings.map((m) => m.date).sort().pop() : MIN && MIN.through; };
+  function spokeBlock(f) {
+    const v = mnVoices(f); if (!v.length) return "";
+    const open = mnOpen.has(f.id), shown = open ? v : v.slice(0, 3), more = v.length - 3;
+    const rowOf = (s) => { const o = BYKEY.get(s.key).o;
+      return row({ attrs: tap(`data-open="${esc(s.key)}"`), lead: avaOf(s.key), name: esc(o.name), wrap: true,
+        meta: esc(`${mnTimes(s.n)} · ${s.n === 1 && s.dates.length === 1 ? mnDay(s.dates[0]) : mnDays(s.dates)}`),
+        extra: `<span class="eu-row__tags">${gtag(o.group)}</span>${edAlsoHtml(s.key, new Set([f.id]))}`, tail: tailFor(s.key, o.name) }); };
+    return `<section class="mn-spoke" aria-labelledby="mnH">
+      <h3 id="mnH">Also spoke in committee <small>${v.length}</small></h3>
+      <p class="mn-cap">MEPs with no role on this file who took the floor when the committee discussed it. Chairs aren't counted.</p>
+      <div class="list">${shown.map(rowOf).join("")}</div>
+      ${more > 0 ? `<button class="eu-btn eu-btn--outline eu-btn--block mt" type="button" data-mnmore="${esc(f.id)}" aria-expanded="${open}">${open ? "Show fewer" : `Show ${more} more`}</button>` : ""}
+      <p class="mn-foot">From committee minutes, up to ${esc(mnDay(mnThrough(f)))}. Minutes come out a few weeks after each meeting. They name who spoke, not what they said.</p>
+    </section>`;
+  }
+  /* Commission tab: the officials the minutes name for this file. */
+  function offBlock(f) {
+    const o = MIN && MIN.files && MIN.files[f.id], xs = (o && o.officials) || []; if (!xs.length) return "";
+    const line = (e) => [e.spoke.length ? `Spoke on ${mnDays(e.spoke)}` : "", e.present.length ? `${e.spoke.length ? "present" : "Present"} on ${mnDays(e.present)}` : ""].filter(Boolean).join(" · ");
+    return `<h3>Presented in committee <small>${xs.length}</small></h3>
+      <p class="mn-cap">Commission officials the committee minutes name for this file. The minutes give the DG, not the job title.</p>
+      <div class="list">${xs.map((e) => row({ cls: "is-static", lead: disc("user"), name: esc(e.name), wrap: true,
+        meta: esc([e.dg ? "DG " + e.dg : e.role || "European Commission", line(e)].filter(Boolean).join(" · ")) })).join("")}</div>`;
+  }
+  /* The DG caption: a lead DG deduced from the portfolio and named in the minutes says so. */
+  function mnDgCap(f) {
+    const d = f.dg || {}, o = MIN && MIN.files && MIN.files[f.id]; if (d.basis === "source" || !o) return "";
+    const hit = (o.officials || []).filter((e) => (d.lead || []).includes(e.dg)).flatMap((e) => [...e.spoke, ...e.present]).sort().pop();
+    return hit ? `Named in committee minutes, ${mnDay(hit)}. Was deduced from the Commissioner's portfolio.` : "";
+  }
+  /* Profiles: the files an MEP spoke on without a role, under "On these files". */
+  const mnFileLinks0 = fileLinks;
+  fileLinks = (key) => {
+    const base = mnFileLinks0(key);
+    if (!MIN || !String(key).startsWith("ep:")) return base;
+    const L = FILES.map((f) => { const s = mnVoices(f).find((x) => x.key === key); return s ? { f, s } : null; }).filter(Boolean);
+    if (!L.length) return base;
+    return base + `<h3>Spoke in committee <small>${L.length}</small></h3><p class="mn-cap">Files this MEP has no role on but spoke about in committee.</p>
+      <div class="list">${L.map(({ f, s }) => row({ el: "button", attrs: `type="button" data-file="${esc(f.id)}"`, lead: disc("file"), name: esc(f.short), wrap: true,
+        meta: esc(`${mnTimes(s.n)} · ${mnDays(s.dates)}`), tail: go })).join("")}</div>`;
+  };
+  /* News and timeline: one People item per file and meeting where MEPs with no role spoke for the first time. */
+  let mnMerged = false;
+  function mnMerge() {
+    if (mnMerged || !MIN || UPD.status !== "done") return;
+    mnMerged = true;
+    for (const f of FILES) {
+      const by = new Map();
+      for (const s of mnVoices(f)) { const d = s.dates.slice().sort()[0]; by.set(d, [...(by.get(d) || []), s]); }
+      for (const [date, xs] of by) {
+        const one = xs.length === 1 && BYKEY.get(xs[0].key);
+        const e = { fileId: f.id, kind: "people", date, minutes: true, title: one ? `New voice in committee: ${one.o.name}` : `${xs.length} new voices in committee` };
+        UPD.feed.push(e);
+        (UPD.tl[f.id] = UPD.tl[f.id] || []).push(e);
+      }
+      if (UPD.tl[f.id]) UPD.tl[f.id].sort((a, b) => a.date.localeCompare(b.date));
+    }
+    if (typeof renderNews === "function") renderNews();
+  }
+  fetchJson(DATA_BASE + "minutes.json").then((j) => {
+    MIN = j;
+    const f = curFile(); if (f) openFile(f.id, true);
+    const wait = setInterval(() => { if (UPD.status === "done" || UPD.status === "failed") { clearInterval(wait); mnMerge(); } }, 1000);
+    setTimeout(() => clearInterval(wait), 60000);
+  }).catch(() => { /* no minutes yet: every view works without them */ });
+  document.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-mnmore]"); if (!b) return;
+    const id = b.getAttribute("data-mnmore");
+    if (mnOpen.has(id)) mnOpen.delete(id); else mnOpen.add(id);
+    openFile(id, true);
+  });

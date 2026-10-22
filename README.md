@@ -26,6 +26,7 @@ v1/
   agenda.json     Plenary agendas
   files.json      Legislative files with linked MEPs, Commissioners, cabinet members
   reports.json    Parliament reports and opinions with rapporteur and shadows (automatic pages)
+  minutes.json    Who spoke on the priority files in Parliament committee meetings, from the committees' minutes
 ```
 
 `v1` is the schema version. Fields can be added inside v1. A rename or removal creates `v2` and `v1` stays online for installed apps.
@@ -191,3 +192,26 @@ Data with a feed is refreshed by GitHub Actions (above). Everything editorial or
 - A curated file shows the date its data was checked, its sources and its Legislative Observatory link under the title.
 - The Files view starts with Your files and what moved in the last 7 days. "Which files do you track?" is asked once after sign-in. Your week shows what the Monday email will hold.
 - The Monday email and alert switches are saved on the profile as `notify`. Nothing is sent yet.
+
+## minutes.json
+
+Built by the Mon and Thu refresh on the Mac (task "nodo Council refresh (Mon and Thu)", step 7 onwards), because the Parliament's minutes pages sit behind a bot check that GitHub and cloud sessions cannot pass.
+
+1. `tools/browser/minutes.js` runs in a www.europarl.europa.eu tab. It lists the minutes (PV) on the `/committees/en/<code>/meetings/minutes` page of every committee named in `files.json` (lead and opinion committees, joint committees come with them), keeps those from the last 75 days that `data-cache/minutes-raw.json` does not hold yet (40 per run at most), and reads each PDF as text with pdf.js. pdf.js 4.4.168 is kept in `vendor/pdfjs/` and imported from nodo's own site; the app does not load it. Only text leaves the tab: some minutes carry scanned annexes of 15 MB.
+2. `tools/minutes/from_browser.py` joins the slices (same protocol and checks as the Council refresh) and parses each set of minutes: committees, date, who presided, agenda items with procedure numbers, stage lines and speakers (with the tag the minutes give them, e.g. "(DG GROW)"), and the Commission officials in the attendance list.
+3. `tools/minutes/pull.py` merges them into `data-cache/minutes-raw.json` (kept 400 days) and rebuilds `v1/minutes.json` and its manifest entry. An agenda item belongs to a file when it carries one of the file's procedure numbers (main, related or a part's) or names the file in its title. Speakers are matched to `meps.json` by name; whoever presided that meeting is left out; Commission officials are recognised by their tag or the attendance list. Names that match no MEP are listed in `data-cache/minutes-report.json`.
+
+```json
+{
+  "through": "2026-10-15", "minutes": 61,
+  "files": {
+    "industrial-accelerator-act": {
+      "meetings": [{ "pv": "CJ80-PV-2026-09-28-1", "date": "2026-09-28", "code": "CJ80", "item": 3, "title": "…", "stage": ["Consideration of draft report"], "spoke": 24 }],
+      "speakers": [{ "id": "256843", "n": 2, "dates": ["2026-09-02", "2026-09-28"], "pvs": ["…"] }],
+      "officials": [{ "name": "Joan Canton", "dg": "GROW", "spoke": ["2026-09-28"], "present": ["2026-09-02"] }]
+    }
+  }
+}
+```
+
+`speakers` holds everyone who spoke, roles included: the app compares them with the file's own lists and shows only the MEPs with no role. Minutes name who spoke, not what they said, and come out a few weeks after each meeting. `scripts/validate-data.mjs` checks that every speaker is in `meps.json` and every file id exists.

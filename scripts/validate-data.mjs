@@ -135,6 +135,26 @@ try {
   }
 } catch (e) { bad(`permreps-extra.json: does not parse (${e.message.slice(0, 80)})`); }
 
+/* Committee minutes: who spoke on nodo's files (optional file, built by tools/minutes/pull.py) */
+if (fs.existsSync(path.join(V1, "minutes.json"))) {
+  const mn = load("minutes.json");
+  const fileIds = new Set(((files && files.files) || []).map((f) => f.id));
+  if (mn) {
+    if (mn.through && !ISO.test(mn.through)) bad(`minutes.json: through "${mn.through}" is not a date`);
+    for (const [fid, o] of Object.entries(mn.files || {})) {
+      if (!fileIds.has(fid)) bad(`minutes.json: unknown file ${fid}`);
+      for (const m of o.meetings || []) if (!/^[A-Z0-9]{4}-PV-\d{4}-\d\d-\d\d-\d+$/.test(m.pv) || !ISO.test(m.date)) bad(`minutes.json ${fid}: bad meeting ${m.pv}`);
+      for (const s of o.speakers || []) {
+        if (!mepIds.has(s.id)) bad(`minutes.json ${fid}: speaker ${s.id} is not in meps.json`);
+        if (!(s.n >= 1) || !(s.dates || []).length || !(s.dates || []).every((d) => ISO.test(d))) bad(`minutes.json ${fid}: speaker ${s.id} has no valid dates`);
+      }
+      for (const e of o.officials || []) if (!e.name || ![...(e.spoke || []), ...(e.present || [])].every((d) => ISO.test(d))) bad(`minutes.json ${fid}: bad official ${e.name || "?"}`);
+    }
+    const prev = loadBase("minutes.json");
+    if (prev && prev.minutes && mn.minutes < prev.minutes - 10) bad(`minutes.json: minutes dropped from ${prev.minutes} to ${mn.minutes} in one change`);
+  }
+}
+
 /* Everything else must at least parse */
 for (const rel of ["agenda.json", "manifest.json"]) load(rel);
 

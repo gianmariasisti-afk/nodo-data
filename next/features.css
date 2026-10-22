@@ -830,3 +830,10 @@ html:has(body.nx-on-home) { background: var(--ed-ground); }
 .ad-card > .cap { margin: 0; }
 .ad-foot { margin: 0; text-align: center; }
 .fp-totab { display: inline; min-height: 44px; padding: 0; border: 0; background: none; color: var(--brand); font: inherit; font-weight: 600; text-decoration: underline; text-underline-offset: 2px; cursor: pointer; }
+
+/* 15. Who spoke in committee */
+.mn-spoke{margin-top:28px;padding:20px 16px 16px;border-radius:var(--radius-lg);background:var(--surface)}
+.mn-spoke h3{margin-top:0}
+.mn-cap{margin:-4px 0 10px;font-size:13px;line-height:19px;color:var(--ink-muted)}
+.mn-foot{margin:12px 0 0;font-size:12px;line-height:16px;font-weight:500;color:var(--ink-muted)}
+.mn-spoke .list{background:transparent}
