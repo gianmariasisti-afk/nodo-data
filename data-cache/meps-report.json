@@ -1,65 +1,25 @@
 {
- "run": "2026-10-21T10:04:27.965Z",
- "checked": "2026-10-21",
+ "run": "2026-10-22T10:05:53.880Z",
+ "checked": "2026-10-22",
  "api": 719,
  "nodo": 720,
  "failed": [],
  "auto": [
   {
-   "id": "23699",
-   "name": "Kateřina KONEČNÁ",
+   "id": "97399",
+   "name": "Dirk GOTINK",
    "changes": {
-    "delegations": {
-     "from": [
-      "DAFR Member",
-      "DACP Member",
-      "D-CN Member"
-     ],
-     "to": []
+    "party": {
+     "from": "NSC",
+     "to": "Independent"
     }
    }
   }
  ],
- "structural": [
-  {
-   "type": "arrived",
-   "id": "5565",
-   "name": "Brice HORTEFEUX",
-   "country": "FR",
-   "group": "EPP",
-   "party": "Les Républicains",
-   "committees": [],
-   "note": "no photo yet"
-  },
-  {
-   "type": "all-committees-gone",
-   "from": [
-    "SANT",
-    "ENVI",
-    "IMCO",
-    "INTA"
-   ],
-   "id": "23699",
-   "name": "Kateřina KONEČNÁ"
-  },
-  {
-   "type": "group",
-   "from": "NI",
-   "to": "PfE",
-   "id": "23699",
-   "name": "Kateřina KONEČNÁ"
-  },
-  {
-   "type": "left",
-   "id": "256921",
-   "name": "Laurent CASTILLO",
-   "country": "FR",
-   "group": "PfE"
-  }
- ],
+ "structural": [],
  "summary": {
   "auto": 1,
-  "structural": 4,
+  "structural": 0,
   "failed": 0,
   "changed": true
  }
