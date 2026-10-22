@@ -1,14 +1,5 @@
 {
- "latest": [
-  {
-   "session": "2026-11-11",
-   "place": "BRU",
-   "stage": "draft",
-   "link": "https://www.europarl.europa.eu/plenary/en/agendas.html",
-   "at": "2026-10-21T10:09:31.235Z",
-   "items": 22
-  }
- ],
+ "latest": [],
  "log": [
   {
    "session": "2026-10-05",
