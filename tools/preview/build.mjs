@@ -84,6 +84,13 @@ const html = patch(readFileSync(join(ROOT, "index.html"), "utf8"), "index.html",
   ["delegation foot", "The names you add are saved on this device only.", "The names you add are saved to your account."],
   ["council note", "Any other name is one you added, saved on this device.", "Any other name is one you added, saved to your account."],
   ["sheet note 2", '"Saved on this device. Check a name', '"Saved to your account. Check a name'],
+  /* Council tab on the file page (22 Oct 2026): the Council sits next to Parliament and Commission instead of inside
+     Next steps. The tab body is fileCoTab() in features.js; Next steps keeps the steps, caveats and sources. */
+  ["file tab: council", '[["ep", "Parliament"], ["ec", "Commission"], ["next", "Next steps"], ["upd", "Timeline"]]',
+    '[["ep", "Parliament"], ["ec", "Commission"], ...(fileHasCo(f) ? [["co", "Council"]] : []), ["next", "Next steps"], ["upd", "Timeline"]]'],
+  ["file tab: council body", '} else if (tab === "upd") {', '} else if (tab === "co") {\n      body = fileCoTab(f);\n    } else if (tab === "upd") {'],
+  ["file tab: council out of next steps", '+ (cfs.length ? `<h3>In the Council</h3><div class="list">${cfs.map(confRow).join("")}</div>` : "") + wpBlock(f) + (f.council && f.council.note && (cfs.length || wpBlock(f)) ? `<p class="note">${esc(f.council.note)}</p>` : "")',
+    '+ (fileHasCo(f) ? `<p class="note">The Council side of this file is on its <button type="button" class="fp-totab" data-ftab="co">Council tab</button>.</p>` : "")'],
   /* No week numbers anywhere (21 Oct 2026). */
   ["no week: calendar hero", "This week in Parliament · W${isoWeek(mon)}", "This week in Parliament"],
   ["no week: calendar rows", "</b><span>W${isoWeek(w)}</span></div>", "</b></div>"],

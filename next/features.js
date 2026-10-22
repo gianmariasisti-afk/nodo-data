@@ -152,7 +152,7 @@
 
   /* After the week on the card: four weeks of dated steps and plenary sittings, one card per week in a carousel
      (since 19 Oct 2026). A meeting on consecutive days of the same week shows once, as a range ("26–27"). */
-  let edWeeks = [], edWkI = 0, edRoomAll = false;
+  let edWeeks = [], edWkI = 0;
   function edNextHtml() {
     const sc = edScope(), mon0 = addD(edMonday(), 7), from = isoD(mon0), to = isoD(addD(edMonday(), 34));
     const items = edSteps(sc.files, from, to).map((s) => ({ date: s.date, end: s.date, what: s.what, meta: s.files.map((f) => f.short).join(" · "), files: s.files.map((f) => f.id), inst: edInst(s.what), attrs: `data-file="${esc(s.files[0].id)}" data-filetab="next"` }));
@@ -194,7 +194,7 @@
       const c = t.querySelector(".ed-wk"), step = c ? c.offsetWidth + 8 : 1;
       let i = Math.round(t.scrollLeft / step); if (t.scrollLeft + t.clientWidth >= t.scrollWidth - 4) i = dots.length - 1;
       dots.forEach((d, k) => d.classList.toggle("is-on", k === i));
-      if (i !== edWkI) { edWkI = i; edRoomAll = false; edRoomPaint(); }
+      if (i !== edWkI) { edWkI = i; edRoomPaint(); }
     }); }, { passive: true });
   }
 
@@ -238,18 +238,48 @@
     const ppl = edRoomPeople(files), noRap = files.filter((f) => !membersOf(f).base.some((x) => x.role === "rapporteur"));
     const n = files.length === 1 ? "this week's file" : `this week's ${files.length} files`;
     const cap = `${when} · rapporteurs, commissioners and cabinet leads on ${n}`;
-    const shown = edRoomAll ? ppl : ppl.slice(0, 5);
-    const rows = shown.map((p) => { const o = BYKEY.get(p.key).o;
+    /* One exit per file (22 Oct 2026): five key people, then "View all N on <file>" to the file page. The in-place
+       "Show all" went: two buttons for nearly the same list read as duplicates. The Council is one line per file under the links
+       (working party, who chairs, next date); the working party itself, its formats and the attachés live on the
+       file page's Council tab. */
+    const rows = ppl.slice(0, 5).map((p) => { const o = BYKEY.get(p.key).o;
       return row({ attrs: tap(`data-open="${esc(p.key)}"`), lead: avaOf(p.key), name: esc(o.name), meta: esc(edRoomRole(p)), wrap: true, extra: edAlsoHtml(p.key, new Set(ids)), tail: starBtn(p.key, o.name) }); }).join("");
-    const more = ppl.length > 5 ? `<button class="ed-room__more" type="button" data-edroom="${edRoomAll ? "less" : "all"}">${edRoomAll ? "Show fewer" : `Show all ${ppl.length}`}</button>` : "";
     const note = noRap.length ? `<p class="ed-room__note">No rapporteur yet on ${esc(noRap.map((f) => f.short).join(", "))}. Parliament names one once the file reaches it.</p>` : "";
-    const pres = presOf(w.mon), wps = files.flatMap((f) => ((f.council || {}).workingParties || []).map((x) => x.name));
-    const council = wps.length ? `<div class="ed-room__co"><span class="ed-room__k"><i class="ed-mark ed-mark--co" aria-hidden="true"></i>Council working ${new Set(wps).size > 1 ? "parties" : "party"}</span>
-      <span class="ed-room__wp">${esc([...new Set(wps)].join(" · "))}</span>
-      <span class="ed-room__m">Where member states discuss ${files.length > 1 ? "these files" : "the file"}${pres ? ` · chaired by the Presidency, ${esc(countryName(pres[0]))}` : ""}</span>
-      ${edAttache(files, new Set(wps).size > 1)}</div>` : "";
-    const links = `<div class="ed-room__files">${files.map((f) => `<button class="eu-chip" type="button" data-file="${esc(f.id)}">Everyone on ${esc(f.short)}</button>`).join("")}</div>`;
-    return `${head(cap)}${note}${rows ? `<div class="list">${rows}</div>` : ""}${more}${council}${links}`;
+    const pres = presOf(w.mon), coFiles = files.filter((f) => wpGroups(f).length);
+    const council = coFiles.length ? `<div class="ed-room__co">${coFiles.map((f) => { const g = wpGroups(f), nx = wpNext(f, w.mon);
+      const what = g.map((x) => wpShort(x.name) + (x.formats.length ? `, plus ${x.formats.length} ${x.formats.length > 1 ? "formats" : "format"}` : "")).join(" · ");
+      const meta = [coFiles.length > 1 ? f.short : "", pres ? `${countryName(pres[0])} chairs` : "", nx ? `next ${fdDate(nx.date)}` : ""].filter(Boolean).join(" · ");
+      return `<button class="ed-room__coline" type="button" data-file="${esc(f.id)}" data-filetab="co" aria-label="${esc(`Council: ${what}. ${meta}. Open the Council tab of ${f.short}`)}"><span class="ed-room__k"><i class="ed-mark ed-mark--co" aria-hidden="true"></i>Council</span><span class="ed-room__wp">${esc(what)}</span><span class="ed-room__m">${esc(meta)}</span></button>`; }).join("")}</div>` : "";
+    const links = `<div class="ed-room__files">${files.map((f) => { const c = countsOf(f), n = c.ep + c.ec + c.cab;
+      return `<button class="ed-room__all" type="button" data-file="${esc(f.id)}">View all ${n} on ${esc(f.short)}<span aria-hidden="true"> →</span></button>`; }).join("")}</div>`;
+    return `${head(cap)}${note}${rows ? `<div class="list">${rows}</div>` : ""}${links}${council}`;
+  }
+  /* Working parties grouped (22 Oct 2026). When exactly one working party has no `part` and the others have one, the
+     others are formats of it: the AHWP MFF meets as the main group and in programme formats (ECF, national and regional
+     partnerships, Global Europe). The format is the name's closing parenthesis. With no main group (Chips Act 2.0 and
+     CADA) each part keeps its own entry. */
+  function wpGroups(f) {
+    const w = ((f.council || {}).workingParties || []).filter((x) => x.basis !== "none");
+    const main = w.filter((x) => !x.part), fmt = w.filter((x) => x.part);
+    if (main.length !== 1 || !fmt.length) return w.map((x) => ({ ...x, formats: [] }));
+    const lab = (n) => { const m = n.match(/\(([^()]+)\)\s*$/), t = m ? m[1] : n; return t.charAt(0).toUpperCase() + t.slice(1); };
+    return [{ ...main[0], formats: fmt.map((x) => lab(x.name)) }];
+  }
+  /* "Ad Hoc Working Party on the Multiannual Financial Framework (AHWP MFF)" reads as "AHWP MFF" on Home. */
+  const wpShort = (n) => { const m = n.match(/\(([A-Z][A-Z0-9 ]+)\)\s*$/); return m ? m[1] : n; };
+  const wpNext = (f, from) => { const t = isoD(from || new Date()); return (f.next || []).filter((x) => x.date && x.date >= t && /working party|working parties/i.test(x.what)).sort((a, b) => a.date.localeCompare(b.date))[0]; };
+  const fileHasCo = (f) => !!(((f.council || {}).configs || []).length || wpGroups(f).length);
+  /* The file page's Council tab (22 Oct 2026), next to Parliament and Commission: the configuration, the working party
+     with its formats, who chairs, the next working-party date, then the attachés line. Moved out of Next steps. */
+  function fileCoTab(f) {
+    const cfs = ((f.council || {}).configs || []).map((cid) => CONF_BY[cid]).filter(Boolean), g = wpGroups(f), nx = wpNext(f), pres = presOf(new Date());
+    if (!cfs.length && !g.length) return `<div class="hint"><span>No Council body handles this file yet.</span></div>`;
+    const parts = Object.fromEntries((f.parts || []).map((p) => [p.id, p.short || p.title]));
+    const wp = g.length ? `<h3>Working party</h3><div class="list">${g.map((x) => `<div class="block"><h4>${esc(x.name)}</h4>${x.part && parts[x.part] ? `<p class="cap">For ${esc(parts[x.part])}</p>` : ""}${x.note && !x.formats.length ? `<p class="cap">${esc(x.note)}</p>` : ""}${x.formats.length ? `<p class="cap">Also meets as</p><ul class="fp-wpfmt">${x.formats.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>` : ""}${x.basis === "inferred" ? `<p class="cap">Venue inferred, not confirmed.</p>` : ""}</div>`).join("")}</div>
+      <p class="cap">${pres ? `Chaired by the Presidency, ${esc(countryName(pres[0]))}, until the end of ${esc(fmtIso(pres[2] + "-01", { month: "long", year: "numeric" }))}.` : ""}${nx ? ` Next working party: ${esc(fdDate(nx.date, true))}, ${esc(nx.what.replace(/^Council [^:]*working party:?\s*/i, "") || "session")}.` : ""}</p>
+      ${edAttache([f], g.length > 1)}` : "";
+    return (cfs.length ? `<h3>In the Council</h3><div class="list">${cfs.map(confRow).join("")}</div>` : "") + wp
+      + (f.council && f.council.note ? `<p class="note">${esc(f.council.note)}</p>` : "");
   }
   /* Said where the gap shows (20 Oct 2026): the attachés who cover a working party are not in nodo, because the Council
      does not publish them. The link opens "Who covers…" for the file's Council configuration, where people add names. */
@@ -291,7 +321,6 @@
       <section id="edRoom" class="ed-sec ed-room" aria-label="On these files"></section>
       <h2 class="ed-h ed-browse">Browse</h2></div>`);
     $("hq").placeholder = "A name, a file, a committee, a date";
-    $("edRoom").addEventListener("click", (e) => { const b = e.target.closest("[data-edroom]"); if (!b) return; edRoomAll = b.dataset.edroom === "all"; edRoomPaint(); });
     /* What the new home replaces leaves Home: cabinet of the day, country desk and seats by group (their data stays in the
        Commission and Parliament views). Saved and recently viewed stay, then Browse as one compact row, then the data note. */
     const body = $("homeBody"), gone = (el) => el && el.classList.add("ed-gone");
