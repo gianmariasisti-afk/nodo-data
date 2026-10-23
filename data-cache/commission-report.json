@@ -1,5 +1,5 @@
 {
- "run": "2026-10-22T09:37:25.220Z",
+ "run": "2026-10-23T09:33:42.111Z",
  "college": {
   "found": 26,
   "added": [],
@@ -12,14 +12,9 @@
   "teresa-ribera": {
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/teresa-ribera/teresa-riberas-team_en",
    "parsed": 22,
-   "existing": 21,
-   "added": [
-    "Luca Perez",
-    "Elisabet Mate"
-   ],
-   "removed": [
-    "Elisabeth Martin"
-   ]
+   "existing": 22,
+   "added": [],
+   "removed": []
   },
   "henna-virkkunen": {
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/henna-virkkunen/henna-virkkunens-team_en",
@@ -198,32 +193,12 @@
   }
  },
  "autonomy": {
-  "applied": true,
-  "waits": []
+  "applied": false,
+  "waits": [
+   "nothing to apply"
+  ]
  },
  "auto": [
-  {
-   "commissioner": "teresa-ribera",
-   "name": "Aleksandra Baranska",
-   "fields": [
-    "outside"
-   ],
-   "diff": {
-    "outside": {
-     "from": [
-      "Energy Intensive Industries",
-      "Coordination with OECD",
-      "GRI back-up"
-     ],
-     "to": [
-      "Energy Intensive Industries",
-      "Coordination with OECD",
-      "GRI back-up",
-      "Green finance/ Taxonomy/European Semester/ financial stability, financial services and Capital Markets Union /relations with EIB; relations with FISMA and ECFIN; coordination with Cabinets Albuquerque and Dombrovskis"
-     ]
-    }
-   }
-  },
   {
    "commissioner": "teresa-ribera",
    "name": "Thomas Woolfson",
@@ -238,7 +213,8 @@
       "EU-UK relations coordinator",
       "Defence and space",
       "Coordination with Cabinets Séjourné (DG GROW), Šefčovič (DG TRADE)",
-      "Coordination with RTD and JRC"
+      "Coordination with RTD and JRC",
+      "Multiannual Financial Framework for a Clean, Just and Competitive Transition (except European Competitiveness Fund), relations with BUDG and coordination with Cabinet Serafin"
      ],
      "to": [
       "Industry: Clean Tech, critical raw materials",
@@ -247,167 +223,8 @@
       "Defence and space",
       "Coordination with Cabinets Séjourné (DG GROW), Šefčovič (DG TRADE)",
       "Coordination with RTD and JRC",
-      "Multiannual Financial Framework for a Clean, Just and Competitive Transition (except European Competitiveness Fund), relations with BUDG and coordination with Cabinet Serafin"
-     ]
-    }
-   }
-  },
-  {
-   "commissioner": "teresa-ribera",
-   "name": "Julia Lemke",
-   "fields": [
-    "note",
-    "outside",
-    "countries"
-   ],
-   "diff": {
-    "note": {
-     "from": "",
-     "to": "absent"
-    },
-    "outside": {
-     "from": [
-      "Financial stability",
-      "Financial services and Capital Markets Union (FISMA)",
-      "Budget (BUDG)",
-      "Humanitarian aid (ECHO)",
-      "International partnerships (INTPA)",
-      "Neighbourhood",
-      "Coordination with Cabinets Hoekstra (DG TAXUD), Roswall (DG ENV), Albuquerque (DG FISMA), Dombrovskis (DG ECFIN)",
-      "Coordination with the Council and the EEAS"
-     ],
-     "to": []
-    },
-    "countries": {
-     "from": [
-      "DE",
-      "AT",
-      "IT"
-     ],
-     "to": []
-    }
-   }
-  },
-  {
-   "commissioner": "teresa-ribera",
-   "name": "Petra Nemeckova",
-   "fields": [
-    "outside"
-   ],
-   "diff": {
-    "outside": {
-     "from": [
-      "Health: Pharmaceuticals and Critical Medicines Act",
-      "Transport",
-      "IP related files (not falling under other areas of responsibilities)",
-      "Infringement coordinator",
-      "Ombudsman coordination",
-      "Court of Auditors",
-      "Ethics and Transparency",
-      "Coordination with Cabinets Várhelyi (DG SANTE), Tzitzikostas (DG MOVE)"
-     ],
-     "to": [
-      "Health: Pharmaceuticals and Critical Medicines Act",
-      "Transport",
-      "IP related files (not falling under other areas of responsibilities)",
-      "Infringement coordinator",
-      "Ombudsman coordination",
-      "Court of Auditors",
-      "Ethics and Transparency",
-      "Coordination with Cabinets Várhelyi (DG SANTE), Tzitzikostas (DG MOVE)",
-      "General taxation and relations with Cabinet Hoekstra on taxation",
-      "European Competitiveness Fund"
-     ]
-    }
-   }
-  },
-  {
-   "commissioner": "teresa-ribera",
-   "name": "Sean Mernagh",
-   "fields": [
-    "countries"
-   ],
-   "diff": {
-    "countries": {
-     "from": [
-      "IE",
-      "GR",
-      "MT",
-      "CY"
-     ],
-     "to": [
-      "IE",
-      "GR",
-      "MT",
-      "CY",
-      "DE",
-      "AT"
-     ]
-    }
-   }
-  },
-  {
-   "commissioner": "teresa-ribera",
-   "name": "Klevisa Ceka",
-   "fields": [
-    "resp"
-   ],
-   "diff": {
-    "resp": {
-     "from": [
-      "Local Security Officer",
-      "Organisation of missions for the Executive Vice-President",
-      "Atmos contact point"
-     ],
-     "to": [
-      "Agenda of the Executive Vice-President",
-      "Organisation of missions for the Executive Vice-President"
-     ]
-    }
-   }
-  },
-  {
-   "commissioner": "teresa-ribera",
-   "name": "Virginie Blancher",
-   "fields": [
-    "resp"
-   ],
-   "diff": {
-    "resp": {
-     "from": [],
-     "to": [
-      "Agenda of the Executive Vice-President",
-      "Atmos contact point for missions of the Executive Vice-President",
-      "Deputy Local Security Officer"
-     ]
-    }
-   }
-  },
-  {
-   "commissioner": "teresa-ribera",
-   "name": "Marta Jalal",
-   "fields": [
-    "resp"
-   ],
-   "diff": {
-    "resp": {
-     "from": [
-      "Human Resources and Cabinet Budget Coordination",
-      "Business Continuity Officer",
-      "Deputy Local Security Officer",
-      "Equality Officer",
-      "Trainees (Blue Book and NEPT)",
-      "Special Advisers",
-      "Digital Ambassador"
-     ],
-     "to": [
-      "Human Resources and Cabinet Budget Coordination",
-      "Business Continuity Officer",
-      "Local Security Officer",
-      "Equality Officer",
-      "Trainees (Blue Book and NEPT)",
-      "Special Advisers",
-      "Digital Ambassador"
+      "Multiannual Financial Framework for a Clean, Just and Competitive Transition (except European Competitiveness Fund), relations with BUDG and coordination with Cabinet Serafin",
+      "Council coordination"
      ]
     }
    }
@@ -415,9 +232,9 @@
  ],
  "structural": [],
  "summary": {
-  "auto": 8,
+  "auto": 1,
   "structural": 0,
-  "autoApplied": 3,
+  "autoApplied": 0,
   "failed": 0
  }
 }
