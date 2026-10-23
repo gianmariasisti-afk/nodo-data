@@ -1,26 +1,15 @@
 {
- "run": "2026-10-22T10:05:53.880Z",
- "checked": "2026-10-22",
+ "run": "2026-10-23T09:59:36.072Z",
+ "checked": "2026-10-23",
  "api": 719,
  "nodo": 720,
  "failed": [],
- "auto": [
-  {
-   "id": "97399",
-   "name": "Dirk GOTINK",
-   "changes": {
-    "party": {
-     "from": "NSC",
-     "to": "Independent"
-    }
-   }
-  }
- ],
+ "auto": [],
  "structural": [],
  "summary": {
-  "auto": 1,
+  "auto": 0,
   "structural": 0,
   "failed": 0,
-  "changed": true
+  "changed": false
  }
 }
