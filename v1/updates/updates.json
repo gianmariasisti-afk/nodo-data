@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-22T00:00:00Z",
+  "generatedAt": "2026-10-23T00:00:00Z",
   "events": [
     {
       "id": "biotech-act:next:2026-12-14:4e1f33",
@@ -219,7 +219,7 @@
       "proc": "2025-0420",
       "kind": "milestone",
       "title": "Committee opinions adopted",
-      "count": 1,
+      "count": 2,
       "push": false
     },
     {
@@ -271,6 +271,18 @@
       "kind": "people",
       "title": "Shadow rapporteur recorded",
       "personId": "256860",
+      "group": "PfE",
+      "push": false
+    },
+    {
+      "id": "tech-sovereignty-package:ep:2026-0138-NMSR-256877-2026-10-21",
+      "fileId": "tech-sovereignty-package",
+      "date": "2026-10-21",
+      "source": "ep",
+      "proc": "2026-0138",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "256877",
       "group": "PfE",
       "push": false
     },
@@ -330,6 +342,30 @@
       "push": false
     },
     {
+      "id": "tech-sovereignty-package:ep:2026-0138-NMSR-256971-2026-10-19",
+      "fileId": "tech-sovereignty-package",
+      "date": "2026-10-19",
+      "source": "ep",
+      "proc": "2026-0138",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "256971",
+      "group": "Renew",
+      "push": false
+    },
+    {
+      "id": "tech-sovereignty-package:ep:2026-0138-NMSR-124867-2026-10-16",
+      "fileId": "tech-sovereignty-package",
+      "date": "2026-10-16",
+      "source": "ep",
+      "proc": "2026-0138",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "124867",
+      "group": "S&D",
+      "push": false
+    },
+    {
       "id": "medical-devices:ep:2025-0404-NMCP-86793-IMCO-2026-10-15",
       "fileId": "medical-devices",
       "date": "2026-10-15",
@@ -372,7 +408,7 @@
       "proc": "2026-0068",
       "kind": "milestone",
       "title": "Amendments tabled in committee",
-      "count": 3,
+      "count": 1,
       "push": true
     },
     {
@@ -826,16 +862,6 @@
       "kind": "milestone",
       "title": "Amendments tabled in committee",
       "count": 9,
-      "push": true
-    },
-    {
-      "id": "ai-act-implementation:ep:2025-0359-PUB-2026-07-24",
-      "fileId": "ai-act-implementation",
-      "date": "2026-07-24",
-      "source": "ep",
-      "proc": "2025-0359",
-      "kind": "milestone",
-      "title": "Published in the Official Journal",
       "push": true
     }
   ]

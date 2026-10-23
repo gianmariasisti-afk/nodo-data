@@ -4299,7 +4299,7 @@
       "proc": "2026-0068",
       "kind": "milestone",
       "title": "Amendments tabled in committee",
-      "count": 3,
+      "count": 1,
       "push": true
     },
     {
@@ -4999,6 +4999,18 @@
       "push": false
     },
     {
+      "id": "tech-sovereignty-package:ep:2026-0138-NMSR-256877-2026-10-21",
+      "fileId": "tech-sovereignty-package",
+      "date": "2026-10-21",
+      "source": "ep",
+      "proc": "2026-0138",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "256877",
+      "group": "PfE",
+      "push": false
+    },
+    {
       "id": "tech-sovereignty-package:ep:2026-0138-NMCP-34232-LIBE-2026-10-19",
       "fileId": "tech-sovereignty-package",
       "date": "2026-10-19",
@@ -5009,6 +5021,30 @@
       "personId": "34232",
       "group": "S&D",
       "committee": "LIBE",
+      "push": false
+    },
+    {
+      "id": "tech-sovereignty-package:ep:2026-0138-NMSR-256971-2026-10-19",
+      "fileId": "tech-sovereignty-package",
+      "date": "2026-10-19",
+      "source": "ep",
+      "proc": "2026-0138",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "256971",
+      "group": "Renew",
+      "push": false
+    },
+    {
+      "id": "tech-sovereignty-package:ep:2026-0138-NMSR-124867-2026-10-16",
+      "fileId": "tech-sovereignty-package",
+      "date": "2026-10-16",
+      "source": "ep",
+      "proc": "2026-0138",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "124867",
+      "group": "S&D",
       "push": false
     },
     {
@@ -6547,7 +6583,7 @@
       "proc": "2025-0420",
       "kind": "milestone",
       "title": "Committee opinions adopted",
-      "count": 1,
+      "count": 2,
       "push": false
     },
     {
