@@ -740,25 +740,24 @@
       <section id="nxMenu" class="nx-menu" role="dialog" aria-modal="true" aria-label="Menu" hidden>
         <div class="nx-menu__top"><span class="nx-menu__wm">${wm}</span>
           <button class="eu-iconbtn nx-close" type="button" data-nx-close aria-label="Close menu">${NX_SVG.close}</button></div>
-        <p class="nx-week" id="nxWeek"></p>
         <nav aria-label="Main"><ul class="nx-list">
-          <li><button class="nx-item" type="button" data-view="home" data-nx="home">${NX_ICON("navHome")}Today</button></li>
+          <li><button class="nx-item" type="button" data-view="home" data-nx="home">${NX_ICON("navHome")}<span class="nx-item__l">Today</span><span class="nx-badge" id="nxNew" hidden></span></button></li>
           <li><div class="nx-split"><button class="nx-item" type="button" data-view="people" data-nx="people">${NX_ICON("navDir")}People</button>
-              <button class="nx-tog" type="button" id="nxTog" aria-expanded="true" aria-controls="nxSub" aria-label="Parliament, Commission and Council">${NX_SVG.chev}</button></div>
-            <ul class="nx-sub" id="nxSub">
-              <li><button class="nx-subitem" type="button" data-dir="ep" data-nx="ep"><span class="nx-dot nx-dot--ep" aria-hidden="true"></span>Parliament</button></li>
-              <li><button class="nx-subitem" type="button" data-dir="ec" data-nx="ec"><span class="nx-dot nx-dot--ec" aria-hidden="true"></span>Commission</button></li>
-              <li><button class="nx-subitem" type="button" data-dir="co" data-nx="co"><span class="nx-dot nx-dot--co" aria-hidden="true"></span>Council</button></li>
+              <button class="nx-tog" type="button" id="nxTog" aria-expanded="false" aria-controls="nxSub" aria-label="Parliament, Commission and Council">${NX_SVG.chev}</button></div>
+            <ul class="nx-sub" id="nxSub" hidden>
+              <li><button class="nx-subitem" type="button" data-dir="ep" data-nx="ep">Parliament<span class="nx-subcap" id="nxCapEp"></span></button></li>
+              <li><button class="nx-subitem" type="button" data-dir="ec" data-nx="ec">Commission<span class="nx-subcap">27 Commissioners</span></button></li>
+              <li><button class="nx-subitem" type="button" data-dir="co" data-nx="co">Council<span class="nx-subcap">27 delegations</span></button></li>
             </ul></li>
           <li><button class="nx-item" type="button" data-view="cal" data-nx="cal">${NX_ICON("navCal")}Calendar</button></li>
-          <li><button class="nx-item" type="button" data-view="files" data-nx="files">${NX_ICON("navFiles")}Files</button></li>
+          <li><button class="nx-item" type="button" data-view="files" data-nx="files">${NX_ICON("navFiles")}<span class="nx-item__l">Files</span><span class="nx-hint" id="nxFol"></span></button></li>
         </ul>
-        <hr class="nx-rule">
-        <ul class="nx-list nx-list--2">
-          <li><button class="nx-subitem" type="button" data-view="about" data-nx="about">About nodo</button></li>
         </ul></nav>
-        <button class="nx-me" type="button" data-nx-me><span class="nx-me__face" id="nxFace" aria-hidden="true"></span>
-          <span class="nx-me__tx"><span class="nx-me__n" id="nxName">Your profile</span><span class="nx-me__s">Profile, files you follow, countries you cover</span></span></button>
+        <div class="nx-foot" id="nxFoot">
+          <button class="nx-me" type="button" data-nx-me><span class="nx-me__face" id="nxFace" aria-hidden="true"></span>
+            <span class="nx-me__tx"><span class="nx-me__n" id="nxName">Your profile</span><span class="nx-me__s">Profile and settings</span></span>${NX_SVG.chev}</button>
+          <div class="nx-links" id="nxLinks"><button class="nx-flink" type="button" data-view="about" data-nx="about">About nodo</button></div>
+        </div>
       </section>`);
     document.body.classList.add("nx-burger");
 
@@ -773,8 +772,14 @@
     }
     function nxOpen() {
       nxSync();
-      const wk = weekOf(edMonday()), phrase = ED_WEEK[wk.place || wk.kind];
-      $("nxWeek").textContent = phrase ? phrase.replace(/^an? /, "").replace(/^./, (c) => c.toUpperCase()) : "";
+      /* Hints, one per row at most (23 Oct 2026): what is new on your files since your last look, how many files you follow,
+         and People opens on its sections only when you are in one of them. */
+      const fol = followedFiles(), nNew = fol.length && UPD.status === "done" ? tdSinceItems(fol, tdSinceDate()).length : 0;
+      $("nxNew").hidden = !nNew; $("nxNew").textContent = nNew ? `${nNew} new` : "";
+      $("nxFol").textContent = fol.length ? `${fol.length} followed` : "";
+      $("nxCapEp").textContent = `${MEPS.length} MEPs`;
+      const inPp = ["ep", "ec", "co"].includes(cur());
+      $("nxTog").setAttribute("aria-expanded", String(inPp)); $("nxSub").hidden = !inPp;
       $("nxFace").innerHTML = $("meBtn").innerHTML;
       const fn = firstName(); $("nxName").textContent = fn || "Your profile";
       scrim.hidden = false; menu.hidden = false;
@@ -1889,10 +1894,9 @@
   leaveAccount = function () { ad.on = false; ad.status = ad.over = null; ad.at = 0; adEntry(); return adLeave.apply(this, arguments); };
 
   /* The menu row, last before your profile, shown only to admins, with a count of what needs you. */
-  $("nxMenu").querySelector("[data-nx-me]").insertAdjacentHTML("beforebegin",
-    `<button class="ad-entry" type="button" data-view="admin" data-nx="admin" hidden><span class="ad-entry__disc" aria-hidden="true">${icon("lock")}</span>
-      <span class="ad-entry__tx"><span class="ad-entry__n">Admin</span><span class="ad-entry__s">Only your account sees this</span></span>
-      <span class="ad-entry__count" id="adCount" hidden></span></button>`);
+  /* A small link beside About nodo since 23 Oct 2026; it was a full card that outweighed the sections. */
+  $("nxLinks").insertAdjacentHTML("beforeend",
+    `<button class="nx-flink ad-entry" type="button" data-view="admin" data-nx="admin" hidden>Admin<span class="ad-entry__count" id="adCount" hidden></span></button>`);
   function adEntry() {
     const b = $("nxMenu").querySelector(".ad-entry"); b.hidden = !ad.on;
     const n = ad.status ? adNeeds().length : 0, c = $("adCount");

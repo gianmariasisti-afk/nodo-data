@@ -935,3 +935,31 @@ html:has(body.nx-on-home) { background: var(--ed-ground); }
 .mn-cap{margin:-4px 0 10px;font-size:13px;line-height:19px;color:var(--ink-muted)}
 .mn-foot{margin:12px 0 0;font-size:12px;line-height:16px;font-weight:500;color:var(--ink-muted)}
 .mn-spoke .list{background:transparent}
+
+/* Menu, four sections and one footer (23 Oct 2026). The week chip, the coloured dots and the admin card went;
+   one quiet hint per row at most. Placed after the earlier menu rules so these win. */
+.nx-week { display: none; }
+.nx-list { margin-top: var(--space-8); }
+.nx-item { height: 56px; }
+.nx-item__l { flex: 1; min-width: 0; }
+.nx-badge { flex: none; padding: 4px 10px; border-radius: var(--radius-pill); background: var(--ink); color: var(--ink-inverse); font: 700 13px/16px var(--font-sans); letter-spacing: 0; }
+.nx-badge[hidden] { display: none; }
+.nx-item[aria-current="page"] .nx-badge { background: var(--node-on-deep); color: var(--brand-deep); }
+.nx-hint { flex: none; font: 500 13px/16px var(--font-sans); letter-spacing: 0; color: var(--ink-muted); }
+.nx-item[aria-current="page"] .nx-hint { color: var(--on-brand-deep-muted); }
+.nx-tog { width: 48px; height: 48px; background: none; color: var(--ink-muted); }
+.nx-subitem { justify-content: space-between; font-size: 17px; line-height: 22px; padding: 10px 16px 10px 0; }
+.nx-subcap { font: 500 13px/16px var(--font-sans); color: var(--ink-muted); }
+.nx-foot { margin-top: auto; padding-top: var(--space-4); border-top: 1px solid var(--hairline); display: flex; flex-direction: column; gap: 6px; }
+.nx-me { margin-top: 0; min-height: 56px; padding: 6px 12px; background: none; border-radius: 18px; }
+.nx-me:hover { background: var(--surface-sunken); }
+.nx-me__face { width: 40px; height: 40px; }
+.nx-me__tx { flex: 1; }
+.nx-me .nx-chev { width: 18px; height: 18px; flex: none; color: var(--ink-muted); transform: rotate(-90deg); }
+.nx-links { display: flex; flex-wrap: wrap; gap: 4px; padding: 0 4px; }
+.nx-flink { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 8px; border: 0; border-radius: var(--radius-md); background: none; color: var(--ink-muted); font: 600 14px/1 var(--font-sans); cursor: pointer; }
+.nx-flink[aria-current="page"] { color: var(--ink); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+.nx-flink.ad-entry { margin: 0; min-height: 44px; background: none; color: var(--ink-muted); border-radius: var(--radius-md); }
+.nx-flink.ad-entry[aria-current] { box-shadow: none; }
+.nx-flink .ad-entry__count { min-width: 20px; height: 20px; padding: 0 6px; font-size: 12px; background: var(--ink); color: var(--ink-inverse); }
+
