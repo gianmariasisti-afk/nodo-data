@@ -1,15 +1,4 @@
 {
-  "generatedAt": "2026-10-23T00:00:00Z",
-  "events": [
-    {
-      "id": "kids-act:next:2026-10-23:a135cf",
-      "fileId": "kids-act",
-      "date": "2026-10-23",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Council Audiovisual and Media Working Party on the KIDS Act",
-      "push": true,
-      "pushOn": "2026-10-23"
-    }
-  ]
+  "generatedAt": "2026-10-24T00:00:00Z",
+  "events": []
 }

@@ -4288,7 +4288,7 @@
       "proc": "2026-0068",
       "kind": "milestone",
       "title": "Amendments tabled in committee",
-      "count": 15,
+      "count": 18,
       "push": true
     },
     {
@@ -4299,7 +4299,7 @@
       "proc": "2026-0068",
       "kind": "milestone",
       "title": "Amendments tabled in committee",
-      "count": 1,
+      "count": 3,
       "push": true
     },
     {
@@ -8677,6 +8677,16 @@
       "title": "Council Audiovisual and Media Working Party on the KIDS Act",
       "push": true,
       "pushOn": "2026-10-23"
+    },
+    {
+      "id": "kids-act:ep:2026-0286-ANPRO-2026-10-22",
+      "fileId": "kids-act",
+      "date": "2026-10-22",
+      "source": "ep",
+      "proc": "2026-0286",
+      "kind": "procedural",
+      "title": "Referred to committee",
+      "push": false
     }
   ]
 }
