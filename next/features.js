@@ -992,10 +992,10 @@
 
 
   /* ---------- 7. Files: the files come first (since 20 Oct 2026) ---------- */
-  /* The Files view opens on the files themselves. Three views under one switch:
+  /* The Files view opens on the files themselves. Two views under one switch (three until 26 Oct 2026):
      - Line: the five stages from idea to law as a vertical line, each file hanging off its stage, with a one-line status,
        the next step and a star to follow it. An empty stage says so. "Any other file" search sits under the line.
-     - Next up: every dated step on nodo's files, soonest first, by week and then by month; files with no date set listed apart.
+     - Next up (until 26 Oct 2026): every dated step by week and month. Moved to the Calendar agenda (section 12).
      - Following: the files you follow with their track, then the Monday email and alert switches, which only concern them.
      News and Map become two small buttons beside the count. The "Choose the files you track" block and the empty-state
      text above the list are gone: the star on each file is how you follow it. This override runs last and replaces the
@@ -1058,32 +1058,10 @@
         <label class="eu-search">${icon("search")}<input id="nxdq" type="search" placeholder="A file, an acronym or a committee" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Search Parliament reports and opinions" value="${esc(NX.dq || "")}"></label>
         <div id="nxdres" aria-live="polite">${nxAnyHtml(NX.dq || "")}</div></section>`;
   }
-  function flNextUp() {
-    const t = new Date(), tIso = todayIso(), mon = mondayOf(t), sun = isoD(addD(mon, 6)), sun2 = isoD(addD(mon, 13));
-    const steps = edSteps(FILES, tIso, "9999-12-31"), groups = [];
-    const put = (k, label, now, s) => { let g = groups.find((x) => x.k === k); if (!g) groups.push((g = { k, label, now, xs: [] })); g.xs.push(s); };
-    steps.forEach((s) => {
-      if (s.date <= sun) put("w0", "This week", true, s);
-      else if (s.date <= sun2) put("w1", "Next week", false, s);
-      else { const d = fromIso(s.date); put(s.date.slice(0, 7), fmtD(d, d.getFullYear() === t.getFullYear() ? { month: "long" } : { month: "long", year: "numeric" }), false, s); }
-    });
-    const item = (s) => { const d = fromIso(s.date), f = s.files[0];
-      return `<button class="fl-ev" type="button" data-file="${esc(f.id)}" data-filetab="next">
-        <span class="fl-ev__d"><span>${esc(fmtD(d, { weekday: "short" }))}</span><b>${d.getDate()}</b><span>${esc(fmtD(d, { month: "short" }))}</span></span>
-        <span class="fl-ev__tx"><span class="fl-ev__f">${esc(s.files.map((x) => x.short).join(" · "))}</span><span class="fl-ev__w">${esc(s.what)}</span></span></button>`; };
-    const undated = [];
-    FILES.forEach((f) => (f.next || []).forEach((s) => { if (!s.date) undated.push({ f, what: s.what }); }));
-    return `<p class="cap fl-lead">Every dated step on nodo's ${FILES.length} files, soonest first. Today is ${esc(fmtD(t, { weekday: "short", day: "numeric", month: "short" }))}.</p>
-      ${groups.length ? groups.map((g) => `<section class="fl-wk"><h3>${g.now ? `<i class="fl-dot fl-dot--soon" aria-hidden="true"></i>` : ""}${esc(g.label)} <small>${g.xs.length}</small></h3>${g.xs.map(item).join("")}</section>`).join("")
-        : `<div class="hint"><span>No dated step on nodo's files yet.</span></div>`}
-      ${undated.length ? `<section class="fl-wk"><h3>No date set yet <small>${undated.length}</small></h3><div class="fl-und">${undated.map((u) =>
-        `<button class="fl-und__r" type="button" data-file="${esc(u.f.id)}" data-filetab="next"><b>${esc(u.f.short)}</b><span>${esc(nxClip(u.what.replace(/:\s*no dates? set yet$/i, ""), 60))}</span></button>`).join("")}</div></section>` : ""}
-      <p class="foot">A date appears only when an official source ties it to the file.</p>`;
-  }
   function flFollowing() {
     const fol = followedFiles();
     return `${fol.length ? fol.map((f) => flCard(f, true)).join("")
-        : `<div class="hint"><span>You follow no file yet. Tap the star on a file in Line or Next up, and it comes here.</span></div>
+        : `<div class="hint"><span>You follow no file yet. Tap the star on a file in Line, and it comes here.</span></div>
            <button class="eu-btn eu-btn--block" type="button" data-nxpick>${icon("star")}Choose from the list</button>`}
       ${fol.length ? `<button class="fl-more" type="button" data-fview="line">${FL_SVG.plus}Follow more files</button>` : ""}
       <section class="block nx-notify fl-notify" aria-label="What nodo sends you">${nxSwitch("weekly", "Monday email", fol.length ? `What moved on ${fol.length === 1 ? "this file" : `these ${fol.length} files`} last week` : "What moved on your files last week")}${nxSwitch("alerts", "Same-day alerts", "When a stage or a date changes")}
@@ -1094,14 +1072,14 @@
   renderFilesView = function () {
     flFilesViewBase();
     if (!FILES.length) return;
-    const v = ["line", "next", "following"].includes(state.fview) ? state.fview : "line", n = state.follow.size;
+    const v = ["line", "following"].includes(state.fview) ? state.fview : "line", n = state.follow.size;
     const checked = FILES.map((f) => f.checked).filter(Boolean).sort()[0] || (DATA.fl && DATA.fl.asOf);
     $("filesCount").hidden = true;
     const tab = (k, label, extra) => `<button class="fl-tab" type="button" role="tab" id="flTab-${k}" aria-controls="flPanel" aria-selected="${v === k}" tabindex="${v === k ? 0 : -1}" data-fview="${k}">${label}${extra || ""}</button>`;
     $("filesBody").innerHTML = `<div class="fl-top"><p class="cap">${FILES.length} files${checked ? ` · statuses checked ${esc(fdDate(checked))}` : ""}</p>
         <span class="fl-top__acts"><button class="fl-pill" type="button" data-view="news">${FL_SVG.news}News</button><button class="fl-pill" type="button" data-edmap="">${FL_SVG.map}Map</button></span></div>
-      <div class="fl-tabs" role="tablist" aria-label="Files views">${tab("line", "Line")}${tab("next", "Next up")}${tab("following", "Following", `<span class="fl-count">${n}</span>`)}</div>
-      <div id="flPanel" role="tabpanel" aria-labelledby="flTab-${v}" class="fl-panel">${v === "next" ? flNextUp() : v === "following" ? flFollowing() : flLine()}</div>
+      <div class="fl-tabs" role="tablist" aria-label="Files views">${tab("line", "Line")}${tab("following", "Following", `<span class="fl-count">${n}</span>`)}</div>
+      <div id="flPanel" role="tabpanel" aria-labelledby="flTab-${v}" class="fl-panel">${v === "following" ? flFollowing() : flLine()}</div>
       <p class="foot">Names marked Verified come from the Parliament's open data or its Legislative Observatory procedure files. Names marked From press are taken from published reporting and need a check in the Parliament's procedure file before external use.</p>`;
   };
   document.addEventListener("click", (e) => {
@@ -1115,7 +1093,7 @@
   });
   document.addEventListener("keydown", (e) => {
     const t = e.target.closest && e.target.closest(".fl-tab"); if (!t || (e.key !== "ArrowRight" && e.key !== "ArrowLeft")) return;
-    const ks = ["line", "next", "following"], i = ks.indexOf(t.dataset.fview), k = ks[(i + (e.key === "ArrowRight" ? 1 : 2)) % 3];
+    const ks = ["line", "following"], k = ks[1 - Math.max(0, ks.indexOf(t.dataset.fview))];
     e.preventDefault(); document.querySelector(`.fl-tab[data-fview="${k}"]`).click();
   });
 
@@ -2188,4 +2166,178 @@
     const id = b.getAttribute("data-mnmore");
     if (mnOpen.has(id)) mnOpen.delete(id); else mnOpen.add(id);
     openFile(id, true);
+  });
+
+
+  /* ---------- 12. Calendar: the files agenda, with the EP calendar beside it (since 26 Oct 2026) ---------- */
+  /* Calendar opens on the agenda of the files: what happens next on the files you follow. One switch, Agenda or EP calendar.
+     Agenda: this week and next week in full, one card per file per week (a meeting on consecutive days shows once, as a
+     range); the four weeks after that as one line each (dates, the Parliament's week type, the step count and the files),
+     each opening in place; then one line per month. Each week names the Parliament's week type in one muted line. The
+     files you follow by default; one link at the bottom adds the others. With no followed file, all files and a note.
+     EP calendar: the previous calendar, simplified. A short hero (where MEPs are, the next plenary), then one list of
+     months from now, the current and next month open, week rows with the day cells, the week type and a count of steps on
+     your files that opens that week in the agenda. 2027 months show plenary dates only. Earlier months, the legend and the
+     source sit at the bottom. Replaces the five-day strip, the plenary meter, the year folds and the Council lines.
+     Next up left the Files view the same day: Calendar is where dated steps live. */
+  const CL = { v: "agenda", all: false, open: new Set(), mOpen: null, earlier: false, jump: null };
+  const clFlag = (w) => (/indicative/i.test(w) ? "Indicative" : /reported by|agence europe/i.test(w) ? "Reported" : "");
+  const clClean = (w) => String(w).replace(/\s*\([^)]*(?:indicative|reported|agence europe)[^)]*\)\s*$/i, "");
+  const clInst = (w) => (/trilogue/i.test(w) ? ["tri", "Trilogue"] : /european council/i.test(w) ? ["co", "European Council"]
+    : /cut-off|deadline|applies from|apply from/i.test(w) ? ["cal", "Deadline"] : [edInst(w), TD_INST[edInst(w)] || "Key date"]);
+  function clScope() {
+    const fol = followedFiles(), mine = fol.length > 0 && !CL.all;
+    return { files: mine ? fol : FILES, mine, nFol: fol.length };
+  }
+  /* Dated steps between two ISO dates as one group per file (or set of files), consecutive days of one step merged. */
+  function clGroups(files, from, to) {
+    const groups = [];
+    edSteps(files, from, to).forEach((s) => {
+      const key = s.files.map((f) => f.id).join("+");
+      let g = groups.find((x) => x.key === key);
+      if (!g) groups.push((g = { key, files: s.files, lines: [] }));
+      const what = clClean(s.what), prev = g.lines[g.lines.length - 1];
+      if (prev && edFold(prev.what) === edFold(what) && isoD(addD(fromIso(prev.end), 1)) === s.date) { prev.end = s.date; return; }
+      g.lines.push({ date: s.date, end: s.date, what, flag: clFlag(s.what), inst: clInst(s.what), files: s.files });
+    });
+    return groups;
+  }
+  const clN = (gs) => gs.reduce((n, g) => n + g.lines.length, 0);
+  const clSteps = (n) => `${n} ${pl(n, "step", "steps")}`;
+  function clCard(g) {
+    const a = g.lines[0].date, b = g.lines.reduce((m, l) => (l.end > m ? l.end : m), a), da = fromIso(a), db = fromIso(b), one = a === b;
+    const dow = one ? fmtD(da, { weekday: "short" }) : `${fmtD(da, { weekday: "short" })}–${fmtD(db, { weekday: "short" })}`;
+    const num = one ? String(da.getDate()) : `${da.getDate()}–${db.getDate()}`, multi = g.lines.length > 1;
+    const line = (l) => {
+      const when = multi ? `<b>${esc(fmtD(fromIso(l.date), { weekday: "short", day: "numeric" }))}${l.end !== l.date ? "–" + fromIso(l.end).getDate() : ""}</b> · ` : "";
+      return `<span class="cl-l"><span class="cl-w">${when}${esc(edWhat({ what: l.what, files: l.files }))}</span>
+        <span class="cl-m"><i class="cl-i cl-i--${l.inst[0]}" aria-hidden="true"></i>${esc(l.inst[1])}${l.flag ? `<span class="cl-flag">${l.flag}</span>` : ""}</span></span>`;
+    };
+    const fol = CL.all && g.files.some((f) => state.follow.has(f.id));
+    return `<button class="cl-card" type="button" data-file="${esc(g.files[0].id)}" data-filetab="next">
+      <span class="cl-d${a === todayIso() ? " is-today" : ""}"><span>${esc(dow)}</span><b${num.length > 3 ? ' class="is-long"' : ""}>${esc(num)}</b><span>${esc(fmtD(db, { month: "short" }))}</span></span>
+      <span class="cl-tx"><span class="cl-f">${esc(g.files.map(edTag).join(" · "))}${fol ? `<i class="cl-fol" role="img" aria-label="Following"></i>` : ""}</span>${g.lines.map(line).join("")}</span></button>`;
+  }
+  function clBand(mon) {
+    const wk = weekOf(mon), a = isoD(mon), b = isoD(addD(mon, 6));
+    const s = CAL.sessions.find((x) => x.start <= b && x.end >= a);
+    const sub = wk.kind === "P" && s ? `Sitting ${rangeTxt(fromIso(s.start), fromIso(s.end))}` : wk.kind === "C" || wk.kind === "G" ? "MEPs in Brussels" : wk.kind === "X" ? "MEPs away from Brussels" : "";
+    return { k: wk.kind === "?" ? "_" : wk.kind, text: wk.label + (sub ? " · " + sub : "") };
+  }
+  function clAgenda() {
+    const sc = clScope(), t = todayIso(), mon0 = edMonday(), ahead = edAhead(), names = ahead ? ["Next week", "The week after"] : ["This week", "Next week"];
+    const wr = (m) => rangeTxt(m, addD(m, 6));
+    const hiddenTxt = (all, mine) => (sc.mine && all > mine ? ` ${all - mine} on other files.` : "");
+    let h = sc.nFol ? "" : `<p class="cap cl-lead">You follow no file yet, so this shows all of nodo's ${FILES.length} files. <button class="linkbtn" type="button" data-nxpick>Choose your files</button></p>`;
+    [0, 1].forEach((i) => {
+      const m = addD(mon0, 7 * i), from = i === 0 && t > isoD(m) ? t : isoD(m), to = isoD(addD(m, 6));
+      const gs = clGroups(sc.files, from, to), band = clBand(m);
+      h += `<section class="cl-wk" id="cl-${isoD(m)}"><h2 class="cl-h">${esc(names[i])} · ${esc(wr(m))}</h2>
+        <p class="cl-band"><i class="k-${band.k}" aria-hidden="true"></i>${esc(band.text)}</p>
+        ${gs.length ? gs.map(clCard).join("") : `<p class="cl-none">Nothing dated on the files you follow.${hiddenTxt(clN(clGroups(FILES, from, to)), 0)}</p>`}</section>`;
+    });
+    const rows = [];
+    for (let i = 2; i < 6; i++) {
+      const m = addD(mon0, 7 * i), from = isoD(m), to = isoD(addD(m, 6)), band = clBand(m);
+      rows.push({ key: from, title: wr(m), band, gs: clGroups(sc.files, from, to), other: clGroups(FILES, from, to) });
+    }
+    const mFrom = isoD(addD(mon0, 42)), byM = new Map();
+    clGroups(sc.files, mFrom, "9999-12-31").forEach((g) => g.lines.forEach((l) => {
+      const k = l.date.slice(0, 7); if (!byM.has(k)) byM.set(k, []); byM.get(k).push(l);
+    }));
+    [...byM.keys()].sort().forEach((k) => {
+      const y = +k.slice(0, 4), mi = +k.slice(5, 7) - 1, last = isoD(new Date(y, mi + 1, 0));
+      const from = k + "-01" > mFrom ? k + "-01" : mFrom, sum = monthSummary(y, mi);
+      rows.push({ key: "m:" + k, month: true, title: MONTHS[mi] + (y !== new Date().getFullYear() ? " " + y : ""),
+        band: { k: sum ? "P" : "_", text: sum ? "Plenary · " + sum : "No plenary" }, gs: clGroups(sc.files, from, last), other: [] });
+    });
+    h += `<h2 class="cl-h cl-h--later">Later</h2><div class="cl-rows">${rows.map((r) => {
+      const n = clN(r.gs), on = CL.open.has(r.key) && n > 0, files = [...new Set(r.gs.map((g) => g.files.map(edTag).join(" · ")))];
+      const other = n ? "" : clN(r.other) ? `${clSteps(clN(r.other))} on other files` : "Nothing dated on nodo's files";
+      return `<div class="cl-rw" id="cl-${esc(r.key.replace(":", "-"))}"><button class="cl-row${r.month ? " cl-row--m" : ""}" type="button" data-clrow="${esc(r.key)}" aria-expanded="${on}"${n ? "" : " disabled"}>
+          <span class="cl-row__tx"><span class="cl-row__t"><b>${esc(r.title)}</b><small>${n ? clSteps(n) : ""}</small></span>
+          <span class="cl-band"><i class="k-${r.band.k}" aria-hidden="true"></i>${esc(r.band.text)}</span>
+          <span class="cl-row__f">${esc(n ? files.join(" · ") : other)}</span></span>
+          ${n ? `<span class="cl-go" aria-hidden="true">${icon("down")}</span>` : ""}</button>
+        ${on ? `<div class="cl-sub">${r.gs.map(clCard).join("")}</div>` : ""}</div>`;
+    }).join("")}</div>`;
+    if (sc.nFol) h += `<button class="cl-more" type="button" data-clall>${CL.all ? "Only the files you follow" : `Include the ${FILES.length - sc.nFol} ${pl(FILES.length - sc.nFol, "file", "files")} you don't follow`}</button>`;
+    return h + `<p class="foot">One card per file per week. A date appears only when an official source ties it to the file. Indicative marks a forecast date in the Legislative Observatory, Reported a date taken from press reporting.</p>`;
+  }
+  function clEp() {
+    const today = new Date(), tIso = isoD(today), mon = mondayOf(today), wk = weekOf(mon), np = plenaryLine(nextPlenary(today), today), sc = clScope();
+    const npTxt = np.n === "Now" ? `${np.t}: ${np.s}` : np.n === "–" ? np.t : `${np.t}, ${np.s}, in ${np.n} ${np.u}`;
+    const cy = today.getFullYear(), cm = today.getMonth();
+    if (!CL.mOpen) CL.mOpen = new Set([`${cy}-${cm}`, `${cm === 11 ? cy + 1 : cy}-${(cm + 1) % 12}`]);
+    const lastY = Math.max(...CAL.sessions.map((s) => +s.start.slice(0, 4)));
+    const months = [];
+    for (let y = cy; y <= lastY; y++) for (let m = 0; m < 12; m++) {
+      if (y === cy && m < cm && !CL.earlier) continue;
+      months.push({ y, m });
+    }
+    let divided = false;
+    const rows = months.map(({ y, m }) => {
+      const key = `${y}-${m}`, days = !!CAL.days[y], sum = monthSummary(y, m), now = y === cy && m === cm, past = y === cy && m < cm;
+      let div = "";
+      if (!days && !divided) { divided = true; div = `<p class="cl-div">${y} · plenary dates only from here</p>`; }
+      const first = new Date(y, m, 1), last = new Date(y, m + 1, 0), weeks = [];
+      if (days) for (let w = mondayOf(first); w <= last; w = addD(w, 7)) {
+        if (addD(w, 3).getMonth() !== m) continue;
+        if (now && w < mon && !CL.earlier) continue;
+        weeks.push(w);
+      }
+      const nOf = (w) => { const a = isoD(w), b = isoD(addD(w, 6)); return clN(clGroups(sc.files, a < tIso && b >= tIso ? tIso : a, b)); };
+      const total = weeks.reduce((n, w) => n + (isoD(addD(w, 6)) >= tIso ? nOf(w) : 0), 0), open = days && CL.mOpen.has(key);
+      const head = `<span class="cl-mf__tx"><b>${esc(MONTHS[m])}${y !== cy ? " " + y : ""}</b><small><i class="cl-pd${sum ? "" : " is-none"}" aria-hidden="true"></i>${esc(now && !sum ? "This month" : sum || "No plenary")}</small></span>
+        ${total && !open ? `<span class="cl-cnt"><i class="cl-fol" aria-hidden="true"></i>${total}<span class="cl-sr"> steps on your files</span></span>` : ""}`;
+      return `${div}<div class="cl-mo">${days ? `<button class="cl-mf${past ? " is-past" : ""}" type="button" data-clmonth="${key}" aria-expanded="${open}">${head}<span class="cl-go" aria-hidden="true">${icon("down")}</span></button>`
+          : `<div class="cl-mf cl-mf--flat">${head}</div>`}
+        ${open ? `<div class="cl-wks">${weeks.map((w) => {
+          const a = isoD(w), x = weekOf(w), n = isoD(addD(w, 6)) >= tIso ? nOf(w) : 0, cur = a === isoD(mon), isPast = isoD(addD(w, 6)) < tIso;
+          return `<button class="cl-wr${cur ? " is-cur" : ""}${isPast ? " is-past" : ""}" type="button" data-clweek="${a}"${isPast ? " disabled" : ""}>
+            <span class="cl-wr__d">${esc(rangeTxt(w, addD(w, 6)))}</span><span class="cells">${x.days.map((d) => cellHtml(d, today)).join("")}</span>
+            <span class="cl-wr__l">${esc(x.label)}</span><span class="cl-cnt">${n ? `<i class="cl-fol" aria-hidden="true"></i>${n}<span class="cl-sr"> steps on your files</span>` : ""}</span></button>`;
+        }).join("")}</div>` : ""}</div>`;
+    }).join("");
+    return `<section class="eu-hero cl-hero"><div class="eu-hero__eyebrow">This week · ${esc(fmtD(mon))} – ${esc(fmtD(addD(mon, 6)))}</div>
+        <h2 class="eu-hero__title">${heroTitle(wk)}</h2><p class="eu-hero__text cl-np"><i class="k-P" aria-hidden="true"></i>${esc(npTxt)}</p></section>
+      <div class="cl-mos">${rows}</div>
+      <button class="cl-more" type="button" data-clearlier>${CL.earlier ? `Hide earlier months` : `Earlier in ${cy}`}</button>
+      <div class="legend">${["P", "C", "G", "X"].map((k) => `<span><i class="k-${k}"></i>${esc(k === "P" ? "Plenary" : k === "G" ? "Political groups" : k === "X" ? "External activities" : KLABEL[k])}</span>`).join("")}
+        <span><i class="cl-fol" aria-hidden="true"></i>Steps on ${sc.mine ? "your" : "nodo's"} files</span><span>Each day: top half morning, bottom half afternoon</span></div>
+      <p class="note">Source: European Parliament calendar ${cy} and plenary dates for ${lastY}. Committee and group weeks are shown where the Parliament has published them. Checked ${esc(fmtD(fromIso(CAL.checked || CAL.fetched), { day: "numeric", month: "short", year: "numeric" }))}.</p>`;
+  }
+  renderCal = function () {
+    const v = $("vCal"); if (!v) return;
+    const tab = (k, label) => `<button class="fl-tab" type="button" role="tab" id="clTab-${k}" aria-controls="clPanel" aria-selected="${CL.v === k}" tabindex="${CL.v === k ? 0 : -1}" data-clv="${k}">${label}</button>`;
+    v.innerHTML = `<h1 class="eu-headline">The weeks <strong>ahead</strong></h1>
+      <div class="fl-tabs cl-tabs" role="tablist" aria-label="Calendar views">${tab("agenda", "Agenda")}${tab("ep", "EP calendar")}</div>
+      <div id="clPanel" role="tabpanel" aria-labelledby="clTab-${CL.v}" class="fl-panel">${CL.v === "ep" ? clEp() : clAgenda()}</div>`;
+    if (CL.jump) {
+      const el = document.getElementById("cl-" + CL.jump); CL.jump = null;
+      if (el) requestAnimationFrame(() => el.scrollIntoView({ block: "start" }));
+    }
+  };
+  document.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-clv],[data-clrow],[data-clmonth],[data-clweek],[data-clall],[data-clearlier]"); if (!b || !b.closest("#vCal")) return;
+    let refocus = null;
+    if (b.dataset.clv) { CL.v = b.dataset.clv; refocus = `[data-clv="${CL.v}"]`; window.scrollTo(0, 0); Track.log("view", { section: "cal-" + CL.v }); }
+    else if (b.dataset.clrow) { const k = b.dataset.clrow; if (CL.open.has(k)) CL.open.delete(k); else CL.open.add(k); refocus = `[data-clrow="${k}"]`; }
+    else if (b.dataset.clmonth) { const k = b.dataset.clmonth; if (CL.mOpen.has(k)) CL.mOpen.delete(k); else CL.mOpen.add(k); refocus = `[data-clmonth="${k}"]`; }
+    else if (b.dataset.clweek) {
+      const mon = fromIso(b.dataset.clweek), i = Math.round((mon - edMonday()) / (7 * 864e5)), k = b.dataset.clweek;
+      CL.v = "agenda";
+      if (i <= 1) CL.jump = k;
+      else if (i <= 5) { CL.open.add(k); CL.jump = k; }
+      else { const mk = "m:" + isoD(addD(mon, 3)).slice(0, 7); CL.open.add(mk); CL.jump = mk.replace(":", "-"); }
+      Track.log("view", { section: "cal-agenda-week" });
+    }
+    else if (b.hasAttribute("data-clall")) { CL.all = !CL.all; refocus = "[data-clall]"; }
+    else if (b.hasAttribute("data-clearlier")) { CL.earlier = !CL.earlier; refocus = "[data-clearlier]"; }
+    renderCal();
+    if (refocus) { const n = document.querySelector("#vCal " + refocus); if (n) n.focus({ preventScroll: true }); }
+  });
+  document.addEventListener("keydown", (e) => {
+    const t = e.target.closest && e.target.closest("#vCal .fl-tab"); if (!t || (e.key !== "ArrowRight" && e.key !== "ArrowLeft")) return;
+    e.preventDefault(); document.querySelector(`#vCal .fl-tab[data-clv="${t.dataset.clv === "agenda" ? "ep" : "agenda"}"]`).click();
   });
