@@ -1,6 +1,6 @@
 {
- "generated": "2026-10-21T21:48:15Z",
- "asOf": "2026-10-19",
+ "generated": "2026-10-26T06:53:59Z",
+ "asOf": "2026-10-26",
  "source": "Parliament Open Data Portal (basis ep-open-data); Parliament Legislative Observatory procedure files (basis ep-procedure-file); press and Council documents (basis press); commission.json for commissioners and cabinets",
  "legend": {
   "roles": [
@@ -38,22 +38,24 @@
     "2025/0571R(APP)"
    ],
    "stage": "council-negotiating-box",
-   "status": "The Irish Presidency tabled a revised negotiating box on 10 October 2026 (Council doc 13922/26): €1,622bn in commitments at 2025 prices, 8% below the Commission proposal, with all figures still in brackets. The General Affairs Council discussed it on 13 October. At the 15–16 October European Council, leaders discussed the elements of a compromise and asked António Costa to advance the talks; they said agreement before the end of 2026 would let the legal acts pass in 2027 so funding flows from January 2028, without setting it as a deadline. Unanimity in Council, then Parliament consent. Two programmes are followed as parts: the European Competitiveness Fund, where ITRE co-rapporteurs Christian Ehler and Dan Nica lead and the Council agreed a partial position on 16 June 2026; and the National and Regional Partnership Plans fund, led jointly by BUDG, REGI and AGRI (Karlo Ressler, Andrey Novakov and Elsi Katainen), where Agence Europe reported that ministers would confirm a partial general approach on 16 June 2026.",
+   "status": "The Irish Presidency tabled a revised negotiating box on 10 October 2026 (Council doc 13922/26): €1,622bn in commitments at 2025 prices, 8% below the Commission proposal, with all figures in brackets. At the 15–16 October European Council, leaders asked António Costa to advance the talks; Agence Europe reported on 22 October that he will present his own negotiating box with figures ahead of a Special European Council on 26–27 November, still aiming for agreement in 2026. Unanimity in Council, then Parliament consent. Two programmes are followed as parts: the European Competitiveness Fund (ITRE co-rapporteurs Christian Ehler and Dan Nica; Council partial position on 16 June 2026) and the National and Regional Partnership Plans fund (BUDG, REGI and AGRI: Karlo Ressler, Andrey Novakov and Elsi Katainen), where Agence Europe reported a partial general approach on 16 June 2026.",
    "next": [
     {
-     "date": "2026-10-22",
-     "what": "Council MFF working party: Global Europe Instrument",
-     "src": "council-ahwp-mff-ge-20261022"
-    },
-    {
      "date": "2026-10-30",
-     "what": "Council MFF working party: national and regional partnerships",
-     "src": "council-mpo-calendar"
+     "what": "Council MFF working party: national and regional partnerships (third Presidency compromise, Block 9)",
+     "src": "council-cm-4734",
+     "part": "nrpp"
     },
     {
      "date": "2026-11-03",
      "what": "Council MFF working party: national and regional partnerships",
      "src": "council-mpo-calendar"
+    },
+    {
+     "date": "2026-11-04",
+     "what": "Council MFF working party (European Competitiveness Fund): ECF implementation, Commission presentation",
+     "src": "council-cm-4742",
+     "part": "ecf"
     },
     {
      "date": "2026-11-05",
@@ -76,6 +78,11 @@
      "what": "NRPP fund: plenary vote (indicative date in the Observatory)",
      "src": "oeil-2025-0240-cod",
      "part": "nrpp"
+    },
+    {
+     "date": "2026-11-26",
+     "what": "Special European Council, 26-27 November (Agence Europe: devoted to the MFF)",
+     "src": "council-euco-20261126"
     },
     {
      "date": "2026-12-07",
@@ -811,9 +818,29 @@
      "id": "agenceurope-13888",
      "title": "Agence Europe: Member States to agree on the NRPPs (15 Jun 2026)",
      "url": "https://agenceurope.eu/en/bulletin/article/13888/26/2028-2034-mff-eu-member-states-expected-to-reach-agreement-on-operation-of-future-national-and-regional-partnership-plans"
+    },
+    {
+     "id": "council-cm-4734",
+     "title": "Council: notice of meeting CM 4734/26, AHWP MFF national and regional partnerships, 30 Oct 2026",
+     "url": "https://data.consilium.europa.eu/doc/document/CM-4734-2026-INIT/en/pdf"
+    },
+    {
+     "id": "council-cm-4742",
+     "title": "Council: notice of meeting CM 4742/26, AHWP MFF (European Competitiveness Fund), 4 Nov 2026",
+     "url": "https://data.consilium.europa.eu/doc/document/CM-4742-2026-INIT/en/pdf"
+    },
+    {
+     "id": "council-euco-20261126",
+     "title": "Council: Special European Council, 26-27 November 2026",
+     "url": "https://www.consilium.europa.eu/en/meetings/european-council/2026/11/26-27/"
+    },
+    {
+     "id": "agenceurope-13965",
+     "title": "Agence Europe: Costa to present his proposal with figures ahead of late-November summit (22 Oct 2026)",
+     "url": "https://agenceurope.eu/en/bulletin/article/13965/17/mff-2028-2034-antonio-costa-confirms-he-will-present-his-proposal-with-figures-ahead-of-late-november-summit"
     }
    ],
-   "checked": "2026-10-19",
+   "checked": "2026-10-26",
    "parts": [
     {
      "id": "ecf",
@@ -836,13 +863,8 @@
    "kind": "regulation",
    "procedure": "2025/0360(COD)",
    "stage": "positions-in-preparation",
-   "status": "The Commission proposed it on 19 November 2025. The Council has no negotiating position yet: EU ambassadors postponed the vote on 7 October and did not take up the Irish Presidency's compromise on 11 October, with Germany still holding out on trade secrets under the Data Act (Agence Europe). The Presidency has put the negotiating mandate back on the Coreper II agenda for 21 October (revised text 13886/2/26 REV 2). In Parliament, the ITRE-LIBE draft report came out on 22 June 2026 and amendments were tabled on 27 July; no committee vote date is set. Open fights: personal data and pseudonymisation, AI training on personal data, trade secrets under the Data Act, and whether cookie rules move into the GDPR or stay in ePrivacy.",
+   "status": "The Commission proposed it on 19 November 2025. Coreper II agreed the Council's negotiating mandate on 21 October 2026 (Council doc 14756/26): it keeps the current definition of personal data and adds a provision on pseudonymisation, keeps the ePrivacy cookie rules but drops consent for purposes such as audience measurement and device security, and replaces the single EU incident-reporting entry point with national entry points. In Parliament, the ITRE-LIBE draft report came out on 22 June 2026 and amendments were tabled on 27 July; no committee vote date is set, and talks with the Council start once Parliament has its position. Open fights: personal data and pseudonymisation, AI training on personal data, trade secrets under the Data Act, and the cookie rules.",
    "next": [
-    {
-     "date": "2026-10-21",
-     "what": "Coreper II: mandate for negotiations with the European Parliament (doc 13886/2/26 REV 2)",
-     "src": "council-cm-4577-26"
-    },
     {
      "date": null,
      "what": "Joint ITRE-LIBE committee vote: no date set yet",
@@ -1031,7 +1053,7 @@
    },
    "caveats": [
     "Rapporteurs, shadows and opinion rapporteurs come from the Parliament's procedure file (checked 12 October 2026). It lists the joint committee's shadows together, without saying which committee each one sits for.",
-    "The postponed 7 October vote and the 11 October meeting come from Agence Europe reporting, not yet checked against Coreper agendas. The 21 October Coreper II item comes from the Council's notice of meeting of 16 October."
+    "The postponed 7 October vote and the 11 October meeting come from Agence Europe reporting. The 21 October mandate comes from the Council's press release and doc 14756/26."
    ],
    "sources": [
     {
@@ -1088,9 +1110,19 @@
      "id": "council-cm-4577-26",
      "title": "Council: Coreper II notice of meeting and provisional agenda, 21 Oct 2026 (CM 4577/26)",
      "url": "https://data.consilium.europa.eu/doc/document/CM-4577-2026-INIT/en/pdf"
+    },
+    {
+     "id": "council-pr-20261021",
+     "title": "Council press release: Council agrees position to simplify data protection, privacy and cyber reporting rules (21 Oct 2026)",
+     "url": "https://www.consilium.europa.eu/en/press/press-releases/2026/10/21/digital-rulebook-council-agrees-position-to-simplify-data-protection-privacy-and-cyber-reporting-rules/"
+    },
+    {
+     "id": "council-14756",
+     "title": "Council doc 14756/26: mandate for negotiations with the European Parliament (22 Oct 2026)",
+     "url": "https://data.consilium.europa.eu/doc/document/ST-14756-2026-INIT/en/pdf"
     }
    ],
-   "checked": "2026-10-19"
+   "checked": "2026-10-26"
   },
   {
    "id": "industrial-accelerator-act",
@@ -1100,16 +1132,16 @@
    "procedure": "2026/0068(COD)",
    "proposal": "COM(2026)100",
    "stage": "positions-in-preparation",
-   "status": "Proposed 4 March 2026. The Irish Presidency circulated a 'partner origin' compromise in late July 2026, which departs substantially from the Commission text; the Council's industry working party has the file on 26 and 27 October. In Parliament, the joint INTA-ITRE-IMCO committee received more than 5,000 amendments to its draft report (Agence Europe, 15 October); the indicative plenary vote is 14 December 2026 and no committee vote date is set. Leaders listed the act among their competitiveness priorities at the 15–16 October European Council.",
+   "status": "Proposed 4 March 2026. The Irish Presidency circulated a 'partner origin' compromise in late July 2026, which departs substantially from the Commission text; the Council's industry working party examines the third Presidency compromise text (doc 14387/26) on 26 and 27 October. In Parliament, the joint INTA-ITRE-IMCO committee received more than 5,000 amendments to its draft report (Agence Europe, 15 October) and ENVI adopted its opinion on 22 October; the indicative plenary vote is 14 December 2026 and no committee vote date is set. Leaders listed the act among their competitiveness priorities at the 15–16 October European Council.",
    "next": [
     {
      "date": "2026-10-26",
-     "what": "Council industry working party on the IAA",
+     "what": "Council industry working party on the IAA: third Presidency compromise text (doc 14387/26)",
      "src": "council-industry-wp-20261026"
     },
     {
      "date": "2026-10-27",
-     "what": "Council industry working party on the IAA",
+     "what": "Council industry working party on the IAA: third Presidency compromise text (doc 14387/26)",
      "src": "council-industry-wp-20261027"
     },
     {
@@ -1404,9 +1436,14 @@
      "id": "council-euco-20261015",
      "title": "Council: European Council, 15–16 Oct 2026",
      "url": "https://www.consilium.europa.eu/en/meetings/european-council/2026/10/15-16/"
+    },
+    {
+     "id": "council-cm-4565",
+     "title": "Council: notice of meeting CM 4565/26, industry working party on the IAA, 26-27 Oct 2026",
+     "url": "https://data.consilium.europa.eu/doc/document/CM-4565-2026-INIT/en/pdf"
     }
    ],
-   "checked": "2026-10-19"
+   "checked": "2026-10-26"
   },
   {
    "id": "digital-networks-act",
@@ -1415,13 +1452,8 @@
    "kind": "regulation",
    "procedure": "2026/0013(COD)",
    "stage": "positions-in-preparation",
-   "status": "Proposed 21 January 2026. It replaces the EECC, BEREC regulation and Radio Spectrum Policy Programme and extends authorisation rules to cloud providers and CDNs. Telecoms ministers discussed it informally in Limerick on 12–13 October. The Irish Presidency circulated a compromise text on Articles 1–12 and 87–114 on 16 October for the telecoms working party of 22 October, and aims for a progress report at the Telecoms Council on 1 December. In Parliament, ITRE has not published a draft report and no committee vote date is set; IMCO and LIBE draft opinions came out in June.",
+   "status": "Proposed 21 January 2026. It replaces the EECC, BEREC regulation and Radio Spectrum Policy Programme and extends authorisation rules to cloud providers and CDNs. The Irish Presidency presented its first compromise text on Articles 1–12 and 87–114 (doc 14468/26) to the telecoms working party on 22 October and aims for a progress report at the Telecoms Council on 1 December. In Parliament, ITRE published its draft report on 20 October 2026 (PE791.994); no committee vote date is set. IMCO and LIBE draft opinions came out in June.",
    "next": [
-    {
-     "date": "2026-10-22",
-     "what": "Council telecoms working party on the Presidency compromise text (Art. 1–12, 87–114)",
-     "src": "council-telecom-wp-20261022"
-    },
     {
      "date": "2026-12-01",
      "what": "Telecoms Council: Presidency progress report on the Digital Networks Act (planned)",
@@ -1597,9 +1629,14 @@
      "id": "council-telecom-wp-20261022",
      "title": "Council: telecoms working party, 22 Oct 2026 (DNA compromise text)",
      "url": "https://www.consilium.europa.eu/en/meetings/mpo/2026/10/wp-on-telecommunications-and-information-society-(370497)/"
+    },
+    {
+     "id": "council-cm-4581",
+     "title": "Council: notice of meeting CM 4581/26, telecoms working party, 22 Oct 2026",
+     "url": "https://data.consilium.europa.eu/doc/document/CM-4581-2026-INIT/en/pdf"
     }
    ],
-   "checked": "2026-10-19"
+   "checked": "2026-10-26"
   },
   {
    "id": "digital-fairness-act",
@@ -1821,7 +1858,7 @@
      "url": "https://www.lw.com/en/insights/eu-kids-act-eu-commission-publishes-proposal-on-child-protection-online"
     }
    ],
-   "checked": "2026-10-21"
+   "checked": "2026-10-26"
   },
   {
    "id": "tech-sovereignty-package",
@@ -1830,8 +1867,20 @@
    "kind": "package",
    "procedure": null,
    "stage": "positions-in-preparation",
-   "status": "The Commission proposed both on 3 June 2026. In Parliament, ITRE leads the Chips Act 2.0 (rapporteur Oliver Schenk, appointed 31 August) and ITRE and IMCO share the CADA (Diego Solier and Reinier van Lanschot); neither has a draft report or a committee vote date yet. The Council's industry working party took up the Chips Act 2.0 on 2 September and again on 12 and 13 October; no further session is tied to it yet. The CADA aims to triple EU data-centre capacity within five to seven years and creates a framework to assess cloud and AI sovereignty, which is the most contested element.",
+   "status": "The Commission proposed both on 3 June 2026. In Parliament, ITRE leads the Chips Act 2.0 (rapporteur Oliver Schenk, appointed 31 August) and ITRE and IMCO share the CADA (Diego Solier and Reinier van Lanschot); neither has a draft report or a committee vote date yet. The Council's industry working party took up the Chips Act 2.0 on 2 September and on 12 and 13 October, and examines the Presidency compromise text on 29 and 30 October. The CADA aims to triple EU data-centre capacity within five to seven years and creates a framework to assess cloud and AI sovereignty, which is the most contested element.",
    "next": [
+    {
+     "date": "2026-10-29",
+     "what": "Council industry working party on the Chips Act 2.0: Presidency compromise text (doc 13545/26 REV 1)",
+     "src": "council-cm-4566",
+     "part": "chips-act-2"
+    },
+    {
+     "date": "2026-10-30",
+     "what": "Council industry working party on the Chips Act 2.0 (second day)",
+     "src": "council-cm-4566",
+     "part": "chips-act-2"
+    },
     {
      "date": null,
      "what": "Parliament committee votes: no dates set yet",
@@ -2010,6 +2059,14 @@
      "basis": "ep-procedure-file",
      "ref": "2026/0138(COD)",
      "part": "cada"
+    },
+    {
+     "id": "256860",
+     "role": "shadow",
+     "committee": "ITRE-IMCO",
+     "basis": "ep-procedure-file",
+     "ref": "2026/0138(COD)",
+     "part": "cada"
     }
    ],
    "commission": {
@@ -2104,9 +2161,14 @@
      "id": "oeil-2026-0138-cod",
      "title": "Legislative Observatory: procedure file 2026/0138(COD)",
      "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2026/0138(COD)"
+    },
+    {
+     "id": "council-cm-4566",
+     "title": "Council: notice of meeting CM 4566/26, industry working party on the Chips Act 2.0, 29-30 Oct 2026",
+     "url": "https://data.consilium.europa.eu/doc/document/CM-4566-2026-INIT/en/pdf"
     }
    ],
-   "checked": "2026-10-19"
+   "checked": "2026-10-26"
   },
   {
    "id": "ai-act-implementation",
@@ -2378,7 +2440,7 @@
      "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2025/0359(COD)"
     }
    ],
-   "checked": "2026-10-19"
+   "checked": "2026-10-26"
   },
   {
    "id": "grids-package",
@@ -2391,6 +2453,11 @@
    "lede": "TEN-E trilogues under way, next on 17 November; the Council wants a deal in 2026.",
    "status": "The Commission proposed both on 10 December 2025. The Council agreed general approaches on the TEN-E regulation and the permitting directive at the Energy Council on 26 June 2026. In Parliament, ITRE adopted Niels Fuglsang's report on permitting on 2 July and Tsvetelina Penkova's report on TEN-E on 10 September, each with a mandate to negotiate, confirmed in plenary on 8 July and 16 September. TEN-E trilogues met on 13 October; Agence Europe reports the next on 17 November, with implementing or delegated acts and the sequencing of scenarios left to the final round. The European Council asked the co-legislators to agree the package in 2026.",
    "next": [
+    {
+     "date": "2026-10-27",
+     "what": "Council energy working party: examination of the Parliament positions on the permitting directive and TEN-E",
+     "src": "council-cm-4715"
+    },
     {
      "date": "2026-11-17",
      "what": "TEN-E trilogue (reported by Agence Europe)",
@@ -2629,9 +2696,14 @@
      "id": "agenceurope-13901",
      "title": "Agence Europe: MEPs back faster permit-granting",
      "url": "https://agenceurope.eu/en/bulletin/article/13901/4/grids-package-meps-endorse-exemption-from-environmental-impact-assessments-to-accelerate-permit-granting"
+    },
+    {
+     "id": "council-cm-4715",
+     "title": "Council: notice of meeting CM 4715/26, energy working party, 27 Oct 2026",
+     "url": "https://data.consilium.europa.eu/doc/document/CM-4715-2026-INIT/en/pdf"
     }
    ],
-   "checked": "2026-10-21",
+   "checked": "2026-10-26",
    "asOf": "2026-10-21"
   },
   {
@@ -2643,21 +2715,22 @@
    "stage": "positions-in-preparation",
    "sector": "transport",
    "lede": "EPP, S&D and Renew struck a deal on 20 October; ENVI votes in early November.",
-   "status": "The Commission proposed on 16 December 2025 to lower the 2035 target for cars and vans from 100% to 90%, with credits for renewable fuels and low-carbon EU steel. ENVI leads in Parliament with Massimiliano Salini as rapporteur; ITRE and TRAN give opinions. On 20 October 2026 the EPP, S&D and Renew agreed a compromise: 87.5% for cars in 2035 plus up to 7.5 points for low-carbon EU steel, 80% for vans, and lower 2030 targets. The groups still have to sign it off. The Council took stock of progress in June 2026 and has no position yet.",
+   "status": "The Commission proposed on 16 December 2025 to lower the 2035 target for cars and vans from 100% to 90%, with credits for renewable fuels and low-carbon EU steel. ENVI leads in Parliament with Massimiliano Salini as rapporteur. On 22 October 2026 ITRE (49 to 27, 5 abstentions) and TRAN (27 to 18, 1 abstention) adopted opinions backing the EPP, S&D and Renew compromise of 20 October: per electrive, a 95% cut for cars in 2035 that credits for low-carbon EU steel can lower to 87.5%, and lower 2030 targets. The Council's environment working party discusses the proposal on 28 October; the Council took stock of progress in June 2026 and has no position yet.",
    "next": [
     {
-     "date": "2026-10-22",
-     "what": "ITRE and TRAN vote their opinions (reported)",
-     "src": "autonext-co2"
-    },
-    {
-     "date": null,
-     "what": "ENVI committee vote: early November, no date set"
+     "date": "2026-10-28",
+     "what": "Council environment working party: discussion of the proposal",
+     "src": "council-cm-4726"
     },
     {
      "date": "2026-11-23",
      "what": "Plenary vote (indicative date in the Observatory)",
      "src": "oeil-2025-0420-cod"
+    },
+    {
+     "date": null,
+     "what": "ENVI committee vote: early November (reported by electrive), no date set",
+     "src": "electrive-co2"
     }
    ],
    "ep": {
@@ -2789,7 +2862,8 @@
    },
    "caveats": [
     "Rapporteur, shadows and opinion rapporteurs come from the Parliament's procedure file (checked 21 October 2026).",
-    "The Observatory gives 23 November as the indicative plenary date; press reports after the 20 October deal point to December."
+    "The Observatory gives 23 November as the indicative plenary date; electrive points to December, and Agence Europe says the plenary vote waits for Parliament's position on the automotive part of the Industrial Accelerator Act.",
+    "Vote counts and the 95%/87.5% figures come from electrive (23 October), not yet checked against the committee voting records."
    ],
    "sources": [
     {
@@ -2811,9 +2885,24 @@
      "id": "bloomberg-co2",
      "title": "Bloomberg: EU carmakers set to win 2035 reprieve in lawmaker deal (20 Oct 2026)",
      "url": "https://www.bloomberg.com/news/articles/2026-10-20/eu-carmakers-set-to-win-2035-emissions-reprieve-in-lawmaker-deal"
+    },
+    {
+     "id": "electrive-co2",
+     "title": "electrive: EU Auto Package, committee vote to relax CO2 rules (23 Oct 2026)",
+     "url": "https://www.electrive.com/2026/10/23/eu-auto-package-committee-vote-to-relax-co%E2%82%82-rules/"
+    },
+    {
+     "id": "agenceurope-13966",
+     "title": "Agence Europe: TRAN and ITRE approve preliminary compromise on CO2 standards (Oct 2026)",
+     "url": "https://agenceurope.eu/en/bulletin/article/13966/10/automotive-package-meps-on-transport-and-industry-committees-approve-preliminary-compromise-on-co2-emission-standards"
+    },
+    {
+     "id": "council-cm-4726",
+     "title": "Council: notice of meeting CM 4726/26, environment working party, 27-28 Oct 2026",
+     "url": "https://data.consilium.europa.eu/doc/document/CM-4726-2026-INIT/en/pdf"
     }
    ],
-   "checked": "2026-10-21",
+   "checked": "2026-10-26",
    "asOf": "2026-10-21"
   },
   {
@@ -2886,7 +2975,7 @@
      "url": "https://observatory.clean-hydrogen.europa.eu/eu-policy/alternative-fuels-infrastructure-regulation"
     }
    ],
-   "checked": "2026-10-21",
+   "checked": "2026-10-26",
    "asOf": "2026-10-21"
   },
   {
@@ -2901,13 +2990,13 @@
    "status": "The Commission proposed on 16 December 2025 to simplify the MDR and IVDR, with adapted pathways for breakthrough and orphan devices, more proportionate surveillance and changes to software classification. SANT leads in Parliament with Oliver Schenk as rapporteur; his draft report of 1 July 2026 tables more than 130 amendments, including a new category of niche devices. IMCO named Anna Cavazzini to draft its opinion on 15 October. The Council's working party began the article-by-article examination on 23 March 2026; the June progress report says more work on the text is needed. There is no Council general approach yet.",
    "next": [
     {
-     "date": null,
-     "what": "SANT committee vote: no date set yet"
-    },
-    {
      "date": "2026-12-14",
      "what": "Plenary vote (indicative date in the Observatory)",
      "src": "oeil-2025-0404-cod"
+    },
+    {
+     "date": null,
+     "what": "SANT committee vote: no date set yet"
     }
    ],
    "ep": {
@@ -3040,7 +3129,7 @@
      "url": "https://www.consilium.europa.eu/en/meetings/mpo/2026/11/wp-on-pharmaceuticals-and-medical-devices-suite-22-(370796)/"
     }
    ],
-   "checked": "2026-10-21",
+   "checked": "2026-10-26",
    "asOf": "2026-10-21"
   },
   {
@@ -3418,7 +3507,7 @@
      "url": "https://www.parlament.gv.at/gegenstand/XXVIII/EU/97015"
     }
    ],
-   "checked": "2026-10-21",
+   "checked": "2026-10-26",
    "asOf": "2026-10-21"
   },
   {
@@ -3589,7 +3678,7 @@
      "url": "https://data.consilium.europa.eu/doc/document/CM-4227-2026-INIT/en/pdf"
     }
    ],
-   "checked": "2026-10-21",
+   "checked": "2026-10-26",
    "asOf": "2026-10-21"
   },
   {
@@ -3607,13 +3696,13 @@
    "status": "The Commission proposed the omnibus on 16 December 2025: a regulation amending ten acts on pesticides, residue levels, GMOs, feed and official controls, and a directive amending related directives. The Council agreed its position on the directive on 27 May 2026 and its mandate on the regulation on 30 September, and wants a provisional agreement by the end of 2026. In Parliament, a joint ENVI-AGRI committee leads with Michele Picaro (ECR, ENVI) and Herbert Dorfmann (EPP, AGRI); foodwatch criticised their draft report of 6 July for going further than the Commission on pesticide reviews.",
    "next": [
     {
-     "date": null,
-     "what": "Joint ENVI-AGRI committee vote: no date set yet"
-    },
-    {
      "date": "2026-11-23",
      "what": "Plenary vote (indicative date in the Observatory)",
      "src": "oeil-2025-0410-cod"
+    },
+    {
+     "date": null,
+     "what": "Joint ENVI-AGRI committee vote: no date set yet"
     }
    ],
    "ep": {
@@ -3796,7 +3885,7 @@
      "url": "https://data.consilium.europa.eu/doc/document/CM-4051-2026-INIT/en/pdf"
     }
    ],
-   "checked": "2026-10-21",
+   "checked": "2026-10-26",
    "asOf": "2026-10-21"
   },
   {
@@ -3878,7 +3967,7 @@
      "url": "https://euperspectives.eu/2026/07/eu-struggling-to-unshackle-exchange-of-ideas-commissioner-zaharieva/"
     }
    ],
-   "checked": "2026-10-21",
+   "checked": "2026-10-26",
    "asOf": "2026-10-21"
   },
   {
@@ -3892,6 +3981,11 @@
    "lede": "Second trilogue on 20 October; a third in December on the crisis mechanism.",
    "status": "The Commission proposed it on 19 November 2025. Coreper agreed the Council mandate on 17 June 2026; SEDE and TRAN adopted Parliament's position on 23 June (co-rapporteurs Michał Szczerba and Roberts Zīle), confirmed in plenary on 8 July. Trilogues opened on 16 July; the second met in Strasbourg on 20 October. Agence Europe reports a third in December to settle the European Military Mobility Enhanced Response System (EMERS), private-sector involvement and the link with the Civil Protection Mechanism. The European Council asked for agreement by the end of 2026.",
    "next": [
+    {
+     "date": "2026-10-30",
+     "what": "Council ad hoc working party: debrief from the 20 October trilogue and technical meetings",
+     "src": "council-cm-4701"
+    },
     {
      "date": null,
      "what": "Third trilogue in December (reported by Agence Europe); no day set"
@@ -4070,9 +4164,14 @@
      "id": "council-cm-4358",
      "title": "Council notice CM 4358/26: Ad hoc Working Party on Military Mobility, 2 Oct 2026",
      "url": "https://data.consilium.europa.eu/doc/document/CM-4358-2026-INIT/en/pdf"
+    },
+    {
+     "id": "council-cm-4701",
+     "title": "Council: notice of meeting CM 4701/26, ad hoc working party on military mobility, 30 Oct 2026",
+     "url": "https://data.consilium.europa.eu/doc/document/CM-4701-2026-INIT/en/pdf"
     }
    ],
-   "checked": "2026-10-21",
+   "checked": "2026-10-26",
    "asOf": "2026-10-21"
   },
   {
@@ -4084,16 +4183,12 @@
    "stage": "positions-in-preparation",
    "sector": "digital",
    "lede": "Proposed 17 September; Council working party on it 23 October; Parliament committee not yet decided.",
-   "status": "The Commission proposed the EU KIDS Act on 17 September 2026 (COM(2026)681). Social-networking and video-sharing platforms would have to check that account holders are 15 or older, with safety-by-design duties for services used by minors, a compliance plan for very large platforms, and Commission and AI Office supervision with fines up to 6% of turnover. The Observatory lists Stéphane Séjourné and DG GROW as responsible; Henna Virkkunen presented the proposal with the President. In the Council, the Audiovisual and Media Working Party has examined it since 2 October. In Parliament, the referral to committee is still pending, so there is no rapporteur.",
+   "status": "The Commission proposed the EU KIDS Act on 17 September 2026 (COM(2026)681). Social-networking and video-sharing platforms would have to check that account holders are 15 or older, with safety-by-design duties for services used by minors, a compliance plan for very large platforms, and Commission and AI Office supervision with fines up to 6% of turnover. The Observatory lists Stéphane Séjourné and DG GROW as responsible; Henna Virkkunen presented the proposal with the President. In the Council, the Audiovisual and Media Working Party has examined it since 2 October. In Parliament, the referral was announced on 22 October: IMCO leads, with opinions from SANT, ITRE, CULT, JURI and LIBE; no rapporteur is appointed yet.",
    "next": [
     {
-     "date": "2026-10-23",
-     "what": "Council Audiovisual and Media Working Party on the KIDS Act",
-     "src": "council-cm-4596"
-    },
-    {
      "date": null,
-     "what": "Parliament: committee referral pending, no rapporteur yet"
+     "what": "IMCO: rapporteur not yet appointed",
+     "src": "oeil-2026-0286-cod"
     }
    ],
    "ep": {
@@ -4306,7 +4401,7 @@
      "url": "https://data.europarl.europa.eu/"
     }
    ],
-   "checked": "2026-10-21",
+   "checked": "2026-10-26",
    "asOf": "2026-10-21"
   }
  ]

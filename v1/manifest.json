@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generated": "2026-10-26T06:38:16Z",
+ "generated": "2026-10-26T06:55:32.401Z",
  "files": {
   "meps": {
    "path": "meps.json",
@@ -17,8 +17,8 @@
   "calendar": {
    "path": "calendar.json",
    "description": "Parliament calendar: plenary, committee and group weeks",
-   "bytes": 2516,
-   "sha256": "580b30fa21d6a4b40363ce28b5afa1c9f66371bef9883b098c3ff37e3a542534"
+   "bytes": 2633,
+   "sha256": "ce03dc1ac2184a1529b69bc13f073f273f8009c29d1e4120b90038b7f39d91ce"
   },
   "council": {
    "path": "council.json",
@@ -41,8 +41,8 @@
   "files": {
    "path": "files.json",
    "description": "Legislative files linked to MEPs, Commissioners, cabinet members and Council configurations",
-   "bytes": 128131,
-   "sha256": "76f2226202f533d8ae3707abff43562464a4259e714299a03dbc002458fe6174"
+   "bytes": 132953,
+   "sha256": "0ff4ccecd790ec2e08347b121418d76275965b3d902b393f70ce226f4422f7af"
   },
   "updates": {
    "path": "updates/updates.json",
