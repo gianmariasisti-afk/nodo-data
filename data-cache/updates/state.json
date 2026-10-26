@@ -760,7 +760,17 @@
     "tech-sovereignty-package:ep:2026-0138-NMSR-256877-2026-10-21": true,
     "tech-sovereignty-package:ep:2026-0138-NMSR-256971-2026-10-19": true,
     "tech-sovereignty-package:ep:2026-0138-NMSR-124867-2026-10-16": true,
-    "kids-act:ep:2026-0286-ANPRO-2026-10-22": true
+    "kids-act:ep:2026-0286-ANPRO-2026-10-22": true,
+    "mff-2028-2034:next:2026-11-26:2ec5c5": true,
+    "mff-2028-2034:next:2026-11-04:bf01c0": true,
+    "mff-2028-2034:next:2026-10-30:63ef07": true,
+    "industrial-accelerator-act:next:2026-10-27:0c5755": true,
+    "industrial-accelerator-act:next:2026-10-26:0c5755": true,
+    "tech-sovereignty-package:next:2026-10-30:48e2d8": true,
+    "tech-sovereignty-package:next:2026-10-29:bca875": true,
+    "grids-package:next:2026-10-27:498513": true,
+    "co2-cars:next:2026-10-28:085e6e": true,
+    "military-mobility:next:2026-10-30:ebc3da": true
   },
   "seeded": {
     "mff-2028-2034": true,
@@ -812,7 +822,8 @@
     "mff-2028-2034:next:2026-10-22:b1fcfd": true,
     "digital-networks-act:next:2026-10-22:99e481": true,
     "co2-cars:next:2026-10-22:ee916f": true,
-    "kids-act:next:2026-10-23:a135cf": true
+    "kids-act:next:2026-10-23:a135cf": true,
+    "industrial-accelerator-act:next:2026-10-26:0c5755": true
   },
   "seededProcs": {
     "2025-0571": true,

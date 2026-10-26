@@ -1,4 +1,15 @@
 {
-  "generatedAt": "2026-10-25T00:00:00Z",
-  "events": []
+  "generatedAt": "2026-10-26T00:00:00Z",
+  "events": [
+    {
+      "id": "industrial-accelerator-act:next:2026-10-26:0c5755",
+      "fileId": "industrial-accelerator-act",
+      "date": "2026-10-26",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Council industry working party on the IAA: third Presidency compromise text (doc 14387/26)",
+      "push": true,
+      "pushOn": "2026-10-26"
+    }
+  ]
 }

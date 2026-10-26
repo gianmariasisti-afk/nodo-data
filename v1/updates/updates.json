@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-25T00:00:00Z",
+  "generatedAt": "2026-10-26T00:00:00Z",
   "events": [
     {
       "id": "biotech-act:next:2026-12-14:4e1f33",
@@ -60,6 +60,16 @@
       "title": "Telecoms Council: Presidency progress report on the Digital Networks Act (planned)",
       "push": true,
       "pushOn": "2026-12-01"
+    },
+    {
+      "id": "mff-2028-2034:next:2026-11-26:2ec5c5",
+      "fileId": "mff-2028-2034",
+      "date": "2026-11-26",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Special European Council, 26-27 November (Agence Europe: devoted to the MFF)",
+      "push": true,
+      "pushOn": "2026-11-26"
     },
     {
       "id": "co2-cars:next:2026-11-23:43a63c",
@@ -162,6 +172,16 @@
       "pushOn": "2026-11-05"
     },
     {
+      "id": "mff-2028-2034:next:2026-11-04:bf01c0",
+      "fileId": "mff-2028-2034",
+      "date": "2026-11-04",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Council MFF working party (European Competitiveness Fund): ECF implementation, Commission presentation",
+      "push": true,
+      "pushOn": "2026-11-04"
+    },
+    {
       "id": "mff-2028-2034:next:2026-11-03:265012",
       "fileId": "mff-2028-2034",
       "date": "2026-11-03",
@@ -172,44 +192,84 @@
       "pushOn": "2026-11-03"
     },
     {
-      "id": "mff-2028-2034:next:2026-10-30:265012",
+      "id": "mff-2028-2034:next:2026-10-30:63ef07",
       "fileId": "mff-2028-2034",
       "date": "2026-10-30",
       "source": "nodo",
       "kind": "scheduled",
-      "title": "Council MFF working party: national and regional partnerships",
+      "title": "Council MFF working party: national and regional partnerships (third Presidency compromise, Block 9)",
       "push": true,
       "pushOn": "2026-10-30"
     },
     {
-      "id": "industrial-accelerator-act:next:2026-10-27:e1808d",
-      "fileId": "industrial-accelerator-act",
+      "id": "military-mobility:next:2026-10-30:ebc3da",
+      "fileId": "military-mobility",
+      "date": "2026-10-30",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Council ad hoc working party: debrief from the 20 October trilogue and technical meetings",
+      "push": true,
+      "pushOn": "2026-10-30"
+    },
+    {
+      "id": "tech-sovereignty-package:next:2026-10-30:48e2d8",
+      "fileId": "tech-sovereignty-package",
+      "date": "2026-10-30",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Council industry working party on the Chips Act 2.0 (second day)",
+      "push": true,
+      "pushOn": "2026-10-30"
+    },
+    {
+      "id": "tech-sovereignty-package:next:2026-10-29:bca875",
+      "fileId": "tech-sovereignty-package",
+      "date": "2026-10-29",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Council industry working party on the Chips Act 2.0: Presidency compromise text (doc 13545/26 REV 1)",
+      "push": true,
+      "pushOn": "2026-10-29"
+    },
+    {
+      "id": "co2-cars:next:2026-10-28:085e6e",
+      "fileId": "co2-cars",
+      "date": "2026-10-28",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Council environment working party: discussion of the proposal",
+      "push": true,
+      "pushOn": "2026-10-28"
+    },
+    {
+      "id": "grids-package:next:2026-10-27:498513",
+      "fileId": "grids-package",
       "date": "2026-10-27",
       "source": "nodo",
       "kind": "scheduled",
-      "title": "Council industry working party on the IAA",
+      "title": "Council energy working party: examination of the Parliament positions on the permitting directive and TEN-E",
       "push": true,
       "pushOn": "2026-10-27"
     },
     {
-      "id": "industrial-accelerator-act:next:2026-10-26:e1808d",
+      "id": "industrial-accelerator-act:next:2026-10-27:0c5755",
+      "fileId": "industrial-accelerator-act",
+      "date": "2026-10-27",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Council industry working party on the IAA: third Presidency compromise text (doc 14387/26)",
+      "push": true,
+      "pushOn": "2026-10-27"
+    },
+    {
+      "id": "industrial-accelerator-act:next:2026-10-26:0c5755",
       "fileId": "industrial-accelerator-act",
       "date": "2026-10-26",
       "source": "nodo",
       "kind": "scheduled",
-      "title": "Council industry working party on the IAA",
+      "title": "Council industry working party on the IAA: third Presidency compromise text (doc 14387/26)",
       "push": true,
       "pushOn": "2026-10-26"
-    },
-    {
-      "id": "kids-act:next:2026-10-23:a135cf",
-      "fileId": "kids-act",
-      "date": "2026-10-23",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Council Audiovisual and Media Working Party on the KIDS Act",
-      "push": true,
-      "pushOn": "2026-10-23"
     },
     {
       "id": "co2-cars:ep:opinions:2026-10-22",
@@ -223,26 +283,6 @@
       "push": false
     },
     {
-      "id": "co2-cars:next:2026-10-22:ee916f",
-      "fileId": "co2-cars",
-      "date": "2026-10-22",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "ITRE and TRAN vote their opinions (reported)",
-      "push": true,
-      "pushOn": "2026-10-22"
-    },
-    {
-      "id": "digital-networks-act:next:2026-10-22:99e481",
-      "fileId": "digital-networks-act",
-      "date": "2026-10-22",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Council telecoms working party on the Presidency compromise text (Art. 1–12, 87–114)",
-      "push": true,
-      "pushOn": "2026-10-22"
-    },
-    {
       "id": "kids-act:ep:2026-0286-ANPRO-2026-10-22",
       "fileId": "kids-act",
       "date": "2026-10-22",
@@ -251,26 +291,6 @@
       "kind": "procedural",
       "title": "Referred to committee",
       "push": false
-    },
-    {
-      "id": "mff-2028-2034:next:2026-10-22:b1fcfd",
-      "fileId": "mff-2028-2034",
-      "date": "2026-10-22",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Council MFF working party: Global Europe Instrument",
-      "push": true,
-      "pushOn": "2026-10-22"
-    },
-    {
-      "id": "digital-omnibus-data:next:2026-10-21:0e67e4",
-      "fileId": "digital-omnibus-data",
-      "date": "2026-10-21",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Coreper II: mandate for negotiations with the European Parliament (doc 13886/2/26 REV 2)",
-      "push": true,
-      "pushOn": "2026-10-21"
     },
     {
       "id": "tech-sovereignty-package:ep:2026-0138-NMSR-256860-2026-10-21",
@@ -861,17 +881,6 @@
       "kind": "milestone",
       "title": "Amendments tabled in committee",
       "count": 3,
-      "push": true
-    },
-    {
-      "id": "digital-omnibus-data:ep:amendments:2026-07-27",
-      "fileId": "digital-omnibus-data",
-      "date": "2026-07-27",
-      "source": "ep",
-      "proc": "2025-0360",
-      "kind": "milestone",
-      "title": "Amendments tabled in committee",
-      "count": 9,
       "push": true
     }
   ]
