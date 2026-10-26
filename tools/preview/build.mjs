@@ -85,9 +85,10 @@ const html = patch(readFileSync(join(ROOT, "index.html"), "utf8"), "index.html",
   ["council note", "Any other name is one you added, saved on this device.", "Any other name is one you added, saved to your account."],
   ["sheet note 2", '"Saved on this device. Check a name', '"Saved to your account. Check a name'],
   /* Council tab on the file page (22 Oct 2026): the Council sits next to Parliament and Commission instead of inside
-     Next steps. The tab body is fileCoTab() in features.js; Next steps keeps the steps, caveats and sources. */
+     Next steps. The tab body is fileCoTab() in features.js. Since 26 Oct 2026 the page has no Next steps or Timeline tab:
+     dates and updates open in Calendar, and caveats and sources fold into "About this file" (openFile in features.js). */
   ["file tab: council", '[["ep", "Parliament"], ["ec", "Commission"], ["next", "Next steps"], ["upd", "Timeline"]]',
-    '[["ep", "Parliament"], ["ec", "Commission"], ...(fileHasCo(f) ? [["co", "Council"]] : []), ["next", "Next steps"], ["upd", "Timeline"]]'],
+    '[["ep", "Parliament"], ["ec", "Commission"], ...(fileHasCo(f) ? [["co", "Council"]] : [])]'],
   ["file tab: council body", '} else if (tab === "upd") {', '} else if (tab === "co") {\n      body = fileCoTab(f);\n    } else if (tab === "upd") {'],
   ["file tab: council out of next steps", '+ (cfs.length ? `<h3>In the Council</h3><div class="list">${cfs.map(confRow).join("")}</div>` : "") + wpBlock(f) + (f.council && f.council.note && (cfs.length || wpBlock(f)) ? `<p class="note">${esc(f.council.note)}</p>` : "")',
     '+ (fileHasCo(f) ? `<p class="note">The Council side of this file is on its <button type="button" class="fp-totab" data-ftab="co">Council tab</button>.</p>` : "")'],

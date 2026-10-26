@@ -854,7 +854,8 @@
      "procedure": "2025/0240(COD)",
      "short": "NRPP"
     }
-   ]
+   ],
+   "lede": "Leaders negotiate on the Presidency's box; António Costa is to table his own box with figures before a special summit."
   },
   {
    "id": "digital-omnibus-data",
@@ -1122,7 +1123,8 @@
      "url": "https://data.consilium.europa.eu/doc/document/ST-14756-2026-INIT/en/pdf"
     }
    ],
-   "checked": "2026-10-26"
+   "checked": "2026-10-26",
+   "lede": "The Council has its negotiating mandate; Parliament's joint ITRE-LIBE position will take months."
   },
   {
    "id": "industrial-accelerator-act",
@@ -1443,7 +1445,8 @@
      "url": "https://data.consilium.europa.eu/doc/document/CM-4565-2026-INIT/en/pdf"
     }
    ],
-   "checked": "2026-10-26"
+   "checked": "2026-10-26",
+   "lede": "The Council works through the third Presidency compromise; INTA-ITRE-IMCO sorts more than 5,000 amendments."
   },
   {
    "id": "digital-networks-act",
@@ -1636,7 +1639,8 @@
      "url": "https://data.consilium.europa.eu/doc/document/CM-4581-2026-INIT/en/pdf"
     }
    ],
-   "checked": "2026-10-26"
+   "checked": "2026-10-26",
+   "lede": "The Presidency's first compromise text is in the telecoms working party; ITRE's draft report is out."
   },
   {
    "id": "digital-fairness-act",
@@ -1858,7 +1862,8 @@
      "url": "https://www.lw.com/en/insights/eu-kids-act-eu-commission-publishes-proposal-on-child-protection-online"
     }
    ],
-   "checked": "2026-10-26"
+   "checked": "2026-10-26",
+   "lede": "Commission proposal in preparation, in a consumer package. The social media minimum age moved to the EU KIDS Act."
   },
   {
    "id": "tech-sovereignty-package",
@@ -2168,7 +2173,8 @@
      "url": "https://data.consilium.europa.eu/doc/document/CM-4566-2026-INIT/en/pdf"
     }
    ],
-   "checked": "2026-10-26"
+   "checked": "2026-10-26",
+   "lede": "The Council works on the Chips Act 2.0 compromise; neither text has a draft report in Parliament yet."
   },
   {
    "id": "ai-act-implementation",
@@ -2440,7 +2446,8 @@
      "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2025/0359(COD)"
     }
    ],
-   "checked": "2026-10-26"
+   "checked": "2026-10-26",
+   "lede": "In force. Standards, AI Office enforcement and national authorities are the live issues."
   },
   {
    "id": "grids-package",
@@ -2450,7 +2457,7 @@
    "procedure": null,
    "stage": "trilogue",
    "sector": "energy",
-   "lede": "TEN-E trilogues under way, next on 17 November; the Council wants a deal in 2026.",
+   "lede": "TEN-E trilogues under way; the Council wants a deal in 2026.",
    "status": "The Commission proposed both on 10 December 2025. The Council agreed general approaches on the TEN-E regulation and the permitting directive at the Energy Council on 26 June 2026. In Parliament, ITRE adopted Niels Fuglsang's report on permitting on 2 July and Tsvetelina Penkova's report on TEN-E on 10 September, each with a mandate to negotiate, confirmed in plenary on 8 July and 16 September. TEN-E trilogues met on 13 October; Agence Europe reports the next on 17 November, with implementing or delegated acts and the sequencing of scenarios left to the final round. The European Council asked the co-legislators to agree the package in 2026.",
    "next": [
     {
@@ -2714,7 +2721,7 @@
    "procedure": "2025/0420(COD)",
    "stage": "positions-in-preparation",
    "sector": "transport",
-   "lede": "EPP, S&D and Renew struck a deal on 20 October; ENVI votes in early November.",
+   "lede": "EPP, S&D and Renew have a compromise, backed by ITRE and TRAN; ENVI votes next.",
    "status": "The Commission proposed on 16 December 2025 to lower the 2035 target for cars and vans from 100% to 90%, with credits for renewable fuels and low-carbon EU steel. ENVI leads in Parliament with Massimiliano Salini as rapporteur. On 22 October 2026 ITRE (49 to 27, 5 abstentions) and TRAN (27 to 18, 1 abstention) adopted opinions backing the EPP, S&D and Renew compromise of 20 October: per electrive, a 95% cut for cars in 2035 that credits for low-carbon EU steel can lower to 87.5%, and lower 2030 targets. The Council's environment working party discusses the proposal on 28 October; the Council took stock of progress in June 2026 and has no position yet.",
    "next": [
     {
@@ -3140,7 +3147,7 @@
    "procedure": null,
    "stage": "positions-in-preparation",
    "sector": "health",
-   "lede": "Council has its position on the directive; first Presidency compromise on the regulation in October.",
+   "lede": "The Council has its position on the directive; the regulation is at its first Presidency compromise.",
    "status": "The Commission proposed the European Biotech Act on 16 December 2025: a regulation covering health biotechnology from funding and clinical trials to authorisation and manufacturing, with a directive on genetically modified micro-organisms and the processing of organs. The Council agreed its position on the directive at the Health Council on 16 June 2026 and held a policy debate on the regulation; the Presidency tabled its first compromise text on the regulation to the working party on 8 and 9 October. In Parliament, SANT and ITRE share the regulation (Vytenis Andriukaitis and Wouter Beke) and ENVI and SANT share the directive (Marta Temido and Adam Jarubas). A Biotech Act II on the wider bioeconomy is in preparation.",
    "next": [
     {
@@ -3518,7 +3525,7 @@
    "procedure": "2023/0212(COD)",
    "stage": "trilogue",
    "sector": "finance",
-   "lede": "Fifth trilogue on 20 October; next political round on 5 November.",
+   "lede": "Trilogues under way; data protection and exceptions for merchants are still open.",
    "status": "The Commission proposed it in June 2023. The Council agreed its position on 19 December 2025. Parliament's ECON adopted Fernando Navarrete's report on 23 June 2026 and plenary confirmed the mandate on 9 July. Trilogues are under way: the fifth, on 20 October, covered offline payment limits, anti-money-laundering rules for small payments and the long-term operating model. Still open: data protection, exceptions to merchant acceptance, cash acceptance, the roll-out and use outside the euro area. The ECB aims for issuance from 2029 if the law passes.",
    "next": [
     {
@@ -3978,7 +3985,7 @@
    "procedure": "2025/0847(COD)",
    "stage": "trilogue",
    "sector": "defence",
-   "lede": "Second trilogue on 20 October; a third in December on the crisis mechanism.",
+   "lede": "Trilogues under way; the crisis mechanism is still to settle.",
    "status": "The Commission proposed it on 19 November 2025. Coreper agreed the Council mandate on 17 June 2026; SEDE and TRAN adopted Parliament's position on 23 June (co-rapporteurs Michał Szczerba and Roberts Zīle), confirmed in plenary on 8 July. Trilogues opened on 16 July; the second met in Strasbourg on 20 October. Agence Europe reports a third in December to settle the European Military Mobility Enhanced Response System (EMERS), private-sector involvement and the link with the Civil Protection Mechanism. The European Council asked for agreement by the end of 2026.",
    "next": [
     {
@@ -4182,7 +4189,7 @@
    "procedure": "2026/0286(COD)",
    "stage": "positions-in-preparation",
    "sector": "digital",
-   "lede": "Proposed 17 September; Council working party on it 23 October; Parliament committee not yet decided.",
+   "lede": "Proposed in September; a Council working party is on it; Parliament has not chosen its committee yet.",
    "status": "The Commission proposed the EU KIDS Act on 17 September 2026 (COM(2026)681). Social-networking and video-sharing platforms would have to check that account holders are 15 or older, with safety-by-design duties for services used by minors, a compliance plan for very large platforms, and Commission and AI Office supervision with fines up to 6% of turnover. The Observatory lists Stéphane Séjourné and DG GROW as responsible; Henna Virkkunen presented the proposal with the President. In the Council, the Audiovisual and Media Working Party has examined it since 2 October. In Parliament, the referral was announced on 22 October: IMCO leads, with opinions from SANT, ITRE, CULT, JURI and LIBE; no rapporteur is appointed yet.",
    "next": [
     {

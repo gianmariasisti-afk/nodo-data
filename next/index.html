@@ -2769,7 +2769,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
         <h2 class="eu-headline" id="pName"><strong>${esc(f.short)}</strong></h2>
         <p class="bio">${esc(f.status || "")}</p>${f.checked ? `<p class="cap">Status checked ${fdDate(f.checked, true)}</p>` : ""}</div>
       <div class="stats"><div><b>${c.ep}</b><span>${pl(c.ep, "MEP", "MEPs")}</span></div><div><b>${c.ec}</b><span>${pl(c.ec, "Commissioner", "Commissioners")}</span></div><div><b>${c.cab}</b><span>Cabinet staff</span></div></div>
-      <div class="chips wrap" role="group" aria-label="View">${[["ep", "Parliament"], ["ec", "Commission"], ...(fileHasCo(f) ? [["co", "Council"]] : []), ["next", "Next steps"], ["upd", "Timeline"]].map(([k, n]) => `<button class="eu-chip" type="button" data-ftab="${k}" aria-pressed="${tab === k}">${n}</button>`).join("")}</div>
+      <div class="chips wrap" role="group" aria-label="View">${[["ep", "Parliament"], ["ec", "Commission"], ...(fileHasCo(f) ? [["co", "Council"]] : [])].map(([k, n]) => `<button class="eu-chip" type="button" data-ftab="${k}" aria-pressed="${tab === k}">${n}</button>`).join("")}</div>
       ${body}${tools}
       ${(tab === "ep" || tab === "ec") && (edit || changed) ? `<p class="note">${where}</p>` : ""}
       <p class="foot">Source: ${esc((DATA.fl && DATA.fl.source) || "nodo-data files.json")}.</p>`);
@@ -5111,7 +5111,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     return `<div class="td-h"><h2 class="td-t" id="tdSinceH">Since you last looked</h2><span class="td-h__s">${esc(d(isoD(since)))}</span></div>
       <p class="td-cap">What happened on your files, dated and sourced.</p>
       ${items.slice(0, 6).map(it).join("")}
-      ${items.length > 6 ? `<button class="td-link" type="button" data-view="news">${items.length - 6} more in the news on your files</button>` : ""}
+      ${items.length ? `<button class="td-link" type="button" data-clopen>${items.length > 6 ? `All ${items.length} in Calendar, Earlier` : "Earlier updates in Calendar"}${icon("arrow")}</button>` : ""}
       ${quietTxt ? `<p class="td-quiet">${esc(quietTxt)}</p>` : ""}`;
   }
 
@@ -5692,24 +5692,17 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
 
 
   /* ---------- 7. Files: the files come first (since 20 Oct 2026) ---------- */
-  /* The Files view opens on the files themselves. Two views under one switch (three until 26 Oct 2026):
-     - Line: the five stages from idea to law as a vertical line, each file hanging off its stage, with a one-line status,
-       the next step and a star to follow it. An empty stage says so. "Any other file" search sits under the line.
-     - Next up (until 26 Oct 2026): every dated step by week and month. Moved to the Calendar agenda (section 12).
-     - Following: the files you follow with their track, then the Monday email and alert switches, which only concern them.
-     News and Map become two small buttons beside the count. The "Choose the files you track" block and the empty-state
-     text above the list are gone: the star on each file is how you follow it. This override runs last and replaces the
-     body the earlier Files overrides built. */
+  /* The Files view opens on the files themselves (since 20 Oct 2026). Since 26 Oct 2026 it says where each file stands
+     and who is on it, nothing about time: dates and updates live in Calendar (Agenda and Earlier), and the Monday email
+     and alert switches live in the profile's Notifications page. One switch, Your files or All, over the line of the five
+     stages from idea to law; each card has the star, the state in one sentence and who is on the file. Map stays beside
+     the "statuses checked" line; News went (it is Earlier in Calendar). With no followed file, all files and a hint. */
   const FL_STATION = ["Pre-proposal", "Positions in preparation", "Council negotiating box", "Trilogue", "In force"];
   const FL_SVG = {
     news: '<svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 9h8M8 13h8M8 17h5"/></svg>',
     map: '<svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.3 10.8l7.4-3.6M8.3 13.2l7.4 3.6"/></svg>',
     plus: '<svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>',
   };
-  const flNext = (f) => { const t = todayIso(), xs = f.next || [];
-    return xs.filter((s) => s.date && s.date >= t).sort((a, b) => (a.date < b.date ? -1 : 1))[0] || xs.find((s) => !s.date) || null; };
-  const flSoon = (s) => !!(s && s.date && s.date <= isoD(addD(new Date(), 7)));
-  const flDay = (iso) => fmtD(fromIso(iso), { weekday: "short", day: "numeric", month: "short" });
   /* The card line: an optional short "lede" in files.json, else the status without its opening "Proposed on …" sentence. */
   function flStatus(f) {
     if (f.lede) return f.lede;
@@ -5721,82 +5714,71 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const c = countsOf(f), lead = (f.ep && f.ep.lead) || [];
     return [lead.join(" · "), `${c.ep} ${pl(c.ep, "MEP", "MEPs")}`].filter(Boolean).join(" · ");
   }
-  function flNextLine(f) {
-    const s = flNext(f);
-    if (!s) return `<span class="fl-next"><i class="fl-dot fl-dot--none" aria-hidden="true"></i><span>No next step recorded</span></span>`;
-    return `<span class="fl-next"><i class="fl-dot${flSoon(s) ? " fl-dot--soon" : s.date ? "" : " fl-dot--none"}" aria-hidden="true"></i>
-      <span><b>${s.date ? esc(flDay(s.date)) : "No date set"}</b> · ${esc(s.what)}</span></span>`;
+  /* Files say where each file stands and who is on it (since 26 Oct 2026). No dates: they live in Calendar.
+     A card: the name and the star, the one-line state (the `lede` in files.json, written without dates), then who is on
+     it: Parliament's rapporteurs (three at most, with their group) and the lead Commissioner. */
+  function flWho(f) {
+    const seen = new Set(), rs = (f.meps || []).filter((m) => m.role === "rapporteur").map((m) => BYKEY.get("ep:" + m.id))
+      .filter((x) => x && !seen.has(x.o.key) && seen.add(x.o.key)).map((x) => x.o);
+    const ec = ((f.commission || {}).lead || []).map((sl) => COLL.find((c) => c.slug === sl)).filter(Boolean).map((c) => c.name);
+    const lead = ((f.ep || {}).lead || []).join("-");
+    const ep = rs.length ? rs.slice(0, 3).map((m) => `${m.name} (${m.group})`).join(", ") + (rs.length > 3 ? ` and ${rs.length - 3} more` : "")
+      : `${lead ? lead + ", " : ""}no rapporteur yet`;
+    return `<span class="fl-who__r"><b>${rs.length > 1 ? "Rapporteurs" : rs.length ? "Rapporteur" : "Parliament"}</b> ${esc(ep)}</span>`
+      + (ec.length ? `<span class="fl-who__r"><b>Commission</b> ${esc(ec.join(", "))}</span>` : "");
   }
-  function flCard(f, track) {
-    const at = ED_STAGE.indexOf(f.stage);
+  function flCard(f) {
     return `<article class="fl-card">
       <div class="fl-card__top">
-        <button class="fl-card__open" type="button" data-file="${esc(f.id)}">
-          ${track ? `<span class="fl-card__stage">${esc(FL_STATION[at] || (STAGE[f.stage] || [f.stage])[0])} · ${at + 1} of 5</span>` : ""}
-          <span class="fl-card__n">${esc(f.short)}</span>
-          <span class="fl-card__m">${esc(flMeta(f))}</span>
-        </button>
+        <button class="fl-card__open" type="button" data-file="${esc(f.id)}"><span class="fl-card__n">${esc(f.short)}</span></button>
         ${followBtn(f.id, f.short)}
       </div>
-      ${track ? edTrack(f) : ""}
       ${f.status || f.lede ? `<p class="fl-card__s">${esc(flStatus(f))}</p>` : ""}
-      <button class="fl-card__nx" type="button" data-file="${esc(f.id)}" data-filetab="next">${flNextLine(f)}</button>
+      <button class="fl-who" type="button" data-file="${esc(f.id)}">${flWho(f)}</button>
     </article>`;
   }
-  function flLine() {
-    const by = ED_STAGE.map((st) => FILES.filter((f) => f.stage === st));
-    const other = FILES.filter((f) => !ED_STAGE.includes(f.stage));
-    return `<p class="cap fl-lead">From first idea to law in force. Tap the star on a file to follow it.</p>
-      <ol class="fl-line">${ED_STAGE.map((st, i) => { const xs = by[i];
+  function flLine(files, all) {
+    const by = ED_STAGE.map((st) => files.filter((f) => f.stage === st));
+    const other = files.filter((f) => !ED_STAGE.includes(f.stage));
+    return `<ol class="fl-line">${ED_STAGE.map((st, i) => { const xs = by[i];
+        if (!xs.length && !all) return "";
         return `<li class="fl-st${xs.length ? "" : " is-empty"}"><h3 class="fl-st__h"><i class="fl-st__node" aria-hidden="true"></i>${esc(FL_STATION[i])} <small>${xs.length ? `${xs.length} ${pl(xs.length, "file", "files")}` : ""}</small></h3>
-          ${xs.length ? xs.map((f) => flCard(f, false)).join("") : `<p class="cap fl-st__none">No file at this stage right now.</p>`}</li>`; }).join("")}
-        ${other.length ? `<li class="fl-st"><h3 class="fl-st__h"><i class="fl-st__node" aria-hidden="true"></i>Other <small>${other.length}</small></h3>${other.map((f) => flCard(f, false)).join("")}</li>` : ""}
+          ${xs.length ? xs.map(flCard).join("") : `<p class="cap fl-st__none">No file at this stage right now.</p>`}</li>`; }).join("")}
+        ${other.length ? `<li class="fl-st"><h3 class="fl-st__h"><i class="fl-st__node" aria-hidden="true"></i>Other <small>${other.length}</small></h3>${other.map(flCard).join("")}</li>` : ""}
       </ol>
-      <section class="nx-any" aria-labelledby="nxAnyH">
+      ${all ? `<section class="nx-any" aria-labelledby="nxAnyH">
         <h3 id="nxAnyH">Any other file</h3>
         <p class="cap nx-sub">Search every Parliament report and opinion in nodo: who the rapporteur and the shadows are.</p>
         <label class="eu-search">${icon("search")}<input id="nxdq" type="search" placeholder="A file, an acronym or a committee" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Search Parliament reports and opinions" value="${esc(NX.dq || "")}"></label>
-        <div id="nxdres" aria-live="polite">${nxAnyHtml(NX.dq || "")}</div></section>`;
-  }
-  function flFollowing() {
-    const fol = followedFiles();
-    return `${fol.length ? fol.map((f) => flCard(f, true)).join("")
-        : `<div class="hint"><span>You follow no file yet. Tap the star on a file in Line, and it comes here.</span></div>
-           <button class="eu-btn eu-btn--block" type="button" data-nxpick>${icon("star")}Choose from the list</button>`}
-      ${fol.length ? `<button class="fl-more" type="button" data-fview="line">${FL_SVG.plus}Follow more files</button>` : ""}
-      <section class="block nx-notify fl-notify" aria-label="What nodo sends you">${nxSwitch("weekly", "Monday email", fol.length ? `What moved on ${fol.length === 1 ? "this file" : `these ${fol.length} files`} last week` : "What moved on your files last week")}${nxSwitch("alerts", "Same-day alerts", "When a stage or a date changes")}
-        <p class="cap">${esc((state.profile && state.profile.email) || "Your sign-in email")} · Testing: nothing is sent yet.</p>
-        ${fol.length ? `<button class="eu-btn eu-btn--outline eu-btn--block" type="button" data-nxweek>${icon("mail")}Preview your Monday email</button>` : ""}</section>`;
+        <div id="nxdres" aria-live="polite">${nxAnyHtml(NX.dq || "")}</div></section>` : ""}`;
   }
   const flFilesViewBase = renderFilesView;
   renderFilesView = function () {
     flFilesViewBase();
     if (!FILES.length) return;
-    const v = ["line", "following"].includes(state.fview) ? state.fview : "line", n = state.follow.size;
+    const fol = followedFiles(), n = fol.length;
+    const v = state.fview === "all" || !n ? "all" : "mine";
     const checked = FILES.map((f) => f.checked).filter(Boolean).sort()[0] || (DATA.fl && DATA.fl.asOf);
     $("filesCount").hidden = true;
-    const tab = (k, label, extra) => `<button class="fl-tab" type="button" role="tab" id="flTab-${k}" aria-controls="flPanel" aria-selected="${v === k}" tabindex="${v === k ? 0 : -1}" data-fview="${k}">${label}${extra || ""}</button>`;
-    $("filesBody").innerHTML = `<div class="fl-top"><p class="cap">${FILES.length} files${checked ? ` · statuses checked ${esc(fdDate(checked))}` : ""}</p>
-        <span class="fl-top__acts"><button class="fl-pill" type="button" data-view="news">${FL_SVG.news}News</button><button class="fl-pill" type="button" data-edmap="">${FL_SVG.map}Map</button></span></div>
-      <div class="fl-tabs" role="tablist" aria-label="Files views">${tab("line", "Line")}${tab("following", "Following", `<span class="fl-count">${n}</span>`)}</div>
-      <div id="flPanel" role="tabpanel" aria-labelledby="flTab-${v}" class="fl-panel">${v === "following" ? flFollowing() : flLine()}</div>
-      <p class="foot">Names marked Verified come from the Parliament's open data or its Legislative Observatory procedure files. Names marked From press are taken from published reporting and need a check in the Parliament's procedure file before external use.</p>`;
+    const tab = (k, label) => `<button class="fl-tab" type="button" role="tab" id="flTab-${k}" aria-controls="flPanel" aria-selected="${v === k}" tabindex="${v === k ? 0 : -1}" data-fview="${k}">${label}</button>`;
+    $("filesBody").innerHTML = `<div class="fl-top"><p class="cap">${checked ? `Statuses checked ${esc(fdDate(checked))}` : `${FILES.length} files`}</p>
+        <span class="fl-top__acts"><button class="fl-pill" type="button" data-edmap="">${FL_SVG.map}Map</button></span></div>
+      ${n ? `<div class="fl-tabs" role="tablist" aria-label="Which files">${tab("mine", `Your files · ${n}`)}${tab("all", `All · ${FILES.length}`)}</div>`
+        : `<p class="cap fl-lead">Tap the star on a file to follow it. Your files then come first here, in Today and in Calendar.</p>`}
+      <div id="flPanel" role="tabpanel"${n ? ` aria-labelledby="flTab-${v}"` : ""} class="fl-panel">${flLine(v === "all" ? FILES : fol, v === "all")}</div>
+      <p class="foot">Dates for these files are in Calendar. Names come from the Parliament's open data and its Legislative Observatory procedure files.</p>`;
   };
   document.addEventListener("click", (e) => {
     const b = e.target.closest("[data-fview]"); if (!b) return;
-    state.fview = b.dataset.fview; renderFilesView();
+    state.fview = b.dataset.fview === "all" ? "all" : "mine"; renderFilesView();
     const now = document.querySelector(`.fl-tab[data-fview="${state.fview}"]`);
-    /* Keep focus on the switch after a tab press (the old button is gone); from "Follow more files", go back to the top. */
     if (now && b.classList.contains("fl-tab")) now.focus({ preventScroll: true, focusVisible: false });
-    if (now && b.classList.contains("fl-more")) { $("filesBody").scrollIntoView({ block: "start" }); now.focus({ preventScroll: true }); }
     Track.log("view", { section: "files-" + state.fview });
   });
   document.addEventListener("keydown", (e) => {
-    const t = e.target.closest && e.target.closest(".fl-tab"); if (!t || (e.key !== "ArrowRight" && e.key !== "ArrowLeft")) return;
-    const ks = ["line", "following"], k = ks[1 - Math.max(0, ks.indexOf(t.dataset.fview))];
-    e.preventDefault(); document.querySelector(`.fl-tab[data-fview="${k}"]`).click();
+    const t = e.target.closest && e.target.closest("#filesBody .fl-tab"); if (!t || (e.key !== "ArrowRight" && e.key !== "ArrowLeft")) return;
+    e.preventDefault(); document.querySelector(`#filesBody .fl-tab[data-fview="${t.dataset.fview === "all" ? "mine" : "all"}"]`).click();
   });
-
 
   /* ---------- 8. Parliament: the list first (since 20 Oct 2026) ---------- */
   /* The first MEP sits above the fold. One title row (back to People, "Parliament ▾" to switch institution, the count);
@@ -6880,14 +6862,57 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
      your files that opens that week in the agenda. 2027 months show plenary dates only. Earlier months, the legend and the
      source sit at the bottom. Replaces the five-day strip, the plenary meter, the year folds and the Council lines.
      Next up left the Files view the same day: Calendar is where dated steps live. */
-  const CL = { v: "agenda", all: false, open: new Set(), mOpen: null, earlier: false, jump: null };
+  const CL = { v: "agenda", all: false, open: new Set(), mOpen: null, earlier: false, jump: null, eOpen: false, file: null };
   const clFlag = (w) => (/indicative/i.test(w) ? "Indicative" : /reported by|agence europe/i.test(w) ? "Reported" : "");
   const clClean = (w) => String(w).replace(/\s*\([^)]*(?:indicative|reported|agence europe)[^)]*\)\s*$/i, "");
   const clInst = (w) => (/trilogue/i.test(w) ? ["tri", "Trilogue"] : /european council/i.test(w) ? ["co", "European Council"]
     : /cut-off|deadline|applies from|apply from/i.test(w) ? ["cal", "Deadline"] : [edInst(w), TD_INST[edInst(w)] || "Key date"]);
   function clScope() {
-    const fol = followedFiles(), mine = fol.length > 0 && !CL.all;
-    return { files: mine ? fol : FILES, mine, nFol: fol.length };
+    const fol = followedFiles(), one = CL.file && FILE_BY[CL.file];
+    if (one) return { files: [one], mine: false, nFol: fol.length, one, on: "on this file" };
+    const mine = fol.length > 0 && !CL.all;
+    return { files: mine ? fol : FILES, mine, nFol: fol.length, on: mine ? "on your files" : "on nodo's files" };
+  }
+  /* Earlier (since 26 Oct 2026): what happened, from the update stream, in place of the News view. The same items as
+     Today's "Since you last looked" (milestones, procedure steps, people, and decision points with no published outcome),
+     going back 120 days. Folded by default in one row at the top of the agenda; open, the two latest weeks with updates
+     show in full (one card per file per week, outlined because they are done), older weeks fold into one line each. */
+  const CL_INSTK = { Parliament: "ep", Council: "co", Commission: "ec" };
+  function clPastCard(xs) {
+    const f = xs[0].f;
+    return `<button class="cl-card is-past" type="button" data-file="${esc(f.id)}"><span class="cl-tx"><span class="cl-f">${esc(edTag(f))}</span>${xs.map((x) => `<span class="cl-l">
+        <span class="cl-w"><b>${esc(fmtD(fromIso(x.date), { weekday: "short", day: "numeric" }))}</b> · ${x.html}</span>
+        ${x.pending ? `<span class="cl-pend">${icon("warn")}Outcome not published yet</span>` : ""}
+        <span class="cl-m"><i class="cl-i cl-i--${CL_INSTK[x.inst] || "cal"}" aria-hidden="true"></i>${esc(x.inst || "Key date")}${x.verified ? `<span class="cl-flag">Verified</span>` : ""}</span></span>`).join("")}</span></button>`;
+  }
+  const clByFile = (xs) => { const m = new Map(); xs.forEach((x) => { if (!m.has(x.f.id)) m.set(x.f.id, []); m.get(x.f.id).push(x); }); return [...m.values()]; };
+  function clEarlier(sc) {
+    const t = new Date(), mon = mondayOf(t), lastMon = addD(mon, -7), open = CL.eOpen;
+    const ready = UPD.status === "done", items = ready ? tdSinceItems(sc.files, addD(t, -120)) : [];
+    const recent = items.filter((x) => x.date >= isoD(lastMon)).length;
+    const sub = !ready ? (UPD.status === "failed" ? "The updates could not load. Check your connection." : "Loading what happened…")
+      : recent ? `${recent} ${pl(recent, "update", "updates")} ${sc.on} since ${fmtD(lastMon, { weekday: "short", day: "numeric", month: "short" })}`
+      : items.length ? `Nothing new ${sc.on} in the last two weeks` : `Nothing recorded ${sc.on} yet`;
+    let h = `<button class="cl-erow" type="button" data-clearl aria-expanded="${open && ready}"${ready && items.length ? "" : " disabled"}>
+        <span class="cl-erow__ic" aria-hidden="true"><svg class="eu-icon" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v4h4"/><path d="M12 8v4l3 2"/></svg></span>
+        <span class="cl-erow__tx"><b>Earlier</b><small>${esc(sub)}</small></span>
+        ${recent && !open ? `<span class="cl-cnt"><i class="cl-fol" aria-hidden="true"></i>${recent}</span>` : ""}
+        ${ready && items.length ? `<span class="cl-go" aria-hidden="true">${icon("down")}</span>` : ""}</button>`;
+    if (!open || !ready || !items.length) return h;
+    const weeks = new Map();
+    items.forEach((x) => { const k = isoD(mondayOf(fromIso(x.date))); if (!weeks.has(k)) weeks.set(k, []); weeks.get(k).push(x); });
+    const keys = [...weeks.keys()].sort().reverse();
+    const label = (k) => { const m = fromIso(k), r = rangeTxt(m, addD(m, 6)); return k === isoD(mon) ? `This week so far · ${r}` : k === isoD(lastMon) ? `Last week · ${r}` : r; };
+    h += `<div class="cl-ear">${keys.map((k, i) => {
+      const xs = weeks.get(k), gs = clByFile(xs), band = clBand(fromIso(k));
+      if (i < 2) return `<section class="cl-wk"><h2 class="cl-h cl-h--past">${esc(label(k))}</h2><p class="cl-band"><i class="k-${band.k}" aria-hidden="true"></i>${esc(band.text)}</p>${gs.map(clPastCard).join("")}</section>`;
+      const key = "e:" + k, on = CL.open.has(key), names = gs.map((g) => edTag(g[0].f));
+      return `<div class="cl-rw"><button class="cl-row" type="button" data-clrow="${key}" aria-expanded="${on}">
+          <span class="cl-row__tx"><span class="cl-row__t"><b>${esc(label(k))}</b><small>${xs.length} ${pl(xs.length, "update", "updates")}</small></span>
+          <span class="cl-row__f">${esc(names.join(" · "))}</span></span><span class="cl-go" aria-hidden="true">${icon("down")}</span></button>
+        ${on ? `<div class="cl-sub">${gs.map(clPastCard).join("")}</div>` : ""}</div>`;
+    }).join("")}</div><p class="cl-today"><i aria-hidden="true"></i>Today</p>`;
+    return h;
   }
   /* Dated steps between two ISO dates as one group per file (or set of files), consecutive days of one step merged. */
   function clGroups(files, from, to) {
@@ -6928,13 +6953,15 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const sc = clScope(), t = todayIso(), mon0 = edMonday(), ahead = edAhead(), names = ahead ? ["Next week", "The week after"] : ["This week", "Next week"];
     const wr = (m) => rangeTxt(m, addD(m, 6));
     const hiddenTxt = (all, mine) => (sc.mine && all > mine ? ` ${all - mine} on other files.` : "");
-    let h = sc.nFol ? "" : `<p class="cap cl-lead">You follow no file yet, so this shows all of nodo's ${FILES.length} files. <button class="linkbtn" type="button" data-nxpick>Choose your files</button></p>`;
+    let h = sc.one ? `<div class="cl-only"><span>Showing only</span><button class="cl-chip" type="button" data-clfile="" aria-label="Show all your files again">${esc(edTag(sc.one))}<span aria-hidden="true">×</span></button></div>`
+      : sc.nFol ? "" : `<p class="cap cl-lead">You follow no file yet, so this shows all of nodo's ${FILES.length} files. <button class="linkbtn" type="button" data-nxpick>Choose your files</button></p>`;
+    h += clEarlier(sc);
     [0, 1].forEach((i) => {
       const m = addD(mon0, 7 * i), from = i === 0 && t > isoD(m) ? t : isoD(m), to = isoD(addD(m, 6));
       const gs = clGroups(sc.files, from, to), band = clBand(m);
       h += `<section class="cl-wk" id="cl-${isoD(m)}"><h2 class="cl-h">${esc(names[i])} · ${esc(wr(m))}</h2>
         <p class="cl-band"><i class="k-${band.k}" aria-hidden="true"></i>${esc(band.text)}</p>
-        ${gs.length ? gs.map(clCard).join("") : `<p class="cl-none">Nothing dated on the files you follow.${hiddenTxt(clN(clGroups(FILES, from, to)), 0)}</p>`}</section>`;
+        ${gs.length ? gs.map(clCard).join("") : `<p class="cl-none">Nothing dated ${esc(sc.on)}.${sc.one ? "" : hiddenTxt(clN(clGroups(FILES, from, to)), 0)}</p>`}</section>`;
     });
     const rows = [];
     for (let i = 2; i < 6; i++) {
@@ -6953,7 +6980,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     });
     h += `<h2 class="cl-h cl-h--later">Later</h2><div class="cl-rows">${rows.map((r) => {
       const n = clN(r.gs), on = CL.open.has(r.key) && n > 0, files = [...new Set(r.gs.map((g) => g.files.map(edTag).join(" · ")))];
-      const other = n ? "" : clN(r.other) ? `${clSteps(clN(r.other))} on other files` : "Nothing dated on nodo's files";
+      const other = n ? "" : !sc.one && clN(r.other) ? `${clSteps(clN(r.other))} on other files` : `Nothing dated ${sc.on}`;
       return `<div class="cl-rw" id="cl-${esc(r.key.replace(":", "-"))}"><button class="cl-row${r.month ? " cl-row--m" : ""}" type="button" data-clrow="${esc(r.key)}" aria-expanded="${on}"${n ? "" : " disabled"}>
           <span class="cl-row__tx"><span class="cl-row__t"><b>${esc(r.title)}</b><small>${n ? clSteps(n) : ""}</small></span>
           <span class="cl-band"><i class="k-${r.band.k}" aria-hidden="true"></i>${esc(r.band.text)}</span>
@@ -6961,7 +6988,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
           ${n ? `<span class="cl-go" aria-hidden="true">${icon("down")}</span>` : ""}</button>
         ${on ? `<div class="cl-sub">${r.gs.map(clCard).join("")}</div>` : ""}</div>`;
     }).join("")}</div>`;
-    if (sc.nFol) h += `<button class="cl-more" type="button" data-clall>${CL.all ? "Only the files you follow" : `Include the ${FILES.length - sc.nFol} ${pl(FILES.length - sc.nFol, "file", "files")} you don't follow`}</button>`;
+    if (sc.nFol && !sc.one) h += `<button class="cl-more" type="button" data-clall>${CL.all ? "Only the files you follow" : `Include the ${FILES.length - sc.nFol} ${pl(FILES.length - sc.nFol, "file", "files")} you don't follow`}</button>`;
     return h + `<p class="foot">One card per file per week. A date appears only when an official source ties it to the file. Indicative marks a forecast date in the Legislative Observatory, Reported a date taken from press reporting.</p>`;
   }
   function clEp() {
@@ -7019,7 +7046,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     }
   };
   document.addEventListener("click", (e) => {
-    const b = e.target.closest("[data-clv],[data-clrow],[data-clmonth],[data-clweek],[data-clall],[data-clearlier]"); if (!b || !b.closest("#vCal")) return;
+    const b = e.target.closest("[data-clv],[data-clrow],[data-clmonth],[data-clweek],[data-clall],[data-clearlier],[data-clearl],[data-clfile]"); if (!b || !b.closest("#vCal")) return;
     let refocus = null;
     if (b.dataset.clv) { CL.v = b.dataset.clv; refocus = `[data-clv="${CL.v}"]`; window.scrollTo(0, 0); Track.log("view", { section: "cal-" + CL.v }); }
     else if (b.dataset.clrow) { const k = b.dataset.clrow; if (CL.open.has(k)) CL.open.delete(k); else CL.open.add(k); refocus = `[data-clrow="${k}"]`; }
@@ -7034,6 +7061,8 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     }
     else if (b.hasAttribute("data-clall")) { CL.all = !CL.all; refocus = "[data-clall]"; }
     else if (b.hasAttribute("data-clearlier")) { CL.earlier = !CL.earlier; refocus = "[data-clearlier]"; }
+    else if (b.hasAttribute("data-clearl")) { CL.eOpen = !CL.eOpen; refocus = "[data-clearl]"; Track.log("view", { section: "cal-earlier" }); }
+    else if (b.hasAttribute("data-clfile")) { CL.file = b.dataset.clfile || null; CL.eOpen = !!CL.file; window.scrollTo(0, 0); refocus = CL.file ? null : "[data-clearl]"; }
     renderCal();
     if (refocus) { const n = document.querySelector("#vCal " + refocus); if (n) n.focus({ preventScroll: true }); }
   });
@@ -7041,6 +7070,54 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const t = e.target.closest && e.target.closest("#vCal .fl-tab"); if (!t || (e.key !== "ArrowRight" && e.key !== "ArrowLeft")) return;
     e.preventDefault(); document.querySelector(`#vCal .fl-tab[data-clv="${t.dataset.clv === "agenda" ? "ep" : "agenda"}"]`).click();
   });
+
+  /* Ways into Calendar from elsewhere (26 Oct 2026). News is Earlier now: any button that opened the News view opens the
+     agenda with Earlier unfolded; Today's "in Calendar, Earlier" link does the same; a file page's "Dates and updates on
+     this file" opens the agenda showing only that file, Earlier unfolded. */
+  function clGo(file) {
+    CL.v = "agenda"; CL.eOpen = true; CL.file = file || null;
+    setView("cal");
+  }
+  document.addEventListener("click", (e) => {
+    const n = e.target.closest('[data-view="news"],[data-clopen],[data-clgo]'); if (!n) return;
+    e.preventDefault(); e.stopImmediatePropagation();
+    clGo(n.dataset.clgo || null);
+    Track.log("view", { section: n.dataset.clgo ? "cal-file" : "cal-earlier" });
+  }, true);
+
+  /* A file's page (26 Oct 2026): where it stands and who is on it. Next steps and Timeline give way to one row that opens
+     Calendar on this file (dates ahead and Earlier); the hero shows the stage track and the one-line state; the full
+     status, caveats and sources fold into "About this file" at the bottom. Links that asked for the old tabs open Parliament. */
+  const fpOpen0 = openFile;
+  openFile = function (id, keep, startTab) {
+    if (startTab === "next" || startTab === "upd") startTab = "ep";
+    if (keep && (state.ftab === "next" || state.ftab === "upd")) state.ftab = "ep";
+    fpOpen0(id, keep, startTab);
+    const f = FILE_BY[id], p = $("profile"); if (!f || !p || state.open !== "file:" + id) return;
+    const bio = p.querySelector(".hero .bio");
+    if (bio) bio.outerHTML = `<div class="fp-track">${edTrack(f)}</div>${f.lede || f.status ? `<p class="bio">${esc(flStatus(f))}</p>` : ""}`;
+    const chk = p.querySelector(".hero .cap"); if (chk && /^Status checked/.test(chk.textContent)) chk.remove();
+    const stats = p.querySelector(".stats");
+    const nDates = (f.next || []).filter((x) => x.date && x.date >= todayIso()).length, nPast = UPD.status === "done" ? tdSinceItems([f], addD(new Date(), -120)).length : 0;
+    if (stats && !p.querySelector(".fp-cal")) stats.insertAdjacentHTML("afterend", `<button class="fp-cal" type="button" data-clgo="${esc(f.id)}">
+        <span class="fp-cal__ic" aria-hidden="true">${icon("cal")}</span>
+        <span class="fp-cal__tx"><b>Dates and updates on this file</b><small>${esc([nDates ? `${nDates} ${pl(nDates, "date", "dates")} ahead` : "No date ahead yet", nPast ? `${nPast} earlier ${pl(nPast, "update", "updates")}` : ""].filter(Boolean).join(" · "))} · in Calendar</small></span>
+        <span class="fp-cal__go" aria-hidden="true">${icon("arrow")}</span></button>`);
+    const foot = p.querySelector(".foot");
+    const cav = (f.caveats || []).map((x) => (typeof x === "string" ? x : x.text || x.note || "")).filter(Boolean);
+    const src = (f.sources || []).filter((x) => safeUrl(x.url));
+    if (foot && !p.querySelector(".fp-about")) foot.insertAdjacentHTML("beforebegin", `<details class="fp-about"><summary><span><b>About this file</b><small>Full status, ${cav.length ? "what to check, " : ""}sources</small></span>${icon("down")}</summary>
+        <p>${esc(f.status || "")}</p>${f.checked ? `<p class="cap">Status checked ${fdDate(f.checked, true)}</p>` : ""}
+        ${cav.length ? `<h3>Check before you rely on it</h3>${cav.map((x) => `<div class="block"><p>${esc(x)}</p></div>`).join("")}` : ""}
+        ${src.length ? `<h3>Sources</h3><div class="list">${src.map((x) => extRow(esc(x.title), esc(safeUrl(x.url)))).join("")}</div>` : ""}</details>`);
+  };
+  /* Links that pointed at the old Next steps tab ("N sources" under the title) open "About this file" instead. */
+  document.addEventListener("click", (e) => {
+    const b = e.target.closest('#profile [data-ftab="next"], #profile [data-ftab="upd"]'); if (!b) return;
+    const d = $("profile").querySelector(".fp-about"); if (!d) return;
+    e.preventDefault(); e.stopImmediatePropagation();
+    d.open = true; d.scrollIntoView({ block: "start", behavior: "smooth" }); d.querySelector("summary").focus({ preventScroll: true });
+  }, true);
 
   initHome(); initEp(); initEc();
   let startView = "home";
@@ -8102,6 +8179,51 @@ html:has(body.nx-on-home) { background: var(--ed-ground); }
 .cl-sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 .cl-card:focus-visible, .cl-row:focus-visible, .cl-mf:focus-visible, .cl-wr:focus-visible, .cl-more:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) { .cl-go .eu-icon { transition: none; } }
+
+/* Files: state and people (26 Oct 2026) */
+.fl-who { display: flex; flex-direction: column; gap: 6px; width: 100%; margin-top: var(--space-3); padding: var(--space-3) 0 0; border: 0; border-top: 1px solid var(--hairline); background: none; color: var(--ink-muted); font: inherit; text-align: left; cursor: pointer; }
+.fl-who__r { font-size: 13px; line-height: 18px; }
+.fl-who__r b { font-weight: 600; color: var(--ink); margin-right: 4px; }
+.fl-who:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; border-radius: 6px; }
+/* Calendar: Earlier and one-file view (26 Oct 2026) */
+.cl-erow { display: flex; align-items: center; gap: var(--space-3); width: 100%; margin: 0 0 var(--space-5); padding: 12px 14px; border: 0; border-radius: var(--radius-md); background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--hairline); color: var(--ink); font: inherit; text-align: left; cursor: pointer; }
+.cl-erow:disabled { cursor: default; }
+.cl-erow__ic { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; flex: none; border-radius: 50%; background: var(--surface-sunken); }
+.cl-erow__ic .eu-icon { width: 18px; height: 18px; }
+.cl-erow__tx { flex: 1; min-width: 0; display: grid; gap: 2px; }
+.cl-erow__tx b { font-size: 16px; line-height: 21px; font-weight: 600; }
+.cl-erow__tx small { font-size: 13px; line-height: 17px; color: var(--ink-muted); }
+.cl-erow:focus-visible, .cl-chip:focus-visible, .fp-cal:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+.cl-ear { margin: calc(-1 * var(--space-2)) 0 0 8px; padding-left: var(--space-3); border-left: 2px solid var(--thread); }
+.cl-ear .cl-rw + .cl-rw, .cl-ear .cl-wk + .cl-rw { margin-top: var(--space-2); }
+.cl-h--past { color: var(--ink-muted); }
+.cl-card.is-past { background: none; box-shadow: inset 0 0 0 1.5px var(--hairline); }
+.cl-pend { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: var(--warning); }
+.cl-pend .eu-icon { width: 14px; height: 14px; }
+.cl-today { display: flex; align-items: center; gap: 10px; margin: var(--space-5) 0 var(--space-4); font-size: 13px; line-height: 16px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ink); }
+.cl-today i { width: 10px; height: 10px; border-radius: 50%; background: var(--node); }
+.cl-only { display: flex; align-items: center; gap: var(--space-2); margin: 0 0 var(--space-4); font-size: 13px; color: var(--ink-muted); }
+.cl-chip { display: inline-flex; align-items: center; gap: 8px; min-height: 36px; padding: 0 14px; border: 0; border-radius: var(--radius-pill); background: var(--ink); color: var(--ink-inverse); font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; }
+.cl-chip span { font-size: 18px; line-height: 1; }
+/* A file's page */
+.fp-track { margin: var(--space-3) 0 var(--space-2); }
+.fp-cal { display: flex; align-items: center; gap: var(--space-3); width: 100%; margin-top: var(--space-4); padding: 12px 14px; border: 0; border-radius: var(--radius-md); background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--hairline); color: var(--ink); font: inherit; text-align: left; cursor: pointer; }
+.fp-cal__ic { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; flex: none; border-radius: 50%; background: var(--surface-sunken); }
+.fp-cal__ic .eu-icon, .fp-cal__go .eu-icon { width: 18px; height: 18px; }
+.fp-cal__tx { flex: 1; min-width: 0; display: grid; gap: 2px; }
+.fp-cal__tx b { font-size: 15px; font-weight: 600; }
+.fp-cal__tx small { font-size: 13px; line-height: 17px; color: var(--ink-muted); }
+.fp-about { margin-top: var(--space-6); border-radius: var(--radius-md); box-shadow: inset 0 0 0 1.5px var(--hairline); }
+.fp-about summary { display: flex; align-items: center; gap: var(--space-3); min-height: 56px; padding: 10px 16px; cursor: pointer; list-style: none; }
+.fp-about summary::-webkit-details-marker { display: none; }
+.fp-about summary > span { flex: 1; display: grid; gap: 2px; }
+.fp-about summary b { font-size: 15px; font-weight: 600; }
+.fp-about summary small { font-size: 13px; color: var(--ink-muted); }
+.fp-about summary .eu-icon { width: 18px; height: 18px; transition: transform .15s; }
+.fp-about[open] summary .eu-icon { transform: rotate(180deg); }
+.fp-about > :not(summary) { margin-left: 16px; margin-right: 16px; }
+.fp-about > :last-child { margin-bottom: 16px; }
+.fp-about summary:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; border-radius: var(--radius-md); }
 </style>
 <div id="nxBadge" aria-hidden="true">PREVIEW</div>
 </body></html>
