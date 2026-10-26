@@ -87,4 +87,15 @@ jobs:
         run: |
           gh label create structural --color D93F0B --description "Needs a human decision" 2>/dev/null || true
           { echo "The activity build reported a problem. Last lines of the log:"; echo; echo '```'; tail -n 40 build.log; echo '```'; echo; echo "Run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"; } > issue.md
-          gh issue create --title "Activity build needs attention ($(date -u +%F))" --label structural --body-file issue.md
+          # One open issue at a time: a repeated failure adds a comment to it instead of opening a new one.
+          open=$(gh issue list --state open --label structural --search "in:title \"Activity build needs attention\"" --json number --jq '.[0].number // empty')
+          if [ -n "$open" ]; then gh issue comment "$open" --body-file issue.md
+          else gh issue create --title "Activity build needs attention ($(date -u +%F))" --label structural --body-file issue.md; fi
+      - name: Close the open issue after a successful build
+        if: success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for n in $(gh issue list --state open --label structural --search "in:title \"Activity build needs attention\"" --json number --jq '.[].number'); do
+            gh issue close "$n" --reason completed --comment "Update MEP activity succeeded in run $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID. Closing."
+          done
