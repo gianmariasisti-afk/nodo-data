@@ -1,5 +1,5 @@
 {
- "run": "2026-10-23T09:33:42.111Z",
+ "run": "2026-10-26T10:30:19.261Z",
  "college": {
   "found": 26,
   "added": [],
@@ -198,41 +198,10 @@
    "nothing to apply"
   ]
  },
- "auto": [
-  {
-   "commissioner": "teresa-ribera",
-   "name": "Thomas Woolfson",
-   "fields": [
-    "outside"
-   ],
-   "diff": {
-    "outside": {
-     "from": [
-      "Industry: Clean Tech, critical raw materials",
-      "Trade: Economic security",
-      "EU-UK relations coordinator",
-      "Defence and space",
-      "Coordination with Cabinets Séjourné (DG GROW), Šefčovič (DG TRADE)",
-      "Coordination with RTD and JRC",
-      "Multiannual Financial Framework for a Clean, Just and Competitive Transition (except European Competitiveness Fund), relations with BUDG and coordination with Cabinet Serafin"
-     ],
-     "to": [
-      "Industry: Clean Tech, critical raw materials",
-      "Trade: Economic security",
-      "EU-UK relations coordinator",
-      "Defence and space",
-      "Coordination with Cabinets Séjourné (DG GROW), Šefčovič (DG TRADE)",
-      "Coordination with RTD and JRC",
-      "Multiannual Financial Framework for a Clean, Just and Competitive Transition (except European Competitiveness Fund), relations with BUDG and coordination with Cabinet Serafin",
-      "Council coordination"
-     ]
-    }
-   }
-  }
- ],
+ "auto": [],
  "structural": [],
  "summary": {
-  "auto": 1,
+  "auto": 0,
   "structural": 0,
   "autoApplied": 0,
   "failed": 0
