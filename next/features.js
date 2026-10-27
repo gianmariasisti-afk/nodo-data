@@ -486,11 +486,11 @@
     return `<div class="td-h"><h2 class="td-t" id="tdMineH">Your ${files.length} ${pl(files.length, "file", "files")}</h2><button class="td-link td-link--inline" type="button" data-view="files">Manage</button></div>
       <div class="td-chips">${files.map((f) => `<button class="td-chip" type="button" data-file="${esc(f.id)}">${esc(edTag(f))}</button>`).join("")}</div>`;
   }
-  /* First visit: pick the files you work on. The suggestions are the files with the most dated steps in the next 60 days. */
+  /* First visit: pick the files you work on. The suggestions are the 5 files with the most dated steps in the next 60 days. */
   function tdPickHtml() {
     const t = isoD(new Date()), far = isoD(addD(new Date(), 60));
     const busy = (f) => (f.next || []).filter((x) => x.date && x.date >= t && x.date <= far).length;
-    const list = FILES.slice().sort((a, b) => busy(b) - busy(a) || a.short.localeCompare(b.short)).slice(0, 10), k = tdPick.size;
+    const list = FILES.slice().sort((a, b) => busy(b) - busy(a) || a.short.localeCompare(b.short)).slice(0, 5), k = tdPick.size;
     return `<h2 class="td-t" id="tdPickH">Make Today yours</h2>
       <p class="td-lead">Pick the files you work on. Today then shows what changed on them, the next 7 days and the people named on them.</p>
       <div class="td-chips">${list.map((f) => { const on = tdPick.has(f.id);
