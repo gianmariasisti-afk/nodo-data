@@ -5037,7 +5037,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
        file's procedure number; steps on the same day share one date. One link to the full calendar, which carries
        the next plenary and the data-check line (27 Oct 2026).
      - On these files: key people on the files with a step in the window, the no-rapporteur note and the Council line.
-     - Your files as chips. With nothing followed, the headline asks which files you work on and a picker leads.
+     - Your files as chips. With nothing followed, Next 7 days covers all of nodo's files and the picker follows it (27 Oct 2026).
      The last visit is kept per device (localStorage): at most 14 days back and at least 24 hours, so a quick reopen
      still shows the last day. */
   const TD_WEEK = { SXB: "Plenary in Strasbourg", BRU: "Plenary in Brussels", C: "Committee week in Parliament", G: "Group week in Parliament", X: "Constituency week in Parliament", _: "Quiet week in Parliament" };
@@ -5075,7 +5075,6 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   function tdGreeting() {
     const h = new Date().getHours(), fn = firstName();
     const hello = `${h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening"}${fn ? ", " + esc(fn) : ""}.`;
-    if (!followedFiles().length) return `${hello} <strong>Which files do you work on?</strong>`;
     const t = tdWeek(tdWindow()), kind = t.wk.place || t.wk.kind, phrase = ED_WEEK[kind];
     return `${hello} <strong>${phrase ? `${t.now ? "It's" : "Next up:"} ${phrase}.` : "Here are your next 7 days."}</strong>`;
   }
@@ -5242,9 +5241,9 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     mast.append($("homeTop"), v.querySelector(":scope > .eu-search"), $("topics"));
     mast.after($("homeResults"));
     $("homeResults").insertAdjacentHTML("afterend", `<div id="edBody" class="td-body">
-      <section id="tdPick" class="td-card" aria-labelledby="tdPickH"></section>
       <section id="tdSince" class="td-card" aria-labelledby="tdSinceH"></section>
       <section id="tdNext" class="td-card" aria-labelledby="tdNextH"></section>
+      <section id="tdPick" class="td-card" aria-labelledby="tdPickH"></section>
       <section id="tdRoom" class="td-card ed-room" aria-labelledby="tdRoomH"></section>
       <section id="tdMine" class="td-sec" aria-labelledby="tdMineH"></section></div>`);
     $("hq").placeholder = "A name, a file, a committee, a date";
