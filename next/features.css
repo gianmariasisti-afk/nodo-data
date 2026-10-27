@@ -795,6 +795,9 @@ html:has(body.nx-on-home) { background: var(--ed-ground); }
 .td-when__k { font-size: 11px; line-height: 14px; font-weight: 700; letter-spacing: .04em; color: var(--ink-muted); }
 .td-when__k.is-rel { color: var(--ed-gold); }
 .td-when__n { font: 700 18px/22px var(--font-display); }
+/* Same-day steps: one date, cards joined (27 Oct 2026). */
+.td-ev--grp { border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+.td-ev--cont { margin-top: -6px; border-top: 1px solid var(--td-edge); border-top-left-radius: 0; border-top-right-radius: 0; }
 .td-ev__tx { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
 .td-ev__what { font-size: 16px; line-height: 21px; font-weight: 600; }
 .td-ev__m { font-size: 12px; line-height: 16px; color: var(--ink-muted); }
@@ -802,8 +805,6 @@ html:has(body.nx-on-home) { background: var(--ed-ground); }
 .td-hit:last-child { margin-bottom: 4px; }
 .td-hit__k { font-size: 11px; line-height: 14px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--ink-muted); }
 .td-hit__t { font-size: 14px; line-height: 19px; font-weight: 600; }
-.td-tail { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; padding: 12px 2px 0; border-top: 1px solid var(--td-edge); font-size: 13px; line-height: 18px; color: var(--ink-muted); }
-.td-tail strong { color: var(--ink); font-weight: 600; }
 .td-link { align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0; border: 0; background: none; color: var(--brand); font-size: 15px; font-weight: 600; text-align: left; cursor: pointer; }
 .td-link .eu-icon { width: 16px; height: 16px; }
 .td-link--inline { align-self: auto; }
@@ -1078,3 +1079,7 @@ html:has(body.nx-on-home) { background: var(--ed-ground); }
 .fp-about > :not(summary) { margin-left: 16px; margin-right: 16px; }
 .fp-about > :last-child { margin-bottom: 16px; }
 .fp-about summary:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; border-radius: var(--radius-md); }
+
+/* Next plenary on the Calendar agenda tab (27 Oct 2026). */
+.cl-npb { display: inline-flex; align-items: center; gap: 8px; margin: 0 0 16px; padding: 6px 12px; border-radius: 999px; background: var(--td-row, var(--surface-2)); font-size: 13px; line-height: 18px; font-weight: 600; color: var(--ink); }
+.cl-npb .k-P { flex: none; width: 10px; height: 10px; border-radius: 3px; }

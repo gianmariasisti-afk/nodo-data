@@ -334,7 +334,8 @@
        routine working parties stay out. A closing line names the files with nothing new.
      - Next 7 days: a rolling window from today, from tomorrow after 18:00. A strip of the seven days, the dated steps
        with a meeting on consecutive days shown once, plenary sittings with the agenda items that carry a followed
-       file's procedure number, then "After that" and the next plenary.
+       file's procedure number; steps on the same day share one date. One link to the full calendar, which carries
+       the next plenary and the data-check line (27 Oct 2026).
      - On these files: key people on the files with a step in the window, the no-rapporteur note and the Council line.
      - Your files as chips. With nothing followed, the headline asks which files you work on and a picker leads.
      The last visit is kept per device (localStorage): at most 14 days back and at least 24 hours, so a quick reopen
@@ -445,20 +446,21 @@
     const when = (x) => { const a = fromIso(x.date), b = fromIso(x.end), same = x.date === x.end;
       const k = same ? (x.date === tIso ? "TODAY" : x.date === tmIso ? "TOMORROW" : fmtD(a, { weekday: "short" }).toUpperCase()) : `${fmtD(a, { weekday: "short" })}–${fmtD(b, { weekday: "short" })}`.toUpperCase();
       return `<span class="td-when"><span class="td-when__k${same && (x.date === tIso || x.date === tmIso) ? " is-rel" : ""}">${esc(k)}</span><span class="td-when__n">${same ? a.getDate() : `${a.getDate()}–${b.getDate()}`}</span></span>`; };
+    /* Steps on the same single day share one date: the first card shows it, the ones after it keep the date for
+       screen readers only and join the card above (27 Oct 2026). */
+    const solo = (x) => x && !x.plen && x.date === x.end;
+    items.forEach((x, i) => { x.cont = solo(x) && solo(items[i - 1]) && items[i - 1].date === x.date; });
+    items.forEach((x, i) => { x.grp = !!(items[i + 1] && items[i + 1].cont); });
+    const whenSr = (x) => `<span class="td-when td-when--cont"><span class="cl-sr">${esc(fmtD(fromIso(x.date), { weekday: "short", day: "numeric" }))}</span></span>`;
     const it = (x) => x.plen
-      ? `<div class="td-ev td-ev--p"><button class="td-ev__b" type="button" data-view="${x.ready ? "agenda" : "cal"}">${when(x)}<span class="td-ev__tx"><span class="td-ev__what">Plenary in ${esc(PLACE[x.plen.place])}</span><span class="td-ev__m">${esc(x.ready ? `Parliament · agenda ${x.upd ? x.upd.toLowerCase() : "in nodo"}` : "Parliament · agenda not in nodo yet")}</span></span></button>
+      ?`<div class="td-ev td-ev--p"><button class="td-ev__b" type="button" data-view="${x.ready ? "agenda" : "cal"}">${when(x)}<span class="td-ev__tx"><span class="td-ev__what">Plenary in ${esc(PLACE[x.plen.place])}</span><span class="td-ev__m">${esc(x.ready ? `Parliament · agenda ${x.upd ? x.upd.toLowerCase() : "in nodo"}` : "Parliament · agenda not in nodo yet")}</span></span></button>
           ${x.hits.map((h) => `<button class="td-hit" type="button" data-file="${esc(h.f.id)}" data-filetab="next"><span class="td-hit__k">${esc(h.type === "votes" ? "Vote" : h.type === "debate" ? "Debate" : "On the agenda")}</span><span class="td-hit__t">${esc(h.t)}</span><span class="td-ev__m">${esc(edTag(h.f))}</span></button>`).join("")}</div>`
-      : `<button class="td-ev" type="button" data-file="${esc(x.files[0].id)}" data-filetab="next">${when(x)}<span class="td-ev__tx"><span class="td-ev__what">${esc(edWhat(x))}</span><span class="td-ev__m">${esc([TD_INST[edInst(x.what)], x.files.map(edTag).join(" · ")].filter(Boolean).join(" · "))}</span></span></button>`;
-    const after = edSteps(files, isoD(addD(w.end, 1)), isoD(addD(w.end, 90)))[0];
-    const np = CAL.sessions.find((s) => s.start > isoD(w.end));
-    const tail = [after ? `<span><strong>After that:</strong> ${esc(fmtD(fromIso(after.date), { weekday: "short", day: "numeric", month: "short" }))}, ${esc(edWhat(after))} (${esc(after.files.map(edTag).join(", "))}).</span>` : "",
-      !pIdx.length && np ? `<span><strong>Next plenary:</strong> ${esc(PLACE[np.place])}, ${esc(rangeTxt(fromIso(np.start), fromIso(np.end)))}.</span>` : ""].filter(Boolean).join("");
+      : `<button class="td-ev${x.cont ? " td-ev--cont" : ""}${x.grp ? " td-ev--grp" : ""}" type="button" data-file="${esc(x.files[0].id)}" data-filetab="next">${x.cont ? whenSr(x) : when(x)}<span class="td-ev__tx"><span class="td-ev__what">${esc(edWhat(x))}</span><span class="td-ev__m">${esc([TD_INST[edInst(x.what)], x.files.map(edTag).join(" · ")].filter(Boolean).join(" · "))}</span></span></button>`;
     return `<div class="td-h"><h2 class="td-t" id="tdNextH">Next 7 days</h2><span class="td-h__s">${esc(`${fmtD(w.start, { weekday: "short", day: "numeric" })} – ${fmtD(w.end, { weekday: "short", day: "numeric", month: "short" })}`)}</span></div>
       <p class="td-cap">${esc(lead)}</p>
       <div class="td-strip" aria-hidden="true">${days.map(col).join("")}${band}</div>
       ${items.length ? `<div class="td-evs">${items.map(it).join("")}</div>` : ""}
-      ${tail ? `<div class="td-tail">${tail}</div>` : ""}
-      <button class="td-link" type="button" data-view="cal">Open the calendar${icon("arrow")}</button>`;
+      <button class="td-link" type="button" data-view="cal">Full calendar${icon("arrow")}</button>`;
   }
 
   /* Key people on the files with a step in the window. */
@@ -511,8 +513,13 @@
     const winFiles = [...new Set(tdNextItems(files, w).filter((x) => !x.plen).flatMap((x) => x.files.map((f) => f.id)))].map((id) => FILE_BY[id]).filter(Boolean);
     set("tdRoom", mine.length ? tdRoomHtml(winFiles, w) : "");
     set("tdMine", mine.length ? tdMineHtml(mine) : "");
+    if ($("srcNote")) { $("srcNote").textContent = ""; $("srcNote").hidden = true; }
+  }
+  /* The data-check line, shown at the foot of Calendar instead of Home (27 Oct 2026). */
+  function dataCheckedTxt() {
     const dates = [String((typeof mepRaw !== "undefined" && mepRaw.generated) || "").slice(0, 10), String((typeof ecRaw !== "undefined" && ecRaw.fetched) || "").slice(0, 10)].filter(Boolean).sort();
-    if ($("srcNote") && dates.length) $("srcNote").textContent = `Parliament and Commission data checked ${dates[0] === isoD(now) ? "today" : fmtD(fromIso(dates[0]), { weekday: "short", day: "numeric", month: "short" })}.`;
+    if (!dates.length) return "";
+    return `Parliament and Commission data checked ${dates[0] === isoD(new Date()) ? "today" : fmtD(fromIso(dates[0]), { weekday: "short", day: "numeric", month: "short" })}.`;
   }
   document.addEventListener("click", (e) => {
     const p = e.target.closest("[data-tdpick]");
@@ -2255,6 +2262,8 @@
     const hiddenTxt = (all, mine) => (sc.mine && all > mine ? ` ${all - mine} on other files.` : "");
     let h = sc.one ? `<div class="cl-only"><span>Showing only</span><button class="cl-chip" type="button" data-clfile="" aria-label="Show all your files again">${esc(edTag(sc.one))}<span aria-hidden="true">×</span></button></div>`
       : sc.nFol ? "" : `<p class="cap cl-lead">You follow no file yet, so this shows all of nodo's ${FILES.length} files. <button class="linkbtn" type="button" data-nxpick>Choose your files</button></p>`;
+    const np = plenaryLine(nextPlenary(new Date()), new Date());
+    if (np.n !== "–") h += `<p class="cl-npb"><i class="k-P" aria-hidden="true"></i>${esc(np.n === "Now" ? `${np.t}: ${np.s}` : `${np.t}, ${np.s} · in ${np.n} ${np.u}`)}</p>`;
     h += clEarlier(sc);
     [0, 1].forEach((i) => {
       const m = addD(mon0, 7 * i), from = i === 0 && t > isoD(m) ? t : isoD(m), to = isoD(addD(m, 6));
@@ -2289,7 +2298,7 @@
         ${on ? `<div class="cl-sub">${r.gs.map(clCard).join("")}</div>` : ""}</div>`;
     }).join("")}</div>`;
     if (sc.nFol && !sc.one) h += `<button class="cl-more" type="button" data-clall>${CL.all ? "Only the files you follow" : `Include the ${FILES.length - sc.nFol} ${pl(FILES.length - sc.nFol, "file", "files")} you don't follow`}</button>`;
-    return h + `<p class="foot">One card per file per week. A date appears only when an official source ties it to the file. Indicative marks a forecast date in the Legislative Observatory, Reported a date taken from press reporting.</p>`;
+    return h + `<p class="foot">One card per file per week. A date appears only when an official source ties it to the file. Indicative marks a forecast date in the Legislative Observatory, Reported a date taken from press reporting.${dataCheckedTxt() ? " " + esc(dataCheckedTxt()) : ""}</p>`;
   }
   function clEp() {
     const today = new Date(), tIso = isoD(today), mon = mondayOf(today), wk = weekOf(mon), np = plenaryLine(nextPlenary(today), today), sc = clScope();
