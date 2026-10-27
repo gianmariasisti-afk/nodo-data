@@ -1064,14 +1064,14 @@
     if (!FILES.length) return;
     const fol = followedFiles(), n = fol.length;
     const v = state.fview === "all" || !n ? "all" : "mine";
-    const checked = FILES.map((f) => f.checked).filter(Boolean).sort()[0] || (DATA.fl && DATA.fl.asOf);
     $("filesCount").hidden = true;
     const tab = (k, label) => `<button class="fl-tab" type="button" role="tab" id="flTab-${k}" aria-controls="flPanel" aria-selected="${v === k}" tabindex="${v === k ? 0 : -1}" data-fview="${k}">${label}</button>`;
-    $("filesBody").innerHTML = `<div class="fl-top"><p class="cap">${checked ? `Statuses checked ${esc(fdDate(checked))}` : `${FILES.length} files`}</p>
-        <span class="fl-top__acts"><button class="fl-pill" type="button" data-edmap="">${FL_SVG.map}Map</button></span></div>
+    /* No status date and no Map button at the top: a short line on what the section is (27 Oct 2026). */
+    $("filesBody").innerHTML = `<p class="fl-intro">${FILES.length} EU laws in the making, from the Commission's plan to entry into force. Each file shows where it stands and who shapes it: rapporteurs and shadows in Parliament, the Commissioner and cabinet, the Council's working party.</p>
       ${n ? `<div class="fl-tabs" role="tablist" aria-label="Which files">${tab("mine", `Your files · ${n}`)}${tab("all", `All · ${FILES.length}`)}</div>`
-        : `<p class="cap fl-lead">Tap the star on a file to follow it. Your files then come first here, in Today and in Calendar.</p>`}
+        : `<p class="cap fl-lead">Tap the star to follow a file. Your files then come first here, in Today and in Calendar.</p>`}
       <div id="flPanel" role="tabpanel"${n ? ` aria-labelledby="flTab-${v}"` : ""} class="fl-panel">${flLine(v === "all" ? FILES : fol, v === "all")}</div>
+      <button class="td-link fl-maplink" type="button" data-edmap="">See how the files connect${icon("arrow")}</button>
       <p class="foot">Dates for these files are in Calendar. Names come from the Parliament's open data and its Legislative Observatory procedure files.</p>`;
   };
   document.addEventListener("click", (e) => {
