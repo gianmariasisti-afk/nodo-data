@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-26T00:00:00Z",
+  "generatedAt": "2026-10-27T00:00:00Z",
   "events": [
     {
       "id": "biotech-act:next:2026-12-14:4e1f33",
@@ -860,28 +860,6 @@
       "group": "EPP",
       "committee": "ITRE",
       "push": false
-    },
-    {
-      "id": "food-feed-omnibus:ep:amendments:2026-07-28",
-      "fileId": "food-feed-omnibus",
-      "date": "2026-07-28",
-      "source": "ep",
-      "proc": "2025-0410",
-      "kind": "milestone",
-      "title": "Amendments tabled in committee",
-      "count": 6,
-      "push": true
-    },
-    {
-      "id": "medical-devices:ep:amendments:2026-07-28",
-      "fileId": "medical-devices",
-      "date": "2026-07-28",
-      "source": "ep",
-      "proc": "2025-0404",
-      "kind": "milestone",
-      "title": "Amendments tabled in committee",
-      "count": 3,
-      "push": true
     }
   ]
 }
