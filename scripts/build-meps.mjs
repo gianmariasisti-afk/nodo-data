@@ -16,6 +16,8 @@ import path from "node:path";
 import crypto from "node:crypto";
 import { fileURLToPath } from "node:url";
 
+const NAME_ORDER = new Intl.Collator("en", { sensitivity: "base", ignorePunctuation: true });
+const byName = (a, b) => NAME_ORDER.compare(a.family || a.name || "", b.family || b.name || "") || NAME_ORDER.compare(a.given || "", b.given || "") || String(a.id).localeCompare(String(b.id));
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const API = process.env.EP_API || "https://data.europarl.europa.eu/api/v2";
 const J = "format=application%2Fld%2Bjson";
@@ -192,9 +194,10 @@ async function main() {
   /* A mass change (for example the mid-term reshuffle) goes to review as a whole. */
   if (autoCount > 150) { report.structural.push({ type: "mass-change", count: autoCount, note: "more than 150 MEP records changed in one run; held for review" }); for (const a of report.auto) nextById.set(a.id, byId.get(a.id)); }
 
-  /* keep nodo's order; arrivals go at the end of the proposal */
+  /* Alphabetical by family name, then given name, ignoring accents and case, so arrivals take their place in the
+     list instead of landing at the end (27 Oct 2026). The app sorts the same way. */
   const order = file.meps.map((m) => String(m.id));
-  const build = (map, withNew) => { const ids = [...order.filter((id) => map.has(id)), ...(withNew ? [...map.keys()].filter((id) => !byId.has(id)) : [])]; const meps = ids.map((id) => map.get(id)); return { ...file, generated: new Date().toISOString(), count: meps.length, meps }; };
+  const build = (map, withNew) => { const ids = [...order.filter((id) => map.has(id)), ...(withNew ? [...map.keys()].filter((id) => !byId.has(id)) : [])]; const meps = ids.map((id) => map.get(id)).sort(byName); return { ...file, generated: new Date().toISOString(), count: meps.length, meps }; };
   const next = build(nextById, false);
   const changed = JSON.stringify(next.meps) !== JSON.stringify(file.meps);
   report.summary = { auto: report.auto.length, structural: report.structural.length, failed: failures, changed };

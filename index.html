@@ -1378,6 +1378,10 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const name = m.given && family ? `${m.given} ${family}` : nameCase(m.name);
     return { ...m, name, family, group: g, key: "ep:" + m.id, _hay: words([name, m.party, g, countryName(m.country), ...(m.committees || []).flatMap((c) => [c.abbr, c.name])].join(" ")), _nm: words(name) };
   });
+  /* The directory and its A–Z index follow this order: family name, then given name, ignoring accents and case,
+     whatever order the data file is in (27 Oct 2026). */
+  const NAME_ORDER = new Intl.Collator("en", { sensitivity: "base", ignorePunctuation: true });
+  MEPS.sort((a, b) => NAME_ORDER.compare(a.family || a.name, b.family || b.name) || NAME_ORDER.compare(a.given || "", b.given || "") || String(a.id).localeCompare(String(b.id)));
   MEPS.forEach((m) => (m.committees || []).forEach((c) => { if (c.abbr) CMTE_NAMES[c.abbr] = c.name; }));
   const ecRaw = DATA.ec;
   const COLL = ecRaw.college.map((c) => ({ ...c, key: "ec:" + c.slug, short: c.name.split(" ").slice(-1)[0] }));
