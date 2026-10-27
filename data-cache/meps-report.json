@@ -1,91 +1,15 @@
 {
- "run": "2026-10-26T11:01:21.681Z",
- "checked": "2026-10-26",
+ "run": "2026-10-27T10:29:16.522Z",
+ "checked": "2026-10-27",
  "api": 720,
  "nodo": 720,
  "failed": [],
- "auto": [
-  {
-   "id": "97399",
-   "name": "Dirk GOTINK",
-   "changes": {
-    "homepage": {
-     "from": "https://partijnieuwsociaalcontract.nl/",
-     "to": "https://bsky.app/profile/dirkgotink.bsky.social"
-    }
-   }
-  },
-  {
-   "id": "125325",
-   "name": "Sander SMIT",
-   "changes": {
-    "delegations": {
-     "from": [
-      "DACP Member",
-      "D-ZA Substitute",
-      "DPAC Member"
-     ],
-     "to": [
-      "DACP Member",
-      "D-ZA Substitute",
-      "DPAC Member",
-      "D-RU Substitute"
-     ]
-    }
-   }
-  },
-  {
-   "id": "202352",
-   "name": "Antoni COMÍN I OLIVERES",
-   "changes": {
-    "email": {
-     "from": "",
-     "to": "antoni.cominioliveres@europarl.europa.eu"
-    }
-   }
-  },
-  {
-   "id": "185341",
-   "name": "Željana ZOVKO",
-   "changes": {
-    "delegations": {
-     "from": [
-      "DSEE Substitute",
-      "D-US Member"
-     ],
-     "to": [
-      "DSEE Substitute",
-      "D-US Member",
-      "DNAT Substitute"
-     ]
-    }
-   }
-  },
-  {
-   "id": "256804",
-   "name": "Pekka TOVERI",
-   "changes": {
-    "delegations": {
-     "from": [
-      "DPAC Substitute",
-      "DNAT Substitute",
-      "D-UA Chair",
-      "DACP Substitute"
-     ],
-     "to": [
-      "DPAC Substitute",
-      "D-UA Chair",
-      "DACP Substitute"
-     ]
-    }
-   }
-  }
- ],
+ "auto": [],
  "structural": [],
  "summary": {
-  "auto": 5,
+  "auto": 0,
   "structural": 0,
   "failed": 0,
-  "changed": true
+  "changed": false
  }
 }
