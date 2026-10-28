@@ -5775,7 +5775,6 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       ${n ? `<div class="fl-tabs" role="tablist" aria-label="Which files">${tab("mine", `Your files · ${n}`)}${tab("all", `All · ${FILES.length}`)}</div>`
         : `<p class="cap fl-lead">Tap the star to follow a file. Your files then come first here, in Today and in Calendar.</p>`}
       <div id="flPanel" role="tabpanel"${n ? ` aria-labelledby="flTab-${v}"` : ""} class="fl-panel">${flLine(v === "all" ? FILES : fol, v === "all")}</div>
-      <button class="td-link fl-maplink" type="button" data-edmap="">See how the files connect${icon("arrow")}</button>
       <p class="foot">Dates for these files are in Calendar. Names come from the Parliament's open data and its Legislative Observatory procedure files.</p>`;
   };
   document.addEventListener("click", (e) => {
