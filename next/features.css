@@ -1085,3 +1085,34 @@ html:has(body.nx-on-home) { background: var(--ed-ground); }
 /* Next plenary on the Calendar agenda tab (27 Oct 2026). */
 .cl-npb { display: inline-flex; align-items: center; gap: 8px; margin: 0 0 16px; padding: 6px 12px; border-radius: 999px; background: var(--td-row, var(--surface-2)); font-size: 13px; line-height: 18px; font-weight: 600; color: var(--ink); }
 .cl-npb .k-P { flex: none; width: 10px; height: 10px; border-radius: 3px; }
+
+/* Files as a directory (28 Oct 2026). */
+:root { --fr-on: var(--brand); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --fr-on: var(--node); } }
+:root[data-theme="dark"] { --fr-on: var(--node); }
+.fr-q { margin: 0 0 var(--space-8); }
+.fr-sec { margin: 0 0 28px; }
+.fr-sec__h { display: flex; align-items: baseline; justify-content: space-between; margin: 0 4px 10px; }
+.fr-sec__h h2 { margin: 0; font-size: 13px; line-height: 16px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-muted); }
+.fr-sec__h span { font-size: 12px; line-height: 16px; color: var(--ink-muted); }
+.fr-list { display: flex; flex-direction: column; gap: var(--space-2); }
+.fr { position: relative; border-radius: var(--radius-md); background: var(--surface); }
+.fr[hidden], .fr-sec[hidden] { display: none; }
+.fr__open { display: flex; flex-direction: column; gap: 10px; width: 100%; padding: 16px 16px 14px; border: 0; border-radius: var(--radius-md); background: none; color: var(--ink); text-align: left; cursor: pointer; }
+.fr__n { padding-right: 52px; font: 700 19px/23px var(--font-display); letter-spacing: -0.02em; }
+.fr__st { display: flex; align-items: center; gap: 8px; font-size: 13px; line-height: 16px; font-weight: 600; color: var(--ink-muted); }
+.fr__m { display: flex; gap: 3px; flex: none; }
+.fr__m i { width: 14px; height: 6px; border-radius: 3px; background: var(--hairline); }
+.fr__m i.on { background: var(--fr-on); }
+.fr__who { display: flex; align-items: center; gap: 10px; width: 100%; min-height: 30px; }
+.fr__av { display: flex; flex: none; padding-right: 8px; }
+.fr__av:empty { display: none; }
+.fr__av .fr-ava { position: relative; overflow: hidden; width: 30px; height: 30px; margin-right: -8px; border: 2px solid var(--surface); font-size: 11px; box-sizing: content-box; }
+.fr__nm { flex: 1; min-width: 0; font-size: 13px; line-height: 17px; color: var(--ink-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.fr__who .eu-icon { flex: none; width: 18px; height: 18px; color: var(--ink-muted); }
+.fr > .star { position: absolute; top: 8px; right: 8px; }
+.fr__open:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+@media (prefers-reduced-motion: no-preference) { .fr { transition: transform .15s ease-out; } .fr:active { transform: scale(.99); } }
+.fr-none { margin: 0 4px 20px; }
+.fr-any { margin: 8px 0 24px; }
+.fr-any__h { margin: 0 4px 10px; font-size: 13px; line-height: 16px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-muted); }

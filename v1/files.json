@@ -25,7 +25,29 @@
   "dgBasis": {
    "source": "named in a Parliament or Commission document",
    "inferred": "deduced from the commissioner portfolio; verify before external use"
-  }
+  },
+  "areas": [
+   {
+    "id": "digital",
+    "name": "Digital and tech"
+   },
+   {
+    "id": "industry",
+    "name": "Industry and research"
+   },
+   {
+    "id": "energy",
+    "name": "Energy, climate and transport"
+   },
+   {
+    "id": "health",
+    "name": "Health and food"
+   },
+   {
+    "id": "budget",
+    "name": "Budget, finance and defence"
+   }
+  ]
  },
  "files": [
   {
@@ -33,6 +55,7 @@
    "short": "MFF 2028–2034",
    "title": "Multiannual Financial Framework 2028–2034",
    "kind": "budget",
+   "area": "budget",
    "procedure": "2025/0571(APP)",
    "procedures": [
     "2025/0571R(APP)"
@@ -862,6 +885,7 @@
    "short": "Digital Omnibus (data)",
    "title": "Digital Omnibus on data: GDPR, ePrivacy, Data Act, NIS2",
    "kind": "regulation",
+   "area": "digital",
    "procedure": "2025/0360(COD)",
    "stage": "positions-in-preparation",
    "status": "The Commission proposed it on 19 November 2025. Coreper II agreed the Council's negotiating mandate on 21 October 2026 (Council doc 14756/26): it keeps the current definition of personal data and adds a provision on pseudonymisation, keeps the ePrivacy cookie rules but drops consent for purposes such as audience measurement and device security, and replaces the single EU incident-reporting entry point with national entry points. In Parliament, the ITRE-LIBE draft report came out on 22 June 2026 and amendments were tabled on 27 July; no committee vote date is set, and talks with the Council start once Parliament has its position. Open fights: personal data and pseudonymisation, AI training on personal data, trade secrets under the Data Act, and the cookie rules.",
@@ -1131,6 +1155,7 @@
    "short": "Industrial Accelerator Act",
    "title": "Industrial Accelerator Act ('Made in Europe')",
    "kind": "regulation",
+   "area": "industry",
    "procedure": "2026/0068(COD)",
    "proposal": "COM(2026)100",
    "stage": "positions-in-preparation",
@@ -1453,6 +1478,7 @@
    "short": "Digital Networks Act",
    "title": "Digital Networks Act",
    "kind": "regulation",
+   "area": "digital",
    "procedure": "2026/0013(COD)",
    "stage": "positions-in-preparation",
    "status": "Proposed 21 January 2026. It replaces the EECC, BEREC regulation and Radio Spectrum Policy Programme and extends authorisation rules to cloud providers and CDNs. The Irish Presidency presented its first compromise text on Articles 1–12 and 87–114 (doc 14468/26) to the telecoms working party on 22 October and aims for a progress report at the Telecoms Council on 1 December. In Parliament, ITRE published its draft report on 20 October 2026 (PE791.994); no committee vote date is set. IMCO and LIBE draft opinions came out in June.",
@@ -1647,6 +1673,7 @@
    "short": "Digital Fairness Act",
    "title": "Digital Fairness Act",
    "kind": "pre-proposal",
+   "area": "digital",
    "procedure": null,
    "stage": "pre-proposal",
    "status": "The Commission's indicative planning lists the proposal for 11 November 2026, in a consumer package (also reported by MLex); the date can still move. Expected themes: dark patterns, addictive design, influencer marketing, unfair personalisation and minors. The social media minimum age is no longer part of it: the Commission proposed it separately in the EU KIDS Act on 17 September 2026 (minimum age of 15), which nodo follows as its own file. Member States had moved first on a minimum age, for example Denmark's consultation on a minimum age of 15 launched 7 September 2026.",
@@ -1870,6 +1897,7 @@
    "short": "Chips Act 2.0 and CADA",
    "title": "Technology Sovereignty Package: Chips Act 2.0 and Cloud and AI Development Act",
    "kind": "package",
+   "area": "digital",
    "procedure": null,
    "stage": "positions-in-preparation",
    "status": "The Commission proposed both on 3 June 2026. In Parliament, ITRE leads the Chips Act 2.0 (rapporteur Oliver Schenk, appointed 31 August) and ITRE and IMCO share the CADA (Diego Solier and Reinier van Lanschot); neither has a draft report or a committee vote date yet. The Council's industry working party took up the Chips Act 2.0 on 2 September and on 12 and 13 October, and examines the Presidency compromise text on 29 and 30 October. The CADA aims to triple EU data-centre capacity within five to seven years and creates a framework to assess cloud and AI sovereignty, which is the most contested element.",
@@ -2181,6 +2209,7 @@
    "short": "AI Act after the Omnibus",
    "title": "AI Act implementation after the Digital Omnibus on AI",
    "kind": "implementation",
+   "area": "digital",
    "procedure": "2025/0359(COD)",
    "stage": "in-force",
    "status": "The Digital Omnibus on AI entered into force on 27 July 2026. Annex III high-risk obligations now apply from 2 December 2027 and Annex I from 2 August 2028. Providers of generative AI already on the market have until 2 December 2026 for labelling measures. The live issues are standards, AI Office enforcement and national authority designation.",
@@ -2454,6 +2483,7 @@
    "short": "Grids Package",
    "title": "European Grids Package: TEN-E regulation and permitting directive",
    "kind": "package",
+   "area": "energy",
    "procedure": null,
    "stage": "trilogue",
    "sector": "energy",
@@ -2718,6 +2748,7 @@
    "short": "CO2 standards for cars",
    "title": "CO2 emission standards for new cars and vans (2035 target revision)",
    "kind": "regulation",
+   "area": "energy",
    "procedure": "2025/0420(COD)",
    "stage": "positions-in-preparation",
    "sector": "transport",
@@ -2917,6 +2948,7 @@
    "short": "AFIR review",
    "title": "Review of the Alternative Fuels Infrastructure Regulation (AFIR)",
    "kind": "pre-proposal",
+   "area": "energy",
    "procedure": null,
    "stage": "pre-proposal",
    "sector": "transport",
@@ -2990,6 +3022,7 @@
    "short": "Medical devices revision",
    "title": "Medical devices and in vitro diagnostics: targeted revision of the MDR and IVDR",
    "kind": "regulation",
+   "area": "health",
    "procedure": "2025/0404(COD)",
    "stage": "positions-in-preparation",
    "sector": "health",
@@ -3144,6 +3177,7 @@
    "short": "Biotech Act I",
    "title": "European Biotech Act I: regulation and directive (health biotechnology)",
    "kind": "package",
+   "area": "health",
    "procedure": null,
    "stage": "positions-in-preparation",
    "sector": "health",
@@ -3522,6 +3556,7 @@
    "short": "Digital euro",
    "title": "Digital euro: establishment regulation",
    "kind": "regulation",
+   "area": "budget",
    "procedure": "2023/0212(COD)",
    "stage": "trilogue",
    "sector": "finance",
@@ -3693,6 +3728,7 @@
    "short": "Food and feed omnibus",
    "title": "Food and feed safety omnibus (Omnibus X): pesticides, residues, GMOs, feed",
    "kind": "package",
+   "area": "health",
    "procedure": "2025/0410(COD)",
    "procedures": [
     "2025/0409(COD)"
@@ -3900,6 +3936,7 @@
    "short": "ERA Act",
    "title": "European Research Area Act",
    "kind": "pre-proposal",
+   "area": "industry",
    "procedure": null,
    "stage": "pre-proposal",
    "sector": "research",
@@ -3982,6 +4019,7 @@
    "short": "Military mobility",
    "title": "Military mobility regulation: moving troops and equipment across the EU",
    "kind": "regulation",
+   "area": "budget",
    "procedure": "2025/0847(COD)",
    "stage": "trilogue",
    "sector": "defence",
@@ -4186,6 +4224,7 @@
    "short": "EU KIDS Act",
    "title": "EU KIDS Act: minimum age for social media and safety by design for minors",
    "kind": "regulation",
+   "area": "digital",
    "procedure": "2026/0286(COD)",
    "stage": "positions-in-preparation",
    "sector": "digital",

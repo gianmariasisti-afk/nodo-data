@@ -998,11 +998,8 @@
 
 
   /* ---------- 7. Files: the files come first (since 20 Oct 2026) ---------- */
-  /* The Files view opens on the files themselves (since 20 Oct 2026). Since 26 Oct 2026 it says where each file stands
-     and who is on it, nothing about time: dates and updates live in Calendar (Agenda and Earlier), and the Monday email
-     and alert switches live in the profile's Notifications page. One switch, Your files or All, over the line of the five
-     stages from idea to law; each card has the star, the state in one sentence and who is on the file. Map stays beside
-     the "statuses checked" line; News went (it is Earlier in Calendar). With no followed file, all files and a hint. */
+  /* The Files view opens on the files themselves (since 20 Oct 2026). Since 28 Oct 2026 it is a directory: Your files,
+     then the files by policy area, each row opening the file page (see renderFilesView below). Dates live in Calendar. */
   const FL_STATION = ["Pre-proposal", "Positions in preparation", "Council negotiating box", "Trilogue", "In force"];
   const FL_SVG = {
     news: '<svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 9h8M8 13h8M8 17h5"/></svg>',
@@ -1016,74 +1013,67 @@
     if (xs.length > 1 && /^(Proposed|The Commission proposed)\b/.test(xs[0])) xs.shift();
     return nxClip(xs.join(" "), 120);
   }
-  function flMeta(f) {
-    const c = countsOf(f), lead = (f.ep && f.ep.lead) || [];
-    return [lead.join(" · "), `${c.ep} ${pl(c.ep, "MEP", "MEPs")}`].filter(Boolean).join(" · ");
-  }
-  /* Files say where each file stands and who is on it (since 26 Oct 2026). No dates: they live in Calendar.
-     A card: the name and the star, the one-line state (the `lede` in files.json, written without dates), then who is on
-     it: Parliament's rapporteurs (three at most, with their group) and the lead Commissioner. */
-  function flWho(f) {
+  /* Files as a directory (since 28 Oct 2026). One short intro, one search, then Your files and the files grouped by
+     policy area (`area` in files.json, the order of legend.areas). Each row opens the file page: its name, the stage on a
+     five-step meter, the rapporteurs and the lead Commissioner as faces and family names, and the star. No status line:
+     it lives on the file page. The search filters the rows in place and, below them, searches Parliament's reports and
+     opinions (the "Any other file" search, #nxdq, wired in the main app). */
+  const FL_AREAS = () => ((DATA.fl && DATA.fl.legend && DATA.fl.legend.areas) || []);
+  function frPeople(f) {
     const seen = new Set(), rs = (f.meps || []).filter((m) => m.role === "rapporteur").map((m) => BYKEY.get("ep:" + m.id))
-      .filter((x) => x && !seen.has(x.o.key) && seen.add(x.o.key)).map((x) => x.o);
-    const ec = ((f.commission || {}).lead || []).map((sl) => COLL.find((c) => c.slug === sl)).filter(Boolean).map((c) => c.name);
+      .filter((x) => x && !seen.has(x.o.key) && seen.add(x.o.key)).map((x) => x.o).slice(0, 3);
+    const ec = ((f.commission || {}).lead || []).map((sl) => COLL.find((c) => c.slug === sl)).filter(Boolean).slice(0, 1);
+    const fam = (o) => o.family || String(o.name || "").split(" ").slice(-1)[0];
     const lead = ((f.ep || {}).lead || []).join("-");
-    const ep = rs.length ? rs.slice(0, 3).map((m) => `${m.name} (${m.group})`).join(", ") + (rs.length > 3 ? ` and ${rs.length - 3} more` : "")
-      : `${lead ? lead + ", " : ""}no rapporteur yet`;
-    return `<span class="fl-who__r"><b>${rs.length > 1 ? "Rapporteurs" : rs.length ? "Rapporteur" : "Parliament"}</b> ${esc(ep)}</span>`
-      + (ec.length ? `<span class="fl-who__r"><b>Commission</b> ${esc(ec.join(", "))}</span>` : "");
+    const ep = rs.length ? rs.map(fam).join(", ") : `${lead ? lead + ", " : ""}no rapporteur yet`;
+    return { keys: [...rs.map((o) => o.key), ...ec.map((c) => c.key)], txt: [ep, ...ec.map((c) => c.short)].join(" · "),
+      hay: edFold([f.short, f.title, ...rs.map((o) => o.name), ...ec.map((c) => c.name), ...(((f.ep || {}).lead) || [])].join(" ")) };
   }
-  function flCard(f) {
-    return `<article class="fl-card">
-      <div class="fl-card__top">
-        <button class="fl-card__open" type="button" data-file="${esc(f.id)}"><span class="fl-card__n">${esc(f.short)}</span></button>
-        ${followBtn(f.id, f.short)}
-      </div>
-      ${f.status || f.lede ? `<p class="fl-card__s">${esc(flStatus(f))}</p>` : ""}
-      <button class="fl-who" type="button" data-file="${esc(f.id)}">${flWho(f)}</button>
-    </article>`;
+  function frRow(f) {
+    const i = ED_STAGE.indexOf(f.stage), p = frPeople(f);
+    const meter = ED_STAGE.map((_, k) => `<i${k <= i ? ' class="on"' : ""}></i>`).join("");
+    return `<article class="fr" data-frhay="${esc(p.hay)}">
+      <button class="fr__open" type="button" data-file="${esc(f.id)}">
+        <span class="fr__n">${esc(f.short)}</span>
+        <span class="fr__st"><span class="fr__m" aria-hidden="true">${meter}</span><span>${esc(i >= 0 ? FL_STATION[i] : "Stage not set")}</span></span>
+        <span class="fr__who"><span class="fr__av" aria-hidden="true">${p.keys.map((k) => avaOf(k, "fr-ava")).join("")}</span><span class="fr__nm">${esc(p.txt)}</span>${icon("arrow")}</span>
+      </button>
+      ${followBtn(f.id, f.short)}</article>`;
   }
-  function flLine(files, all) {
-    const by = ED_STAGE.map((st) => files.filter((f) => f.stage === st));
-    const other = files.filter((f) => !ED_STAGE.includes(f.stage));
-    return `<ol class="fl-line">${ED_STAGE.map((st, i) => { const xs = by[i];
-        if (!xs.length && !all) return "";
-        return `<li class="fl-st${xs.length ? "" : " is-empty"}"><h3 class="fl-st__h"><i class="fl-st__node" aria-hidden="true"></i>${esc(FL_STATION[i])} <small>${xs.length ? `${xs.length} ${pl(xs.length, "file", "files")}` : ""}</small></h3>
-          ${xs.length ? xs.map(flCard).join("") : `<p class="cap fl-st__none">No file at this stage right now.</p>`}</li>`; }).join("")}
-        ${other.length ? `<li class="fl-st"><h3 class="fl-st__h"><i class="fl-st__node" aria-hidden="true"></i>Other <small>${other.length}</small></h3>${other.map(flCard).join("")}</li>` : ""}
-      </ol>
-      ${all ? `<section class="nx-any" aria-labelledby="nxAnyH">
-        <h3 id="nxAnyH">Any other file</h3>
-        <p class="cap nx-sub">Search every Parliament report and opinion in nodo: who the rapporteur and the shadows are.</p>
-        <label class="eu-search">${icon("search")}<input id="nxdq" type="search" placeholder="A file, an acronym or a committee" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Search Parliament reports and opinions" value="${esc(NX.dq || "")}"></label>
-        <div id="nxdres" aria-live="polite">${nxAnyHtml(NX.dq || "")}</div></section>` : ""}`;
+  function frSec(id, title, files, cap) {
+    if (!files.length) return "";
+    return `<section class="fr-sec" aria-labelledby="frH-${esc(id)}"><div class="fr-sec__h"><h2 id="frH-${esc(id)}">${esc(title)}</h2><span>${files.length}</span></div>
+      ${cap ? `<p class="cap fr-sec__cap">${esc(cap)}</p>` : ""}<div class="fr-list">${files.map(frRow).join("")}</div></section>`;
   }
   const flFilesViewBase = renderFilesView;
   renderFilesView = function () {
     flFilesViewBase();
     if (!FILES.length) return;
-    const fol = followedFiles(), n = fol.length;
-    const v = state.fview === "all" || !n ? "all" : "mine";
+    const fol = followedFiles(), areas = FL_AREAS(), known = new Set(areas.map((a) => a.id));
     $("filesCount").hidden = true;
-    const tab = (k, label) => `<button class="fl-tab" type="button" role="tab" id="flTab-${k}" aria-controls="flPanel" aria-selected="${v === k}" tabindex="${v === k ? 0 : -1}" data-fview="${k}">${label}</button>`;
-    /* No status date and no Map button at the top: a short line on what the section is (27 Oct 2026). */
-    $("filesBody").innerHTML = `<p class="fl-intro">${FILES.length} EU laws in the making, from the Commission's plan to entry into force. Each file shows where it stands and who shapes it: rapporteurs and shadows in Parliament, the Commissioner and cabinet, the Council's working party.</p>
-      ${n ? `<div class="fl-tabs" role="tablist" aria-label="Which files">${tab("mine", `Your files · ${n}`)}${tab("all", `All · ${FILES.length}`)}</div>`
-        : `<p class="cap fl-lead">Tap the star to follow a file. Your files then come first here, in Today and in Calendar.</p>`}
-      <div id="flPanel" role="tabpanel"${n ? ` aria-labelledby="flTab-${v}"` : ""} class="fl-panel">${flLine(v === "all" ? FILES : fol, v === "all")}</div>
+    const q = NX.dq || "";
+    $("filesBody").innerHTML = `<p class="fl-intro">${FILES.length} EU laws in the making. Open one to see where it stands and who shapes it.</p>
+      <label class="eu-search fr-q">${icon("search")}<input id="nxdq" type="search" placeholder="Find a file, a rapporteur or a committee" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Find a file" value="${esc(q)}"></label>
+      <div id="flPanel" class="fl-panel">
+        ${fol.length ? frSec("mine", "Your files", fol) : `<p class="cap fl-lead">Tap the star to follow a file. Your files then come first here, in Today and in Calendar.</p>`}
+        ${areas.map((a) => frSec(a.id, a.name, FILES.filter((f) => f.area === a.id))).join("")}
+        ${frSec("other", "Other files", FILES.filter((f) => !known.has(f.area)))}
+        <p class="cap fr-none" id="frNone" hidden>No file in nodo matches. Parliament's reports and opinions are below.</p>
+      </div>
+      <section class="fr-any" id="frAny" aria-labelledby="frAnyH"${q.trim() ? "" : " hidden"}><h2 id="frAnyH" class="fr-any__h">In Parliament's reports and opinions</h2><div id="nxdres" aria-live="polite">${nxAnyHtml(q)}</div></section>
       <p class="foot">Dates for these files are in Calendar. Names come from the Parliament's open data and its Legislative Observatory procedure files.</p>`;
+    frFilter(q);
   };
-  document.addEventListener("click", (e) => {
-    const b = e.target.closest("[data-fview]"); if (!b) return;
-    state.fview = b.dataset.fview === "all" ? "all" : "mine"; renderFilesView();
-    const now = document.querySelector(`.fl-tab[data-fview="${state.fview}"]`);
-    if (now && b.classList.contains("fl-tab")) now.focus({ preventScroll: true, focusVisible: false });
-    Track.log("view", { section: "files-" + state.fview });
-  });
-  document.addEventListener("keydown", (e) => {
-    const t = e.target.closest && e.target.closest("#filesBody .fl-tab"); if (!t || (e.key !== "ArrowRight" && e.key !== "ArrowLeft")) return;
-    e.preventDefault(); document.querySelector(`#filesBody .fl-tab[data-fview="${t.dataset.fview === "all" ? "mine" : "all"}"]`).click();
-  });
+  function frFilter(q) {
+    const t = terms(q), body = $("filesBody"); if (!body) return;
+    let shown = 0;
+    body.querySelectorAll(".fr").forEach((r) => { const on = !t.length || t.every((x) => r.dataset.frhay.includes(x)); r.hidden = !on; if (on && !r.closest('[aria-labelledby="frH-mine"]')) shown++; });
+    body.querySelectorAll(".fr-sec").forEach((s) => { s.hidden = ![...s.querySelectorAll(".fr")].some((r) => !r.hidden); });
+    const lead = body.querySelector(".fl-lead"); if (lead) lead.hidden = !!t.length;
+    if ($("frNone")) $("frNone").hidden = !t.length || shown > 0;
+    if ($("frAny")) $("frAny").hidden = !t.length;
+  }
+  document.addEventListener("input", (e) => { if (e.target.id === "nxdq" && e.target.closest("#filesBody")) frFilter(e.target.value); });
 
   /* ---------- 8. Parliament: the list first (since 20 Oct 2026) ---------- */
   /* The first MEP sits above the fold. One title row (back to People, "Parliament ▾" to switch institution, the count);
