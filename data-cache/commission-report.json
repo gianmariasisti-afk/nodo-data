@@ -1,5 +1,5 @@
 {
- "run": "2026-10-27T10:02:09.352Z",
+ "run": "2026-10-28T10:48:50.641Z",
  "college": {
   "found": 26,
   "added": [],
@@ -198,10 +198,63 @@
    "nothing to apply"
   ]
  },
- "auto": [],
+ "auto": [
+  {
+   "commissioner": "dan-jorgensen",
+   "name": "Agnese Papadia",
+   "fields": [
+    "resp",
+    "outside"
+   ],
+   "diff": {
+    "resp": {
+     "from": [
+      "Affordable Housing (including Affordable Housing Plan)",
+      "Homelessness",
+      "Pan-European investment platform for affordable and sustainable housing (shared with Stella Kaltsouni)",
+      "Citizens empowerment and protection, energy communities",
+      "Covenant of Mayors",
+      "Social Climate Fund",
+      "Governance of the Energy Union",
+      "Energy poverty"
+     ],
+     "to": [
+      "Affordable Housing (including Affordable Housing Plan)",
+      "Homelessness",
+      "Pan-European investment platform for affordable and sustainable housing",
+      "Citizens empowerment and protection, energy communities",
+      "Covenant of Mayors",
+      "Social Climate Fund",
+      "Governance of the Energy Union, including post-2030 framework",
+      "Energy poverty"
+     ]
+    },
+    "outside": {
+     "from": [
+      "State aid rules for housing",
+      "Social policy (people, skills, labour etc…)",
+      "Consumer policy",
+      "Equality coordinator",
+      "Demography",
+      "Democracy, Justice and Rule of Law",
+      "Relations with Economic and Social Committee"
+     ],
+     "to": [
+      "State aid rules for housing",
+      "Employment, skills, social rights and education",
+      "Consumer policy",
+      "Equality coordinator",
+      "Demography",
+      "Democracy, Justice and Rule of Law",
+      "Relations with Economic and Social Committee"
+     ]
+    }
+   }
+  }
+ ],
  "structural": [],
  "summary": {
-  "auto": 0,
+  "auto": 1,
   "structural": 0,
   "autoApplied": 0,
   "failed": 0
