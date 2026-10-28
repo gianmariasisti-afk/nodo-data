@@ -7106,11 +7106,11 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
         <span class="fp-cal__go" aria-hidden="true">${icon("arrow")}</span></button>`);
     const foot = p.querySelector(".foot");
     const cav = (f.caveats || []).map((x) => (typeof x === "string" ? x : x.text || x.note || "")).filter(Boolean);
-    const src = (f.sources || []).filter((x) => safeUrl(x.url));
-    if (foot && !p.querySelector(".fp-about")) foot.insertAdjacentHTML("beforebegin", `<details class="fp-about"><summary><span><b>About this file</b><small>Full status, ${cav.length ? "what to check, " : ""}sources</small></span>${icon("down")}</summary>
+    /* Sources show only as the footnote, in plain words (28 Oct 2026): no list of source links. */
+    if (foot && !p.querySelector(".fp-about")) foot.insertAdjacentHTML("beforebegin", `<details class="fp-about"><summary><span><b>About this file</b><small>Full status${cav.length ? " and what to check" : ""}</small></span>${icon("down")}</summary>
         <p>${esc(f.status || "")}</p>${f.checked ? `<p class="cap">Status checked ${fdDate(f.checked, true)}</p>` : ""}
-        ${cav.length ? `<h3>Check before you rely on it</h3>${cav.map((x) => `<div class="block"><p>${esc(x)}</p></div>`).join("")}` : ""}
-        ${src.length ? `<h3>Sources</h3><div class="list">${src.map((x) => extRow(esc(x.title), esc(safeUrl(x.url)))).join("")}</div>` : ""}</details>`);
+        ${cav.length ? `<h3>Check before you rely on it</h3>${cav.map((x) => `<div class="block"><p>${esc(x)}</p></div>`).join("")}` : ""}</details>`);
+    if (foot) foot.textContent = "Sources: the Parliament's open data and Legislative Observatory, the Commission's and the Council's own pages, and press reporting. Names marked Verified come from the Parliament's records.";
   };
   /* Links that pointed at the old Next steps tab ("N sources" under the title) open "About this file" instead. */
   document.addEventListener("click", (e) => {
