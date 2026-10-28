@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-27T00:00:00Z",
+  "generatedAt": "2026-10-28T00:00:00Z",
   "events": [
     {
       "id": "biotech-act:next:2026-12-14:4e1f33",
@@ -260,6 +260,42 @@
       "title": "Council industry working party on the IAA: third Presidency compromise text (doc 14387/26)",
       "push": true,
       "pushOn": "2026-10-27"
+    },
+    {
+      "id": "tech-sovereignty-package:ep:2026-0138-NMSR-256910-2026-10-27",
+      "fileId": "tech-sovereignty-package",
+      "date": "2026-10-27",
+      "source": "ep",
+      "proc": "2026-0138",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "256910",
+      "group": "The Left",
+      "push": false
+    },
+    {
+      "id": "tech-sovereignty-package:ep:2026-0138-NMSR-28223-2026-10-27",
+      "fileId": "tech-sovereignty-package",
+      "date": "2026-10-27",
+      "source": "ep",
+      "proc": "2026-0138",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "28223",
+      "group": "EPP",
+      "push": false
+    },
+    {
+      "id": "tech-sovereignty-package:ep:2026-0139-NMSR-197460-2026-10-27",
+      "fileId": "tech-sovereignty-package",
+      "date": "2026-10-27",
+      "source": "ep",
+      "proc": "2026-0139",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "197460",
+      "group": "Greens/EFA",
+      "push": false
     },
     {
       "id": "industrial-accelerator-act:next:2026-10-26:0c5755",
@@ -576,6 +612,18 @@
       "push": false
     },
     {
+      "id": "tech-sovereignty-package:ep:2026-0139-NMSR-257073-2026-09-24",
+      "fileId": "tech-sovereignty-package",
+      "date": "2026-09-24",
+      "source": "ep",
+      "proc": "2026-0139",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "257073",
+      "group": "ECR",
+      "push": false
+    },
+    {
       "id": "tech-sovereignty-package:ep:2026-0138-NMSR-256911-2026-09-23",
       "fileId": "tech-sovereignty-package",
       "date": "2026-09-23",
@@ -624,6 +672,18 @@
       "push": false
     },
     {
+      "id": "tech-sovereignty-package:ep:2026-0139-NMSR-257070-2026-09-22",
+      "fileId": "tech-sovereignty-package",
+      "date": "2026-09-22",
+      "source": "ep",
+      "proc": "2026-0139",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "257070",
+      "group": "ESN",
+      "push": false
+    },
+    {
       "id": "tech-sovereignty-package:ep:2026-0138-NMSR-256883-2026-09-21",
       "fileId": "tech-sovereignty-package",
       "date": "2026-09-21",
@@ -648,6 +708,18 @@
       "push": false
     },
     {
+      "id": "tech-sovereignty-package:ep:2026-0139-NMSR-88882-2026-09-18",
+      "fileId": "tech-sovereignty-package",
+      "date": "2026-09-18",
+      "source": "ep",
+      "proc": "2026-0139",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "88882",
+      "group": "S&D",
+      "push": false
+    },
+    {
       "id": "tech-sovereignty-package:ep:2026-0138-ANPRO-2026-09-17",
       "fileId": "tech-sovereignty-package",
       "date": "2026-09-17",
@@ -655,6 +727,18 @@
       "proc": "2026-0138",
       "kind": "procedural",
       "title": "Referred to committee",
+      "push": false
+    },
+    {
+      "id": "tech-sovereignty-package:ep:2026-0139-NMSR-256807-2026-09-17",
+      "fileId": "tech-sovereignty-package",
+      "date": "2026-09-17",
+      "source": "ep",
+      "proc": "2026-0139",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "256807",
+      "group": "Renew",
       "push": false
     },
     {

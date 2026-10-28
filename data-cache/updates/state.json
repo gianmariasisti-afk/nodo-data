@@ -770,7 +770,14 @@
     "tech-sovereignty-package:next:2026-10-29:bca875": true,
     "grids-package:next:2026-10-27:498513": true,
     "co2-cars:next:2026-10-28:085e6e": true,
-    "military-mobility:next:2026-10-30:ebc3da": true
+    "military-mobility:next:2026-10-30:ebc3da": true,
+    "tech-sovereignty-package:ep:2026-0138-NMSR-256910-2026-10-27": true,
+    "tech-sovereignty-package:ep:2026-0138-NMSR-28223-2026-10-27": true,
+    "tech-sovereignty-package:ep:2026-0139-NMSR-197460-2026-10-27": true,
+    "tech-sovereignty-package:ep:2026-0139-NMSR-257073-2026-09-24": true,
+    "tech-sovereignty-package:ep:2026-0139-NMSR-257070-2026-09-22": true,
+    "tech-sovereignty-package:ep:2026-0139-NMSR-88882-2026-09-18": true,
+    "tech-sovereignty-package:ep:2026-0139-NMSR-256807-2026-09-17": true
   },
   "seeded": {
     "mff-2028-2034": true,
@@ -825,7 +832,8 @@
     "kids-act:next:2026-10-23:a135cf": true,
     "industrial-accelerator-act:next:2026-10-26:0c5755": true,
     "industrial-accelerator-act:next:2026-10-27:0c5755": true,
-    "grids-package:next:2026-10-27:498513": true
+    "grids-package:next:2026-10-27:498513": true,
+    "co2-cars:next:2026-10-28:085e6e": true
   },
   "seededProcs": {
     "2025-0571": true,

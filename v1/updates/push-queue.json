@@ -1,25 +1,15 @@
 {
-  "generatedAt": "2026-10-27T00:00:00Z",
+  "generatedAt": "2026-10-28T00:00:00Z",
   "events": [
     {
-      "id": "industrial-accelerator-act:next:2026-10-27:0c5755",
-      "fileId": "industrial-accelerator-act",
-      "date": "2026-10-27",
+      "id": "co2-cars:next:2026-10-28:085e6e",
+      "fileId": "co2-cars",
+      "date": "2026-10-28",
       "source": "nodo",
       "kind": "scheduled",
-      "title": "Council industry working party on the IAA: third Presidency compromise text (doc 14387/26)",
+      "title": "Council environment working party: discussion of the proposal",
       "push": true,
-      "pushOn": "2026-10-27"
-    },
-    {
-      "id": "grids-package:next:2026-10-27:498513",
-      "fileId": "grids-package",
-      "date": "2026-10-27",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Council energy working party: examination of the Parliament positions on the permitting directive and TEN-E",
-      "push": true,
-      "pushOn": "2026-10-27"
+      "pushOn": "2026-10-28"
     }
   ]
 }
