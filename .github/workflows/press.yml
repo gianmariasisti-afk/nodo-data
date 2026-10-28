@@ -1,0 +1,47 @@
+name: Collect press candidates
+
+# In the press, step 1: every morning, read the public feeds in tools/press/config.json and keep the entries that
+# name a pilot file in data-cache/press/candidates.json. Nothing reaches the app from here: the Mon/Thu cloud task
+# ("nodo press scan") reviews the candidates and proposes items on the branch review/press.
+
+on:
+  schedule:
+    - cron: "23 5 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: press
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Tests
+        run: node --test tests/press/press.test.mjs
+      - name: Collect
+        run: node scripts/press-feeds.mjs
+      - name: Commit candidates to main
+        run: |
+          git config user.name "nodo-data bot"
+          git config user.email "actions@users.noreply.github.com"
+          rm -rf "$RUNNER_TEMP/press"; cp -r data-cache/press "$RUNNER_TEMP/press"
+          for i in 1 2 3 4; do
+            git fetch -q origin main
+            git reset -q --hard origin/main
+            rm -rf data-cache/press; mkdir -p data-cache; cp -r "$RUNNER_TEMP/press" data-cache/press
+            git add data-cache/press
+            if git diff --cached --quiet; then echo "Nothing new."; exit 0; fi
+            git commit -q -m "Press candidates $(date -u +%F)"
+            if git push -q origin HEAD:main; then echo "Pushed."; exit 0; fi
+            echo "Push rejected, retrying ($i)"; sleep 5
+          done
+          echo "Could not push after 4 tries"; exit 1

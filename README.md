@@ -27,6 +27,7 @@ v1/
   files.json      Legislative files with linked MEPs, Commissioners, cabinet members
   reports.json    Parliament reports and opinions with rapporteur and shadows (automatic pages)
   minutes.json    Who spoke on the priority files in Parliament committee meetings, from the committees' minutes
+  press.json      In the press: dated items on the priority files with nodo's own takeaway (preview only)
 ```
 
 `v1` is the schema version. Fields can be added inside v1. A rename or removal creates `v2` and `v1` stays online for installed apps.
@@ -42,6 +43,30 @@ The artifact page is this `index.html` without its first line, without `config.j
 ## files.json
 
 Seven priority legislative files (MFF 2028–2034, Digital Omnibus, Industrial Accelerator Act, Digital Networks Act, Digital Fairness Act, Chips Act 2.0 and CADA, AI Act after the Omnibus). `procedure` is the main EP procedure; `procedures` lists related ones (the MFF interim report is 2025/0571R(APP)) and each of `parts` can carry its own `procedure`; the update stream follows all of them. `proposal` keeps the Commission reference. Each file lists `meps` (id, role, committee, `basis`), `commission` (lead and associated commissioner slugs), `cabinet` (keys from `commission.json` with a reason), Council configurations, `caveats` and `sources`. `basis` is `ep-open-data` (verified from `activity/` feeds) or `press` (named in reporting, to verify in the EP procedure file). MEP ids match `meps.json`.
+
+## press.json (In the press)
+
+Dated items on nodo's files, each with nodo's own one- or two-sentence takeaway and a link to the source. Shown in the preview only so far.
+
+```json
+{ "generated": "…", "windowDays": 30, "maxPerFile": 3,
+  "files": { "industrial-accelerator-act": [
+    { "id": "3f2c…", "date": "2026-10-15", "source": "Agence Europe", "inst": "press", "kind": "press",
+      "text": "More than 5,000 amendments were tabled…", "url": "https://…", "people": ["ep:97399"],
+      "stage": false, "paywall": true, "added": "2026-10-28" } ] } }
+```
+
+- `inst`: `ep`, `council`, `commission`, `advisory` or `press`. `kind`: `institutional`, `press` or `analysis`.
+- `text` is 40–240 characters, nodo's own words: no quotation marks, no exclamation marks. `people` are MEP keys from `meps.json`.
+- `stage` marks an item that changes a file's stage (the only kind meant to trigger a push, once nodo sends any).
+- Items older than `keepDays` (90) are dropped on the next merge; the app shows the last `windowDays` (30).
+
+How it is kept up to date:
+
+1. Every morning the Action "Collect press candidates" (`.github/workflows/press.yml`, `scripts/press-feeds.mjs`) reads the feeds in `tools/press/config.json` and keeps the entries that name a pilot file in `data-cache/press/candidates.json`; `data-cache/press/feeds.json` says which feeds answered. A feed that fails is logged, not fatal.
+2. On Mondays and Thursdays the cloud scheduled task "nodo press scan" reads the candidates, runs each file's search pack (`node scripts/press-feeds.mjs --packs`: short name, aliases, procedure numbers, Council documents, rapporteurs and shadows) through web search, applies the inclusion test (an item gets in only if it moves the file: a new position, a date, a person, a compromise or a fight) and writes the takeaways.
+3. `node scripts/press-merge.mjs items.json` checks every item, refuses the batch if one fails, and rewrites `press.json` and its manifest entry. `scripts/validate-data.mjs` checks the file again on every push.
+4. Proposed items go to the rolling branch `review/press` with one open issue labelled `press`. Merging the branch publishes them. Facts that contradict `files.json` are listed in the issue as data checks; they never edit `files.json` (the weekly reference refresh does, and the Observatory wins over the press).
 
 ## agenda.json
 

@@ -1116,3 +1116,25 @@ html:has(body.nx-on-home) { background: var(--ed-ground); }
 .fr-none { margin: 0 4px 20px; }
 .fr-any { margin: 8px 0 24px; }
 .fr-any__h { margin: 0 4px 10px; font-size: 13px; line-height: 16px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-muted); }
+
+/* In the press (since 28 Oct 2026): dated items on a file page, under "Dates and updates on this file". */
+.pr-press { margin-top: var(--space-4); padding: 18px 16px 14px; border-radius: var(--radius-lg); background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--hairline); }
+.pr-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.pr-head h3 { margin: 0; }
+.pr-head small { font-size: 12px; font-weight: 500; color: var(--ink-muted); }
+.pr-list { list-style: none; margin: 8px 0 0; padding: 0; }
+.pr-item { padding: 12px 0; border-top: 1px solid var(--hairline); }
+.pr-item:first-child { border-top: 0; }
+.pr-link { display: flex; flex-direction: column; gap: 6px; color: var(--ink); text-decoration: none; border-radius: var(--radius-sm); }
+.pr-link:focus-visible, .pr-person:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+.pr-meta { display: flex; align-items: center; gap: 8px; font-size: 12px; line-height: 16px; font-weight: 600; color: var(--ink-muted); }
+.pr-dot { width: 8px; height: 8px; flex: none; border-radius: 50%; background: var(--border-control); }
+.pr-dot--ep { background: var(--accent-sky); } .pr-dot--council { background: var(--accent-mint); } .pr-dot--commission { background: var(--accent-apricot); } .pr-dot--advisory { background: var(--accent-butter); }
+.pr-new { display: inline-flex; align-items: center; gap: 5px; margin-left: auto; color: var(--ink); }
+.pr-new::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--node); }
+.pr-text { font-size: 15px; line-height: 21px; font-weight: 600; }
+.pr-src { font-size: 12px; line-height: 16px; font-weight: 500; color: var(--ink-muted); }
+.pr-people { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.pr-person { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 4px 12px 4px 4px; border: 0; border-radius: 999px; background: var(--surface-sunken); color: var(--ink); font: 600 13px/16px var(--font-sans, inherit); cursor: pointer; }
+.pr-person .pr-ava { width: 32px; height: 32px; min-width: 32px; font-size: 11px; }
+.pr-foot { margin: 10px 0 0; font-size: 12px; line-height: 16px; font-weight: 500; color: var(--ink-muted); }

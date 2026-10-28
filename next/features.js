@@ -2415,3 +2415,62 @@
     e.preventDefault(); e.stopImmediatePropagation();
     d.open = true; d.scrollIntoView({ block: "start", behavior: "smooth" }); d.querySelector("summary").focus({ preventScroll: true });
   }, true);
+
+  /* ---------- In the press (since 28 Oct 2026) ----------
+     v1/press.json holds dated items on nodo's files: institutional pages and press reporting, each with nodo's own
+     one- or two-sentence takeaway (never a quote) and a link to the source. Items are picked by the press scan (feeds
+     every morning on GitHub, web search on Mondays and Thursdays) and published only after review (branch review/press).
+     A file page shows the items of the last windowDays days under "Dates and updates on this file": three, then
+     "Show N more". Each item names the institution or "Press", the outlet, the date, "subscribers" for a paywalled source,
+     and the MEPs it names as chips that open their profiles. No push notification yet: items marked stage (a change of a
+     file's stage) are the ones meant to notify once nodo sends pushes. When promoted, the block goes into openFile. */
+  let PRESS = null;
+  const prOpen = new Set();
+  const prIso = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+  const PR_INST = { ep: "Parliament", council: "Council", commission: "Commission", advisory: "Advisory body", press: "Press" };
+  function prItems(f) {
+    const xs = (PRESS && PRESS.files && PRESS.files[f.id]) || [];
+    const from = prIso(addD(new Date(), -(PRESS.windowDays || 30)));
+    return xs.filter((x) => x.date >= from).sort((a, b) => b.date.localeCompare(a.date));
+  }
+  function pressBlock(f) {
+    const xs = prItems(f); if (!xs.length) return "";
+    const max = PRESS.maxPerFile || 3, open = prOpen.has(f.id), shown = open ? xs : xs.slice(0, max), more = xs.length - max;
+    const fresh = prIso(addD(new Date(), -3));
+    const item = (x) => {
+      const ppl = (x.people || []).filter((k) => BYKEY.has(k));
+      return `<li class="pr-item">
+        <a class="pr-link" href="${esc(x.url)}" target="_blank" rel="noopener" data-prid="${esc(x.id)}">
+          <span class="pr-meta"><span class="pr-dot pr-dot--${esc(x.inst)}" aria-hidden="true"></span>${esc(PR_INST[x.inst] || "Press")}${x.date >= fresh ? `<span class="pr-new">New</span>` : ""}</span>
+          <span class="pr-text">${esc(x.text)}</span>
+          <span class="pr-src">${esc([x.source, fmtIso(x.date), x.paywall ? "subscribers" : ""].filter(Boolean).join(" · "))}<span class="sr"> (opens the source)</span></span>
+        </a>
+        ${ppl.length ? `<span class="pr-people">${ppl.map((k) => { const o = BYKEY.get(k).o; return `<button type="button" class="pr-person" data-open="${esc(k)}">${avaOf(k, "pr-ava")}<span>${esc(o.name)} · ${esc(o.group || "")}</span></button>`; }).join("")}</span>` : ""}
+      </li>`;
+    };
+    return `<section class="pr-press" aria-labelledby="prH">
+      <div class="pr-head"><h3 id="prH">In the press</h3><small>Last ${PRESS.windowDays || 30} days</small></div>
+      <ul class="pr-list">${shown.map(item).join("")}</ul>
+      ${more > 0 ? `<button class="eu-btn eu-btn--outline eu-btn--block mt" type="button" data-prmore="${esc(f.id)}" aria-expanded="${open}">${open ? "Show fewer" : `Show ${more} more`}</button>` : ""}
+      <p class="pr-foot">Picked by nodo's scan on Mondays and Thursdays. The summaries are nodo's own words; tap one to read the source.</p>
+    </section>`;
+  }
+  const prOpen0 = openFile;
+  openFile = function (id, keep, startTab) {
+    prOpen0(id, keep, startTab);
+    const f = FILE_BY[id], p = $("profile"); if (!f || !p || state.open !== "file:" + id || !PRESS) return;
+    const old = p.querySelector(".pr-press"); if (old) old.remove();
+    const html = pressBlock(f); if (!html) return;
+    const at = p.querySelector(".fp-cal") || p.querySelector(".stats");
+    if (at) at.insertAdjacentHTML("afterend", html);
+  };
+  document.addEventListener("click", (e) => {
+    const m = e.target.closest("[data-prmore]");
+    if (m) { const id = m.dataset.prmore; prOpen.has(id) ? prOpen.delete(id) : prOpen.add(id); const f = curFile(); if (f) openFile(f.id, true); return; }
+    const a = e.target.closest("[data-prid]");
+    if (a) { const f = curFile(); Track.log("press_open", { section: f ? f.id : null, item: a.dataset.prid }); }
+  });
+  fetchJson(DATA_BASE + "press.json").then((j) => {
+    PRESS = j;
+    const f = curFile(); if (f) openFile(f.id, true);
+  }).catch(() => { /* no press file yet: file pages work without it */ });

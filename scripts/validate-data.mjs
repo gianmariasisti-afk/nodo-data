@@ -158,6 +158,23 @@ if (fs.existsSync(path.join(V1, "minutes.json"))) {
   }
 }
 
+/* In the press: dated items on nodo's files with nodo's own takeaway (optional file, built by scripts/press-merge.mjs) */
+if (fs.existsSync(path.join(V1, "press.json"))) {
+  const pr = load("press.json");
+  if (pr) {
+    const { checkItem } = await import("./press-merge.mjs");
+    const ids = new Set();
+    const known = new Set(((files && files.files) || []).map((f) => f.id));
+    for (const [fid, xs] of Object.entries(pr.files || {})) {
+      for (const x of xs) {
+        if (!/^[0-9a-f]{10}$/.test(x.id || "") || ids.has(x.id)) bad(`press.json ${fid}: missing or duplicate id ${x.id}`);
+        ids.add(x.id);
+        for (const p of checkItem({ ...x, file: fid }, { fileIds: known, mepIds })) bad(`press.json ${fid} ${x.id}: ${p}`);
+      }
+    }
+  }
+}
+
 /* Everything else must at least parse */
 for (const rel of ["agenda.json", "manifest.json"]) load(rel);
 

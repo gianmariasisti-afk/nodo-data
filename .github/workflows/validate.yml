@@ -27,7 +27,7 @@ jobs:
         with:
           node-version: 22
       - name: Tests
-        run: node --test tests/commission/autonomy.test.mjs tests/meps/meps.test.mjs tests/updates/updates.test.mjs
+        run: node --test tests/commission/autonomy.test.mjs tests/meps/meps.test.mjs tests/updates/updates.test.mjs tests/press/press.test.mjs
       - name: Validate v1 data
         run: |
           set -o pipefail

@@ -1,0 +1,65 @@
+{
+ "generated": "2026-10-28T22:21:06.726Z",
+ "windowDays": 30,
+ "maxPerFile": 3,
+ "files": {
+  "digital-omnibus-data": [
+   {
+    "id": "a47fb1effb",
+    "date": "2026-10-22",
+    "source": "PPC Land",
+    "inst": "press",
+    "kind": "press",
+    "text": "The agreed Council text runs to 179 pages. Websites could ask again for cookie consent after four months.",
+    "url": "https://ppc.land/eu-council-agrees-4-month-cookie-re-ask-wait-for-digital-omnibus-talks/",
+    "people": [],
+    "stage": false,
+    "paywall": false,
+    "added": "2026-10-28"
+   },
+   {
+    "id": "ad2f447303",
+    "date": "2026-10-21",
+    "source": "Council press release",
+    "inst": "council",
+    "kind": "institutional",
+    "stage": true,
+    "text": "Member states agreed the Council's negotiating mandate. Talks with Parliament open once Parliament adopts its own position.",
+    "url": "https://www.consilium.europa.eu/en/press/press-releases/2026/10/21/digital-rulebook-council-agrees-position-to-simplify-data-protection-privacy-and-cyber-reporting-rules/",
+    "people": [],
+    "paywall": false,
+    "added": "2026-10-28"
+   }
+  ],
+  "industrial-accelerator-act": [
+   {
+    "id": "1b978297b8",
+    "date": "2026-10-15",
+    "source": "Agence Europe",
+    "inst": "press",
+    "kind": "press",
+    "paywall": true,
+    "people": [
+     "ep:97399"
+    ],
+    "text": "More than 5,000 amendments were tabled to the joint draft report. Dirk Gotink's amendments would open 'Made in Europe' to all trade and procurement-agreement partners.",
+    "url": "https://agenceurope.eu/en/bulletin/article/13961/6/industrial-accelerator-act-with-over-5000-amendments-european-parliament-groups-sharpen-arguments-ahead-of-examination-of-text",
+    "stage": false,
+    "added": "2026-10-28"
+   },
+   {
+    "id": "e0c97c30e4",
+    "date": "2026-10-14",
+    "source": "Committee of the Regions",
+    "inst": "advisory",
+    "kind": "institutional",
+    "text": "The Committee of the Regions adopted its opinion on the act. Its rapporteur is Willy Borsus.",
+    "url": "https://www.cor.europa.eu/en/our-work/opinions/cdr-0993-2026",
+    "people": [],
+    "stage": false,
+    "paywall": false,
+    "added": "2026-10-28"
+   }
+  ]
+ }
+}
