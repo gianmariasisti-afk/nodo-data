@@ -11,24 +11,102 @@
   "ai-act-implementation"
  ],
  "aliases": {
-  "digital-omnibus-data": ["Digital Omnibus", "digital omnibus", "GDPR reform", "ePrivacy", "Data Act"],
-  "industrial-accelerator-act": ["Industrial Accelerator Act", "IAA", "Made in Europe", "Made in EU", "COM(2026)100"],
-  "mff-2028-2034": ["MFF", "multiannual financial framework", "EU long-term budget", "2028-2034 budget", "Competitiveness Fund", "National and Regional Partnership Plans"],
-  "digital-networks-act": ["Digital Networks Act", "DNA telecom", "telecoms reform"],
-  "ai-act-implementation": ["AI Act", "Digital Omnibus on AI", "AI omnibus"]
+  "digital-omnibus-data": [
+   "Digital Omnibus",
+   "digital omnibus",
+   "GDPR reform",
+   "ePrivacy",
+   "Data Act"
+  ],
+  "industrial-accelerator-act": [
+   "Industrial Accelerator Act",
+   "IAA",
+   "Made in Europe",
+   "Made in EU",
+   "COM(2026)100"
+  ],
+  "mff-2028-2034": [
+   "MFF",
+   "multiannual financial framework",
+   "EU long-term budget",
+   "2028-2034 budget",
+   "Competitiveness Fund",
+   "National and Regional Partnership Plans"
+  ],
+  "digital-networks-act": [
+   "Digital Networks Act",
+   "DNA telecom",
+   "telecoms reform"
+  ],
+  "ai-act-implementation": [
+   "AI Act",
+   "Digital Omnibus on AI",
+   "AI omnibus"
+  ]
  },
  "exclude": {
-  "digital-networks-act": ["DNA testing", "DNA sequencing", "DNA evidence"],
-  "industrial-accelerator-act": ["IAA motor show", "IAA Mobility", "IAA Transportation"]
+  "digital-networks-act": [
+   "DNA testing",
+   "DNA sequencing",
+   "DNA evidence"
+  ],
+  "industrial-accelerator-act": [
+   "IAA motor show",
+   "IAA Mobility",
+   "IAA Transportation"
+  ]
  },
  "feeds": [
-  { "id": "ep-press", "name": "Parliament press release", "inst": "ep", "kind": "institutional", "url": "https://www.europarl.europa.eu/rss/doc/press-releases/en.xml" },
-  { "id": "ep-thinktank", "name": "EPRS", "inst": "ep", "kind": "institutional", "url": "https://www.europarl.europa.eu/rss/doc/think-tank/en.xml" },
-  { "id": "council-press", "name": "Council press release", "inst": "council", "kind": "institutional", "url": "https://www.consilium.europa.eu/en/rss/pressreleases.ashx" },
-  { "id": "ec-presscorner", "name": "Commission press release", "inst": "commission", "kind": "institutional", "url": "https://ec.europa.eu/commission/presscorner/api/rss?language=en" },
-  { "id": "euractiv", "name": "Euractiv", "inst": "press", "kind": "press", "url": "https://www.euractiv.com/feed/" },
-  { "id": "politico-eu", "name": "Politico Europe", "inst": "press", "kind": "press", "url": "https://www.politico.eu/feed/" },
-  { "id": "euobserver", "name": "EUobserver", "inst": "press", "kind": "press", "url": "https://euobserver.com/rss.xml" },
-  { "id": "ppc-land", "name": "PPC Land", "inst": "press", "kind": "press", "url": "https://ppc.land/rss/" }
+  {
+   "id": "ep-press",
+   "name": "Parliament press release",
+   "inst": "ep",
+   "kind": "institutional",
+   "url": "https://www.europarl.europa.eu/rss/doc/press-releases/en.xml",
+   "skip": "Parliament's site answers GitHub runners with a bot check (28 Oct 2026). The cloud scan reads Parliament press releases with web search instead."
+  },
+  {
+   "id": "ep-thinktank",
+   "name": "EPRS",
+   "inst": "ep",
+   "kind": "institutional",
+   "url": "https://www.europarl.europa.eu/rss/doc/think-tank/en.xml",
+   "skip": "Parliament's site answers GitHub runners with a bot check (28 Oct 2026). The cloud scan reads Parliament press releases with web search instead."
+  },
+  {
+   "id": "council-press",
+   "name": "Council press release",
+   "inst": "council",
+   "kind": "institutional",
+   "url": "https://www.consilium.europa.eu/en/rss/pressreleases.ashx"
+  },
+  {
+   "id": "ec-presscorner",
+   "name": "Commission press release",
+   "inst": "commission",
+   "kind": "institutional",
+   "url": "https://ec.europa.eu/commission/presscorner/api/rss?language=en"
+  },
+  {
+   "id": "euractiv",
+   "name": "Euractiv",
+   "inst": "press",
+   "kind": "press",
+   "url": "https://www.euractiv.com/feed/"
+  },
+  {
+   "id": "politico-eu",
+   "name": "Politico Europe",
+   "inst": "press",
+   "kind": "press",
+   "url": "https://www.politico.eu/feed/"
+  },
+  {
+   "id": "ppc-land",
+   "name": "PPC Land",
+   "inst": "press",
+   "kind": "press",
+   "url": "https://ppc.land/rss/"
+  }
  ]
 }

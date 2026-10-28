@@ -80,6 +80,7 @@ async function main() {
   const status = {};
   const from = addDays(today, -cfg.windowDays);
   for (const feed of cfg.feeds) {
+    if (feed.skip) { status[feed.id] = { ok: false, skipped: feed.skip, checked: today }; continue; }
     let xml = null;
     try {
       xml = await get(feed.url);
@@ -102,7 +103,7 @@ async function main() {
   fs.writeFileSync(candPath, JSON.stringify({ generated: new Date().toISOString(), windowDays: cfg.windowDays, items }, null, 1) + "\n");
   fs.writeFileSync(statPath, JSON.stringify({ checked: today, feeds: status }, null, 1) + "\n");
   const ok = Object.values(status).filter((s) => s.ok).length;
-  console.log(`feeds: ${ok} of ${cfg.feeds.length} answered; candidates: ${items.length} (${items.filter((x) => x.seen === today).length} new today)`);
-  for (const [id, s] of Object.entries(status)) console.log(` ${s.ok ? "ok  " : "FAIL"} ${id}${s.ok ? `: ${s.entries} entries, ${s.matched} on nodo files` : `: ${s.error}`}`);
+  console.log(`feeds: ${ok} of ${cfg.feeds.filter((f) => !f.skip).length} answered; candidates: ${items.length} (${items.filter((x) => x.seen === today).length} new today)`);
+  for (const [id, s] of Object.entries(status)) console.log(` ${s.ok ? "ok  " : s.skipped ? "skip" : "FAIL"} ${id}${s.ok ? `: ${s.entries} entries, ${s.matched} on nodo files` : `: ${s.error || s.skipped}`}`);
 }
 if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1])) main();
