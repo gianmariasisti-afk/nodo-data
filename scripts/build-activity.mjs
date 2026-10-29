@@ -75,10 +75,32 @@ async function getJson(url) {
   throw new Error("gave up " + url);
 }
 const qs = (o) => new URLSearchParams({ format: "application/ld+json", ...o }).toString();
-async function pageAll(p, params, { limit = 100, maxPages = 50 } = {}) {
+/* tolerant: for listings that only discover ids (questions, committee documents). A page that still fails after a
+   second, slower round of retries is skipped and logged, so one flaky page no longer throws away the whole stage.
+   Safe because the per-MEP output is built from the full cache, not from this run's listing: ids on a skipped page
+   are found on the next run. Five consecutive skipped pages (the API is down) still throw. Speeches stay strict:
+   a skipped speech page would publish a truncated list. */
+const skippedPages = [];
+async function pageAll(p, params, { limit = 100, maxPages = 50, tolerant = false } = {}) {
   const all = [];
+  let streak = 0;
   for (let page = 0; page < maxPages; page++) {
-    const j = await getJson(`${API}${p}?${qs({ ...params, limit, offset: page * limit })}`);
+    const url = `${API}${p}?${qs({ ...params, limit, offset: page * limit })}`;
+    let j;
+    try { j = await getJson(url); }
+    catch (e) {
+      if (!tolerant) throw e;
+      log("listing page failed, second try in 60s", p, JSON.stringify(params), "offset", page * limit);
+      await sleep(60000);
+      try { j = await getJson(url); }
+      catch (e2) {
+        skippedPages.push({ path: p, ...params, offset: page * limit });
+        log("listing page skipped", p, JSON.stringify(params), "offset", page * limit, e2.message);
+        if (++streak >= 5) throw new Error(`5 listing pages in a row failed at ${url}`);
+        continue;
+      }
+    }
+    streak = 0;
     const rows = (j && j.data) || [];
     all.push(...rows);
     if (rows.length < limit) break;
@@ -186,7 +208,7 @@ const qKey = (id) => { const m = /^[A-Z]-(\d+)-(\d{4})-(\d+)$/.exec(id); return 
 async function questions() {
   const listed = new Set();
   for (const y of YEARS) {
-    const rows = await pageAll("/parliamentary-questions", { year: y, "work-type": "QUESTION_WRITTEN" }, { limit: 100, maxPages: 400 });
+    const rows = await pageAll("/parliamentary-questions", { year: y, "work-type": "QUESTION_WRITTEN" }, { limit: 100, maxPages: 400, tolerant: true });
     rows.forEach((r) => { const id = r.identifier || lastSeg(r.id); if (/^[A-Z]-\d+-\d{4}-\d+$/.test(id)) listed.add(id); });
     log("questions listed", y, rows.length);
   }
@@ -217,7 +239,7 @@ const DOC_RE = /^([A-Z]{3,5})-(AD|PR)-(\d+)$/;
 async function roles() {
   const listed = new Set();
   for (const y of YEARS) {
-    const rows = await pageAll("/committee-documents", { year: y }, { limit: 100, maxPages: 400 });
+    const rows = await pageAll("/committee-documents", { year: y }, { limit: 100, maxPages: 400, tolerant: true });
     rows.forEach((r) => { const id = r.identifier || lastSeg(r.id); if (DOC_RE.test(id)) listed.add(id); });
     log("committee documents listed", y, rows.length);
   }
@@ -448,5 +470,6 @@ if (!DRY && !process.env.ONLY) {
   }
 }
 await fs.rm(tmp, { recursive: true, force: true });
+if (skippedPages.length) log(`listing pages skipped (picked up next run): ${skippedPages.length}`, JSON.stringify(skippedPages));
 log(`done in ${Math.round((Date.now() - t0) / 1000)}s · api calls ${stats.calls}, retries ${stats.retries}, failed ${stats.failed} · MEP files changed ${changed}, question texts ${qfiles} · totals ${JSON.stringify(total)}`);
 if (problems.length) { console.error("PROBLEMS:\n- " + problems.join("\n- ")); process.exitCode = 1; }
