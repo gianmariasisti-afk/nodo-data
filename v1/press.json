@@ -1,8 +1,25 @@
 {
- "generated": "2026-10-28T22:21:06.726Z",
+ "generated": "2026-10-29T08:55:49.986Z",
  "windowDays": 30,
  "maxPerFile": 3,
  "files": {
+  "digital-networks-act": [
+   {
+    "id": "ba26170ad6",
+    "date": "2026-10-26",
+    "source": "MLex",
+    "inst": "press",
+    "kind": "press",
+    "text": "Telecom challengers including Iliad, Digi, Colt and 1&1 asked for stronger competition safeguards in Michał Kobosko's draft report and a mandatory nationwide switch from copper to fibre.",
+    "url": "https://www.mlex.com/mlex/antitrust/articles/2542324",
+    "people": [
+     "ep:257037"
+    ],
+    "stage": false,
+    "paywall": true,
+    "added": "2026-10-29"
+   }
+  ],
   "digital-omnibus-data": [
    {
     "id": "a47fb1effb",
@@ -32,6 +49,24 @@
    }
   ],
   "industrial-accelerator-act": [
+   {
+    "id": "ad01a185cf",
+    "date": "2026-10-28",
+    "source": "Agence Europe",
+    "inst": "press",
+    "kind": "press",
+    "text": "The joint INTA-ITRE-IMCO committee vote remains officially set for 1 December despite more than 5,000 amendments. The EPP is split, and a group around Christian Ehler and Jörgen Warborn wants the proposal rejected.",
+    "url": "https://agenceurope.eu/en/bulletin/article/13970/4/industrial-accelerator-despite-thousands-of-amendments-vote-in-european-parliaments-competent-committees-officially-remains-scheduled-for-1-december",
+    "people": [
+     "ep:86793",
+     "ep:256898",
+     "ep:197557",
+     "ep:28226"
+    ],
+    "stage": false,
+    "paywall": true,
+    "added": "2026-10-29"
+   },
    {
     "id": "1b978297b8",
     "date": "2026-10-15",
