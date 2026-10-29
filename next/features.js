@@ -2519,3 +2519,100 @@
       <p class="rl-cap">${esc(cap)}</p>${groups.map(grp).join("")}${grp(other)}
       <p class="rl-foot">Roles come from the Parliament's records, or from press reporting where the text says so. The sentence under each text is nodo's own summary of why it matters for this file.</p></section>`;
   }
+
+  /* ---------- 17. Sources in one tab, counts that open their list (since 29 Oct 2026) ----------
+     The content tabs (Parliament, Commission, Council) carry no wording about where data comes from. Everything about
+     sources sits in the Sources tab, opened from one row at the bottom of each tab: the checked date, the full status
+     and what to check, the official record on the Observatory, how nodo knows who is on the file (Verified, press, DG,
+     working party, committee minutes), the related texts and the source links. Moved out of the tabs: the Checked pill,
+     "N sources" and the Observatory link under the title, the Verified tags on rows, the source line under the DG, the
+     minutes and press footnotes, "Open the source" under related texts, "About this file" and the page footnote.
+     Kept on the tabs, because they warn rather than cite: From press on a name, Not confirmed on an inferred DG or
+     working party, and the attachés line. The three counts are buttons: MEPs opens Parliament, Commissioners and
+     Cabinet staff open Commission at their section. When promoted, openFile renders the Sources tab and the counts directly. */
+  const SRC = { to: null };
+  const srcChecked = (f) => f.checked || f.asOf || (DATA.fl && DATA.fl.asOf) || "";
+  const srcLinks = (f) => (f.sources || []).filter((x) => safeUrl(x.url));
+  const srcObs = (f) => {
+    const ps = [f.procedure, ...(f.procedures || []), ...((f.parts || []).map((x) => x.procedure))].filter(Boolean);
+    return [...new Set(ps)].map((p) => ({ p, label: ((f.parts || []).find((x) => x.procedure === p) || {}).title || "", url: "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=" + encodeURIComponent(p) }));
+  };
+  const srcPress = (f) => [...new Set((f.meps || []).filter((m) => m.basis === "press").map((m) => "ep:" + m.id))].filter((k) => BYKEY.has(k));
+  const srcCaveats = (f) => (f.caveats || []).map((x) => (typeof x === "string" ? x : x.text || x.note || "")).filter(Boolean);
+  function srcRowHtml(f) {
+    const n = srcLinks(f).length, chk = srcChecked(f), toCheck = srcPress(f).length + srcCaveats(f).length;
+    const sub = [chk ? `Checked ${fdDate(chk, true)}` : "", n ? `${n} ${pl(n, "source", "sources")}` : "", toCheck ? `${toCheck} to check` : ""].filter(Boolean).join(" · ");
+    return `<button class="fp-cal fp-srcrow" type="button" data-ftab="src">
+      <span class="fp-cal__ic" aria-hidden="true">${icon("check")}</span>
+      <span class="fp-cal__tx"><b>Sources and checks</b>${sub ? `<small>${esc(sub)}</small>` : ""}</span>
+      <span class="fp-cal__go" aria-hidden="true">${icon("arrow")}</span></button>`;
+  }
+  function srcTabHtml(f) {
+    const chk = srcChecked(f), cav = srcCaveats(f), press = srcPress(f), obs = srcObs(f), links = srcLinks(f);
+    const ver = new Set((f.meps || []).filter((m) => m.basis === "ep-open-data" || m.basis === "ep-procedure-file").map((m) => m.id)).size;
+    const d = f.dg || {}, wps = ((f.council || {}).workingParties || []).filter((w) => w.name && w.basis !== "none");
+    const mn = MIN && MIN.files && MIN.files[f.id];
+    const how = [
+      ver ? `${ver} ${pl(ver, "MEP comes", "MEPs come")} from the Parliament's open data or its Legislative Observatory procedure files, matched to the MEP record.` : "",
+      press.length ? `From published reporting, to check in the procedure file before external use: ${press.map((k) => BYKEY.get(k).o.name).join(", ")}.` : "",
+      (d.lead || []).length ? `Lead DG (${d.lead.map((x) => "DG " + x).join(", ")}): ${mnDgCap(f) || (d.basis === "source" ? "named in a Parliament or Commission document." : "deduced from the Commissioner's portfolio. Verify before external use.")}${d.note ? " " + d.note : ""}` : "",
+      ...wps.map((w) => `${w.name}: ${w.basis === "source" ? "named in Council documents." : "inferred, not confirmed."}`),
+      mn ? `Committee speakers and Commission officials: committee minutes up to ${fmtIso(mnThrough(f), { day: "numeric", month: "short" })}. Minutes come out a few weeks after each meeting and name who spoke, not what they said.` : "",
+      (f.related || []).length ? "MEPs with no role on the file: their role comes from the Parliament's records, or from press reporting where the text says so. The sentence under each related text is nodo's own summary." : "",
+      PRESS && prItems(f).length ? "In the press: picked by nodo's scan on Mondays and Thursdays. The summaries are nodo's own words." : "",
+      "Cabinet staff: matched on the responsibilities each cabinet publishes on the Commission's pages."
+    ].filter(Boolean);
+    const rel = (f.related || []).filter((r) => safeUrl(r.url));
+    return `<section class="fp-src" aria-labelledby="fpSrcH">
+      <h3 id="fpSrcH">Sources and checks</h3>
+      ${chk ? `<p class="fp-src__chk">${icon("check")}Checked ${esc(fdDate(chk, true))}</p>` : ""}
+      ${f.status ? `<h4>Status in full</h4><p class="fp-src__p">${esc(f.status)}</p>` : ""}
+      ${cav.length ? `<h4>Check before you rely on it</h4>${cav.map((x) => `<div class="block"><p>${esc(x)}</p></div>`).join("")}` : ""}
+      ${obs.length ? `<h4>Official record</h4><div class="list">${obs.map((o) => extRow(esc(o.p) + (o.label ? ` <small>${esc(o.label)}</small>` : "") + " on the Observatory", esc(o.url))).join("")}</div>` : ""}
+      <h4>How nodo knows who is on it</h4><ul class="fp-src__ul">${how.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>
+      ${rel.length ? `<h4>Related texts <small>${rel.length}</small></h4><div class="list">${rel.map((r) => extRow(esc(r.title) + (r.procedure ? ` <small>${esc(r.procedure)}</small>` : ""), esc(safeUrl(r.url)))).join("")}</div>` : ""}
+      ${links.length ? `<h4>Sources <small>${links.length}</small></h4><div class="list">${links.map((x) => extRow(esc(x.title), esc(safeUrl(x.url)))).join("")}</div>` : ""}
+      <p class="foot">Where the Legislative Observatory and press reporting disagree, nodo follows the Observatory.</p></section>`;
+  }
+  function srcStats(f, p) {
+    const s = p.querySelector(".stats"); if (!s || s.dataset.fstat) return;
+    const c = countsOf(f), tab = state.ftab || "ep";
+    const b = (k, tb, n, lab) => `<button type="button" data-fstat="${k}" data-ftab="${tb}" aria-pressed="${tab === tb && (k !== "cab" || SRC.last === "cab")}" aria-label="${n} ${lab}: open the list"><b>${n}</b><span>${lab}</span></button>`;
+    s.dataset.fstat = "1";
+    s.innerHTML = b("ep", "ep", c.ep, pl(c.ep, "MEP", "MEPs")) + b("ec", "ec", c.ec, pl(c.ec, "Commissioner", "Commissioners")) + b("cab", "ec", c.cab, "Cabinet staff");
+  }
+  const srcOpen0 = openFile;
+  openFile = function (id, keep, startTab) {
+    srcOpen0(id, keep, startTab);
+    const f = FILE_BY[id], p = $("profileBody") || $("profile"); if (!f || !p || state.open !== "file:" + id) return;
+    const tab = state.ftab || "ep";
+    p.querySelectorAll(".nx-prov, .fp-about").forEach((x) => x.remove());
+    srcStats(f, p);
+    const chips = p.querySelector('.chips[aria-label="View"]');
+    if (tab === "src") {
+      if (chips) { let n = chips.nextElementSibling; while (n) { const nx = n.nextElementSibling; n.remove(); n = nx; } chips.querySelectorAll("[aria-pressed]").forEach((x) => x.setAttribute("aria-pressed", "false")); }
+      (chips || p).insertAdjacentHTML(chips ? "afterend" : "beforeend", srcTabHtml(f));
+    } else {
+      p.querySelectorAll(".eu-group.tag.tg-ok, .rl-src, .rl-foot, .mn-foot, .pr-foot").forEach((x) => x.remove());
+      p.querySelectorAll("h3").forEach((h) => { if (/^Presented in committee/.test(h.textContent) && h.nextElementSibling && h.nextElementSibling.classList.contains("mn-cap")) h.nextElementSibling.remove(); });
+      p.querySelectorAll(".block .cap").forEach((x) => {
+        const t = x.textContent;
+        if (/^(Named in a Parliament|Named in committee minutes)/.test(t)) x.remove();
+        else if (/^Deduced from the Commissioner/.test(t) || /^Venue inferred/.test(t)) x.outerHTML = `<p class="cap"><span class="eu-group tag tg-press">Not confirmed</span></p>`;
+      });
+      const foot = p.querySelector(":scope > .foot") || [...p.querySelectorAll(".foot")].pop();
+      if (foot) foot.outerHTML = srcRowHtml(f); else p.insertAdjacentHTML("beforeend", srcRowHtml(f));
+    }
+    if (SRC.to) {
+      const to = SRC.to; SRC.to = null;
+      const el = to === "cab" ? [...p.querySelectorAll("h3")].find((h) => /^Cabinet staff/.test(h.textContent)) : chips;
+      if (el) requestAnimationFrame(() => el.scrollIntoView({ block: "start", behavior: "smooth" }));
+    }
+  };
+  /* Counts and the Sources row switch the tab and bring the list into view; the root click handler does the switch. */
+  document.addEventListener("click", (e) => {
+    const b = e.target.closest('#profile [data-fstat], #profile .fp-srcrow'); if (!b) return;
+    SRC.to = b.dataset.fstat === "cab" ? "cab" : "tabs";
+    SRC.last = b.dataset.fstat || "src";
+    const f = curFile(); if (f) Track.log("view", { section: "file-" + (b.dataset.fstat || "sources"), item: f.id });
+  }, true);
