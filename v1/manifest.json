@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generated": "2026-10-29T11:31:50.458Z",
+ "generated": "2026-10-29T13:39:58.377Z",
  "files": {
   "meps": {
    "path": "meps.json",
@@ -47,8 +47,8 @@
   "updates": {
    "path": "updates/updates.json",
    "description": "Update stream for priority files: EP procedure events, Council dates, stage changes (also timelines.json and push-queue.json in the same folder)",
-   "bytes": 27824,
-   "sha256": "07dcdbb507c1468f90e936cb45fe7bf158afd742e9d0c011bf0c6d7ec4dcba09"
+   "bytes": 26750,
+   "sha256": "013d54dce56c1ac8819c86810b1e3b553beecae086512f7f94b18063671b8a71"
   },
   "minutes": {
    "path": "minutes.json",

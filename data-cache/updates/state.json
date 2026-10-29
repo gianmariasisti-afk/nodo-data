@@ -833,7 +833,8 @@
     "industrial-accelerator-act:next:2026-10-26:0c5755": true,
     "industrial-accelerator-act:next:2026-10-27:0c5755": true,
     "grids-package:next:2026-10-27:498513": true,
-    "co2-cars:next:2026-10-28:085e6e": true
+    "co2-cars:next:2026-10-28:085e6e": true,
+    "tech-sovereignty-package:next:2026-10-29:bca875": true
   },
   "seededProcs": {
     "2025-0571": true,

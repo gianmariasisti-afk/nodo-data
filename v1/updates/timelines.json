@@ -4261,26 +4261,6 @@
       "pushOn": "2026-12-14"
     },
     {
-      "id": "industrial-accelerator-act:next:2026-10-27:0c5755",
-      "fileId": "industrial-accelerator-act",
-      "date": "2026-10-27",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Council industry working party on the IAA: third Presidency compromise text (doc 14387/26)",
-      "push": true,
-      "pushOn": "2026-10-27"
-    },
-    {
-      "id": "industrial-accelerator-act:next:2026-10-26:0c5755",
-      "fileId": "industrial-accelerator-act",
-      "date": "2026-10-26",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Council industry working party on the IAA: third Presidency compromise text (doc 14387/26)",
-      "push": true,
-      "pushOn": "2026-10-26"
-    },
-    {
       "id": "industrial-accelerator-act:ep:amendments:2026-10-19",
       "fileId": "industrial-accelerator-act",
       "date": "2026-10-19",
@@ -6117,16 +6097,6 @@
       "title": "TEN-E trilogue (reported by Agence Europe)",
       "push": true,
       "pushOn": "2026-11-17"
-    },
-    {
-      "id": "grids-package:next:2026-10-27:498513",
-      "fileId": "grids-package",
-      "date": "2026-10-27",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Council energy working party: examination of the Parliament positions on the permitting directive and TEN-E",
-      "push": true,
-      "pushOn": "2026-10-27"
     },
     {
       "id": "grids-package:ep:2025-0399-MEET-TRI1-2026-10-13",
