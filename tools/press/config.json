@@ -1,5 +1,5 @@
 {
- "about": "In the press: the scan that picks press items for nodo's files. scripts/press-feeds.mjs reads `feeds` every day on GitHub; the Mon/Thu cloud task adds web search on top and proposes items through scripts/press-merge.mjs. `pilot` lists the files scanned during the pilot; `aliases` adds search terms the files' data does not give.",
+ "about": "In the press: the scan that picks press items for nodo's files. scripts/press-feeds.mjs reads `feeds` every day on GitHub; the Mon/Thu cloud task adds web search on top and proposes items through scripts/press-merge.mjs. `pilot` lists the files scanned during the pilot; `aliases` adds search terms the files' data does not give. Every feed must be on nodo's source list (v1/sources.json): press-feeds.mjs skips any feed that is not, and the validator flags it.",
  "windowDays": 30,
  "keepDays": 90,
  "maxPerFile": 3,
@@ -100,13 +100,6 @@
    "inst": "press",
    "kind": "press",
    "url": "https://www.politico.eu/feed/"
-  },
-  {
-   "id": "ppc-land",
-   "name": "PPC Land",
-   "inst": "press",
-   "kind": "press",
-   "url": "https://ppc.land/rss/"
   }
  ]
 }

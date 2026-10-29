@@ -197,6 +197,23 @@ if (fs.existsSync(path.join(V1, "press.json"))) {
   }
 }
 
+/* Source list: every files.json citation and every press feed must be on it (press items are checked above via checkItem) */
+{
+  const reg = load("sources.json");
+  if (reg) {
+    const { checkRegistry, checkCitation, resolve } = await import("./sources.mjs");
+    const known = new Set(((files && files.files) || []).map((f) => f.id));
+    for (const p of checkRegistry(reg, known)) bad(p);
+    for (const f of (files && files.files) || []) for (const s of f.sources || []) for (const p of checkCitation(s.url, f.id, reg)) bad(`files.json ${f.id}: source ${s.id}: ${p}`);
+    const cfgPath = path.join(ROOT, "tools/press/config.json");
+    if (fs.existsSync(cfgPath)) for (const fd of JSON.parse(fs.readFileSync(cfgPath, "utf8")).feeds || []) {
+      const r = resolve(fd.url, reg);
+      if (!r || r.excluded || r.group === "analysis") bad(`tools/press/config.json: feed ${fd.id} is not a media outlet or institution on the source list`);
+      else if (r.group === "media" && fd.name !== r.entry.name) bad(`tools/press/config.json: feed ${fd.id} name "${fd.name}" should be "${r.entry.name}"`);
+    }
+  }
+}
+
 /* Everything else must at least parse */
 for (const rel of ["agenda.json", "manifest.json"]) load(rel);
 
