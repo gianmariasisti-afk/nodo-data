@@ -7120,7 +7120,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     d.open = true; d.scrollIntoView({ block: "start", behavior: "smooth" }); d.querySelector("summary").focus({ preventScroll: true });
   }, true);
 
-  /* ---------- In the press (since 28 Oct 2026) ----------
+  /* ---------- Latest developments (since 28 Oct 2026; was "In the press") ----------
      v1/press.json holds dated items on nodo's files: institutional pages and press reporting, each with nodo's own
      one- or two-sentence takeaway (never a quote) and a link to the source. Items are picked by the press scan (feeds
      every morning on GitHub, web search on Mondays and Thursdays) and published only after review (branch review/press).
@@ -7153,7 +7153,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       </li>`;
     };
     return `<section class="pr-press" aria-labelledby="prH">
-      <div class="pr-head"><h3 id="prH">In the press</h3><small>Last ${PRESS.windowDays || 30} days</small></div>
+      <div class="pr-head"><h3 id="prH">Latest developments</h3><small>Last ${PRESS.windowDays || 30} days</small></div>
       <ul class="pr-list">${shown.map(item).join("")}</ul>
       ${more > 0 ? `<button class="eu-btn eu-btn--outline eu-btn--block mt" type="button" data-prmore="${esc(f.id)}" aria-expanded="${open}">${open ? "Show fewer" : `Show ${more} more`}</button>` : ""}
       <p class="pr-foot">Picked by nodo's scan on Mondays and Thursdays. The summaries are nodo's own words; tap one to read the source.</p>
@@ -7263,7 +7263,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       ...wps.map((w) => `${w.name}: ${w.basis === "source" ? "named in Council documents." : "inferred, not confirmed."}`),
       mn ? `Committee speakers and Commission officials: committee minutes up to ${fmtIso(mnThrough(f), { day: "numeric", month: "short" })}. Minutes come out a few weeks after each meeting and name who spoke, not what they said.` : "",
       (f.related || []).length ? "MEPs with no role on the file: their role comes from the Parliament's records, or from press reporting where the text says so. The sentence under each related text is nodo's own summary." : "",
-      PRESS && prItems(f).length ? "In the press: picked by nodo's scan on Mondays and Thursdays. The summaries are nodo's own words." : "",
+      PRESS && prItems(f).length ? "Latest developments: picked by nodo's scan on Mondays and Thursdays. The summaries are nodo's own words." : "",
       "Cabinet staff: matched on the responsibilities each cabinet publishes on the Commission's pages."
     ].filter(Boolean);
     const rel = (f.related || []).filter((r) => safeUrl(r.url));

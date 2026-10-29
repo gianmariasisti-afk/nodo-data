@@ -180,7 +180,7 @@ if (fs.existsSync(path.join(V1, "minutes.json"))) {
   }
 }
 
-/* In the press: dated items on nodo's files with nodo's own takeaway (optional file, built by scripts/press-merge.mjs) */
+/* Latest developments: dated items on nodo's files with nodo's own takeaway (optional file, built by scripts/press-merge.mjs) */
 if (fs.existsSync(path.join(V1, "press.json"))) {
   const pr = load("press.json");
   if (pr) {
