@@ -1,5 +1,5 @@
 {
- "about": "nodo's source list. Every press item (press.json) and every citation in files.json must come from a domain listed here; scripts/validate-data.mjs refuses anything else. Media appear in 'In the press'; tier 3 media only on the files they are mapped to. Institutions appear as institutional items. Analysis (law firms, consultancies, think tanks, NGOs, industry bodies, academic blogs) may be cited in files.json but never shown as press. 'excluded' lists domains refused on purpose. A domain matches itself and its subdomains; the longest match wins.",
+ "about": "nodo's source list. Every press item (press.json) and every citation in files.json must come from a domain listed here; scripts/validate-data.mjs refuses anything else. Media appear in Latest developments; tier 3 media only on the files they are mapped to. Institutions appear as institutional items. Analysis (law firms, consultancies, think tanks, NGOs, industry bodies, academic blogs) may be cited in files.json but never shown as press. 'excluded' lists domains refused on purpose. A domain matches itself and its subdomains; the longest match wins.",
  "checked": "2026-10-29",
  "tiers": {
   "1": "EU specialist press: primary",

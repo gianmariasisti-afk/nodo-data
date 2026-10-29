@@ -58,15 +58,15 @@
   },
   "press": {
    "path": "press.json",
-   "description": "In the press: dated press and institutional items on nodo's files, each with nodo's own takeaway and a link to the source",
+   "description": "Latest developments: dated press and institutional items on nodo's files, each with nodo's own takeaway and a link to the source",
    "bytes": 1768,
    "sha256": "54a1c97f3b1a8b43759f1a9bec2ce3f03d121bba0371e128823eeac85baa8ccd"
   },
   "sources": {
    "path": "sources.json",
    "description": "Source list: media outlets by tier, institutions and analysis sources nodo may cite, with excluded domains",
-   "bytes": 6845,
-   "sha256": "c293159a35e2a4dbec8cb8599796f687b2c128aaed9e81833db12f635bd008f3"
+   "bytes": 6850,
+   "sha256": "1f81e77dd86defd366d90508151503c379252a26a7a7a6a06bd40527ad53e97d"
   }
  }
 }

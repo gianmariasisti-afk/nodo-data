@@ -27,7 +27,7 @@ v1/
   files.json      Legislative files with linked MEPs, Commissioners, cabinet members
   reports.json    Parliament reports and opinions with rapporteur and shadows (automatic pages)
   minutes.json    Who spoke on the priority files in Parliament committee meetings, from the committees' minutes
-  press.json      In the press: dated items on the priority files with nodo's own takeaway (preview only)
+  press.json      Latest developments: dated items on the priority files with nodo's own takeaway (preview only)
   sources.json    Source list: media by tier, institutions, analysis sources and excluded domains
 ```
 
@@ -56,7 +56,7 @@ The artifact page is this `index.html` without its first line, without `config.j
 
 Seven priority legislative files (MFF 2028–2034, Digital Omnibus, Industrial Accelerator Act, Digital Networks Act, Digital Fairness Act, Chips Act 2.0 and CADA, AI Act after the Omnibus). `procedure` is the main EP procedure; `procedures` lists related ones (the MFF interim report is 2025/0571R(APP)) and each of `parts` can carry its own `procedure`; the update stream follows all of them. `proposal` keeps the Commission reference. Each file lists `meps` (id, role, committee, `basis`), `commission` (lead and associated commissioner slugs), `cabinet` (keys from `commission.json` with a reason), Council configurations, `caveats` and `sources`. `basis` is `ep-open-data` (verified from `activity/` feeds) or `press` (named in reporting, to verify in the EP procedure file). MEP ids match `meps.json`.
 
-## press.json (In the press)
+## press.json (Latest developments)
 
 Dated items on nodo's files, each with nodo's own one- or two-sentence takeaway and a link to the source. Shown in the preview only so far.
 

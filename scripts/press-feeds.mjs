@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/* In the press, step 1 of 2: collect candidates from public feeds (runs every day on GitHub, .github/workflows/press.yml).
+/* Latest developments (press.json), step 1 of 2: collect candidates from public feeds (runs every day on GitHub, .github/workflows/press.yml).
 
    Reads the feeds in tools/press/config.json, keeps the entries that name one of the pilot files (title or summary
    match a file's search terms: short name, procedure numbers, Commission reference, aliases), and writes them to

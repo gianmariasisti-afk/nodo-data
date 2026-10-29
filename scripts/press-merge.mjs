@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/* In the press, step 2 of 2: merge reviewed items into v1/press.json.
+/* Latest developments (press.json), step 2 of 2: merge reviewed items into v1/press.json.
 
    node scripts/press-merge.mjs <items.json>     add items (a JSON array, see checkItem), rewrite press.json and its manifest entry
    node scripts/press-merge.mjs --remove <id>     drop one published item
@@ -61,7 +61,7 @@ function save(doc) {
   fs.writeFileSync(OUT, body);
   const mPath = path.join(ROOT, "v1/manifest.json"), m = JSON.parse(fs.readFileSync(mPath, "utf8"));
   m.files = m.files || {};
-  m.files.press = { path: "press.json", description: "In the press: dated press and institutional items on nodo's files, each with nodo's own takeaway and a link to the source", bytes: Buffer.byteLength(body), sha256: crypto.createHash("sha256").update(body).digest("hex") };
+  m.files.press = { path: "press.json", description: "Latest developments: dated press and institutional items on nodo's files, each with nodo's own takeaway and a link to the source", bytes: Buffer.byteLength(body), sha256: crypto.createHash("sha256").update(body).digest("hex") };
   m.generated = new Date().toISOString();
   fs.writeFileSync(mPath, JSON.stringify(m, null, 1) + "\n");
   return out;

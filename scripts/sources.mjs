@@ -47,7 +47,7 @@ export function checkPressSource(x, file, reg = registry()) {
     if (r.group !== "institutions") p.push(`${r.entry.name} is listed as ${r.group}, not an institution`);
     else if (r.entry.inst && x.inst !== r.entry.inst) p.push(`inst should be "${r.entry.inst}" for ${r.entry.name}`);
   } else if (x.kind === "analysis") {
-    p.push("analysis items are not shown in 'In the press'");
+    p.push("analysis items are not shown in Latest developments");
   }
   return p;
 }
