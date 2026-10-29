@@ -7281,7 +7281,8 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   function srcStats(f, p) {
     const s = p.querySelector(".stats"); if (!s || s.dataset.fstat) return;
     const c = countsOf(f), tab = state.ftab || "ep";
-    const b = (k, tb, n, lab) => `<button type="button" data-fstat="${k}" data-ftab="${tb}" aria-pressed="${tab === tb && (k !== "cab" || SRC.last === "cab")}" aria-label="${n} ${lab}: open the list"><b>${n}</b><span>${lab}</span></button>`;
+    /* Cabinet staff is pressed only right after it was tapped; Commissioners otherwise. */
+    const b = (k, tb, n, lab) => `<button type="button" data-fstat="${k}" data-ftab="${tb}" aria-pressed="${tab === tb && (tb !== "ec" || (k === "cab") === (SRC.to === "cab"))}" aria-label="${n} ${lab}: open the list"><b>${n}</b><span>${lab}</span></button>`;
     s.dataset.fstat = "1";
     s.innerHTML = b("ep", "ep", c.ep, pl(c.ep, "MEP", "MEPs")) + b("ec", "ec", c.ec, pl(c.ec, "Commissioner", "Commissioners")) + b("cab", "ec", c.cab, "Cabinet staff");
   }
@@ -7313,12 +7314,15 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       if (el) requestAnimationFrame(() => el.scrollIntoView({ block: "start", behavior: "smooth" }));
     }
   };
-  /* Counts and the Sources row switch the tab and bring the list into view; the root click handler does the switch. */
+  /* Counts and the Sources row switch the tab here (before the app's own handler) and bring the list into view. */
   document.addEventListener("click", (e) => {
     const b = e.target.closest('#profile [data-fstat], #profile .fp-srcrow'); if (!b) return;
+    const f = curFile(); if (!f) return;
+    e.preventDefault(); e.stopImmediatePropagation();
     SRC.to = b.dataset.fstat === "cab" ? "cab" : "tabs";
-    SRC.last = b.dataset.fstat || "src";
-    const f = curFile(); if (f) Track.log("view", { section: "file-" + (b.dataset.fstat || "sources"), item: f.id });
+    state.ftab = b.dataset.ftab;
+    openFile(f.id, true);
+    Track.log("view", { section: "file-" + (b.dataset.fstat || "sources"), item: f.id });
   }, true);
 
   initHome(); initEp(); initEc();
