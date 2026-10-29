@@ -1175,3 +1175,9 @@ html:has(body.nx-on-home) { background: var(--ed-ground); }
    content to blur there (the blurred Follow and back buttons). The strip above shows the page ground. */
 .profile { top: env(safe-area-inset-top, 0px); padding-top: 0; }
 html:has(.profile:not([hidden])) { background: var(--ground); }
+
+/* One file on the agenda (29 Oct 2026): week type as a faint tag, empty weeks folded, undated steps at the end. */
+.cl-ktag { margin-left: 8px; font-size: 11px; font-weight: 600; letter-spacing: .04em; text-transform: none; color: var(--ink-muted); opacity: .8; }
+.cl-gap { margin: var(--space-2) 0; padding: 4px 0 4px var(--space-3); border-left: 2px dotted var(--border-control); font-size: 13px; line-height: 18px; color: var(--ink-muted); }
+.cl-und { display: flex; flex-direction: column; gap: 4px; margin: var(--space-3) 0 0; padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); background: var(--td-row, var(--surface-2)); font-size: 14px; line-height: 20px; color: var(--ink); }
+.cl-und b { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-muted); }

@@ -387,7 +387,7 @@
       .sort((a, b) => b.date.localeCompare(a.date))
       .forEach((e) => {
         const k = e.fileId + "|" + (e.personId || "") + "|" + e.title; if (seen.has(k)) return; seen.add(k);
-        out.push({ date: e.date, f: FILE_BY[e.fileId], html: evName(e).replace(/ <small>(\d+)<\/small>/, " <small>($1)</small>"), inst: TD_INST[e.source] || "", verified: e.source === "ep", src: e.source === "ep" ? "Legislative Observatory" : "" });
+        out.push({ date: e.date, f: FILE_BY[e.fileId], html: evName(e).replace(/ <small>(\d+)<\/small>/, " <small>($1)</small>"), inst: e.minutes ? "Parliament" : TD_INST[e.source] || "", kind: e.kind, verified: e.source === "ep", src: e.minutes ? "committee minutes" : e.source === "ep" ? "Legislative Observatory" : "" });
       });
     files.forEach((f) => (f.next || []).forEach((x) => {
       if (!x.date || x.date < s || x.date >= t) return;
@@ -2178,8 +2178,12 @@
     return `<button class="cl-card is-past" type="button" data-file="${esc(f.id)}"><span class="cl-tx"><span class="cl-f">${esc(edTag(f))}</span>${xs.map((x) => `<span class="cl-l">
         <span class="cl-w"><b>${esc(fmtD(fromIso(x.date), { weekday: "short", day: "numeric" }))}</b> · ${x.html}</span>
         ${x.pending ? `<span class="cl-pend">${icon("warn")}Outcome not published yet</span>` : ""}
-        <span class="cl-m"><i class="cl-i cl-i--${CL_INSTK[x.inst] || "cal"}" aria-hidden="true"></i>${esc(x.inst || "Key date")}${x.verified ? `<span class="cl-flag">Verified</span>` : ""}</span></span>`).join("")}</span></button>`;
+        <span class="cl-m"><i class="cl-i cl-i--${CL_INSTK[x.inst] || "cal"}" aria-hidden="true"></i>${esc(clPastLbl(x))}${x.verified ? `<span class="cl-flag">Verified</span>` : ""}</span></span>`).join("")}</span></button>`;
   }
+  /* A past item is labelled by its institution or its kind. "Key date" is for dated steps ahead (votes, Council positions,
+     trilogues), never for something that already happened (29 Oct 2026). */
+  const CL_KIND = { people: "People", milestone: "Milestone", procedural: "Procedure" };
+  const clPastLbl = (x) => (x.src === "committee minutes" ? "Committee minutes" : x.inst || CL_KIND[x.kind] || "Update");
   const clByFile = (xs) => { const m = new Map(); xs.forEach((x) => { if (!m.has(x.f.id)) m.set(x.f.id, []); m.get(x.f.id).push(x); }); return [...m.values()]; };
   function clEarlier(sc) {
     const t = new Date(), mon = mondayOf(t), lastMon = addD(mon, -7), open = CL.eOpen;
@@ -2200,7 +2204,7 @@
     const label = (k) => { const m = fromIso(k), r = rangeTxt(m, addD(m, 6)); return k === isoD(mon) ? `This week so far · ${r}` : k === isoD(lastMon) ? `Last week · ${r}` : r; };
     h += `<div class="cl-ear">${keys.map((k, i) => {
       const xs = weeks.get(k), gs = clByFile(xs), band = clBand(fromIso(k));
-      if (i < 2) return `<section class="cl-wk"><h2 class="cl-h cl-h--past">${esc(label(k))}</h2><p class="cl-band"><i class="k-${band.k}" aria-hidden="true"></i>${esc(band.text)}</p>${gs.map(clPastCard).join("")}</section>`;
+      if (i < 2) return `<section class="cl-wk"><h2 class="cl-h cl-h--past">${esc(label(k))}${sc.one ? clKTag(band) : ""}</h2>${sc.one ? "" : clBandP(band)}${gs.map(clPastCard).join("")}</section>`;
       const key = "e:" + k, on = CL.open.has(key), names = gs.map((g) => edTag(g[0].f));
       return `<div class="cl-rw"><button class="cl-row" type="button" data-clrow="${key}" aria-expanded="${on}">
           <span class="cl-row__tx"><span class="cl-row__t"><b>${esc(label(k))}</b><small>${xs.length} ${pl(xs.length, "update", "updates")}</small></span>
@@ -2244,12 +2248,60 @@
     const sub = wk.kind === "P" && s ? `Sitting ${rangeTxt(fromIso(s.start), fromIso(s.end))}` : wk.kind === "C" || wk.kind === "G" ? "MEPs in Brussels" : wk.kind === "X" ? "MEPs away from Brussels" : "";
     return { k: wk.kind === "?" ? "_" : wk.kind, text: wk.label + (sub ? " · " + sub : "") };
   }
+  const clBandP = (band) => `<p class="cl-band"><i class="k-${band.k}" aria-hidden="true"></i>${esc(band.text)}</p>`;
+  /* One file shown (29 Oct 2026): the Parliament's week type is background, not an event on the file. It becomes a faint
+     tag in the week header, with no dot. */
+  const clKTag = (band) => (band.k === "_" ? "" : `<span class="cl-ktag">${esc(band.text.split(" · ")[0])}</span>`);
+  const clDays = (iso) => Math.round((fromIso(iso) - fromIso(todayIso())) / 864e5);
+  /* The file's own next plenary step, if it has one. A plenary matters to a file only when the file is on its agenda. */
+  function clFilePlenary(f) {
+    const t = todayIso(), xs = (f.next || []).filter((x) => x.date && x.date >= t && /plenary/i.test(x.what)).sort((a, b) => a.date.localeCompare(b.date));
+    if (!xs.length) return "";
+    const s = xs[0], same = xs.filter((x) => x.date === s.date), n = clDays(s.date), flag = clFlag(s.what);
+    const d = fmtD(fromIso(s.date), { weekday: "short", day: "numeric", month: "short" }), when = n === 0 ? "today" : n === 1 ? "tomorrow" : `in ${n} days`;
+    const what = same.length > 1 ? `${same.length} plenary votes` : clClean(s.what);
+    return `<p class="cl-npb"><i class="k-P" aria-hidden="true"></i>${esc(`${what}, ${d}${flag ? ` (${flag.toLowerCase()})` : ""} · ${when}`)}</p>`;
+  }
+  const clUndated = (f) => (f.next || []).filter((x) => !x.date).map((x) => clClean(String(x.what).replace(/:\s*no (?:date|dates) set(?: yet)?\.?$/i, "")));
+  /* One file: the weeks with steps in full; runs of empty weeks fold into one line; steps with no date close the list. */
+  function clAgendaOne(sc) {
+    const f = sc.one, t = todayIso(), mon0 = edMonday(), ahead = edAhead(), names = ahead ? ["Next week", "The week after"] : ["This week", "Next week"];
+    const segs = [];
+    for (let i = 0; i < 6; i++) {
+      const m = addD(mon0, 7 * i), from = i === 0 && t > isoD(m) ? t : isoD(m), to = isoD(addD(m, 6));
+      segs.push({ a: fromIso(from), b: fromIso(to), title: (i < 2 ? names[i] + " · " : "") + rangeTxt(m, addD(m, 6)), band: clBand(m), gs: clGroups(sc.files, from, to) });
+    }
+    const mFrom = isoD(addD(mon0, 42)), byM = new Set();
+    clGroups(sc.files, mFrom, "9999-12-31").forEach((g) => g.lines.forEach((l) => byM.add(l.date.slice(0, 7))));
+    [...byM].sort().forEach((k) => {
+      const y = +k.slice(0, 4), mi = +k.slice(5, 7) - 1, last = isoD(new Date(y, mi + 1, 0)), from = k + "-01" > mFrom ? k + "-01" : mFrom;
+      segs.push({ a: fromIso(from), b: fromIso(last), title: MONTHS[mi] + (y !== new Date().getFullYear() ? " " + y : ""), month: true, gs: clGroups(sc.files, from, last) });
+    });
+    const any = segs.some((x) => x.gs.length);
+    let h = "", run = null;
+    const flush = (trailing) => {
+      if (!run) return;
+      h += trailing ? `<p class="cl-none">${any ? "Nothing else dated on this file." : "Nothing dated on this file."}</p>`
+        : `<p class="cl-gap">Nothing dated · ${esc(rangeTxt(run.a, run.b))}</p>`;
+      run = null;
+    };
+    segs.forEach((x) => {
+      if (!x.gs.length) { run = run ? { a: run.a, b: x.b } : { a: x.a, b: x.b }; return; }
+      flush(false);
+      h += `<section class="cl-wk"><h2 class="cl-h">${esc(x.title)}${x.month ? "" : clKTag(x.band)}</h2>${x.gs.map(clCard).join("")}</section>`;
+    });
+    flush(true);
+    const und = clUndated(f);
+    if (und.length) h += `<div class="cl-und"><b>Not dated yet</b>${und.map((w) => `<span>${esc(w)}</span>`).join("")}</div>`;
+    return h;
+  }
   function clAgenda() {
     const sc = clScope(), t = todayIso(), mon0 = edMonday(), ahead = edAhead(), names = ahead ? ["Next week", "The week after"] : ["This week", "Next week"];
     const wr = (m) => rangeTxt(m, addD(m, 6));
     const hiddenTxt = (all, mine) => (sc.mine && all > mine ? ` ${all - mine} on other files.` : "");
     let h = sc.one ? `<div class="cl-only"><span>Showing only</span><button class="cl-chip" type="button" data-clfile="" aria-label="Show all your files again">${esc(edTag(sc.one))}<span aria-hidden="true">×</span></button></div>`
       : sc.nFol ? "" : `<p class="cap cl-lead">You follow no file yet, so this shows all of nodo's ${FILES.length} files. <button class="linkbtn" type="button" data-nxpick>Choose your files</button></p>`;
+    if (sc.one) return h + clFilePlenary(sc.one) + clEarlier(sc) + clAgendaOne(sc) + clFoot();
     const np = plenaryLine(nextPlenary(new Date()), new Date());
     if (np.n !== "–") h += `<p class="cl-npb"><i class="k-P" aria-hidden="true"></i>${esc(np.n === "Now" ? `${np.t}: ${np.s}` : `${np.t}, ${np.s} · in ${np.n} ${np.u}`)}</p>`;
     h += clEarlier(sc);
@@ -2257,7 +2309,7 @@
       const m = addD(mon0, 7 * i), from = i === 0 && t > isoD(m) ? t : isoD(m), to = isoD(addD(m, 6));
       const gs = clGroups(sc.files, from, to), band = clBand(m);
       h += `<section class="cl-wk" id="cl-${isoD(m)}"><h2 class="cl-h">${esc(names[i])} · ${esc(wr(m))}</h2>
-        <p class="cl-band"><i class="k-${band.k}" aria-hidden="true"></i>${esc(band.text)}</p>
+        ${clBandP(band)}
         ${gs.length ? gs.map(clCard).join("") : `<p class="cl-none">Nothing dated ${esc(sc.on)}.${sc.one ? "" : hiddenTxt(clN(clGroups(FILES, from, to)), 0)}</p>`}</section>`;
     });
     const rows = [];
@@ -2286,7 +2338,10 @@
         ${on ? `<div class="cl-sub">${r.gs.map(clCard).join("")}</div>` : ""}</div>`;
     }).join("")}</div>`;
     if (sc.nFol && !sc.one) h += `<button class="cl-more" type="button" data-clall>${CL.all ? "Only the files you follow" : `Include the ${FILES.length - sc.nFol} ${pl(FILES.length - sc.nFol, "file", "files")} you don't follow`}</button>`;
-    return h + `<p class="foot">One card per file per week. A date appears only when an official source ties it to the file. Indicative marks a forecast date in the Legislative Observatory, Reported a date taken from press reporting.${dataCheckedTxt() ? " " + esc(dataCheckedTxt()) : ""}</p>`;
+    return h + clFoot();
+  }
+  function clFoot() {
+    return `<p class="foot">One card per file per week. A date appears only when an official source ties it to the file. Indicative marks a forecast date in the Legislative Observatory, Reported a date taken from press reporting.${dataCheckedTxt() ? " " + esc(dataCheckedTxt()) : ""}</p>`;
   }
   function clEp() {
     const today = new Date(), tIso = isoD(today), mon = mondayOf(today), wk = weekOf(mon), np = plenaryLine(nextPlenary(today), today), sc = clScope();
