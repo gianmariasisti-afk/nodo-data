@@ -33,7 +33,7 @@ function patch(text, file, rules) {
   return text;
 }
 
-/* The gate and the Preview marker. Client-side only: the preview's code is public like the live app's.
+/* The gate and the Preview marker (29 Oct 2026: a small label in the status-bar strip, under the Dynamic Island, so it never covers content). Client-side only: the preview's code is public like the live app's.
    What protects people's data is Supabase row-level security, unchanged. The gate keeps other
    accounts out of unreleased features; it is not a security boundary. */
 const gateScript = `<script>
@@ -50,7 +50,7 @@ window.nodoPreviewDenied = function () {
 </script>`;
 
 const gate = `<style>
-#nxBadge{position:fixed;bottom:calc(env(safe-area-inset-bottom,0px) + 8px);left:10px;z-index:2147483000;pointer-events:none;padding:3px 9px;border-radius:999px;background:#141413;color:#fff;font:700 11px/16px -apple-system,BlinkMacSystemFont,sans-serif;letter-spacing:.06em}
+#nxBadge{position:fixed;top:max(2px,calc(env(safe-area-inset-top,0px) - 12px));left:50%;transform:translateX(-50%);z-index:2147483000;pointer-events:none;padding:0 6px;border-radius:999px;background:rgba(20,20,19,.55);color:#fff;font:700 8px/12px -apple-system,BlinkMacSystemFont,sans-serif;letter-spacing:.08em}
 #nxDenied{position:fixed;inset:0;z-index:2147483001;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:32px;background:#0E1B4D;color:#fff;text-align:center;font:16px/24px -apple-system,BlinkMacSystemFont,sans-serif}
 #nxDenied h1{margin:0;font-size:28px;line-height:34px}
 #nxDenied a{display:inline-block;padding:14px 24px;border-radius:999px;background:#fff;color:#0E1B4D;font-weight:600;text-decoration:none}

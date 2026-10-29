@@ -6595,7 +6595,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     (s.openIssues || []).forEach((i) => {
       const L = i.labels || [];
       if (L.includes("agenda")) return;
-      if (L.includes("structural")) out.push({ tone: "review", ic: "user", t: i.title.replace(/\/cabinets/, " cabinets"),
+      if (L.includes("structural") && /changes to review/i.test(i.title)) out.push({ tone: "review", ic: "user", t: i.title.replace(/\/cabinets/, " cabinets"),
         s: "Waiting since " + adDay(i.createdAt) + ". Senior roles and large batches always wait for you; merging the review branch accepts them.", href: i.url, cta: "Open the review on GitHub" });
       else out.push({ tone: "bad", ic: "warn", t: i.title, s: "Open since " + adDay(i.createdAt) + ".", href: i.url, cta: "Open on GitHub" });
     });
@@ -7099,10 +7099,10 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     if (bio) bio.outerHTML = `<div class="fp-track">${edTrack(f)}</div>${f.lede || f.status ? `<p class="bio">${esc(flStatus(f))}</p>` : ""}`;
     const chk = p.querySelector(".hero .cap"); if (chk && /^Status checked/.test(chk.textContent)) chk.remove();
     const stats = p.querySelector(".stats");
-    const nDates = (f.next || []).filter((x) => x.date && x.date >= todayIso()).length, nPast = UPD.status === "done" ? tdSinceItems([f], addD(new Date(), -120)).length : 0;
+    const ahead = (f.next || []).filter((x) => x.date && x.date >= todayIso()).sort((a, b) => a.date.localeCompare(b.date)), nx1 = ahead[0], nDates = ahead.length, nPast = UPD.status === "done" ? tdSinceItems([f], addD(new Date(), -120)).length : 0;
     if (stats && !p.querySelector(".fp-cal")) stats.insertAdjacentHTML("afterend", `<button class="fp-cal" type="button" data-clgo="${esc(f.id)}">
         <span class="fp-cal__ic" aria-hidden="true">${icon("cal")}</span>
-        <span class="fp-cal__tx"><b>Dates and updates on this file</b><small>${esc([nDates ? `${nDates} ${pl(nDates, "date", "dates")} ahead` : "No date ahead yet", nPast ? `${nPast} earlier ${pl(nPast, "update", "updates")}` : ""].filter(Boolean).join(" · "))} · in Calendar</small></span>
+        <span class="fp-cal__tx"><b>Dates and updates on this file</b><small>${esc([nx1 ? `Next: ${fmtIso(nx1.date, { day: "numeric", month: "short" })}, ${String(nx1.what || "").replace(/\s*\(indicative date\)$/i, " (indicative)")}` + (nDates > 1 ? ` · ${nDates - 1} more` : "") : "No date ahead yet", nPast ? `${nPast} earlier ${pl(nPast, "update", "updates")}` : ""].filter(Boolean).join(" · "))}</small></span>
         <span class="fp-cal__go" aria-hidden="true">${icon("arrow")}</span></button>`);
     const foot = p.querySelector(".foot");
     const cav = (f.caveats || []).map((x) => (typeof x === "string" ? x : x.text || x.note || "")).filter(Boolean);
@@ -7210,15 +7210,15 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       const press = ys.some((y) => y.m.basis === "press");
       const meta = [RL_KIND[r.kind] || "", r.cmte, r.date ? fmtIso(r.date, { day: "numeric", month: "short", year: "numeric" }) : "", press ? "role reported in the press" : ""].filter(Boolean).join(" · ");
       return `<div class="rl-grp">
-        <p class="rl-k">${r.kind === "committee" ? "Leads the work" : "Worked on"}</p>
         <h4 class="rl-t">${esc(r.title)}</h4>
         <p class="rl-m">${esc(meta)}</p>
         <p class="rl-why">${esc(r.why)}</p>
         <a class="rl-src" href="${esc(r.url)}" target="_blank" rel="noopener">Open the source${r.procedure ? ` · ${esc(r.procedure)}` : ""}<span aria-hidden="true"> ↗</span><span class="sr"> (opens in a new tab)</span></a>
         <div class="list">${ys.map((y) => rowOf(y, r)).join("")}</div></div>`;
     };
-    const cap = hasRole ? `They have no role on ${f.short}. Each sits under the related text they worked on, with their role in it.`
-      : `No one has a role on ${f.short} yet. These MEPs worked on texts it builds on. Each sits under the text, with their role in it.`;
+    /* 29 Oct 2026: one short line; the group cards already show each text and the role in it. */
+    const cap = hasRole ? "They have no role on this file. Each sits under the related text they worked on."
+      : "No rapporteur yet. These MEPs worked on texts this file builds on.";
     return `<section class="rl" aria-labelledby="rlH"><h3 id="rlH">${hasRole ? "Also worked on related texts" : "Worked on related texts"} <small>${xs.length}</small></h3>
       <p class="rl-cap">${esc(cap)}</p>${groups.map(grp).join("")}${grp(other)}
       <p class="rl-foot">Roles come from the Parliament's records, or from press reporting where the text says so. The sentence under each text is nodo's own summary of why it matters for this file.</p></section>`;
@@ -7344,7 +7344,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
 if ("serviceWorker" in navigator && /github\.io$/.test(location.hostname)) addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
 </script>
 <style>
-#nxBadge{position:fixed;bottom:calc(env(safe-area-inset-bottom,0px) + 8px);left:10px;z-index:2147483000;pointer-events:none;padding:3px 9px;border-radius:999px;background:#141413;color:#fff;font:700 11px/16px -apple-system,BlinkMacSystemFont,sans-serif;letter-spacing:.06em}
+#nxBadge{position:fixed;top:max(2px,calc(env(safe-area-inset-top,0px) - 12px));left:50%;transform:translateX(-50%);z-index:2147483000;pointer-events:none;padding:0 6px;border-radius:999px;background:rgba(20,20,19,.55);color:#fff;font:700 8px/12px -apple-system,BlinkMacSystemFont,sans-serif;letter-spacing:.08em}
 #nxDenied{position:fixed;inset:0;z-index:2147483001;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:32px;background:#0E1B4D;color:#fff;text-align:center;font:16px/24px -apple-system,BlinkMacSystemFont,sans-serif}
 #nxDenied h1{margin:0;font-size:28px;line-height:34px}
 #nxDenied a{display:inline-block;padding:14px 24px;border-radius:999px;background:#fff;color:#0E1B4D;font-weight:600;text-decoration:none}
@@ -8494,10 +8494,10 @@ html:has(body.nx-on-home) { background: var(--ed-ground); }
 /* 16. Why they're here: MEPs with no role on a file, grouped under the related text that puts them there */
 .rl{margin-top:28px}
 .rl h3{margin-bottom:4px}
-.rl-cap{margin:0 0 12px;font-size:14px;line-height:20px;color:var(--ink-muted)}
+.rl-cap{margin:0 var(--space-1) 12px;font-size:14px;line-height:20px;color:var(--ink-muted)}
 .rl-grp{margin-top:12px;padding:16px 16px 8px;border-radius:var(--radius-lg);background:var(--surface)}
 .rl-k{margin:0;font-size:12px;line-height:16px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-muted)}
-.rl-t{margin:2px 0 0;font-size:17px;line-height:23px;font-weight:700}
+.rl-t{margin:0;font-size:17px;line-height:23px;font-weight:700}
 .rl-m{margin:2px 0 0;font-size:13px;line-height:18px;color:var(--ink-muted)}
 .rl-why{margin:10px 0 0;font-size:15px;line-height:21px}
 .rl-src{display:inline-flex;align-items:center;min-height:44px;color:var(--brand);font-size:14px;font-weight:600;text-decoration:underline;text-underline-offset:2px}
@@ -8518,6 +8518,15 @@ html:has(body.nx-on-home) { background: var(--ed-ground); }
 .fp-src__chk .eu-icon { width: 14px; height: 14px; }
 .fp-src__p { margin: 0; color: var(--ink); }
 .fp-src__ul { margin: 0; padding-left: 18px; display: grid; gap: 8px; color: var(--ink-muted); font-size: 14px; line-height: 20px; }
+
+/* 29 Oct 2026, file page QA. The counts open their list; the Parliament/Commission/Council chips already show which
+   tab is open, so a pressed count no longer gets an outline (it read as a second, stray selection). */
+.stats button:hover, .stats button[aria-pressed="true"] { box-shadow: inset 0 0 0 1.5px transparent; }
+@media (hover: hover) { .stats button:hover { box-shadow: inset 0 0 0 1.5px var(--hairline-strong, var(--hairline)); } }
+/* The file, person and country pages start below the status bar instead of scrolling under it, so iOS 26 has no
+   content to blur there (the blurred Follow and back buttons). The strip above shows the page ground. */
+.profile { top: env(safe-area-inset-top, 0px); padding-top: 0; }
+html:has(.profile:not([hidden])) { background: var(--ground); }
 </style>
 <div id="nxBadge" aria-hidden="true">PREVIEW</div>
 </body></html>

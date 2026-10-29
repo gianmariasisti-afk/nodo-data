@@ -2395,10 +2395,10 @@
     if (bio) bio.outerHTML = `<div class="fp-track">${edTrack(f)}</div>${f.lede || f.status ? `<p class="bio">${esc(flStatus(f))}</p>` : ""}`;
     const chk = p.querySelector(".hero .cap"); if (chk && /^Status checked/.test(chk.textContent)) chk.remove();
     const stats = p.querySelector(".stats");
-    const nDates = (f.next || []).filter((x) => x.date && x.date >= todayIso()).length, nPast = UPD.status === "done" ? tdSinceItems([f], addD(new Date(), -120)).length : 0;
+    const ahead = (f.next || []).filter((x) => x.date && x.date >= todayIso()).sort((a, b) => a.date.localeCompare(b.date)), nx1 = ahead[0], nDates = ahead.length, nPast = UPD.status === "done" ? tdSinceItems([f], addD(new Date(), -120)).length : 0;
     if (stats && !p.querySelector(".fp-cal")) stats.insertAdjacentHTML("afterend", `<button class="fp-cal" type="button" data-clgo="${esc(f.id)}">
         <span class="fp-cal__ic" aria-hidden="true">${icon("cal")}</span>
-        <span class="fp-cal__tx"><b>Dates and updates on this file</b><small>${esc([nDates ? `${nDates} ${pl(nDates, "date", "dates")} ahead` : "No date ahead yet", nPast ? `${nPast} earlier ${pl(nPast, "update", "updates")}` : ""].filter(Boolean).join(" · "))} · in Calendar</small></span>
+        <span class="fp-cal__tx"><b>Dates and updates on this file</b><small>${esc([nx1 ? `Next: ${fmtIso(nx1.date, { day: "numeric", month: "short" })}, ${String(nx1.what || "").replace(/\s*\(indicative date\)$/i, " (indicative)")}` + (nDates > 1 ? ` · ${nDates - 1} more` : "") : "No date ahead yet", nPast ? `${nPast} earlier ${pl(nPast, "update", "updates")}` : ""].filter(Boolean).join(" · "))}</small></span>
         <span class="fp-cal__go" aria-hidden="true">${icon("arrow")}</span></button>`);
     const foot = p.querySelector(".foot");
     const cav = (f.caveats || []).map((x) => (typeof x === "string" ? x : x.text || x.note || "")).filter(Boolean);
@@ -2506,15 +2506,15 @@
       const press = ys.some((y) => y.m.basis === "press");
       const meta = [RL_KIND[r.kind] || "", r.cmte, r.date ? fmtIso(r.date, { day: "numeric", month: "short", year: "numeric" }) : "", press ? "role reported in the press" : ""].filter(Boolean).join(" · ");
       return `<div class="rl-grp">
-        <p class="rl-k">${r.kind === "committee" ? "Leads the work" : "Worked on"}</p>
         <h4 class="rl-t">${esc(r.title)}</h4>
         <p class="rl-m">${esc(meta)}</p>
         <p class="rl-why">${esc(r.why)}</p>
         <a class="rl-src" href="${esc(r.url)}" target="_blank" rel="noopener">Open the source${r.procedure ? ` · ${esc(r.procedure)}` : ""}<span aria-hidden="true"> ↗</span><span class="sr"> (opens in a new tab)</span></a>
         <div class="list">${ys.map((y) => rowOf(y, r)).join("")}</div></div>`;
     };
-    const cap = hasRole ? `They have no role on ${f.short}. Each sits under the related text they worked on, with their role in it.`
-      : `No one has a role on ${f.short} yet. These MEPs worked on texts it builds on. Each sits under the text, with their role in it.`;
+    /* 29 Oct 2026: one short line; the group cards already show each text and the role in it. */
+    const cap = hasRole ? "They have no role on this file. Each sits under the related text they worked on."
+      : "No rapporteur yet. These MEPs worked on texts this file builds on.";
     return `<section class="rl" aria-labelledby="rlH"><h3 id="rlH">${hasRole ? "Also worked on related texts" : "Worked on related texts"} <small>${xs.length}</small></h3>
       <p class="rl-cap">${esc(cap)}</p>${groups.map(grp).join("")}${grp(other)}
       <p class="rl-foot">Roles come from the Parliament's records, or from press reporting where the text says so. The sentence under each text is nodo's own summary of why it matters for this file.</p></section>`;
