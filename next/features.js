@@ -1891,7 +1891,7 @@
     (s.openIssues || []).forEach((i) => {
       const L = i.labels || [];
       if (L.includes("agenda")) return;
-      if (L.includes("structural")) out.push({ tone: "review", ic: "user", t: i.title.replace(/\/cabinets/, " cabinets"),
+      if (L.includes("structural") && /changes to review/i.test(i.title)) out.push({ tone: "review", ic: "user", t: i.title.replace(/\/cabinets/, " cabinets"),
         s: "Waiting since " + adDay(i.createdAt) + ". Senior roles and large batches always wait for you; merging the review branch accepts them.", href: i.url, cta: "Open the review on GitHub" });
       else out.push({ tone: "bad", ic: "warn", t: i.title, s: "Open since " + adDay(i.createdAt) + ".", href: i.url, cta: "Open on GitHub" });
     });
