@@ -94,6 +94,9 @@ const html = patch(readFileSync(join(ROOT, "index.html"), "utf8"), "index.html",
     '+ (fileHasCo(f) ? `<p class="note">The Council side of this file is on its <button type="button" class="fp-totab" data-ftab="co">Council tab</button>.</p>` : "")'],
   /* Who spoke in committee (22 Oct 2026): the blocks are spokeBlock, offBlock and mnDgCap in features.js, fed by v1/minutes.json. */
   ["file page: spoke in committee", '+ (f.ep && f.ep.note ? `<p class="note">${esc(f.ep.note)}</p>` : "");', '+ spokeBlock(f) + (f.ep && f.ep.note ? `<p class="note">${esc(f.ep.note)}</p>` : "");'],
+  /* Why they're here (29 Oct 2026): MEPs with no role on the file sit under the related text that puts them there (relBlock in features.js). */
+  ["file page: related texts", 'ROLE_ORDER.map((r) => sec(ROLE_MANY[r], baseEp.filter((x) => x.role === r))).join("")',
+    'ROLE_ORDER.map((r) => (r === "relevant" ? relBlock(f, baseEp.filter((x) => x.role === r)) : sec(ROLE_MANY[r], baseEp.filter((x) => x.role === r)))).join("")'],
   ["file page: officials", 'body = dgBlock(f) + sec("Added by you", mineCo)', 'body = dgBlock(f) + offBlock(f) + sec("Added by you", mineCo)'],
   ["file page: dg caption", '${d.basis === "source" ? "Named in a Parliament or Commission document." : "Deduced from the Commissioner\'s portfolio. Verify before external use."}${d.note ? " " + esc(d.note) : ""}',
     '${mnDgCap(f) || ((d.basis === "source" ? "Named in a Parliament or Commission document." : "Deduced from the Commissioner\'s portfolio. Verify before external use.") + (d.note ? " " + esc(d.note) : ""))}'],

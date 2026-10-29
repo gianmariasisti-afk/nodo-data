@@ -2738,7 +2738,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const sec = (title, xs) => (xs.length ? `<h3>${title} <small>${xs.length}</small></h3><div class="list">${xs.map(fileRow).join("")}</div>` : "");
     let body = "";
     if (tab === "ep") {
-      body = sec("Added by you", mineEp) + ROLE_ORDER.map((r) => sec(ROLE_MANY[r], baseEp.filter((x) => x.role === r))).join("")
+      body = sec("Added by you", mineEp) + ROLE_ORDER.map((r) => (r === "relevant" ? relBlock(f, baseEp.filter((x) => x.role === r)) : sec(ROLE_MANY[r], baseEp.filter((x) => x.role === r)))).join("")
         + (!baseEp.length && !mineEp.length ? `<div class="hint"><span>No MEPs on this list.${edit ? "" : " Press Edit list to add some."}</span></div>` : "")
         + spokeBlock(f) + (f.ep && f.ep.note ? `<p class="note">${esc(f.ep.note)}</p>` : "");
     } else if (tab === "ec") {
@@ -7179,6 +7179,51 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const f = curFile(); if (f) openFile(f.id, true);
   }).catch(() => { /* no press file yet: file pages work without it */ });
 
+  /* ---------- 16. Why they're here (since 29 Oct 2026) ----------
+     MEPs with no role on a file (role relevant in v1/files.json) are there because of a related text. "Active on the
+     topic" never said which. Each one now names the text (rel, an id in the file's related list) and their role in it
+     (relRole: rapporteur, shadow or chair). The Parliament tab groups them under each text: what it is, when, nodo's
+     one sentence on why it matters for this file (whyBy nodo) and a link to the source. The row says the person's
+     role in that text. scripts/validate-data.mjs refuses a relevant MEP without a text, and checks the role against
+     reports.json when the text is a Parliament document. When promoted, relBlock replaces the relevant section in
+     openFile and the two labels below replace "Active on the topic" in ROLE_ONE and ROLE_MANY. */
+  ROLE_ONE.relevant = "Worked on a related text";
+  ROLE_MANY.relevant = "Worked on related texts";
+  const RL_KIND = { resolution: "Parliament resolution", report: "Parliament report", opinion: "Committee opinion", committee: "Committee" };
+  const rlRole = (m, r) => (m.relRole === "chair" ? "Chair" : (r && r.kind === "opinion" ? "Opinion " : "") + (m.relRole === "rapporteur" ? (r && r.kind === "opinion" ? "rapporteur" : "Rapporteur") : m.relRole === "shadow" ? (r && r.kind === "opinion" ? "shadow" : "Shadow") : ""));
+  const RL_ORDER = { rapporteur: 0, chair: 1, shadow: 2 };
+  function relBlock(f, xs) {
+    if (!xs.length) return "";
+    const raw = (x) => (f.meps || []).find((m) => "ep:" + m.id === x.key && m.role === "relevant") || {};
+    const groups = (f.related || []).map((r) => ({ r, xs: [] })), other = { r: null, xs: [] };
+    xs.forEach((x) => { const m = raw(x), g = groups.find((y) => y.r.id === m.rel) || other; g.xs.push({ x, m }); });
+    const hasRole = (f.meps || []).some((m) => m.role !== "relevant");
+    const nm = (a) => BYKEY.get(a.x.key).o.name;
+    const rowOf = ({ x, m }, r) => { const o = BYKEY.get(x.key).o;
+      return row({ attrs: tap(`data-open="${esc(x.key)}"`), lead: avaOf(x.key), name: esc(o.name), wrap: true,
+        meta: esc([countryName(o.country), r ? rlRole(m, r) : m.note].filter(Boolean).join(" · ")),
+        extra: `<span class="eu-row__tags">${gtag(o.group)}</span>${edAlsoHtml(x.key, new Set([f.id]))}`, tail: tailFor(x.key, o.name) }); };
+    const grp = ({ r, xs: ys }) => {
+      if (!ys.length) return "";
+      ys.sort((a, b) => (RL_ORDER[a.m.relRole] ?? 3) - (RL_ORDER[b.m.relRole] ?? 3) || nm(a).localeCompare(nm(b)));
+      if (!r) return `<div class="rl-grp"><h4 class="rl-t">Other reasons</h4><div class="list">${ys.map((y) => rowOf(y, null)).join("")}</div></div>`;
+      const press = ys.some((y) => y.m.basis === "press");
+      const meta = [RL_KIND[r.kind] || "", r.cmte, r.date ? fmtIso(r.date, { day: "numeric", month: "short", year: "numeric" }) : "", press ? "role reported in the press" : ""].filter(Boolean).join(" · ");
+      return `<div class="rl-grp">
+        <p class="rl-k">${r.kind === "committee" ? "Leads the work" : "Worked on"}</p>
+        <h4 class="rl-t">${esc(r.title)}</h4>
+        <p class="rl-m">${esc(meta)}</p>
+        <p class="rl-why">${esc(r.why)}</p>
+        <a class="rl-src" href="${esc(r.url)}" target="_blank" rel="noopener">Open the source${r.procedure ? ` · ${esc(r.procedure)}` : ""}<span aria-hidden="true"> ↗</span><span class="sr"> (opens in a new tab)</span></a>
+        <div class="list">${ys.map((y) => rowOf(y, r)).join("")}</div></div>`;
+    };
+    const cap = hasRole ? `They have no role on ${f.short}. Each sits under the related text they worked on, with their role in it.`
+      : `No one has a role on ${f.short} yet. These MEPs worked on texts it builds on. Each sits under the text, with their role in it.`;
+    return `<section class="rl" aria-labelledby="rlH"><h3 id="rlH">${hasRole ? "Also worked on related texts" : "Worked on related texts"} <small>${xs.length}</small></h3>
+      <p class="rl-cap">${esc(cap)}</p>${groups.map(grp).join("")}${grp(other)}
+      <p class="rl-foot">Roles come from the Parliament's records, or from press reporting where the text says so. The sentence under each text is nodo's own summary of why it matters for this file.</p></section>`;
+  }
+
   initHome(); initEp(); initEc();
   let startView = "home";
   try { const h = (location.hash || "").slice(1); startView = { parliament: "ep", commission: "ec", council: "co", calendar: "cal", agenda: "agenda", saved: "saved", files: "files", news: "news" }[h] || "home"; } catch { /* ignore */ }
@@ -8344,6 +8389,19 @@ html:has(body.nx-on-home) { background: var(--ed-ground); }
 .pr-person { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 4px 12px 4px 4px; border: 0; border-radius: 999px; background: var(--surface-sunken); color: var(--ink); font: 600 13px/16px var(--font-sans, inherit); cursor: pointer; }
 .pr-person .pr-ava { width: 32px; height: 32px; min-width: 32px; font-size: 11px; }
 .pr-foot { margin: 10px 0 0; font-size: 12px; line-height: 16px; font-weight: 500; color: var(--ink-muted); }
+
+/* 16. Why they're here: MEPs with no role on a file, grouped under the related text that puts them there */
+.rl{margin-top:28px}
+.rl h3{margin-bottom:4px}
+.rl-cap{margin:0 0 12px;font-size:14px;line-height:20px;color:var(--ink-muted)}
+.rl-grp{margin-top:12px;padding:16px 16px 8px;border-radius:var(--radius-lg);background:var(--surface)}
+.rl-k{margin:0;font-size:12px;line-height:16px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-muted)}
+.rl-t{margin:2px 0 0;font-size:17px;line-height:23px;font-weight:700}
+.rl-m{margin:2px 0 0;font-size:13px;line-height:18px;color:var(--ink-muted)}
+.rl-why{margin:10px 0 0;font-size:15px;line-height:21px}
+.rl-src{display:inline-flex;align-items:center;min-height:44px;color:var(--brand);font-size:14px;font-weight:600;text-decoration:underline;text-underline-offset:2px}
+.rl-grp .list{background:transparent;margin-top:4px}
+.rl-foot{margin:12px 0 0;font-size:12px;line-height:16px;font-weight:500;color:var(--ink-muted)}
 </style>
 <div id="nxBadge" aria-hidden="true">PREVIEW</div>
 </body></html>

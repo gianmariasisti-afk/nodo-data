@@ -47,7 +47,8 @@
     "id": "budget",
     "name": "Budget, finance and defence"
    }
-  ]
+  ],
+  "related": "related: texts a file builds on. Every MEP with role relevant names one with rel, and their role in it with relRole (rapporteur, shadow or chair). why is nodo's own sentence on why the text matters for this file. doc, when present, is the document id in reports.json, and the validator checks relRole against it."
  },
  "files": [
   {
@@ -1688,7 +1689,7 @@
     "lead": [
      "IMCO"
     ],
-    "note": "No rapporteur yet. MEPs listed worked on the Parliament's 2025 report on protection of minors online."
+    "note": "No rapporteur yet. The MEPs listed carry no role on this file: each sits under the related text they worked on."
    },
    "meps": [
     {
@@ -1697,7 +1698,9 @@
      "committee": "IMCO",
      "basis": "ep-open-data",
      "ref": "IMCO-PR-772053",
-     "note": "Worked on the Parliament's 2025 report on protection of minors online"
+     "note": "Worked on the Parliament's 2025 report on protection of minors online",
+     "rel": "ep-res-minors-2025",
+     "relRole": "rapporteur"
     },
     {
      "id": "256834",
@@ -1705,7 +1708,9 @@
      "committee": "IMCO",
      "basis": "ep-open-data",
      "ref": "IMCO-PR-772053",
-     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)"
+     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)",
+     "rel": "ep-res-minors-2025",
+     "relRole": "shadow"
     },
     {
      "id": "197529",
@@ -1713,7 +1718,9 @@
      "committee": "IMCO",
      "basis": "ep-open-data",
      "ref": "IMCO-PR-772053",
-     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)"
+     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)",
+     "rel": "ep-res-minors-2025",
+     "relRole": "shadow"
     },
     {
      "id": "197581",
@@ -1721,7 +1728,9 @@
      "committee": "IMCO",
      "basis": "ep-open-data",
      "ref": "IMCO-PR-772053",
-     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)"
+     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)",
+     "rel": "ep-res-minors-2025",
+     "relRole": "shadow"
     },
     {
      "id": "197870",
@@ -1729,7 +1738,9 @@
      "committee": "IMCO",
      "basis": "ep-open-data",
      "ref": "IMCO-PR-772053",
-     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)"
+     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)",
+     "rel": "ep-res-minors-2025",
+     "relRole": "shadow"
     },
     {
      "id": "256862",
@@ -1737,7 +1748,9 @@
      "committee": "IMCO",
      "basis": "ep-open-data",
      "ref": "IMCO-PR-772053",
-     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)"
+     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)",
+     "rel": "ep-res-minors-2025",
+     "relRole": "shadow"
     },
     {
      "id": "124884",
@@ -1745,7 +1758,9 @@
      "committee": "IMCO",
      "basis": "ep-open-data",
      "ref": "IMCO-PR-772053",
-     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)"
+     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)",
+     "rel": "ep-res-minors-2025",
+     "relRole": "shadow"
     },
     {
      "id": "257258",
@@ -1753,7 +1768,9 @@
      "committee": "CULT",
      "basis": "ep-open-data",
      "ref": "CULT-AD-775391",
-     "note": "Worked on the Parliament's 2025 report on protection of minors online"
+     "note": "Worked on the Parliament's 2025 report on protection of minors online",
+     "rel": "cult-opinion-minors-2025",
+     "relRole": "rapporteur"
     },
     {
      "id": "257457",
@@ -1761,7 +1778,9 @@
      "committee": "CULT",
      "basis": "ep-open-data",
      "ref": "CULT-AD-775391",
-     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)"
+     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)",
+     "rel": "cult-opinion-minors-2025",
+     "relRole": "shadow"
     },
     {
      "id": "197832",
@@ -1769,7 +1788,9 @@
      "committee": "CULT",
      "basis": "ep-open-data",
      "ref": "CULT-AD-775391",
-     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)"
+     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)",
+     "rel": "cult-opinion-minors-2025",
+     "relRole": "shadow"
     },
     {
      "id": "256943",
@@ -1777,7 +1798,9 @@
      "committee": "CULT",
      "basis": "ep-open-data",
      "ref": "CULT-AD-775391",
-     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)"
+     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)",
+     "rel": "cult-opinion-minors-2025",
+     "relRole": "shadow"
     },
     {
      "id": "256952",
@@ -1785,7 +1808,9 @@
      "committee": "CULT",
      "basis": "ep-open-data",
      "ref": "CULT-AD-775391",
-     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)"
+     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)",
+     "rel": "cult-opinion-minors-2025",
+     "relRole": "shadow"
     },
     {
      "id": "256803",
@@ -1793,7 +1818,9 @@
      "committee": "CULT",
      "basis": "ep-open-data",
      "ref": "CULT-AD-775391",
-     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)"
+     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)",
+     "rel": "cult-opinion-minors-2025",
+     "relRole": "shadow"
     },
     {
      "id": "256859",
@@ -1801,7 +1828,9 @@
      "committee": "CULT",
      "basis": "ep-open-data",
      "ref": "CULT-AD-775391",
-     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)"
+     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)",
+     "rel": "cult-opinion-minors-2025",
+     "relRole": "shadow"
     },
     {
      "id": "197672",
@@ -1809,7 +1838,9 @@
      "committee": "CULT",
      "basis": "ep-open-data",
      "ref": "CULT-AD-775391",
-     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)"
+     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)",
+     "rel": "cult-opinion-minors-2025",
+     "relRole": "shadow"
     },
     {
      "id": "86793",
@@ -1817,7 +1848,9 @@
      "committee": "IMCO",
      "basis": "ep-open-data",
      "ref": "meps.json",
-     "note": "IMCO chair; IMCO is the natural lead committee"
+     "note": "Chairs IMCO, the likely lead committee",
+     "rel": "imco-lead",
+     "relRole": "chair"
     }
    ],
    "commission": {
@@ -1887,10 +1920,53 @@
      "id": "lw-kids",
      "title": "Latham & Watkins: the EU KIDS Act proposal (29 Sep 2026)",
      "url": "https://www.lw.com/en/insights/eu-kids-act-eu-commission-publishes-proposal-on-child-protection-online"
+    },
+    {
+     "id": "oeil-2025-2060-ini",
+     "title": "Legislative Observatory: summary of the resolution on protection of minors online, 2025/2060(INI)",
+     "url": "https://oeil.europarl.europa.eu/oeil/en/document-summary?id=1874426"
     }
    ],
    "checked": "2026-10-26",
-   "lede": "Commission proposal in preparation, in a consumer package. The social media minimum age moved to the EU KIDS Act."
+   "lede": "Commission proposal in preparation, in a consumer package. The social media minimum age moved to the EU KIDS Act.",
+   "related": [
+    {
+     "id": "ep-res-minors-2025",
+     "kind": "resolution",
+     "title": "Parliament resolution on protection of minors online",
+     "short": "2025 resolution on minors online",
+     "procedure": "2025/2060(INI)",
+     "cmte": "IMCO",
+     "date": "2025-11-26",
+     "doc": "IMCO-PR-772053",
+     "url": "https://oeil.europarl.europa.eu/oeil/en/document-summary?id=1874426",
+     "whyBy": "nodo",
+     "why": "Asked for stronger rules on dark patterns and a ban on the most addictive design practices for minors. Both are expected themes of the Digital Fairness Act."
+    },
+    {
+     "id": "cult-opinion-minors-2025",
+     "kind": "opinion",
+     "title": "CULT opinion on protection of minors online",
+     "short": "CULT opinion on minors online",
+     "procedure": "2025/2060(INI)",
+     "cmte": "CULT",
+     "date": "2025-10-21",
+     "doc": "CULT-AD-775391",
+     "url": "https://data.europarl.europa.eu/distribution/reds_iCmOp/CULT-AD-775391/CULT-AD-775391_en.pdf",
+     "why": "The Culture committee's input to the same resolution, on minors as users of online content and games.",
+     "whyBy": "nodo"
+    },
+    {
+     "id": "imco-lead",
+     "kind": "committee",
+     "title": "IMCO, the likely lead committee",
+     "short": "IMCO, the likely lead committee",
+     "cmte": "IMCO",
+     "url": "https://www.europarl.europa.eu/committees/en/imco/home",
+     "why": "Consumer law sits with IMCO. No proposal yet, so no committee is formally in charge.",
+     "whyBy": "nodo"
+    }
+   ]
   },
   {
    "id": "tech-sovereignty-package",
@@ -3961,7 +4037,9 @@
      "committee": "ITRE",
      "basis": "press",
      "ref": "sciencebusiness-era",
-     "note": "Drafted Parliament's resolution on the ERA Act (10 March 2026)"
+     "note": "Drafted Parliament's resolution on the ERA Act (10 March 2026)",
+     "rel": "ep-res-era-2026",
+     "relRole": "rapporteur"
     }
    ],
    "commission": {
@@ -4012,7 +4090,21 @@
     }
    ],
    "checked": "2026-10-26",
-   "asOf": "2026-10-21"
+   "asOf": "2026-10-21",
+   "related": [
+    {
+     "id": "ep-res-era-2026",
+     "kind": "resolution",
+     "title": "Parliament resolution on the ERA Act",
+     "short": "2026 resolution on the ERA Act",
+     "cmte": "ITRE",
+     "date": "2026-03-10",
+     "src": "sciencebusiness-era",
+     "url": "https://sciencebusiness.net/news/european-research-area/race-era-act-begins-mep-unveils-early-proposal",
+     "why": "Parliament's own proposal for the ERA Act, adopted before the Commission has proposed one.",
+     "whyBy": "nodo"
+    }
+   ]
   },
   {
    "id": "military-mobility",
@@ -4228,7 +4320,7 @@
    "procedure": "2026/0286(COD)",
    "stage": "positions-in-preparation",
    "sector": "digital",
-   "lede": "Proposed in September; a Council working party is on it; Parliament has not chosen its committee yet.",
+   "lede": "Proposed in September; a Council working party is on it; IMCO leads in Parliament, no rapporteur yet.",
    "status": "The Commission proposed the EU KIDS Act on 17 September 2026 (COM(2026)681). Social-networking and video-sharing platforms would have to check that account holders are 15 or older, with safety-by-design duties for services used by minors, a compliance plan for very large platforms, and Commission and AI Office supervision with fines up to 6% of turnover. The Observatory lists Stéphane Séjourné and DG GROW as responsible; Henna Virkkunen presented the proposal with the President. In the Council, the Audiovisual and Media Working Party has examined it since 2 October. In Parliament, the referral was announced on 22 October: IMCO leads, with opinions from SANT, ITRE, CULT, JURI and LIBE; no rapporteur is appointed yet.",
    "next": [
     {
@@ -4238,8 +4330,10 @@
     }
    ],
    "ep": {
-    "lead": [],
-    "note": "Referral pending. MEPs listed worked on the Parliament's 2025 report on protection of minors online and carry no role on this file."
+    "lead": [
+     "IMCO"
+    ],
+    "note": "IMCO leads; the referral was announced on 22 October 2026 and no rapporteur is appointed yet. The MEPs listed carry no role on this file: each sits under the related text they worked on."
    },
    "meps": [
     {
@@ -4248,7 +4342,9 @@
      "committee": "IMCO",
      "basis": "ep-open-data",
      "ref": "IMCO-PR-772053",
-     "note": "Worked on the Parliament's 2025 report on protection of minors online"
+     "note": "Worked on the Parliament's 2025 report on protection of minors online",
+     "rel": "ep-res-minors-2025",
+     "relRole": "rapporteur"
     },
     {
      "id": "256834",
@@ -4256,7 +4352,9 @@
      "committee": "IMCO",
      "basis": "ep-open-data",
      "ref": "IMCO-PR-772053",
-     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)"
+     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)",
+     "rel": "ep-res-minors-2025",
+     "relRole": "shadow"
     },
     {
      "id": "197529",
@@ -4264,7 +4362,9 @@
      "committee": "IMCO",
      "basis": "ep-open-data",
      "ref": "IMCO-PR-772053",
-     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)"
+     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)",
+     "rel": "ep-res-minors-2025",
+     "relRole": "shadow"
     },
     {
      "id": "197581",
@@ -4272,7 +4372,9 @@
      "committee": "IMCO",
      "basis": "ep-open-data",
      "ref": "IMCO-PR-772053",
-     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)"
+     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)",
+     "rel": "ep-res-minors-2025",
+     "relRole": "shadow"
     },
     {
      "id": "197870",
@@ -4280,7 +4382,9 @@
      "committee": "IMCO",
      "basis": "ep-open-data",
      "ref": "IMCO-PR-772053",
-     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)"
+     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)",
+     "rel": "ep-res-minors-2025",
+     "relRole": "shadow"
     },
     {
      "id": "256862",
@@ -4288,7 +4392,9 @@
      "committee": "IMCO",
      "basis": "ep-open-data",
      "ref": "IMCO-PR-772053",
-     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)"
+     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)",
+     "rel": "ep-res-minors-2025",
+     "relRole": "shadow"
     },
     {
      "id": "124884",
@@ -4296,7 +4402,9 @@
      "committee": "IMCO",
      "basis": "ep-open-data",
      "ref": "IMCO-PR-772053",
-     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)"
+     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)",
+     "rel": "ep-res-minors-2025",
+     "relRole": "shadow"
     },
     {
      "id": "257258",
@@ -4304,7 +4412,9 @@
      "committee": "CULT",
      "basis": "ep-open-data",
      "ref": "CULT-AD-775391",
-     "note": "Worked on the Parliament's 2025 report on protection of minors online"
+     "note": "Worked on the Parliament's 2025 report on protection of minors online",
+     "rel": "cult-opinion-minors-2025",
+     "relRole": "rapporteur"
     },
     {
      "id": "257457",
@@ -4312,7 +4422,9 @@
      "committee": "CULT",
      "basis": "ep-open-data",
      "ref": "CULT-AD-775391",
-     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)"
+     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)",
+     "rel": "cult-opinion-minors-2025",
+     "relRole": "shadow"
     },
     {
      "id": "197832",
@@ -4320,7 +4432,9 @@
      "committee": "CULT",
      "basis": "ep-open-data",
      "ref": "CULT-AD-775391",
-     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)"
+     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)",
+     "rel": "cult-opinion-minors-2025",
+     "relRole": "shadow"
     },
     {
      "id": "256943",
@@ -4328,7 +4442,9 @@
      "committee": "CULT",
      "basis": "ep-open-data",
      "ref": "CULT-AD-775391",
-     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)"
+     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)",
+     "rel": "cult-opinion-minors-2025",
+     "relRole": "shadow"
     },
     {
      "id": "256952",
@@ -4336,7 +4452,9 @@
      "committee": "CULT",
      "basis": "ep-open-data",
      "ref": "CULT-AD-775391",
-     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)"
+     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)",
+     "rel": "cult-opinion-minors-2025",
+     "relRole": "shadow"
     },
     {
      "id": "256803",
@@ -4344,7 +4462,9 @@
      "committee": "CULT",
      "basis": "ep-open-data",
      "ref": "CULT-AD-775391",
-     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)"
+     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)",
+     "rel": "cult-opinion-minors-2025",
+     "relRole": "shadow"
     },
     {
      "id": "256859",
@@ -4352,7 +4472,9 @@
      "committee": "CULT",
      "basis": "ep-open-data",
      "ref": "CULT-AD-775391",
-     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)"
+     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)",
+     "rel": "cult-opinion-minors-2025",
+     "relRole": "shadow"
     },
     {
      "id": "197672",
@@ -4360,7 +4482,9 @@
      "committee": "CULT",
      "basis": "ep-open-data",
      "ref": "CULT-AD-775391",
-     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)"
+     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)",
+     "rel": "cult-opinion-minors-2025",
+     "relRole": "shadow"
     },
     {
      "id": "86793",
@@ -4368,7 +4492,9 @@
      "committee": "IMCO",
      "basis": "ep-open-data",
      "ref": "meps.json",
-     "note": "IMCO chair; IMCO is the natural lead committee"
+     "note": "Chairs IMCO, the lead committee",
+     "rel": "imco-lead",
+     "relRole": "chair"
     }
    ],
    "commission": {
@@ -4445,10 +4571,55 @@
      "id": "ep-open-data",
      "title": "European Parliament Open Data Portal (via nodo activity feeds)",
      "url": "https://data.europarl.europa.eu/"
+    },
+    {
+     "id": "oeil-2025-2060-ini",
+     "title": "Legislative Observatory: summary of the resolution on protection of minors online, 2025/2060(INI)",
+     "url": "https://oeil.europarl.europa.eu/oeil/en/document-summary?id=1874426"
     }
    ],
    "checked": "2026-10-26",
-   "asOf": "2026-10-21"
+   "asOf": "2026-10-21",
+   "related": [
+    {
+     "id": "ep-res-minors-2025",
+     "kind": "resolution",
+     "title": "Parliament resolution on protection of minors online",
+     "short": "2025 resolution on minors online",
+     "procedure": "2025/2060(INI)",
+     "cmte": "IMCO",
+     "date": "2025-11-26",
+     "doc": "IMCO-PR-772053",
+     "url": "https://oeil.europarl.europa.eu/oeil/en/document-summary?id=1874426",
+     "whyBy": "nodo",
+     "why": "Asked for an EU minimum age of 16 for social media (13 at the very least) and limits on addictive design for minors. The Kids Act proposes 15 and safety-by-design duties."
+    },
+    {
+     "id": "cult-opinion-minors-2025",
+     "kind": "opinion",
+     "title": "CULT opinion on protection of minors online",
+     "short": "CULT opinion on minors online",
+     "procedure": "2025/2060(INI)",
+     "cmte": "CULT",
+     "date": "2025-10-21",
+     "doc": "CULT-AD-775391",
+     "url": "https://data.europarl.europa.eu/distribution/reds_iCmOp/CULT-AD-775391/CULT-AD-775391_en.pdf",
+     "why": "The Culture committee's input to the same resolution, on minors as users of online content and games.",
+     "whyBy": "nodo"
+    },
+    {
+     "id": "imco-lead",
+     "kind": "committee",
+     "title": "IMCO, the lead committee on the Kids Act",
+     "short": "IMCO, the lead committee",
+     "cmte": "IMCO",
+     "date": "2026-10-22",
+     "src": "oeil-2026-0286-cod",
+     "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2026/0286(COD)",
+     "why": "Parliament referred the Kids Act to IMCO on 22 October 2026. No rapporteur is appointed yet.",
+     "whyBy": "nodo"
+    }
+   ]
   }
  ]
 }

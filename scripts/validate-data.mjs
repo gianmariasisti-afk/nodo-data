@@ -76,6 +76,8 @@ if (ec) {
 
 /* Priority files: every reference must resolve, every date must be a date, every source must be https */
 const files = load("files.json");
+const REL_ROLES = new Set(["rapporteur", "shadow", "chair"]);
+const reportDocs = new Map(((load("reports.json") || {}).docs || []).map((r) => [r.id, r]));
 if (files) {
   const stages = new Set((files.legend && files.legend.stage) || []);
   const ids = new Set();
@@ -101,6 +103,26 @@ if (files) {
       if (n.date && !n.src) bad(`${at}: dated next item "${n.what}" has no source`);
     }
     for (const m of f.meps || []) if (mepIds.size && !mepIds.has(String(m.id))) bad(`${at}: MEP id ${m.id} not in meps.json`);
+    /* Why they're here (since 29 Oct 2026): every MEP with no role on the file (role relevant) names the related text
+       that puts them there and their role in it. Each related text needs nodo's "why" sentence and an https link. */
+    const rel = new Map((f.related || []).map((r) => [r.id, r]));
+    for (const r of f.related || []) {
+      if (!r.id || !r.title || !r.why) bad(`${at}: related text ${r.id || "?"} needs id, title and why`);
+      if (!/^https:\/\//.test(r.url || "")) bad(`${at}: related text ${r.id} has no https url`);
+      if (r.date !== undefined && !ISO.test(String(r.date))) bad(`${at}: related text ${r.id} date "${r.date}" is not a date`);
+      if (r.src !== undefined && !(f.sources || []).some((x) => x.id === r.src)) bad(`${at}: related text ${r.id} points to unknown source "${r.src}"`);
+      if (r.doc && reportDocs.size && !reportDocs.has(r.doc)) bad(`${at}: related text ${r.id} doc ${r.doc} not in reports.json`);
+    }
+    for (const m of (f.meps || []).filter((x) => x.role === "relevant")) {
+      const r = rel.get(m.rel);
+      if (!r) { bad(`${at}: MEP ${m.id} is relevant but names no related text (rel "${m.rel || ""}")`); continue; }
+      if (!REL_ROLES.has(m.relRole)) bad(`${at}: MEP ${m.id} has relRole "${m.relRole}" (expected ${[...REL_ROLES].join(", ")})`);
+      const doc = r.doc && reportDocs.get(r.doc);
+      if (doc) {
+        const was = (doc.rap || []).includes(String(m.id)) ? "rapporteur" : (doc.sh || []).includes(String(m.id)) ? "shadow" : null;
+        if (was !== m.relRole) bad(`${at}: MEP ${m.id} is ${m.relRole} on ${r.id} but reports.json ${r.doc} says ${was || "no role"}`);
+      }
+    }
     for (const c of f.cabinet || []) if (cabKeys.size && !cabKeys.has(c.k)) bad(`${at}: cabinet key ${c.k} not in commission.json`);
     for (const s of [...((f.commission && f.commission.lead) || []), ...((f.commission && f.commission.associated) || [])]) if (comSlugs.size && !comSlugs.has(s)) bad(`${at}: commissioner ${s} not in commission.json`);
     for (const s of f.sources || []) if (!/^https:\/\//.test(s.url || "")) bad(`${at}: source ${s.id} is not an https URL`);

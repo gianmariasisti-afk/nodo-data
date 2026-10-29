@@ -2474,3 +2474,48 @@
     PRESS = j;
     const f = curFile(); if (f) openFile(f.id, true);
   }).catch(() => { /* no press file yet: file pages work without it */ });
+
+  /* ---------- 16. Why they're here (since 29 Oct 2026) ----------
+     MEPs with no role on a file (role relevant in v1/files.json) are there because of a related text. "Active on the
+     topic" never said which. Each one now names the text (rel, an id in the file's related list) and their role in it
+     (relRole: rapporteur, shadow or chair). The Parliament tab groups them under each text: what it is, when, nodo's
+     one sentence on why it matters for this file (whyBy nodo) and a link to the source. The row says the person's
+     role in that text. scripts/validate-data.mjs refuses a relevant MEP without a text, and checks the role against
+     reports.json when the text is a Parliament document. When promoted, relBlock replaces the relevant section in
+     openFile and the two labels below replace "Active on the topic" in ROLE_ONE and ROLE_MANY. */
+  ROLE_ONE.relevant = "Worked on a related text";
+  ROLE_MANY.relevant = "Worked on related texts";
+  const RL_KIND = { resolution: "Parliament resolution", report: "Parliament report", opinion: "Committee opinion", committee: "Committee" };
+  const rlRole = (m, r) => (m.relRole === "chair" ? "Chair" : (r && r.kind === "opinion" ? "Opinion " : "") + (m.relRole === "rapporteur" ? (r && r.kind === "opinion" ? "rapporteur" : "Rapporteur") : m.relRole === "shadow" ? (r && r.kind === "opinion" ? "shadow" : "Shadow") : ""));
+  const RL_ORDER = { rapporteur: 0, chair: 1, shadow: 2 };
+  function relBlock(f, xs) {
+    if (!xs.length) return "";
+    const raw = (x) => (f.meps || []).find((m) => "ep:" + m.id === x.key && m.role === "relevant") || {};
+    const groups = (f.related || []).map((r) => ({ r, xs: [] })), other = { r: null, xs: [] };
+    xs.forEach((x) => { const m = raw(x), g = groups.find((y) => y.r.id === m.rel) || other; g.xs.push({ x, m }); });
+    const hasRole = (f.meps || []).some((m) => m.role !== "relevant");
+    const nm = (a) => BYKEY.get(a.x.key).o.name;
+    const rowOf = ({ x, m }, r) => { const o = BYKEY.get(x.key).o;
+      return row({ attrs: tap(`data-open="${esc(x.key)}"`), lead: avaOf(x.key), name: esc(o.name), wrap: true,
+        meta: esc([countryName(o.country), r ? rlRole(m, r) : m.note].filter(Boolean).join(" · ")),
+        extra: `<span class="eu-row__tags">${gtag(o.group)}</span>${edAlsoHtml(x.key, new Set([f.id]))}`, tail: tailFor(x.key, o.name) }); };
+    const grp = ({ r, xs: ys }) => {
+      if (!ys.length) return "";
+      ys.sort((a, b) => (RL_ORDER[a.m.relRole] ?? 3) - (RL_ORDER[b.m.relRole] ?? 3) || nm(a).localeCompare(nm(b)));
+      if (!r) return `<div class="rl-grp"><h4 class="rl-t">Other reasons</h4><div class="list">${ys.map((y) => rowOf(y, null)).join("")}</div></div>`;
+      const press = ys.some((y) => y.m.basis === "press");
+      const meta = [RL_KIND[r.kind] || "", r.cmte, r.date ? fmtIso(r.date, { day: "numeric", month: "short", year: "numeric" }) : "", press ? "role reported in the press" : ""].filter(Boolean).join(" · ");
+      return `<div class="rl-grp">
+        <p class="rl-k">${r.kind === "committee" ? "Leads the work" : "Worked on"}</p>
+        <h4 class="rl-t">${esc(r.title)}</h4>
+        <p class="rl-m">${esc(meta)}</p>
+        <p class="rl-why">${esc(r.why)}</p>
+        <a class="rl-src" href="${esc(r.url)}" target="_blank" rel="noopener">Open the source${r.procedure ? ` · ${esc(r.procedure)}` : ""}<span aria-hidden="true"> ↗</span><span class="sr"> (opens in a new tab)</span></a>
+        <div class="list">${ys.map((y) => rowOf(y, r)).join("")}</div></div>`;
+    };
+    const cap = hasRole ? `They have no role on ${f.short}. Each sits under the related text they worked on, with their role in it.`
+      : `No one has a role on ${f.short} yet. These MEPs worked on texts it builds on. Each sits under the text, with their role in it.`;
+    return `<section class="rl" aria-labelledby="rlH"><h3 id="rlH">${hasRole ? "Also worked on related texts" : "Worked on related texts"} <small>${xs.length}</small></h3>
+      <p class="rl-cap">${esc(cap)}</p>${groups.map(grp).join("")}${grp(other)}
+      <p class="rl-foot">Roles come from the Parliament's records, or from press reporting where the text says so. The sentence under each text is nodo's own summary of why it matters for this file.</p></section>`;
+  }
