@@ -11,6 +11,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { resolve as resolveSource } from "./sources.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const CACHE = path.join(ROOT, "data-cache", "press");
@@ -81,6 +82,8 @@ async function main() {
   const from = addDays(today, -cfg.windowDays);
   for (const feed of cfg.feeds) {
     if (feed.skip) { status[feed.id] = { ok: false, skipped: feed.skip, checked: today }; continue; }
+    const listed = resolveSource(feed.url);
+    if (!listed || listed.excluded || listed.group === "analysis") { status[feed.id] = { ok: false, skipped: "not a media outlet or institution on nodo's source list (v1/sources.json)", checked: today }; continue; }
     let xml = null;
     try {
       xml = await get(feed.url);

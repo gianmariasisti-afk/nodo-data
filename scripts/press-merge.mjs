@@ -11,6 +11,7 @@ import fs from "node:fs";
 import path from "node:path";
 import crypto from "node:crypto";
 import { fileURLToPath } from "node:url";
+import { checkPressSource } from "./sources.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = path.join(ROOT, "v1/press.json");
@@ -21,13 +22,14 @@ export const KIND = ["institutional", "press", "analysis"];
 const today = new Date().toISOString().slice(0, 10);
 const addDays = (iso, n) => { const d = new Date(iso + "T12:00:00Z"); d.setUTCDate(d.getUTCDate() + n); return d.toISOString().slice(0, 10); };
 
-/* One item. text is nodo's own takeaway (never a quote of the source): one or two sentences, 40 to 240 characters. */
-export function checkItem(x, { fileIds, mepIds }) {
+/* One item. The url must be on nodo's source list (v1/sources.json, see scripts/sources.mjs). text is nodo's own takeaway (never a quote of the source): one or two sentences, 40 to 240 characters. */
+export function checkItem(x, { fileIds, mepIds, reg }) {
   const p = [];
   if (!fileIds.has(x.file)) p.push(`unknown file "${x.file}"`);
   if (!ISO.test(String(x.date || ""))) p.push(`date "${x.date}" is not YYYY-MM-DD`);
   else if (x.date > addDays(today, 1)) p.push(`date ${x.date} is in the future`);
   if (!/^https:\/\/[^\s]+$/.test(x.url || "")) p.push("url is not https");
+  else p.push(...checkPressSource(x, x.file, reg));
   if (!x.source || String(x.source).length > 60) p.push("source missing or longer than 60 characters");
   if (!INST.includes(x.inst)) p.push(`inst "${x.inst}" is not one of ${INST.join(", ")}`);
   if (!KIND.includes(x.kind)) p.push(`kind "${x.kind}" is not one of ${KIND.join(", ")}`);
