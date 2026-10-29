@@ -167,13 +167,17 @@ async function main() {
     changed = true;
   }
 
+  /* `checked` is the day the agenda was last read, so it is saved once a day even when nothing changed;
+     otherwise it froze between sessions and the admin check reported a stale agenda that was not stale. */
+  const checkedBefore = agenda.checked;
   agenda.checked = iso(new Date());
   agenda.source = PAGE;
+  const newDay = agenda.checked !== checkedBefore;
   await fs.writeFile(path.join(CACHE, "agenda-probe.json"), JSON.stringify(probe, null, 1) + "\n");
-  if (changed) {
+  if (changed || newDay) {
     const buf = Buffer.from(JSON.stringify(agenda, null, 1) + "\n");
     await fs.writeFile(path.join(V1, "agenda.json"), buf);
-    await fs.writeFile(path.join(CACHE, "agenda-notify.json"), JSON.stringify(notify, null, 1) + "\n");
+    if (changed) await fs.writeFile(path.join(CACHE, "agenda-notify.json"), JSON.stringify(notify, null, 1) + "\n");
     const mp = path.join(V1, "manifest.json"), man = await readJson(mp, null);
     if (man && man.files) { const { updated, stage, ...keep } = man.files.agenda || {}; /* drop fields left by the hand-made first version */ man.files.agenda = { ...keep, path: "agenda.json", bytes: buf.length, sha256: sha(buf) }; man.generated = new Date().toISOString(); await fs.writeFile(mp, JSON.stringify(man, null, 1) + "\n"); }
   }
