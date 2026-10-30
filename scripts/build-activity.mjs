@@ -53,8 +53,13 @@ async function getJson(url) {
     stats.calls++;
     try {
       const r = await fetch(url, { headers: { "User-Agent": UA, Accept: "application/ld+json, application/json" } });
+      /* 204 No Content is how the API answers an offset at or past the end of a list. It happens when a list's
+         total is an exact multiple of the page size (2024 committee documents reached 3,200 in late October 2026).
+         Before this, the empty body failed JSON parsing, was retried as an error and stopped the stage. */
+      if (r.status === 204) return { data: [] };
       if (r.ok) {
         const body = await r.text();
+        if (!body.trim()) return { data: [] };
         try { return JSON.parse(body); } catch { stats.retries++; await sleep(2000 * (attempt + 1)); continue; }
       }
       if (r.status === 404) return null;

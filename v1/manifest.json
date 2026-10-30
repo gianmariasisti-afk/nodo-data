@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generated": "2026-10-29T21:09:37.035Z",
+ "generated": "2026-10-30T05:58:34.527Z",
  "files": {
   "meps": {
    "path": "meps.json",
@@ -41,8 +41,8 @@
   "files": {
    "path": "files.json",
    "description": "Legislative files linked to MEPs, Commissioners, cabinet members and Council configurations",
-   "bytes": 138640,
-   "sha256": "41ce7b8bc4ae42bfd899014e833e1097e9c1ed3d5fd77e52966def1666c0ceac"
+   "bytes": 138492,
+   "sha256": "053063277fe3130a81976fb85edd97ff37519a925f84d2d4eec91932c2e8efee"
   },
   "updates": {
    "path": "updates/updates.json",
