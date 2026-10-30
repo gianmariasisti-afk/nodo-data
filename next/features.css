@@ -1245,3 +1245,29 @@ html:has(.profile:not([hidden])) { background: var(--ground); }
 .pe-hid .eu-btn { color: var(--brand); }
 .pe-more { margin-top: var(--space-2, 8px); }
 .sheet [data-peftosave] { position: sticky; bottom: var(--space-3, 12px); box-shadow: var(--shadow-float); }
+
+/* Profile as a contact card (30 Oct 2026): pcCard in features.js. */
+.pc { margin: calc(-1 * var(--space-4)) calc(-1 * var(--space-4)) 0; }
+.pc__band { height: 196px; box-sizing: border-box; padding: var(--space-4) var(--space-4) 0; background: var(--pt); }
+.pc__band .eu-iconbtn { background: color-mix(in srgb, var(--surface) 78%, transparent); -webkit-backdrop-filter: blur(12px) saturate(1.4); backdrop-filter: blur(12px) saturate(1.4); }
+.pc__who { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 0 var(--space-4); margin-top: -88px; }
+.pc .mh__arch.pc__ava { flex: none; width: 152px; height: 152px; aspect-ratio: auto; box-sizing: border-box; border-radius: 50%; border: 5px solid var(--surface); background: var(--pt); }
+.pc .pc__ava span { font-size: 52px; line-height: 1; color: var(--pa); }
+.pc__name { margin: var(--space-4) 0 0; max-width: 100%; font-family: var(--font-display); font-size: 30px; line-height: 34px; font-weight: 300; letter-spacing: -0.03em; text-wrap: balance; overflow-wrap: anywhere; }
+.pc__name strong { font-weight: 700; }
+.pc__role { margin: 6px 0 0; max-width: 34ch; font-weight: 500; color: var(--ink-muted); text-wrap: balance; }
+.pc__chips { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-2); margin-top: var(--space-3); }
+.pc__chips .eu-group { background: var(--surface-sunken); }
+.pc__chip { display: inline-flex; align-items: center; min-height: 28px; padding: 4px 12px; border-radius: var(--radius-pill); background: var(--surface-sunken); font-size: 13px; line-height: 16px; font-weight: 600; }
+.pc__acts { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: var(--space-2); margin: var(--space-6) var(--space-4) 0; }
+.pc__act { min-height: 64px; padding: var(--space-2) var(--space-1); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; border: 0; border-radius: var(--radius-md);
+  background: var(--surface-sunken); color: var(--brand); font: inherit; font-size: 12px; line-height: 16px; font-weight: 600; text-decoration: none; cursor: pointer; transition: transform .15s ease-out, background .15s ease-out; }
+.pc__act svg { width: 22px; height: 22px; }
+.pc__act.is-primary { background: var(--brand); color: var(--on-brand); }
+.pc__act[aria-pressed="true"]:not(.is-primary) { background: var(--ink); color: var(--ink-inverse); }
+.pc__act .pc__on, .pc__act[aria-pressed="true"] .pc__off { display: none; }
+.pc__act[aria-pressed="true"] .pc__on { display: inline; }
+.pc__act:active { transform: scale(.96); }
+.pc__act:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+.pc + h3 { margin-top: var(--space-8); }
+@media (prefers-reduced-motion: reduce) { .pc__act { transition: none; } .pc__act:active { transform: none; } }
