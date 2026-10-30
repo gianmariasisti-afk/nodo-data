@@ -2149,9 +2149,11 @@
   /* ---------- 12. Calendar: the files agenda, with the EP calendar beside it (since 26 Oct 2026) ---------- */
   /* Calendar opens on the agenda of the files: what happens next on the files you follow. One switch, Agenda or EP calendar.
      Agenda: this week and next week in full, one card per file per week (a meeting on consecutive days shows once, as a
-     range); the four weeks after that as one line each (dates, the Parliament's week type, the step count and the files),
-     each opening in place; then one line per month. Each week names the Parliament's week type in one muted line. The
-     files you follow by default; one link at the bottom adds the others. With no followed file, all files and a note.
+     range); the four weeks after that as one line each (dates, the step count and the files),
+     each opening in place; then one line per month. Since 30 Oct 2026 the agenda carries no EP-calendar context (no next
+     plenary line, no week type, no plenary dates on month rows): that lives in the EP calendar tab, and a plenary shows
+     here only as a dated step on a file. Upcoming items come first; Earlier and the no-followed-file note sit at the
+     bottom. The files you follow by default; one link at the bottom adds the others.
      EP calendar: the previous calendar, simplified. A short hero (where MEPs are, the next plenary), then one list of
      months from now, the current and next month open, week rows with the day cells, the week type and a count of steps on
      your files that opens that week in the agenda. 2027 months show plenary dates only. Earlier months, the legend and the
@@ -2170,7 +2172,7 @@
   }
   /* Earlier (since 26 Oct 2026): what happened, from the update stream, in place of the News view. The same items as
      Today's "Since you last looked" (milestones, procedure steps, people, and decision points with no published outcome),
-     going back 120 days. Folded by default in one row at the top of the agenda; open, the two latest weeks with updates
+     going back 120 days. Folded by default in one row at the bottom of the agenda (top until 30 Oct 2026); open, the two latest weeks with updates
      show in full (one card per file per week, outlined because they are done), older weeks fold into one line each. */
   const CL_INSTK = { Parliament: "ep", Council: "co", Commission: "ec" };
   function clPastCard(xs) {
@@ -2203,14 +2205,14 @@
     const keys = [...weeks.keys()].sort().reverse();
     const label = (k) => { const m = fromIso(k), r = rangeTxt(m, addD(m, 6)); return k === isoD(mon) ? `This week so far · ${r}` : k === isoD(lastMon) ? `Last week · ${r}` : r; };
     h += `<div class="cl-ear">${keys.map((k, i) => {
-      const xs = weeks.get(k), gs = clByFile(xs), band = clBand(fromIso(k));
-      if (i < 2) return `<section class="cl-wk"><h2 class="cl-h cl-h--past">${esc(label(k))}${sc.one ? clKTag(band) : ""}</h2>${sc.one ? "" : clBandP(band)}${gs.map(clPastCard).join("")}</section>`;
+      const xs = weeks.get(k), gs = clByFile(xs);
+      if (i < 2) return `<section class="cl-wk"><h2 class="cl-h cl-h--past">${esc(label(k))}</h2>${gs.map(clPastCard).join("")}</section>`;
       const key = "e:" + k, on = CL.open.has(key), names = gs.map((g) => edTag(g[0].f));
       return `<div class="cl-rw"><button class="cl-row" type="button" data-clrow="${key}" aria-expanded="${on}">
           <span class="cl-row__tx"><span class="cl-row__t"><b>${esc(label(k))}</b><small>${xs.length} ${pl(xs.length, "update", "updates")}</small></span>
           <span class="cl-row__f">${esc(names.join(" · "))}</span></span><span class="cl-go" aria-hidden="true">${icon("down")}</span></button>
         ${on ? `<div class="cl-sub">${gs.map(clPastCard).join("")}</div>` : ""}</div>`;
-    }).join("")}</div><p class="cl-today"><i aria-hidden="true"></i>Today</p>`;
+    }).join("")}</div>`;
     return h;
   }
   /* Dated steps between two ISO dates as one group per file (or set of files), consecutive days of one step merged. */
@@ -2248,10 +2250,6 @@
     const sub = wk.kind === "P" && s ? `Sitting ${rangeTxt(fromIso(s.start), fromIso(s.end))}` : wk.kind === "C" || wk.kind === "G" ? "MEPs in Brussels" : wk.kind === "X" ? "MEPs away from Brussels" : "";
     return { k: wk.kind === "?" ? "_" : wk.kind, text: wk.label + (sub ? " · " + sub : "") };
   }
-  const clBandP = (band) => `<p class="cl-band"><i class="k-${band.k}" aria-hidden="true"></i>${esc(band.text)}</p>`;
-  /* One file shown (29 Oct 2026): the Parliament's week type is background, not an event on the file. It becomes a faint
-     tag in the week header, with no dot. */
-  const clKTag = (band) => (band.k === "_" ? "" : `<span class="cl-ktag">${esc(band.text.split(" · ")[0])}</span>`);
   const clDays = (iso) => Math.round((fromIso(iso) - fromIso(todayIso())) / 864e5);
   /* The file's own next plenary step, if it has one. A plenary matters to a file only when the file is on its agenda. */
   function clFilePlenary(f) {
@@ -2269,7 +2267,7 @@
     const segs = [];
     for (let i = 0; i < 6; i++) {
       const m = addD(mon0, 7 * i), from = i === 0 && t > isoD(m) ? t : isoD(m), to = isoD(addD(m, 6));
-      segs.push({ a: fromIso(from), b: fromIso(to), title: (i < 2 ? names[i] + " · " : "") + rangeTxt(m, addD(m, 6)), band: clBand(m), gs: clGroups(sc.files, from, to) });
+      segs.push({ a: fromIso(from), b: fromIso(to), title: (i < 2 ? names[i] + " · " : "") + rangeTxt(m, addD(m, 6)), gs: clGroups(sc.files, from, to) });
     }
     const mFrom = isoD(addD(mon0, 42)), byM = new Set();
     clGroups(sc.files, mFrom, "9999-12-31").forEach((g) => g.lines.forEach((l) => byM.add(l.date.slice(0, 7))));
@@ -2288,7 +2286,7 @@
     segs.forEach((x) => {
       if (!x.gs.length) { run = run ? { a: run.a, b: x.b } : { a: x.a, b: x.b }; return; }
       flush(false);
-      h += `<section class="cl-wk"><h2 class="cl-h">${esc(x.title)}${x.month ? "" : clKTag(x.band)}</h2>${x.gs.map(clCard).join("")}</section>`;
+      h += `<section class="cl-wk"><h2 class="cl-h">${esc(x.title)}</h2>${x.gs.map(clCard).join("")}</section>`;
     });
     flush(true);
     const und = clUndated(f);
@@ -2300,16 +2298,12 @@
     const wr = (m) => rangeTxt(m, addD(m, 6));
     const hiddenTxt = (all, mine) => (sc.mine && all > mine ? ` ${all - mine} on other files.` : "");
     let h = sc.one ? `<div class="cl-only"><span>Showing only</span><button class="cl-chip" type="button" data-clfile="" aria-label="Show all your files again">${esc(edTag(sc.one))}<span aria-hidden="true">×</span></button></div>`
-      : sc.nFol ? "" : `<p class="cap cl-lead">You follow no file yet, so this shows all of nodo's ${FILES.length} files. <button class="linkbtn" type="button" data-nxpick>Choose your files</button></p>`;
-    if (sc.one) return h + clFilePlenary(sc.one) + clEarlier(sc) + clAgendaOne(sc) + clFoot();
-    const np = plenaryLine(nextPlenary(new Date()), new Date());
-    if (np.n !== "–") h += `<p class="cl-npb"><i class="k-P" aria-hidden="true"></i>${esc(np.n === "Now" ? `${np.t}: ${np.s}` : `${np.t}, ${np.s} · in ${np.n} ${np.u}`)}</p>`;
-    h += clEarlier(sc);
+      : "";
+    if (sc.one) return h + clFilePlenary(sc.one) + clAgendaOne(sc) + `<div class="cl-past">${clEarlier(sc)}</div>` + clFoot();
     [0, 1].forEach((i) => {
       const m = addD(mon0, 7 * i), from = i === 0 && t > isoD(m) ? t : isoD(m), to = isoD(addD(m, 6));
-      const gs = clGroups(sc.files, from, to), band = clBand(m);
+      const gs = clGroups(sc.files, from, to);
       h += `<section class="cl-wk" id="cl-${isoD(m)}"><h2 class="cl-h">${esc(names[i])} · ${esc(wr(m))}</h2>
-        ${clBandP(band)}
         ${gs.length ? gs.map(clCard).join("") : `<p class="cl-none">Nothing dated ${esc(sc.on)}.${sc.one ? "" : hiddenTxt(clN(clGroups(FILES, from, to)), 0)}</p>`}</section>`;
     });
     const rows = [];
@@ -2332,12 +2326,13 @@
       const other = n ? "" : !sc.one && clN(r.other) ? `${clSteps(clN(r.other))} on other files` : `Nothing dated ${sc.on}`;
       return `<div class="cl-rw" id="cl-${esc(r.key.replace(":", "-"))}"><button class="cl-row${r.month ? " cl-row--m" : ""}" type="button" data-clrow="${esc(r.key)}" aria-expanded="${on}"${n ? "" : " disabled"}>
           <span class="cl-row__tx"><span class="cl-row__t"><b>${esc(r.title)}</b><small>${n ? clSteps(n) : ""}</small></span>
-          <span class="cl-band"><i class="k-${r.band.k}" aria-hidden="true"></i>${esc(r.band.text)}</span>
           <span class="cl-row__f">${esc(n ? files.join(" · ") : other)}</span></span>
           ${n ? `<span class="cl-go" aria-hidden="true">${icon("down")}</span>` : ""}</button>
         ${on ? `<div class="cl-sub">${r.gs.map(clCard).join("")}</div>` : ""}</div>`;
     }).join("")}</div>`;
     if (sc.nFol && !sc.one) h += `<button class="cl-more" type="button" data-clall>${CL.all ? "Only the files you follow" : `Include the ${FILES.length - sc.nFol} ${pl(FILES.length - sc.nFol, "file", "files")} you don't follow`}</button>`;
+    h += `<div class="cl-past">${clEarlier(sc)}</div>`;
+    if (!sc.nFol && !sc.one) h += `<p class="cap cl-lead cl-lead--end">You follow no file yet, so this shows all of nodo's ${FILES.length} files. <button class="linkbtn" type="button" data-nxpick>Choose your files</button></p>`;
     return h + clFoot();
   }
   function clFoot() {
