@@ -5203,6 +5203,30 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       <button class="eu-btn eu-btn--block td-follow" type="button" data-tdfollow=""${k ? "" : " disabled"}>${k ? `Follow ${k} ${pl(k, "file", "files")}` : "Pick at least one file"}</button>`;
   }
 
+  /* People on Today (30 Oct 2026): the three institution cards from the People page, one at a time, flipped
+     sideways. The last section on Today, after the file picker (or after your files). Each card opens its directory;
+     "All people" opens the People page. Smaller colonnade than on the People page, same photos and credits. */
+  function tdPeopleHtml() {
+    const card = (p, i) => `<div class="pp-wrap pp-wrap--${p.v} td-pp__item" role="group" aria-roledescription="slide" aria-label="${i + 1} of ${PP.length}">
+        <button class="pp-card pp-card--${p.v}" type="button" data-dir="${p.v}" aria-label="${esc(`${p.k} ${p.t}. ${ppMeta(p.meta)}`)}">
+        ${ppPhotoArt(p)}<span class="pp-band" aria-hidden="true"></span>
+        <span class="pp-row"><span class="pp-tx"><span class="pp-k">${esc(p.k)}</span><span class="pp-t">${esc(p.t)}</span><span class="pp-m">${esc(ppMeta(p.meta))}</span></span>
+          <span class="pp-go" aria-hidden="true">${icon("arrow")}</span></span></button>${ppCredit(p)}</div>`;
+    return `<div class="td-h"><h2 class="td-t" id="tdPeopleH">People</h2><button class="td-link td-link--inline" type="button" data-view="people">All people</button></div>
+      <div class="td-pp" id="tdPP" aria-roledescription="carousel" aria-label="Parliament, Commission and Council">${PP.map(card).join("")}</div>
+      <div class="td-pp__dots">${PP.map((p, i) => `<button type="button" class="td-pp__dot" data-tdpp="${i}" aria-label="Show ${esc(p.t)}" aria-current="${i === 0}"></button>`).join("")}</div>`;
+  }
+  function tdPPSync() {
+    const box = $("tdPP"); if (!box) return;
+    const i = Math.round(box.scrollLeft / (box.firstElementChild ? box.firstElementChild.offsetWidth + 12 : 1));
+    document.querySelectorAll(".td-pp__dot").forEach((d, k) => d.setAttribute("aria-current", String(k === i)));
+  }
+  document.addEventListener("scroll", (e) => { if (e.target && e.target.id === "tdPP") tdPPSync(); }, true);
+  document.addEventListener("click", (e) => {
+    const d = e.target.closest("[data-tdpp]"); if (!d) return;
+    const box = $("tdPP"), it = box && box.children[+d.dataset.tdpp];
+    if (it) box.scrollTo({ left: it.offsetLeft - box.firstElementChild.offsetLeft, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+  });
   function edRender() {
     if (!$("edMast")) return;
     const now = new Date();
@@ -5216,6 +5240,9 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const winFiles = [...new Set(tdNextItems(files, w).filter((x) => !x.plen).flatMap((x) => x.files.map((f) => f.id)))].map((id) => FILE_BY[id]).filter(Boolean);
     set("tdRoom", mine.length ? tdRoomHtml(winFiles, w) : "");
     set("tdMine", mine.length ? tdMineHtml(mine) : "");
+    /* Rebuilt only when the counts change (data loads after start-up), so a re-render keeps the card you flipped to. */
+    const ppKey = PP.map((p) => ppMeta(p.meta)).join("|");
+    if ($("tdPeople").dataset.k !== ppKey) { $("tdPeople").dataset.k = ppKey; set("tdPeople", tdPeopleHtml()); }
     if ($("srcNote")) { $("srcNote").textContent = ""; $("srcNote").hidden = true; }
   }
   /* The data-check line, shown at the foot of Calendar instead of Home (27 Oct 2026). */
@@ -5249,7 +5276,8 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       <section id="tdNext" class="td-card" aria-labelledby="tdNextH"></section>
       <section id="tdPick" class="td-card" aria-labelledby="tdPickH"></section>
       <section id="tdRoom" class="td-card ed-room" aria-labelledby="tdRoomH"></section>
-      <section id="tdMine" class="td-sec" aria-labelledby="tdMineH"></section></div>`);
+      <section id="tdMine" class="td-sec" aria-labelledby="tdMineH"></section>
+      <section id="tdPeople" class="td-sec td-people" aria-labelledby="tdPeopleH"></section></div>`);
     $("hq").placeholder = "A name, a file, a committee, a date";
     /* Gone from Today: cabinet of the day, country desk, seats by group, the institution tiles, Saved people and
        Recently viewed (Saved people opens from the profile; the data stays in their views). */
@@ -5379,18 +5407,20 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       creditHtml: `Photo: <a href="https://commons.wikimedia.org/wiki/File:Europa_Building_in_Brussels.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a>, cropped` },
   ];
   const ppMeta = (id) => { const el = $(id); if (!el) return ""; const kids = [...el.children].map((c) => c.textContent.trim()).filter(Boolean); return kids.length ? kids.join(" · ") : el.textContent.trim(); };
+  /* One institution card, shared by the People page and Today's People carousel (30 Oct 2026). */
+  const ppPhotoArt = (p) => `<span class="mon pp-mon" aria-hidden="true" style="--r:${p.r};--f:${p.f || 0};--z:${p.z};--x:${((p.z - 1) / 2).toFixed(3)}">${MON_COLS.map((off, i) =>
+        `<span class="mon__col" style="--off:${off}px;--i:${i}"><img src="${p.img}" alt="" decoding="async" loading="lazy"></span>`).join("")}</span>`;
+  const ppCredit = (p) => `<p class="pp-credit">${esc(p.place)}${p.creditHtml ? " · " + p.creditHtml : p.credit ? ` · Photo: ${esc(p.credit)} / Unsplash` : ""}</p>`;
   function renderPeople() {
     const PROTOCOL = ["BE", "BG", "CZ", "DK", "DE", "EE", "IE", "EL", "ES", "FR", "HR", "IT", "CY", "LV", "LT", "LU", "HU", "MT", "NL", "AT", "PL", "PT", "RO", "SI", "SK", "FI", "SE"];
     const flagsArt = () => `<span class="pp-flags" aria-hidden="true">${PROTOCOL.map((cc, i) => { const f = FLAGS[cc] || {}, d = (i - 13) / 13;
       return `<i style="height:${Math.round(110 + 80 * (1 - d * d))}px;background:${f.bg || "var(--surface)"}"></i>`; }).join("")}</span>`;
-    const photoArt = (p) => `<span class="mon pp-mon" aria-hidden="true" style="--r:${p.r};--f:${p.f || 0};--z:${p.z};--x:${((p.z - 1) / 2).toFixed(3)}">${MON_COLS.map((off, i) =>
-          `<span class="mon__col" style="--off:${off}px;--i:${i}"><img src="${p.img}" alt="" decoding="async" loading="lazy"></span>`).join("")}</span>`;
     const card = (p) => `<div class="pp-wrap pp-wrap--${p.v}"><button class="pp-card pp-card--${p.v}" type="button" data-dir="${p.v}" aria-label="${esc(`${p.k} ${p.t}. ${ppMeta(p.meta)}`)}">
-        ${p.flags ? flagsArt() : photoArt(p)}
+        ${p.flags ? flagsArt() : ppPhotoArt(p)}
         <span class="pp-band" aria-hidden="true"></span>
         <span class="pp-row"><span class="pp-tx"><span class="pp-k">${esc(p.k)}</span><span class="pp-t">${esc(p.t)}</span><span class="pp-m">${esc(ppMeta(p.meta))}</span></span>
           <span class="pp-go" aria-hidden="true">${icon("arrow")}</span></span>
-        </button><p class="pp-credit">${esc(p.place)}${p.creditHtml ? " · " + p.creditHtml : p.credit ? ` · Photo: ${esc(p.credit)} / Unsplash` : ""}</p></div>`;
+        </button>${ppCredit(p)}</div>`;
     $("vPeople").innerHTML = `<h1 class="eu-headline">Who do you need to <strong>reach?</strong></h1>
       <p class="pp-lead">Every MEP, Commissioner, cabinet member and Council delegation, one tap away.</p>
       <div class="pp-cards">${PP.map(card).join("")}</div>`;
@@ -8585,6 +8615,21 @@ html:has(.profile:not([hidden])) { background: var(--ground); }
 .fr + .fr { box-shadow: inset 0 1px 0 var(--hairline); }
 .fr-sec .fr > .star { background: var(--surface); }
 .fr-sec .fr__av .fr-ava { border-color: var(--surface-sunken); }
+
+/* Today, People carousel (30 Oct 2026): the People page's institution cards, one per screen width with the next one
+   peeking, snapping sideways. Smaller colonnade than on the People page. */
+.td-people { margin-top: var(--space-6, 32px); }
+.td-pp { display: flex; gap: 12px; margin: 0 calc(-1 * var(--space-4)); padding: 0 var(--space-4); overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding: 0 var(--space-4); overscroll-behavior-x: contain; scrollbar-width: none; }
+.td-pp::-webkit-scrollbar { display: none; }
+.td-pp__item { flex: 0 0 86%; scroll-snap-align: start; }
+.td-pp .pp-mon.mon { height: 150px; }
+.td-pp .pp-mon .mon__col { height: calc(150px - var(--off)); border-radius: 24px 24px 10px 10px; }
+.td-pp .pp-t { font-size: 28px; line-height: 32px; }
+.td-pp__dots { display: flex; justify-content: center; gap: 4px; margin-top: 2px; }
+.td-pp__dot { width: 24px; height: 24px; padding: 0; border: 0; background: none; cursor: pointer; }
+.td-pp__dot::before { content: ""; display: block; width: 8px; height: 8px; margin: auto; border-radius: 50%; background: var(--hairline); transition: width .15s; }
+.td-pp__dot[aria-current="true"]::before { width: 20px; border-radius: 4px; background: var(--ink); }
+.td-pp__dot:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; border-radius: 6px; }
 </style>
 <div id="nxBadge" aria-hidden="true">PREVIEW</div>
 </body></html>

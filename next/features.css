@@ -1197,3 +1197,18 @@ html:has(.profile:not([hidden])) { background: var(--ground); }
 .fr + .fr { box-shadow: inset 0 1px 0 var(--hairline); }
 .fr-sec .fr > .star { background: var(--surface); }
 .fr-sec .fr__av .fr-ava { border-color: var(--surface-sunken); }
+
+/* Today, People carousel (30 Oct 2026): the People page's institution cards, one per screen width with the next one
+   peeking, snapping sideways. Smaller colonnade than on the People page. */
+.td-people { margin-top: var(--space-6, 32px); }
+.td-pp { display: flex; gap: 12px; margin: 0 calc(-1 * var(--space-4)); padding: 0 var(--space-4); overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding: 0 var(--space-4); overscroll-behavior-x: contain; scrollbar-width: none; }
+.td-pp::-webkit-scrollbar { display: none; }
+.td-pp__item { flex: 0 0 86%; scroll-snap-align: start; }
+.td-pp .pp-mon.mon { height: 150px; }
+.td-pp .pp-mon .mon__col { height: calc(150px - var(--off)); border-radius: 24px 24px 10px 10px; }
+.td-pp .pp-t { font-size: 28px; line-height: 32px; }
+.td-pp__dots { display: flex; justify-content: center; gap: 4px; margin-top: 2px; }
+.td-pp__dot { width: 24px; height: 24px; padding: 0; border: 0; background: none; cursor: pointer; }
+.td-pp__dot::before { content: ""; display: block; width: 8px; height: 8px; margin: auto; border-radius: 50%; background: var(--hairline); transition: width .15s; }
+.td-pp__dot[aria-current="true"]::before { width: 20px; border-radius: 4px; background: var(--ink); }
+.td-pp__dot:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; border-radius: 6px; }
