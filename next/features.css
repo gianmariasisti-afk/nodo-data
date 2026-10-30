@@ -1212,3 +1212,36 @@ html:has(.profile:not([hidden])) { background: var(--ground); }
 .td-pp__dot::before { content: ""; display: block; width: 8px; height: 8px; margin: auto; border-radius: 50%; background: var(--hairline); transition: width .15s; }
 .td-pp__dot[aria-current="true"]::before { width: 20px; border-radius: 4px; background: var(--ink); }
 .td-pp__dot:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; border-radius: 6px; }
+
+/* Your list of people on a file (since 30 Oct 2026) */
+.pe-bar { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3, 12px); margin: var(--space-4, 16px) 0 var(--space-2, 8px); }
+.pe-bar p { margin: 0; font-size: 13px; line-height: 18px; color: var(--ink-muted); }
+.pe-bar .eu-btn { flex: none; min-height: 44px; }
+.pe-bar--on { position: sticky; top: 0; z-index: 3; margin-inline: calc(-1 * var(--space-4, 16px)); padding: var(--space-2, 8px) var(--space-4, 16px); background: var(--surface); border-bottom: 1px solid var(--hairline); }
+.pe-bar__t { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.pe-bar__t small { font-size: 12px; line-height: 16px; color: var(--ink-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pe-bar__t b { font: 700 20px/24px var(--font-display, "Bricolage Grotesque", sans-serif); letter-spacing: -0.02em; color: var(--ink); }
+.pe-add { display: flex; align-items: center; gap: var(--space-3, 12px); width: 100%; min-height: 60px; margin: var(--space-2, 8px) 0 var(--space-4, 16px); padding: 10px 12px; border: 1px solid var(--border-control); border-radius: var(--radius-md, 16px); background: none; color: var(--ink); text-align: left; font: inherit; cursor: pointer; }
+.pe-add__ic { display: grid; place-items: center; flex: none; width: 40px; height: 40px; border-radius: 999px; background: var(--ink); color: var(--ink-inverse); }
+.pe-add__t { display: flex; flex-direction: column; gap: 2px; }
+.pe-add__t b { font-size: 16px; line-height: 20px; font-weight: 600; }
+.pe-add__t small { font-size: 13px; line-height: 17px; color: var(--ink-muted); }
+.pe-add:focus-visible, .pe-hidrow:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+.pe-rm { color: var(--danger); }
+.pe-hid { background: none; }
+.pe-hid .eu-row__name, .pe-hid img, .pe-hid .eu-avatar { opacity: .55; }
+.pe-hidrow { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3, 12px); width: 100%; min-height: 52px; margin-top: var(--space-4, 16px); padding: 0 16px; border: 1px dashed var(--border-control); border-radius: var(--radius-md, 16px); background: none; color: var(--ink-muted); font: 500 14px/1.2 inherit; cursor: pointer; }
+.pe-hidrow span { display: inline-flex; align-items: center; gap: 10px; }
+.pe-hidrow b { color: var(--brand); font-weight: 600; }
+.pe-reset { margin-top: var(--space-6, 24px); padding-top: var(--space-5, 20px); border-top: 1px solid var(--hairline); }
+.pe-reset .cap { margin-top: var(--space-2, 8px); }
+.pe-ftos { margin: var(--space-4, 16px) 0 0; padding: 0; border: 0; display: flex; flex-direction: column; gap: 6px; }
+.pe-fto { display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 14px; border-radius: var(--radius-md, 16px); background: var(--surface-sunken); cursor: pointer; }
+.pe-fto input { flex: none; width: 22px; height: 22px; margin: 0; accent-color: var(--brand); }
+.pe-fto span { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.pe-fto b { font-size: 16px; line-height: 20px; font-weight: 600; color: var(--ink); }
+.pe-fto small { font-size: 13px; line-height: 17px; color: var(--ink-muted); }
+.pe-ftoall { margin-top: var(--space-3, 12px); }
+.pe-hid .eu-btn { color: var(--brand); }
+.pe-more { margin-top: var(--space-2, 8px); }
+.sheet [data-peftosave] { position: sticky; bottom: var(--space-3, 12px); box-shadow: var(--shadow-float); }

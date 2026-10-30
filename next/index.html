@@ -5087,7 +5087,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   /* What happened on the files since a date. */
   function tdSinceItems(files, since) {
     const ids = new Set(files.map((f) => f.id)), s = isoD(since), t = isoD(new Date()), out = [], seen = new Set();
-    UPD.feed.filter((e) => ids.has(e.fileId) && e.kind !== "scheduled" && e.date && e.date >= s && e.date <= t)
+    UPD.feed.filter((e) => ids.has(e.fileId) && e.kind !== "scheduled" && e.date && e.date >= s && e.date <= t && !peHiddenSkip(e))
       .sort((a, b) => b.date.localeCompare(a.date))
       .forEach((e) => {
         const k = e.fileId + "|" + (e.personId || "") + "|" + e.title; if (seen.has(k)) return; seen.add(k);
@@ -7391,6 +7391,187 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     Track.log("view", { section: "file-" + (b.dataset.fstat || "sources"), item: f.id });
   }, true);
 
+  /* ---------- Your list of people on a file (since 30 Oct 2026) ----------
+     The edits were already stored as state.lists[fileId] = { add, rem } on top of nodo's list and synced with the account.
+     This block reworks how they are made and shown:
+     - under the tabs, one line says whose list it is ("nodo's list" or "You added 1 and hid 2") with an Edit pill; Edit opens
+       "Edit your list" with Done, "Add someone" first, a remove button on every person (Hide for nodo's people, Remove for the
+       ones you added) and an Undo toast; people you hid stay in their own section, faded, with Show;
+     - out of edit mode, "N hidden by you · Show" closes the list and opens edit mode at the first hidden person;
+     - "Reset to nodo's list" closes edit mode, with what it does in one line;
+     - in edit mode, people listed on the file without a role (who spoke in committee, for instance) get Add instead of remove;
+     - every profile has "Add to a file": a sheet with your followed files (or all, when you follow none) as checkboxes.
+     Updates keep flowing: a person nodo adds joins your list unless you hid them, and someone you added who later appears on
+     nodo's list loses the "Added by you" label (membersOf already does this). On Today, people updates about someone you hid
+     on that file stay out, except "Rapporteur named". */
+  const peIsMember = (f, key) => { const m = membersOf(f); return [...m.base, ...m.added].some((x) => x.key === key); };
+  const peHidden = (f, tab) => membersOf(f).removed.filter((k) => (BYKEY.get(k).t === "ep") === (tab === "ep"));
+  function peHiddenSkip(e) {
+    if (e.kind !== "people" || !e.personId || /^Rapporteur named/.test(e.title || "")) return false;
+    const l = state.lists[e.fileId]; return !!(l && (l.rem || []).includes("ep:" + e.personId));
+  }
+  function peSecOf(f, key) {
+    const b = baseOf(f).find((x) => x.key === key); if (!b) return "";
+    return b.role === "lead" ? "Lead Commissioner" : b.role === "associated" ? "Associated Commissioners" : b.role === "cabinet" ? "Cabinet staff" : ROLE_MANY[b.role] || "";
+  }
+  function peRoleText(f, key) {
+    const b = baseOf(f).find((x) => x.key === key); if (!b) return "";
+    return b.role === "lead" ? "Lead Commissioner" : b.role === "associated" ? "Associated Commissioner" : b.role === "cabinet" ? (b.why || "Cabinet staff") : [ROLE_ONE[b.role], b.cmte].filter(Boolean).join(", ");
+  }
+  const peHidRow = (f, key) => { const o = BYKEY.get(key).o;
+    return row({ cls: "is-static pe-hid", lead: avaOf(key), name: esc(o.name), meta: esc(["Hidden by you", peRoleText(f, key)].filter(Boolean).join(" · ")), wrap: true,
+      tail: `<button class="eu-btn eu-btn--sm" type="button" data-frs="${esc(key)}" aria-label="Show ${esc(o.name)} again">Show</button>` }); };
+  function peSummary(f) {
+    const m = membersOf(f), a = m.added.length, h = m.removed.length;
+    if (!a && !h) return "nodo's list. Edit it to add or hide people; only your list changes.";
+    return "Your list. " + [a ? `You added ${a} ${pl(a, "person", "people")}` : "", h ? `${a ? "hid" : "You hid"} ${h}` : ""].filter(Boolean).join(" and ") + ".";
+  }
+  const peOpen0 = openFile;
+  openFile = function (id, keep, startTab) {
+    peOpen0(id, keep, startTab);
+    const f = FILE_BY[id], p = $("profileBody") || $("profile"); if (!f || !p || state.open !== "file:" + id) return;
+    const tab = state.ftab || "ep", edit = !!state.fedit;
+    p.querySelectorAll(".tb [data-fedit]").forEach((b) => b.remove());
+    if (tab !== "ep" && tab !== "ec") return;
+    const chips = p.querySelector('.chips[aria-label="View"]'); if (!chips) return;
+    /* the app's own edit tools at the bottom: its add button and Removed section go, the reset moves into our footer */
+    p.querySelectorAll(".eu-btn[data-fadd]").forEach((b) => b.remove());
+    p.querySelectorAll("h3").forEach((h) => { if (/^Removed\b/.test(h.textContent)) { const l = h.nextElementSibling; if (l && l.classList.contains("list")) l.remove(); h.remove(); } });
+    const reset = $("resetBox"); if (reset) reset.remove();
+    chips.insertAdjacentHTML("afterend", edit
+      ? `<div class="pe-bar pe-bar--on"><span class="pe-bar__t"><small>${esc(f.short)}</small><b>Edit your list</b></span><button class="eu-btn eu-btn--brand" type="button" data-fedit>Done</button></div>
+         <button class="pe-add" type="button" data-fadd><span class="pe-add__ic" aria-hidden="true">${icon("plus")}</span><span class="pe-add__t"><b>Add someone</b><small>MEPs, Commissioners and cabinet staff</small></span></button>`
+      : `<div class="pe-bar"><p>${esc(peSummary(f))}</p><button class="eu-btn eu-btn--sm eu-btn--outline" type="button" data-fedit>${icon("edit")}Edit</button></div>`);
+    const hid = peHidden(f, tab), anchor = p.querySelector(".fp-srcrow") || p.querySelector(":scope > .note") || null;
+    const place = (html) => (anchor ? anchor.insertAdjacentHTML("beforebegin", html) : p.insertAdjacentHTML("beforeend", html));
+    if (edit) {
+      p.querySelectorAll("[data-frm]").forEach((b) => {
+        const k = b.dataset.frm, o = BYKEY.get(k) && BYKEY.get(k).o; if (!o) return;
+        if (!peIsMember(f, k)) { b.outerHTML = `<button class="eu-btn eu-btn--sm" type="button" data-peadd="${esc(k)}" aria-label="Add ${esc(o.name)} to your list">${icon("plus")}Add</button>`; return; }
+        b.classList.add("pe-rm"); b.setAttribute("aria-label", (isBase(f, k) ? "Hide " : "Remove ") + o.name);
+      });
+      const left = [];
+      hid.forEach((k) => {
+        const t = peSecOf(f, k), h = t && [...p.querySelectorAll("h3")].find((x) => x.textContent.trim().startsWith(t));
+        const l = h && h.nextElementSibling;
+        if (l && l.classList.contains("list")) l.insertAdjacentHTML("beforeend", peHidRow(f, k)); else left.push(k);
+      });
+      place((left.length ? `<h3>Hidden by you <small>${left.length}</small></h3><div class="list">${left.map((k) => peHidRow(f, k)).join("")}</div>` : "")
+        + `<div class="pe-reset">${state.lists[f.id] ? `<div id="resetBox"><button class="eu-btn eu-btn--outline" type="button" data-freset>${icon("swap")}Reset to nodo's list</button></div>
+            <p class="cap">Brings back the people you hid and removes the ones you added. Only your list changes.</p>` : `<p class="cap">This is nodo's list. Hide or add people and only your list changes.</p>`}</div>`);
+    } else {
+      /* long role lists (13 shadows) fold to three rows with "Show all"; edit mode shows everyone so each can be hidden */
+      p.querySelectorAll("h3").forEach((h) => {
+        const l = h.nextElementSibling; if (!l || !l.classList.contains("list") || l.closest(".pe-reset")) return;
+        const rows = [...l.children], t = h.childNodes[0] ? h.childNodes[0].textContent.trim() : "", k = f.id + "|" + t;
+        if (rows.length <= 5 || peOpenSec.has(k)) return;
+        rows.slice(3).forEach((r) => (r.hidden = true));
+        l.insertAdjacentHTML("afterend", `<button class="eu-btn eu-btn--sm pe-more" type="button" data-pemore="${esc(k)}">Show all ${rows.length} ${esc(t.toLowerCase())}</button>`);
+      });
+      if (hid.length) place(`<button class="pe-hidrow" type="button" data-pehid><span>${icon("eye")}${hid.length} hidden by you</span><b>Show</b></button>`);
+    }
+  };
+  const peOpenSec = new Set();
+  document.addEventListener("click", (e) => {
+    const b = e.target.closest("#profile [data-pemore]"), f = curFile(); if (!b || !f) return;
+    e.preventDefault(); e.stopImmediatePropagation();
+    peOpenSec.add(b.dataset.pemore); openFile(f.id, true);
+  }, true);
+  /* Remove, hide, show, add and reset run here, before the app's own handlers, so each says what happened and can be undone. */
+  document.addEventListener("click", (e) => {
+    const t = e.target, f = curFile();
+    const rm = t.closest("#profile [data-frm]"), rs = t.closest("#profile [data-frs]"), ad = t.closest("#profile [data-peadd]");
+    if (f && (rm || rs || ad)) {
+      e.preventDefault(); e.stopImmediatePropagation();
+      const key = (rm || rs || ad).dataset.frm || (rm || rs || ad).dataset.frs || (rm || rs || ad).dataset.peadd, o = BYKEY.get(key) && BYKEY.get(key).o; if (!o) return;
+      const before = state.lists[f.id] ? JSON.parse(JSON.stringify(state.lists[f.id])) : null, base = isBase(f, key);
+      if (rm) listRemove(f, key); else listAdd(f, key);
+      const undo = { label: "Undo", fn: () => { if (before) state.lists[f.id] = before; else delete state.lists[f.id]; saveLists(); if (curFile() === f) openFile(f.id, true); } };
+      toast(rm ? (base ? o.name + " hidden" : o.name + " removed") : rs ? o.name + " is back on your list" : o.name + " added", 0, undo);
+      Track.log("list-edit", { section: rm ? (base ? "hide" : "remove") : rs ? "show" : "add", item: f.id });
+      return openFile(f.id, true);
+    }
+    if (f && t.closest("#profile [data-pehid]")) {
+      e.preventDefault(); e.stopImmediatePropagation();
+      state.fedit = true; openFile(f.id, true);
+      const h = $("profile").querySelector(".pe-hid");
+      if (h) requestAnimationFrame(() => h.scrollIntoView({ block: "center", behavior: "smooth" }));
+      return;
+    }
+    if (f && t.closest("#profile [data-freset-yes]")) {
+      e.preventDefault(); e.stopImmediatePropagation();
+      const before = state.lists[f.id] ? JSON.parse(JSON.stringify(state.lists[f.id])) : null;
+      delete state.lists[f.id]; saveLists();
+      toast("Back to nodo's list", 0, before ? { label: "Undo", fn: () => { state.lists[f.id] = before; saveLists(); if (curFile() === f) openFile(f.id, true); } } : null);
+      Track.log("list-edit", { section: "reset", item: f.id });
+      return openFile(f.id, true);
+    }
+  }, true);
+  /* The add sheet: "Add someone", and the picked person shows with the toast's Undo. */
+  const peAdd0 = openAdd;
+  openAdd = function (id) {
+    peAdd0(id);
+    const f = FILE_BY[id], h = $("sName"); if (f && h) { h.textContent = "Add someone"; const c = h.nextElementSibling; if (c) c.textContent = "to " + f.short + " · MEPs, Commissioners and cabinet staff"; }
+  };
+
+  /* Add to a file, from a profile: followed files first (all files when none is followed), each a checkbox. Ticking adds the
+     person to your list on that file (or shows them again if you hid them); unticking hides or removes them. */
+  const peProfKey = () => { const k = state.open; return k && BYKEY.has(k) ? k : ""; };
+  function peProfBtn() {
+    const k = peProfKey(), P = $("profile"); if (!k || !P || P.querySelector("[data-pefto]")) return;
+    const btn = `<button class="eu-btn eu-btn--outline" type="button" data-pefto="${esc(k)}">${icon("files")}Add to a file</button>`;
+    const acts = P.querySelector(".acts");
+    if (acts) acts.insertAdjacentHTML("beforeend", btn);
+    else { const h = P.querySelector(".hero, .top"); if (h) h.insertAdjacentHTML("afterend", `<div class="acts">${btn}</div>`); }
+  }
+  ["openMep", "openCom", "openCab"].forEach((n) => {
+    const f0 = n === "openMep" ? openMep : n === "openCom" ? openCom : openCab;
+    const w = function () { const r = f0.apply(this, arguments); peProfBtn(); return r; };
+    if (n === "openMep") openMep = w; else if (n === "openCom") openCom = w; else openCab = w;
+  });
+  const peSpoke = (f, key) => { const o = MIN && MIN.files && MIN.files[f.id]; return !!(o && key.startsWith("ep:") && (o.speakers || []).some((s) => "ep:" + s.id === key)); };
+  function peFtoOpen(key, all) {
+    const e = BYKEY.get(key); if (!e) return;
+    const fol = FILES.filter((f) => state.follow.has(f.id)), list = all || !fol.length ? FILES : fol;
+    state.sheet = "pefto:" + key;
+    if ($("sheet").hidden) layer.sheet = document.activeElement;
+    const item = (f) => {
+      const on = peIsMember(f, key), base = isBase(f, key), note = base ? (on ? "On nodo's list. Untick to hide." : "On nodo's list, hidden by you") : peSpoke(f, key) ? "Spoke in committee on this file" : "";
+      return `<label class="pe-fto"><input type="checkbox" data-pef="${esc(f.id)}"${on ? " checked" : ""}><span><b>${esc(f.short)}</b>${note ? `<small>${esc(note)}</small>` : ""}</span></label>`;
+    };
+    $("sheet").innerHTML = `<div class="sheet__bar"><button class="eu-iconbtn eu-iconbtn--sm" type="button" data-sheet-close aria-label="Close">${icon("x")}</button></div>
+      <div class="top"><div class="top__tx"><h2 id="sName">Add to your files</h2><div class="cap">${esc(e.o.name)} shows on the files you tick. Only your lists change.</div></div></div>
+      <fieldset class="pe-ftos"><legend class="sr">${list === FILES ? "All files" : "Files you follow"}</legend>${list.map(item).join("")}</fieldset>
+      ${list !== FILES ? `<button class="eu-btn eu-btn--sm pe-ftoall" type="button" data-peftoall="${esc(key)}">Show all ${FILES.length} files</button>` : ""}
+      <button class="eu-btn eu-btn--brand eu-btn--block mt" type="button" data-peftosave="${esc(key)}">Save</button>`;
+    $("scrim").hidden = false; $("sheet").hidden = false; $("sheet").scrollTop = 0;
+    syncLayers();
+    const first = $("sheet").querySelector("input"); if (first) first.focus({ preventScroll: true });
+  }
+  document.addEventListener("click", (e) => {
+    const t = e.target, op = t.closest("[data-pefto]"), all = t.closest("[data-peftoall]"), sv = t.closest("[data-peftosave]");
+    if (op) { e.preventDefault(); e.stopImmediatePropagation(); return peFtoOpen(op.dataset.pefto); }
+    if (all) { e.preventDefault(); e.stopImmediatePropagation(); return peFtoOpen(all.dataset.peftoall, true); }
+    if (!sv) return;
+    e.preventDefault(); e.stopImmediatePropagation();
+    const key = sv.dataset.peftosave, o = BYKEY.get(key) && BYKEY.get(key).o; if (!o) return;
+    let added = 0, gone = 0;
+    $("sheet").querySelectorAll("[data-pef]").forEach((c) => {
+      const f = FILE_BY[c.dataset.pef]; if (!f) return;
+      const on = peIsMember(f, key);
+      if (c.checked && !on) { listAdd(f, key); added++; }
+      else if (!c.checked && on) { listRemove(f, key); gone++; }
+    });
+    closeSheet();
+    toast(added || gone ? [added ? `Added to ${added} ${pl(added, "file", "files")}` : "", gone ? `off ${gone}` : ""].filter(Boolean).join(", ") : "No change");
+    if (added || gone) Track.log("list-edit", { section: "from-profile", item: key });
+    /* refresh "On these files" on the profile in place */
+    const P = $("profile"), h = P && [...P.querySelectorAll("h3")].find((x) => /^On these files/.test(x.textContent));
+    const fresh = fileLinks(key);
+    if (h) { const l = h.nextElementSibling; if (l && l.classList.contains("list")) l.remove(); h.outerHTML = fresh; }
+    else if (fresh && P) { const a = P.querySelector(".acts"); if (a) a.insertAdjacentHTML("afterend", fresh); }
+  }, true);
+
   initHome(); initEp(); initEc();
   let startView = "home";
   try { const h = (location.hash || "").slice(1); startView = { parliament: "ep", commission: "ec", council: "co", calendar: "cal", agenda: "agenda", saved: "saved", files: "files", news: "news" }[h] || "home"; } catch { /* ignore */ }
@@ -8630,6 +8811,39 @@ html:has(.profile:not([hidden])) { background: var(--ground); }
 .td-pp__dot::before { content: ""; display: block; width: 8px; height: 8px; margin: auto; border-radius: 50%; background: var(--hairline); transition: width .15s; }
 .td-pp__dot[aria-current="true"]::before { width: 20px; border-radius: 4px; background: var(--ink); }
 .td-pp__dot:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; border-radius: 6px; }
+
+/* Your list of people on a file (since 30 Oct 2026) */
+.pe-bar { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3, 12px); margin: var(--space-4, 16px) 0 var(--space-2, 8px); }
+.pe-bar p { margin: 0; font-size: 13px; line-height: 18px; color: var(--ink-muted); }
+.pe-bar .eu-btn { flex: none; min-height: 44px; }
+.pe-bar--on { position: sticky; top: 0; z-index: 3; margin-inline: calc(-1 * var(--space-4, 16px)); padding: var(--space-2, 8px) var(--space-4, 16px); background: var(--surface); border-bottom: 1px solid var(--hairline); }
+.pe-bar__t { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.pe-bar__t small { font-size: 12px; line-height: 16px; color: var(--ink-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pe-bar__t b { font: 700 20px/24px var(--font-display, "Bricolage Grotesque", sans-serif); letter-spacing: -0.02em; color: var(--ink); }
+.pe-add { display: flex; align-items: center; gap: var(--space-3, 12px); width: 100%; min-height: 60px; margin: var(--space-2, 8px) 0 var(--space-4, 16px); padding: 10px 12px; border: 1px solid var(--border-control); border-radius: var(--radius-md, 16px); background: none; color: var(--ink); text-align: left; font: inherit; cursor: pointer; }
+.pe-add__ic { display: grid; place-items: center; flex: none; width: 40px; height: 40px; border-radius: 999px; background: var(--ink); color: var(--ink-inverse); }
+.pe-add__t { display: flex; flex-direction: column; gap: 2px; }
+.pe-add__t b { font-size: 16px; line-height: 20px; font-weight: 600; }
+.pe-add__t small { font-size: 13px; line-height: 17px; color: var(--ink-muted); }
+.pe-add:focus-visible, .pe-hidrow:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+.pe-rm { color: var(--danger); }
+.pe-hid { background: none; }
+.pe-hid .eu-row__name, .pe-hid img, .pe-hid .eu-avatar { opacity: .55; }
+.pe-hidrow { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3, 12px); width: 100%; min-height: 52px; margin-top: var(--space-4, 16px); padding: 0 16px; border: 1px dashed var(--border-control); border-radius: var(--radius-md, 16px); background: none; color: var(--ink-muted); font: 500 14px/1.2 inherit; cursor: pointer; }
+.pe-hidrow span { display: inline-flex; align-items: center; gap: 10px; }
+.pe-hidrow b { color: var(--brand); font-weight: 600; }
+.pe-reset { margin-top: var(--space-6, 24px); padding-top: var(--space-5, 20px); border-top: 1px solid var(--hairline); }
+.pe-reset .cap { margin-top: var(--space-2, 8px); }
+.pe-ftos { margin: var(--space-4, 16px) 0 0; padding: 0; border: 0; display: flex; flex-direction: column; gap: 6px; }
+.pe-fto { display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 14px; border-radius: var(--radius-md, 16px); background: var(--surface-sunken); cursor: pointer; }
+.pe-fto input { flex: none; width: 22px; height: 22px; margin: 0; accent-color: var(--brand); }
+.pe-fto span { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.pe-fto b { font-size: 16px; line-height: 20px; font-weight: 600; color: var(--ink); }
+.pe-fto small { font-size: 13px; line-height: 17px; color: var(--ink-muted); }
+.pe-ftoall { margin-top: var(--space-3, 12px); }
+.pe-hid .eu-btn { color: var(--brand); }
+.pe-more { margin-top: var(--space-2, 8px); }
+.sheet [data-peftosave] { position: sticky; bottom: var(--space-3, 12px); box-shadow: var(--shadow-float); }
 </style>
 <div id="nxBadge" aria-hidden="true">PREVIEW</div>
 </body></html>
