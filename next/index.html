@@ -7572,6 +7572,76 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     else if (fresh && P) { const a = P.querySelector(".acts"); if (a) a.insertAdjacentHTML("afterend", fresh); }
   }, true);
 
+  /* Profile as a contact card (since 30 Oct 2026), for MEPs and Commissioners. Inspired by iOS Contacts: a short tinted band in the
+     institution's colour, a round portrait overlapping it, the name centred, then one row of actions (Email or Cabinet, Save,
+     Add to a file, Share). The three count tiles went. "On these files" moves up under the actions; the contact rows move below
+     the institution sections under a "Contact" heading. The original openers still build the page; pcCard reshapes it.
+     When promoted, openMep and openCom render this header directly and the .mh / .stats header code goes. */
+  function pcCard(kind) {
+    const P = $("profileBody"), mh = P && P.querySelector(":scope > .mh"), key = state.open, e = key && BYKEY.get(key), o = e && e.o;
+    if (!mh || !o) return;
+    const ep = kind === "ep";
+    const name = mh.querySelector("#pName"), arch = mh.querySelector(".mh__arch"), tags = mh.querySelector(".eu-row__tags"),
+      where = mh.querySelector(".mh__where"), back = mh.querySelector("[data-close]"), sh = mh.querySelector("#pShare");
+    const copyFn = sh && sh.onclick;
+    const roleLine = ep ? "Member of the European Parliament" : [o.title, (o.portfolio || []).join(" · ")].filter(Boolean).join(" · ");
+    const head = document.createElement("header");
+    head.className = "pc";
+    head.style.setProperty("--pt", ep ? "var(--tint-sky)" : "var(--tint-apricot)");
+    head.style.setProperty("--pa", ep ? "var(--accent-sky)" : "var(--accent-apricot)");
+    head.innerHTML = `<div class="pc__band"><div class="tb"></div></div><div class="pc__who"></div>`;
+    if (back) head.querySelector(".tb").appendChild(back);
+    const who = head.querySelector(".pc__who");
+    if (arch) { arch.classList.add("pc__ava"); who.appendChild(arch); }
+    if (name) { name.className = "pc__name"; who.appendChild(name); }
+    who.insertAdjacentHTML("beforeend", `<p class="pc__role">${esc(roleLine)}</p><div class="pc__chips"></div>`);
+    const chips = who.querySelector(".pc__chips");
+    if (ep && tags) [...tags.children].forEach((c) => chips.appendChild(c));
+    const place = where ? where.textContent.trim() : "";
+    if (place) chips.insertAdjacentHTML("beforeend", `<span class="pc__chip">${esc(place)}</span>`);
+    if (!chips.children.length) chips.remove();
+
+    /* Actions. Save keeps data-fav without data-label, so syncFav only flips aria-pressed and the label follows in CSS. */
+    const saved = state.favs.has(key);
+    const save = (primary) => `<button class="pc__act${primary ? " is-primary" : ""}" type="button" data-fav="${esc(key)}" aria-pressed="${saved}">${icon("star")}<span class="pc__off">Save</span><span class="pc__on">Saved</span></button>`;
+    const acts = [];
+    const mail = ep && o.email ? o.email : "";
+    const cabH = !ep && [...P.querySelectorAll(":scope > h3")].find((h) => /^Cabinet/.test(h.textContent));
+    if (mail) acts.push(`<a class="pc__act is-primary" href="${esc(contactHref("mail", mail))}">${icon("mail")}<span>Email</span></a>`);
+    else if (cabH) acts.push(`<button class="pc__act is-primary" type="button" data-pccab>${icon("group")}<span>Cabinet</span></button>`);
+    acts.push(save(!acts.length));
+    acts.push(`<button class="pc__act" type="button" data-pefto="${esc(key)}">${icon("files")}<span>Add to file</span></button>`);
+    acts.push(`<button class="pc__act" type="button" data-pcshare>${icon("share")}<span>Share</span></button>`);
+    head.insertAdjacentHTML("beforeend", `<div class="acts pc__acts">${acts.join("")}</div>`);
+
+    /* The contact rows sat right under the old actions: keep them for later. */
+    const oldActs = P.querySelector(":scope > .acts"), contact = oldActs && oldActs.nextElementSibling && oldActs.nextElementSibling.classList.contains("list") ? oldActs.nextElementSibling : null;
+    P.querySelectorAll(":scope > .stats, :scope > .acts").forEach((x) => x.remove());
+    mh.replaceWith(head);
+
+    const filesH = [...P.querySelectorAll(":scope > h3")].find((h) => /^On these files/.test(h.textContent));
+    if (filesH) { const l = filesH.nextElementSibling; head.after(filesH); if (l && l.classList.contains("list")) filesH.after(l); }
+    if (contact) {
+      const anchor = [...P.querySelectorAll(":scope > h3, :scope > details, :scope > .foot")].find((x) => x.matches(".foot, details") || /^(Links|Activity|Mandate|Departments|Career)/.test(x.textContent));
+      const h = document.createElement("h3"); h.textContent = "Contact";
+      if (anchor) { anchor.before(h); h.after(contact); } else { P.append(h, contact); }
+    }
+
+    const shareBtn = head.querySelector("[data-pcshare]");
+    shareBtn.onclick = async () => {
+      const text = [o.name, roleLine, place, mail].filter(Boolean).join(" · ");
+      if (navigator.share) { try { await navigator.share({ title: o.name, text }); Track.log("share", { section: kind, item: key }); return; } catch (err) { if (err && err.name === "AbortError") return; } }
+      if (copyFn) copyFn(); else copy(text, "Contact");
+    };
+    const cb = head.querySelector("[data-pccab]");
+    if (cb && cabH) cb.onclick = () => cabH.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
+  }
+  {
+    const m0 = openMep, c0 = openCom;
+    openMep = function () { const r = m0.apply(this, arguments); pcCard("ep"); return r; };
+    openCom = function () { const r = c0.apply(this, arguments); pcCard("ec"); return r; };
+  }
+
   initHome(); initEp(); initEc();
   let startView = "home";
   try { const h = (location.hash || "").slice(1); startView = { parliament: "ep", commission: "ec", council: "co", calendar: "cal", agenda: "agenda", saved: "saved", files: "files", news: "news" }[h] || "home"; } catch { /* ignore */ }
@@ -8844,6 +8914,32 @@ html:has(.profile:not([hidden])) { background: var(--ground); }
 .pe-hid .eu-btn { color: var(--brand); }
 .pe-more { margin-top: var(--space-2, 8px); }
 .sheet [data-peftosave] { position: sticky; bottom: var(--space-3, 12px); box-shadow: var(--shadow-float); }
+
+/* Profile as a contact card (30 Oct 2026): pcCard in features.js. */
+.pc { margin: calc(-1 * var(--space-4)) calc(-1 * var(--space-4)) 0; }
+.pc__band { height: 196px; box-sizing: border-box; padding: var(--space-4) var(--space-4) 0; background: var(--pt); }
+.pc__band .eu-iconbtn { background: color-mix(in srgb, var(--surface) 78%, transparent); -webkit-backdrop-filter: blur(12px) saturate(1.4); backdrop-filter: blur(12px) saturate(1.4); }
+.pc__who { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 0 var(--space-4); margin-top: -88px; }
+.pc .mh__arch.pc__ava { flex: none; width: 152px; height: 152px; aspect-ratio: auto; box-sizing: border-box; border-radius: 50%; border: 5px solid var(--surface); background: var(--pt); }
+.pc .pc__ava span { font-size: 52px; line-height: 1; color: var(--pa); }
+.pc__name { margin: var(--space-4) 0 0; max-width: 100%; font-family: var(--font-display); font-size: 30px; line-height: 34px; font-weight: 300; letter-spacing: -0.03em; text-wrap: balance; overflow-wrap: anywhere; }
+.pc__name strong { font-weight: 700; }
+.pc__role { margin: 6px 0 0; max-width: 34ch; font-weight: 500; color: var(--ink-muted); text-wrap: balance; }
+.pc__chips { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-2); margin-top: var(--space-3); }
+.pc__chips .eu-group { background: var(--surface-sunken); }
+.pc__chip { display: inline-flex; align-items: center; min-height: 28px; padding: 4px 12px; border-radius: var(--radius-pill); background: var(--surface-sunken); font-size: 13px; line-height: 16px; font-weight: 600; }
+.pc__acts { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: var(--space-2); margin: var(--space-6) var(--space-4) 0; }
+.pc__act { min-height: 64px; padding: var(--space-2) var(--space-1); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; border: 0; border-radius: var(--radius-md);
+  background: var(--surface-sunken); color: var(--brand); font: inherit; font-size: 12px; line-height: 16px; font-weight: 600; text-decoration: none; cursor: pointer; transition: transform .15s ease-out, background .15s ease-out; }
+.pc__act svg { width: 22px; height: 22px; }
+.pc__act.is-primary { background: var(--brand); color: var(--on-brand); }
+.pc__act[aria-pressed="true"]:not(.is-primary) { background: var(--ink); color: var(--ink-inverse); }
+.pc__act .pc__on, .pc__act[aria-pressed="true"] .pc__off { display: none; }
+.pc__act[aria-pressed="true"] .pc__on { display: inline; }
+.pc__act:active { transform: scale(.96); }
+.pc__act:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+.pc + h3 { margin-top: var(--space-8); }
+@media (prefers-reduced-motion: reduce) { .pc__act { transition: none; } .pc__act:active { transform: none; } }
 </style>
 <div id="nxBadge" aria-hidden="true">PREVIEW</div>
 </body></html>

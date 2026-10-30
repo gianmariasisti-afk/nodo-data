@@ -2867,3 +2867,73 @@
     if (h) { const l = h.nextElementSibling; if (l && l.classList.contains("list")) l.remove(); h.outerHTML = fresh; }
     else if (fresh && P) { const a = P.querySelector(".acts"); if (a) a.insertAdjacentHTML("afterend", fresh); }
   }, true);
+
+  /* Profile as a contact card (since 30 Oct 2026), for MEPs and Commissioners. Inspired by iOS Contacts: a short tinted band in the
+     institution's colour, a round portrait overlapping it, the name centred, then one row of actions (Email or Cabinet, Save,
+     Add to a file, Share). The three count tiles went. "On these files" moves up under the actions; the contact rows move below
+     the institution sections under a "Contact" heading. The original openers still build the page; pcCard reshapes it.
+     When promoted, openMep and openCom render this header directly and the .mh / .stats header code goes. */
+  function pcCard(kind) {
+    const P = $("profileBody"), mh = P && P.querySelector(":scope > .mh"), key = state.open, e = key && BYKEY.get(key), o = e && e.o;
+    if (!mh || !o) return;
+    const ep = kind === "ep";
+    const name = mh.querySelector("#pName"), arch = mh.querySelector(".mh__arch"), tags = mh.querySelector(".eu-row__tags"),
+      where = mh.querySelector(".mh__where"), back = mh.querySelector("[data-close]"), sh = mh.querySelector("#pShare");
+    const copyFn = sh && sh.onclick;
+    const roleLine = ep ? "Member of the European Parliament" : [o.title, (o.portfolio || []).join(" · ")].filter(Boolean).join(" · ");
+    const head = document.createElement("header");
+    head.className = "pc";
+    head.style.setProperty("--pt", ep ? "var(--tint-sky)" : "var(--tint-apricot)");
+    head.style.setProperty("--pa", ep ? "var(--accent-sky)" : "var(--accent-apricot)");
+    head.innerHTML = `<div class="pc__band"><div class="tb"></div></div><div class="pc__who"></div>`;
+    if (back) head.querySelector(".tb").appendChild(back);
+    const who = head.querySelector(".pc__who");
+    if (arch) { arch.classList.add("pc__ava"); who.appendChild(arch); }
+    if (name) { name.className = "pc__name"; who.appendChild(name); }
+    who.insertAdjacentHTML("beforeend", `<p class="pc__role">${esc(roleLine)}</p><div class="pc__chips"></div>`);
+    const chips = who.querySelector(".pc__chips");
+    if (ep && tags) [...tags.children].forEach((c) => chips.appendChild(c));
+    const place = where ? where.textContent.trim() : "";
+    if (place) chips.insertAdjacentHTML("beforeend", `<span class="pc__chip">${esc(place)}</span>`);
+    if (!chips.children.length) chips.remove();
+
+    /* Actions. Save keeps data-fav without data-label, so syncFav only flips aria-pressed and the label follows in CSS. */
+    const saved = state.favs.has(key);
+    const save = (primary) => `<button class="pc__act${primary ? " is-primary" : ""}" type="button" data-fav="${esc(key)}" aria-pressed="${saved}">${icon("star")}<span class="pc__off">Save</span><span class="pc__on">Saved</span></button>`;
+    const acts = [];
+    const mail = ep && o.email ? o.email : "";
+    const cabH = !ep && [...P.querySelectorAll(":scope > h3")].find((h) => /^Cabinet/.test(h.textContent));
+    if (mail) acts.push(`<a class="pc__act is-primary" href="${esc(contactHref("mail", mail))}">${icon("mail")}<span>Email</span></a>`);
+    else if (cabH) acts.push(`<button class="pc__act is-primary" type="button" data-pccab>${icon("group")}<span>Cabinet</span></button>`);
+    acts.push(save(!acts.length));
+    acts.push(`<button class="pc__act" type="button" data-pefto="${esc(key)}">${icon("files")}<span>Add to file</span></button>`);
+    acts.push(`<button class="pc__act" type="button" data-pcshare>${icon("share")}<span>Share</span></button>`);
+    head.insertAdjacentHTML("beforeend", `<div class="acts pc__acts">${acts.join("")}</div>`);
+
+    /* The contact rows sat right under the old actions: keep them for later. */
+    const oldActs = P.querySelector(":scope > .acts"), contact = oldActs && oldActs.nextElementSibling && oldActs.nextElementSibling.classList.contains("list") ? oldActs.nextElementSibling : null;
+    P.querySelectorAll(":scope > .stats, :scope > .acts").forEach((x) => x.remove());
+    mh.replaceWith(head);
+
+    const filesH = [...P.querySelectorAll(":scope > h3")].find((h) => /^On these files/.test(h.textContent));
+    if (filesH) { const l = filesH.nextElementSibling; head.after(filesH); if (l && l.classList.contains("list")) filesH.after(l); }
+    if (contact) {
+      const anchor = [...P.querySelectorAll(":scope > h3, :scope > details, :scope > .foot")].find((x) => x.matches(".foot, details") || /^(Links|Activity|Mandate|Departments|Career)/.test(x.textContent));
+      const h = document.createElement("h3"); h.textContent = "Contact";
+      if (anchor) { anchor.before(h); h.after(contact); } else { P.append(h, contact); }
+    }
+
+    const shareBtn = head.querySelector("[data-pcshare]");
+    shareBtn.onclick = async () => {
+      const text = [o.name, roleLine, place, mail].filter(Boolean).join(" · ");
+      if (navigator.share) { try { await navigator.share({ title: o.name, text }); Track.log("share", { section: kind, item: key }); return; } catch (err) { if (err && err.name === "AbortError") return; } }
+      if (copyFn) copyFn(); else copy(text, "Contact");
+    };
+    const cb = head.querySelector("[data-pccab]");
+    if (cb && cabH) cb.onclick = () => cabH.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
+  }
+  {
+    const m0 = openMep, c0 = openCom;
+    openMep = function () { const r = m0.apply(this, arguments); pcCard("ep"); return r; };
+    openCom = function () { const r = c0.apply(this, arguments); pcCard("ec"); return r; };
+  }
