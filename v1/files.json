@@ -760,7 +760,7 @@
     ]
    },
    "caveats": [
-    "ECF and NRPP rapporteurs, shadows and opinion rapporteurs come from the Parliament's procedure files (checked 21 October 2026)."
+    "ECF and NRPP rapporteurs, shadows and opinion rapporteurs come from the Parliament's procedure files (rechecked each week)."
    ],
    "sources": [
     {
@@ -1078,8 +1078,8 @@
     ]
    },
    "caveats": [
-    "Rapporteurs, shadows and opinion rapporteurs come from the Parliament's procedure file (checked 12 October 2026). It lists the joint committee's shadows together, without saying which committee each one sits for.",
-    "The postponed 7 October vote and the 11 October meeting come from Agence Europe reporting. The 21 October mandate comes from the Council's press release and doc 14756/26."
+    "Rapporteurs, shadows and opinion rapporteurs come from the Parliament's procedure file (rechecked each week). It lists the joint committee's shadows together, without saying which committee each one sits for.",
+    "The 21 October mandate comes from the Council's press release and doc 14756/26."
    ],
    "sources": [
     {
@@ -1160,7 +1160,7 @@
    "procedure": "2026/0068(COD)",
    "proposal": "COM(2026)100",
    "stage": "positions-in-preparation",
-   "status": "Proposed 4 March 2026. The Irish Presidency circulated a 'partner origin' compromise in late July 2026, which departs substantially from the Commission text; the Council's industry working party examines the third Presidency compromise text (doc 14387/26) on 26 and 27 October. In Parliament, the joint INTA-ITRE-IMCO committee received more than 5,000 amendments to its draft report (Agence Europe, 15 October) and ENVI adopted its opinion on 22 October; the indicative plenary vote is 14 December 2026 and no committee vote date is set. Leaders listed the act among their competitiveness priorities at the 15–16 October European Council.",
+   "status": "Proposed 4 March 2026. The Irish Presidency circulated a 'partner origin' compromise in late July 2026, which departs substantially from the Commission text; the Council's industry working party had the third Presidency compromise text (doc 14387/26) on its agenda on 26 and 27 October. In Parliament, the joint INTA-ITRE-IMCO committee received more than 5,000 amendments to its draft report (Agence Europe, 15 October) and ENVI adopted its opinion on 22 October; the indicative plenary vote is 14 December 2026 and no committee vote date is set. Leaders listed the act among their competitiveness priorities at the 15–16 October European Council.",
    "next": [
     {
      "date": "2026-12-14",
@@ -1406,8 +1406,8 @@
     ]
    },
    "caveats": [
-    "Rapporteurs, shadows and the ENVI opinion rapporteur come from the Parliament's procedure file (checked 12 October 2026).",
-    "The Parliament's procedure file shows the file awaiting a committee vote (checked 12 October 2026): it is not in trilogue."
+    "Rapporteurs, shadows and the ENVI opinion rapporteur come from the Parliament's procedure file (rechecked each week).",
+    "The Parliament's procedure file shows the file awaiting a committee vote: it is not in trilogue."
    ],
    "sources": [
     {
@@ -1596,7 +1596,7 @@
     ]
    },
    "caveats": [
-    "Rapporteur, shadows and opinion rapporteurs come from the Parliament's procedure file (checked 12 October 2026).",
+    "Rapporteur, shadows and opinion rapporteurs come from the Parliament's procedure file (rechecked each week).",
     "The 1 December progress report comes from the Irish Presidency programme, which plans one for the act. The Council agenda for that meeting is not published yet."
    ],
    "sources": [
@@ -1956,14 +1956,8 @@
    "area": "digital",
    "procedure": null,
    "stage": "positions-in-preparation",
-   "status": "The Commission proposed both on 3 June 2026. In Parliament, ITRE leads the Chips Act 2.0 (rapporteur Oliver Schenk, appointed 31 August) and ITRE and IMCO share the CADA (Diego Solier and Reinier van Lanschot); neither has a draft report or a committee vote date yet. The Council's industry working party took up the Chips Act 2.0 on 2 September and on 12 and 13 October, and examines the Presidency compromise text on 29 and 30 October. The CADA aims to triple EU data-centre capacity within five to seven years and creates a framework to assess cloud and AI sovereignty, which is the most contested element.",
+   "status": "The Commission proposed both on 3 June 2026. In Parliament, ITRE leads the Chips Act 2.0 (rapporteur Oliver Schenk, appointed 31 August) and ITRE and IMCO share the CADA (Diego Solier and Reinier van Lanschot); neither has a draft report or a committee vote date yet. The Council's industry working party took up the Chips Act 2.0 on 2 September and on 12 and 13 October, and had the Presidency compromise text (doc 13545/26 REV 1) on its agenda on 29 and 30 October. The CADA aims to triple EU data-centre capacity within five to seven years and creates a framework to assess cloud and AI sovereignty, which is the most contested element.",
    "next": [
-    {
-     "date": "2026-10-29",
-     "what": "Council industry working party on the Chips Act 2.0: Presidency compromise text (doc 13545/26 REV 1)",
-     "src": "council-cm-4566",
-     "part": "chips-act-2"
-    },
     {
      "date": "2026-10-30",
      "what": "Council industry working party on the Chips Act 2.0 (second day)",
@@ -2208,7 +2202,7 @@
     ]
    },
    "caveats": [
-    "Rapporteurs, shadows and opinion rapporteurs come from the Parliament's procedure files (checked 12 October 2026). No S&D shadow is listed for the Chips Act 2.0 yet."
+    "Rapporteurs, shadows and opinion rapporteurs come from the Parliament's procedure files (rechecked each week). No S&D shadow is listed for the Chips Act 2.0 yet."
    ],
    "sources": [
     {
@@ -2501,7 +2495,7 @@
     "note": "Final Council approval 29 June 2026."
    },
    "caveats": [
-    "Rapporteurs, shadows and opinion rapporteurs come from the Parliament's procedure file (checked 12 October 2026); opinion shadows from the committees' documents in the Parliament's open data.",
+    "Rapporteurs, shadows and opinion rapporteurs come from the Parliament's procedure file (rechecked each week); opinion shadows from the committees' documents in the Parliament's open data.",
     "Sources disagree on the date of the provisional trilogue agreement (6–7 May versus 22 June 2026). The entry into force date of 27 July 2026 is consistent across sources."
    ],
    "sources": [
@@ -2746,7 +2740,7 @@
     ]
    },
    "caveats": [
-    "Rapporteurs, shadows and opinion rapporteurs come from the Parliament's procedure files (checked 21 October 2026).",
+    "Rapporteurs, shadows and opinion rapporteurs come from the Parliament's procedure files (rechecked each week).",
     "Trilogue dates on the permitting directive are not in the sources checked."
    ],
    "sources": [
@@ -2804,16 +2798,17 @@
    "stage": "positions-in-preparation",
    "sector": "transport",
    "lede": "EPP, S&D and Renew have a compromise, backed by ITRE and TRAN; ENVI votes next.",
-   "status": "The Commission proposed on 16 December 2025 to lower the 2035 target for cars and vans from 100% to 90%, with credits for renewable fuels and low-carbon EU steel. ENVI leads in Parliament with Massimiliano Salini as rapporteur. On 20 October the EPP, S&D and Renew agreed a compromise that eases the 2035 target further, and on 22 October ITRE and TRAN adopted opinions backing it. The Council's environment working party discusses the proposal on 28 October; the Council took stock of progress in June 2026 and has no position yet.",
+   "status": "The Commission proposed on 16 December 2025 to lower the 2035 target for cars and vans from 100% to 90%, with credits for renewable fuels and low-carbon EU steel. ENVI leads in Parliament with Massimiliano Salini as rapporteur. On 20 October the EPP, S&D and Renew agreed a compromise that eases the 2035 target further, and on 22 October ITRE and TRAN adopted opinions backing it. Agence Europe reports the ENVI committee vote on 4 November. The Council's environment working party had the proposal on its agenda on 28 October; the Council took stock of progress in June 2026 and has no position yet.",
    "next": [
+    {
+     "date": "2026-11-04",
+     "what": "ENVI committee vote (reported by Agence Europe; not yet in the Observatory)",
+     "src": "agenceurope-13971"
+    },
     {
      "date": "2026-11-23",
      "what": "Plenary vote (indicative date in the Observatory)",
      "src": "oeil-2025-0420-cod"
-    },
-    {
-     "date": null,
-     "what": "ENVI committee vote: no date set yet"
     }
    ],
    "ep": {
@@ -2944,7 +2939,8 @@
     ]
    },
    "caveats": [
-    "Rapporteur, shadows and opinion rapporteurs come from the Parliament's procedure file (checked 21 October 2026).",
+    "Rapporteur, shadows and opinion rapporteurs come from the Parliament's procedure file (rechecked each week).",
+    "The 4 November ENVI vote comes from Agence Europe; the Observatory lists no committee vote date (checked 30 October 2026).",
     "The Observatory gives 23 November as the indicative plenary date; Agence Europe says the plenary vote waits for Parliament's position on the automotive part of the Industrial Accelerator Act.",
     "The compromise's exact 2035 and 2030 figures and the committee vote counts are left out until the committee voting records or an outlet on nodo's source list confirm them."
    ],
@@ -2973,6 +2969,11 @@
      "id": "council-cm-4726",
      "title": "Council: notice of meeting CM 4726/26, environment working party, 27-28 Oct 2026",
      "url": "https://data.consilium.europa.eu/doc/document/CM-4726-2026-INIT/en/pdf"
+    },
+    {
+     "id": "agenceurope-13971",
+     "title": "Agence Europe: Gieseke optimistic about adoption in ENVI on 4 November (Oct 2026)",
+     "url": "https://agenceurope.eu/en/bulletin/article/13971/9/car-co2-emissions-standards-jens-gieseke-optimistic-about-adoption-of-agreement-in-committee-on-environment-on-4-november"
     }
    ],
    "checked": "2026-10-26",
@@ -3175,7 +3176,7 @@
     ]
    },
    "caveats": [
-    "Rapporteur, shadows and the IMCO opinion rapporteur come from the Parliament's procedure file (checked 21 October 2026)."
+    "Rapporteur, shadows and the IMCO opinion rapporteur come from the Parliament's procedure file (rechecked each week)."
    ],
    "sources": [
     {
@@ -3549,7 +3550,7 @@
     ]
    },
    "caveats": [
-    "Rapporteurs, shadows and opinion rapporteurs come from the Parliament's procedure files (checked 21 October 2026)."
+    "Rapporteurs, shadows and opinion rapporteurs come from the Parliament's procedure files (rechecked each week)."
    ],
    "sources": [
     {
@@ -3725,7 +3726,7 @@
     ]
    },
    "caveats": [
-    "Rapporteur, shadows and the LIBE opinion rapporteur come from the Parliament's procedure file (checked 21 October 2026).",
+    "Rapporteur, shadows and the LIBE opinion rapporteur come from the Parliament's procedure file (rechecked each week).",
     "The procedure file names DG FISMA and the former Financial Services Commissioner; nodo lists the current one, Maria Luís Albuquerque. The digital euro also sits in Valdis Dombrovskis's cabinet (Nicolò Brignoli)."
    ],
    "sources": [
@@ -3923,7 +3924,7 @@
     ]
    },
    "caveats": [
-    "Rapporteurs and shadows come from the Parliament's procedure files (checked 21 October 2026); the regulation and the directive have the same team.",
+    "Rapporteurs and shadows come from the Parliament's procedure files (rechecked each week); the regulation and the directive have the same team.",
     "The Council press release of 30 September names the 27 May position as the one on sustainable use of pesticides; that it covers the omnibus directive is inferred."
    ],
    "sources": [
@@ -4223,7 +4224,7 @@
     ]
    },
    "caveats": [
-    "Rapporteurs and shadows come from the Parliament's procedure file (checked 21 October 2026)."
+    "Rapporteurs and shadows come from the Parliament's procedure file (rechecked each week)."
    ],
    "sources": [
     {

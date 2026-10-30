@@ -1887,7 +1887,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     let kind, label, where, lead;
     if (place === "SXB") { kind = "P"; label = "Plenary · Strasbourg"; where = "Strasbourg"; lead = "Plenary session in Strasbourg, Monday afternoon to Thursday."; }
     else if (place === "BRU") { kind = "P"; label = "Mini-plenary · Brussels"; where = "Brussels"; lead = "Short plenary sitting in Brussels, with committees and groups meeting around it."; }
-    else if (!days[0].known && !days[2].known) { kind = "?"; label = "Week type not published yet"; where = ""; lead = "The Parliament has not published committee and group weeks for this period yet."; }
+    else if (!days[0].known && !days[2].known) { kind = "?"; label = "Week type not in nodo yet"; where = ""; lead = "Committee and group weeks for this period are not loaded in nodo yet. Plenary dates are."; }
     else {
       const best = ["C", "G", "X"].sort((a, b) => (w[b] || 0) - (w[a] || 0))[0];
       if (!(w[best] > 0)) { kind = "_"; label = "No meetings"; where = ""; lead = "No parliamentary meetings are scheduled this week."; }
@@ -1957,7 +1957,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     let html = "";
     [2026, 2027].forEach((y) => {
       const ys = CAL.sessions.filter((x) => x.start.slice(0, 4) === String(y)), held = ys.filter((x) => x.end < isoD(today)).length;
-      const ysub = !CAL.days[y] ? "Plenary dates only · weeks not published yet" : `${ys.length - held} ${pl(ys.length - held, "session", "sessions")} to go · ${held} held`;
+      const ysub = !CAL.days[y] ? "Plenary dates only · weeks not in nodo yet" : `${ys.length - held} ${pl(ys.length - held, "session", "sessions")} to go · ${held} held`;
       let inner = "";
       if (calOpen.has("y:" + y)) {
         const from = y === cy ? cm : 0;
@@ -1992,7 +1992,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
         <p class="eu-stat__foot">${esc(np.t)}${np.s ? " · " + esc(np.s) : ""}</p>${agendaWell(nextPlenary(today), np)}</section>` : ""}`;
     $("calLegend").innerHTML = ["P", "C", "G", "X", "?"].map((k) => `<span><i class="k-${k}"></i>${esc(k === "P" ? "Plenary" : k === "G" ? "Political groups" : k === "X" ? "External activities" : KLABEL[k])}</span>`).join("") + `<span>Top half morning, bottom half afternoon</span>`;
     renderCalTree(today, mon);
-    $("calNote").textContent = `Source: European Parliament calendar 2026 and plenary dates for 2027 (adopted 21 October 2025). Committee and group weeks for 2027 are not published yet. Checked ${CAL.fetched}.`;
+    $("calNote").textContent = `Source: European Parliament calendar 2026 and plenary dates for 2027 (adopted 21 October 2025). Committee and group weeks for 2027 are not in nodo yet. Checked ${fmtD(fromIso(CAL.checked || CAL.fetched), { day: "numeric", month: "short", year: "numeric" })}.`;
   }
 
   /* Plenary agenda. data/agenda.json holds one entry per session, keyed by its first day:
