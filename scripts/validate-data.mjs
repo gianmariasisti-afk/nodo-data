@@ -197,6 +197,34 @@ if (fs.existsSync(path.join(V1, "press.json"))) {
   }
 }
 
+/* Auto pages: files nodo does not follow, read from the Legislative Observatory (optional file, built by tools/files/auto_pages.py) */
+if (fs.existsSync(path.join(V1, "auto-files.json"))) {
+  const au = load("auto-files.json");
+  if (au) {
+    const curated = (files && files.files) || [];
+    const cIds = new Set(curated.map((f) => f.id));
+    const cProcs = new Set(curated.flatMap((f) => [f.procedure, ...(f.procedures || []), ...(f.parts || []).map((x) => x.procedure)]).filter(Boolean));
+    const STAGES = new Set(["pre-proposal", "positions-in-preparation", "council-negotiating-box", "trilogue", "in-force"]);
+    const ROLES = new Set(["rapporteur", "shadow", "opinion-rapporteur"]);
+    const seen = new Set();
+    if (!ISO.test(String(au.asOf))) bad(`auto-files.json: asOf "${au.asOf}" is not a date`);
+    for (const f of au.files || []) {
+      const at = `auto-files.json ${f.id}`;
+      if (!/^auto-\d{4}-\d{4}[a-z]?-cod$/.test(f.id || "") || seen.has(f.id)) bad(`${at}: missing, malformed or duplicate id`);
+      seen.add(f.id);
+      if (f.auto !== true) bad(`${at}: auto is not true`);
+      if (cIds.has(f.id) || cProcs.has(f.procedure)) bad(`${at}: ${f.procedure} is a curated file`);
+      if (!/^\d{4}\/\d{4}[A-Z]?\(COD\)$/.test(f.procedure || "")) bad(`${at}: bad procedure ${f.procedure}`);
+      if (!f.short || !STAGES.has(f.stage)) bad(`${at}: no title or unknown stage ${f.stage}`);
+      for (const m of f.meps || []) if (!mepIds.has(m.id) || !ROLES.has(m.role)) bad(`${at}: MEP ${m.id} (${m.role}) not in meps.json or unknown role`);
+      for (const x of [...(f.next || []), ...(f.events || [])]) if (!ISO.test(x.date) || !x.what) bad(`${at}: bad date entry ${JSON.stringify(x).slice(0, 80)}`);
+      if (!(f.sources || []).some((x) => /^https:\/\/oeil\.europarl\.europa\.eu\//.test(x.url))) bad(`${at}: no Observatory source`);
+    }
+    const prev = loadBase("auto-files.json");
+    if (prev && (prev.files || []).length && (au.files || []).length < prev.files.length * 0.7) bad(`auto-files.json: pages dropped from ${prev.files.length} to ${(au.files || []).length} in one change`);
+  }
+}
+
 /* Source list: every files.json citation and every press feed must be on it (press items are checked above via checkItem) */
 {
   const reg = load("sources.json");

@@ -1271,3 +1271,37 @@ html:has(.profile:not([hidden])) { background: var(--ground); }
 .pc__act:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
 .pc + h3 { margin-top: var(--space-8); }
 @media (prefers-reduced-motion: reduce) { .pc__act { transition: none; } .pc__act:active { transform: none; } }
+
+/* ---------- Auto pages (since 30 Oct 2026) ---------- */
+.au-sec { margin-top: var(--space-6); }
+.au-sec h3 { margin-bottom: 4px; }
+.au-sec__cap { margin: 0 0 var(--space-3); color: var(--ink-muted); }
+.au-sec__cap .linkbtn { color: var(--brand); font-weight: 600; }
+.au-list { display: grid; gap: var(--space-2); }
+.au-card { display: flex; align-items: center; gap: var(--space-3); padding: 14px 16px; border-radius: var(--radius-md); background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--hairline); }
+.au-card__tx { flex: 1; min-width: 0; display: grid; gap: 2px; }
+.au-card__tx b { font: 700 17px/21px var(--font-display); letter-spacing: -0.02em; color: var(--ink); }
+.au-card__tx small { font-size: 13px; line-height: 17px; color: var(--ink-muted); }
+.au-card .eu-btn { flex: none; min-height: 44px; }
+.au-tag { display: inline-block; vertical-align: 3px; margin-left: 6px; padding: 2px 8px; border-radius: var(--radius-pill); box-shadow: inset 0 0 0 1px var(--border-control); font: 600 11px/14px var(--font-sans); letter-spacing: 0; color: var(--ink-muted); }
+.au-note { display: flex; align-items: flex-start; gap: 10px; width: 100%; margin: 0 0 var(--space-3); padding: 12px 14px; border: 0; border-radius: var(--radius-md); background: var(--surface-sunken); color: var(--ink-muted); font: 400 13px/18px var(--font-sans); text-align: left; cursor: pointer; }
+.au-note .eu-icon { flex: none; width: 18px; height: 18px; margin-top: 1px; color: var(--ink); }
+.au-note b { color: var(--ink); font-weight: 600; }
+.au-note u { color: var(--brand); font-weight: 600; text-underline-offset: 3px; }
+.au-note:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+.au-gap { margin-top: var(--space-6); padding: var(--space-5); border-radius: var(--radius-lg); background: var(--surface-sunken); }
+.au-gap h3 { margin: 0 0 6px; }
+.au-gap p { margin: 0 0 var(--space-4); font-size: 14px; line-height: 21px; color: var(--ink-muted); }
+.au-sh { padding: 0 var(--space-4) var(--space-6); display: grid; gap: var(--space-4); }
+.au-sh__h { margin: 0; font: 300 26px/30px var(--font-display); letter-spacing: -0.03em; color: var(--ink); }
+.au-sh__h b { font-weight: 700; }
+.au-sh__lead { margin: -8px 0 0; font-size: 14px; line-height: 20px; color: var(--ink-muted); }
+.au-kind { padding: var(--space-4); border-radius: var(--radius-md); background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--hairline); display: grid; gap: 8px; }
+.au-kind--full { background: var(--tint-sky); box-shadow: none; }
+.au-kind__h { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.au-kind__h h3 { margin: 0; font-size: 17px; font-weight: 600; color: var(--ink); }
+.au-kind__h span { font-size: 12px; font-weight: 600; color: var(--ink-muted); }
+.au-kind p { margin: 0; font-size: 14px; line-height: 20px; color: var(--ink); }
+.au-kind .au-kind__fine { font-size: 13px; line-height: 18px; color: var(--ink-muted); }
+.au-sh__acts { display: grid; gap: var(--space-2); }
+.au-sh__note { margin: 0; text-align: center; color: var(--ink-muted); }

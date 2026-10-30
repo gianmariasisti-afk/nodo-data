@@ -26,10 +26,15 @@ v1/
   agenda.json     Plenary agendas
   files.json      Legislative files with linked MEPs, Commissioners, cabinet members
   reports.json    Parliament reports and opinions with rapporteur and shadows (automatic pages)
+  auto-files.json Auto pages: every codecision file, ongoing or of this term, that nodo does not follow, read weekly from the Legislative Observatory (preview only)
   minutes.json    Who spoke on the priority files in Parliament committee meetings, from the committees' minutes
   press.json      Latest developments: dated items on the priority files with nodo's own takeaway (preview only)
   sources.json    Source list: media by tier, institutions, analysis sources and excluded domains
 ```
+
+## auto-files.json (auto pages)
+
+Built by `python3 tools/files/auto_pages.py` in the weekly cloud refresh (the Observatory refuses GitHub runners). It reads the Observatory's XML exports of ongoing COD procedures and of every COD procedure of the 10th term, drops the procedures of `files.json`, and reads each procedure file. Each entry has the shape of a `files.json` entry plus `auto: true`, `stageLabel` (Deal agreed, In trilogue, Committee voted, Positions forming, Adopted), `area` (from the Observatory's subject codes), `events` (the last eight key events) and `next` (the Observatory's forecasts still ahead, all indicative). People are MEP ids with basis `ep-procedure-file`; the Commissioner is matched to `commission.json` by name, the DG to its code. No cabinet staff, Council working party, committee speakers or press: those make a full page. If fewer than half the pages parse, nothing is written; a page that fails keeps last week's entry.
 
 ## sources.json (source list)
 

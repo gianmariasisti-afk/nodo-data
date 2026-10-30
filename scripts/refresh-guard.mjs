@@ -6,6 +6,7 @@
      calendar   v1/calendar.json: any field (validator checks shape)
      presidency v1/council.json: presidency.current and presidency.next only
      permreps   tools/council/permreps-extra.json: any entry
+     auto       v1/auto-files.json: any entry (built by tools/files/auto_pages.py; the validator checks shape)
    v1/manifest.json may change only to follow the files above; with --sync-manifest the guard rewrites the
    bytes and sha256 of every changed v1 file first. Adding or removing a priority file, or changing commissioners,
    cabinet, DGs or working parties, is always refused: those changes go through a session with Gianmaria.
@@ -29,7 +30,7 @@ const here = (rel) => JSON.parse(fs.readFileSync(path.join(ROOT, rel), "utf8"));
 const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
 const refused = [], changes = [];
 
-const PATHS = { "v1/files.json": ["files", "meps"], "v1/calendar.json": ["calendar"], "v1/council.json": ["presidency"], "tools/council/permreps-extra.json": ["permreps"], "v1/manifest.json": ["*"] };
+const PATHS = { "v1/files.json": ["files", "meps"], "v1/calendar.json": ["calendar"], "v1/council.json": ["presidency"], "tools/council/permreps-extra.json": ["permreps"], "v1/auto-files.json": ["auto"], "v1/manifest.json": ["*"] };
 const changed = [...new Set([
   ...git("diff", "--name-only", base).split("\n"),
   ...git("ls-files", "--others", "--exclude-standard").split("\n"),

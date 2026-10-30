@@ -67,6 +67,12 @@
    "description": "Source list: media outlets by tier, institutions and analysis sources nodo may cite, with excluded domains",
    "bytes": 6850,
    "sha256": "1f81e77dd86defd366d90508151503c379252a26a7a7a6a06bd40527ad53e97d"
+  },
+  "auto": {
+   "path": "auto-files.json",
+   "description": "Auto pages: codecision files nodo does not follow, read weekly from the Legislative Observatory (shape of files.json entries, auto: true)",
+   "bytes": 609279,
+   "sha256": "2e2b684a1dde98aa219c591a303fcfa3a37837aae6fe1dec93b52a2bb2300b39"
   }
  }
 }
