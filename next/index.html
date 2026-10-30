@@ -7642,6 +7642,380 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     openCom = function () { const r = c0.apply(this, arguments); pcCard("ec"); return r; };
   }
 
+  /* ---------- Auto pages for files nodo doesn't follow (since 30 Oct 2026) ----------
+     v1/auto-files.json (tools/files/auto_pages.py, weekly) holds every ordinary legislative procedure, ongoing or of this
+     term, that is not one of nodo's curated files, read from the Parliament's Legislative Observatory and shaped like an
+     entry of files.json plus `auto: true`. The file is loaded only when it is needed: on the first search, or at start-up
+     when you follow an auto page.
+     - Search: under the curated results, "Not followed by nodo yet": one line on what that means, then each matching
+       procedure with its stage and rapporteur and "Generate page" (or "Open page" once you have opened it). The generic
+       request card gives way when there are such results.
+     - "Two kinds of file page": a sheet that tells the auto page (ready now, built and updated automatically from the
+       procedure file, not checked by nodo) from the full page (cabinet staff, the Council working party, committee
+       speakers and latest developments, checked by nodo). "Generate the auto page" opens it; "Request a full page" is the
+       existing request (a usage event, in the weekly requests recap).
+     - The auto page is the normal file page with: the note "Auto page. Built from the procedure file, not followed by
+       nodo. What's the difference?" at the top, "–" for cabinet staff, "Not on this page yet" with Request a full page
+       under the lists, the Observatory's key events as the file's dates and updates, and its own Sources tab.
+     - Follow works as for any file: a followed auto page joins Your files in its policy area, marked Auto, and syncs.
+     When promoted, this block moves into the app as it stands; the live app ignores followed auto ids until then. */
+  const AU = { list: null, by: new Map(), loading: null, GEN: "nodo.autoGen" };
+  const auGen = () => { try { return new Set(JSON.parse(store.get(AU.GEN) || "[]")); } catch { return new Set(); } };
+  const auMark = (id) => { const s = auGen(); s.add(id); store.set(AU.GEN, JSON.stringify([...s].slice(-200))); };
+  const AU_STEP = { "pre-proposal": "Pre-proposal", "positions-in-preparation": "Positions forming", trilogue: "In trilogue", "in-force": "Adopted" };
+  const auLabel = (f) => f.stageLabel || AU_STEP[f.stage] || "";
+  const auRap = (f) => (f.meps || []).filter((m) => m.role === "rapporteur").map((m) => BYKEY.get("ep:" + m.id)).filter(Boolean).map((x) => x.o.name);
+  /* Its events become the file's timeline, so "Dates and updates on this file" and Calendar show them. */
+  const auTl = (f) => (f.events || []).map((e, i) => ({ id: `${f.id}:oeil:${e.date}:${i}`, fileId: f.id, date: e.date, source: "ep", proc: f.procedure, kind: "milestone", title: e.what, push: false }));
+  {
+    let tl = UPD.tl;
+    Object.defineProperty(UPD, "tl", { configurable: true, get: () => tl, set: (v) => { tl = v || {}; AU.by.forEach((f) => { if (FILE_BY[f.id] && !tl[f.id]) tl[f.id] = auTl(f); }); } });
+  }
+  /* An auto page becomes a file the app knows: FILE_BY always, FILES only while followed. */
+  function auRegister(f) {
+    if (!f || f._au) return f;
+    f._au = true;
+    f._sh = words(f.short); f._nm = words([f.short, f.title].join(" ")); f._hay = words([f.short, f.title, f.procedure, f.id, ((f.ep || {}).lead || []).join(" ")].join(" "));
+    FILE_BY[f.id] = f;
+    if (!UPD.tl[f.id]) UPD.tl[f.id] = auTl(f);
+    Object.assign(DG_NAMES, (f.dg && f.dg.names) || {});
+    return f;
+  }
+  function auSyncFiles() {
+    let changed = false;
+    AU.by.forEach((f) => {
+      const want = state.follow.has(f.id), at = FILES.indexOf(f);
+      if (want && at < 0) { auRegister(f); FILES.push(f); changed = true; }
+      if (!want && at >= 0) { FILES.splice(at, 1); changed = true; }
+    });
+    if (changed) EP_FILES = null;
+    return changed;
+  }
+  function auLoad() {
+    if (AU.list) return Promise.resolve(AU.list);
+    if (AU.loading) return AU.loading;
+    AU.loading = fetchJson(DATA_BASE + "auto-files.json").then((d) => {
+      const xs = Array.isArray(d.files) ? d.files.filter((f) => f && f.id && !FILE_BY[f.id] && !FILES.some((c) => c.procedure && c.procedure === f.procedure)) : [];
+      xs.forEach((f) => {
+        f._find = words([f.short, f.procedure, f.procedure.replace(/[/()]/g, " "), ((f.ep || {}).lead || []).join(" "), auRap(f).join(" ")].join(" "));
+        f._t = words(f.short);
+        AU.by.set(f.id, f);
+      });
+      AU.list = xs; AU.asOf = d.asOf || "";
+      if (auSyncFiles()) renderView();
+      const cur = state.open && state.open.startsWith("file:") && AU.by.get(state.open.slice(5));
+      if (cur) { auRegister(cur); openFile(cur.id, true); }
+      if (state.view === "home" && state.hq) renderHome();
+      return xs;
+    }).catch(() => { AU.loading = null; return []; });
+    return AU.loading;
+  }
+  /* Load at start-up only for someone who follows or edited an auto page. */
+  if ([...state.follow, ...Object.keys(state.lists || {})].some((id) => String(id).startsWith("auto-"))) auLoad();
+  {
+    const adopt0 = adoptRemote;
+    adoptRemote = function (d, quiet) {
+      if (AU.list) auSyncFiles();
+      else if ((Array.isArray(d.follow) ? d.follow : []).some((id) => String(id).startsWith("auto-"))) auLoad();
+      const r = adopt0(d, quiet); if (AU.list && auSyncFiles()) renderView(); return r;
+    };
+  }
+
+  /* Search. */
+  function auFind(t) {
+    if (!AU.list) { auLoad(); return null; }
+    if (!t.length || !t.some((x) => x.length >= 3 || /^\d+$/.test(x))) return [];
+    const done = (f) => (f.stage === "in-force" ? 1 : 0);
+    return AU.list.filter((f) => hits(f._find, t)).sort((a, b) => (hits(b._t, t) - hits(a._t, t)) || done(a) - done(b) || (a.procedure < b.procedure ? 1 : -1));
+  }
+  {
+    const s0 = searchAll;
+    searchAll = function (q) { const r = s0(q); if (r) r.af = auFind(r.t); return r; };
+  }
+  const AU_MAX = 5;
+  function auCard(f) {
+    const open = auGen().has(f.id) || state.follow.has(f.id), rap = auRap(f);
+    const meta = [f.procedure, auLabel(f), rap.length ? "Rapporteur " + rap.join(", ") : ((f.ep || {}).lead || []).length ? f.ep.lead.join("-") + ", no rapporteur yet" : ""].filter(Boolean).join(" · ");
+    return `<article class="au-card"><div class="au-card__tx"><b>${esc(f.short)}</b><small>${esc(meta)}</small></div>
+      <button class="eu-btn eu-btn--sm${open ? "" : " eu-btn--brand"}" type="button" data-augen="${esc(f.id)}">${open ? "Open page" : "Generate page"}</button></article>`;
+  }
+  function auSection(r) {
+    if (r.af == null) return `<p class="cap nx-wait">Looking in the Legislative Observatory…</p>`;
+    if (!r.af.length) return "";
+    const xs = r.af.slice(0, AU_MAX);
+    return `<section class="au-sec" aria-labelledby="auSecH"><h3 id="auSecH">Not followed by nodo yet <small>${r.af.length}</small></h3>
+      <p class="cap au-sec__cap">nodo doesn't follow ${r.af.length === 1 ? "this file" : "these files"} yet. Generate a page from the Parliament's procedure file. <button class="linkbtn" type="button" data-ausheet="">What's the difference?</button></p>
+      <div class="au-list">${xs.map(auCard).join("")}</div>
+      ${r.af.length > AU_MAX ? `<p class="cap nx-more">Showing ${AU_MAX} of ${r.af.length}. Add a word or the procedure number to narrow it down.</p>` : ""}</section>`;
+  }
+  {
+    const h0 = resultsHtml;
+    resultsHtml = function (r, q) {
+      let h = h0(r, q);
+      const sec = auSection(r); if (!sec) return h;
+      if (r.af && r.af.length) { const i = h.lastIndexOf('<div class="block nx-req">'); if (i >= 0) h = h.slice(0, i); }
+      if (/^<p class="empty/.test(h.trim())) h = "";
+      const at = h.indexOf("<h3>Parliament reports and opinions");
+      return at >= 0 ? h.slice(0, at) + sec + h.slice(at) : h + sec;
+    };
+  }
+
+  /* The sheet: two kinds of file page. */
+  function auSheet(id) {
+    const f = id && (AU.by.get(id) || FILE_BY[id]), have = f && (auGen().has(f.id) || state.follow.has(f.id) || (state.open === "file:" + f.id));
+    const reqQ = f ? `${f.short} (${f.procedure})` : "";
+    const asked = f && nxRequested().has(fold(reqQ).trim());
+    state.sheet = "auto";
+    if ($("sheet").hidden) layer.sheet = document.activeElement;
+    $("sheet").innerHTML = `<div class="sheet__bar"><button class="eu-iconbtn eu-iconbtn--sm" type="button" data-sheet-close aria-label="Close">${icon("x")}</button></div>
+      <div class="au-sh">
+        <h2 id="sName" class="au-sh__h">Two kinds of <b>file page</b></h2>
+        <p class="au-sh__lead">${f ? `${esc(f.short)} isn't on nodo's list. You can have the basics now, or ask nodo to follow it.` : "nodo follows a list of files in full. For any other file you can have the basics now, or ask nodo to follow it."}</p>
+        <div class="au-kind"><div class="au-kind__h"><h3>Auto page</h3><span>Ready now</span></div>
+          <p>Stage, next step, rapporteur, shadows, opinion rapporteurs, Commissioner and DG.</p>
+          <p class="au-kind__fine">Built and updated automatically from the Parliament's procedure file, every week. Nobody at nodo checks it.</p></div>
+        <div class="au-kind au-kind--full"><div class="au-kind__h"><h3>Full page</h3><span>On request</span></div>
+          <p>Everything above, plus cabinet staff, the Council working party, committee speakers and latest developments.</p>
+          <p class="au-kind__fine">nodo follows the file and checks it against Council and Commission sources.</p></div>
+        <div class="au-sh__acts">
+          ${f && !have ? `<button class="eu-btn eu-btn--brand eu-btn--block" type="button" data-augo="${esc(f.id)}">Generate the auto page</button>` : ""}
+          ${f ? `<button class="eu-btn eu-btn--outline eu-btn--block" type="button" data-nxreq="${esc(reqQ)}"${asked ? " disabled" : ""}>${asked ? "Requested" + icon("check") : "Request a full page"}</button>` : `<button class="eu-btn eu-btn--outline eu-btn--block" type="button" data-sheet-close>Got it</button>`}
+          ${f && !have ? `<p class="cap au-sh__note">You can request a full page later from the auto page.</p>` : ""}
+        </div></div>`;
+    $("scrim").hidden = false; $("sheet").hidden = false; $("sheet").scrollTop = 0;
+    syncLayers();
+    const go1 = $("sheet").querySelector("[data-augo], [data-sheet-close]"); if (go1) go1.focus({ preventScroll: true });
+    Track.log("view", { section: "auto-sheet", item: f ? f.procedure : "" });
+  }
+  function auOpen(id) {
+    const f = auRegister(AU.by.get(id)); if (!f) return toast("This file is not in nodo's data yet");
+    const first = !auGen().has(id);
+    auMark(id);
+    if (first) Track.log("auto", { section: "file", item: f.procedure });
+    closeSheet();
+    openFile(id);
+  }
+  document.addEventListener("click", (e) => {
+    const s = e.target.closest("[data-ausheet]"), g = e.target.closest("[data-augen]"), o = e.target.closest("[data-augo]");
+    if (!s && !g && !o) return;
+    e.preventDefault(); e.stopImmediatePropagation();
+    if (s) return auSheet(s.dataset.ausheet || (curFile() && curFile().auto ? curFile().id : ""));
+    if (o) return auOpen(o.dataset.augo);
+    const id = g.dataset.augen;
+    if (auGen().has(id) || state.follow.has(id)) auOpen(id); else auSheet(id);
+  }, true);
+
+  /* Follow: a followed auto page is one of your files. */
+  {
+    const t0 = toggleFollow;
+    toggleFollow = function (id, undo) {
+      const f = AU.by.get(id);
+      if (f) { auRegister(f); if (!state.follow.has(id) && !FILES.includes(f)) { FILES.push(f); EP_FILES = null; } }
+      t0(id, undo);
+      if (f && !state.follow.has(id)) { const at = FILES.indexOf(f); if (at >= 0) { FILES.splice(at, 1); EP_FILES = null; if (state.view === "files") renderFilesView(); } }
+      if (f && state.view === "home") renderHome();
+    };
+  }
+  /* Files directory: an auto page is marked Auto. */
+  {
+    const r0 = frRow;
+    frRow = function (f) { const h = r0(f); return f.auto ? h.replace(/(<span class="fr__n">[^<]*)<\/span>/, `$1 <span class="au-tag">Auto</span></span>`) : h; };
+  }
+  /* Its Sources tab says what an auto page is made of. */
+  {
+    const st0 = srcTabHtml;
+    srcTabHtml = function (f) {
+      if (!f.auto) return st0(f);
+      const obs = srcObs(f), n = new Set((f.meps || []).map((m) => m.id)).size;
+      return `<section class="fp-src" aria-labelledby="fpSrcH">
+        <h3 id="fpSrcH">Sources and checks</h3>
+        ${f.checked ? `<p class="fp-src__chk">${icon("check")}Read from the Observatory ${esc(fdDate(f.checked, true))}</p>` : ""}
+        ${f.status ? `<h4>Status in full</h4><p class="fp-src__p">${esc(f.status)}</p>` : ""}
+        <h4>Official record</h4><div class="list">${obs.map((o) => extRow(esc(o.p) + " on the Observatory", esc(o.url))).join("")}</div>
+        <h4>How this page is made</h4><ul class="fp-src__ul">
+          <li>This is an auto page. nodo builds it every week from the Parliament's Legislative Observatory procedure file and nobody at nodo checks it.</li>
+          <li>${n} ${pl(n, "MEP comes", "MEPs come")} from the procedure file's key players, matched to the MEP record. MEPs who have left the Parliament are not shown.</li>
+          ${(f.commission && (f.commission.names || []).length) ? `<li>Commissioner and DG: as the procedure file names them.</li>` : ""}
+          <li>Dates ahead are the Observatory's forecasts and are indicative.</li>
+          <li>Not on an auto page: cabinet staff, the Council working party, committee speakers and latest developments. They come with a full page.</li></ul>
+        <p class="foot">Where the Observatory changes, the auto page follows it at the next weekly update.</p></section>`;
+    };
+  }
+  /* The page itself. */
+  function auGapHtml(f) {
+    const q = `${f.short} (${f.procedure})`, asked = nxRequested().has(fold(q).trim());
+    return `<section class="au-gap" aria-labelledby="auGapH"><h3 id="auGapH">Not on this page yet</h3>
+      <p>Cabinet staff, the Council working party, committee speakers and latest developments. nodo adds them when a file gets a full page.</p>
+      <button class="eu-btn eu-btn--outline eu-btn--block" type="button" data-nxreq="${esc(q)}"${asked ? " disabled" : ""}>${asked ? "Requested" + icon("check") : "Request a full page"}</button></section>`;
+  }
+  {
+    const o0 = openFile;
+    openFile = function (id, keep, startTab) {
+      const f0 = AU.by.get(id); if (f0) auRegister(f0);
+      o0(id, keep, startTab);
+      const f = FILE_BY[id], p = $("profileBody") || $("profile");
+      if (!f || !f.auto || !p || state.open !== "file:" + id) return;
+      const hero = p.querySelector(".hero");
+      if (hero && !hero.querySelector(".au-note")) hero.insertAdjacentHTML("afterbegin", `<button class="au-note" type="button" data-ausheet="${esc(f.id)}"><svg class="eu-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg><span><b>Auto page.</b> Built from the procedure file, not followed by nodo. <u>What's the difference?</u></span></button>`);
+      const cab = p.querySelector('[data-fstat="cab"]');
+      if (cab && !countsOf(f).cab) { cab.querySelector("b").textContent = "–"; cab.setAttribute("aria-label", "Cabinet staff: not on an auto page"); }
+      if ((state.ftab || "ep") !== "src" && !p.querySelector(".au-gap")) {
+        const at = p.querySelector(".fp-srcrow");
+        if (at) at.insertAdjacentHTML("beforebegin", auGapHtml(f)); else p.insertAdjacentHTML("beforeend", auGapHtml(f));
+      }
+    };
+  }
+
+  /* ---------- Search the way Brussels talks (since 30 Oct 2026) ----------
+     v1/search-terms.json is hand-kept: nicknames (the names Brussels uses, each pointing at procedures checked against
+     their Observatory titles) and topics (a word people search, with the words official titles use for it). Loaded with
+     the auto pages, on the first search.
+     - A nickname ("pharma package") answers first: one line says it is the usual name for these files and that their
+       official titles follow; each card carries "<name> · known officially as", the official title, procedure, stage and
+       rapporteur, and opens the file (Generate page for an auto page).
+     - A topic ("plastics", typed alone or as "files on plastics") answers with "Files on plastics": one line saying how
+       many files nodo follows on it and how many more have an auto page, the followed files first, then auto pages with
+       the matched words marked, adopted files last, eight before "Show all", the other words that matched, and "Request it".
+     - Nothing anywhere: "Nothing in nodo matches", where nodo looked (with counts), what to try, and one action: request it.
+     Files shown under a nickname or topic are not repeated in the sections below. The fuzzy fix of a typo does not run
+     when a nickname or topic matched. Searches answered only by these sections or by auto pages no longer count as
+     "found nothing" in the Monday recap. */
+  const ST = { data: null, loading: null, more: new Set(), last: { q: "", n: 0 } };
+  const ST_STOP = new Set(["files", "file", "on", "about", "laws", "law", "eu", "the", "policy", "legislation", "rules", "dossiers", "dossier"]);
+  function stLoad() {
+    if (ST.data) return Promise.resolve(ST.data);
+    if (ST.loading) return ST.loading;
+    ST.loading = fetchJson(DATA_BASE + "search-terms.json").then((d) => {
+      (d.nicknames || []).forEach((n) => { n._aka = [n.name, ...(n.aka || [])].map(words).filter((w) => w.trim().length >= 3); });
+      (d.topics || []).forEach((t) => { t._match = (t.match || []).map((m) => fold(m).replace(/[^a-z0-9]+/g, " ").trim()); t._words = (t.words || []).map((w) => words(w).slice(0, -1)).filter((w) => w.trim()); });
+      ST.data = d;
+      if (state.view === "home" && state.hq) renderHome();
+      return d;
+    }).catch(() => { ST.loading = null; return null; });
+    return ST.loading;
+  }
+  const stProcs = (f) => [f.procedure, ...(f.procedures || []), ...((f.parts || []).map((x) => x.procedure))].filter(Boolean);
+  function stFileOf(ref) {
+    const c = FILES.find((f) => !f.auto && stProcs(f).includes(ref)); if (c) return c;
+    return (AU.list || []).find((f) => f.procedure === ref) || null;
+  }
+  function stNick(q) {
+    if (!ST.data || !AU.list) return null;
+    const qw = words(q); let best = null, len = 0;
+    for (const n of ST.data.nicknames || []) for (const a of n._aka) if (qw.includes(a) && a.length > len) { best = n; len = a.length; }
+    if (!best) return null;
+    const files = [...new Set(best.procedures.map(stFileOf).filter(Boolean))];
+    return files.length ? { n: best, files } : null;
+  }
+  const stQueryCore = (q) => fold(q).replace(/[^a-z0-9]+/g, " ").trim().split(" ").filter((w) => w && !ST_STOP.has(w)).join(" ");
+  function stTopic(q) {
+    if (!ST.data || !AU.list) return null;
+    const core = stQueryCore(q); if (!core) return null;
+    const t = (ST.data.topics || []).find((x) => x._match.some((m) => m === core || m + "s" === core || m === core + "s"));
+    if (!t) return null;
+    const hit = (f) => t._words.filter((w) => words(f.short + " " + (f.title || "")).includes(w));
+    const cur = FILES.filter((f) => !f.auto && ((t.area && f.area === t.area) || hit(f).length));
+    const au = (AU.list || []).map((f) => ({ f, w: hit(f) })).filter((x) => x.w.length)
+      .sort((a, b) => ((a.f.stage === "in-force") - (b.f.stage === "in-force")) || (b.w.length - a.w.length) || (a.f.procedure < b.f.procedure ? 1 : -1));
+    return { t, cur, au };
+  }
+  {
+    const s0 = searchAll;
+    searchAll = function (q) {
+      stLoad(); if (!AU.list) auLoad();
+      const nick = stNick(q || ""), topic = nick ? null : stTopic(q || "");
+      let r;
+      if (nick || topic) { r = nxSearchBase(q); if (r) { r.rp = nxDocs(r.t); r.af = auFind(r.t); } }
+      else r = s0(q);
+      if (!r) return r;
+      r.nick = nick; r.topic = topic;
+      const shown = new Set([...(nick ? nick.files : []), ...(topic ? [...topic.cur, ...topic.au.map((x) => x.f)] : [])].map((f) => f.id));
+      if (shown.size) { r.fl = r.fl.filter((f) => !shown.has(f.id)); if (r.af) r.af = r.af.filter((f) => !shown.has(f.id)); }
+      ST.last = { q: String(q || "").trim().toLowerCase().slice(0, 80), n: shown.size + ((r.af && r.af.length) || 0) };
+      return r;
+    };
+  }
+  {
+    const tr0 = Track.search.bind(Track);
+    Track.search = function (where, q, n) { const k = String(q || "").trim().toLowerCase().slice(0, 80); return tr0(where, q, !n && k === ST.last.q ? ST.last.n : n); };
+  }
+  const stEsc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  function stMark(title, ws) {
+    let h = esc(title);
+    ws.map((w) => w.trim()).filter(Boolean).sort((a, b) => b.length - a.length).forEach((w) => {
+      const rx = new RegExp("(^|[^\\p{L}\\p{N}>])(" + w.split(" ").map(stEsc).join("[^\\p{L}\\p{N}]+") + "[\\p{L}\\p{N}]*)", "giu");
+      h = h.replace(rx, "$1<mark class=\"st-mark\">$2</mark>");
+    });
+    return h;
+  }
+  const stMeta = (f) => { const rap = auRap(f); return [f.procedure, f.auto ? auLabel(f) : (STAGE[f.stage] || [f.stage])[0], rap.length ? rap.join(", ") : ""].filter(Boolean).join(" · "); };
+  const stWhat = `<button class="linkbtn" type="button" data-ausheet="">What's an auto page?</button>`;
+  function stNickHtml(x) {
+    const k = x.files.length, anyAuto = x.files.some((f) => f.auto);
+    const card = (f) => {
+      const open = !f.auto || auGen().has(f.id) || state.follow.has(f.id);
+      return `<article class="st-card"><span class="st-chip">${esc(x.n.name)} · known officially as</span>
+        <b class="st-card__t">${esc(f.title || f.short)}</b><small class="st-card__m">${esc(stMeta(f))}</small>
+        <span class="st-card__acts">${f.auto
+          ? `<button class="eu-btn eu-btn--sm${open ? "" : " eu-btn--brand"}" type="button" data-augen="${esc(f.id)}">${open ? "Open page" : "Generate page"}</button>`
+          : `<button class="eu-btn eu-btn--sm eu-btn--brand" type="button" data-file="${esc(f.id)}">Open page</button><span class="st-full">Followed by nodo</span>`}</span></article>`;
+    };
+    return `<section class="st-sec" aria-labelledby="stNickH"><h3 id="stNickH" class="st-h"><span>Known as</span> ${esc(x.n.name)}</h3>
+      <p class="cap st-cap">“${esc(x.n.name)}” is the usual name for ${k === 1 ? "this file" : `these ${k} files`}. ${k === 1 ? "Its official title is" : "Their official titles are"} below.${anyAuto ? " " + stWhat : ""}</p>
+      <div class="st-list">${x.files.map(card).join("")}</div></section>`;
+  }
+  function stTopicHtml(x, q) {
+    const { t, cur, au } = x, nc = cur.length, na = au.length, all = ST.more.has(t.name), shownAu = all ? au : au.slice(0, 8);
+    const cap = !nc && !na ? `nodo has no file on ${esc(t.name)} yet.`
+      : !nc ? `nodo follows no file on ${esc(t.name)}. ${na === 1 ? "This one is" : `These ${na} are`} in the Legislative Observatory and ${na === 1 ? "has" : "have"} an auto page. ${stWhat}`
+      : !na ? `nodo follows ${nc} ${pl(nc, "file", "files")} on ${esc(t.name)}.`
+      : `nodo follows ${nc} ${pl(nc, "file", "files")} on ${esc(t.name)}. ${na} more ${na === 1 ? "is" : "are"} in the Legislative Observatory and ${na === 1 ? "has" : "have"} an auto page. ${stWhat}`;
+    const seen = [...new Set(shownAu.flatMap((y) => y.w.map((w) => w.trim())))];
+    const base = new Set(t._match.flatMap((m) => [m, m + "s", m.replace(/s$/, "")]));
+    const also = seen.filter((w) => !base.has(w));
+    const card = (y) => `<button class="st-card st-card--tap" type="button" data-augen="${esc(y.f.id)}">
+        <b class="st-card__t st-card__t--clamp">${stMark(y.f.short, y.w)}</b><small class="st-card__m">${esc(stMeta(y.f))}</small></button>`;
+    const asked = nxRequested().has(fold(q).trim());
+    return `<section class="st-sec" aria-labelledby="stTopH"><h3 id="stTopH" class="st-h"><span>Files on</span> ${esc(t.name)}</h3>
+      <p class="cap st-cap">${cap}</p>
+      ${nc ? `<div class="list">${cur.map(homeFile).join("")}</div>` : ""}
+      ${na ? `${nc ? `<p class="cap st-sub">Auto pages</p>` : ""}<div class="st-list">${shownAu.map(card).join("")}</div>` : ""}
+      ${na > shownAu.length ? `<button class="eu-btn eu-btn--block st-all" type="button" data-stmore="${esc(t.name)}">Show all ${na}</button>` : ""}
+      ${also.length ? `<p class="cap st-also">Also matched: ${also.slice(0, 6).map((w) => `<b>${esc(w)}</b>`).join(", ")}.${na > 1 ? " Adopted files come last." : ""}</p>` : ""}
+      <div class="st-ask"><span>Looking for a file that isn't here?</span><button class="eu-btn eu-btn--sm eu-btn--outline" type="button" data-nxreq="${esc(q)}"${asked ? " disabled" : ""}>${asked ? "Requested" : "Request it"}</button></div></section>`;
+  }
+  function stNothingHtml(q) {
+    const nCur = FILES.filter((f) => !f.auto).length, nAu = (AU.list || []).length, nRp = (NX.docs || []).length, asked = nxRequested().has(fold(q).trim());
+    const n = (x) => x.toLocaleString("en-GB");
+    return `<section class="st-none" aria-labelledby="stNoneH"><h3 id="stNoneH" class="st-h"><span>Nothing in nodo matches</span> “${esc(nxClip(q, 40))}”</h3>
+      <p class="st-none__k">Where nodo looked</p>
+      <ul class="st-none__ul"><li>The ${n(nCur)} files nodo follows</li>${nAu ? `<li>${n(nAu)} files from the Legislative Observatory</li>` : ""}${nRp ? `<li>${n(nRp)} Parliament reports and opinions</li>` : ""}<li>Every MEP, Commissioner, cabinet member and Council delegation</li></ul>
+      <p class="st-none__p">Try the official title, the procedure number (like 2025/0102) or a broader word.</p>
+      <div class="st-none__ask"><p><b>Know the file exists?</b> Tell nodo. The most requested files get a full page first.</p>
+        <button class="eu-btn ${asked ? "" : "eu-btn--brand "}eu-btn--block" type="button" data-nxreq="${esc(q)}"${asked ? " disabled" : ""}>${asked ? "Requested" + icon("check") : `Request “${esc(nxClip(q, 30))}”`}</button></div></section>`;
+  }
+  {
+    const h0 = resultsHtml;
+    resultsHtml = function (r, q) {
+      let h = h0(r, q);
+      const top = (r.nick ? stNickHtml(r.nick) : "") + (r.topic ? stTopicHtml(r.topic, q) : "");
+      if (top) {
+        const i = h.lastIndexOf('<div class="block nx-req">'); if (i >= 0) h = h.slice(0, i);
+        if (/^\s*<p class="empty/.test(h)) h = "";
+        return top + h;
+      }
+      const none = !r.fl.length && !r.com.length && !r.cab.length && !r.ep.length && !r.co.length;
+      if (none && r.rp && !r.rp.length && r.af && !r.af.length && ST.data && String(q).trim().length >= 3 && !r.fixedTo) return stNothingHtml(q);
+      return h;
+    };
+  }
+  document.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-stmore]"); if (!b) return;
+    e.preventDefault(); e.stopImmediatePropagation();
+    ST.more.add(b.dataset.stmore);
+    if (state.view === "home" && state.hq) renderHome();
+  }, true);
+
   initHome(); initEp(); initEc();
   let startView = "home";
   try { const h = (location.hash || "").slice(1); startView = { parliament: "ep", commission: "ec", council: "co", calendar: "cal", agenda: "agenda", saved: "saved", files: "files", news: "news" }[h] || "home"; } catch { /* ignore */ }
@@ -8940,6 +9314,75 @@ html:has(.profile:not([hidden])) { background: var(--ground); }
 .pc__act:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
 .pc + h3 { margin-top: var(--space-8); }
 @media (prefers-reduced-motion: reduce) { .pc__act { transition: none; } .pc__act:active { transform: none; } }
+
+/* ---------- Auto pages (since 30 Oct 2026) ---------- */
+.au-sec { margin-top: var(--space-6); }
+.au-sec h3 { margin-bottom: 4px; }
+.au-sec__cap { margin: 0 0 var(--space-3); color: var(--ink-muted); }
+.au-sec__cap .linkbtn { color: var(--brand); font-weight: 600; }
+.au-list { display: grid; gap: var(--space-2); }
+.au-card { display: flex; align-items: center; gap: var(--space-3); padding: 14px 16px; border-radius: var(--radius-md); background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--hairline); }
+.au-card__tx { flex: 1; min-width: 0; display: grid; gap: 2px; }
+.au-card__tx b { font: 700 17px/21px var(--font-display); letter-spacing: -0.02em; color: var(--ink); }
+.au-card__tx small { font-size: 13px; line-height: 17px; color: var(--ink-muted); }
+.au-card .eu-btn { flex: none; min-height: 44px; }
+.au-tag { display: inline-block; vertical-align: 3px; margin-left: 6px; padding: 2px 8px; border-radius: var(--radius-pill); box-shadow: inset 0 0 0 1px var(--border-control); font: 600 11px/14px var(--font-sans); letter-spacing: 0; color: var(--ink-muted); }
+.au-note { display: flex; align-items: flex-start; gap: 10px; width: 100%; margin: 0 0 var(--space-3); padding: 12px 14px; border: 0; border-radius: var(--radius-md); background: var(--surface-sunken); color: var(--ink-muted); font: 400 13px/18px var(--font-sans); text-align: left; cursor: pointer; }
+.au-note .eu-icon { flex: none; width: 18px; height: 18px; margin-top: 1px; color: var(--ink); }
+.au-note b { color: var(--ink); font-weight: 600; }
+.au-note u { color: var(--brand); font-weight: 600; text-underline-offset: 3px; }
+.au-note:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+.au-gap { margin-top: var(--space-6); padding: var(--space-5); border-radius: var(--radius-lg); background: var(--surface-sunken); }
+.au-gap h3 { margin: 0 0 6px; }
+.au-gap p { margin: 0 0 var(--space-4); font-size: 14px; line-height: 21px; color: var(--ink-muted); }
+.au-sh { padding: 0 var(--space-4) var(--space-6); display: grid; gap: var(--space-4); }
+.au-sh__h { margin: 0; font: 300 26px/30px var(--font-display); letter-spacing: -0.03em; color: var(--ink); }
+.au-sh__h b { font-weight: 700; }
+.au-sh__lead { margin: -8px 0 0; font-size: 14px; line-height: 20px; color: var(--ink-muted); }
+.au-kind { padding: var(--space-4); border-radius: var(--radius-md); background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--hairline); display: grid; gap: 8px; }
+.au-kind--full { background: var(--tint-sky); box-shadow: none; }
+.au-kind__h { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.au-kind__h h3 { margin: 0; font-size: 17px; font-weight: 600; color: var(--ink); }
+.au-kind__h span { font-size: 12px; font-weight: 600; color: var(--ink-muted); }
+.au-kind p { margin: 0; font-size: 14px; line-height: 20px; color: var(--ink); }
+.au-kind .au-kind__fine { font-size: 13px; line-height: 18px; color: var(--ink-muted); }
+.au-sh__acts { display: grid; gap: var(--space-2); }
+.au-sh__note { margin: 0; text-align: center; color: var(--ink-muted); }
+
+/* ---------- Search the way Brussels talks (since 30 Oct 2026) ---------- */
+.st-sec { margin-top: var(--space-4); }
+.st-sec + .st-sec { margin-top: var(--space-8); }
+.st-h { margin: 0 0 6px; font: 700 22px/26px var(--font-display); letter-spacing: -0.02em; color: var(--ink); text-transform: none; }
+.st-h span { font-weight: 400; }
+.st-cap { margin: 0 0 var(--space-3); color: var(--ink-muted); }
+.st-cap .linkbtn, .st-sec .linkbtn { color: var(--brand); font-weight: 600; }
+.st-sub { margin: var(--space-4) 0 var(--space-2); color: var(--ink-muted); font-weight: 600; }
+.st-list { display: grid; gap: var(--space-2); }
+.st-card { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; width: 100%; padding: 14px 16px; border: 0; border-radius: var(--radius-md); background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--hairline); color: var(--ink); font: inherit; text-align: left; }
+.st-card--tap { cursor: pointer; }
+.st-card--tap:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+.st-chip { padding: 4px 10px; border-radius: var(--radius-pill); background: var(--tint-sky); color: var(--ink); font: 600 12px/16px var(--font-sans); }
+.st-card__t { font: 700 17px/21px var(--font-display); letter-spacing: -0.02em; }
+.st-card__t--clamp { font: 600 15px/20px var(--font-sans); letter-spacing: 0; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.st-card__m { font-size: 13px; line-height: 17px; color: var(--ink-muted); }
+.st-card__acts { display: flex; align-items: center; gap: var(--space-3); margin-top: 4px; }
+.st-card__acts .eu-btn { min-height: 44px; }
+.st-full { font-size: 12px; font-weight: 600; color: var(--ink-muted); }
+.st-mark { background: var(--tint-butter); color: inherit; border-radius: 3px; padding: 0 1px; font-weight: 700; }
+.st-all { margin-top: var(--space-2); }
+.st-also { margin: var(--space-3) 0 0; color: var(--ink-muted); }
+.st-also b { color: var(--ink); font-weight: 600; }
+.st-ask { display: flex; align-items: center; gap: var(--space-3); margin-top: var(--space-4); padding: 12px 14px; border-radius: var(--radius-md); background: var(--surface-sunken); }
+.st-ask span { flex: 1; font-size: 13px; line-height: 18px; color: var(--ink); }
+.st-ask .eu-btn { flex: none; min-height: 44px; }
+.st-none { margin-top: var(--space-4); padding: var(--space-5); border-radius: var(--radius-lg); background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--hairline); display: grid; gap: var(--space-3); }
+.st-none .st-h { margin: 0; }
+.st-none__k { margin: 0; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-muted); }
+.st-none__ul { margin: -4px 0 0; padding-left: 18px; font-size: 14px; line-height: 22px; color: var(--ink); }
+.st-none__p { margin: 0; font-size: 14px; line-height: 20px; color: var(--ink); }
+.st-none__ask { display: grid; gap: var(--space-3); padding-top: var(--space-3); border-top: 1px solid var(--hairline); }
+.st-none__ask p { margin: 0; font-size: 14px; line-height: 20px; color: var(--ink-muted); }
+.st-none__ask b { color: var(--ink); font-weight: 600; }
 </style>
 <div id="nxBadge" aria-hidden="true">PREVIEW</div>
 </body></html>

@@ -197,6 +197,50 @@ if (fs.existsSync(path.join(V1, "press.json"))) {
   }
 }
 
+/* Auto pages: files nodo does not follow, read from the Legislative Observatory (optional file, built by tools/files/auto_pages.py) */
+if (fs.existsSync(path.join(V1, "auto-files.json"))) {
+  const au = load("auto-files.json");
+  if (au) {
+    const curated = (files && files.files) || [];
+    const cIds = new Set(curated.map((f) => f.id));
+    const cProcs = new Set(curated.flatMap((f) => [f.procedure, ...(f.procedures || []), ...(f.parts || []).map((x) => x.procedure)]).filter(Boolean));
+    const STAGES = new Set(["pre-proposal", "positions-in-preparation", "council-negotiating-box", "trilogue", "in-force"]);
+    const ROLES = new Set(["rapporteur", "shadow", "opinion-rapporteur"]);
+    const seen = new Set();
+    if (!ISO.test(String(au.asOf))) bad(`auto-files.json: asOf "${au.asOf}" is not a date`);
+    for (const f of au.files || []) {
+      const at = `auto-files.json ${f.id}`;
+      if (!/^auto-\d{4}-\d{4}[a-z]?-cod$/.test(f.id || "") || seen.has(f.id)) bad(`${at}: missing, malformed or duplicate id`);
+      seen.add(f.id);
+      if (f.auto !== true) bad(`${at}: auto is not true`);
+      if (cIds.has(f.id) || cProcs.has(f.procedure)) bad(`${at}: ${f.procedure} is a curated file`);
+      if (!/^\d{4}\/\d{4}[A-Z]?\(COD\)$/.test(f.procedure || "")) bad(`${at}: bad procedure ${f.procedure}`);
+      if (!f.short || !STAGES.has(f.stage)) bad(`${at}: no title or unknown stage ${f.stage}`);
+      for (const m of f.meps || []) if (!mepIds.has(m.id) || !ROLES.has(m.role)) bad(`${at}: MEP ${m.id} (${m.role}) not in meps.json or unknown role`);
+      for (const x of [...(f.next || []), ...(f.events || [])]) if (!ISO.test(x.date) || !x.what) bad(`${at}: bad date entry ${JSON.stringify(x).slice(0, 80)}`);
+      if (!(f.sources || []).some((x) => /^https:\/\/oeil\.europarl\.europa\.eu\//.test(x.url))) bad(`${at}: no Observatory source`);
+    }
+    const prev = loadBase("auto-files.json");
+    if (prev && (prev.files || []).length && (au.files || []).length < prev.files.length * 0.7) bad(`auto-files.json: pages dropped from ${prev.files.length} to ${(au.files || []).length} in one change`);
+  }
+}
+
+/* Search terms: hand-kept nicknames and topic words (optional file) */
+if (fs.existsSync(path.join(V1, "search-terms.json"))) {
+  const st = load("search-terms.json");
+  if (st) {
+    const au = fs.existsSync(path.join(V1, "auto-files.json")) ? (load("auto-files.json") || {}).files || [] : [];
+    const known = new Set([...((files && files.files) || []).flatMap((f) => [f.procedure, ...(f.procedures || []), ...(f.parts || []).map((x) => x.procedure)]), ...au.map((f) => f.procedure)].filter(Boolean));
+    const aka = new Map();
+    for (const n of st.nicknames || []) {
+      if (!n.name || !(n.procedures || []).length) bad(`search-terms.json: nickname "${n.name || "?"}" has no name or no procedure`);
+      for (const r of n.procedures || []) if (!known.has(r)) bad(`search-terms.json: nickname "${n.name}" points at ${r}, which is neither a priority file nor an auto page`);
+      for (const a of n.aka || []) { const k = String(a).toLowerCase(); if (aka.has(k)) bad(`search-terms.json: "${a}" is a name of both "${aka.get(k)}" and "${n.name}"`); aka.set(k, n.name); }
+    }
+    for (const t of st.topics || []) if (!t.name || !(t.match || []).length || !(t.words || []).length) bad(`search-terms.json: topic "${t.name || "?"}" needs match and words`);
+  }
+}
+
 /* Source list: every files.json citation and every press feed must be on it (press items are checked above via checkItem) */
 {
   const reg = load("sources.json");
