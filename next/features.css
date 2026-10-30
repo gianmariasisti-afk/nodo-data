@@ -1359,3 +1359,39 @@ html:has(.profile:not([hidden])) { background: var(--ground); }
 .td-end__mark .wordmark svg { height: 24px; }
 .td-end__mark .wm-node { fill: var(--ed-wm-node, var(--node)); }
 .td-end__mark span:last-child { font-size: 12px; line-height: 16px; font-weight: 600; color: var(--ink-muted); }
+
+/* ---------- More colour (30 Oct 2026) ----------
+   The secondary colours carry meaning, so they now show up wherever that meaning applies.
+   1. Parliament's sky moves from the brand blue to an azure, so Parliament no longer reads as nodo's own blue.
+      Tints gain a little saturation (rose keeps its tint for contrast).
+   2. Each stage of the track from idea to law takes the colour of the institution that holds the file at that
+      stage: pre-proposal Commission (apricot), positions Parliament (sky), negotiating box Council (mint),
+      trilogue rose (as in Calendar), in force the node gold. Home's track and the Files meter use it.
+   3. Files: each policy area panel sits on its own tint. Your files and Other files keep the neutral panel. */
+:root {
+  --tint-sky: #D3ECF7; --accent-sky: #0A6E9E;
+  --tint-mint: #CFEFDF; --tint-butter: #FCEBA0; --tint-apricot: #FCD6B8;
+  --stage-1: var(--accent-apricot); --stage-2: var(--accent-sky); --stage-3: var(--accent-mint);
+  --stage-4: var(--accent-rose); --stage-5: var(--node);
+  --area-mix: 100%;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --tint-sky: #173F57; --accent-sky: #6CC6F0; --area-mix: 45%;
+} }
+:root[data-theme="dark"] { --tint-sky: #173F57; --accent-sky: #6CC6F0; --area-mix: 45%; }
+
+.ed-track i:nth-child(1).done, .ed-track i:nth-child(1).now, .fr__m i:nth-child(1).on { background: var(--stage-1); }
+.ed-track i:nth-child(2).done, .ed-track i:nth-child(2).now, .fr__m i:nth-child(2).on { background: var(--stage-2); }
+.ed-track i:nth-child(3).done, .ed-track i:nth-child(3).now, .fr__m i:nth-child(3).on { background: var(--stage-3); }
+.ed-track i:nth-child(4).done, .ed-track i:nth-child(4).now, .fr__m i:nth-child(4).on { background: var(--stage-4); }
+.ed-track i:nth-child(5).done, .ed-track i:nth-child(5).now, .fr__m i:nth-child(5).on { background: var(--stage-5); }
+/* Done stages step back so the current one leads. */
+.ed-track i.done, .fr__m i.on:has(+ i.on) { opacity: .55; }
+
+.fr-sec[aria-labelledby="frH-digital"]  { --area-tint: var(--tint-sky); }
+.fr-sec[aria-labelledby="frH-industry"] { --area-tint: var(--tint-apricot); }
+.fr-sec[aria-labelledby="frH-energy"]   { --area-tint: var(--tint-mint); }
+.fr-sec[aria-labelledby="frH-health"]   { --area-tint: var(--tint-rose); }
+.fr-sec[aria-labelledby="frH-budget"]   { --area-tint: var(--tint-butter); }
+.fr-sec[aria-labelledby^="frH-"] { --area-bg: color-mix(in srgb, var(--area-tint, var(--surface-sunken)) var(--area-mix), var(--surface-sunken)); background: var(--area-bg); }
+.fr-sec .fr__av .fr-ava { border-color: var(--area-bg, var(--surface-sunken)); }
