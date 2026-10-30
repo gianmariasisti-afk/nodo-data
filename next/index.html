@@ -5754,29 +5754,16 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     if (!FILES.length) return;
     const fol = followedFiles(), areas = FL_AREAS(), known = new Set(areas.map((a) => a.id));
     $("filesCount").hidden = true;
-    const q = NX.dq || "";
+    /* 30 Oct 2026: no search field and no follow hint above the list. The intro line, then the files. Search stays in
+       the app's global search. */
     $("filesBody").innerHTML = `<p class="fl-intro">${FILES.length} EU laws in the making. Open one to see where it stands and who shapes it.</p>
-      <label class="eu-search fr-q">${icon("search")}<input id="nxdq" type="search" placeholder="Find a file, a rapporteur or a committee" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Find a file" value="${esc(q)}"></label>
       <div id="flPanel" class="fl-panel">
-        ${fol.length ? frSec("mine", "Your files", fol) : `<p class="cap fl-lead">Tap the star to follow a file. Your files then come first here, in Today and in Calendar.</p>`}
+        ${frSec("mine", "Your files", fol)}
         ${areas.map((a) => frSec(a.id, a.name, FILES.filter((f) => f.area === a.id))).join("")}
         ${frSec("other", "Other files", FILES.filter((f) => !known.has(f.area)))}
-        <p class="cap fr-none" id="frNone" hidden>No file in nodo matches. Parliament's reports and opinions are below.</p>
       </div>
-      <section class="fr-any" id="frAny" aria-labelledby="frAnyH"${q.trim() ? "" : " hidden"}><h2 id="frAnyH" class="fr-any__h">In Parliament's reports and opinions</h2><div id="nxdres" aria-live="polite">${nxAnyHtml(q)}</div></section>
       <p class="foot">Dates for these files are in Calendar. Names come from the Parliament's open data and its Legislative Observatory procedure files.</p>`;
-    frFilter(q);
   };
-  function frFilter(q) {
-    const t = terms(q), body = $("filesBody"); if (!body) return;
-    let shown = 0;
-    body.querySelectorAll(".fr").forEach((r) => { const on = !t.length || t.every((x) => r.dataset.frhay.includes(x)); r.hidden = !on; if (on && !r.closest('[aria-labelledby="frH-mine"]')) shown++; });
-    body.querySelectorAll(".fr-sec").forEach((s) => { s.hidden = ![...s.querySelectorAll(".fr")].some((r) => !r.hidden); });
-    const lead = body.querySelector(".fl-lead"); if (lead) lead.hidden = !!t.length;
-    if ($("frNone")) $("frNone").hidden = !t.length || shown > 0;
-    if ($("frAny")) $("frAny").hidden = !t.length;
-  }
-  document.addEventListener("input", (e) => { if (e.target.id === "nxdq" && e.target.closest("#filesBody")) frFilter(e.target.value); });
 
   /* ---------- 8. Parliament: the list first (since 20 Oct 2026) ---------- */
   /* The first MEP sits above the fold. One title row (back to People, "Parliament ▾" to switch institution, the count);
