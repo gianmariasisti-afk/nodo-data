@@ -6650,16 +6650,6 @@
       "pushOn": "2026-11-23"
     },
     {
-      "id": "co2-cars:next:2026-10-28:085e6e",
-      "fileId": "co2-cars",
-      "date": "2026-10-28",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Council environment working party: discussion of the proposal",
-      "push": true,
-      "pushOn": "2026-10-28"
-    },
-    {
       "id": "co2-cars:ep:opinions:2026-10-22",
       "fileId": "co2-cars",
       "date": "2026-10-22",
