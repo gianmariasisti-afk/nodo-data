@@ -1395,3 +1395,14 @@ html:has(.profile:not([hidden])) { background: var(--ground); }
 .fr-sec[aria-labelledby="frH-budget"]   { --area-tint: var(--tint-butter); }
 .fr-sec[aria-labelledby^="frH-"] { --area-bg: color-mix(in srgb, var(--area-tint, var(--surface-sunken)) var(--area-mix), var(--surface-sunken)); background: var(--area-bg); }
 .fr-sec .fr__av .fr-ava { border-color: var(--area-bg, var(--surface-sunken)); }
+
+/* More colour, step 2 (30 Oct 2026).
+   Coming up: a week card takes Parliament's sky by the weight of its week. Plenary weeks (Strasbourg or Brussels)
+   take the full tint, committee weeks half of it; group, constituency and quiet weeks stay neutral.
+   File page: the count tiles take their institution's tint (MEPs sky, Commissioners and cabinet staff apricot); the
+   pressed tile is outlined in that institution's accent. */
+.ed-wk[data-wk="SXB"], .ed-wk[data-wk="BRU"] { background: var(--tint-sky); }
+.ed-wk[data-wk="C"] { background: color-mix(in srgb, var(--tint-sky) 50%, var(--surface-sunken)); }
+.stats button[data-fstat="ep"] { background: var(--tint-sky); --stat-ring: var(--accent-sky); }
+.stats button[data-fstat="ec"], .stats button[data-fstat="cab"] { background: var(--tint-apricot); --stat-ring: var(--accent-apricot); }
+.stats button[data-fstat][aria-pressed="true"] { box-shadow: inset 0 0 0 2px var(--stat-ring); }

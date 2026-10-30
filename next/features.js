@@ -213,7 +213,7 @@
       const kind = ph ? ph.replace(/^an? /, "").replace(/^./, (c) => c.toUpperCase()) : "";
       const count = n ? [`${n} ${n === 1 ? "item" : "items"}`, nf ? `${nf} ${nf === 1 ? "file" : "files"}` : ""].filter(Boolean).join(" · ") : "Nothing dated yet";
       const title = `Week of ${w.mon.getDate()} ${fmtD(w.mon, { month: "short" })}`, more = n - 3;
-      return `<section class="ed-wk" aria-label="${esc(`${title}, ${count}`)}">
+      return `<section class="ed-wk" data-wk="${esc(wk.place || wk.kind || "_")}" aria-label="${esc(`${title}, ${count}`)}">
         <div class="ed-wk__h"><span class="ed-wk__t">${esc(title)}</span><span class="ed-wk__c">${esc(kind || "")}</span><span class="ed-wk__c">${esc(count)}</span></div>
         ${n ? w.list.slice(0, 3).map(it).join("") : `<p class="ed-wk__none">${sc.mine ? "No dated step on your files this week." : "No dated step on nodo's files this week."}</p>`}
         ${more > 0 ? `<button class="ed-wk__more" type="button" data-view="cal">${more} more in the calendar</button>` : ""}</section>`;
