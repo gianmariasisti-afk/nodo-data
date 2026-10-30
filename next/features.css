@@ -1186,3 +1186,14 @@ html:has(.profile:not([hidden])) { background: var(--ground); }
 .cl-past .cl-erow { margin-bottom: var(--space-3); }
 .cl-past .cl-ear { margin-top: var(--space-2); }
 .cl-lead--end { margin-top: var(--space-4); }
+
+/* Files, one panel per policy area (30 Oct 2026): each group sits on a slightly lighter tone of the ground, with its
+   heading inside, so where one area ends and the next starts reads at a glance. Files inside a panel are split by a
+   hairline. The star and the avatar rings take the page tone so they still stand off the panel. */
+.fr-sec { margin: 0 0 var(--space-4); padding: 14px 0 4px; border-radius: var(--radius-lg, 20px); background: var(--surface-sunken); }
+.fr-sec__h { margin: 0 16px 2px; }
+.fr-list { gap: 0; }
+.fr { background: none; border-radius: 0; }
+.fr + .fr { box-shadow: inset 0 1px 0 var(--hairline); }
+.fr-sec .fr > .star { background: var(--surface); }
+.fr-sec .fr__av .fr-ava { border-color: var(--surface-sunken); }
