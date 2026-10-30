@@ -5,6 +5,7 @@ The parsed minutes are merged into data-cache/minutes-raw.json (one record per P
 rebuilt from the whole cache: for each nodo file, the committee meetings whose agenda items carry one of the file's
 procedure numbers (or name the file in the item title), the MEPs who spoke on those items (matched to v1/meps.json by
 name; whoever presided that meeting is left out) and the Commission officials who spoke or attended.
+Each speaker carries `found`, the day nodo first saw them on that file (kept from the previous build).
 Roles are not decided here: the app compares the speakers with the file's rapporteurs and shadows when it shows them.
 
 Usage: python3 tools/minutes/pull.py --body /tmp/minutes.json [--dry-run]
@@ -93,7 +94,11 @@ def check(col, today):
         raise Rejected("fewer than half of the minutes have agenda items: the parser no longer fits the documents")
 
 
-def build(cache, files, meps, today):
+def build(cache, files, meps, today, found_before=None):
+    """found_before: {(file id, MEP id): date} from the previous v1/minutes.json, so each speaker keeps the day nodo
+    first saw them on that file (`found`). Today shows new voices by that date, not by the meeting date, because
+    minutes come out weeks after the meeting."""
+    found_before = found_before or {}
     find = mep_index(meps)
     keys = file_keys(files)
     out = {fid: {"meetings": [], "speakers": {}, "officials": {}} for fid in keys}
@@ -153,6 +158,8 @@ def build(cache, files, meps, today):
     for fid, o in out.items():
         if not o["meetings"]:
             continue
+        for s in o["speakers"].values():
+            s["found"] = found_before.get((fid, s["id"])) or today.isoformat()
         sp = sorted(o["speakers"].values(), key=lambda s: s["id"])
         sp.sort(key=lambda s: max(s["dates"]), reverse=True)  # most recent first ...
         sp.sort(key=lambda s: s["n"], reverse=True)  # ... within the same number of times
@@ -197,8 +204,9 @@ def main(argv):
     cache["listed"] = col.get("listed", [])
     files = load(os.path.join(ROOT, "v1", "files.json"))["files"]
     meps = load(os.path.join(ROOT, "v1", "meps.json"))["meps"]
-    doc, unmatched = build(cache, files, meps, today)
     old = load(OUT, {})
+    found_before = {(fid, sp["id"]): sp["found"] for fid, o in (old.get("files") or {}).items() for sp in o.get("speakers", []) if sp.get("found")}
+    doc, unmatched = build(cache, files, meps, today, found_before)
     changed = json.dumps(cache["pvs"], sort_keys=True, ensure_ascii=False) != before or json.dumps(old.get("files"), sort_keys=True) != json.dumps(doc["files"], sort_keys=True)
     summary = {"changed": changed, "new": [p["id"] for p in col["pvs"]], "errors": col.get("errors", []), "more": col.get("more", False),
                "minutes": doc["minutes"], "through": doc["through"],

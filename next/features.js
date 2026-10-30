@@ -381,9 +381,11 @@
   renderGreeting = function () { const g = $("greet"); if (g) g.innerHTML = tdGreeting(); };
 
   /* What happened on the files since a date. */
-  function tdSinceItems(files, since) {
-    const ids = new Set(files.map((f) => f.id)), s = isoD(since), t = isoD(new Date()), out = [], seen = new Set();
-    UPD.feed.filter((e) => ids.has(e.fileId) && e.kind !== "scheduled" && e.date && e.date >= s && e.date <= t && !peHiddenSkip(e))
+  /* opts.today (30 Oct 2026): Today leaves committee-minutes items to "Also spoke in committee" at the end of the page,
+     which dates them by when nodo found them; Calendar, Earlier keeps them, dated by the meeting. */
+  function tdSinceItems(files, since, opts) {
+    const ids = new Set(files.map((f) => f.id)), s = isoD(since), t = isoD(new Date()), out = [], seen = new Set(), today = !!(opts && opts.today);
+    UPD.feed.filter((e) => ids.has(e.fileId) && e.kind !== "scheduled" && e.date && e.date >= s && e.date <= t && !peHiddenSkip(e) && !(today && e.minutes))
       .sort((a, b) => b.date.localeCompare(a.date))
       .forEach((e) => {
         const k = e.fileId + "|" + (e.personId || "") + "|" + e.title; if (seen.has(k)) return; seen.add(k);
@@ -399,7 +401,7 @@
   }
   const tdList = (l) => l.length < 2 ? l.join("") : l.slice(0, -1).join(", ") + " and " + l[l.length - 1];
   function tdSinceHtml(files) {
-    const since = tdSinceDate(), items = tdSinceItems(files, since);
+    const since = tdSinceDate(), items = tdSinceItems(files, since, { today: true });
     const d = (iso) => fmtD(fromIso(iso), { weekday: "short", day: "numeric", month: "short" });
     const it = (x) => `<button class="td-row" type="button" data-file="${esc(x.f.id)}" data-filetab="next">
         <span class="td-row__top"><span class="td-row__f">${esc(edTag(x.f))}</span><span class="td-row__d">${esc(d(x.date))}</span></span>
@@ -512,6 +514,65 @@
       <div class="td-pp" id="tdPP" aria-roledescription="carousel" aria-label="Parliament, Commission and Council">${PP.map(card).join("")}</div>
       <div class="td-pp__dots">${PP.map((p, i) => `<button type="button" class="td-pp__dot" data-tdpp="${i}" aria-label="Show ${esc(p.t)}" aria-current="${i === 0}"></button>`).join("")}</div>`;
   }
+  /* The end of Today (30 Oct 2026). "Also spoke in committee": MEPs with no role on a followed file whom nodo found in
+     committee minutes since your last look, at most two before "Show N more", each once even when they spoke on several
+     of your files. "New" goes by `found` in v1/minutes.json (the day nodo first saw them on that file), not by the
+     meeting, because minutes come out weeks later; the block is gone when nothing is new. Then the end-cap: "You're up
+     to date" (when you follow files), "Following a file nodo doesn't? Generate a page", which opens search, and the
+     wordmark. */
+  let tdVoOpen = false;
+  function tdMin() { try { return MIN; } catch (e) { return null; } }
+  function tdVoicesItems(files) {
+    const M = tdMin(); if (!M || !M.files) return [];
+    const s = isoD(tdSinceDate()), by = new Map();
+    files.forEach((f) => mnVoices(f).forEach((v) => {
+      if (!v.found || v.found < s) return;
+      const x = by.get(v.key) || { key: v.key, found: v.found, n: 0, hits: [] };
+      x.hits.push({ f, v }); x.n += v.n; if (v.found > x.found) x.found = v.found;
+      by.set(v.key, x);
+    }));
+    return [...by.values()].sort((a, b) => b.found.localeCompare(a.found) || b.n - a.n || a.key.localeCompare(b.key));
+  }
+  /* Committees by acronym, joint ones joined ("INTA-ITRE-IMCO"), from the meetings the speaker's minutes cover. */
+  function tdVoCmte(f, v) {
+    const M = tdMin(), o = M && M.files && M.files[f.id]; if (!o) return "";
+    const nm = (n) => String(n || "").toLowerCase().replace(/^(committee|subcommittee) on (the )?/, "");
+    const ab = new Map(Object.entries(CMTE_NAMES).map(([k, n]) => [nm(n), k]));
+    const cm = (m) => { const l = (m.committees || []).map((n) => ab.get(nm(n))); return l.length && l.every(Boolean) ? l.join("-") : m.code; };
+    const xs = [...new Set(o.meetings.filter((m) => (v.pvs || []).includes(m.pv)).map(cm))];
+    return xs.join(", ");
+  }
+  function tdVoicesHtml(files) {
+    const xs = tdVoicesItems(files); if (!xs.length) return "";
+    const shown = tdVoOpen ? xs : xs.slice(0, 2), more = xs.length - 2;
+    const rowOf = (x) => { const o = BYKEY.get(x.key).o;
+      const meta = x.hits.length === 1 ? [mnSpoke(x.hits[0].v), tdVoCmte(x.hits[0].f, x.hits[0].v)].filter(Boolean).join(" · ") : `Spoke on ${x.hits.length} of your files`;
+      return row({ attrs: tap(`data-open="${esc(x.key)}"`), lead: avaOf(x.key), name: esc(o.name), wrap: true, meta: esc(meta),
+        extra: `<span class="eu-row__tags">${gtag(o.group)}<span class="td-vo__c">${esc(countryName(o.country))}</span></span><span class="td-vo__f">${esc(x.hits.map((h) => edTag(h.f)).join(" · "))}</span>`,
+        tail: starBtn(x.key, o.name) }); };
+    return `<div class="td-h"><h2 class="td-t" id="tdVoicesH">Also spoke in committee</h2><span class="td-h__s">${xs.length} new</span></div>
+      <p class="td-cap">MEPs with no role on your files who took the floor when a committee discussed them.</p>
+      <div class="list td-ppl">${shown.map(rowOf).join("")}</div>
+      ${more > 0 ? `<button class="td-link" type="button" data-tdvomore aria-expanded="${tdVoOpen}">${tdVoOpen ? "Show fewer" : `Show ${more} more`}</button>` : ""}
+      <p class="td-vo__foot">From committee minutes, which come out a few weeks after each meeting. They name who spoke, not what they said.</p>`;
+  }
+  function tdEndHtml(following) {
+    return `<span class="td-end__rule" aria-hidden="true"></span>
+      ${following ? `<p class="td-end__t">You're up to date.</p>` : ""}
+      <p class="td-end__q">Following a file nodo doesn't?</p>
+      <button class="td-link td-end__go" type="button" data-tdgen>Generate a page${icon("arrow")}</button>
+      <div class="td-end__mark">${WORDMARK}<span>Untangle the EU</span></div>`;
+  }
+  document.addEventListener("click", (e) => {
+    if (e.target.closest("[data-tdvomore]")) { tdVoOpen = !tdVoOpen; const el = $("tdVoices"); el.innerHTML = tdVoicesHtml(followedFiles()); const b = el.querySelector("[data-tdvomore]"); if (b) b.focus({ preventScroll: true }); return; }
+    if (!e.target.closest("[data-tdgen]")) return;
+    const q = $("hq"); if (!q) return;
+    Track.log("today_generate", { section: "today", item: "" });
+    window.scrollTo({ top: 0, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+    const ph = q.placeholder; q.placeholder = "The file's name or procedure number";
+    q.addEventListener("blur", () => { if (!q.value) q.placeholder = ph; }, { once: true });
+    q.focus({ preventScroll: true });
+  });
   function tdPPSync() {
     const box = $("tdPP"); if (!box) return;
     const i = Math.round(box.scrollLeft / (box.firstElementChild ? box.firstElementChild.offsetWidth + 12 : 1));
@@ -539,6 +600,8 @@
     /* Rebuilt only when the counts change (data loads after start-up), so a re-render keeps the card you flipped to. */
     const ppKey = PP.map((p) => ppMeta(p.meta)).join("|");
     if ($("tdPeople").dataset.k !== ppKey) { $("tdPeople").dataset.k = ppKey; set("tdPeople", tdPeopleHtml()); }
+    set("tdVoices", mine.length ? tdVoicesHtml(mine) : "");
+    set("tdEnd", tdEndHtml(mine.length));
     if ($("srcNote")) { $("srcNote").textContent = ""; $("srcNote").hidden = true; }
   }
   /* The data-check line, shown at the foot of Calendar instead of Home (27 Oct 2026). */
@@ -573,7 +636,9 @@
       <section id="tdPick" class="td-card" aria-labelledby="tdPickH"></section>
       <section id="tdRoom" class="td-card ed-room" aria-labelledby="tdRoomH"></section>
       <section id="tdMine" class="td-sec" aria-labelledby="tdMineH"></section>
-      <section id="tdPeople" class="td-sec td-people" aria-labelledby="tdPeopleH"></section></div>`);
+      <section id="tdPeople" class="td-sec td-people" aria-labelledby="tdPeopleH"></section>
+      <section id="tdVoices" class="td-card td-vo" aria-labelledby="tdVoicesH"></section>
+      <footer id="tdEnd" class="td-end"></footer></div>`);
     $("hq").placeholder = "A name, a file, a committee, a date";
     /* Gone from Today: cabinet of the day, country desk, seats by group, the institution tiles, Saved people and
        Recently viewed (Saved people opens from the profile; the data stays in their views). */
@@ -809,7 +874,7 @@
       nxSync();
       /* Hints, one per row at most (23 Oct 2026): what is new on your files since your last look, how many files you follow,
          and People opens on its sections only when you are in one of them. */
-      const fol = followedFiles(), nNew = fol.length && UPD.status === "done" ? tdSinceItems(fol, tdSinceDate()).length : 0;
+      const fol = followedFiles(), nNew = fol.length && UPD.status === "done" ? tdSinceItems(fol, tdSinceDate(), { today: true }).length + tdVoicesItems(fol).length : 0;
       $("nxNew").hidden = !nNew; $("nxNew").textContent = nNew ? `${nNew} new` : "";
       $("nxFol").textContent = fol.length ? `${fol.length} followed` : "";
       $("nxCapEp").textContent = `${MEPS.length} MEPs`;
@@ -2151,6 +2216,7 @@
   fetchJson(DATA_BASE + "minutes.json").then((j) => {
     MIN = j;
     const f = curFile(); if (f) openFile(f.id, true);
+    if (state.view === "home" && !state.hq) edRender();
     const wait = setInterval(() => { if (UPD.status === "done" || UPD.status === "failed") { clearInterval(wait); mnMerge(); } }, 1000);
     setTimeout(() => clearInterval(wait), 60000);
   }).catch(() => { /* no minutes yet: every view works without them */ });
