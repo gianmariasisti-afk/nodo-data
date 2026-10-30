@@ -225,6 +225,22 @@ if (fs.existsSync(path.join(V1, "auto-files.json"))) {
   }
 }
 
+/* Search terms: hand-kept nicknames and topic words (optional file) */
+if (fs.existsSync(path.join(V1, "search-terms.json"))) {
+  const st = load("search-terms.json");
+  if (st) {
+    const au = fs.existsSync(path.join(V1, "auto-files.json")) ? (load("auto-files.json") || {}).files || [] : [];
+    const known = new Set([...((files && files.files) || []).flatMap((f) => [f.procedure, ...(f.procedures || []), ...(f.parts || []).map((x) => x.procedure)]), ...au.map((f) => f.procedure)].filter(Boolean));
+    const aka = new Map();
+    for (const n of st.nicknames || []) {
+      if (!n.name || !(n.procedures || []).length) bad(`search-terms.json: nickname "${n.name || "?"}" has no name or no procedure`);
+      for (const r of n.procedures || []) if (!known.has(r)) bad(`search-terms.json: nickname "${n.name}" points at ${r}, which is neither a priority file nor an auto page`);
+      for (const a of n.aka || []) { const k = String(a).toLowerCase(); if (aka.has(k)) bad(`search-terms.json: "${a}" is a name of both "${aka.get(k)}" and "${n.name}"`); aka.set(k, n.name); }
+    }
+    for (const t of st.topics || []) if (!t.name || !(t.match || []).length || !(t.words || []).length) bad(`search-terms.json: topic "${t.name || "?"}" needs match and words`);
+  }
+}
+
 /* Source list: every files.json citation and every press feed must be on it (press items are checked above via checkItem) */
 {
   const reg = load("sources.json");

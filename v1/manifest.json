@@ -73,6 +73,12 @@
    "description": "Auto pages: codecision files nodo does not follow, read weekly from the Legislative Observatory (shape of files.json entries, auto: true)",
    "bytes": 609279,
    "sha256": "2e2b684a1dde98aa219c591a303fcfa3a37837aae6fe1dec93b52a2bb2300b39"
+  },
+  "searchTerms": {
+   "path": "search-terms.json",
+   "description": "Search terms: hand-kept nicknames of files (pointing at procedures) and topic words",
+   "bytes": 12110,
+   "sha256": "b87cd25ea7560391c5857402ca5c076256d2eb593afea59f570f991cdd12ef7f"
   }
  }
 }

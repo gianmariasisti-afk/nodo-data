@@ -3161,3 +3161,153 @@
       }
     };
   }
+
+  /* ---------- Search the way Brussels talks (since 30 Oct 2026) ----------
+     v1/search-terms.json is hand-kept: nicknames (the names Brussels uses, each pointing at procedures checked against
+     their Observatory titles) and topics (a word people search, with the words official titles use for it). Loaded with
+     the auto pages, on the first search.
+     - A nickname ("pharma package") answers first: one line says it is the usual name for these files and that their
+       official titles follow; each card carries "<name> · known officially as", the official title, procedure, stage and
+       rapporteur, and opens the file (Generate page for an auto page).
+     - A topic ("plastics", typed alone or as "files on plastics") answers with "Files on plastics": one line saying how
+       many files nodo follows on it and how many more have an auto page, the followed files first, then auto pages with
+       the matched words marked, adopted files last, eight before "Show all", the other words that matched, and "Request it".
+     - Nothing anywhere: "Nothing in nodo matches", where nodo looked (with counts), what to try, and one action: request it.
+     Files shown under a nickname or topic are not repeated in the sections below. The fuzzy fix of a typo does not run
+     when a nickname or topic matched. Searches answered only by these sections or by auto pages no longer count as
+     "found nothing" in the Monday recap. */
+  const ST = { data: null, loading: null, more: new Set(), last: { q: "", n: 0 } };
+  const ST_STOP = new Set(["files", "file", "on", "about", "laws", "law", "eu", "the", "policy", "legislation", "rules", "dossiers", "dossier"]);
+  function stLoad() {
+    if (ST.data) return Promise.resolve(ST.data);
+    if (ST.loading) return ST.loading;
+    ST.loading = fetchJson(DATA_BASE + "search-terms.json").then((d) => {
+      (d.nicknames || []).forEach((n) => { n._aka = [n.name, ...(n.aka || [])].map(words).filter((w) => w.trim().length >= 3); });
+      (d.topics || []).forEach((t) => { t._match = (t.match || []).map((m) => fold(m).replace(/[^a-z0-9]+/g, " ").trim()); t._words = (t.words || []).map((w) => words(w).slice(0, -1)).filter((w) => w.trim()); });
+      ST.data = d;
+      if (state.view === "home" && state.hq) renderHome();
+      return d;
+    }).catch(() => { ST.loading = null; return null; });
+    return ST.loading;
+  }
+  const stProcs = (f) => [f.procedure, ...(f.procedures || []), ...((f.parts || []).map((x) => x.procedure))].filter(Boolean);
+  function stFileOf(ref) {
+    const c = FILES.find((f) => !f.auto && stProcs(f).includes(ref)); if (c) return c;
+    return (AU.list || []).find((f) => f.procedure === ref) || null;
+  }
+  function stNick(q) {
+    if (!ST.data || !AU.list) return null;
+    const qw = words(q); let best = null, len = 0;
+    for (const n of ST.data.nicknames || []) for (const a of n._aka) if (qw.includes(a) && a.length > len) { best = n; len = a.length; }
+    if (!best) return null;
+    const files = [...new Set(best.procedures.map(stFileOf).filter(Boolean))];
+    return files.length ? { n: best, files } : null;
+  }
+  const stQueryCore = (q) => fold(q).replace(/[^a-z0-9]+/g, " ").trim().split(" ").filter((w) => w && !ST_STOP.has(w)).join(" ");
+  function stTopic(q) {
+    if (!ST.data || !AU.list) return null;
+    const core = stQueryCore(q); if (!core) return null;
+    const t = (ST.data.topics || []).find((x) => x._match.some((m) => m === core || m + "s" === core || m === core + "s"));
+    if (!t) return null;
+    const hit = (f) => t._words.filter((w) => words(f.short + " " + (f.title || "")).includes(w));
+    const cur = FILES.filter((f) => !f.auto && ((t.area && f.area === t.area) || hit(f).length));
+    const au = (AU.list || []).map((f) => ({ f, w: hit(f) })).filter((x) => x.w.length)
+      .sort((a, b) => ((a.f.stage === "in-force") - (b.f.stage === "in-force")) || (b.w.length - a.w.length) || (a.f.procedure < b.f.procedure ? 1 : -1));
+    return { t, cur, au };
+  }
+  {
+    const s0 = searchAll;
+    searchAll = function (q) {
+      stLoad(); if (!AU.list) auLoad();
+      const nick = stNick(q || ""), topic = nick ? null : stTopic(q || "");
+      let r;
+      if (nick || topic) { r = nxSearchBase(q); if (r) { r.rp = nxDocs(r.t); r.af = auFind(r.t); } }
+      else r = s0(q);
+      if (!r) return r;
+      r.nick = nick; r.topic = topic;
+      const shown = new Set([...(nick ? nick.files : []), ...(topic ? [...topic.cur, ...topic.au.map((x) => x.f)] : [])].map((f) => f.id));
+      if (shown.size) { r.fl = r.fl.filter((f) => !shown.has(f.id)); if (r.af) r.af = r.af.filter((f) => !shown.has(f.id)); }
+      ST.last = { q: String(q || "").trim().toLowerCase().slice(0, 80), n: shown.size + ((r.af && r.af.length) || 0) };
+      return r;
+    };
+  }
+  {
+    const tr0 = Track.search.bind(Track);
+    Track.search = function (where, q, n) { const k = String(q || "").trim().toLowerCase().slice(0, 80); return tr0(where, q, !n && k === ST.last.q ? ST.last.n : n); };
+  }
+  const stEsc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  function stMark(title, ws) {
+    let h = esc(title);
+    ws.map((w) => w.trim()).filter(Boolean).sort((a, b) => b.length - a.length).forEach((w) => {
+      const rx = new RegExp("(^|[^\\p{L}\\p{N}>])(" + w.split(" ").map(stEsc).join("[^\\p{L}\\p{N}]+") + "[\\p{L}\\p{N}]*)", "giu");
+      h = h.replace(rx, "$1<mark class=\"st-mark\">$2</mark>");
+    });
+    return h;
+  }
+  const stMeta = (f) => { const rap = auRap(f); return [f.procedure, f.auto ? auLabel(f) : (STAGE[f.stage] || [f.stage])[0], rap.length ? rap.join(", ") : ""].filter(Boolean).join(" · "); };
+  const stWhat = `<button class="linkbtn" type="button" data-ausheet="">What's an auto page?</button>`;
+  function stNickHtml(x) {
+    const k = x.files.length, anyAuto = x.files.some((f) => f.auto);
+    const card = (f) => {
+      const open = !f.auto || auGen().has(f.id) || state.follow.has(f.id);
+      return `<article class="st-card"><span class="st-chip">${esc(x.n.name)} · known officially as</span>
+        <b class="st-card__t">${esc(f.title || f.short)}</b><small class="st-card__m">${esc(stMeta(f))}</small>
+        <span class="st-card__acts">${f.auto
+          ? `<button class="eu-btn eu-btn--sm${open ? "" : " eu-btn--brand"}" type="button" data-augen="${esc(f.id)}">${open ? "Open page" : "Generate page"}</button>`
+          : `<button class="eu-btn eu-btn--sm eu-btn--brand" type="button" data-file="${esc(f.id)}">Open page</button><span class="st-full">Followed by nodo</span>`}</span></article>`;
+    };
+    return `<section class="st-sec" aria-labelledby="stNickH"><h3 id="stNickH" class="st-h"><span>Known as</span> ${esc(x.n.name)}</h3>
+      <p class="cap st-cap">“${esc(x.n.name)}” is the usual name for ${k === 1 ? "this file" : `these ${k} files`}. ${k === 1 ? "Its official title is" : "Their official titles are"} below.${anyAuto ? " " + stWhat : ""}</p>
+      <div class="st-list">${x.files.map(card).join("")}</div></section>`;
+  }
+  function stTopicHtml(x, q) {
+    const { t, cur, au } = x, nc = cur.length, na = au.length, all = ST.more.has(t.name), shownAu = all ? au : au.slice(0, 8);
+    const cap = !nc && !na ? `nodo has no file on ${esc(t.name)} yet.`
+      : !nc ? `nodo follows no file on ${esc(t.name)}. ${na === 1 ? "This one is" : `These ${na} are`} in the Legislative Observatory and ${na === 1 ? "has" : "have"} an auto page. ${stWhat}`
+      : !na ? `nodo follows ${nc} ${pl(nc, "file", "files")} on ${esc(t.name)}.`
+      : `nodo follows ${nc} ${pl(nc, "file", "files")} on ${esc(t.name)}. ${na} more ${na === 1 ? "is" : "are"} in the Legislative Observatory and ${na === 1 ? "has" : "have"} an auto page. ${stWhat}`;
+    const seen = [...new Set(shownAu.flatMap((y) => y.w.map((w) => w.trim())))];
+    const base = new Set(t._match.flatMap((m) => [m, m + "s", m.replace(/s$/, "")]));
+    const also = seen.filter((w) => !base.has(w));
+    const card = (y) => `<button class="st-card st-card--tap" type="button" data-augen="${esc(y.f.id)}">
+        <b class="st-card__t st-card__t--clamp">${stMark(y.f.short, y.w)}</b><small class="st-card__m">${esc(stMeta(y.f))}</small></button>`;
+    const asked = nxRequested().has(fold(q).trim());
+    return `<section class="st-sec" aria-labelledby="stTopH"><h3 id="stTopH" class="st-h"><span>Files on</span> ${esc(t.name)}</h3>
+      <p class="cap st-cap">${cap}</p>
+      ${nc ? `<div class="list">${cur.map(homeFile).join("")}</div>` : ""}
+      ${na ? `${nc ? `<p class="cap st-sub">Auto pages</p>` : ""}<div class="st-list">${shownAu.map(card).join("")}</div>` : ""}
+      ${na > shownAu.length ? `<button class="eu-btn eu-btn--block st-all" type="button" data-stmore="${esc(t.name)}">Show all ${na}</button>` : ""}
+      ${also.length ? `<p class="cap st-also">Also matched: ${also.slice(0, 6).map((w) => `<b>${esc(w)}</b>`).join(", ")}.${na > 1 ? " Adopted files come last." : ""}</p>` : ""}
+      <div class="st-ask"><span>Looking for a file that isn't here?</span><button class="eu-btn eu-btn--sm eu-btn--outline" type="button" data-nxreq="${esc(q)}"${asked ? " disabled" : ""}>${asked ? "Requested" : "Request it"}</button></div></section>`;
+  }
+  function stNothingHtml(q) {
+    const nCur = FILES.filter((f) => !f.auto).length, nAu = (AU.list || []).length, nRp = (NX.docs || []).length, asked = nxRequested().has(fold(q).trim());
+    const n = (x) => x.toLocaleString("en-GB");
+    return `<section class="st-none" aria-labelledby="stNoneH"><h3 id="stNoneH" class="st-h"><span>Nothing in nodo matches</span> “${esc(nxClip(q, 40))}”</h3>
+      <p class="st-none__k">Where nodo looked</p>
+      <ul class="st-none__ul"><li>The ${n(nCur)} files nodo follows</li>${nAu ? `<li>${n(nAu)} files from the Legislative Observatory</li>` : ""}${nRp ? `<li>${n(nRp)} Parliament reports and opinions</li>` : ""}<li>Every MEP, Commissioner, cabinet member and Council delegation</li></ul>
+      <p class="st-none__p">Try the official title, the procedure number (like 2025/0102) or a broader word.</p>
+      <div class="st-none__ask"><p><b>Know the file exists?</b> Tell nodo. The most requested files get a full page first.</p>
+        <button class="eu-btn ${asked ? "" : "eu-btn--brand "}eu-btn--block" type="button" data-nxreq="${esc(q)}"${asked ? " disabled" : ""}>${asked ? "Requested" + icon("check") : `Request “${esc(nxClip(q, 30))}”`}</button></div></section>`;
+  }
+  {
+    const h0 = resultsHtml;
+    resultsHtml = function (r, q) {
+      let h = h0(r, q);
+      const top = (r.nick ? stNickHtml(r.nick) : "") + (r.topic ? stTopicHtml(r.topic, q) : "");
+      if (top) {
+        const i = h.lastIndexOf('<div class="block nx-req">'); if (i >= 0) h = h.slice(0, i);
+        if (/^\s*<p class="empty/.test(h)) h = "";
+        return top + h;
+      }
+      const none = !r.fl.length && !r.com.length && !r.cab.length && !r.ep.length && !r.co.length;
+      if (none && r.rp && !r.rp.length && r.af && !r.af.length && ST.data && String(q).trim().length >= 3 && !r.fixedTo) return stNothingHtml(q);
+      return h;
+    };
+  }
+  document.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-stmore]"); if (!b) return;
+    e.preventDefault(); e.stopImmediatePropagation();
+    ST.more.add(b.dataset.stmore);
+    if (state.view === "home" && state.hq) renderHome();
+  }, true);
