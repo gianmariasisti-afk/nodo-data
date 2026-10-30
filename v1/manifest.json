@@ -53,8 +53,8 @@
   "minutes": {
    "path": "minutes.json",
    "description": "Who spoke on nodo's files in Parliament committee meetings, from the committees' minutes",
-   "bytes": 13296,
-   "sha256": "bc52d22f016f9682eb591e8511db0c3e5426e86fc10f59e108b8760d7ebb24cc"
+   "bytes": 14661,
+   "sha256": "6c669e6a20fa89437d1f2bc1d4ffb0329310bec28d9555ac87ee3aa3f697099c"
   },
   "press": {
    "path": "press.json",

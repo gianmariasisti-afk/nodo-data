@@ -1340,3 +1340,22 @@ html:has(.profile:not([hidden])) { background: var(--ground); }
 .st-none__ask { display: grid; gap: var(--space-3); padding-top: var(--space-3); border-top: 1px solid var(--hairline); }
 .st-none__ask p { margin: 0; font-size: 14px; line-height: 20px; color: var(--ink-muted); }
 .st-none__ask b { color: var(--ink); font-weight: 600; }
+
+/* ---------- Today, the end of the page (30 Oct 2026) ----------
+   "Also spoke in committee" (new voices on your files, only when there are some), then the end-cap: up to date, generate
+   a page, the wordmark. */
+.td-vo { margin-top: var(--space-6, 24px); }
+.td-vo .eu-row__tags { display: inline-flex; align-items: center; gap: 6px; }
+.td-vo__c { font-size: 12px; line-height: 16px; font-weight: 600; color: var(--ink-muted); }
+.td-vo__f { display: block; margin-top: 4px; font-size: 13px; line-height: 17px; font-weight: 700; color: var(--ink); }
+.td-vo__foot { margin: 10px 2px 0; font-size: 12px; line-height: 16px; color: var(--ink-muted); }
+.td-end { display: flex; flex-direction: column; align-items: center; gap: 4px; margin-top: var(--space-8, 32px); padding-bottom: var(--space-8, 32px); text-align: center; }
+.td-end[hidden] { display: none; }
+.td-end__rule { display: block; width: 40px; height: 2px; margin-bottom: 14px; border-radius: 1px; background: var(--ed-thread, var(--hairline)); }
+.td-end__t { margin: 0; font: 700 22px/26px var(--font-display); letter-spacing: -.02em; color: var(--ink); }
+.td-end__q { margin: 2px 0 0; font-size: 14px; line-height: 20px; color: var(--ink-muted); }
+.td-end__go { align-self: center; }
+.td-end__mark { display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: var(--space-8, 32px); }
+.td-end__mark .wordmark svg { height: 24px; }
+.td-end__mark .wm-node { fill: var(--ed-wm-node, var(--node)); }
+.td-end__mark span:last-child { font-size: 12px; line-height: 16px; font-weight: 600; color: var(--ink-muted); }
