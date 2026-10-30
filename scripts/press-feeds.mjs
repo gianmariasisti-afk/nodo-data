@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/* In the press, step 1 of 2: collect candidates from public feeds (runs every day on GitHub, .github/workflows/press.yml).
+/* Latest developments (press.json), step 1 of 2: collect candidates from public feeds (runs every day on GitHub, .github/workflows/press.yml).
 
    Reads the feeds in tools/press/config.json, keeps the entries that name one of the pilot files (title or summary
    match a file's search terms: short name, procedure numbers, Commission reference, aliases), and writes them to
@@ -11,6 +11,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { resolve as resolveSource } from "./sources.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const CACHE = path.join(ROOT, "data-cache", "press");
@@ -81,6 +82,8 @@ async function main() {
   const from = addDays(today, -cfg.windowDays);
   for (const feed of cfg.feeds) {
     if (feed.skip) { status[feed.id] = { ok: false, skipped: feed.skip, checked: today }; continue; }
+    const listed = resolveSource(feed.url);
+    if (!listed || listed.excluded || listed.group === "analysis") { status[feed.id] = { ok: false, skipped: "not a media outlet or institution on nodo's source list (v1/sources.json)", checked: today }; continue; }
     let xml = null;
     try {
       xml = await get(feed.url);

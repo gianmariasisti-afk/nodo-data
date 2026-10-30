@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/* In the press, step 2 of 2: merge reviewed items into v1/press.json.
+/* Latest developments (press.json), step 2 of 2: merge reviewed items into v1/press.json.
 
    node scripts/press-merge.mjs <items.json>     add items (a JSON array, see checkItem), rewrite press.json and its manifest entry
    node scripts/press-merge.mjs --remove <id>     drop one published item
@@ -11,6 +11,7 @@ import fs from "node:fs";
 import path from "node:path";
 import crypto from "node:crypto";
 import { fileURLToPath } from "node:url";
+import { checkPressSource } from "./sources.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = path.join(ROOT, "v1/press.json");
@@ -21,13 +22,14 @@ export const KIND = ["institutional", "press", "analysis"];
 const today = new Date().toISOString().slice(0, 10);
 const addDays = (iso, n) => { const d = new Date(iso + "T12:00:00Z"); d.setUTCDate(d.getUTCDate() + n); return d.toISOString().slice(0, 10); };
 
-/* One item. text is nodo's own takeaway (never a quote of the source): one or two sentences, 40 to 240 characters. */
-export function checkItem(x, { fileIds, mepIds }) {
+/* One item. The url must be on nodo's source list (v1/sources.json, see scripts/sources.mjs). text is nodo's own takeaway (never a quote of the source): one or two sentences, 40 to 240 characters. */
+export function checkItem(x, { fileIds, mepIds, reg }) {
   const p = [];
   if (!fileIds.has(x.file)) p.push(`unknown file "${x.file}"`);
   if (!ISO.test(String(x.date || ""))) p.push(`date "${x.date}" is not YYYY-MM-DD`);
   else if (x.date > addDays(today, 1)) p.push(`date ${x.date} is in the future`);
   if (!/^https:\/\/[^\s]+$/.test(x.url || "")) p.push("url is not https");
+  else p.push(...checkPressSource(x, x.file, reg));
   if (!x.source || String(x.source).length > 60) p.push("source missing or longer than 60 characters");
   if (!INST.includes(x.inst)) p.push(`inst "${x.inst}" is not one of ${INST.join(", ")}`);
   if (!KIND.includes(x.kind)) p.push(`kind "${x.kind}" is not one of ${KIND.join(", ")}`);
@@ -59,7 +61,7 @@ function save(doc) {
   fs.writeFileSync(OUT, body);
   const mPath = path.join(ROOT, "v1/manifest.json"), m = JSON.parse(fs.readFileSync(mPath, "utf8"));
   m.files = m.files || {};
-  m.files.press = { path: "press.json", description: "In the press: dated press and institutional items on nodo's files, each with nodo's own takeaway and a link to the source", bytes: Buffer.byteLength(body), sha256: crypto.createHash("sha256").update(body).digest("hex") };
+  m.files.press = { path: "press.json", description: "Latest developments: dated press and institutional items on nodo's files, each with nodo's own takeaway and a link to the source", bytes: Buffer.byteLength(body), sha256: crypto.createHash("sha256").update(body).digest("hex") };
   m.generated = new Date().toISOString();
   fs.writeFileSync(mPath, JSON.stringify(m, null, 1) + "\n");
   return out;

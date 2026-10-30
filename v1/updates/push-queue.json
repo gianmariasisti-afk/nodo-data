@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-10-28T00:00:00Z",
+  "generatedAt": "2026-10-29T00:00:00Z",
   "events": [
     {
-      "id": "co2-cars:next:2026-10-28:085e6e",
-      "fileId": "co2-cars",
-      "date": "2026-10-28",
+      "id": "tech-sovereignty-package:next:2026-10-29:bca875",
+      "fileId": "tech-sovereignty-package",
+      "date": "2026-10-29",
       "source": "nodo",
       "kind": "scheduled",
-      "title": "Council environment working party: discussion of the proposal",
+      "title": "Council industry working party on the Chips Act 2.0: Presidency compromise text (doc 13545/26 REV 1)",
       "push": true,
-      "pushOn": "2026-10-28"
+      "pushOn": "2026-10-29"
     }
   ]
 }

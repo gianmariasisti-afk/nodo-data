@@ -1606,11 +1606,6 @@
      "url": "https://data.consilium.europa.eu/doc/document/ST-9685-2026-INIT/en/pdf"
     },
     {
-     "id": "xyz-kobosko",
-     "title": "XYZ.pl: Kobosko nominated lead rapporteur on the Digital Networks Act",
-     "url": "https://xyz.pl/dzieje-sie/michal-kobosko-nominowany-na-glownego-sprawozdawce-aktu-o-sieciach-cyfrowych-7292"
-    },
-    {
      "id": "agenceurope-13797",
      "title": "Agence Europe: major digital files have their rapporteurs",
      "url": "https://agenceurope.eu/en/bulletin/article/13797/18/major-digital-files-this-year-have-their-rapporteurs-in-european-parliament"
@@ -1667,12 +1662,12 @@
    "area": "digital",
    "procedure": null,
    "stage": "pre-proposal",
-   "status": "The Commission's indicative planning lists the proposal for 11 November 2026, in a consumer package (also reported by MLex); the date can still move. Expected themes: dark patterns, addictive design, influencer marketing, unfair personalisation and minors. The social media minimum age is no longer part of it: the Commission proposed it separately in the EU KIDS Act on 17 September 2026 (minimum age of 15), which nodo follows as its own file. Member States had moved first on a minimum age, for example Denmark's consultation on a minimum age of 15 launched 7 September 2026.",
+   "status": "The Commission's indicative planning lists the proposal for 11 November 2026 (MLex, 29 September); the date can still move. Expected themes: dark patterns, addictive design, influencer marketing, unfair personalisation and minors. The social media minimum age is no longer part of it: the Commission proposed it separately in the EU KIDS Act on 17 September 2026 (minimum age of 15), which nodo follows as its own file. Member States had moved first on a minimum age, for example Denmark's consultation on a minimum age of 15 launched 7 September 2026.",
    "next": [
     {
      "date": "2026-11-11",
      "what": "Commission proposal expected (indicative date)",
-     "src": "dfa-newsletter-20260929"
+     "src": "mlex-dfa-20260929"
     }
    ],
    "ep": {
@@ -1892,19 +1887,14 @@
      "url": "https://www.insideprivacy.com/childrens-privacy/horizon-scan-childrens-online-safety-and-privacy-eu-and-beyond/"
     },
     {
-     "id": "bhrrc-dfa",
-     "title": "Euractiv via BHRRC: civil society open letter on the DFA",
-     "url": "https://www.bhrrc.org/es/últimas-noticias/eu-more-than-200-civil-society-groups-urge-commission-in-open-letter-to-deliver-an-ambitious-digital-fairness-act-proposal/"
-    },
-    {
      "id": "ep-open-data",
      "title": "European Parliament Open Data Portal (via nodo activity feeds)",
      "url": "https://data.europarl.europa.eu/"
     },
     {
-     "id": "dfa-newsletter-20260929",
-     "title": "Digital Fairness Act Newsletter: proposal targeted for 11 November 2026 (Commission indicative planning)",
-     "url": "https://newsletter.digitalfairnessact.com/p/digital-fairness-act-targeted-for"
+     "id": "mlex-dfa-20260929",
+     "title": "MLex: Digital Fairness and Quantum acts on the Commission's November agenda (29 Sep 2026)",
+     "url": "https://www.mlex.com/mlex/articles/2531216"
     },
     {
      "id": "lw-kids",
@@ -2814,7 +2804,7 @@
    "stage": "positions-in-preparation",
    "sector": "transport",
    "lede": "EPP, S&D and Renew have a compromise, backed by ITRE and TRAN; ENVI votes next.",
-   "status": "The Commission proposed on 16 December 2025 to lower the 2035 target for cars and vans from 100% to 90%, with credits for renewable fuels and low-carbon EU steel. ENVI leads in Parliament with Massimiliano Salini as rapporteur. On 22 October 2026 ITRE (49 to 27, 5 abstentions) and TRAN (27 to 18, 1 abstention) adopted opinions backing the EPP, S&D and Renew compromise of 20 October: per electrive, a 95% cut for cars in 2035 that credits for low-carbon EU steel can lower to 87.5%, and lower 2030 targets. The Council's environment working party discusses the proposal on 28 October; the Council took stock of progress in June 2026 and has no position yet.",
+   "status": "The Commission proposed on 16 December 2025 to lower the 2035 target for cars and vans from 100% to 90%, with credits for renewable fuels and low-carbon EU steel. ENVI leads in Parliament with Massimiliano Salini as rapporteur. On 20 October the EPP, S&D and Renew agreed a compromise that eases the 2035 target further, and on 22 October ITRE and TRAN adopted opinions backing it. The Council's environment working party discusses the proposal on 28 October; the Council took stock of progress in June 2026 and has no position yet.",
    "next": [
     {
      "date": "2026-11-23",
@@ -2823,8 +2813,7 @@
     },
     {
      "date": null,
-     "what": "ENVI committee vote: early November (reported by electrive), no date set",
-     "src": "electrive-co2"
+     "what": "ENVI committee vote: no date set yet"
     }
    ],
    "ep": {
@@ -2956,8 +2945,8 @@
    },
    "caveats": [
     "Rapporteur, shadows and opinion rapporteurs come from the Parliament's procedure file (checked 21 October 2026).",
-    "The Observatory gives 23 November as the indicative plenary date; electrive points to December, and Agence Europe says the plenary vote waits for Parliament's position on the automotive part of the Industrial Accelerator Act.",
-    "Vote counts and the 95%/87.5% figures come from electrive (23 October), not yet checked against the committee voting records."
+    "The Observatory gives 23 November as the indicative plenary date; Agence Europe says the plenary vote waits for Parliament's position on the automotive part of the Industrial Accelerator Act.",
+    "The compromise's exact 2035 and 2030 figures and the committee vote counts are left out until the committee voting records or an outlet on nodo's source list confirm them."
    ],
    "sources": [
     {
@@ -2971,19 +2960,9 @@
      "url": "https://data.consilium.europa.eu/doc/document/ST-10065-2026-INIT/en/pdf"
     },
     {
-     "id": "autonext-co2",
-     "title": "Autonext: Parliament groups' compromise on the 2035 target (20 Oct 2026)",
-     "url": "https://www.autonext.co/news/eu-parliament-2035-combustion-ban-compromise"
-    },
-    {
      "id": "bloomberg-co2",
      "title": "Bloomberg: EU carmakers set to win 2035 reprieve in lawmaker deal (20 Oct 2026)",
      "url": "https://www.bloomberg.com/news/articles/2026-10-20/eu-carmakers-set-to-win-2035-emissions-reprieve-in-lawmaker-deal"
-    },
-    {
-     "id": "electrive-co2",
-     "title": "electrive: EU Auto Package, committee vote to relax CO2 rules (23 Oct 2026)",
-     "url": "https://www.electrive.com/2026/10/23/eu-auto-package-committee-vote-to-relax-co%E2%82%82-rules/"
     },
     {
      "id": "agenceurope-13966",
@@ -3009,7 +2988,7 @@
    "stage": "pre-proposal",
    "sector": "transport",
    "lede": "Proposal expected before the end of 2026.",
-   "status": "AFIR (Regulation 2023/1804) has to be reviewed by 31 December 2026. The Commission ran a call for evidence until 20 April 2026 and a public consultation from 11 May to 3 August 2026, and expects to adopt its proposal before the end of 2026. The review covers recharging and refuelling targets, including for trucks and hydrogen, payment and price transparency, and electricity supply at ports.",
+   "status": "AFIR (Regulation 2023/1804) has to be reviewed by 31 December 2026. The Commission ran a public consultation from 11 May to 3 August 2026 and expects to adopt its proposal before the end of 2026. The review covers recharging and refuelling targets, including for trucks and hydrogen, payment and price transparency, and electricity supply at ports.",
    "next": [
     {
      "date": null,
@@ -3054,11 +3033,6 @@
     "Not yet proposed. The proposal date is the Commission's own estimate and can move."
    ],
    "sources": [
-    {
-     "id": "lexis-afir",
-     "title": "LexisNexis: Commission opens call for evidence on the AFIR review (25 Mar 2026)",
-     "url": "https://www.lexisnexis.co.uk/legal/news/commission-opens-call-for-evidence-on-alternative-fuels-infrastructure-regulation-review"
-    },
     {
      "id": "alice-afir",
      "title": "ETP-ALICE: AFIR review consultation, 11 May to 3 August 2026",
@@ -4062,11 +4036,6 @@
      "id": "sciencebusiness-era",
      "title": "Science|Business: race for the ERA Act begins as MEP unveils early proposal",
      "url": "https://sciencebusiness.net/news/european-research-area/race-era-act-begins-mep-unveils-early-proposal"
-    },
-    {
-     "id": "euperspectives-era",
-     "title": "EU Perspectives: Zaharieva on the ERA Act, due this autumn (Jul 2026)",
-     "url": "https://euperspectives.eu/2026/07/eu-struggling-to-unshackle-exchange-of-ideas-commissioner-zaharieva/"
     }
    ],
    "checked": "2026-10-26",

@@ -1,22 +1,9 @@
 {
- "generated": "2026-10-28T22:21:06.726Z",
+ "generated": "2026-10-29T20:19:52.993Z",
  "windowDays": 30,
  "maxPerFile": 3,
  "files": {
   "digital-omnibus-data": [
-   {
-    "id": "a47fb1effb",
-    "date": "2026-10-22",
-    "source": "PPC Land",
-    "inst": "press",
-    "kind": "press",
-    "text": "The agreed Council text runs to 179 pages. Websites could ask again for cookie consent after four months.",
-    "url": "https://ppc.land/eu-council-agrees-4-month-cookie-re-ask-wait-for-digital-omnibus-talks/",
-    "people": [],
-    "stage": false,
-    "paywall": false,
-    "added": "2026-10-28"
-   },
    {
     "id": "ad2f447303",
     "date": "2026-10-21",

@@ -1,0 +1,76 @@
+{
+ "about": "nodo's source list. Every press item (press.json) and every citation in files.json must come from a domain listed here; scripts/validate-data.mjs refuses anything else. Media appear in Latest developments; tier 3 media only on the files they are mapped to. Institutions appear as institutional items. Analysis (law firms, consultancies, think tanks, NGOs, industry bodies, academic blogs) may be cited in files.json but never shown as press. 'excluded' lists domains refused on purpose. A domain matches itself and its subdomains; the longest match wins.",
+ "checked": "2026-10-29",
+ "tiers": {
+  "1": "EU specialist press: primary",
+  "2": "Wires and national press with Brussels desks",
+  "3": "Sector trade press: shown only on the files in its 'files' list"
+ },
+ "media": [
+  { "id": "agence-europe", "name": "Agence Europe", "tier": 1, "domains": ["agenceurope.eu"], "lang": "en", "paywall": true },
+  { "id": "politico-eu", "name": "Politico Europe", "tier": 1, "domains": ["politico.eu"], "lang": "en", "paywall": false },
+  { "id": "euractiv", "name": "Euractiv", "tier": 1, "domains": ["euractiv.com"], "lang": "en", "paywall": false },
+  { "id": "mlex", "name": "MLex", "tier": 1, "domains": ["mlex.com"], "lang": "en", "paywall": true },
+  { "id": "contexte", "name": "Contexte", "tier": 1, "domains": ["contexte.com"], "lang": "fr", "paywall": true },
+  { "id": "euobserver", "name": "EUobserver", "tier": 1, "domains": ["euobserver.com"], "lang": "en", "paywall": true },
+
+  { "id": "reuters", "name": "Reuters", "tier": 2, "domains": ["reuters.com"], "lang": "en", "paywall": false },
+  { "id": "ft", "name": "Financial Times", "tier": 2, "domains": ["ft.com"], "lang": "en", "paywall": true },
+  { "id": "bloomberg", "name": "Bloomberg", "tier": 2, "domains": ["bloomberg.com"], "lang": "en", "paywall": true },
+  { "id": "le-monde", "name": "Le Monde", "tier": 2, "domains": ["lemonde.fr"], "lang": "fr", "paywall": true },
+  { "id": "handelsblatt", "name": "Handelsblatt", "tier": 2, "domains": ["handelsblatt.com"], "lang": "de", "paywall": true },
+  { "id": "sole-24-ore", "name": "Il Sole 24 Ore", "tier": 2, "domains": ["ilsole24ore.com"], "lang": "it", "paywall": true },
+  { "id": "el-pais", "name": "El País", "tier": 2, "domains": ["elpais.com"], "lang": "es", "paywall": true },
+  { "id": "irish-times", "name": "Irish Times", "tier": 2, "domains": ["irishtimes.com"], "lang": "en", "paywall": true },
+
+  { "id": "medialaws", "name": "MediaLaws", "tier": 3, "domains": ["medialaws.eu"], "lang": "en", "paywall": false, "sector": "digital",
+    "files": ["digital-omnibus-data", "digital-networks-act", "digital-fairness-act", "tech-sovereignty-package", "ai-act-implementation", "kids-act"] },
+  { "id": "science-business", "name": "Science|Business", "tier": 3, "domains": ["sciencebusiness.net"], "lang": "en", "paywall": false, "sector": "research",
+    "files": ["era-act", "tech-sovereignty-package"] },
+  { "id": "ends-europe", "name": "ENDS Europe", "tier": 3, "domains": ["endseurope.com"], "lang": "en", "paywall": true, "sector": "environment",
+    "files": ["co2-cars", "food-feed-omnibus", "biotech-act"] },
+  { "id": "borderlex", "name": "Borderlex", "tier": 3, "domains": ["borderlex.net"], "lang": "en", "paywall": true, "sector": "trade",
+    "files": ["industrial-accelerator-act"] },
+  { "id": "policytracker", "name": "PolicyTracker", "tier": 3, "domains": ["policytracker.com"], "lang": "en", "paywall": true, "sector": "spectrum",
+    "files": ["digital-networks-act"] }
+ ],
+ "institutions": [
+  { "id": "ep", "name": "European Parliament", "inst": "ep", "domains": ["europarl.europa.eu", "epthinktank.eu"] },
+  { "id": "council", "name": "Council of the EU", "inst": "council", "domains": ["consilium.europa.eu"] },
+  { "id": "commission", "name": "European Commission", "inst": "commission", "domains": ["ec.europa.eu", "commission.europa.eu"] },
+  { "id": "cor", "name": "Committee of the Regions", "inst": "advisory", "domains": ["cor.europa.eu"] },
+  { "id": "eesc", "name": "European Economic and Social Committee", "inst": "advisory", "domains": ["eesc.europa.eu"] },
+  { "id": "eu-other", "name": "Other EU bodies and EUR-Lex", "inst": null, "domains": ["europa.eu"] },
+  { "id": "at-parliament", "name": "Austrian Parliament", "inst": null, "domains": ["parlament.gv.at"] },
+  { "id": "at-era-portal", "name": "ERA Portal Austria (Austrian ministries)", "inst": null, "domains": ["era.gv.at"] }
+ ],
+ "analysis": [
+  { "id": "matheson", "name": "Matheson", "type": "law-firm", "domains": ["matheson.com"] },
+  { "id": "covington", "name": "Covington (Inside Privacy)", "type": "law-firm", "domains": ["insideprivacy.com", "cov.com"] },
+  { "id": "latham", "name": "Latham & Watkins", "type": "law-firm", "domains": ["lw.com"] },
+  { "id": "lewis-silkin", "name": "Lewis Silkin", "type": "law-firm", "domains": ["lewissilkin.com"] },
+  { "id": "gibson-dunn", "name": "Gibson Dunn", "type": "law-firm", "domains": ["gibsondunn.com"] },
+  { "id": "leto", "name": "Leto Legal", "type": "legal-publisher", "domains": ["leto.legal"] },
+  { "id": "mondaq", "name": "Mondaq (law-firm briefings)", "type": "legal-publisher", "domains": ["mondaq.com"] },
+  { "id": "vulcan", "name": "Vulcan Consulting", "type": "consultancy", "domains": ["vulcanconsulting.eu"] },
+  { "id": "oxford-blb", "name": "Oxford Business Law Blog", "type": "academic", "domains": ["blogs.law.ox.ac.uk"] },
+  { "id": "bruegel", "name": "Bruegel", "type": "think-tank", "domains": ["bruegel.org"] },
+  { "id": "ceps", "name": "CEPS", "type": "think-tank", "domains": ["ceps.eu"] },
+  { "id": "epc", "name": "European Policy Centre", "type": "think-tank", "domains": ["epc.eu"] },
+  { "id": "ti-eu", "name": "Transparency International EU", "type": "ngo", "domains": ["transparency.eu"] },
+  { "id": "edri", "name": "EDRi", "type": "ngo", "domains": ["edri.org"] },
+  { "id": "foodwatch", "name": "foodwatch", "type": "ngo", "domains": ["foodwatch.org"] },
+  { "id": "semi", "name": "SEMI Europe", "type": "industry", "domains": ["semi.org"] },
+  { "id": "etp-alice", "name": "ETP-ALICE", "type": "industry", "domains": ["etp-logistics.eu"] }
+ ],
+ "excluded": [
+  { "domain": "ppc.land", "why": "Ad-tech and digital-marketing trade site" },
+  { "domain": "bhrrc.org", "why": "Repost of other outlets' articles; link the original" },
+  { "domain": "xyz.pl", "why": "General tech news, not on the list" },
+  { "domain": "autonext.co", "why": "Automotive news site, not on the list" },
+  { "domain": "electrive.com", "why": "E-mobility trade site, not on the list" },
+  { "domain": "euperspectives.eu", "why": "Not on the list" },
+  { "domain": "newsletter.digitalfairnessact.com", "why": "Single-topic newsletter, not on the list" },
+  { "domain": "lexisnexis.co.uk", "why": "Legal news service, not on the list" }
+ ]
+}

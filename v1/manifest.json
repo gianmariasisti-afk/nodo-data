@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generated": "2026-10-29T09:07:58.506Z",
+ "generated": "2026-10-30T05:58:34.527Z",
  "files": {
   "meps": {
    "path": "meps.json",
@@ -36,19 +36,19 @@
    "path": "activity/index.json",
    "description": "MEP activity: speeches, written questions, rapporteur and shadow roles (one file per MEP in activity/)",
    "bytes": 166,
-   "sha256": "90b2dde2b7325006d040f5f7a3d992ad8f50d486b5b1acedacd361aad0b173e3"
+   "sha256": "521cad7956793bd60853ececb69f1dc2bfc24da103b339c466a1ce1d73aa3743"
   },
   "files": {
    "path": "files.json",
    "description": "Legislative files linked to MEPs, Commissioners, cabinet members and Council configurations",
-   "bytes": 140335,
-   "sha256": "ee6ca52545e318b6e46c8f99e5f289ca3749116703888da05c40cf90eeec4dc5"
+   "bytes": 138492,
+   "sha256": "053063277fe3130a81976fb85edd97ff37519a925f84d2d4eec91932c2e8efee"
   },
   "updates": {
    "path": "updates/updates.json",
    "description": "Update stream for priority files: EP procedure events, Council dates, stage changes (also timelines.json and push-queue.json in the same folder)",
-   "bytes": 27824,
-   "sha256": "07dcdbb507c1468f90e936cb45fe7bf158afd742e9d0c011bf0c6d7ec4dcba09"
+   "bytes": 26750,
+   "sha256": "013d54dce56c1ac8819c86810b1e3b553beecae086512f7f94b18063671b8a71"
   },
   "minutes": {
    "path": "minutes.json",
@@ -58,9 +58,15 @@
   },
   "press": {
    "path": "press.json",
-   "description": "In the press: dated press and institutional items on nodo's files, each with nodo's own takeaway and a link to the source",
-   "bytes": 2207,
-   "sha256": "4a2e5db98d954825cd21c649f8aae271a36fd297cb746f91f8a97886806bc65b"
+   "description": "Latest developments: dated press and institutional items on nodo's files, each with nodo's own takeaway and a link to the source",
+   "bytes": 1768,
+   "sha256": "54a1c97f3b1a8b43759f1a9bec2ce3f03d121bba0371e128823eeac85baa8ccd"
+  },
+  "sources": {
+   "path": "sources.json",
+   "description": "Source list: media outlets by tier, institutions and analysis sources nodo may cite, with excluded domains",
+   "bytes": 6850,
+   "sha256": "1f81e77dd86defd366d90508151503c379252a26a7a7a6a06bd40527ad53e97d"
   }
  }
 }

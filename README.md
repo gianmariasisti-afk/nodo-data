@@ -27,8 +27,20 @@ v1/
   files.json      Legislative files with linked MEPs, Commissioners, cabinet members
   reports.json    Parliament reports and opinions with rapporteur and shadows (automatic pages)
   minutes.json    Who spoke on the priority files in Parliament committee meetings, from the committees' minutes
-  press.json      In the press: dated items on the priority files with nodo's own takeaway (preview only)
+  press.json      Latest developments: dated items on the priority files with nodo's own takeaway (preview only)
+  sources.json    Source list: media by tier, institutions, analysis sources and excluded domains
 ```
+
+## sources.json (source list)
+
+The one list of outlets and institutions nodo may use. `scripts/sources.mjs` resolves a URL to its entry (a domain matches its subdomains; the longest match wins) and `scripts/validate-data.mjs` refuses anything not on it.
+
+- `media`: tier 1 EU specialist press, tier 2 wires and national press with Brussels desks, tier 3 sector trade press. Tier 3 entries carry a `files` list and appear only on those files, in press and in citations. A press item's `source` must equal the entry's `name`.
+- `institutions`: EU institutions and bodies, plus national sources. Institutional press items must match the entry's `inst`.
+- `analysis`: law firms, legal publishers, consultancies, think tanks, NGOs, industry bodies, academic blogs. Allowed as `files.json` citations, never as press items.
+- `excluded`: domains refused on purpose, with the reason.
+
+To add an outlet, add it here first; the press feeds in `tools/press/config.json` must also be on the list.
 
 `v1` is the schema version. Fields can be added inside v1. A rename or removal creates `v2` and `v1` stays online for installed apps.
 
@@ -44,7 +56,7 @@ The artifact page is this `index.html` without its first line, without `config.j
 
 Seven priority legislative files (MFF 2028–2034, Digital Omnibus, Industrial Accelerator Act, Digital Networks Act, Digital Fairness Act, Chips Act 2.0 and CADA, AI Act after the Omnibus). `procedure` is the main EP procedure; `procedures` lists related ones (the MFF interim report is 2025/0571R(APP)) and each of `parts` can carry its own `procedure`; the update stream follows all of them. `proposal` keeps the Commission reference. Each file lists `meps` (id, role, committee, `basis`), `commission` (lead and associated commissioner slugs), `cabinet` (keys from `commission.json` with a reason), Council configurations, `caveats` and `sources`. `basis` is `ep-open-data` (verified from `activity/` feeds) or `press` (named in reporting, to verify in the EP procedure file). MEP ids match `meps.json`.
 
-## press.json (In the press)
+## press.json (Latest developments)
 
 Dated items on nodo's files, each with nodo's own one- or two-sentence takeaway and a link to the source. Shown in the preview only so far.
 
