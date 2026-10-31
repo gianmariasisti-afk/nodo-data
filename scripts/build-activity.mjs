@@ -149,6 +149,21 @@ const items = new Map(MEPS.map((m) => [String(m.id), { speech: [], question: [],
 const okStage = { speech: true, question: true, role: true };
 const stageErr = {};
 
+/* The speech in the verbatim report (CRE): its debate page, at the speech's own anchor. The API gives both in
+   recorded_in_a_realization_of: is_part_of names the debate item (CRE-10-2026-10-22-ITM-002) and notation_speechId
+   the anchor (<a name="2017100464734"> on that page). Checked on 31 Oct 2026. Without them, no url: the app then
+   links the full-day report at the same anchor, built from the speech id. */
+function speechUrl(r) {
+  const recs = Array.isArray(r.recorded_in_a_realization_of) ? r.recorded_in_a_realization_of : r.recorded_in_a_realization_of ? [r.recorded_in_a_realization_of] : [];
+  for (const x of recs) {
+    if (!x || typeof x !== "object") continue;
+    const part = lastSeg(Array.isArray(x.is_part_of) ? x.is_part_of[0] : x.is_part_of);
+    const sid = String(x.notation_speechId || "");
+    if (/^CRE-\d+-\d{4}-\d{2}-\d{2}-ITM-\d+$/.test(part) && /^\d+$/.test(sid)) return `https://www.europarl.europa.eu/doceo/document/${part}_EN.html#${sid}`;
+  }
+  return "";
+}
+
 /* ---------- stage 1: plenary speeches, one request series per MEP ---------- */
 const speechFailed = new Set();
 async function speeches() {
@@ -164,7 +179,8 @@ async function speeches() {
         const date = String(r.activity_date || "").slice(0, 10);
         if (!key || !title || !date || seen.has(key)) continue;
         seen.add(key);
-        items.get(id).speech.push({ type: "speech", id: String(key), date, title: title.replace(/\s*\((debate|debates)\)\s*$/i, "").trim(), meta: "Plenary debate", role: "Speaker" });
+        const url = speechUrl(r);
+        items.get(id).speech.push({ type: "speech", id: String(key), date, title: title.replace(/\s*\((debate|debates)\)\s*$/i, "").trim(), meta: "Plenary debate", role: "Speaker", ...(url ? { url } : {}) });
       }
       n += items.get(id).speech.length;
     } catch (e) {

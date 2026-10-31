@@ -26,31 +26,9 @@ function patch(text, file, rules) {
   return text;
 }
 
-/* The feature patches, as in build.mjs (same order, same text). */
+/* The feature patches, as in build.mjs. The ones promoted on 31 Oct 2026 are already in the live page and left this list then. */
 const FEATURE_PATCHES = [
-  ["file page attachés", '<p class="cap">Venue inferred, not confirmed.</p>` : ""}</div>`).join("")}</div>`; };',
-    '<p class="cap">Venue inferred, not confirmed.</p>` : ""}</div>`).join("")}</div><p class="fp-att">Attachés who cover ${w.length > 1 ? "these working parties" : "this working party"} aren\'t in nodo. The Council doesn\'t publish them.${((f.council || {}).configs || []).find((c) => CONF_BY[c]) ? ` <button type="button" data-prwp="${esc(((f.council || {}).configs || []).find((c) => CONF_BY[c]))}">Add the ones you know</button>` : ""}</p>`; };'],
-  ["notes count", 'notes.length + " on this device" : "saved on this device"', 'notes.length + " in your account" : "saved to your account"'],
-  ["wp foot", "The names here are the ones you add, saved on this device.", "The names here are the ones you add, saved to your account."],
-  ["added by you", '", saved on this device"', '", saved to your account"'],
-  ["sheet note", "It is saved on this device and is not sent to anyone.", "It is saved to your account and is not shared with anyone."],
-  ["delegation foot", "The names you add are saved on this device only.", "The names you add are saved to your account."],
-  ["council note", "Any other name is one you added, saved on this device.", "Any other name is one you added, saved to your account."],
-  ["sheet note 2", '"Saved on this device. Check a name', '"Saved to your account. Check a name'],
-  ["file tab: council", '[["ep", "Parliament"], ["ec", "Commission"], ["next", "Next steps"], ["upd", "Timeline"]]',
-    '[["ep", "Parliament"], ["ec", "Commission"], ...(fileHasCo(f) ? [["co", "Council"]] : [])]'],
-  ["file tab: council body", '} else if (tab === "upd") {', '} else if (tab === "co") {\n      body = fileCoTab(f);\n    } else if (tab === "upd") {'],
-  ["file tab: council out of next steps", '+ (cfs.length ? `<h3>In the Council</h3><div class="list">${cfs.map(confRow).join("")}</div>` : "") + wpBlock(f) + (f.council && f.council.note && (cfs.length || wpBlock(f)) ? `<p class="note">${esc(f.council.note)}</p>` : "")',
-    '+ (fileHasCo(f) ? `<p class="note">The Council side of this file is on its <button type="button" class="fp-totab" data-ftab="co">Council tab</button>.</p>` : "")'],
-  ["file page: spoke in committee", '+ (f.ep && f.ep.note ? `<p class="note">${esc(f.ep.note)}</p>` : "");', '+ spokeBlock(f) + (f.ep && f.ep.note ? `<p class="note">${esc(f.ep.note)}</p>` : "");'],
-  ["file page: related texts", 'ROLE_ORDER.map((r) => sec(ROLE_MANY[r], baseEp.filter((x) => x.role === r))).join("")',
-    'ROLE_ORDER.map((r) => (r === "relevant" ? relBlock(f, baseEp.filter((x) => x.role === r)) : sec(ROLE_MANY[r], baseEp.filter((x) => x.role === r)))).join("")'],
-  ["file page: officials", 'body = dgBlock(f) + sec("Added by you", mineCo)', 'body = dgBlock(f) + offBlock(f) + sec("Added by you", mineCo)'],
-  ["file page: dg caption", '${d.basis === "source" ? "Named in a Parliament or Commission document." : "Deduced from the Commissioner\'s portfolio. Verify before external use."}${d.note ? " " + esc(d.note) : ""}',
-    '${mnDgCap(f) || ((d.basis === "source" ? "Named in a Parliament or Commission document." : "Deduced from the Commissioner\'s portfolio. Verify before external use.") + (d.note ? " " + esc(d.note) : ""))}'],
-  ["no week: calendar hero", "This week in Parliament · W${isoWeek(mon)}", "This week in Parliament"],
-  ["no week: calendar rows", "</b><span>W${isoWeek(w)}</span></div>", "</b></div>"],
-  ["no week: calendar eyebrow", "This week · W${isoWeek(mon)} · ", "This week · "],
+  ["speech card link", 'Question PDF</a>` : ""}` : "";', 'Question PDF</a>` : ""}` : fdSpeechAct(it);'],
 ];
 
 const js = readFileSync(join(NEXT, "features.js"), "utf8").replace("/* ======================= nodo preview features =======================",

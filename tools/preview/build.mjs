@@ -75,6 +75,10 @@ const html = patch(readFileSync(join(ROOT, "index.html"), "utf8"), "index.html",
   /* Accounts not on the list stop here: no sync, no usage log, the private screen instead. */
   ["gate", "async function onSignedIn(user) {", "async function onSignedIn(user) {\n    if (!(window.NODO_PREVIEW && window.NODO_PREVIEW.accounts.includes(user.id))) { window.nodoPreviewDenied(); return; }"],
   /* Features promoted to the live app on 31 Oct 2026 (tools/preview/promote.mjs): their patches went with them. */
+  /* Speeches open in the verbatim report (since 31 Oct 2026): a speech card with no text and no PDF links the
+     Parliament's verbatim report at the speech (fdSpeechAct in features.js). Same patch in promote.mjs; remove this
+     line after promoting, or the rebuild stops on it. */
+  ["speech card link", 'Question PDF</a>` : ""}` : "";', 'Question PDF</a>` : ""}` : fdSpeechAct(it);'],
   /* The Council dot map sits at the root since the 31 Oct 2026 promotion. */
   ["dot map", 'fetch("europe-dots.json")', 'fetch("../europe-dots.json")'],
   ["marker", "</body>", gate],
