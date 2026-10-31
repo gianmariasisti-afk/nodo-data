@@ -4702,7 +4702,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
 
   /* ===================== end of search, automatic pages, your files ===================== */
 
-  /* ======================= nodo preview features =======================
+  /* ======================= Features promoted from the preview on 2026-10-31 =======================
      Source: next/features.js. tools/preview/build.mjs injects this file into the app's main script just before
      start-up, so it runs inside the same scope and uses the app's own helpers (row, icon, esc, searchAll, openFile,
      showProfile, Track, state, store). Nothing here reaches the live app until it is promoted.
@@ -6326,7 +6326,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   let CO_DOTS = null, coDotsLoading = false;
   function coDotsLoad() {
     if (CO_DOTS || coDotsLoading) return; coDotsLoading = true;
-    fetch("europe-dots.json").then((r) => r.json()).then((j) => { CO_DOTS = j; if (state.view === "co") renderCo(); })
+    fetch("../europe-dots.json").then((r) => r.json()).then((j) => { CO_DOTS = j; if (state.view === "co") renderCo(); })
       .catch(() => { coDotsLoading = false; const b = $("coMapBox"); if (b) b.innerHTML = `<div class="hint"><span>The map could not load. The delegations are in search.</span></div>`; });
   }
   const CO_RIGHT = new Set(["FI", "EE", "LV", "LT", "RO", "BG", "GR", "HU", "SK", "PL", "HR"]);
@@ -8082,6 +8082,11 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     if (state.view === "home" && state.hq) renderHome();
   }, true);
 
+  /* ======================= nodo preview features =======================
+     Source: next/features.js. tools/preview/build.mjs injects this file into the app's main script just before
+     start-up, so it runs inside the same scope and uses the app's own helpers. Nothing here reaches the live app
+     until it is promoted (tools/preview/promote.mjs). Everything up to 2026-10-31 was promoted on 2026-10-31. */
+
   initHome(); initEp(); initEc();
   let startView = "home";
   try { const h = (location.hash || "").slice(1); startView = { parliament: "ep", commission: "ec", council: "co", calendar: "cal", agenda: "agenda", saved: "saved", files: "files", news: "news" }[h] || "home"; } catch { /* ignore */ }
@@ -8101,12 +8106,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
 if ("serviceWorker" in navigator && /github\.io$/.test(location.hostname)) addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
 </script>
 <style>
-#nxBadge{position:fixed;top:max(2px,calc(env(safe-area-inset-top,0px) - 12px));left:50%;transform:translateX(-50%);z-index:2147483000;pointer-events:none;padding:0 6px;border-radius:999px;background:rgba(20,20,19,.55);color:#fff;font:700 8px/12px -apple-system,BlinkMacSystemFont,sans-serif;letter-spacing:.08em}
-#nxDenied{position:fixed;inset:0;z-index:2147483001;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:32px;background:#0E1B4D;color:#fff;text-align:center;font:16px/24px -apple-system,BlinkMacSystemFont,sans-serif}
-#nxDenied h1{margin:0;font-size:28px;line-height:34px}
-#nxDenied a{display:inline-block;padding:14px 24px;border-radius:999px;background:#fff;color:#0E1B4D;font-weight:600;text-decoration:none}
-</style>
-<style>
+/* Promoted from the preview on 2026-10-31 (was next/features.css). */
 /* nodo preview features: styles. Injected by tools/preview/build.mjs. Uses the app's own tokens. */
 /* Dossier type (31 Oct 2026): Outfit for display, Figtree for text. Only the weights Dossier uses are loaded; see the
    Dossier theme at the end of this file. */
@@ -9642,6 +9642,15 @@ body { font-variant-numeric: tabular-nums; }
 .cm-leg b { color: #d9f266; }
 .cm-strip [aria-checked="true"] { background: #d9f266; color: #111312; }
 .cm-n.is-sel span { color: #111312; }
+</style>
+<style>
+#nxBadge{position:fixed;top:max(2px,calc(env(safe-area-inset-top,0px) - 12px));left:50%;transform:translateX(-50%);z-index:2147483000;pointer-events:none;padding:0 6px;border-radius:999px;background:rgba(20,20,19,.55);color:#fff;font:700 8px/12px -apple-system,BlinkMacSystemFont,sans-serif;letter-spacing:.08em}
+#nxDenied{position:fixed;inset:0;z-index:2147483001;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:32px;background:#0E1B4D;color:#fff;text-align:center;font:16px/24px -apple-system,BlinkMacSystemFont,sans-serif}
+#nxDenied h1{margin:0;font-size:28px;line-height:34px}
+#nxDenied a{display:inline-block;padding:14px 24px;border-radius:999px;background:#fff;color:#0E1B4D;font-weight:600;text-decoration:none}
+</style>
+<style>
+/* nodo preview styles (next/features.css). Everything up to 2026-10-31 was promoted to the live app on 2026-10-31. */
 </style>
 <div id="nxBadge" aria-hidden="true">PREVIEW</div>
 </body></html>

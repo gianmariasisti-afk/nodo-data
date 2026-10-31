@@ -26,10 +26,10 @@ v1/
   agenda.json     Plenary agendas
   files.json      Legislative files with linked MEPs, Commissioners, cabinet members
   reports.json    Parliament reports and opinions with rapporteur and shadows (automatic pages)
-  search-terms.json Hand-kept nicknames of files and topic words, for search (preview only)
-  auto-files.json Auto pages: every codecision file, ongoing or of this term, that nodo does not follow, read weekly from the Legislative Observatory (preview only)
+  search-terms.json Hand-kept nicknames of files and topic words, for search
+  auto-files.json Auto pages: every codecision file, ongoing or of this term, that nodo does not follow, read weekly from the Legislative Observatory
   minutes.json    Who spoke on the priority files in Parliament committee meetings, from the committees' minutes
-  press.json      Latest developments: dated items on the priority files with nodo's own takeaway (preview only)
+  press.json      Latest developments: dated items on the priority files with nodo's own takeaway
   sources.json    Source list: media by tier, institutions, analysis sources and excluded domains
 ```
 
@@ -68,7 +68,7 @@ Seven priority legislative files (MFF 2028–2034, Digital Omnibus, Industrial A
 
 ## press.json (Latest developments)
 
-Dated items on nodo's files, each with nodo's own one- or two-sentence takeaway and a link to the source. Shown in the preview only so far.
+Dated items on nodo's files, each with nodo's own one- or two-sentence takeaway and a link to the source. Shown in the app since 31 Oct 2026.
 
 ```json
 { "generated": "…", "windowDays": 30, "maxPerFile": 3,

@@ -74,36 +74,9 @@ const html = patch(readFileSync(join(ROOT, "index.html"), "utf8"), "index.html",
   ["usage tag", "sid: Math.random().toString(36).slice(2, 12)", 'sid: "next-" + Math.random().toString(36).slice(2, 10)'],
   /* Accounts not on the list stop here: no sync, no usage log, the private screen instead. */
   ["gate", "async function onSignedIn(user) {", "async function onSignedIn(user) {\n    if (!(window.NODO_PREVIEW && window.NODO_PREVIEW.accounts.includes(user.id))) { window.nodoPreviewDenied(); return; }"],
-  /* Attachés on the file page and Council names that sync to the account (20 Oct 2026). Copy only; the sync is in features.js. */
-  ["file page attachés", '<p class="cap">Venue inferred, not confirmed.</p>` : ""}</div>`).join("")}</div>`; };',
-    '<p class="cap">Venue inferred, not confirmed.</p>` : ""}</div>`).join("")}</div><p class="fp-att">Attachés who cover ${w.length > 1 ? "these working parties" : "this working party"} aren\'t in nodo. The Council doesn\'t publish them.${((f.council || {}).configs || []).find((c) => CONF_BY[c]) ? ` <button type="button" data-prwp="${esc(((f.council || {}).configs || []).find((c) => CONF_BY[c]))}">Add the ones you know</button>` : ""}</p>`; };'],
-  ["notes count", 'notes.length + " on this device" : "saved on this device"', 'notes.length + " in your account" : "saved to your account"'],
-  ["wp foot", "The names here are the ones you add, saved on this device.", "The names here are the ones you add, saved to your account."],
-  ["added by you", '", saved on this device"', '", saved to your account"'],
-  ["sheet note", "It is saved on this device and is not sent to anyone.", "It is saved to your account and is not shared with anyone."],
-  ["delegation foot", "The names you add are saved on this device only.", "The names you add are saved to your account."],
-  ["council note", "Any other name is one you added, saved on this device.", "Any other name is one you added, saved to your account."],
-  ["sheet note 2", '"Saved on this device. Check a name', '"Saved to your account. Check a name'],
-  /* Council tab on the file page (22 Oct 2026): the Council sits next to Parliament and Commission instead of inside
-     Next steps. The tab body is fileCoTab() in features.js. Since 26 Oct 2026 the page has no Next steps or Timeline tab:
-     dates and updates open in Calendar, and caveats and sources fold into "About this file" (openFile in features.js). */
-  ["file tab: council", '[["ep", "Parliament"], ["ec", "Commission"], ["next", "Next steps"], ["upd", "Timeline"]]',
-    '[["ep", "Parliament"], ["ec", "Commission"], ...(fileHasCo(f) ? [["co", "Council"]] : [])]'],
-  ["file tab: council body", '} else if (tab === "upd") {', '} else if (tab === "co") {\n      body = fileCoTab(f);\n    } else if (tab === "upd") {'],
-  ["file tab: council out of next steps", '+ (cfs.length ? `<h3>In the Council</h3><div class="list">${cfs.map(confRow).join("")}</div>` : "") + wpBlock(f) + (f.council && f.council.note && (cfs.length || wpBlock(f)) ? `<p class="note">${esc(f.council.note)}</p>` : "")',
-    '+ (fileHasCo(f) ? `<p class="note">The Council side of this file is on its <button type="button" class="fp-totab" data-ftab="co">Council tab</button>.</p>` : "")'],
-  /* Who spoke in committee (22 Oct 2026): the blocks are spokeBlock, offBlock and mnDgCap in features.js, fed by v1/minutes.json. */
-  ["file page: spoke in committee", '+ (f.ep && f.ep.note ? `<p class="note">${esc(f.ep.note)}</p>` : "");', '+ spokeBlock(f) + (f.ep && f.ep.note ? `<p class="note">${esc(f.ep.note)}</p>` : "");'],
-  /* Why they're here (29 Oct 2026): MEPs with no role on the file sit under the related text that puts them there (relBlock in features.js). */
-  ["file page: related texts", 'ROLE_ORDER.map((r) => sec(ROLE_MANY[r], baseEp.filter((x) => x.role === r))).join("")',
-    'ROLE_ORDER.map((r) => (r === "relevant" ? relBlock(f, baseEp.filter((x) => x.role === r)) : sec(ROLE_MANY[r], baseEp.filter((x) => x.role === r)))).join("")'],
-  ["file page: officials", 'body = dgBlock(f) + sec("Added by you", mineCo)', 'body = dgBlock(f) + offBlock(f) + sec("Added by you", mineCo)'],
-  ["file page: dg caption", '${d.basis === "source" ? "Named in a Parliament or Commission document." : "Deduced from the Commissioner\'s portfolio. Verify before external use."}${d.note ? " " + esc(d.note) : ""}',
-    '${mnDgCap(f) || ((d.basis === "source" ? "Named in a Parliament or Commission document." : "Deduced from the Commissioner\'s portfolio. Verify before external use.") + (d.note ? " " + esc(d.note) : ""))}'],
-  /* No week numbers anywhere (21 Oct 2026). */
-  ["no week: calendar hero", "This week in Parliament · W${isoWeek(mon)}", "This week in Parliament"],
-  ["no week: calendar rows", "</b><span>W${isoWeek(w)}</span></div>", "</b></div>"],
-  ["no week: calendar eyebrow", "This week · W${isoWeek(mon)} · ", "This week · "],
+  /* Features promoted to the live app on 31 Oct 2026 (tools/preview/promote.mjs): their patches went with them. */
+  /* The Council dot map sits at the root since the 31 Oct 2026 promotion. */
+  ["dot map", 'fetch("europe-dots.json")', 'fetch("../europe-dots.json")'],
   ["marker", "</body>", gate],
   /* The preview's features (next/features.js, next/features.css) run inside the app's script, just before start-up. */
   ["features", "  initHome(); initEp(); initEc();", () => readFileSync(join(OUT, "features.js"), "utf8") + "\n  initHome(); initEp(); initEc();"],
@@ -117,11 +90,9 @@ const sw = patch(readFileSync(join(ROOT, "sw.js"), "utf8"), "sw.js", [
   ["cache name", 'const VERSION = "nodo-v', 'const VERSION = "nodo-next-' + createHash("sha256").update(html).digest("hex").slice(0, 8) + "-v"],
   ["shell", '"config.js", "avatars.js", "vendor/supabase.js", "manifest.webmanifest", "icons/icon-192.png", "icons/icon-512.png", "icons/apple-touch-icon.png"', '"../config.js", "../avatars.js", "../vendor/supabase.js", "manifest.webmanifest", "../icons/icon-192.png", "../icons/icon-512.png", "../icons/apple-touch-icon.png"'],
   ["cleanup", "ks.filter((k) => k !== VERSION && k !== DATA)", 'ks.filter((k) => k.startsWith("nodo-next-") && k !== VERSION)'],
-  /* The page itself comes from the network first (the saved copy only after 3 seconds or offline), so a new preview
-     build shows on the next open instead of the one after; the rest of the shell stays stale-while-revalidate. */
-  ["page network first", "  if (url.origin === location.origin || /(^|\\.)(googleapis|gstatic)\\.com$/.test(url.hostname)) return e.respondWith(staleWhileRevalidate(req));",
-    "  if (url.origin === location.origin && (req.mode === \"navigate\" || /\\/next\\/(index\\.html)?$/.test(url.pathname) || /\\/next\\/europe-dots\\.json$/.test(url.pathname))) return e.respondWith(pageFirst(req));\n  if (url.origin === location.origin || /(^|\\.)(googleapis|gstatic)\\.com$/.test(url.hostname)) return e.respondWith(staleWhileRevalidate(req));"],
-  ["page helper", "self.addEventListener(\"fetch\", (e) => {", "const pageFirst = (req) => new Promise((resolve) => {\n  let done = false; const settle = (r) => { if (!done && r) { done = true; resolve(r); } };\n  const saved = caches.match(req); const t = setTimeout(() => saved.then(settle), 3000);\n  fetch(req, { cache: \"no-cache\" }).then((r) => { clearTimeout(t); if (r.ok) { const c = r.clone(); caches.open(VERSION).then((x) => x.put(req, c)); } settle(r); })\n    .catch(() => { clearTimeout(t); saved.then((h) => settle(h || Response.error())); });\n});\nself.addEventListener(\"fetch\", (e) => {"],
+  /* The page comes from the network first, as in the live app (promoted 31 Oct 2026); here the rule matches next/. */
+  ["page network first", "/\\/nodo-data\\/(index\\.html)?$/.test(url.pathname) || /\\/europe-dots\\.json$/.test(url.pathname)",
+    "/\\/next\\/(index\\.html)?$/.test(url.pathname) || /\\/europe-dots\\.json$/.test(url.pathname)"],
 ]);
 
 const manifest = JSON.parse(readFileSync(join(ROOT, "manifest.webmanifest"), "utf8"));
