@@ -22,7 +22,7 @@ Workflow:
 
 ## Features in testing
 
-None since the promotion of 31 Oct 2026.
+- Speeches open in the verbatim report (since 31 Oct 2026). Speech cards in a profile's Activity had no action, because nodo holds neither the text nor a link. Each card now has "Read the verbatim", which opens the Parliament's verbatim report at that speech. `scripts/build-activity.mjs` stores `url` per speech from the next activity run (the debate page, `CRE-10-<date>-ITM-<n>_EN.html#<speech id>`, from the API's `recorded_in_a_realization_of`). Until then the link goes to the full-day report at the same anchor, built from the speech id. The provisional report shows each speech in its original language until the translations are out. When promoted, `feedCard` takes `fdSpeechAct` directly and the "speech card link" patch leaves `build.mjs`.
 
 Promoted to the live app on 31 Oct 2026 (everything in the preview, the Dossier restyle included):
 
