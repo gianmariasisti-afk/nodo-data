@@ -1,4 +1,7 @@
 /* nodo preview features: styles. Injected by tools/preview/build.mjs. Uses the app's own tokens. */
+/* Dossier type (31 Oct 2026): Outfit for display, Figtree for text. Only the weights Dossier uses are loaded; see the
+   Dossier theme at the end of this file. */
+@import url("https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600&family=Outfit:wght@400;500&display=swap");
 
 /* ---------- 1. home: the Monday edition ---------- */
 #vHome #homeCal, #vHome #newsWrap, #vHome #doorFiles { display: none !important; }
@@ -1406,3 +1409,127 @@ html:has(.profile:not([hidden])) { background: var(--ground); }
 .stats button[data-fstat="ep"] { background: var(--tint-sky); --stat-ring: var(--accent-sky); }
 .stats button[data-fstat="ec"], .stats button[data-fstat="cab"] { background: var(--tint-apricot); --stat-ring: var(--accent-apricot); }
 .stats button[data-fstat][aria-pressed="true"] { box-shadow: inset 0 0 0 2px var(--stat-ring); }
+
+/* ---------- Dossier theme (31 Oct 2026) ----------
+   The whole preview in the Dossier design system: a pale green-grey canvas, white cards at radius-lg (28px) with
+   Dossier's card shadow, ink primary buttons, pills for every control, one black feature card per screen (Today: Next
+   7 days), lime as the single highlight fill with ink on top, sky for links and the first series. Outfit and Figtree
+   replace Bricolage Grotesque and Instrument Sans.
+   It works by redefining the app's own tokens, last in the cascade, so every screen follows without touching its rules.
+   Additions Dossier does not define, flagged for the system: a dark theme (Dossier is light-only), and five muted
+   tints so Parliament, Commission, Council, the calendar and the Files policy areas stay told apart.
+   Political group colours and the EP calendar colours are untouched: they are the institutions' own. */
+:root {
+  --canvas: #eef0ec; --surface: #ffffff; --surface-sunken: #e3e7e1;
+  --ink: #111312; --ink-muted: #5c635e; --ink-inverse: #f4f6f2; --ink-inverse-muted: #a3aaa4;
+  --hairline: #d5dad3; --thread: #c2c8c0; --border-control: #7c837d;
+  --brand: #086f9e; --on-brand: #ffffff;
+  --brand-deep: #111312; --on-brand-deep: #f4f6f2; --on-brand-deep-muted: #a3aaa4; --brand-on-deep: #d9f266;
+  --node: #086f9e; --node-on-deep: #d9f266;
+  --lime: #d9f266; --amber: #ffd978; --ember: #d9650a;
+  --tint-brand: #e3e7e1;
+  --tint-sky: #dbe7ec; --tint-mint: #dbe9df; --tint-butter: #ffd978; --tint-apricot: #f1e3d6; --tint-rose: #eee0e4;
+  --accent-sky: #086f9e; --accent-mint: #17754a; --accent-butter: #5e4600; --accent-apricot: #9a4507; --accent-rose: #9c2f52;
+  --spark: #d9650a; --success: #17754a; --warning: #7a5600; --danger: #c2341d; --focus-ring: #111312;
+  --stage-5: #17754a;
+  --shadow-card: 0 1px 2px rgba(17,19,18,0.04), 0 8px 24px rgba(17,19,18,0.06);
+  --shadow-float: 0 12px 32px rgba(17,19,18,0.16);
+  --radius-sm: 10px; --radius-md: 16px; --radius-lg: 28px; --radius-xl: 28px;
+  --font-sans: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Outfit", "Avenir Next", system-ui, sans-serif;
+  --scrim: rgba(17,19,18,0.45);
+  --chev: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23111312' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  /* Today: the paper ground becomes the canvas; today's disc is lime. */
+  --ed-ground: var(--canvas); --ed-gold: var(--ink-muted); --ed-node: var(--lime); --ed-node-ring: var(--ink); --ed-wm-node: var(--node);
+  --ed-card-edge: transparent; --ed-thread: var(--hairline); --ed-ev: var(--surface-sunken);
+  --td-row: var(--surface-sunken); --td-edge: var(--hairline); --td-pend-bg: var(--amber); --td-pend: var(--ink); --td-ok: var(--success);
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --canvas: #0d0f0e; --surface: #181b19; --surface-sunken: #232724;
+  --ink: #f4f6f2; --ink-muted: #b4bbb5; --ink-inverse: #111312; --ink-inverse-muted: #5c635e;
+  --hairline: #303631; --thread: #3c433d; --border-control: #8b938c;
+  --brand: #7cc7ec; --on-brand: #111312;
+  --brand-deep: #262c27; --on-brand-deep: #f4f6f2; --on-brand-deep-muted: #b4bbb5; --brand-on-deep: #d9f266;
+  --node: #d9f266; --node-on-deep: #d9f266;
+  --tint-brand: #2a302b;
+  --tint-sky: #1d3440; --tint-mint: #1f3a2b; --tint-butter: #4a3d0e; --tint-apricot: #45301f; --tint-rose: #432a33;
+  --accent-sky: #7cc7ec; --accent-mint: #7fd6a4; --accent-butter: #ffd978; --accent-apricot: #f2a46b; --accent-rose: #f2a3bd;
+  --spark: #f08a3c; --success: #7fd6a4; --warning: #ffd978; --danger: #ff8f78; --focus-ring: #f4f6f2;
+  --stage-5: #7fd6a4;
+  --shadow-card: 0 1px 2px rgba(0,0,0,0.4), 0 8px 24px rgba(0,0,0,0.35);
+  --scrim: rgba(0,0,0,0.6);
+  --chev: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f4f6f2' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  --ed-ground: var(--canvas); --ed-ink: var(--ink); --ed-muted: var(--ink-muted); --ed-gold: var(--ink-muted);
+  --ed-node: var(--lime); --ed-node-ring: var(--lime); --ed-wm-node: var(--lime);
+  --ed-card: var(--surface); --ed-card-edge: transparent; --ed-gap: var(--canvas); --ed-thread: var(--hairline);
+  --ed-day: var(--surface); --ed-day-edge: var(--border-control); --ed-day-p: var(--ink); --ed-past: 1; --ed-past-ink: var(--ink-muted);
+  --ed-ev: var(--surface-sunken); --ed-btn: var(--lime); --ed-on-btn: #111312; --ed-search-edge: var(--border-control);
+  --ed-menu: var(--surface); --ed-on-menu: var(--ink); --ed-menu-edge: var(--border-control); --ed-focus: var(--focus-ring);
+  --td-row: var(--surface-sunken); --td-edge: var(--hairline); --td-pend-bg: var(--amber); --td-pend: #111312; --td-ok: var(--success);
+} }
+:root[data-theme="dark"] {
+  --canvas: #0d0f0e; --surface: #181b19; --surface-sunken: #232724;
+  --ink: #f4f6f2; --ink-muted: #b4bbb5; --ink-inverse: #111312; --ink-inverse-muted: #5c635e;
+  --hairline: #303631; --thread: #3c433d; --border-control: #8b938c;
+  --brand: #7cc7ec; --on-brand: #111312;
+  --brand-deep: #262c27; --on-brand-deep: #f4f6f2; --on-brand-deep-muted: #b4bbb5; --brand-on-deep: #d9f266;
+  --node: #d9f266; --node-on-deep: #d9f266;
+  --tint-brand: #2a302b;
+  --tint-sky: #1d3440; --tint-mint: #1f3a2b; --tint-butter: #4a3d0e; --tint-apricot: #45301f; --tint-rose: #432a33;
+  --accent-sky: #7cc7ec; --accent-mint: #7fd6a4; --accent-butter: #ffd978; --accent-apricot: #f2a46b; --accent-rose: #f2a3bd;
+  --spark: #f08a3c; --success: #7fd6a4; --warning: #ffd978; --danger: #ff8f78; --focus-ring: #f4f6f2;
+  --stage-5: #7fd6a4;
+  --shadow-card: 0 1px 2px rgba(0,0,0,0.4), 0 8px 24px rgba(0,0,0,0.35);
+  --scrim: rgba(0,0,0,0.6);
+  --chev: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f4f6f2' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  --ed-ground: var(--canvas); --ed-ink: var(--ink); --ed-muted: var(--ink-muted); --ed-gold: var(--ink-muted);
+  --ed-node: var(--lime); --ed-node-ring: var(--lime); --ed-wm-node: var(--lime);
+  --ed-card: var(--surface); --ed-card-edge: transparent; --ed-gap: var(--canvas); --ed-thread: var(--hairline);
+  --ed-day: var(--surface); --ed-day-edge: var(--border-control); --ed-day-p: var(--ink); --ed-past: 1; --ed-past-ink: var(--ink-muted);
+  --ed-ev: var(--surface-sunken); --ed-btn: var(--lime); --ed-on-btn: #111312; --ed-search-edge: var(--border-control);
+  --ed-menu: var(--surface); --ed-on-menu: var(--ink); --ed-menu-edge: var(--border-control); --ed-focus: var(--focus-ring);
+  --td-row: var(--surface-sunken); --td-edge: var(--hairline); --td-pend-bg: var(--amber); --td-pend: #111312; --td-ok: var(--success);
+}
+/* Cards sit on the canvas at every width (the app put phones on a white ground). */
+@media (max-width: 599.98px) { :root { --ground: var(--canvas); } }
+html { font-synthesis-weight: none; background: var(--canvas); }
+body { font-variant-numeric: tabular-nums; }
+
+/* Controls: pills; primary actions in ink (lime on the dark theme); outlines at 1px in border-control. */
+.eu-btn--brand, .eu-btn--ink { background: var(--ink); color: var(--ink-inverse); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .eu-btn--brand, :root:not([data-theme="light"]) .eu-btn--ink { background: var(--lime); color: #111312; } }
+:root[data-theme="dark"] .eu-btn--brand, :root[data-theme="dark"] .eu-btn--ink { background: var(--lime); color: #111312; }
+.eu-btn--outline, .eu-search, .ed-mast .eu-search { box-shadow: inset 0 0 0 1px var(--border-control); }
+.eu-btn { font-weight: 500; }
+.nx-menubtn { font-weight: 500; }
+.td-link, .nx-lnk, .ed-room__all, .ed-room__add, .ed-wk__more { color: var(--brand); }
+
+/* Cards: one surface, one shadow, no outline. */
+.td-card, .fl-card, .ed-week { border-radius: var(--radius-lg); background: var(--surface); box-shadow: var(--shadow-card); }
+.td-card { padding: 24px 20px 20px; }
+
+/* Display type: Dossier sets headings at 400 to 500, never bold or light. */
+.td-t, .fl-card__n, .cl-d b, .cl-f, .cl-row__t b, .ep-switch, .cm-card__tx b, .nx-item, .td-day__n, .td-when__n { font-weight: 500; }
+.eu-headline, .onb-xl, .yu-name, .yu-title { font-weight: 400; }
+
+/* The one feature card on Today: Next 7 days in ink, lime on today and on the plenary band. Its own tokens are
+   redefined inside the card, so every row, link and caption in it follows. */
+#tdNext {
+  background: var(--brand-deep); color: var(--on-brand-deep);
+  --ink: var(--on-brand-deep); --ink-muted: var(--on-brand-deep-muted); --brand: var(--lime); --focus-ring: var(--lime);
+  --td-row: rgba(244,246,242,0.08); --td-edge: rgba(244,246,242,0.16); --hairline: rgba(244,246,242,0.16);
+  --ed-gold: var(--lime); --accent-sky: var(--lime);
+}
+#tdNext .td-day.is-today { color: #111312; }
+#tdNext .td-day.is-today .td-day__n { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: var(--lime); color: #111312; }
+#tdNext .td-day.is-today .td-day__w { color: var(--lime); }
+#tdNext .td-day__dot.on { background: var(--on-brand-deep); }
+
+/* Council map: the navy ground becomes Dossier's ink, the selected Presidency lime. */
+.cm { background: #111312; }
+.cm-land { fill: #2a2f2b; }
+.cm-n i { background: #111312; border-color: #f4f6f2; }
+.cm-s.sel, .cm-n.is-sel i, .cm-n.is-sel i::after { fill: #d9f266; background: #d9f266; }
+.cm-leg b { color: #d9f266; }
+.cm-strip [aria-checked="true"] { background: #d9f266; color: #111312; }
+.cm-n.is-sel span { color: #111312; }
