@@ -1,35 +1,4 @@
 {
-  "generatedAt": "2026-10-30T00:00:00Z",
-  "events": [
-    {
-      "id": "mff-2028-2034:next:2026-10-30:63ef07",
-      "fileId": "mff-2028-2034",
-      "date": "2026-10-30",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Council MFF working party: national and regional partnerships (third Presidency compromise, Block 9)",
-      "push": true,
-      "pushOn": "2026-10-30"
-    },
-    {
-      "id": "tech-sovereignty-package:next:2026-10-30:48e2d8",
-      "fileId": "tech-sovereignty-package",
-      "date": "2026-10-30",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Council industry working party on the Chips Act 2.0 (second day)",
-      "push": true,
-      "pushOn": "2026-10-30"
-    },
-    {
-      "id": "military-mobility:next:2026-10-30:ebc3da",
-      "fileId": "military-mobility",
-      "date": "2026-10-30",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Council ad hoc working party: debrief from the 20 October trilogue and technical meetings",
-      "push": true,
-      "pushOn": "2026-10-30"
-    }
-  ]
+  "generatedAt": "2026-10-31T00:00:00Z",
+  "events": []
 }

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-30T00:00:00Z",
+  "generatedAt": "2026-10-31T00:00:00Z",
   "events": [
     {
       "id": "biotech-act:next:2026-12-14:4e1f33",
@@ -172,6 +172,16 @@
       "pushOn": "2026-11-05"
     },
     {
+      "id": "co2-cars:next:2026-11-04:7b1ed4",
+      "fileId": "co2-cars",
+      "date": "2026-11-04",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "ENVI committee vote (reported by Agence Europe; not yet in the Observatory)",
+      "push": true,
+      "pushOn": "2026-11-04"
+    },
+    {
       "id": "mff-2028-2034:next:2026-11-04:bf01c0",
       "fileId": "mff-2028-2034",
       "date": "2026-11-04",
@@ -220,16 +230,6 @@
       "title": "Council industry working party on the Chips Act 2.0 (second day)",
       "push": true,
       "pushOn": "2026-10-30"
-    },
-    {
-      "id": "tech-sovereignty-package:next:2026-10-29:bca875",
-      "fileId": "tech-sovereignty-package",
-      "date": "2026-10-29",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Council industry working party on the Chips Act 2.0: Presidency compromise text (doc 13545/26 REV 1)",
-      "push": true,
-      "pushOn": "2026-10-29"
     },
     {
       "id": "tech-sovereignty-package:ep:2026-0138-NMSR-256910-2026-10-27",
