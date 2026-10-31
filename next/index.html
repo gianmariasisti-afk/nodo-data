@@ -3345,7 +3345,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       <div class="acts">${p.method ? `${p.passkey ? "" : `<button class="eu-btn" id="pkBtn" type="button">Add a passkey</button>`}<button class="eu-btn" id="outBtn" type="button">Sign out</button>`
         : `<button class="eu-btn eu-btn--brand" id="inBtn" type="button">Sign in or create an account</button>`}</div>`}
       <h3>Getting around</h3>
-      <div class="list">${row({ el: "button", attrs: `type="button" data-tour-start`, lead: disc("home"), name: "Take the tour", meta: "Six stops around Home, about a minute", wrap: true, tail: go })}</div>
+      <div class="list">${row({ el: "button", attrs: `type="button" data-tour-start`, lead: disc("home"), name: "Take the tour", meta: "A walk around Today, about a minute", wrap: true, tail: go })}</div>
       <h3>Your data</h3>
       <p class="cap lead-cap">${acct.user ? "Your profile, saved people and file lists are stored with your nodo account and follow you to every device. Only you can read them." : cloud ? "Your profile and saved people are stored with your Claude account and follow you to other devices. Only you can see them." : "Your profile, saved people and file lists are stored in this browser only. Nobody else can see them."}</p>
       <div class="acts"><button class="eu-btn" id="expBtn" type="button">Export my data</button><button class="eu-btn" id="dataBtn" type="button">What nodo stores</button></div>
@@ -3909,15 +3909,20 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
 
   /* ---------- guided tour ----------
      Runs once when a new account finishes setting up, and again on request from the profile. A spotlight walks through
-     Home: search, the institutions, Files, Latest news, the News tab and the profile. The page stays put underneath. */
-  const TOUR = [
-    { t: "Search everything", b: "Type a name, a file, a committee or a country. nodo looks across Parliament, Commission and Council at once.", el: () => document.querySelector("#vHome .eu-search"), r: 999 },
-    { t: "Three institutions and a calendar", b: "Every MEP, Commissioner, cabinet member and Council delegation, plus the Parliament's calendar and plenary agenda.", el: () => [...document.querySelectorAll("#homeTiles > button.eu-tile")], r: 24 },
-    { t: "Follow the files that matter", b: "Each priority file with its lead MEPs, the Commission DG holding the pen and the Council configuration, working party and next meetings. Open one and tap Follow to put it first everywhere.", el: () => $("doorFiles"), r: 24 },
-    { t: "What is coming up", b: "Meetings and deadlines on the priority files in the next 14 days. The files you follow come first.", el: () => { const w = $("newsWrap"), h = w.querySelector(".nw-head"), r1 = w.querySelector(".eu-row"); return h && r1 ? [h, r1] : w; }, r: 20 },
-    { t: "All the news", b: "Recent procedure steps, people changes and dates further out, in one list.", el: () => $("navNews"), r: 999 },
-    { t: "Your profile", b: "Your saved people, the files you follow and the countries you cover. You can take this tour again from here.", el: () => $("meBtn"), r: 999 },
+     Today, then the menu and the profile; the page stays put underneath. Rewritten for the new Today on 31 Oct 2026.
+     A stop whose section is not on screen (nothing new since the last look, no file followed yet) is skipped. */
+  const TOUR_ALL = [
+    { t: "One search for everything", b: "Type a name, a file, a committee or a date. Brussels nicknames work too. For a file nodo doesn't follow, search it and generate its page.", el: () => document.querySelector("#vHome .eu-search"), r: 999 },
+    { t: "Since you last looked", b: "New steps, people and dates on your files since you last opened nodo.", el: () => $("tdSince"), r: 20 },
+    { t: "The next 7 days", b: () => (state.follow.size ? "What happens on your files this week, day by day." : "What happens on nodo's files this week, day by day. Once you follow files, only yours show.") + " Full calendar opens every step, ahead and past.", el: () => $("tdNext"), r: 20 },
+    { t: "Pick your files", b: "Follow the files you work on. Today, Calendar and your alerts then follow them.", el: () => $("tdPick"), r: 20 },
+    { t: "On these files", b: "The people on the files that move this week: rapporteurs, Commissioners and the Council working party.", el: () => $("tdRoom"), r: 20 },
+    { t: "Your files", b: "The files you follow. Tap one for its people and dates, or Manage to add or drop a file.", el: () => $("tdMine"), r: 20 },
+    { t: "Every institution", b: "Every MEP, Commissioner and cabinet member, and the 27 Council delegations.", el: () => $("tdPeople"), r: 20 },
+    { t: "The menu", b: "Today, Your files, People and Calendar. About nodo sits at the bottom.", el: () => $("nxOpen"), r: 999 },
+    { t: "You", b: "What you cover, your notifications and your account. Take this tour again from here.", el: () => $("meBtn"), r: 999 },
   ];
+  let TOUR = TOUR_ALL;
   const tour = { i: -1, from: null };
   const tourRect = (el) => {
     const rs = (Array.isArray(el) ? el : [el]).filter(Boolean).map((e) => e.getBoundingClientRect()).filter((r) => r.width || r.height);
@@ -3929,6 +3934,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     if (!$("onb").hidden || !state.profile) return;
     closeSheet();
     if (state.view !== "home" || state.open || state.hq) { if (state.hq) { state.hq = ""; $("hq").value = ""; } setView("home"); }
+    TOUR = TOUR_ALL.filter((st) => { const e = st.el(); return e && !e.hidden && tourRect(e); });
     tour.from = document.activeElement; tour.i = 0;
     Track.log("tour_start", {});
     document.documentElement.classList.add("touring");
@@ -3939,7 +3945,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const st = TOUR[tour.i], el = st.el(), first = Array.isArray(el) ? el[0] : el;
     $("tourStep").textContent = `${tour.i + 1} of ${TOUR.length}`;
     $("tourDots").innerHTML = TOUR.map((_, k) => `<i${k === tour.i ? ' class="on"' : ""}></i>`).join("");
-    $("tourT").textContent = st.t; $("tourB").textContent = st.b;
+    $("tourT").textContent = st.t; $("tourB").textContent = typeof st.b === "function" ? st.b() : st.b;
     $("tourBack").hidden = tour.i === 0;
     $("tourNext").textContent = tour.i === TOUR.length - 1 ? "Done" : "Next";
     /* Scroll so the stop and the card fit on screen together, the stop a little above the middle when there is room. */
