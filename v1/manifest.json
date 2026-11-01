@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generated": "2026-11-01T11:36:22.703Z",
+ "generated": "2026-11-01T13:45:03.698Z",
  "files": {
   "meps": {
    "path": "meps.json",
@@ -41,14 +41,14 @@
   "files": {
    "path": "files.json",
    "description": "Legislative files linked to MEPs, Commissioners, cabinet members and Council configurations",
-   "bytes": 138919,
-   "sha256": "b36ae8a115a03ae6e1335fcf9e33e14782abbdac779b5d60cc278c97f8ec8ebb"
+   "bytes": 147268,
+   "sha256": "d0c3524baab68d0c690fc8bb1f3c7264136f7767e43e0ef08baef423c846105d"
   },
   "updates": {
    "path": "updates/updates.json",
    "description": "Update stream for priority files: EP procedure events, Council dates, stage changes (also timelines.json and push-queue.json in the same folder)",
-   "bytes": 26397,
-   "sha256": "ef97e68cba5028b46860c46a4fe768462df82a67cb06cfa44a4c9db0028499a7"
+   "bytes": 25395,
+   "sha256": "d09ca0e054ae01ef0396e8fae5cc24f01b396731a83db295429590a1e8d3eb1e"
   },
   "minutes": {
    "path": "minutes.json",

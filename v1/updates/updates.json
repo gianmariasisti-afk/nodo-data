@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-31T00:00:00Z",
+  "generatedAt": "2026-11-01T00:00:00Z",
   "events": [
     {
       "id": "biotech-act:next:2026-12-14:4e1f33",
@@ -8,6 +8,26 @@
       "source": "nodo",
       "kind": "scheduled",
       "title": "Regulation: plenary vote (indicative date in the Observatory)",
+      "push": true,
+      "pushOn": "2026-12-14"
+    },
+    {
+      "id": "co2-cars:next:2026-12-14:43a63c",
+      "fileId": "co2-cars",
+      "date": "2026-12-14",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Plenary vote (indicative date in the Observatory)",
+      "push": true,
+      "pushOn": "2026-12-14"
+    },
+    {
+      "id": "food-feed-omnibus:next:2026-12-14:43a63c",
+      "fileId": "food-feed-omnibus",
+      "date": "2026-12-14",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Plenary vote (indicative date in the Observatory)",
       "push": true,
       "pushOn": "2026-12-14"
     },
@@ -72,32 +92,22 @@
       "pushOn": "2026-11-26"
     },
     {
-      "id": "co2-cars:next:2026-11-23:43a63c",
-      "fileId": "co2-cars",
+      "id": "biotech-act:next:2026-11-23:c6e633",
+      "fileId": "biotech-act",
       "date": "2026-11-23",
       "source": "nodo",
       "kind": "scheduled",
-      "title": "Plenary vote (indicative date in the Observatory)",
+      "title": "Directive: plenary vote (indicative date in the Observatory)",
       "push": true,
       "pushOn": "2026-11-23"
     },
     {
-      "id": "food-feed-omnibus:next:2026-11-23:43a63c",
-      "fileId": "food-feed-omnibus",
+      "id": "cef-2028-2034:next:2026-11-23:187bcc",
+      "fileId": "cef-2028-2034",
       "date": "2026-11-23",
       "source": "nodo",
       "kind": "scheduled",
-      "title": "Plenary vote (indicative date in the Observatory)",
-      "push": true,
-      "pushOn": "2026-11-23"
-    },
-    {
-      "id": "mff-2028-2034:next:2026-11-23:d834c7",
-      "fileId": "mff-2028-2034",
-      "date": "2026-11-23",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "ECF: plenary vote (indicative date in the Observatory)",
+      "title": "Parliament plenary, first reading (indicative date in the Observatory)",
       "push": true,
       "pushOn": "2026-11-23"
     },
@@ -130,16 +140,6 @@
       "title": "Council MFF working party (AHWP MFF)",
       "push": true,
       "pushOn": "2026-11-17"
-    },
-    {
-      "id": "biotech-act:next:2026-11-11:c6e633",
-      "fileId": "biotech-act",
-      "date": "2026-11-11",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Directive: plenary vote (indicative date in the Observatory)",
-      "push": true,
-      "pushOn": "2026-11-11"
     },
     {
       "id": "digital-fairness-act:next:2026-11-11:5a01ad",
@@ -200,36 +200,6 @@
       "title": "Council MFF working party: national and regional partnerships",
       "push": true,
       "pushOn": "2026-11-03"
-    },
-    {
-      "id": "mff-2028-2034:next:2026-10-30:63ef07",
-      "fileId": "mff-2028-2034",
-      "date": "2026-10-30",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Council MFF working party: national and regional partnerships (third Presidency compromise, Block 9)",
-      "push": true,
-      "pushOn": "2026-10-30"
-    },
-    {
-      "id": "military-mobility:next:2026-10-30:ebc3da",
-      "fileId": "military-mobility",
-      "date": "2026-10-30",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Council ad hoc working party: debrief from the 20 October trilogue and technical meetings",
-      "push": true,
-      "pushOn": "2026-10-30"
-    },
-    {
-      "id": "tech-sovereignty-package:next:2026-10-30:48e2d8",
-      "fileId": "tech-sovereignty-package",
-      "date": "2026-10-30",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Council industry working party on the Chips Act 2.0 (second day)",
-      "push": true,
-      "pushOn": "2026-10-30"
     },
     {
       "id": "tech-sovereignty-package:ep:2026-0138-NMSR-256910-2026-10-27",
