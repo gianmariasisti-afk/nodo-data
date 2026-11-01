@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generated": "2026-10-31T19:53:57.158Z",
+ "generated": "2026-11-01T07:23:43.907Z",
  "files": {
   "meps": {
    "path": "meps.json",
@@ -18,7 +18,7 @@
    "path": "calendar.json",
    "description": "Parliament calendar: plenary, committee and group weeks",
    "bytes": 2633,
-   "sha256": "ce03dc1ac2184a1529b69bc13f073f273f8009c29d1e4120b90038b7f39d91ce"
+   "sha256": "087fca6870c0cf634b55a6aa848a1a41bcfa2989b050776c38df9800f4b4ae5c"
   },
   "council": {
    "path": "council.json",
@@ -41,8 +41,8 @@
   "files": {
    "path": "files.json",
    "description": "Legislative files linked to MEPs, Commissioners, cabinet members and Council configurations",
-   "bytes": 138757,
-   "sha256": "4da0ffa555ca8b585bb047db7c2bb46e825cbe3e86fa7b751420510ddbcb0856"
+   "bytes": 138919,
+   "sha256": "b36ae8a115a03ae6e1335fcf9e33e14782abbdac779b5d60cc278c97f8ec8ebb"
   },
   "updates": {
    "path": "updates/updates.json",
@@ -71,8 +71,8 @@
   "auto": {
    "path": "auto-files.json",
    "description": "Auto pages: codecision files nodo does not follow, read weekly from the Legislative Observatory (shape of files.json entries, auto: true)",
-   "bytes": 609279,
-   "sha256": "2e2b684a1dde98aa219c591a303fcfa3a37837aae6fe1dec93b52a2bb2300b39"
+   "bytes": 611021,
+   "sha256": "a954263d3a11e4f1d0a96f3e7ba2890747d5bb4c2a9355b128ca1cd7b5411b3b"
   },
   "searchTerms": {
    "path": "search-terms.json",
