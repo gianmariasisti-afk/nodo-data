@@ -1,8 +1,25 @@
 {
- "generated": "2026-10-29T20:19:52.993Z",
+ "generated": "2026-11-01T06:59:22.569Z",
  "windowDays": 30,
  "maxPerFile": 3,
  "files": {
+  "digital-networks-act": [
+   {
+    "id": "ba26170ad6",
+    "date": "2026-10-26",
+    "source": "MLex",
+    "inst": "press",
+    "kind": "press",
+    "text": "Telecom challengers including Iliad, Digi, Colt and 1&1 asked for stronger competition safeguards in Michał Kobosko's draft report and a mandatory nationwide switch from copper to fibre.",
+    "url": "https://www.mlex.com/mlex/antitrust/articles/2542324",
+    "people": [
+     "ep:257037"
+    ],
+    "stage": false,
+    "paywall": true,
+    "added": "2026-11-01"
+   }
+  ],
   "digital-omnibus-data": [
    {
     "id": "ad2f447303",
@@ -19,6 +36,24 @@
    }
   ],
   "industrial-accelerator-act": [
+   {
+    "id": "ad01a185cf",
+    "date": "2026-10-28",
+    "source": "Agence Europe",
+    "inst": "press",
+    "kind": "press",
+    "text": "The joint INTA-ITRE-IMCO committee vote remains officially set for 1 December despite more than 5,000 amendments. The EPP is split, and a group around Christian Ehler and Jörgen Warborn wants the proposal rejected.",
+    "url": "https://agenceurope.eu/en/bulletin/article/13970/4/industrial-accelerator-despite-thousands-of-amendments-vote-in-european-parliaments-competent-committees-officially-remains-scheduled-for-1-december",
+    "people": [
+     "ep:86793",
+     "ep:256898",
+     "ep:197557",
+     "ep:28226"
+    ],
+    "stage": false,
+    "paywall": true,
+    "added": "2026-11-01"
+   },
    {
     "id": "1b978297b8",
     "date": "2026-10-15",
@@ -46,6 +81,36 @@
     "stage": false,
     "paywall": false,
     "added": "2026-10-28"
+   }
+  ],
+  "mff-2028-2034": [
+   {
+    "id": "e09cacbea4",
+    "date": "2026-10-29",
+    "source": "Agence Europe",
+    "inst": "press",
+    "kind": "press",
+    "text": "Member states do not expect António Costa's negotiating box before the last week of November. Diplomats see the 17–18 December European Council as the most likely moment for a deal.",
+    "url": "https://agenceurope.eu/en/bulletin/article/13971/14/2028-2034-mff-eu27-now-reportedly-largely-convinced-they-need-to-conclude-agreement-by-end-of-2026",
+    "people": [],
+    "stage": false,
+    "paywall": true,
+    "added": "2026-11-01"
+   },
+   {
+    "id": "4df3fa22e2",
+    "date": "2026-10-22",
+    "source": "Agence Europe",
+    "inst": "press",
+    "kind": "press",
+    "text": "Parliament's rapporteurs and shadows agreed compromise amendments on the European Competitiveness Fund on 22 October. ITRE is expected to adopt them on 10 November.",
+    "url": "https://agenceurope.eu/en/bulletin/article/13966/9/european-competitiveness-fund-meps-expected-to-adopt-position-on-10-november",
+    "people": [
+     "ep:28226"
+    ],
+    "stage": false,
+    "paywall": true,
+    "added": "2026-11-01"
    }
   ]
  }

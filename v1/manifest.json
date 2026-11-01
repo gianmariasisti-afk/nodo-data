@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generated": "2026-11-01T20:18:45.702Z",
+ "generated": "2026-11-02T07:48:31.056Z",
  "files": {
   "meps": {
    "path": "meps.json",
@@ -59,8 +59,8 @@
   "press": {
    "path": "press.json",
    "description": "Latest developments: dated press and institutional items on nodo's files, each with nodo's own takeaway and a link to the source",
-   "bytes": 1768,
-   "sha256": "54a1c97f3b1a8b43759f1a9bec2ce3f03d121bba0371e128823eeac85baa8ccd"
+   "bytes": 4211,
+   "sha256": "ee849a1a0c425ec5944cee141a355a169991f34efdd0cff50a5d21ce4bd5be86"
   },
   "sources": {
    "path": "sources.json",
@@ -71,14 +71,14 @@
   "auto": {
    "path": "auto-files.json",
    "description": "Auto pages: codecision files nodo does not follow, read weekly from the Legislative Observatory (shape of files.json entries, auto: true)",
-   "bytes": 611021,
-   "sha256": "a954263d3a11e4f1d0a96f3e7ba2890747d5bb4c2a9355b128ca1cd7b5411b3b"
+   "bytes": 608123,
+   "sha256": "a30356a53d3174ec5c6bf15a9c32c7192a888700e4b7414f8f122d2a66e8cf47"
   },
   "searchTerms": {
    "path": "search-terms.json",
    "description": "Search terms: hand-kept nicknames of files (pointing at procedures) and topic words",
-   "bytes": 12110,
-   "sha256": "b87cd25ea7560391c5857402ca5c076256d2eb593afea59f570f991cdd12ef7f"
+   "bytes": 12264,
+   "sha256": "2b94f07a6a44ee71478feb9612d6bd426c6fdccccb660eefc5e615c64b570f4e"
   }
  }
 }
