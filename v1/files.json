@@ -2792,6 +2792,269 @@
    "asOf": "2026-10-21"
   },
   {
+   "id": "cef-2028-2034",
+   "short": "CEF 2028–2034",
+   "title": "Connecting Europe Facility 2028–2034 (CEF III): transport and energy networks",
+   "kind": "regulation",
+   "area": "energy",
+   "procedure": "2025/0221(COD)",
+   "proposal": "COM(2025)547",
+   "stage": "positions-in-preparation",
+   "sector": "transport",
+   "lede": "The Council has a partial mandate without the money; Parliament's joint ITRE-TRAN committee still has to vote.",
+   "status": "The Commission proposed it on 16 July 2025 as part of the MFF package: €81.4bn for trans-European transport and energy networks (€33.7bn in 2021–2027), of which €29.9bn for energy and €17.6bn for military mobility. The Council agreed a partial general approach at the Energy Council on 15 December 2025; it leaves out financial and horizontal issues, which wait for the MFF deal. In Parliament, the joint ITRE-TRAN committee (co-rapporteurs Kamila Gasiuk-Pihowicz and Oihane Agirregoitia Martínez) published its draft report on 25 March 2026; amendments followed in April. BUDG's opinion asks to raise the envelope to €91.3bn. The Observatory shows the file awaiting the committee vote, with an indicative plenary date of 23 November 2026.",
+   "next": [
+    {
+     "date": "2026-11-23",
+     "what": "Parliament plenary, first reading (indicative date in the Observatory)",
+     "src": "oeil-2025-0221-cod"
+    },
+    {
+     "date": null,
+     "what": "Joint ITRE-TRAN committee vote: no date set yet"
+    }
+   ],
+   "ep": {
+    "lead": [
+     "ITRE",
+     "TRAN"
+    ],
+    "note": "Joint ITRE-TRAN committee with co-rapporteurs. SEDE, ENVI and REGI give opinions; BUDG gives a budgetary assessment."
+   },
+   "meps": [
+    {
+     "id": "257032",
+     "role": "rapporteur",
+     "committee": "ITRE",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0221(COD)"
+    },
+    {
+     "id": "256987",
+     "role": "rapporteur",
+     "committee": "TRAN",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0221(COD)"
+    },
+    {
+     "id": "249603",
+     "role": "shadow",
+     "committee": "ITRE-TRAN",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0221(COD)"
+    },
+    {
+     "id": "256999",
+     "role": "shadow",
+     "committee": "ITRE-TRAN",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0221(COD)"
+    },
+    {
+     "id": "256824",
+     "role": "shadow",
+     "committee": "ITRE-TRAN",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0221(COD)"
+    },
+    {
+     "id": "198176",
+     "role": "shadow",
+     "committee": "ITRE-TRAN",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0221(COD)"
+    },
+    {
+     "id": "256883",
+     "role": "shadow",
+     "committee": "ITRE-TRAN",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0221(COD)"
+    },
+    {
+     "id": "28615",
+     "role": "shadow",
+     "committee": "ITRE-TRAN",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0221(COD)"
+    },
+    {
+     "id": "197553",
+     "role": "shadow",
+     "committee": "ITRE-TRAN",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0221(COD)"
+    },
+    {
+     "id": "204332",
+     "role": "shadow",
+     "committee": "ITRE-TRAN",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0221(COD)"
+    },
+    {
+     "id": "197466",
+     "role": "shadow",
+     "committee": "ITRE-TRAN",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0221(COD)"
+    },
+    {
+     "id": "256965",
+     "role": "shadow",
+     "committee": "ITRE-TRAN",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0221(COD)"
+    },
+    {
+     "id": "124736",
+     "role": "shadow",
+     "committee": "ITRE-TRAN",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0221(COD)"
+    },
+    {
+     "id": "256952",
+     "role": "shadow",
+     "committee": "ITRE-TRAN",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0221(COD)"
+    },
+    {
+     "id": "267485",
+     "role": "shadow",
+     "committee": "ITRE-TRAN",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0221(COD)",
+     "note": "The Observatory links him to id 10001806; matched by name to the meps.json id"
+    },
+    {
+     "id": "124766",
+     "role": "opinion-rapporteur",
+     "committee": "SEDE",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0221(COD)"
+    },
+    {
+     "id": "257727",
+     "role": "opinion-rapporteur",
+     "committee": "ENVI",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0221(COD)"
+    },
+    {
+     "id": "257113",
+     "role": "opinion-rapporteur",
+     "committee": "REGI",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0221(COD)"
+    },
+    {
+     "id": "23781",
+     "role": "opinion-rapporteur",
+     "committee": "BUDG",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0221(COD)",
+     "note": "Rapporteur for the budgetary assessment"
+    }
+   ],
+   "commission": {
+    "lead": [
+     "apostolos-tzitzikostas",
+     "dan-jorgensen"
+    ],
+    "associated": [
+     "piotr-serafin",
+     "andrius-kubilius"
+    ]
+   },
+   "dg": {
+    "lead": [
+     "MOVE",
+     "ENER"
+    ],
+    "basis": "source",
+    "note": "The Parliament's procedure file lists DG Mobility and Transport and DG Energy."
+   },
+   "cabinet": [
+    {
+     "k": "apostolos-tzitzikostas~helena-hinto",
+     "why": "Connecting Europe Facility; TEN-T; military mobility; CINEA"
+    },
+    {
+     "k": "dan-jorgensen~stella-kaltsouni",
+     "why": "Connecting Europe Facility; TEN-E and projects of common interest; grids package"
+    },
+    {
+     "k": "apostolos-tzitzikostas~anna-panagopoulou",
+     "why": "Head of Cabinet; overall MFF coordination; relations with Coreper"
+    },
+    {
+     "k": "piotr-serafin~anne-funch-jensen",
+     "why": "Deputy Head of Cabinet; MFF (the CEF envelope is set in the MFF deal)"
+    }
+   ],
+   "council": {
+    "configs": [
+     "TTE-ENER"
+    ],
+    "configsBasis": "source",
+    "presidency": "IE",
+    "note": "Partial general approach agreed at the Energy Council on 15 December 2025 (Council doc 16451/25), without financial and horizontal issues. The budget follows the MFF negotiation.",
+    "workingParties": [
+     {
+      "name": "Ad Hoc Working Party on the Connecting Europe Facility (AHWP CEF)",
+      "basis": "source",
+      "note": "Set up for the proposal in September 2025 (Council doc 11716/25). Its 2026 meeting dates are not checked."
+     }
+    ]
+   },
+   "caveats": [
+    "Rapporteurs, shadows and opinion rapporteurs come from the Parliament's procedure file (rechecked each week).",
+    "The Observatory names no commissioner. The lead and associated commissioners follow the DGs it lists and the cabinet portfolios.",
+    "The 23 November plenary date is the Observatory's indicative forecast. No committee vote date is set, so the date may move."
+   ],
+   "sources": [
+    {
+     "id": "oeil-2025-0221-cod",
+     "title": "Legislative Observatory: procedure file 2025/0221(COD)",
+     "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2025/0221(COD)"
+    },
+    {
+     "id": "oeil-2025-0221-summary",
+     "title": "Legislative Observatory: summary of the Commission proposal",
+     "url": "https://oeil.europarl.europa.eu/oeil/en/document-summary?id=1830638"
+    },
+    {
+     "id": "council-pr-20251215",
+     "title": "Council: partial mandate on the Connecting Europe Facility (15 Dec 2025)",
+     "url": "https://www.consilium.europa.eu/en/press/press-releases/2025/12/15/mff-council-adopts-partial-mandate-on-the-connecting-europe-facility-cef-iii/"
+    },
+    {
+     "id": "council-16451",
+     "title": "Council doc 16451/25: partial general approach",
+     "url": "https://data.consilium.europa.eu/doc/document/ST-16451-2025-INIT/en/pdf"
+    },
+    {
+     "id": "council-11716",
+     "title": "Council doc 11716/25: mandate of the AHWP CEF",
+     "url": "https://data.consilium.europa.eu/doc/document/ST-11716-2025-INIT/en/pdf"
+    },
+    {
+     "id": "ep-train-cef",
+     "title": "Legislative Train: Connecting Europe Facility 2028–2034",
+     "url": "https://www.europarl.europa.eu/legislative-train/spotlight-MFF%202028-2034/file-connecting-europe-facility-2028%E2%80%932034"
+    },
+    {
+     "id": "eprs-cef",
+     "title": "EPRS briefing: Connecting Europe Facility 2028–2034 (12 Dec 2025)",
+     "url": "https://www.europarl.europa.eu/thinktank/en/document/EPRS_BRI(2025)779264"
+    }
+   ],
+   "checked": "2026-11-01",
+   "asOf": "2026-11-01"
+  },
+  {
    "id": "co2-cars",
    "short": "CO2 standards for cars",
    "title": "CO2 emission standards for new cars and vans (2035 target revision)",
