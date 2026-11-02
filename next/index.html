@@ -9412,6 +9412,15 @@ html:has(body.nx-on-home) { background: var(--ed-ground); }
 .profile { top: env(safe-area-inset-top, 0px); padding-top: 0; }
 html:has(.profile:not([hidden])) { background: var(--ground); }
 
+/* Status bar strip (2 Nov 2026): iOS 26 blurs whatever sits under the status bar in a Home Screen app, so the top bar,
+   the portrait and the files scrolled up there showed as a smear. A solid strip of the bar's colour now covers the
+   status bar area on every screen, so there is only one flat colour for iOS to blur. Sheets and their scrim still go
+   over it. */
+body.nx-burger::before { content: ""; position: fixed; z-index: 19; top: 0; left: 0; right: 0; height: env(safe-area-inset-top, 0px); background: var(--surface); pointer-events: none; }
+body.nx-burger.nx-on-home::before { background: var(--ed-ground, var(--surface)); }
+body.nx-burger:has(.profile:not([hidden]))::before { background: var(--ground); }
+html:has(body.nx-burger:not(.nx-on-home)):not(:has(.profile:not([hidden]))) { background: var(--surface); }
+
 /* One file on the agenda (29 Oct 2026): empty weeks folded, undated steps at the end. */
 .cl-gap { margin: var(--space-2) 0; padding: 4px 0 4px var(--space-3); border-left: 2px dotted var(--border-control); font-size: 13px; line-height: 18px; color: var(--ink-muted); }
 .cl-und { display: flex; flex-direction: column; gap: 4px; margin: var(--space-3) 0 0; padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); background: var(--td-row, var(--surface-2)); font-size: 14px; line-height: 20px; color: var(--ink); }
