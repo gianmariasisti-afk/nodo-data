@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generated": "2026-11-02T08:23:17.803Z",
+ "generated": "2026-11-02T08:58:20.958Z",
  "files": {
   "meps": {
    "path": "meps.json",
@@ -59,8 +59,8 @@
   "press": {
    "path": "press.json",
    "description": "Latest developments: dated press and institutional items on nodo's files, each with nodo's own takeaway and a link to the source",
-   "bytes": 4211,
-   "sha256": "ee849a1a0c425ec5944cee141a355a169991f34efdd0cff50a5d21ce4bd5be86"
+   "bytes": 6003,
+   "sha256": "00581b880ee129152b264b3ec9836f28f4a546b30c611d666b4117dab8b62b62"
   },
   "sources": {
    "path": "sources.json",

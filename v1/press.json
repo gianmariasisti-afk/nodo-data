@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-01T06:59:22.569Z",
+ "generated": "2026-11-02T08:58:20.957Z",
  "windowDays": 30,
  "maxPerFile": 3,
  "files": {
@@ -36,6 +36,19 @@
    }
   ],
   "industrial-accelerator-act": [
+   {
+    "id": "107ccc8019",
+    "date": "2026-10-28",
+    "source": "MLex",
+    "inst": "press",
+    "kind": "press",
+    "text": "Member states moved closer to agreement on the act's foreign investment chapter. They remain split on Commission waiver powers, the investment threshold and workforce rules, and Ireland aims for a Council position by end of November.",
+    "url": "https://www.mlex.com/mlex/articles/2543374",
+    "people": [],
+    "stage": false,
+    "paywall": true,
+    "added": "2026-11-02"
+   },
    {
     "id": "ad01a185cf",
     "date": "2026-10-28",
@@ -96,6 +109,32 @@
     "stage": false,
     "paywall": true,
     "added": "2026-11-01"
+   },
+   {
+    "id": "75589bcba6",
+    "date": "2026-10-28",
+    "source": "Agence Europe",
+    "inst": "press",
+    "kind": "press",
+    "text": "Parliament's Conference of Presidents backed turning committee positions on the Competitiveness Fund, Horizon Europe, fisheries and AgoraEU into negotiating mandates without a plenary vote, likely announced in mid-December.",
+    "url": "https://agenceurope.eu/en/bulletin/article/13970/11/mff-2028-2034-some-key-future-budget-legislation-could-advance-without-european-parliament-plenary-vote",
+    "people": [],
+    "stage": false,
+    "paywall": true,
+    "added": "2026-11-02"
+   },
+   {
+    "id": "62b9a968db",
+    "date": "2026-10-26",
+    "source": "Council press release",
+    "inst": "council",
+    "kind": "institutional",
+    "text": "Agriculture ministers agreed the Council's negotiating mandate on the post-2027 common agricultural policy on 26 October. Farm support would be paid through the National and Regional Partnership Plans.",
+    "url": "https://www.consilium.europa.eu/en/press/press-releases/2026/10/26/mff-2028-2034-council-secures-negotiating-position-for-a-strong-and-future-oriented-common-agricultural-policy/",
+    "people": [],
+    "stage": false,
+    "paywall": false,
+    "added": "2026-11-02"
    },
    {
     "id": "4df3fa22e2",
