@@ -41,7 +41,11 @@ const html = patch(readFileSync(join(ROOT, "index.html"), "utf8"), "index.html",
   ["feature styles", "</body>", () => `<style>\n/* Promoted from the preview on ${DATE} (was next/features.css). */\n${css}</style>\n</body>`],
 ]);
 
-const sw = patch(readFileSync(join(ROOT, "sw.js"), "utf8"), "sw.js", [
+const SW0 = readFileSync(join(ROOT, "sw.js"), "utf8");
+/* The page-first rule went live on 31 Oct 2026; later promotions only bump the version. */
+const sw = patch(SW0, "sw.js", SW0.includes("const pageFirst") ? [
+  ["version", /const VERSION = "nodo-v(\d+)";/.exec(SW0)[0], () => `const VERSION = "nodo-v${Number(/const VERSION = "nodo-v(\d+)";/.exec(SW0)[1]) + 1}";`],
+] : [
   ["version", /const VERSION = "nodo-v(\d+)";/.exec(readFileSync(join(ROOT, "sw.js"), "utf8"))[0],
     () => `const VERSION = "nodo-v${Number(/const VERSION = "nodo-v(\d+)";/.exec(readFileSync(join(ROOT, "sw.js"), "utf8"))[1]) + 1}";`],
   /* The page comes from the network first (the saved copy after 3 seconds or offline), so a new release reaches

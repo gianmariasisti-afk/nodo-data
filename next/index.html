@@ -8088,29 +8088,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     if (state.view === "home" && state.hq) renderHome();
   }, true);
 
-  /* ======================= nodo preview features =======================
-     Source: next/features.js. tools/preview/build.mjs injects this file into the app's main script just before
-     start-up, so it runs inside the same scope and uses the app's own helpers. Nothing here reaches the live app
-     until it is promoted (tools/preview/promote.mjs). Everything up to 2026-10-31 was promoted on 2026-10-31. */
-
-  /* ---------- Speeches open in the verbatim report (since 31 Oct 2026) ----------
-     A speech card had no action: nodo holds neither its text nor a document link. It now links the Parliament's
-     verbatim report at the speech's own anchor. scripts/build-activity.mjs stores `url` (the debate page,
-     CRE-10-<date>-ITM-<n>_EN.html#<speech id>) from the next activity run; until then, and for any speech without it,
-     the link is built from the speech id (MTG-PL-<date>-OTH-<speech id>) to the full-day report, which carries the
-     same anchors (checked on 31 Oct 2026). The provisional report shows each speech in the language it was given in
-     until the translations are out. Feature patch "speech card link" in tools/preview/build.mjs calls fdSpeechAct. */
-  function fdSpeechUrl(it) {
-    if (!it || it.type !== "speech") return "";
-    if (/^https:\/\/www\.europarl\.europa\.eu\/doceo\/document\/CRE-[\w-]+_EN\.html#\d+$/.test(it.url || "")) return it.url;
-    const m = /^MTG-PL-(\d{4}-\d{2}-\d{2})-OTH-(\d+)$/.exec(String(it.id || ""));
-    return m ? `https://www.europarl.europa.eu/doceo/document/CRE-10-${m[1]}_EN.html#${m[2]}` : "";
-  }
-  function fdSpeechAct(it) {
-    const u = fdSpeechUrl(it);
-    return u ? `<a class="fd-open" href="${esc(u)}" target="_blank" rel="noopener" aria-label="Read the verbatim of ${esc(it.title || "this speech")} (opens the Parliament's site)">Read the verbatim${FD_SVG.ext}</a>` : "";
-  }
-
+  /* ======================= Promoted from the preview on 2026-11-02 ======================= */
   /* ---------- Files: a last panel to generate or request a page (since 2 Nov 2026) ----------
      The Files directory ends with "Not on the list?", after the policy areas and Other files. Two rows:
      - "Generate a page" goes to Today and focuses the one search field ("The file's name or procedure number"); search
@@ -8118,7 +8096,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
      - "Request a full page" opens a short sheet with one field and sends the existing request (usage event `request`,
        so it reaches the weekly requests recap), with "Write to hello@getnodo.eu" for anything more.
      "What's the difference?" opens the "Two kinds of file page" sheet. Usage: `files_generate`, and `view` / `files-request`.
-     When promoted, the panel goes into the Files renderFilesView directly. */
+     Promoted from the preview on 2026-11-02. */
   const flAddHtml = () => `<section class="fr-sec fl-add" aria-labelledby="flAddH">
       <div class="fr-sec__h"><h2 id="flAddH">Not on the list?</h2></div>
       <p class="cap fl-add__cap">For any other EU law in the making, generate a page now or ask nodo to follow it in full. <button class="linkbtn" type="button" data-ausheet="">What's the difference?</button></p>
@@ -8171,6 +8149,29 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     q.focus({ preventScroll: true });
   });
   document.addEventListener("keydown", (e) => { if (e.key === "Enter" && e.target && e.target.id === "flReqQ") { e.preventDefault(); flReqSend(); } });
+
+  /* ======================= nodo preview features =======================
+     Source: next/features.js. tools/preview/build.mjs injects this file into the app's main script just before
+     start-up, so it runs inside the same scope and uses the app's own helpers. Nothing here reaches the live app
+     until it is promoted (tools/preview/promote.mjs). Everything up to 2026-10-31 was promoted on 2026-10-31. */
+
+  /* ---------- Speeches open in the verbatim report (since 31 Oct 2026) ----------
+     A speech card had no action: nodo holds neither its text nor a document link. It now links the Parliament's
+     verbatim report at the speech's own anchor. scripts/build-activity.mjs stores `url` (the debate page,
+     CRE-10-<date>-ITM-<n>_EN.html#<speech id>) from the next activity run; until then, and for any speech without it,
+     the link is built from the speech id (MTG-PL-<date>-OTH-<speech id>) to the full-day report, which carries the
+     same anchors (checked on 31 Oct 2026). The provisional report shows each speech in the language it was given in
+     until the translations are out. Feature patch "speech card link" in tools/preview/build.mjs calls fdSpeechAct. */
+  function fdSpeechUrl(it) {
+    if (!it || it.type !== "speech") return "";
+    if (/^https:\/\/www\.europarl\.europa\.eu\/doceo\/document\/CRE-[\w-]+_EN\.html#\d+$/.test(it.url || "")) return it.url;
+    const m = /^MTG-PL-(\d{4}-\d{2}-\d{2})-OTH-(\d+)$/.exec(String(it.id || ""));
+    return m ? `https://www.europarl.europa.eu/doceo/document/CRE-10-${m[1]}_EN.html#${m[2]}` : "";
+  }
+  function fdSpeechAct(it) {
+    const u = fdSpeechUrl(it);
+    return u ? `<a class="fd-open" href="${esc(u)}" target="_blank" rel="noopener" aria-label="Read the verbatim of ${esc(it.title || "this speech")} (opens the Parliament's site)">Read the verbatim${FD_SVG.ext}</a>` : "";
+  }
 
   initHome(); initEp(); initEc();
   let startView = "home";
@@ -9729,14 +9730,7 @@ body { font-variant-numeric: tabular-nums; }
 .cm-n.is-sel span { color: #111312; }
 </style>
 <style>
-#nxBadge{position:fixed;top:max(2px,calc(env(safe-area-inset-top,0px) - 12px));left:50%;transform:translateX(-50%);z-index:2147483000;pointer-events:none;padding:0 6px;border-radius:999px;background:rgba(20,20,19,.55);color:#fff;font:700 8px/12px -apple-system,BlinkMacSystemFont,sans-serif;letter-spacing:.08em}
-#nxDenied{position:fixed;inset:0;z-index:2147483001;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:32px;background:#0E1B4D;color:#fff;text-align:center;font:16px/24px -apple-system,BlinkMacSystemFont,sans-serif}
-#nxDenied h1{margin:0;font-size:28px;line-height:34px}
-#nxDenied a{display:inline-block;padding:14px 24px;border-radius:999px;background:#fff;color:#0E1B4D;font-weight:600;text-decoration:none}
-</style>
-<style>
-/* nodo preview styles (next/features.css). Everything up to 2026-10-31 was promoted to the live app on 2026-10-31. */
-
+/* Promoted from the preview on 2026-11-02 (was next/features.css). */
 /* Files: "Not on the list?" (since 2 Nov 2026). The last panel of the directory, outlined rather than tinted so it reads
    as a way out of the list, not another policy area. */
 .fl-add { background: none; box-shadow: inset 0 0 0 1.5px var(--hairline); }
@@ -9749,6 +9743,15 @@ body { font-variant-numeric: tabular-nums; }
 .fl-add__tx small { font-size: 13px; line-height: 17px; color: var(--ink-muted); }
 .fl-add__row .eu-icon { flex: none; width: 18px; height: 18px; color: var(--brand); }
 .fl-add__row:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: -2px; border-radius: var(--radius-md); }
+</style>
+<style>
+#nxBadge{position:fixed;top:max(2px,calc(env(safe-area-inset-top,0px) - 12px));left:50%;transform:translateX(-50%);z-index:2147483000;pointer-events:none;padding:0 6px;border-radius:999px;background:rgba(20,20,19,.55);color:#fff;font:700 8px/12px -apple-system,BlinkMacSystemFont,sans-serif;letter-spacing:.08em}
+#nxDenied{position:fixed;inset:0;z-index:2147483001;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:32px;background:#0E1B4D;color:#fff;text-align:center;font:16px/24px -apple-system,BlinkMacSystemFont,sans-serif}
+#nxDenied h1{margin:0;font-size:28px;line-height:34px}
+#nxDenied a{display:inline-block;padding:14px 24px;border-radius:999px;background:#fff;color:#0E1B4D;font-weight:600;text-decoration:none}
+</style>
+<style>
+/* nodo preview styles (next/features.css). Everything up to 2026-10-31 was promoted to the live app on 2026-10-31. */
 </style>
 <div id="nxBadge" aria-hidden="true">PREVIEW</div>
 </body></html>
