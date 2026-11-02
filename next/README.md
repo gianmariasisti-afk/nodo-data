@@ -26,7 +26,7 @@ Workflow:
 
 Promoted to the live app on 2 Nov 2026 (this feature only; the verbatim links stay in testing):
 
-- Files ends with "Not on the list?" (since 2 Nov 2026): the last panel of the Files directory, after the policy areas and Other files, outlined rather than tinted. One line ("For any other EU law in the making, generate a page now or ask nodo to follow it in full") with "What's the difference?" (the Two kinds of file page sheet), then two rows. "Generate a page" goes to Today and focuses the search field with the hint "The file's name or procedure number", where Not followed by nodo yet offers Generate page. "Request a full page" opens a sheet with one field ("Which file?") and Send request, the existing `request` event, so it reaches the weekly requests recap, plus "Write to hello@getnodo.eu". Usage: `files_generate`, `view` / `files-request`.
+- Files ends with "Not on the list?" (2 Nov 2026), reworked the same morning into "Find a file nodo doesn't follow": one row opening a sheet that stays on Files, with one field limited to this task. Before typing, three steps say what happens; typing shows files nodo already follows first (Open), then procedures from `v1/auto-files.json` with Generate page (eight shown); from three letters, "Can't find it?" with Request a full page for what was typed (the `request` event, in the weekly recap) and Write to hello@getnodo.eu. Brussels nicknames are not matched in this sheet. Usage: `view` / `files-find`, `files_find`.
 
 Promoted to the live app on 31 Oct 2026 (everything in the preview, the Dossier restyle included):
 

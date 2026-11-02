@@ -8077,20 +8077,21 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   }, true);
 
   /* ======================= Promoted from the preview on 2026-11-02 ======================= */
-  /* ---------- Files: a last panel to generate or request a page (since 2 Nov 2026) ----------
-     The Files directory ends with "Not on the list?", after the policy areas and Other files. Two rows:
-     - "Generate a page" goes to Today and focuses the one search field ("The file's name or procedure number"); search
-       lists the procedures nodo doesn't follow under "Not followed by nodo yet", each with Generate page.
-     - "Request a full page" opens a short sheet with one field and sends the existing request (usage event `request`,
-       so it reaches the weekly requests recap), with "Write to hello@getnodo.eu" for anything more.
-     "What's the difference?" opens the "Two kinds of file page" sheet. Usage: `files_generate`, and `view` / `files-request`.
-     Promoted from the preview on 2026-11-02. */
+  /* ---------- Files: find a file nodo doesn't follow (since 2 Nov 2026) ----------
+     The Files directory ends with "Not on the list?", after the policy areas and Other files: one line with
+     "What's the difference?" (the Two kinds of file page sheet) and one row, "Find a file nodo doesn't follow".
+     It opens a sheet that stays on Files, with one field limited to this task (not a general search):
+     - empty: three short steps saying what happens;
+     - typing: files nodo already follows first ("nodo follows this file", Open), then the procedures it doesn't follow
+       from v1/auto-files.json, each with stage, rapporteur and Generate page (Open page once generated), eight shown;
+     - always, once three letters are typed: "Can't find it?" with Request a full page for "<what was typed>" (the
+       existing `request` event, so it reaches the weekly requests recap) and Write to hello@getnodo.eu.
+     Usage: `view` / `files-find`, `files_find` (query, results count, on close of a search that was typed). */
   const flAddHtml = () => `<section class="fr-sec fl-add" aria-labelledby="flAddH">
       <div class="fr-sec__h"><h2 id="flAddH">Not on the list?</h2></div>
-      <p class="cap fl-add__cap">For any other EU law in the making, generate a page now or ask nodo to follow it in full. <button class="linkbtn" type="button" data-ausheet="">What's the difference?</button></p>
+      <p class="cap fl-add__cap">Any other EU law in the making can have its own page in nodo. <button class="linkbtn" type="button" data-ausheet="">What's the difference?</button></p>
       <div class="fr-list">
-        <button class="fl-add__row" type="button" data-flgen><span class="fl-add__tx"><b>Generate a page</b><small>Ready now, built from the Parliament's procedure file</small></span>${icon("arrow")}</button>
-        <button class="fl-add__row" type="button" data-flreq><span class="fl-add__tx"><b>Request a full page</b><small>nodo follows it and checks it. Most requested files first</small></span>${icon("arrow")}</button>
+        <button class="fl-add__row" type="button" data-flfind><span class="fl-add__tx"><b>Find a file nodo doesn't follow</b><small>Generate its page now, or request a full one</small></span>${icon("arrow")}</button>
       </div></section>`;
   {
     const fv0 = renderFilesView;
@@ -8099,45 +8100,67 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       const p = $("flPanel"); if (p && !p.querySelector(".fl-add")) p.insertAdjacentHTML("beforeend", flAddHtml());
     };
   }
-  function flReqSheet() {
-    state.sheet = "flreq";
+  const FL_FIND_MAX = 8;
+  let flFindQ = "";
+  function flFindSheet() {
+    state.sheet = "flfind";
     if ($("sheet").hidden) layer.sheet = document.activeElement;
     $("sheet").innerHTML = `<div class="sheet__bar"><button class="eu-iconbtn eu-iconbtn--sm" type="button" data-sheet-close aria-label="Close">${icon("x")}</button></div>
-      <div class="au-sh">
-        <h2 id="sName" class="au-sh__h">Request a <b>full page</b></h2>
-        <p class="au-sh__lead">Tell nodo which file to follow. The most requested files get a full page first, with cabinet staff, the Council working party, committee speakers and latest developments.</p>
-        <div><span class="pr-lab" style="margin-top:0">Which file?</span><label class="eu-search"><input id="flReqQ" type="text" placeholder="Its name or procedure number" aria-label="The file's name or procedure number" autocomplete="off" enterkeyhint="send"></label></div>
-        <div class="au-sh__acts">
-          <button class="eu-btn eu-btn--brand eu-btn--block" type="button" data-flreqsend>Send request</button>
-          <p class="cap au-sh__note">Want to say more? <button class="linkbtn" type="button" data-flreqmail>Write to ${NX_MAIL}</button></p>
-        </div></div>`;
+      <div class="au-sh fl-find">
+        <h2 id="sName" class="au-sh__h">Find a <b>file</b></h2>
+        <p class="au-sh__lead">Files nodo doesn't follow yet, from the Parliament's Legislative Observatory.</p>
+        <label class="eu-search">${icon("search")}<input id="flFindQ" type="search" placeholder="Name or procedure number" aria-label="The file's name or procedure number" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search" aria-controls="flFindR"></label>
+        <div id="flFindR" class="fl-find__r" aria-live="polite"></div>
+      </div>`;
     $("scrim").hidden = false; $("sheet").hidden = false; $("sheet").scrollTop = 0;
     syncLayers();
-    $("flReqQ").focus({ preventScroll: true });
-    Track.log("view", { section: "files-request", item: "" });
+    flFindQ = "";
+    flFindRender();
+    $("flFindQ").focus({ preventScroll: true });
+    Track.log("view", { section: "files-find", item: "" });
+    auLoad().then(() => { if (state.sheet === "flfind") flFindRender(); });
   }
-  function flReqSend() {
-    const inp = $("flReqQ"), q = inp ? inp.value.trim() : "";
-    if (q.length < 3) { toast("Type the file's name or procedure number"); if (inp) inp.focus(); return; }
-    if (nxRequested().has(fold(q).trim())) { closeSheet(); return toast("Already requested. Thank you."); }
-    const b = document.createElement("button"); b.dataset.nxreq = q;
-    nxRequest(b); closeSheet();
+  function flFindRender() {
+    const box = $("flFindR"); if (!box) return;
+    const q = ($("flFindQ") || {}).value || "", t = terms(q);
+    if (!t.length) {
+      box.innerHTML = `<ol class="fl-steps">
+        <li><b>Type the name or the procedure number</b><span>For example “Critical Medicines Act” or 2023/0131(COD).</span></li>
+        <li><b>Pick the file</b><span>Each one shows its stage and rapporteur.</span></li>
+        <li><b>Generate its page</b><span>Ready at once and updated every week. Follow it to keep it in Your files.</span></li></ol>`;
+      return;
+    }
+    const mine = FILES.filter((f) => !f.auto && f._hay && hits(f._hay, t)).slice(0, 3);
+    const af = auFind(t);
+    const ok = q.trim().length >= 3;
+    const asked = ok && nxRequested().has(fold(q).trim());
+    const follows = mine.length ? `<h3 class="fl-find__h">nodo follows ${mine.length === 1 ? "this file" : "these files"}</h3>
+      <div class="au-list">${mine.map((f) => `<article class="au-card"><div class="au-card__tx"><b>${esc(f.short)}</b><small>${esc([f.procedure, FL_STATION[ED_STAGE.indexOf(f.stage)] || ""].filter(Boolean).join(" · "))}</small></div>
+        <button class="eu-btn eu-btn--sm" type="button" data-file="${esc(f.id)}" data-flfindopen>Open</button></article>`).join("")}</div>` : "";
+    const auto = af == null ? `<p class="cap nx-wait">Looking in the Legislative Observatory…</p>`
+      : af.length ? `<h3 class="fl-find__h">Not followed by nodo yet <small>${af.length}</small></h3>
+        <div class="au-list">${af.slice(0, FL_FIND_MAX).map(auCard).join("")}</div>
+        ${af.length > FL_FIND_MAX ? `<p class="cap nx-more">Showing ${FL_FIND_MAX} of ${af.length}. Add a word or the procedure number to narrow it down.</p>` : ""}`
+      : ok && !mine.length ? `<p class="fl-find__none">No file in the Observatory matches “${esc(nxClip(q, 40))}”.</p>` : "";
+    const req = ok ? `<div class="fl-find__req"><p><b>Can't find it?</b> Ask nodo to follow it. The most requested files get a full page first.</p>
+      <button class="eu-btn eu-btn--outline eu-btn--block" type="button" data-nxreq="${esc(q.trim())}"${asked ? " disabled" : ""}>${asked ? "Requested" + icon("check") : "Request a full page for “" + esc(nxClip(q.trim(), 32)) + "”"}</button>
+      <p class="cap">Want to say more? <button class="linkbtn" type="button" data-flreqmail>Write to ${NX_MAIL}</button></p></div>` : "";
+    box.innerHTML = follows + auto + req;
   }
+  function flFindLog() {
+    const q = flFindQ.trim(); if (q.length < 3) return;
+    const af = auFind(terms(q));
+    Track.log("files_find", { section: "files", query: q.slice(0, 200), item: String(af ? af.length : "") });
+    flFindQ = "";
+  }
+  document.addEventListener("input", (e) => { if (e.target && e.target.id === "flFindQ") { flFindQ = e.target.value; flFindRender(); } });
   document.addEventListener("click", (e) => {
     const t = e.target;
-    if (t.closest("[data-flreq]")) return flReqSheet();
-    if (t.closest("[data-flreqsend]")) return flReqSend();
-    if (t.closest("[data-flreqmail]")) { const v = ($("flReqQ") || {}).value || ""; return nxMail("File request" + (v.trim() ? ": " + v.trim() : ""), ["I'd like nodo to follow: " + v.trim(), "Why it matters to me:"]); }
-    if (!t.closest("[data-flgen]")) return;
-    Track.log("files_generate", { section: "files", item: "" });
-    setView("home");
-    const q = $("hq"); if (!q) return;
-    const ph = q.placeholder; q.placeholder = "The file's name or procedure number";
-    q.addEventListener("blur", () => { if (!q.value) q.placeholder = ph; }, { once: true });
-    q.focus({ preventScroll: true });
-  });
-  document.addEventListener("keydown", (e) => { if (e.key === "Enter" && e.target && e.target.id === "flReqQ") { e.preventDefault(); flReqSend(); } });
-
+    if (t.closest("[data-flfind]")) return flFindSheet();
+    if (t.closest("[data-flfindopen]")) { flFindLog(); closeSheet(); return; }
+    if ((state.sheet === "flfind" && (t.closest("[data-augen]") || t.closest("[data-sheet-close]") || t === $("scrim")))) flFindLog();
+    if (t.closest("[data-flreqmail]")) { const v = (($("flFindQ") || {}).value || "").trim(); return nxMail("File request" + (v ? ": " + v : ""), ["I'd like nodo to follow: " + v, "Why it matters to me:"]); }
+  }, true);
   initHome(); initEp(); initEc();
   let startView = "home";
   try { const h = (location.hash || "").slice(1); startView = { parliament: "ep", commission: "ec", council: "co", calendar: "cal", agenda: "agenda", saved: "saved", files: "files", news: "news" }[h] || "home"; } catch { /* ignore */ }
@@ -9708,5 +9731,23 @@ body { font-variant-numeric: tabular-nums; }
 .fl-add__tx small { font-size: 13px; line-height: 17px; color: var(--ink-muted); }
 .fl-add__row .eu-icon { flex: none; width: 18px; height: 18px; color: var(--brand); }
 .fl-add__row:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: -2px; border-radius: var(--radius-md); }
+/* Find a file (since 2 Nov 2026): the sheet behind "Find a file nodo doesn't follow". */
+.fl-find .eu-search { margin-top: 0; }
+.fl-find__r { display: grid; gap: var(--space-3); }
+.fl-find__r:empty { display: none; }
+.fl-find .au-card__tx b { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.fl-find__h { margin: var(--space-2) 0 0; font-size: 13px; line-height: 16px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-muted); }
+.fl-find__h small { margin-left: 6px; font-size: 12px; letter-spacing: 0; text-transform: none; font-weight: 500; }
+.fl-find__none { margin: var(--space-2) 0 0; font-size: 15px; line-height: 21px; color: var(--ink); }
+.fl-find__req { display: grid; gap: var(--space-2); margin-top: var(--space-2); padding-top: var(--space-4); box-shadow: inset 0 1px 0 var(--hairline); }
+.fl-find__req p { margin: 0; font-size: 14px; line-height: 20px; color: var(--ink-muted); }
+.fl-find__req p b { color: var(--ink); }
+.fl-find__req .cap { text-align: center; }
+.fl-find__req .linkbtn { color: var(--brand); }
+.fl-steps { margin: var(--space-2) 0 0; padding: 0; list-style: none; counter-reset: fls; display: grid; gap: var(--space-4); }
+.fl-steps li { counter-increment: fls; display: grid; grid-template-columns: 32px 1fr; column-gap: 12px; row-gap: 2px; }
+.fl-steps li::before { content: counter(fls); grid-row: span 2; display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: var(--surface-sunken); font: 700 15px/1 var(--font-display); color: var(--ink); }
+.fl-steps b { font: 700 16px/20px var(--font-display); letter-spacing: -0.01em; color: var(--ink); }
+.fl-steps span { font-size: 14px; line-height: 20px; color: var(--ink-muted); }
 </style>
 </body></html>
