@@ -5228,8 +5228,8 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
      committee minutes since your last look, at most two before "Show N more", each once even when they spoke on several
      of your files. "New" goes by `found` in v1/minutes.json (the day nodo first saw them on that file), not by the
      meeting, because minutes come out weeks later; the block is gone when nothing is new. Then the end-cap: "You're up
-     to date" (when you follow files), "Following a file nodo doesn't? Generate a page", which opens search, and the
-     wordmark. */
+     to date" (when you follow files), "Following a file nodo doesn't? Generate a page", which opens the same Find a file sheet as
+     Your files (since 2 Nov 2026; it used to jump to the home search bar), and the wordmark. */
   let tdVoOpen = false;
   function tdMin() { try { return MIN; } catch (e) { return null; } }
   function tdVoicesItems(files) {
@@ -5276,12 +5276,8 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   document.addEventListener("click", (e) => {
     if (e.target.closest("[data-tdvomore]")) { tdVoOpen = !tdVoOpen; const el = $("tdVoices"); el.innerHTML = tdVoicesHtml(followedFiles()); const b = el.querySelector("[data-tdvomore]"); if (b) b.focus({ preventScroll: true }); return; }
     if (!e.target.closest("[data-tdgen]")) return;
-    const q = $("hq"); if (!q) return;
     Track.log("today_generate", { section: "today", item: "" });
-    window.scrollTo({ top: 0, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
-    const ph = q.placeholder; q.placeholder = "The file's name or procedure number";
-    q.addEventListener("blur", () => { if (!q.value) q.placeholder = ph; }, { once: true });
-    q.focus({ preventScroll: true });
+    flFindSheet();
   });
   function tdPPSync() {
     const box = $("tdPP"); if (!box) return;
