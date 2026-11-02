@@ -1,6 +1,6 @@
 {
- "generated": "2026-11-01T07:02:52Z",
- "asOf": "2026-11-01",
+ "generated": "2026-11-02T08:18:04Z",
+ "asOf": "2026-11-02",
  "source": "Parliament Open Data Portal (basis ep-open-data); Parliament Legislative Observatory procedure files (basis ep-procedure-file); press and Council documents (basis press); commission.json for commissioners and cabinets",
  "legend": {
   "roles": [
@@ -857,7 +857,7 @@
      "url": "https://agenceurope.eu/en/bulletin/article/13971/14/2028-2034-mff-eu27-now-reportedly-largely-convinced-they-need-to-conclude-agreement-by-end-of-2026"
     }
    ],
-   "checked": "2026-11-01",
+   "checked": "2026-11-02",
    "parts": [
     {
      "id": "ecf",
@@ -1141,7 +1141,7 @@
      "url": "https://data.consilium.europa.eu/doc/document/ST-14756-2026-INIT/en/pdf"
     }
    ],
-   "checked": "2026-11-01",
+   "checked": "2026-11-02",
    "lede": "The Council has its negotiating mandate; Parliament's joint ITRE-LIBE position will take months."
   },
   {
@@ -1454,7 +1454,7 @@
      "url": "https://data.consilium.europa.eu/doc/document/CM-4565-2026-INIT/en/pdf"
     }
    ],
-   "checked": "2026-11-01",
+   "checked": "2026-11-02",
    "lede": "The Council works through the third Presidency compromise; INTA-ITRE-IMCO sorts more than 5,000 amendments."
   },
   {
@@ -1644,7 +1644,7 @@
      "url": "https://data.consilium.europa.eu/doc/document/CM-4581-2026-INIT/en/pdf"
     }
    ],
-   "checked": "2026-11-01",
+   "checked": "2026-11-02",
    "lede": "The Presidency's first compromise text is in the telecoms working party; ITRE's draft report is out."
   },
   {
@@ -1900,7 +1900,7 @@
      "url": "https://oeil.europarl.europa.eu/oeil/en/document-summary?id=1874426"
     }
    ],
-   "checked": "2026-11-01",
+   "checked": "2026-11-02",
    "lede": "Commission proposal in preparation, in a consumer package. The social media minimum age moved to the EU KIDS Act.",
    "related": [
     {
@@ -2254,7 +2254,7 @@
      "url": "https://data.consilium.europa.eu/doc/document/CM-4566-2026-INIT/en/pdf"
     }
    ],
-   "checked": "2026-11-01",
+   "checked": "2026-11-02",
    "lede": "The Council works on the Chips Act 2.0 compromise; neither text has a draft report in Parliament yet."
   },
   {
@@ -2528,7 +2528,7 @@
      "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2025/0359(COD)"
     }
    ],
-   "checked": "2026-11-01",
+   "checked": "2026-11-02",
    "lede": "In force. Standards, AI Office enforcement and national authorities are the live issues."
   },
   {
@@ -2788,7 +2788,7 @@
      "url": "https://data.consilium.europa.eu/doc/document/CM-4715-2026-INIT/en/pdf"
     }
    ],
-   "checked": "2026-11-01",
+   "checked": "2026-11-02",
    "asOf": "2026-10-21"
   },
   {
@@ -2802,11 +2802,11 @@
    "stage": "positions-in-preparation",
    "sector": "transport",
    "lede": "The Council has a partial mandate without the money; Parliament's joint ITRE-TRAN committee still has to vote.",
-   "status": "The Commission proposed it on 16 July 2025 as part of the MFF package: €81.4bn for trans-European transport and energy networks (€33.7bn in 2021–2027), of which €29.9bn for energy and €17.6bn for military mobility. The Council agreed a partial general approach at the Energy Council on 15 December 2025; it leaves out financial and horizontal issues, which wait for the MFF deal. In Parliament, the joint ITRE-TRAN committee (co-rapporteurs Kamila Gasiuk-Pihowicz and Oihane Agirregoitia Martínez) published its draft report on 25 March 2026; amendments followed in April. BUDG's opinion asks to raise the envelope to €91.3bn. The Observatory shows the file awaiting the committee vote, with an indicative plenary date of 23 November 2026.",
+   "status": "The Commission proposed it on 16 July 2025 as part of the MFF package: €81.4bn for trans-European transport and energy networks (€33.7bn in 2021–2027), of which €29.9bn for energy and €17.6bn for military mobility. The Council agreed a partial general approach at the Energy Council on 15 December 2025; it leaves out financial and horizontal issues, which wait for the MFF deal. In Parliament, the joint ITRE-TRAN committee (co-rapporteurs Kamila Gasiuk-Pihowicz and Oihane Agirregoitia Martínez) published its draft report on 25 March 2026; amendments followed in April. BUDG's opinion asks to raise the envelope to €91.3bn. The Observatory shows the file awaiting the committee vote and, since 2 November 2026, no longer gives an indicative plenary date (it had listed 23 November).",
    "next": [
     {
-     "date": "2026-11-23",
-     "what": "Parliament plenary, first reading (indicative date in the Observatory)",
+     "date": null,
+     "what": "Parliament plenary, first reading: no indicative date (the Observatory dropped the 23 November forecast)",
      "src": "oeil-2025-0221-cod"
     },
     {
@@ -3051,7 +3051,7 @@
      "url": "https://www.europarl.europa.eu/thinktank/en/document/EPRS_BRI(2025)779264"
     }
    ],
-   "checked": "2026-11-01",
+   "checked": "2026-11-02",
    "asOf": "2026-11-01"
   },
   {
@@ -3242,7 +3242,7 @@
      "url": "https://agenceurope.eu/en/bulletin/article/13971/9/car-co2-emissions-standards-jens-gieseke-optimistic-about-adoption-of-agreement-in-committee-on-environment-on-4-november"
     }
    ],
-   "checked": "2026-11-01",
+   "checked": "2026-11-02",
    "asOf": "2026-10-21"
   },
   {
@@ -3311,7 +3311,7 @@
      "url": "https://observatory.clean-hydrogen.europa.eu/eu-policy/alternative-fuels-infrastructure-regulation"
     }
    ],
-   "checked": "2026-11-01",
+   "checked": "2026-11-02",
    "asOf": "2026-10-21"
   },
   {
@@ -3466,7 +3466,7 @@
      "url": "https://www.consilium.europa.eu/en/meetings/mpo/2026/11/wp-on-pharmaceuticals-and-medical-devices-suite-22-(370796)/"
     }
    ],
-   "checked": "2026-11-01",
+   "checked": "2026-11-02",
    "asOf": "2026-10-21"
   },
   {
@@ -3845,7 +3845,7 @@
      "url": "https://www.parlament.gv.at/gegenstand/XXVIII/EU/97015"
     }
    ],
-   "checked": "2026-11-01",
+   "checked": "2026-11-02",
    "asOf": "2026-10-21"
   },
   {
@@ -4017,7 +4017,7 @@
      "url": "https://data.consilium.europa.eu/doc/document/CM-4227-2026-INIT/en/pdf"
     }
    ],
-   "checked": "2026-11-01",
+   "checked": "2026-11-02",
    "asOf": "2026-10-21"
   },
   {
@@ -4225,7 +4225,7 @@
      "url": "https://data.consilium.europa.eu/doc/document/CM-4051-2026-INIT/en/pdf"
     }
    ],
-   "checked": "2026-11-01",
+   "checked": "2026-11-02",
    "asOf": "2026-10-21"
   },
   {
@@ -4305,7 +4305,7 @@
      "url": "https://sciencebusiness.net/news/european-research-area/race-era-act-begins-mep-unveils-early-proposal"
     }
    ],
-   "checked": "2026-11-01",
+   "checked": "2026-11-02",
    "asOf": "2026-10-21",
    "related": [
     {
@@ -4519,7 +4519,7 @@
      "url": "https://data.consilium.europa.eu/doc/document/CM-4701-2026-INIT/en/pdf"
     }
    ],
-   "checked": "2026-11-01",
+   "checked": "2026-11-02",
    "asOf": "2026-10-21"
   },
   {
@@ -4789,7 +4789,7 @@
      "url": "https://oeil.europarl.europa.eu/oeil/en/document-summary?id=1874426"
     }
    ],
-   "checked": "2026-11-01",
+   "checked": "2026-11-02",
    "asOf": "2026-10-21",
    "related": [
     {
