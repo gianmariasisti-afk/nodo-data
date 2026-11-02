@@ -1,5 +1,14 @@
 {
- "latest": [],
+ "latest": [
+  {
+   "session": "2026-11-23",
+   "place": "SXB",
+   "stage": "draft",
+   "link": "https://www.europarl.europa.eu/plenary/en/agendas.html",
+   "at": "2026-11-02T07:49:53.258Z",
+   "items": 45
+  }
+ ],
  "log": [
   {
    "session": "2026-10-05",
@@ -46,6 +55,14 @@
    "link": "https://www.europarl.europa.eu/plenary/en/agendas.html",
    "at": "2026-10-21T10:09:31.235Z",
    "items": 22
+  },
+  {
+   "session": "2026-11-23",
+   "place": "SXB",
+   "stage": "draft",
+   "link": "https://www.europarl.europa.eu/plenary/en/agendas.html",
+   "at": "2026-11-02T07:49:53.258Z",
+   "items": 45
   }
  ]
 }

@@ -1,5 +1,5 @@
 {
- "checked": "2026-10-30",
+ "checked": "2026-11-02",
  "source": "https://www.europarl.europa.eu/plenary/en/agendas.html",
  "sessions": {
   "2026-10-05": {
@@ -1217,6 +1217,394 @@
        "125068"
       ],
       "committee": "AFCO"
+     }
+    ]
+   }
+  },
+  "2026-11-23": {
+   "stage": "draft",
+   "updated": "2026-11-02",
+   "link": "https://www.europarl.europa.eu/plenary/en/agendas.html",
+   "src": {
+    "api": "foreseen-activities",
+    "sha256": "c822d016e11a00a21f7c7b1cd2154a4800c326cac9a527622d3755b11aa26432"
+   },
+   "days": {
+    "2026-11-23": [
+     {
+      "time": "17:00–21:00",
+      "type": "debate",
+      "title": "One-minute speeches (Rule 179)"
+     },
+     {
+      "time": "17:00–21:00",
+      "type": "debate",
+      "title": "Resumption of session and order of business"
+     }
+    ],
+    "2026-11-24": [
+     {
+      "time": "09:00–11:50",
+      "type": "debate",
+      "title": "Restoration of the Rule of Law and fundamental values of the Union in Hungary (following the 2026 Parliamentary elections)",
+      "sub": "2026/2946(RSP)"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "Amending certain Directives as regards digitalisation and common specifications (Omnibus IV)",
+      "sub": "C10-0091/2025 · A10-0023/2026 · ***I",
+      "rapporteur": "Reinier Van Lanschot",
+      "rapporteurs": [
+       "256978"
+      ],
+      "committee": "IMCO"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "Multiannual plan for the fisheries exploiting demersal stocks in the western Mediterranean Sea",
+      "sub": "A10-0279/2026 · 2026/2074(INI)",
+      "rapporteur": "Carmen Crespo Díaz",
+      "rapporteurs": [
+       "257034"
+      ],
+      "committee": "PECH"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "Texts on which debate is closed"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "Amending certain Directives as regards the extension of certain mitigating measures available for small and medium sized enterprises to small mid-cap enterprises and further simplifying measures (Omnibus IV)",
+      "sub": "C10-0093/2025 · A10-0034/2026 · ***I",
+      "rapporteur": "Mariateresa Vivaldini, Kristian Vigenin",
+      "rapporteurs": [
+       "257143",
+       "34232"
+      ],
+      "committee": "ECON"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "Amending certain Regulations as regards digitalisation and common specifications (Omnibus IV)",
+      "sub": "C10-0090/2025 · A10-0024/2026 · ***I",
+      "rapporteur": "Reinier Van Lanschot",
+      "rapporteurs": [
+       "256978"
+      ],
+      "committee": "IMCO"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "Market stability reserve for the EU Emissions Trading System (EU ETS): ceasing the invalidation of allowances",
+      "sub": "C10-0093/2026 · A10-0230/2026 · ***I",
+      "rapporteur": "Pierfrancesco Maran",
+      "rapporteurs": [
+       "257727"
+      ],
+      "committee": "ENVI"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "(possibly) Votes on requests for urgent procedure (Rule 170)"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "Amending certain Regulations as regards the extension of certain mitigating measures available for small and medium sized enterprises to small mid-cap enterprises and further simplification measures (Omnibus IV)",
+      "sub": "C10-0092/2025 · A10-0041/2026 · ***I",
+      "rapporteur": "Mariateresa Vivaldini, Niels Flemming Hansen, Lukas Mandl",
+      "rapporteurs": [
+       "257143",
+       "257033",
+       "190713"
+      ],
+      "committee": "ECON"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "Speeding-up environmental assessments (Omnibus VIII on environmental legislation)",
+      "sub": "C10-0337/2025 · ***I",
+      "rapporteur": "Emma Ytterell",
+      "rapporteurs": [
+       "214839"
+      ],
+      "committee": "ENVI"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "Exemption of certain N2 electric vehicles from the requirement to install and use a speed limitation device (Omnibus IX on automotive)",
+      "sub": "C10-0356/2025 · ***I",
+      "rapporteur": "Merja Kyllönen",
+      "rapporteurs": [
+       "124736"
+      ],
+      "committee": "TRAN"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "Organic production: amending certain production, labelling and certification rules and certain rules on trade with third countries",
+      "sub": "C10-0350/2025 · A10-0209/2026 · ***I",
+      "rapporteur": "Camilla Laureti",
+      "rapporteurs": [
+       "230085"
+      ],
+      "committee": "AGRI"
+     },
+     {
+      "time": "13:00–15:00",
+      "type": "debate",
+      "title": "2027 budgetary procedure: outcome of the conciliation"
+     },
+     {
+      "time": "15:00–20:00",
+      "type": "debate",
+      "title": "Debate on foreign affairs issues in the presence of the Vice-President of the Commission/High Representative of the Union for Foreign Affairs and Security Policy (to be defined)"
+     },
+     {
+      "time": "15:00–20:00",
+      "type": "debate",
+      "title": "Explanations of votes"
+     },
+     {
+      "time": "15:00–20:00",
+      "type": "debate",
+      "title": "Question Time (Commission)"
+     },
+     {
+      "time": "15:00–20:00",
+      "type": "debate",
+      "title": "Question Time (VPC/HR)"
+     },
+     {
+      "time": "15:00–20:00",
+      "type": "debate",
+      "title": "Scrutiny session"
+     }
+    ],
+    "2026-11-25": [
+     {
+      "time": "09:00–11:50",
+      "type": "other",
+      "title": "KEY DEBATE"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "Placing on the market of genetically modified micro-organisms and the processing of organs",
+      "sub": "C10-0358/2025 · ***I",
+      "rapporteur": "Marta Temido, Adam Jarubas",
+      "rapporteurs": [
+       "210480",
+       "197517"
+      ],
+      "committee": "ENVI"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "EU-Switzerland broad package of agreements to consolidate, deepen and expand their bilateral relations – interim report",
+      "sub": "A10-0235/2026 · 2025/0162R(NLE)",
+      "rapporteur": "Christophe Grudler",
+      "rapporteurs": [
+       "197557"
+      ],
+      "committee": "AFET"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "EU-Syria political relations",
+      "sub": "A10-0278/2026 · 2026/2036(INI)",
+      "rapporteur": "Nathalie Loiseau",
+      "rapporteurs": [
+       "197494"
+      ],
+      "committee": "AFET"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "Specific programme implementing Horizon Europe framework programme for research and innovation 2028–2034",
+      "sub": "C10-0218/2025 · *",
+      "rapporteur": "René Repasi",
+      "rapporteurs": [
+       "229839"
+      ],
+      "committee": "ITRE"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "Towards an EU strategy to protect and strengthen the international justice system and its institutions, mechanisms and partners",
+      "sub": "2026/2004(INI)",
+      "rapporteur": "Mounir Satouri",
+      "rapporteurs": [
+       "197500"
+      ],
+      "committee": "AFET"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "VAT reverse-charge mechanism",
+      "sub": "2025/2261(INI)",
+      "rapporteur": "Pierre Pimpie",
+      "rapporteurs": [
+       "256893"
+      ],
+      "committee": "ECON"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "Draft amending budget No 3/2026: adjustments in expenditure, update of revenues and other technical updates",
+      "sub": "2026/0314(BUD)",
+      "rapporteur": "Andrzej Halicki",
+      "rapporteurs": [
+       "197514"
+      ],
+      "committee": "BUDG"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "Union procedures for the authorisation and supervision of medicinal products for human use and rules governing the European Medicines Agency",
+      "sub": "C10-0243/2026 · ***II",
+      "rapporteur": "Tiemo Wölken",
+      "rapporteurs": [
+       "185619"
+      ],
+      "committee": "SANT"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "2027 budgetary procedure: joint text"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "EU-Switzerland broad package of agreements to consolidate, deepen and expand their bilateral relations",
+      "sub": "C10-0075/2026 · A10-0236/2026 · ***",
+      "rapporteur": "Christophe Grudler",
+      "rapporteurs": [
+       "197557"
+      ],
+      "committee": "AFET"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "Framework for strengthening the availability and security of supply of critical medicinal products as well as the availability of, and accessibility of, medicinal products of common interest",
+      "sub": "C10-0048/2025 · A10-0272/2025 · ***I",
+      "rapporteur": "Tomislav Sokol",
+      "rapporteurs": [
+       "197417"
+      ],
+      "committee": "SANT"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "VAT fraud: extension of the application period of the optional reverse charge mechanism and Quick Reaction Mechanism",
+      "sub": "C10-0254/2026 · *",
+      "rapporteur": "Aurore Lalucq",
+      "rapporteurs": [
+       "197697"
+      ],
+      "committee": "ECON"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "Amendments to Parliament’s Rules of Procedure on proxy voting during pregnancy and immediately after childbirth",
+      "sub": "2026/2105(REG)",
+      "rapporteur": "Juan Fernando López Aguilar",
+      "rapporteurs": [
+       "96812"
+      ],
+      "committee": "AFCO"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "Texts on which debate is closed"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "Union code relating to medicinal products for human use",
+      "sub": "C10-0244/2026 · ***II",
+      "rapporteur": "Dolors Montserrat",
+      "rapporteurs": [
+       "197711"
+      ],
+      "committee": "SANT"
+     },
+     {
+      "time": "13:00–20:00",
+      "type": "debate",
+      "title": "Topical debate requested by a political group (The Left) (Rule 169)"
+     },
+     {
+      "time": "13:00–20:00",
+      "type": "debate",
+      "title": "Debates on cases of breaches of human rights, democracy and the rule of law (Rule 150)"
+     },
+     {
+      "time": "13:00–20:00",
+      "type": "debate",
+      "title": "Explanations of votes"
+     },
+     {
+      "time": "13:00–20:00",
+      "type": "debate",
+      "title": "Topical debate requested by a political group (ESN) (Rule 169)"
+     }
+    ],
+    "2026-11-26": [
+     {
+      "time": "09:00–11:50",
+      "type": "other",
+      "title": "Debates"
+     },
+     {
+      "time": "12:00–14:00",
+      "type": "votes",
+      "title": "Texts on which debate is closed"
+     },
+     {
+      "time": "12:00–14:00",
+      "type": "votes",
+      "title": "Protection of the Union’s financial interests in the post-2027 multiannual financial framework through the revision of the anti-fraud architecture",
+      "sub": "2026/2006(INI)",
+      "rapporteur": "Tomáš Zdechovský, Dick Erixon",
+      "rapporteurs": [
+       "124713",
+       "257091"
+      ],
+      "committee": "CONT"
+     },
+     {
+      "time": "15:00–16:00",
+      "type": "debate",
+      "title": "Explanations of votes"
+     },
+     {
+      "time": "15:00–16:00",
+      "type": "debate",
+      "title": "Major interpellations (Rule 145)"
      }
     ]
    }
