@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-01T00:00:00Z",
+  "generatedAt": "2026-11-02T00:00:00Z",
   "events": [
     {
       "id": "biotech-act:next:2026-12-14:4e1f33",
@@ -98,16 +98,6 @@
       "source": "nodo",
       "kind": "scheduled",
       "title": "Directive: plenary vote (indicative date in the Observatory)",
-      "push": true,
-      "pushOn": "2026-11-23"
-    },
-    {
-      "id": "cef-2028-2034:next:2026-11-23:187bcc",
-      "fileId": "cef-2028-2034",
-      "date": "2026-11-23",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Parliament plenary, first reading (indicative date in the Observatory)",
       "push": true,
       "pushOn": "2026-11-23"
     },

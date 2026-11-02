@@ -6600,16 +6600,6 @@
   ],
   "cef-2028-2034": [
     {
-      "id": "cef-2028-2034:next:2026-11-23:187bcc",
-      "fileId": "cef-2028-2034",
-      "date": "2026-11-23",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Parliament plenary, first reading (indicative date in the Observatory)",
-      "push": true,
-      "pushOn": "2026-11-23"
-    },
-    {
       "id": "cef-2028-2034:ep:opinions:2026-06-23",
       "fileId": "cef-2028-2034",
       "date": "2026-06-23",
