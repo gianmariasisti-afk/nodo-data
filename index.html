@@ -8109,7 +8109,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       <div class="au-sh fl-find">
         <h2 id="sName" class="au-sh__h">Find a <b>file</b></h2>
         <p class="au-sh__lead">Files nodo doesn't follow yet, from the Parliament's Legislative Observatory.</p>
-        <label class="eu-search">${icon("search")}<input id="flFindQ" type="search" placeholder="Name or procedure number" aria-label="The file's name or procedure number" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search" aria-controls="flFindR"></label>
+        <label class="eu-search">${icon("search")}<input id="flFindQ" type="search" placeholder="File title or procedure number" aria-label="File title or procedure number" name="nodo-file-query" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search" aria-controls="flFindR"></label>
         <div id="flFindR" class="fl-find__r" aria-live="polite"></div>
       </div>`;
     $("scrim").hidden = false; $("sheet").hidden = false; $("sheet").scrollTop = 0;
@@ -8161,6 +8161,21 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     if ((state.sheet === "flfind" && (t.closest("[data-augen]") || t.closest("[data-sheet-close]") || t === $("scrim")))) flFindLog();
     if (t.closest("[data-flreqmail]")) { const v = (($("flFindQ") || {}).value || "").trim(); return nxMail("File request" + (v ? ": " + v : ""), ["I'd like nodo to follow: " + v, "Why it matters to me:"]); }
   }, true);
+  /* ---------- Sheets stay above the keyboard (since 2 Nov 2026) ----------
+     On iPhone the keyboard covers the bottom of the screen without resizing the page, so a sheet pinned to the bottom
+     had its field and results behind the keyboard. While a sheet is open and the visible area is shorter than the page,
+     the sheet sits on top of the keyboard and fits the space left; it goes back when the keyboard closes. Phones that
+     resize the page for the keyboard (most Android browsers) are left as they are. */
+  (function sheetAboveKeyboard() {
+    const vv = window.visualViewport, sh = $("sheet"); if (!vv || !sh) return;
+    const fit = () => {
+      const kb = sh.hidden ? 0 : Math.round(innerHeight - vv.height - vv.offsetTop);
+      if (kb > 80) { sh.style.bottom = kb + "px"; sh.style.maxHeight = Math.round(vv.height - 8) + "px"; sh.classList.add("is-kb"); }
+      else if (sh.classList.contains("is-kb")) { sh.style.bottom = ""; sh.style.maxHeight = ""; sh.classList.remove("is-kb"); }
+    };
+    vv.addEventListener("resize", fit); vv.addEventListener("scroll", fit);
+    new MutationObserver(fit).observe(sh, { attributes: true, attributeFilter: ["hidden"] });
+  })();
   initHome(); initEp(); initEc();
   let startView = "home";
   try { const h = (location.hash || "").slice(1); startView = { parliament: "ep", commission: "ec", council: "co", calendar: "cal", agenda: "agenda", saved: "saved", files: "files", news: "news" }[h] || "home"; } catch { /* ignore */ }
@@ -9735,6 +9750,7 @@ body { font-variant-numeric: tabular-nums; }
 .fl-find .eu-search { margin-top: 0; }
 .fl-find__r { display: grid; gap: var(--space-3); }
 .fl-find__r:empty { display: none; }
+.sheet.is-kb { padding-bottom: var(--space-4); border-radius: var(--radius-xl); }
 .fl-find .au-card__tx b { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .fl-find__h { margin: var(--space-2) 0 0; font-size: 13px; line-height: 16px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-muted); }
 .fl-find__h small { margin-left: 6px; font-size: 12px; letter-spacing: 0; text-transform: none; font-weight: 500; }
