@@ -6598,6 +6598,8 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   const AD_USERS = "https://supabase.com/dashboard/project/dmishwyqipqbfgtdpalk/auth/users";
   const ad = { on: false, status: null, over: null, err: { status: "", over: "" }, at: 0, busy: null, all: false };
   const adAge = (d) => (d ? Math.round((Date.parse(todayIso()) - Date.parse(String(d).slice(0, 10))) / 864e5) : null);
+  /* Weekdays elapsed since d (weekday-only checks do not age over the weekend). */
+  const adWorkAge = (d) => { if (!d) return null; let n = 0; const t = Date.parse(todayIso()); for (let x = Date.parse(String(d).slice(0, 10)) + 864e5; x <= t; x += 864e5) { const w = new Date(x).getUTCDay(); if (w && w !== 6) n++; } return n; };
   const adDay = (d) => (d ? fmtD(fromIso(String(d).slice(0, 10)), { day: "numeric", month: "short" }) : "not yet");
   const adWhen = (iso) => {
     if (!iso) return "never";
@@ -6658,8 +6660,9 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   /* What needs you, from status.json. The limits follow the weekday data check. */
   const AD_WF = { "Update MEP directory": "MEP directory", "Update Commission and cabinets": "Commission cabinets", "Update plenary agenda": "Plenary agenda",
     "Update MEP activity": "MEP activity", "Update file stream": "News on the files", "Validate data": "Data validation" };
-  const AD_FRESH = [["council", 5, "Council data"], ["commission", 3, "Commission cabinets"], ["mepsChecked", 3, "The MEP directory check"],
-    ["agendaChecked", 2, "The plenary agenda check"], ["activity", 2, "MEP activity"], ["calendar", 45, "The Parliament calendar"]];
+  /* [freshness key, max age, label, weekday-only check]: weekday checks count working days, so a Monday morning is not "3 days old". */
+  const AD_FRESH = [["council", 5, "Council data"], ["commissionChecked", 2, "The Commission cabinets check", true], ["mepsChecked", 2, "The MEP directory check", true],
+    ["agendaChecked", 2, "The plenary agenda check", true], ["activity", 2, "MEP activity"], ["calendar", 45, "The Parliament calendar"]];
   function adNeeds() {
     const s = ad.status, out = [];
     if (!s) return out;
@@ -6675,7 +6678,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
         s: "Failed " + adWhen(w.latest.at) + ". Last good run " + adWhen(w.lastSuccessAt) + ".", href: w.latest.url, cta: "See the run" });
     });
     const f = s.freshness || {};
-    AD_FRESH.forEach(([k, n, label]) => { const a = adAge(f[k]); if (a != null && a > n) out.push({ tone: "warn", ic: "cal", t: label + " is " + adPl(a, "day") + " old", s: "Expected within " + adPl(n, "day") + ". Last update " + adDay(f[k]) + "." }); });
+    AD_FRESH.forEach(([k, n, label, wd]) => { const v = f[k] || (k === "commissionChecked" ? f.commission : null); const a = wd ? adWorkAge(v) : adAge(v); if (a != null && a > n) out.push({ tone: "warn", ic: "cal", t: label + " is " + adPl(a, wd ? "working day" : "day") + " old", s: "Expected within " + adPl(n, wd ? "working day" : "day") + ". Last " + (wd ? "check " : "update ") + adDay(v) + "." }); });
     (s.files || []).forEach((x) => {
       if (x.past) out.push({ tone: "warn", ic: "files", t: x.short + ": " + (x.past === 1 ? "a next step is" : x.past + " next steps are") + " in the past", s: "The app hides past dates. The Monday refresh replaces them; status checked " + adDay(x.checked) + "." });
       if (x.checkedDays > 8) out.push({ tone: "warn", ic: "files", t: x.short + ": status not checked for " + adPl(x.checkedDays, "day"), s: "Last checked " + adDay(x.checked) + "." });

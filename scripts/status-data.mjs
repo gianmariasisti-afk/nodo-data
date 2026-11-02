@@ -20,10 +20,13 @@ const ag = read("agenda.json"), act = read("activity/index.json"), upd = read("u
 
 /* The MEP directory is checked every weekday but only rewritten when something changes: its report holds the check date. */
 let mepsReport = null; try { mepsReport = JSON.parse(fs.readFileSync(path.join(ROOT, "data-cache", "meps-report.json"), "utf8")); } catch { /* not yet */ }
+/* Same for the Commission cabinets: commission.json keeps the date of the last change, its report the date of the last check. */
+let ecReport = null; try { ecReport = JSON.parse(fs.readFileSync(path.join(ROOT, "data-cache", "commission-report.json"), "utf8")); } catch { /* not yet */ }
 const freshness = {
   meps: day(meps && meps.generated),
   mepsChecked: day(mepsReport && mepsReport.checked),
   commission: day(ec && ec.fetched),
+  commissionChecked: day((ecReport && ecReport.run) || (ec && ec.fetched)),
   council: day(council && council.fetched),
   calendar: day(cal && cal.fetched),
   agendaChecked: day(ag && ag.checked),
