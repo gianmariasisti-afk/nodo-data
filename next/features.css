@@ -1,1 +1,14 @@
 /* nodo preview styles (next/features.css). Everything up to 2026-10-31 was promoted to the live app on 2026-10-31. */
+
+/* Files: "Not on the list?" (since 2 Nov 2026). The last panel of the directory, outlined rather than tinted so it reads
+   as a way out of the list, not another policy area. */
+.fl-add { background: none; box-shadow: inset 0 0 0 1.5px var(--hairline); }
+.fl-add__cap { margin: 2px 16px 6px; color: var(--ink-muted); }
+.fl-add__cap .linkbtn { color: var(--brand); }
+.fl-add__row { display: flex; align-items: center; gap: 12px; width: 100%; padding: 14px 16px; border: 0; background: none; color: var(--ink); text-align: left; cursor: pointer; }
+.fl-add__row + .fl-add__row { box-shadow: inset 0 1px 0 var(--hairline); }
+.fl-add__tx { display: flex; flex-direction: column; gap: 3px; flex: 1; min-width: 0; }
+.fl-add__tx b { font: 700 17px/21px var(--font-display); letter-spacing: -0.02em; }
+.fl-add__tx small { font-size: 13px; line-height: 17px; color: var(--ink-muted); }
+.fl-add__row .eu-icon { flex: none; width: 18px; height: 18px; color: var(--brand); }
+.fl-add__row:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: -2px; border-radius: var(--radius-md); }
