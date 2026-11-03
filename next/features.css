@@ -1,17 +1,1 @@
 /* nodo preview styles (next/features.css). Everything up to 2026-10-31 was promoted to the live app on 2026-10-31. */
-/* Export a file's people (since 3 Nov 2026) */
-.xp-wrap { position: relative; display: inline-flex; }
-.xp-more svg { width: 20px; height: 20px; }
-.xp-menu { position: absolute; top: calc(100% + 6px); right: 0; z-index: 30; min-width: 220px; padding: 6px; border-radius: var(--radius-md, 16px); background: var(--surface); box-shadow: 0 1px 2px rgba(13,21,53,.08), 0 12px 32px rgba(13,21,53,.18); display: flex; flex-direction: column; }
-.xp-menu[hidden] { display: none; }
-.xp-mi { display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 0 12px; border: 0; border-radius: 10px; background: none; color: var(--ink); font: inherit; font-size: 15px; text-align: left; cursor: pointer; }
-.xp-mi:hover, .xp-mi:focus-visible { background: var(--surface-sunken); }
-.xp-mi svg, .xp-go svg { width: 20px; height: 20px; flex: none; }
-.xp-grp { display: flex; flex-direction: column; gap: 8px; margin: 18px 0 0; padding: 0; border: 0; min-width: 0; }
-.xp-lg { margin: 0 0 2px; padding: 0; font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-muted); }
-.xp-fmt small { color: var(--ink-muted); }
-.xp-set.is-off .yu-set__tx { opacity: .6; }
-.xp-set .nx-switch:disabled { opacity: .4; cursor: default; }
-.xp-note { margin: 18px 0 0; font-size: 13px; line-height: 18px; color: var(--ink-muted); }
-.xp-go { margin-top: 14px; display: flex; align-items: center; justify-content: center; gap: 8px; }
-.xp-go:disabled { opacity: .5; }
