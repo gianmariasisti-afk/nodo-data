@@ -4937,6 +4937,19 @@
   ],
   "tech-sovereignty-package": [
     {
+      "id": "tech-sovereignty-package:ep:2026-0139-NMCP-256809-IMCO-2026-10-29",
+      "fileId": "tech-sovereignty-package",
+      "date": "2026-10-29",
+      "source": "ep",
+      "proc": "2026-0139",
+      "kind": "people",
+      "title": "Opinion rapporteur named",
+      "personId": "256809",
+      "group": "EPP",
+      "committee": "IMCO",
+      "push": false
+    },
+    {
       "id": "tech-sovereignty-package:ep:2026-0138-NMSR-256910-2026-10-27",
       "fileId": "tech-sovereignty-package",
       "date": "2026-10-27",

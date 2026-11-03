@@ -1,4 +1,15 @@
 {
-  "generatedAt": "2026-11-02T00:00:00Z",
-  "events": []
+  "generatedAt": "2026-11-03T00:00:00Z",
+  "events": [
+    {
+      "id": "mff-2028-2034:next:2026-11-03:265012",
+      "fileId": "mff-2028-2034",
+      "date": "2026-11-03",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Council MFF working party: national and regional partnerships",
+      "push": true,
+      "pushOn": "2026-11-03"
+    }
+  ]
 }
