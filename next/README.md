@@ -22,6 +22,8 @@ Workflow:
 
 ## Features in testing
 
+- Export a file's people (since 3 Nov 2026). A More button (…) in a file page's top bar opens a menu with "Export people". The sheet offers Excel (.xlsx) or CSV (semicolons, UTF-8 with BOM) and three switches: people you added (on), published email addresses (on) and committee speakers (off). The export follows the person's own list, so hidden people stay out. The file is built on the device by a small .xlsx writer in `features.js` (no library) and goes to the share sheet where the browser can share files, otherwise it downloads. Every export carries its date and public sources (an "About this export" tab, or a footer in CSV). One `export` event is logged with the file id, format and row count, never the contents. Emails come only from the institutions' own pages: MEPs from the Parliament, cabinet staff from the Commission team pages; Commissioners have none.
+
 - Speeches open in the verbatim report (since 31 Oct 2026). Speech cards in a profile's Activity had no action, because nodo holds neither the text nor a link. Each card now has "Read the verbatim", which opens the Parliament's verbatim report at that speech. `scripts/build-activity.mjs` stores `url` per speech from the next activity run (the debate page, `CRE-10-<date>-ITM-<n>_EN.html#<speech id>`, from the API's `recorded_in_a_realization_of`). Until then the link goes to the full-day report at the same anchor, built from the speech id. The provisional report shows each speech in its original language until the translations are out. When promoted, `feedCard` takes `fdSpeechAct` directly and the "speech card link" patch leaves `build.mjs`.
 
 Promoted to the live app on 2 Nov 2026 (this feature only; the verbatim links stay in testing):
