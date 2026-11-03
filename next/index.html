@@ -454,6 +454,8 @@ details.office > .list { margin-top: var(--space-2); }
 .hoc .ava { width: 28px; height: 28px; font-size: 10px; }
 .hoc > span:last-child { min-width: 0; }
 .desk-hint { grid-column: 1 / -1; margin: 0 var(--space-1); font-size: 13px; }
+#fRes { margin-top: var(--space-4); }
+.pe-addcap { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 #deskOut { margin-top: var(--space-2); }
 .bars { display: grid; gap: var(--space-1); margin-top: var(--space-3); }
 .bar { display: grid; grid-template-columns: 116px 1fr 36px; gap: var(--space-3); align-items: center; width: 100%; min-height: 44px; border: 0; background: none; padding: 0; text-align: left; }
@@ -2807,7 +2809,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   function addResults(f, q) {
     const host = $("fRes"); if (!host) return;
     const r = searchAll(q);
-    if (!r) { host.innerHTML = `<p class="cap desk-hint">Type a name, a committee or a topic.</p>`; return; }
+    if (!r) { host.innerHTML = `<p class="cap desk-hint">MEPs, Commissioners and cabinet staff.</p>`; return; }
     const m = membersOf(f), have = new Set([...m.base, ...m.added].map((x) => x.key));
     Track.search("list-add", q, r.com.length + r.cab.length + r.ep.length);
     const pick = (key, o, meta) => row({ el: "button", attrs: `type="button" data-fpick="${esc(key)}"${have.has(key) ? " disabled" : ""}`, lead: avaOf(key), name: esc(o.name), meta, wrap: true,
@@ -7582,7 +7584,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   const peAdd0 = openAdd;
   openAdd = function (id) {
     peAdd0(id);
-    const f = FILE_BY[id], h = $("sName"); if (f && h) { h.textContent = "Add someone"; const c = h.nextElementSibling; if (c) c.textContent = "to " + f.short + " · MEPs, Commissioners and cabinet staff"; }
+    const f = FILE_BY[id], h = $("sName"); if (f && h) { h.textContent = "Add someone"; const c = h.nextElementSibling; if (c) c.textContent = "to " + f.short; c.classList.add("pe-addcap"); }
   };
 
   /* Add to a file, from a profile: followed files first (all files when none is followed), each a checkbox. Ticking adds the
