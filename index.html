@@ -5529,7 +5529,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const wm = mark ? mark.cloneNode(true).outerHTML : "nodo";
     document.body.insertAdjacentHTML("afterbegin", `<header id="nxBar" class="nx-bar"><div class="nx-bar__in">
         <button class="nx-home" type="button" data-view="home" aria-label="nodo, go to Today">${wm}</button>
-        <span class="nx-bar__r" id="nxBarR"><button id="nxOpen" class="nx-menubtn" type="button" aria-haspopup="dialog" aria-controls="nxMenu" aria-expanded="false">${NX_SVG.menu}Menu</button></span>
+        <span class="nx-bar__r" id="nxBarR"><button id="nxOpen" class="nx-menubtn" type="button" aria-haspopup="dialog" aria-controls="nxMenu" aria-expanded="false" aria-label="Open menu">${NX_SVG.menu}</button></span>
       </div></header>`);
     /* Your profile button moves from the Home masthead into the bar, so it is there on every view. */
     $("nxBarR").prepend($("meBtn"));
@@ -8639,7 +8639,7 @@ if ("serviceWorker" in navigator && /github\.io$/.test(location.hostname)) addEv
 .nx-bar__r { display: flex; align-items: center; gap: var(--space-2); }
 .nx-bar #meBtn { width: 44px; height: 44px; }
 .nx-bar #meBtn > img { width: 44px; height: 44px; }
-.nx-menubtn { display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 16px 0 13px; border: 0; border-radius: var(--radius-pill); background: var(--ink); color: var(--ink-inverse); font: 700 15px/1 var(--font-sans); cursor: pointer; }
+.nx-menubtn { display: inline-flex; align-items: center; justify-content: center; gap: 0; width: 44px; height: 44px; padding: 0; border: 0; border-radius: var(--radius-pill); background: var(--ink); color: var(--ink-inverse); font: 700 15px/1 var(--font-sans); cursor: pointer; }
 .nx-menubtn .eu-icon { width: 22px; height: 22px; stroke-width: 2.25; }
 .nx-menubtn:focus-visible, .nx-home:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
 /* On Today the bar takes the masthead's deep ground, so the two read as one. */
