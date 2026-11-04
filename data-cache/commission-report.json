@@ -1,5 +1,5 @@
 {
- "run": "2026-11-03T12:20:39.343Z",
+ "run": "2026-11-04T12:31:05.969Z",
  "college": {
   "found": 26,
   "added": [],
@@ -116,10 +116,17 @@
   },
   "maria-luis-albuquerque": {
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/maria-luis-albuquerque/maria-luis-albuquerques-team_en",
-   "parsed": 17,
+   "parsed": 16,
    "existing": 17,
-   "added": [],
-   "removed": []
+   "added": [
+    "Zuzana Gentner Vavrova",
+    "Joaquin Perez Cordellat"
+   ],
+   "removed": [
+    "Elena Arveras",
+    "Lauro Panella",
+    "Ovidiu-Nicusor Melinte"
+   ]
   },
   "hadja-lahbib": {
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/hadja-lahbib/hadja-lahbibs-team_en",
@@ -195,14 +202,66 @@
  "autonomy": {
   "applied": false,
   "waits": [
-   "nothing to apply"
+   "6 changes in one run (limit 5)"
   ]
  },
- "auto": [],
- "structural": [],
+ "auto": [
+  {
+   "commissioner": "maria-luis-albuquerque",
+   "name": "Edoardo Rulli",
+   "fields": [
+    "note"
+   ],
+   "diff": {
+    "note": {
+     "from": "replacing Elena Arveras",
+     "to": ""
+    }
+   }
+  }
+ ],
+ "structural": [
+  {
+   "type": "role",
+   "commissioner": "maria-luis-albuquerque",
+   "name": "Mateusz Szymanski",
+   "from": "Assistant to Edoardo Rulli and Lauro Panella",
+   "to": "ASSISTANT TO EDOARDO RULLI AND ZUZANA GENTNER VAVROVA"
+  },
+  {
+   "type": "added",
+   "commissioner": "maria-luis-albuquerque",
+   "name": "Zuzana Gentner Vavrova",
+   "role": "MEMBER"
+  },
+  {
+   "type": "added",
+   "commissioner": "maria-luis-albuquerque",
+   "name": "Joaquin Perez Cordellat",
+   "role": "ASSISTANT TO RIIKKA TORPPA, LARISA DRAGOMIR AND PHILIPPE THILL"
+  },
+  {
+   "type": "removed",
+   "commissioner": "maria-luis-albuquerque",
+   "name": "Elena Arveras",
+   "role": "Member"
+  },
+  {
+   "type": "removed",
+   "commissioner": "maria-luis-albuquerque",
+   "name": "Lauro Panella",
+   "role": "Member"
+  },
+  {
+   "type": "removed",
+   "commissioner": "maria-luis-albuquerque",
+   "name": "Ovidiu-Nicusor Melinte",
+   "role": "Assistant to Riikka Torppa, Larisa Dragomir and Philippe Thill"
+  }
+ ],
  "summary": {
-  "auto": 0,
-  "structural": 0,
+  "auto": 1,
+  "structural": 6,
   "autoApplied": 0,
   "failed": 0
  }
