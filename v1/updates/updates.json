@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-03T00:00:00Z",
+  "generatedAt": "2026-11-04T00:00:00Z",
   "events": [
     {
       "id": "biotech-act:next:2026-12-14:4e1f33",
@@ -170,6 +170,17 @@
       "title": "ENVI committee vote (reported by Agence Europe; not yet in the Observatory)",
       "push": true,
       "pushOn": "2026-11-04"
+    },
+    {
+      "id": "digital-omnibus-data:ep:opinions:2026-11-04",
+      "fileId": "digital-omnibus-data",
+      "date": "2026-11-04",
+      "source": "ep",
+      "proc": "2025-0360",
+      "kind": "milestone",
+      "title": "Committee opinions adopted",
+      "count": 1,
+      "push": false
     },
     {
       "id": "mff-2028-2034:next:2026-11-04:bf01c0",

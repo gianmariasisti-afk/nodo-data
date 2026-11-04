@@ -832,7 +832,8 @@
     "co2-cars:next:2026-12-14:43a63c": true,
     "biotech-act:next:2026-11-23:c6e633": true,
     "food-feed-omnibus:next:2026-12-14:43a63c": true,
-    "tech-sovereignty-package:ep:2026-0139-NMCP-256809-IMCO-2026-10-29": true
+    "tech-sovereignty-package:ep:2026-0139-NMCP-256809-IMCO-2026-10-29": true,
+    "digital-omnibus-data:ep:opinions:2026-11-04": true
   },
   "seeded": {
     "mff-2028-2034": true,
@@ -895,7 +896,9 @@
     "mff-2028-2034:next:2026-10-30:63ef07": true,
     "tech-sovereignty-package:next:2026-10-30:48e2d8": true,
     "military-mobility:next:2026-10-30:ebc3da": true,
-    "mff-2028-2034:next:2026-11-03:265012": true
+    "mff-2028-2034:next:2026-11-03:265012": true,
+    "mff-2028-2034:next:2026-11-04:bf01c0": true,
+    "co2-cars:next:2026-11-04:7b1ed4": true
   },
   "seededProcs": {
     "2025-0571": true,

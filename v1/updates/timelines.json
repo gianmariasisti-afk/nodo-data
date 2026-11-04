@@ -3869,6 +3869,17 @@
   ],
   "digital-omnibus-data": [
     {
+      "id": "digital-omnibus-data:ep:opinions:2026-11-04",
+      "fileId": "digital-omnibus-data",
+      "date": "2026-11-04",
+      "source": "ep",
+      "proc": "2025-0360",
+      "kind": "milestone",
+      "title": "Committee opinions adopted",
+      "count": 1,
+      "push": false
+    },
+    {
       "id": "digital-omnibus-data:ep:amendments:2026-07-27",
       "fileId": "digital-omnibus-data",
       "date": "2026-07-27",
