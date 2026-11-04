@@ -7329,8 +7329,8 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   ROLE_ONE.relevant = "Worked on a related text";
   ROLE_MANY.relevant = "Worked on related texts";
   const RL_KIND = { resolution: "Parliament resolution", report: "Parliament report", opinion: "Committee opinion", committee: "Committee" };
-  const rlRole = (m, r) => (m.relRole === "chair" ? "Chair" : (r && r.kind === "opinion" ? "Opinion " : "") + (m.relRole === "rapporteur" ? (r && r.kind === "opinion" ? "rapporteur" : "Rapporteur") : m.relRole === "shadow" ? (r && r.kind === "opinion" ? "shadow" : "Shadow") : ""));
-  const RL_ORDER = { rapporteur: 0, chair: 1, shadow: 2 };
+  const rlRole = (m, r) => (m.relRole === "chair" ? "Chair" : m.relRole === "coordinator" ? "Group coordinator" : (r && r.kind === "opinion" ? "Opinion " : "") + (m.relRole === "rapporteur" ? (r && r.kind === "opinion" ? "rapporteur" : "Rapporteur") : m.relRole === "shadow" ? (r && r.kind === "opinion" ? "shadow" : "Shadow") : ""));
+  const RL_ORDER = { rapporteur: 0, chair: 1, coordinator: 2, shadow: 3 };
   function relBlock(f, xs) {
     if (!xs.length) return "";
     const raw = (x) => (f.meps || []).find((m) => "ep:" + m.id === x.key && m.role === "relevant") || {};

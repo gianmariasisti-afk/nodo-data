@@ -1829,6 +1829,16 @@
      "note": "Chairs IMCO, the likely lead committee",
      "rel": "imco-lead",
      "relRole": "chair"
+    },
+    {
+     "id": "247735",
+     "role": "relevant",
+     "committee": "IMCO",
+     "basis": "press",
+     "ref": "euobserver-ballarin-20250722",
+     "note": "S&D coordinator in IMCO; leads her group's line on the DFA (S&D position paper, October 2026)",
+     "rel": "imco-lead",
+     "relRole": "coordinator"
     }
    ],
    "commission": {
@@ -1898,6 +1908,11 @@
      "id": "oeil-2025-2060-ini",
      "title": "Legislative Observatory: summary of the resolution on protection of minors online, 2025/2060(INI)",
      "url": "https://oeil.europarl.europa.eu/oeil/en/document-summary?id=1874426"
+    },
+    {
+     "id": "euobserver-ballarin-20250722",
+     "title": "EUobserver: Laura Ballarín, S&D coordinator in IMCO, on dynamic pricing and the DFA (22 Jul 2025)",
+     "url": "https://euobserver.com/44831/protecting-consumer-rights-dynamic-pricing-must-not-enrich-the-few/"
     }
    ],
    "checked": "2026-11-02",

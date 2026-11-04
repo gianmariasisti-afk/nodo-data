@@ -76,7 +76,7 @@ if (ec) {
 
 /* Priority files: every reference must resolve, every date must be a date, every source must be https */
 const files = load("files.json");
-const REL_ROLES = new Set(["rapporteur", "shadow", "chair"]);
+const REL_ROLES = new Set(["rapporteur", "shadow", "chair", "coordinator"]);
 const reportDocs = new Map(((load("reports.json") || {}).docs || []).map((r) => [r.id, r]));
 if (files) {
   const stages = new Set((files.legend && files.legend.stage) || []);
