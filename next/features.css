@@ -1,6 +1,1 @@
 /* nodo preview styles (next/features.css). Everything up to 2026-10-31 was promoted to the live app on 2026-10-31. */
-
-/* Download the MEPs you filtered (since 4 Nov 2026) */
-.ep-dl { display: inline-flex; align-items: center; gap: 6px; height: 36px; margin-left: auto; padding: 0 14px 0 10px; border: 1.5px solid var(--ink); border-radius: var(--radius-pill); background: none; color: var(--ink); font: inherit; font-size: 13px; font-weight: 600; cursor: pointer; }
-.ep-dl svg { width: 18px; height: 18px; flex: none; }
-.ep-dl:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }

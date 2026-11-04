@@ -8369,29 +8369,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   document.addEventListener("change", (e) => { const r = e.target.closest && e.target.closest("[data-xpfmt]"); if (r) XP.fmt = r.value; }, true);
   document.addEventListener("keydown", (e) => { if (e.key === "Escape" && $("xpMenu") && !$("xpMenu").hidden) { e.stopImmediatePropagation(); xpMenu(false); document.querySelector("[data-xpmore]").focus(); } }, true);
 
-  /* ======================= nodo preview features =======================
-     Source: next/features.js. tools/preview/build.mjs injects this file into the app's main script just before
-     start-up, so it runs inside the same scope and uses the app's own helpers. Nothing here reaches the live app
-     until it is promoted (tools/preview/promote.mjs). Everything up to 2026-10-31 was promoted on 2026-10-31. */
-
-  /* ---------- Speeches open in the verbatim report (since 31 Oct 2026) ----------
-     A speech card had no action: nodo holds neither its text nor a document link. It now links the Parliament's
-     verbatim report at the speech's own anchor. scripts/build-activity.mjs stores `url` (the debate page,
-     CRE-10-<date>-ITM-<n>_EN.html#<speech id>) from the next activity run; until then, and for any speech without it,
-     the link is built from the speech id (MTG-PL-<date>-OTH-<speech id>) to the full-day report, which carries the
-     same anchors (checked on 31 Oct 2026). The provisional report shows each speech in the language it was given in
-     until the translations are out. Feature patch "speech card link" in tools/preview/build.mjs calls fdSpeechAct. */
-  function fdSpeechUrl(it) {
-    if (!it || it.type !== "speech") return "";
-    if (/^https:\/\/www\.europarl\.europa\.eu\/doceo\/document\/CRE-[\w-]+_EN\.html#\d+$/.test(it.url || "")) return it.url;
-    const m = /^MTG-PL-(\d{4}-\d{2}-\d{2})-OTH-(\d+)$/.exec(String(it.id || ""));
-    return m ? `https://www.europarl.europa.eu/doceo/document/CRE-10-${m[1]}_EN.html#${m[2]}` : "";
-  }
-  function fdSpeechAct(it) {
-    const u = fdSpeechUrl(it);
-    return u ? `<a class="fd-open" href="${esc(u)}" target="_blank" rel="noopener" aria-label="Read the verbatim of ${esc(it.title || "this speech")} (opens the Parliament's site)">Read the verbatim${FD_SVG.ext}</a>` : "";
-  }
-
+  /* Promoted from the preview on 2026-11-04 (MEP download only). */
   /* ---------- Download the MEPs you filtered (since 4 Nov 2026) ----------
      Once the Parliament list is filtered (group, committee, country or a search), a "Download" pill closes the row of
      active filters. It opens a sheet with Excel (.xlsx) or CSV and one switch, published email addresses (on). The file
@@ -8498,6 +8476,29 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     }
   }, true);
   document.addEventListener("change", (e) => { const r = e.target.closest && e.target.closest("[data-epxfmt]"); if (r) EPX.fmt = r.value; }, true);
+
+  /* ======================= nodo preview features =======================
+     Source: next/features.js. tools/preview/build.mjs injects this file into the app's main script just before
+     start-up, so it runs inside the same scope and uses the app's own helpers. Nothing here reaches the live app
+     until it is promoted (tools/preview/promote.mjs). Everything up to 2026-10-31 was promoted on 2026-10-31. */
+
+  /* ---------- Speeches open in the verbatim report (since 31 Oct 2026) ----------
+     A speech card had no action: nodo holds neither its text nor a document link. It now links the Parliament's
+     verbatim report at the speech's own anchor. scripts/build-activity.mjs stores `url` (the debate page,
+     CRE-10-<date>-ITM-<n>_EN.html#<speech id>) from the next activity run; until then, and for any speech without it,
+     the link is built from the speech id (MTG-PL-<date>-OTH-<speech id>) to the full-day report, which carries the
+     same anchors (checked on 31 Oct 2026). The provisional report shows each speech in the language it was given in
+     until the translations are out. Feature patch "speech card link" in tools/preview/build.mjs calls fdSpeechAct. */
+  function fdSpeechUrl(it) {
+    if (!it || it.type !== "speech") return "";
+    if (/^https:\/\/www\.europarl\.europa\.eu\/doceo\/document\/CRE-[\w-]+_EN\.html#\d+$/.test(it.url || "")) return it.url;
+    const m = /^MTG-PL-(\d{4}-\d{2}-\d{2})-OTH-(\d+)$/.exec(String(it.id || ""));
+    return m ? `https://www.europarl.europa.eu/doceo/document/CRE-10-${m[1]}_EN.html#${m[2]}` : "";
+  }
+  function fdSpeechAct(it) {
+    const u = fdSpeechUrl(it);
+    return u ? `<a class="fd-open" href="${esc(u)}" target="_blank" rel="noopener" aria-label="Read the verbatim of ${esc(it.title || "this speech")} (opens the Parliament's site)">Read the verbatim${FD_SVG.ext}</a>` : "";
+  }
 
   initHome(); initEp(); initEc();
   let startView = "home";
@@ -10118,6 +10119,13 @@ body { font-variant-numeric: tabular-nums; }
 .xp-go:disabled { opacity: .5; }
 </style>
 <style>
+/* Promoted from the preview on 2026-11-04 (MEP download only). */
+/* Download the MEPs you filtered (since 4 Nov 2026) */
+.ep-dl { display: inline-flex; align-items: center; gap: 6px; height: 36px; margin-left: auto; padding: 0 14px 0 10px; border: 1.5px solid var(--ink); border-radius: var(--radius-pill); background: none; color: var(--ink); font: inherit; font-size: 13px; font-weight: 600; cursor: pointer; }
+.ep-dl svg { width: 18px; height: 18px; flex: none; }
+.ep-dl:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+</style>
+<style>
 #nxBadge{position:fixed;top:max(2px,calc(env(safe-area-inset-top,0px) - 12px));left:50%;transform:translateX(-50%);z-index:2147483000;pointer-events:none;padding:0 6px;border-radius:999px;background:rgba(20,20,19,.55);color:#fff;font:700 8px/12px -apple-system,BlinkMacSystemFont,sans-serif;letter-spacing:.08em}
 #nxDenied{position:fixed;inset:0;z-index:2147483001;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:32px;background:#0E1B4D;color:#fff;text-align:center;font:16px/24px -apple-system,BlinkMacSystemFont,sans-serif}
 #nxDenied h1{margin:0;font-size:28px;line-height:34px}
@@ -10125,11 +10133,6 @@ body { font-variant-numeric: tabular-nums; }
 </style>
 <style>
 /* nodo preview styles (next/features.css). Everything up to 2026-10-31 was promoted to the live app on 2026-10-31. */
-
-/* Download the MEPs you filtered (since 4 Nov 2026) */
-.ep-dl { display: inline-flex; align-items: center; gap: 6px; height: 36px; margin-left: auto; padding: 0 14px 0 10px; border: 1.5px solid var(--ink); border-radius: var(--radius-pill); background: none; color: var(--ink); font: inherit; font-size: 13px; font-weight: 600; cursor: pointer; }
-.ep-dl svg { width: 18px; height: 18px; flex: none; }
-.ep-dl:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
 </style>
 <div id="nxBadge" aria-hidden="true">PREVIEW</div>
 </body></html>
