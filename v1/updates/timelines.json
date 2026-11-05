@@ -4682,6 +4682,17 @@
       "pushOn": "2026-12-01"
     },
     {
+      "id": "digital-networks-act:ep:opinions:2026-11-04",
+      "fileId": "digital-networks-act",
+      "date": "2026-11-04",
+      "source": "ep",
+      "proc": "2026-0013",
+      "kind": "milestone",
+      "title": "Committee opinions adopted",
+      "count": 1,
+      "push": false
+    },
+    {
       "id": "digital-networks-act:ep:ITRE-PR-791994-DEPOT-2026-10-20",
       "fileId": "digital-networks-act",
       "date": "2026-10-20",
@@ -7222,6 +7233,16 @@
       "pushOn": "2026-12-14"
     },
     {
+      "id": "co2-cars:ep:2025-0420-DEC-ADCP-2026-11-04",
+      "fileId": "co2-cars",
+      "date": "2026-11-04",
+      "source": "ep",
+      "proc": "2025-0420",
+      "kind": "milestone",
+      "title": "Report adopted in committee",
+      "push": true
+    },
+    {
       "id": "co2-cars:next:2026-11-04:7b1ed4",
       "fileId": "co2-cars",
       "date": "2026-11-04",
@@ -7576,6 +7597,17 @@
       "title": "Plenary vote (indicative date in the Observatory)",
       "push": true,
       "pushOn": "2026-12-14"
+    },
+    {
+      "id": "medical-devices:ep:opinions:2026-11-04",
+      "fileId": "medical-devices",
+      "date": "2026-11-04",
+      "source": "ep",
+      "proc": "2025-0404",
+      "kind": "milestone",
+      "title": "Committee opinions adopted",
+      "count": 1,
+      "push": false
     },
     {
       "id": "medical-devices:ep:2025-0404-NMCP-86793-IMCO-2026-10-15",
