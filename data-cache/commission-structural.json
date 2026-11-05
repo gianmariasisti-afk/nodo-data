@@ -1,5 +1,5 @@
 {
- "at": "2026-11-04",
+ "at": "2026-11-05",
  "changes": [
   {
    "type": "role",
@@ -37,6 +37,26 @@
    "commissioner": "maria-luis-albuquerque",
    "name": "Ovidiu-Nicusor Melinte",
    "role": "Assistant to Riikka Torppa, Larisa Dragomir and Philippe Thill"
+  },
+  {
+   "type": "role",
+   "commissioner": "magnus-brunner",
+   "name": "Gosia Pearson",
+   "from": "Cabinet Expert / Acting Deputy Head of Cabinet",
+   "to": "CABINET EXPERT"
+  },
+  {
+   "type": "role",
+   "commissioner": "magnus-brunner",
+   "name": "Valentina Russo",
+   "from": "Assistant to Mauro Gagliardi and Adam Kittl",
+   "to": "ASSISTANT TO NATASHA BERTAUD AND MAURO GAGLIARDI"
+  },
+  {
+   "type": "removed",
+   "commissioner": "magnus-brunner",
+   "name": "Adam Kittl",
+   "role": "Member"
   }
  ]
 }
