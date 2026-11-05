@@ -1,7 +1,39 @@
 {
- "generated": "2026-11-04T13:06:49.841Z",
+ "generated": "2026-11-05T13:20:50.710Z",
  "windowDays": 30,
  "items": [
+  {
+   "title": "The big Ukraine-MFF battle to come",
+   "url": "https://www.rapporteur.com/news/rapporteur-am-the-big-ukraine-mff-battle-to-come/",
+   "date": "2026-11-05",
+   "summary": "Also, in Thursday’s edition: capitals uneasy about ‘associate membership’ precedent",
+   "feed": "euractiv",
+   "source": "Euractiv",
+   "inst": "press",
+   "kind": "press",
+   "files": [
+    "mff-2028-2034"
+   ],
+   "people": [],
+   "seen": "2026-11-05"
+  },
+  {
+   "title": "Telecoms law rapporteur sees no path to indefinite spectrum licences",
+   "url": "https://www.rapporteur.com/news/telecoms-law-rapporteur-sees-no-path-to-indefinite-spectrum-licences/",
+   "date": "2026-11-04",
+   "summary": "Kobosko's Digital Networks Act proposal has been savaged by left-wing MEPs",
+   "feed": "euractiv",
+   "source": "Euractiv",
+   "inst": "press",
+   "kind": "press",
+   "files": [
+    "digital-networks-act"
+   ],
+   "people": [
+    "ep:257037"
+   ],
+   "seen": "2026-11-05"
+  },
   {
    "title": "THE HACK: Commission’s AI-heavy 2027 work plan",
    "url": "https://www.rapporteur.com/news/the-hack-commissions-ai-heavy-2027-work-plan/",
