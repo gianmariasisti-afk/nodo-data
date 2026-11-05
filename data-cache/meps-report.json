@@ -1,15 +1,119 @@
 {
- "run": "2026-11-04T12:56:45.255Z",
- "checked": "2026-11-04",
+ "run": "2026-11-05T13:08:27.345Z",
+ "checked": "2026-11-05",
  "api": 720,
  "nodo": 720,
  "failed": [],
- "auto": [],
+ "auto": [
+  {
+   "id": "197718",
+   "name": "Nicolás GONZÁLEZ CASARES",
+   "changes": {
+    "delegations": {
+     "from": [
+      "D-BR Member",
+      "DMER Member"
+     ],
+     "to": [
+      "D-BR Member",
+      "DMER Member",
+      "DLAT Substitute"
+     ]
+    }
+   }
+  },
+  {
+   "id": "247735",
+   "name": "Laura BALLARÍN CEREZA",
+   "changes": {
+    "delegations": {
+     "from": [
+      "D-US Substitute",
+      "DLAT Substitute",
+      "DACP Member",
+      "DAFR Member",
+      "DMED Substitute"
+     ],
+     "to": [
+      "D-US Substitute",
+      "DACP Member",
+      "DAFR Member",
+      "DMED Substitute"
+     ]
+    }
+   }
+  },
+  {
+   "id": "198490",
+   "name": "Emmanouil FRAGKOS",
+   "changes": {
+    "delegations": {
+     "from": [
+      "D-CN Substitute",
+      "DCAR Member",
+      "D-IR Member"
+     ],
+     "to": [
+      "D-CN Substitute",
+      "DCAR Member",
+      "D-IR Member",
+      "D-RU Substitute"
+     ]
+    }
+   }
+  },
+  {
+   "id": "256997",
+   "name": "Sandra GÓMEZ LÓPEZ",
+   "changes": {
+    "delegations": {
+     "from": [
+      "D-JP Member"
+     ],
+     "to": [
+      "D-JP Member",
+      "DLAT Substitute"
+     ]
+    }
+   }
+  },
+  {
+   "id": "256994",
+   "name": "Idoia MENDIA",
+   "changes": {
+    "committees": {
+     "from": [
+      "PECH Substitute",
+      "EMPL Member",
+      "IMCO Substitute",
+      "ECON Substitute",
+      "AFCO Substitute"
+     ],
+     "to": [
+      "PECH Substitute",
+      "EMPL Member",
+      "IMCO Substitute",
+      "AFCO Substitute"
+     ]
+    }
+   }
+  },
+  {
+   "id": "257045",
+   "name": "Michał WAWRYKIEWICZ",
+   "changes": {
+    "party": {
+     "from": "Independent",
+     "to": "KO"
+    }
+   }
+  }
+ ],
  "structural": [],
  "summary": {
-  "auto": 0,
+  "auto": 6,
   "structural": 0,
   "failed": 0,
-  "changed": false
+  "changed": true
  }
 }
