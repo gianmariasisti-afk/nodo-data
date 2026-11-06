@@ -1,0 +1,8 @@
+{
+  "appId": "eu.getnodo.app",
+  "appName": "nodo",
+  "webDir": "www",
+  "ios": {
+    "contentInset": "never"
+  }
+}
