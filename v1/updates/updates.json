@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-05T00:00:00Z",
+  "generatedAt": "2026-11-06T00:00:00Z",
   "events": [
     {
       "id": "biotech-act:next:2026-12-14:4e1f33",
@@ -140,6 +140,16 @@
       "title": "Commission proposal expected (indicative date)",
       "push": true,
       "pushOn": "2026-11-11"
+    },
+    {
+      "id": "digital-euro:ep:2023-0212-MEET-TRI1-2026-11-05",
+      "fileId": "digital-euro",
+      "date": "2026-11-05",
+      "source": "ep",
+      "proc": "2023-0212",
+      "kind": "milestone",
+      "title": "Trilogue",
+      "push": true
     },
     {
       "id": "digital-euro:next:2026-11-05:b4416e",

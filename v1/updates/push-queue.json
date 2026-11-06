@@ -1,35 +1,15 @@
 {
-  "generatedAt": "2026-11-05T00:00:00Z",
+  "generatedAt": "2026-11-06T00:00:00Z",
   "events": [
     {
-      "id": "mff-2028-2034:next:2026-11-05:7cc675",
-      "fileId": "mff-2028-2034",
-      "date": "2026-11-05",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Council MFF working party (AHWP MFF)",
-      "push": true,
-      "pushOn": "2026-11-05"
-    },
-    {
-      "id": "co2-cars:ep:2025-0420-DEC-ADCP-2026-11-04",
-      "fileId": "co2-cars",
-      "date": "2026-11-04",
-      "source": "ep",
-      "proc": "2025-0420",
-      "kind": "milestone",
-      "title": "Report adopted in committee",
-      "push": true
-    },
-    {
-      "id": "digital-euro:next:2026-11-05:b4416e",
+      "id": "digital-euro:ep:2023-0212-MEET-TRI1-2026-11-05",
       "fileId": "digital-euro",
       "date": "2026-11-05",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Political trilogue (reported by Agence Europe)",
-      "push": true,
-      "pushOn": "2026-11-05"
+      "source": "ep",
+      "proc": "2023-0212",
+      "kind": "milestone",
+      "title": "Trilogue",
+      "push": true
     }
   ]
 }
