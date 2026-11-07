@@ -1,0 +1,327 @@
+{
+  "generated": "2026-11-07T11:31:31Z",
+  "manifestGenerated": "2026-11-07T11:31:07.723Z",
+  "counts": {
+    "activityFiles": 722,
+    "questionFiles": 10518
+  },
+  "freshness": {
+    "meps": "2026-11-05",
+    "mepsChecked": "2026-11-06",
+    "commission": "2026-11-05",
+    "commissionChecked": "2026-11-06",
+    "council": "2026-11-05",
+    "calendar": "2026-10-01",
+    "agendaChecked": "2026-11-06",
+    "activity": "2026-11-07",
+    "updates": "2026-11-06",
+    "filesAsOf": "2026-11-02"
+  },
+  "files": [
+    {
+      "id": "mff-2028-2034",
+      "short": "MFF 2028–2034",
+      "checked": "2026-11-02",
+      "checkedDays": 5,
+      "lastNext": "2026-12-07",
+      "upcoming": 4,
+      "past": 3
+    },
+    {
+      "id": "digital-omnibus-data",
+      "short": "Digital Omnibus (data)",
+      "checked": "2026-11-02",
+      "checkedDays": 5,
+      "lastNext": null,
+      "upcoming": 0,
+      "past": 0
+    },
+    {
+      "id": "industrial-accelerator-act",
+      "short": "Industrial Accelerator Act",
+      "checked": "2026-11-02",
+      "checkedDays": 5,
+      "lastNext": "2026-12-14",
+      "upcoming": 1,
+      "past": 0
+    },
+    {
+      "id": "digital-networks-act",
+      "short": "Digital Networks Act",
+      "checked": "2026-11-02",
+      "checkedDays": 5,
+      "lastNext": "2026-12-01",
+      "upcoming": 1,
+      "past": 0
+    },
+    {
+      "id": "digital-fairness-act",
+      "short": "Digital Fairness Act",
+      "checked": "2026-11-02",
+      "checkedDays": 5,
+      "lastNext": "2026-11-11",
+      "upcoming": 1,
+      "past": 0
+    },
+    {
+      "id": "tech-sovereignty-package",
+      "short": "Chips Act 2.0 and CADA",
+      "checked": "2026-11-02",
+      "checkedDays": 5,
+      "lastNext": null,
+      "upcoming": 0,
+      "past": 0
+    },
+    {
+      "id": "ai-act-implementation",
+      "short": "AI Act after the Omnibus",
+      "checked": "2026-11-02",
+      "checkedDays": 5,
+      "lastNext": "2026-12-02",
+      "upcoming": 1,
+      "past": 0
+    },
+    {
+      "id": "grids-package",
+      "short": "Grids Package",
+      "checked": "2026-11-02",
+      "checkedDays": 5,
+      "lastNext": "2026-11-17",
+      "upcoming": 1,
+      "past": 0
+    },
+    {
+      "id": "cef-2028-2034",
+      "short": "CEF 2028–2034",
+      "checked": "2026-11-02",
+      "checkedDays": 5,
+      "lastNext": null,
+      "upcoming": 0,
+      "past": 0
+    },
+    {
+      "id": "co2-cars",
+      "short": "CO2 standards for cars",
+      "checked": "2026-11-02",
+      "checkedDays": 5,
+      "lastNext": "2026-12-14",
+      "upcoming": 1,
+      "past": 1
+    },
+    {
+      "id": "afir-review",
+      "short": "AFIR review",
+      "checked": "2026-11-02",
+      "checkedDays": 5,
+      "lastNext": null,
+      "upcoming": 0,
+      "past": 0
+    },
+    {
+      "id": "medical-devices",
+      "short": "Medical devices revision",
+      "checked": "2026-11-02",
+      "checkedDays": 5,
+      "lastNext": "2026-12-14",
+      "upcoming": 1,
+      "past": 0
+    },
+    {
+      "id": "biotech-act",
+      "short": "Biotech Act I",
+      "checked": "2026-11-02",
+      "checkedDays": 5,
+      "lastNext": "2026-12-14",
+      "upcoming": 2,
+      "past": 0
+    },
+    {
+      "id": "digital-euro",
+      "short": "Digital euro",
+      "checked": "2026-11-02",
+      "checkedDays": 5,
+      "lastNext": "2026-11-05",
+      "upcoming": 0,
+      "past": 1
+    },
+    {
+      "id": "food-feed-omnibus",
+      "short": "Food and feed omnibus",
+      "checked": "2026-11-02",
+      "checkedDays": 5,
+      "lastNext": "2026-12-14",
+      "upcoming": 1,
+      "past": 0
+    },
+    {
+      "id": "era-act",
+      "short": "ERA Act",
+      "checked": "2026-11-02",
+      "checkedDays": 5,
+      "lastNext": null,
+      "upcoming": 0,
+      "past": 0
+    },
+    {
+      "id": "military-mobility",
+      "short": "Military mobility",
+      "checked": "2026-11-02",
+      "checkedDays": 5,
+      "lastNext": null,
+      "upcoming": 0,
+      "past": 0
+    },
+    {
+      "id": "kids-act",
+      "short": "EU KIDS Act",
+      "checked": "2026-11-02",
+      "checkedDays": 5,
+      "lastNext": null,
+      "upcoming": 0,
+      "past": 0
+    }
+  ],
+  "reference": {
+    "calendar": {
+      "checked": "2026-11-02",
+      "checkedDays": 5,
+      "lastSession": "2027-12-13"
+    },
+    "presidency": {
+      "current": "IE",
+      "currentProfile": true,
+      "next": "LT",
+      "nextStarts": "2027-01-01",
+      "daysToHandover": 55,
+      "nextProfile": false
+    },
+    "permrepsExtra": {
+      "entries": 6,
+      "oldestCheck": "2026-10-10",
+      "oldestDays": 28
+    }
+  },
+  "manifestProblems": [],
+  "sizes": {
+    "largest": [
+      {
+        "bytes": 4667612,
+        "path": "data-cache/questions.json"
+      },
+      {
+        "bytes": 3689977,
+        "path": "v1/meps.json"
+      },
+      {
+        "bytes": 1738707,
+        "path": "v1/commission.json"
+      }
+    ]
+  },
+  "workflows": [
+    {
+      "name": "Collect press candidates",
+      "latest": {
+        "conclusion": "success",
+        "at": "2026-11-06T13:03:48Z",
+        "event": "schedule",
+        "url": "https://github.com/gianmariasisti-afk/nodo-data/actions/runs/42222460952"
+      },
+      "lastSuccessAt": "2026-11-06T13:03:48Z"
+    },
+    {
+      "name": "Update Commission and cabinets",
+      "latest": {
+        "conclusion": "success",
+        "at": "2026-11-06T12:27:19Z",
+        "event": "schedule",
+        "url": "https://github.com/gianmariasisti-afk/nodo-data/actions/runs/42217780441"
+      },
+      "lastSuccessAt": "2026-11-06T12:27:19Z"
+    },
+    {
+      "name": "Update MEP activity",
+      "latest": {
+        "conclusion": "success",
+        "at": "2026-11-07T10:32:14Z",
+        "event": "schedule",
+        "url": "https://github.com/gianmariasisti-afk/nodo-data/actions/runs/42364366456"
+      },
+      "lastSuccessAt": "2026-11-07T10:32:14Z"
+    },
+    {
+      "name": "Update MEP directory",
+      "latest": {
+        "conclusion": "success",
+        "at": "2026-11-06T12:53:45Z",
+        "event": "schedule",
+        "url": "https://github.com/gianmariasisti-afk/nodo-data/actions/runs/42221156464"
+      },
+      "lastSuccessAt": "2026-11-06T12:53:45Z"
+    },
+    {
+      "name": "Update file stream",
+      "latest": {
+        "conclusion": "success",
+        "at": "2026-11-06T14:34:30Z",
+        "event": "schedule",
+        "url": "https://github.com/gianmariasisti-afk/nodo-data/actions/runs/42235132095"
+      },
+      "lastSuccessAt": "2026-11-06T14:34:30Z"
+    },
+    {
+      "name": "Update plenary agenda",
+      "latest": {
+        "conclusion": "success",
+        "at": "2026-11-06T19:57:03Z",
+        "event": "schedule",
+        "url": "https://github.com/gianmariasisti-afk/nodo-data/actions/runs/42284097197"
+      },
+      "lastSuccessAt": "2026-11-06T19:57:03Z"
+    },
+    {
+      "name": "Validate data",
+      "latest": {
+        "conclusion": "success",
+        "at": "2026-11-06T23:12:45Z",
+        "event": "pull_request",
+        "url": "https://github.com/gianmariasisti-afk/nodo-data/actions/runs/42310329649"
+      },
+      "lastSuccessAt": "2026-11-06T23:12:45Z"
+    }
+  ],
+  "openIssues": [
+    {
+      "number": 82,
+      "title": "Latest developments: items to review",
+      "labels": [
+        "press"
+      ],
+      "createdAt": "2026-11-05T08:58:33Z",
+      "url": "https://github.com/gianmariasisti-afk/nodo-data/issues/82"
+    },
+    {
+      "number": 81,
+      "title": "Commission/cabinets: changes to review",
+      "labels": [
+        "structural",
+        "commission"
+      ],
+      "createdAt": "2026-11-04T12:32:22Z",
+      "url": "https://github.com/gianmariasisti-afk/nodo-data/issues/81"
+    },
+    {
+      "number": 77,
+      "title": "Agenda found (2026-11-02 07:49)",
+      "labels": [
+        "agenda"
+      ],
+      "createdAt": "2026-11-02T07:49:56Z",
+      "url": "https://github.com/gianmariasisti-afk/nodo-data/issues/77"
+    }
+  ],
+  "reviewBranches": [
+    "review/commission",
+    "review/press"
+  ]
+}
