@@ -1,15 +1,4 @@
 {
-  "generatedAt": "2026-11-06T00:00:00Z",
-  "events": [
-    {
-      "id": "digital-euro:ep:2023-0212-MEET-TRI1-2026-11-05",
-      "fileId": "digital-euro",
-      "date": "2026-11-05",
-      "source": "ep",
-      "proc": "2023-0212",
-      "kind": "milestone",
-      "title": "Trilogue",
-      "push": true
-    }
-  ]
+  "generatedAt": "2026-11-07T00:00:00Z",
+  "events": []
 }
