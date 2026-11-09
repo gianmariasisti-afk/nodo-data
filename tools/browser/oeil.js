@@ -41,7 +41,7 @@ await (async () => {
       let live;
       try { live = await keyPlayers(ref); procedures++; } catch (e) { errors.push(`${ref}: ${e.message}`); continue; }
       if (!live.length) continue; // no key players published yet
-      const mine = (f.meps || []).filter((e) => ROLES.includes(e.role) && (!part || e.part === part));
+      const mine = (f.meps || []).filter((e) => ROLES.includes(e.role) && (e.part || null) === part);
       const key = (x) => `${x.id}|${x.role}`;
       const have = new Map(mine.map((e) => [key(e), e])), seen = new Set();
       for (const x of live) {

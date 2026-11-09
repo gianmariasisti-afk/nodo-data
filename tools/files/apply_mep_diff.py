@@ -46,7 +46,7 @@ def main(argv):
             continue
         part = next((p["id"] for p in f.get("parts") or [] if p.get("procedure") == d.get("ref")), None)
         mid = str(d["id"])
-        same = lambda e: str(e.get("id")) == mid and e.get("role") == d["role"] and (part is None or e.get("part") == part)
+        same = lambda e: str(e.get("id")) == mid and e.get("role") == d["role"] and e.get("part") == part
         meps = f.setdefault("meps", [])
         if d["change"] == "new":
             if mid not in mep_ids:

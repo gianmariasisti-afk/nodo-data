@@ -92,7 +92,9 @@ def main(argv):
                 continue
             if not live:
                 continue  # no key players published yet
-            mine = [e for e in f.get("meps") or [] if e.get("role") in ROLES and (not part or e.get("part") == part)]
+            # a part's procedure is compared with that part's entries, any other procedure with the entries
+            # that belong to no part (a package file also lists its parts' people)
+            mine = [e for e in f.get("meps") or [] if e.get("role") in ROLES and e.get("part") == part]
             key = lambda x: f"{x['id']}|{x['role']}"
             have = {key(e): e for e in mine}
             seen = set()
