@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generated": "2026-11-09T12:32:12.380Z",
+ "generated": "2026-11-09T12:37:10.765Z",
  "files": {
   "meps": {
    "path": "meps.json",
@@ -41,8 +41,8 @@
   "files": {
    "path": "files.json",
    "description": "Legislative files linked to MEPs, Commissioners, cabinet members and Council configurations",
-   "bytes": 151097,
-   "sha256": "df14c819f34dd0c13a10463927c8c506b102794f6eb867bf8514ca0ce92e5623"
+   "bytes": 155130,
+   "sha256": "b2a8f9c89d180d802758a1c0a6d3d1bc00bb6468625cd97183f8f823eb592e4b"
   },
   "updates": {
    "path": "updates/updates.json",
@@ -65,14 +65,14 @@
   "sources": {
    "path": "sources.json",
    "description": "Source list: media outlets by tier, institutions and analysis sources nodo may cite, with excluded domains",
-   "bytes": 6850,
-   "sha256": "1f81e77dd86defd366d90508151503c379252a26a7a7a6a06bd40527ad53e97d"
+   "bytes": 6868,
+   "sha256": "98e7ed1cfe1f6732b5e933e7288f3a67760a18f45b40024245bf11f423fb899d"
   },
   "auto": {
    "path": "auto-files.json",
    "description": "Auto pages: codecision files nodo does not follow, read weekly from the Legislative Observatory (shape of files.json entries, auto: true)",
-   "bytes": 609619,
-   "sha256": "e1eafc2d9acda023a105f9c7f070f34d5cf71edb593d9795e6ac88d3d9172a04"
+   "bytes": 605818,
+   "sha256": "97dbcf9c2f6df490b3dc029ffe37f5021ae0cee419ad0b598b01f9b45aa55161"
   },
   "searchTerms": {
    "path": "search-terms.json",

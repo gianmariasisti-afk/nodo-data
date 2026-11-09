@@ -62,8 +62,14 @@
     "2025/0571R(APP)"
    ],
    "stage": "council-negotiating-box",
-   "status": "The Irish Presidency tabled a revised negotiating box on 10 October 2026 (Council doc 13922/26): €1,622bn in commitments at 2025 prices, 8% below the Commission proposal, with all figures in brackets. At the 15–16 October European Council, leaders asked António Costa to advance the talks; Agence Europe reported on 22 October that he will present his own negotiating box with figures ahead of the Special European Council on 26–27 November; on 30 October it reported that Member States do not expect his box before the last week of November and see a compromise at the 17–18 December European Council as the most likely outcome. Unanimity in Council, then Parliament consent. Two programmes are followed as parts: the European Competitiveness Fund (ITRE co-rapporteurs Christian Ehler and Dan Nica; Council partial position on 16 June 2026) and the National and Regional Partnership Plans fund (BUDG, REGI and AGRI: Karlo Ressler, Andrey Novakov and Elsi Katainen), where Agence Europe reported a partial general approach on 16 June 2026.",
+   "status": "The Irish Presidency tabled a revised negotiating box on 10 October 2026 (Council doc 13922/26): €1,622bn in commitments at 2025 prices, 8% below the Commission proposal, with all figures in brackets. At the 15–16 October European Council, leaders asked António Costa to advance the talks; Agence Europe reported on 22 October that he will present his own negotiating box with figures ahead of the Special European Council on 26–27 November; on 30 October it reported that Member States do not expect his box before the last week of November and see a compromise at the 17–18 December European Council as the most likely outcome. Unanimity in Council, then Parliament consent. Two programmes are followed as parts: the European Competitiveness Fund (ITRE co-rapporteurs Christian Ehler and Dan Nica; Council partial position on 16 June 2026) and the National and Regional Partnership Plans fund (BUDG, REGI and AGRI: Karlo Ressler, Andrey Novakov and Elsi Katainen), where Agence Europe reported a partial general approach on 16 June 2026. A third part is the Performance Regulation (BUDG and CONT jointly, co-rapporteurs Jean-Marc Germain and Niclas Herbst): more than 1,000 amendments were tabled to their draft report, and the groups split over the do no significant harm principle at a joint meeting on 4 November (Agence Europe).",
    "next": [
+    {
+     "date": "2026-11-10",
+     "what": "ECF: ITRE vote on the compromise amendments",
+     "src": "agenceurope-13966-ecf",
+     "part": "ecf"
+    },
     {
      "date": "2026-11-19",
      "what": "Council MFF working party (Global Europe Instrument)",
@@ -667,6 +673,118 @@
      "basis": "ep-procedure-file",
      "ref": "2025/0240(COD)",
      "part": "nrpp"
+    },
+    {
+     "id": "256901",
+     "role": "rapporteur",
+     "committee": "BUDG-CONT",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0545(COD)",
+     "part": "performance"
+    },
+    {
+     "id": "197412",
+     "role": "rapporteur",
+     "committee": "BUDG-CONT",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0545(COD)",
+     "part": "performance"
+    },
+    {
+     "id": "256903",
+     "role": "shadow",
+     "committee": "BUDG-CONT",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0545(COD)",
+     "part": "performance"
+    },
+    {
+     "id": "96780",
+     "role": "shadow",
+     "committee": "BUDG-CONT",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0545(COD)",
+     "part": "performance"
+    },
+    {
+     "id": "96940",
+     "role": "shadow",
+     "committee": "BUDG-CONT",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0545(COD)",
+     "part": "performance"
+    },
+    {
+     "id": "197545",
+     "role": "shadow",
+     "committee": "BUDG-CONT",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0545(COD)",
+     "part": "performance"
+    },
+    {
+     "id": "197773",
+     "role": "shadow",
+     "committee": "BUDG-CONT",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0545(COD)",
+     "part": "performance"
+    },
+    {
+     "id": "256843",
+     "role": "shadow",
+     "committee": "BUDG-CONT",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0545(COD)",
+     "part": "performance"
+    },
+    {
+     "id": "257011",
+     "role": "shadow",
+     "committee": "BUDG-CONT",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0545(COD)",
+     "part": "performance"
+    },
+    {
+     "id": "257044",
+     "role": "shadow",
+     "committee": "BUDG-CONT",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0545(COD)",
+     "part": "performance"
+    },
+    {
+     "id": "30482",
+     "role": "shadow",
+     "committee": "BUDG-CONT",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0545(COD)",
+     "part": "performance"
+    },
+    {
+     "id": "88552",
+     "role": "shadow",
+     "committee": "BUDG-CONT",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0545(COD)",
+     "part": "performance"
+    },
+    {
+     "id": "106936",
+     "role": "shadow",
+     "committee": "BUDG-CONT",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0545(COD)",
+     "part": "performance"
+    },
+    {
+     "id": "257020",
+     "role": "shadow",
+     "committee": "BUDG-CONT",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0545(COD)",
+     "part": "performance"
     }
    ],
    "commission": {
@@ -738,7 +856,7 @@
     ]
    },
    "caveats": [
-    "ECF and NRPP rapporteurs, shadows and opinion rapporteurs come from the Parliament's procedure files (rechecked each week)."
+    "ECF, NRPP and Performance Regulation rapporteurs, shadows and opinion rapporteurs come from the Parliament's procedure files (rechecked each week)."
    ],
    "sources": [
     {
@@ -845,6 +963,21 @@
      "id": "agenceurope-13971-mff",
      "title": "Agence Europe: EU27 now reportedly largely convinced they need to conclude agreement by end of 2026 (30 Oct 2026)",
      "url": "https://agenceurope.eu/en/bulletin/article/13971/14/2028-2034-mff-eu27-now-reportedly-largely-convinced-they-need-to-conclude-agreement-by-end-of-2026"
+    },
+    {
+     "id": "oeil-2025-0545-cod",
+     "title": "Legislative Observatory: procedure file 2025/0545(COD)",
+     "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2025/0545(COD)"
+    },
+    {
+     "id": "agenceurope-13966-ecf",
+     "title": "Agence Europe: ECF, MEPs expected to adopt position on 10 November (22 Oct 2026)",
+     "url": "https://agenceurope.eu/en/bulletin/article/13966/9/european-competitiveness-fund-meps-expected-to-adopt-position-on-10-november"
+    },
+    {
+     "id": "agenceurope-13975-mff",
+     "title": "Agence Europe: more than 1,000 amendments tabled to Performance Regulation (4 Nov 2026)",
+     "url": "https://agenceurope.eu/en/bulletin/article/13975/22/mff-2028-2034-more-than-1000-amendments-tabled-to-performance-regulation-confirm-divisions-in-european-parliament"
     }
    ],
    "checked": "2026-11-09",
@@ -860,6 +993,12 @@
      "title": "National and Regional Partnership Plans fund",
      "procedure": "2025/0240(COD)",
      "short": "NRPP"
+    },
+    {
+     "id": "performance",
+     "title": "Performance Regulation (budget expenditure tracking and performance framework)",
+     "procedure": "2025/0545(COD)",
+     "short": "Performance"
     }
    ],
    "lede": "Leaders negotiate on the Presidency's box; António Costa is to table his own box with figures before a special summit."

@@ -1,6 +1,6 @@
 {
  "about": "nodo's source list. Every press item (press.json) and every citation in files.json must come from a domain listed here; scripts/validate-data.mjs refuses anything else. Media appear in Latest developments; tier 3 media only on the files they are mapped to. Institutions appear as institutional items. Analysis (law firms, consultancies, think tanks, NGOs, industry bodies, academic blogs) may be cited in files.json but never shown as press. 'excluded' lists domains refused on purpose. A domain matches itself and its subdomains; the longest match wins.",
- "checked": "2026-10-29",
+ "checked": "2026-11-09",
  "tiers": {
   "1": "EU specialist press: primary",
   "2": "Wires and national press with Brussels desks",
@@ -9,7 +9,7 @@
  "media": [
   { "id": "agence-europe", "name": "Agence Europe", "tier": 1, "domains": ["agenceurope.eu"], "lang": "en", "paywall": true },
   { "id": "politico-eu", "name": "Politico Europe", "tier": 1, "domains": ["politico.eu"], "lang": "en", "paywall": false },
-  { "id": "euractiv", "name": "Euractiv", "tier": 1, "domains": ["euractiv.com"], "lang": "en", "paywall": false },
+  { "id": "euractiv", "name": "Euractiv", "tier": 1, "domains": ["euractiv.com", "rapporteur.com"], "lang": "en", "paywall": false },
   { "id": "mlex", "name": "MLex", "tier": 1, "domains": ["mlex.com"], "lang": "en", "paywall": true },
   { "id": "contexte", "name": "Contexte", "tier": 1, "domains": ["contexte.com"], "lang": "fr", "paywall": true },
   { "id": "euobserver", "name": "EUobserver", "tier": 1, "domains": ["euobserver.com"], "lang": "en", "paywall": true },
