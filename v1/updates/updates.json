@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-08T00:00:00Z",
+  "generatedAt": "2026-11-09T00:00:00Z",
   "events": [
     {
       "id": "biotech-act:next:2026-12-14:4e1f33",
@@ -82,6 +82,26 @@
       "pushOn": "2026-12-01"
     },
     {
+      "id": "digital-euro:next:2026-11-30:7a5c09",
+      "fileId": "digital-euro",
+      "date": "2026-11-30",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Working Party on Financial Services (digital euro)",
+      "push": true,
+      "pushOn": "2026-11-30"
+    },
+    {
+      "id": "military-mobility:next:2026-11-27:9e6261",
+      "fileId": "military-mobility",
+      "date": "2026-11-27",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Council ad hoc working party on military mobility",
+      "push": true,
+      "pushOn": "2026-11-27"
+    },
+    {
       "id": "mff-2028-2034:next:2026-11-26:2ec5c5",
       "fileId": "mff-2028-2034",
       "date": "2026-11-26",
@@ -90,6 +110,26 @@
       "title": "Special European Council, 26-27 November (Agence Europe: devoted to the MFF)",
       "push": true,
       "pushOn": "2026-11-26"
+    },
+    {
+      "id": "mff-2028-2034:next:2026-11-24:bf4fd9",
+      "fileId": "mff-2028-2034",
+      "date": "2026-11-24",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Council MFF working party (European Competitiveness Fund)",
+      "push": true,
+      "pushOn": "2026-11-24"
+    },
+    {
+      "id": "military-mobility:next:2026-11-24:9e6261",
+      "fileId": "military-mobility",
+      "date": "2026-11-24",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Council ad hoc working party on military mobility",
+      "push": true,
+      "pushOn": "2026-11-24"
     },
     {
       "id": "biotech-act:next:2026-11-23:c6e633",
@@ -112,6 +152,16 @@
       "pushOn": "2026-11-23"
     },
     {
+      "id": "mff-2028-2034:next:2026-11-19:7cb3a3",
+      "fileId": "mff-2028-2034",
+      "date": "2026-11-19",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Council MFF working party (Global Europe Instrument)",
+      "push": true,
+      "pushOn": "2026-11-19"
+    },
+    {
       "id": "grids-package:next:2026-11-17:2e20f7",
       "fileId": "grids-package",
       "date": "2026-11-17",
@@ -122,14 +172,54 @@
       "pushOn": "2026-11-17"
     },
     {
-      "id": "mff-2028-2034:next:2026-11-17:7cc675",
-      "fileId": "mff-2028-2034",
-      "date": "2026-11-17",
+      "id": "digital-euro:next:2026-11-16:70603c",
+      "fileId": "digital-euro",
+      "date": "2026-11-16",
       "source": "nodo",
       "kind": "scheduled",
-      "title": "Council MFF working party (AHWP MFF)",
+      "title": "Financial services attachés (digital euro)",
       "push": true,
-      "pushOn": "2026-11-17"
+      "pushOn": "2026-11-16"
+    },
+    {
+      "id": "digital-euro:next:2026-11-13:c97009",
+      "fileId": "digital-euro",
+      "date": "2026-11-13",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Financial services attachés prepare the seventh trilogue",
+      "push": true,
+      "pushOn": "2026-11-13"
+    },
+    {
+      "id": "military-mobility:next:2026-11-13:b91010",
+      "fileId": "military-mobility",
+      "date": "2026-11-13",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Council ad hoc working party: debrief of the technical meetings of 5, 6 and 9 November and the revised annexes",
+      "push": true,
+      "pushOn": "2026-11-13"
+    },
+    {
+      "id": "medical-devices:next:2026-11-12:94e165",
+      "fileId": "medical-devices",
+      "date": "2026-11-12",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Council working party, 12 and 13 November: fourth Presidency compromise (doc 14673/26)",
+      "push": true,
+      "pushOn": "2026-11-12"
+    },
+    {
+      "id": "biotech-act:next:2026-11-11:2b60f8",
+      "fileId": "biotech-act",
+      "date": "2026-11-11",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Regulation: Council attachés on the third Presidency compromise text, Article 58 on clinical trials",
+      "push": true,
+      "pushOn": "2026-11-11"
     },
     {
       "id": "digital-fairness-act:next:2026-11-11:5a01ad",
@@ -142,6 +232,26 @@
       "pushOn": "2026-11-11"
     },
     {
+      "id": "mff-2028-2034:next:2026-11-10:f27f98",
+      "fileId": "mff-2028-2034",
+      "date": "2026-11-10",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "ECF: ITRE vote on the compromise amendments",
+      "push": true,
+      "pushOn": "2026-11-10"
+    },
+    {
+      "id": "tech-sovereignty-package:next:2026-11-10:a52875",
+      "fileId": "tech-sovereignty-package",
+      "date": "2026-11-10",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "CADA: Council telecoms working party on the first compromise text of Title IV (Autonomy), doc 14918/26",
+      "push": true,
+      "pushOn": "2026-11-10"
+    },
+    {
       "id": "digital-euro:ep:2023-0212-MEET-TRI1-2026-11-05",
       "fileId": "digital-euro",
       "date": "2026-11-05",
@@ -152,24 +262,15 @@
       "push": true
     },
     {
-      "id": "digital-euro:next:2026-11-05:b4416e",
-      "fileId": "digital-euro",
-      "date": "2026-11-05",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Political trilogue (reported by Agence Europe)",
-      "push": true,
-      "pushOn": "2026-11-05"
-    },
-    {
-      "id": "mff-2028-2034:next:2026-11-05:7cc675",
+      "id": "mff-2028-2034:ep:2025-0545:amendments:2026-11-05",
       "fileId": "mff-2028-2034",
       "date": "2026-11-05",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Council MFF working party (AHWP MFF)",
-      "push": true,
-      "pushOn": "2026-11-05"
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "milestone",
+      "title": "Amendments tabled in committee",
+      "count": 1,
+      "push": true
     },
     {
       "id": "co2-cars:ep:2025-0420-DEC-ADCP-2026-11-04",
@@ -180,16 +281,6 @@
       "kind": "milestone",
       "title": "Report adopted in committee",
       "push": true
-    },
-    {
-      "id": "co2-cars:next:2026-11-04:7b1ed4",
-      "fileId": "co2-cars",
-      "date": "2026-11-04",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "ENVI committee vote (reported by Agence Europe; not yet in the Observatory)",
-      "push": true,
-      "pushOn": "2026-11-04"
     },
     {
       "id": "digital-networks-act:ep:opinions:2026-11-04",
@@ -225,24 +316,37 @@
       "push": false
     },
     {
-      "id": "mff-2028-2034:next:2026-11-04:bf01c0",
+      "id": "mff-2028-2034:ep:2025-0545:amendments:2026-11-04",
       "fileId": "mff-2028-2034",
       "date": "2026-11-04",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Council MFF working party (European Competitiveness Fund): ECF implementation, Commission presentation",
-      "push": true,
-      "pushOn": "2026-11-04"
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "milestone",
+      "title": "Amendments tabled in committee",
+      "count": 1,
+      "push": true
     },
     {
-      "id": "mff-2028-2034:next:2026-11-03:265012",
+      "id": "mff-2028-2034:ep:2025-0545:amendments:2026-11-03",
       "fileId": "mff-2028-2034",
       "date": "2026-11-03",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Council MFF working party: national and regional partnerships",
-      "push": true,
-      "pushOn": "2026-11-03"
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "milestone",
+      "title": "Amendments tabled in committee",
+      "count": 10,
+      "push": true
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545:amendments:2026-10-29",
+      "fileId": "mff-2028-2034",
+      "date": "2026-10-29",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "milestone",
+      "title": "Amendments tabled in committee",
+      "count": 1,
+      "push": true
     },
     {
       "id": "tech-sovereignty-package:ep:2026-0139-NMCP-256809-IMCO-2026-10-29",
@@ -496,6 +600,18 @@
       "push": true
     },
     {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-257020-2026-10-06",
+      "fileId": "mff-2028-2034",
+      "date": "2026-10-06",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "257020",
+      "group": "Renew",
+      "push": false
+    },
+    {
       "id": "tech-sovereignty-package:ep:2026-0138-NMSR-197574-2026-10-06",
       "fileId": "tech-sovereignty-package",
       "date": "2026-10-06",
@@ -529,6 +645,17 @@
       "title": "Committee opinions adopted",
       "count": 1,
       "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:CJ13-PR-787767-DEPOT-2026-10-05",
+      "fileId": "mff-2028-2034",
+      "date": "2026-10-05",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "milestone",
+      "title": "Draft report tabled",
+      "push": true,
+      "ref": "CJ13-PR-787767"
     },
     {
       "id": "biotech-act:ep:opinions:2026-10-01",
@@ -703,6 +830,17 @@
       "title": "Opinion shadow rapporteur recorded",
       "personId": "88882",
       "group": "S&D",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545:opinions:2026-09-17",
+      "fileId": "mff-2028-2034",
+      "date": "2026-09-17",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "milestone",
+      "title": "Committee opinions adopted",
+      "count": 1,
       "push": false
     },
     {
@@ -907,6 +1045,17 @@
       "push": false
     },
     {
+      "id": "mff-2028-2034:ep:2025-0545:opinions:2026-09-02",
+      "fileId": "mff-2028-2034",
+      "date": "2026-09-02",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "milestone",
+      "title": "Committee opinions adopted",
+      "count": 2,
+      "push": false
+    },
+    {
       "id": "tech-sovereignty-package:ep:2026-0138-NMSR-257087-2026-09-02",
       "fileId": "tech-sovereignty-package",
       "date": "2026-09-02",
@@ -916,6 +1065,17 @@
       "title": "Shadow rapporteur recorded",
       "personId": "257087",
       "group": "S&D",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545:opinions:2026-09-01",
+      "fileId": "mff-2028-2034",
+      "date": "2026-09-01",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "milestone",
+      "title": "Committee opinions adopted",
+      "count": 2,
       "push": false
     },
     {
@@ -929,6 +1089,18 @@
       "personId": "256979",
       "group": "EPP",
       "committee": "ITRE",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-256890-2026-08-27",
+      "fileId": "mff-2028-2034",
+      "date": "2026-08-27",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "256890",
+      "group": "The Left",
       "push": false
     }
   ]

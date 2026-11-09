@@ -21,6 +21,16 @@
       "pushOn": "2026-11-26"
     },
     {
+      "id": "mff-2028-2034:next:2026-11-24:bf4fd9",
+      "fileId": "mff-2028-2034",
+      "date": "2026-11-24",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Council MFF working party (European Competitiveness Fund)",
+      "push": true,
+      "pushOn": "2026-11-24"
+    },
+    {
       "id": "mff-2028-2034:next:2026-11-23:fea05d",
       "fileId": "mff-2028-2034",
       "date": "2026-11-23",
@@ -31,44 +41,102 @@
       "pushOn": "2026-11-23"
     },
     {
-      "id": "mff-2028-2034:next:2026-11-17:7cc675",
+      "id": "mff-2028-2034:next:2026-11-19:7cb3a3",
       "fileId": "mff-2028-2034",
-      "date": "2026-11-17",
+      "date": "2026-11-19",
       "source": "nodo",
       "kind": "scheduled",
-      "title": "Council MFF working party (AHWP MFF)",
+      "title": "Council MFF working party (Global Europe Instrument)",
       "push": true,
-      "pushOn": "2026-11-17"
+      "pushOn": "2026-11-19"
     },
     {
-      "id": "mff-2028-2034:next:2026-11-05:7cc675",
+      "id": "mff-2028-2034:next:2026-11-10:f27f98",
+      "fileId": "mff-2028-2034",
+      "date": "2026-11-10",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "ECF: ITRE vote on the compromise amendments",
+      "push": true,
+      "pushOn": "2026-11-10"
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545:amendments:2026-11-05",
       "fileId": "mff-2028-2034",
       "date": "2026-11-05",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Council MFF working party (AHWP MFF)",
-      "push": true,
-      "pushOn": "2026-11-05"
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "milestone",
+      "title": "Amendments tabled in committee",
+      "count": 1,
+      "push": true
     },
     {
-      "id": "mff-2028-2034:next:2026-11-04:bf01c0",
+      "id": "mff-2028-2034:ep:2025-0545:amendments:2026-11-04",
       "fileId": "mff-2028-2034",
       "date": "2026-11-04",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Council MFF working party (European Competitiveness Fund): ECF implementation, Commission presentation",
-      "push": true,
-      "pushOn": "2026-11-04"
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "milestone",
+      "title": "Amendments tabled in committee",
+      "count": 1,
+      "push": true
     },
     {
-      "id": "mff-2028-2034:next:2026-11-03:265012",
+      "id": "mff-2028-2034:ep:2025-0545:amendments:2026-11-03",
       "fileId": "mff-2028-2034",
       "date": "2026-11-03",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Council MFF working party: national and regional partnerships",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "milestone",
+      "title": "Amendments tabled in committee",
+      "count": 10,
+      "push": true
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545:amendments:2026-10-29",
+      "fileId": "mff-2028-2034",
+      "date": "2026-10-29",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "milestone",
+      "title": "Amendments tabled in committee",
+      "count": 1,
+      "push": true
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-257020-2026-10-06",
+      "fileId": "mff-2028-2034",
+      "date": "2026-10-06",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "257020",
+      "group": "Renew",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:CJ13-PR-787767-DEPOT-2026-10-05",
+      "fileId": "mff-2028-2034",
+      "date": "2026-10-05",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "milestone",
+      "title": "Draft report tabled",
       "push": true,
-      "pushOn": "2026-11-03"
+      "ref": "CJ13-PR-787767"
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545:opinions:2026-09-17",
+      "fileId": "mff-2028-2034",
+      "date": "2026-09-17",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "milestone",
+      "title": "Committee opinions adopted",
+      "count": 1,
+      "push": false
     },
     {
       "id": "mff-2028-2034:ep:2025-0240:opinions:2026-09-02",
@@ -82,11 +150,78 @@
       "push": false
     },
     {
+      "id": "mff-2028-2034:ep:2025-0545:opinions:2026-09-02",
+      "fileId": "mff-2028-2034",
+      "date": "2026-09-02",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "milestone",
+      "title": "Committee opinions adopted",
+      "count": 2,
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545:opinions:2026-09-01",
+      "fileId": "mff-2028-2034",
+      "date": "2026-09-01",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "milestone",
+      "title": "Committee opinions adopted",
+      "count": 2,
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-256890-2026-08-27",
+      "fileId": "mff-2028-2034",
+      "date": "2026-08-27",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "256890",
+      "group": "The Left",
+      "push": false
+    },
+    {
       "id": "mff-2028-2034:ep:2025-0240:opinions:2026-07-15",
       "fileId": "mff-2028-2034",
       "date": "2026-07-15",
       "source": "ep",
       "proc": "2025-0240",
+      "kind": "milestone",
+      "title": "Committee opinions adopted",
+      "count": 1,
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545:opinions:2026-07-15",
+      "fileId": "mff-2028-2034",
+      "date": "2026-07-15",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "milestone",
+      "title": "Committee opinions adopted",
+      "count": 1,
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545:opinions:2026-07-14",
+      "fileId": "mff-2028-2034",
+      "date": "2026-07-14",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "milestone",
+      "title": "Committee opinions adopted",
+      "count": 2,
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545:opinions:2026-07-02",
+      "fileId": "mff-2028-2034",
+      "date": "2026-07-02",
+      "source": "ep",
+      "proc": "2025-0545",
       "kind": "milestone",
       "title": "Committee opinions adopted",
       "count": 1,
@@ -102,6 +237,18 @@
       "title": "Opinion shadow rapporteur recorded",
       "personId": "197581",
       "group": "Renew",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-197824-2026-06-29",
+      "fileId": "mff-2028-2034",
+      "date": "2026-06-29",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "197824",
+      "group": "ECR",
       "push": false
     },
     {
@@ -135,6 +282,17 @@
       "kind": "milestone",
       "title": "Committee opinions adopted",
       "count": 2,
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545:opinions:2026-06-23",
+      "fileId": "mff-2028-2034",
+      "date": "2026-06-23",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "milestone",
+      "title": "Committee opinions adopted",
+      "count": 1,
       "push": false
     },
     {
@@ -184,6 +342,18 @@
       "push": false
     },
     {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-257140-2026-06-19",
+      "fileId": "mff-2028-2034",
+      "date": "2026-06-19",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "257140",
+      "group": "The Left",
+      "push": false
+    },
+    {
       "id": "mff-2028-2034:ep:2025-0555:amendments:2026-06-05",
       "fileId": "mff-2028-2034",
       "date": "2026-06-05",
@@ -206,6 +376,30 @@
       "push": false
     },
     {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-2268-2026-06-02",
+      "fileId": "mff-2028-2034",
+      "date": "2026-06-02",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "2268",
+      "group": "The Left",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-257044-2026-06-02",
+      "fileId": "mff-2028-2034",
+      "date": "2026-06-02",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "257044",
+      "group": "Greens/EFA",
+      "push": false
+    },
+    {
       "id": "mff-2028-2034:ep:2025-0240-NMSR-256941-2026-05-22",
       "fileId": "mff-2028-2034",
       "date": "2026-05-22",
@@ -215,6 +409,18 @@
       "title": "Shadow rapporteur recorded",
       "personId": "256941",
       "group": "ESN",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-257135-2026-05-18",
+      "fileId": "mff-2028-2034",
+      "date": "2026-05-18",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "257135",
+      "group": "The Left",
       "push": false
     },
     {
@@ -263,6 +469,18 @@
       "push": false
     },
     {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-204414-2026-05-06",
+      "fileId": "mff-2028-2034",
+      "date": "2026-05-06",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "204414",
+      "group": "PfE",
+      "push": false
+    },
+    {
       "id": "mff-2028-2034:ep:2025-0555:opinions:2026-05-06",
       "fileId": "mff-2028-2034",
       "date": "2026-05-06",
@@ -295,6 +513,18 @@
       "title": "Opinion shadow rapporteur recorded",
       "personId": "267485",
       "group": "ESN",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-257011-2026-05-05",
+      "fileId": "mff-2028-2034",
+      "date": "2026-05-05",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "257011",
+      "group": "Renew",
       "push": false
     },
     {
@@ -345,6 +575,18 @@
       "push": false
     },
     {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-257022-2026-05-04",
+      "fileId": "mff-2028-2034",
+      "date": "2026-05-04",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "257022",
+      "group": "ECR",
+      "push": false
+    },
+    {
       "id": "mff-2028-2034:ep:2025-0240-NMSR-190517-2026-04-30",
       "fileId": "mff-2028-2034",
       "date": "2026-04-30",
@@ -354,6 +596,18 @@
       "title": "Opinion shadow rapporteur recorded",
       "personId": "190517",
       "group": "The Left",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-256942-2026-04-28",
+      "fileId": "mff-2028-2034",
+      "date": "2026-04-28",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "256942",
+      "group": "ESN",
       "push": false
     },
     {
@@ -507,6 +761,18 @@
       "ref": "ITRE-PR-784506"
     },
     {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-124985-2026-04-15",
+      "fileId": "mff-2028-2034",
+      "date": "2026-04-15",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "124985",
+      "group": "The Left",
+      "push": false
+    },
+    {
       "id": "mff-2028-2034:ep:2025-0555:opinions:2026-04-15",
       "fileId": "mff-2028-2034",
       "date": "2026-04-15",
@@ -536,6 +802,42 @@
       "kind": "milestone",
       "title": "Committee opinions adopted",
       "count": 1,
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-256946-2026-04-10",
+      "fileId": "mff-2028-2034",
+      "date": "2026-04-10",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "256946",
+      "group": "Renew",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-256911-2026-04-08",
+      "fileId": "mff-2028-2034",
+      "date": "2026-04-08",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "256911",
+      "group": "The Left",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-96787-2026-04-08",
+      "fileId": "mff-2028-2034",
+      "date": "2026-04-08",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "96787",
+      "group": "EPP",
       "push": false
     },
     {
@@ -587,6 +889,18 @@
       "push": false
     },
     {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-257130-2026-03-26",
+      "fileId": "mff-2028-2034",
+      "date": "2026-03-26",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "257130",
+      "group": "Greens/EFA",
+      "push": false
+    },
+    {
       "id": "mff-2028-2034:ep:2025-0240-NMSR-257099-2026-03-24",
       "fileId": "mff-2028-2034",
       "date": "2026-03-24",
@@ -608,6 +922,54 @@
       "title": "Opinion shadow rapporteur recorded",
       "personId": "257149",
       "group": "ECR",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-197545-2026-03-24",
+      "fileId": "mff-2028-2034",
+      "date": "2026-03-24",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "197545",
+      "group": "ECR",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-197462-2026-03-23",
+      "fileId": "mff-2028-2034",
+      "date": "2026-03-23",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "197462",
+      "group": "Greens/EFA",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-204332-2026-03-23",
+      "fileId": "mff-2028-2034",
+      "date": "2026-03-23",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "204332",
+      "group": "Renew",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-91636-2026-03-23",
+      "fileId": "mff-2028-2034",
+      "date": "2026-03-23",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "91636",
+      "group": "S&D",
       "push": false
     },
     {
@@ -671,6 +1033,43 @@
       "push": false
     },
     {
+      "id": "mff-2028-2034:ep:2025-0545-NMCP-251874-DEVE-2026-03-17",
+      "fileId": "mff-2028-2034",
+      "date": "2026-03-17",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion rapporteur named",
+      "personId": "251874",
+      "group": "EPP",
+      "committee": "DEVE",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-38542-2026-03-17",
+      "fileId": "mff-2028-2034",
+      "date": "2026-03-17",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "38542",
+      "group": "S&D",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-96940-2026-03-17",
+      "fileId": "mff-2028-2034",
+      "date": "2026-03-17",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "96940",
+      "group": "Renew",
+      "push": false
+    },
+    {
       "id": "mff-2028-2034:ep:2025-0555-NMSR-197581-2026-03-17",
       "fileId": "mff-2028-2034",
       "date": "2026-03-17",
@@ -704,6 +1103,18 @@
       "title": "Opinion shadow rapporteur recorded",
       "personId": "256919",
       "group": "EPP",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-257024-2026-03-13",
+      "fileId": "mff-2028-2034",
+      "date": "2026-03-13",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "257024",
+      "group": "PfE",
       "push": false
     },
     {
@@ -755,6 +1166,55 @@
       "push": false
     },
     {
+      "id": "mff-2028-2034:ep:2025-0545-NMCP-23781-ECON-2026-03-11",
+      "fileId": "mff-2028-2034",
+      "date": "2026-03-11",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion rapporteur named",
+      "personId": "23781",
+      "group": "EPP",
+      "committee": "ECON",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-125204-2026-03-11",
+      "fileId": "mff-2028-2034",
+      "date": "2026-03-11",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "125204",
+      "group": "EPP",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-256985-2026-03-11",
+      "fileId": "mff-2028-2034",
+      "date": "2026-03-11",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "256985",
+      "group": "EPP",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-28615-2026-03-11",
+      "fileId": "mff-2028-2034",
+      "date": "2026-03-11",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "28615",
+      "group": "ECR",
+      "push": false
+    },
+    {
       "id": "mff-2028-2034:ep:2025-0555-NMSR-267485-2026-03-11",
       "fileId": "mff-2028-2034",
       "date": "2026-03-11",
@@ -779,6 +1239,54 @@
       "push": false
     },
     {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-208722-2026-03-10",
+      "fileId": "mff-2028-2034",
+      "date": "2026-03-10",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "208722",
+      "group": "Greens/EFA",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-256906-2026-03-10",
+      "fileId": "mff-2028-2034",
+      "date": "2026-03-10",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "256906",
+      "group": "S&D",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-257077-2026-03-10",
+      "fileId": "mff-2028-2034",
+      "date": "2026-03-10",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "257077",
+      "group": "ECR",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-30482-2026-03-10",
+      "fileId": "mff-2028-2034",
+      "date": "2026-03-10",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "30482",
+      "group": "The Left",
+      "push": false
+    },
+    {
       "id": "mff-2028-2034:ep:2025-0555-NMSR-256907-2026-03-10",
       "fileId": "mff-2028-2034",
       "date": "2026-03-10",
@@ -788,6 +1296,18 @@
       "title": "Opinion shadow rapporteur recorded",
       "personId": "256907",
       "group": "ECR",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-197448-2026-03-09",
+      "fileId": "mff-2028-2034",
+      "date": "2026-03-09",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "197448",
+      "group": "Greens/EFA",
       "push": false
     },
     {
@@ -899,6 +1419,30 @@
       "push": false
     },
     {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-256986-2026-02-26",
+      "fileId": "mff-2028-2034",
+      "date": "2026-02-26",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "256986",
+      "group": "ECR",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-257010-2026-02-26",
+      "fileId": "mff-2028-2034",
+      "date": "2026-02-26",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "257010",
+      "group": "Renew",
+      "push": false
+    },
+    {
       "id": "mff-2028-2034:ep:2025-0571R:opinions:2026-02-26",
       "fileId": "mff-2028-2034",
       "date": "2026-02-26",
@@ -907,6 +1451,18 @@
       "kind": "milestone",
       "title": "Committee opinions adopted",
       "count": 1,
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-261796-2026-02-25",
+      "fileId": "mff-2028-2034",
+      "date": "2026-02-25",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "261796",
+      "group": "PfE",
       "push": false
     },
     {
@@ -993,6 +1549,30 @@
       "push": false
     },
     {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-183916-2026-02-23",
+      "fileId": "mff-2028-2034",
+      "date": "2026-02-23",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "183916",
+      "group": "Greens/EFA",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-96697-2026-02-23",
+      "fileId": "mff-2028-2034",
+      "date": "2026-02-23",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "96697",
+      "group": "ECR",
+      "push": false
+    },
+    {
       "id": "mff-2028-2034:ep:2025-0555-NMSR-197690-2026-02-23",
       "fileId": "mff-2028-2034",
       "date": "2026-02-23",
@@ -1001,6 +1581,42 @@
       "kind": "people",
       "title": "Opinion shadow rapporteur recorded",
       "personId": "197690",
+      "group": "PfE",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-24942-2026-02-19",
+      "fileId": "mff-2028-2034",
+      "date": "2026-02-19",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "24942",
+      "group": "Greens/EFA",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-256945-2026-02-19",
+      "fileId": "mff-2028-2034",
+      "date": "2026-02-19",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "256945",
+      "group": "ESN",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-256843-2026-02-17",
+      "fileId": "mff-2028-2034",
+      "date": "2026-02-17",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "256843",
       "group": "PfE",
       "push": false
     },
@@ -1115,6 +1731,43 @@
       "push": false
     },
     {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-257044-2026-02-10",
+      "fileId": "mff-2028-2034",
+      "date": "2026-02-10",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "257044",
+      "group": "Greens/EFA",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545-NMCP-257727-ENVI-2026-02-09",
+      "fileId": "mff-2028-2034",
+      "date": "2026-02-09",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion rapporteur named",
+      "personId": "257727",
+      "group": "S&D",
+      "committee": "ENVI",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-256853-2026-02-09",
+      "fileId": "mff-2028-2034",
+      "date": "2026-02-09",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "256853",
+      "group": "PfE",
+      "push": false
+    },
+    {
       "id": "mff-2028-2034:ep:2025-0571-NMSR-130881-2026-02-09",
       "fileId": "mff-2028-2034",
       "date": "2026-02-09",
@@ -1172,6 +1825,18 @@
       "title": "Opinion shadow rapporteur recorded",
       "personId": "256959",
       "group": "ESN",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-257128-2026-02-05",
+      "fileId": "mff-2028-2034",
+      "date": "2026-02-05",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "257128",
+      "group": "EPP",
       "push": false
     },
     {
@@ -1258,6 +1923,31 @@
       "push": true
     },
     {
+      "id": "mff-2028-2034:ep:2025-0545-NMCP-256880-EMPL-2026-02-02",
+      "fileId": "mff-2028-2034",
+      "date": "2026-02-02",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion rapporteur named",
+      "personId": "256880",
+      "group": "S&D",
+      "committee": "EMPL",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-197773-2026-02-02",
+      "fileId": "mff-2028-2034",
+      "date": "2026-02-02",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "197773",
+      "group": "ECR",
+      "push": false
+    },
+    {
       "id": "mff-2028-2034:ep:2025-0571-NMSR-256907-2026-02-02",
       "fileId": "mff-2028-2034",
       "date": "2026-02-02",
@@ -1314,6 +2004,18 @@
       "title": "Opinion shadow rapporteur recorded",
       "personId": "204129",
       "group": "EPP",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-257090-2026-01-30",
+      "fileId": "mff-2028-2034",
+      "date": "2026-01-30",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "257090",
+      "group": "ECR",
       "push": false
     },
     {
@@ -1400,6 +2102,18 @@
       "push": false
     },
     {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-261038-2026-01-29",
+      "fileId": "mff-2028-2034",
+      "date": "2026-01-29",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "261038",
+      "group": "PfE",
+      "push": false
+    },
+    {
       "id": "mff-2028-2034:ep:2025-0571-NMSR-197802-2026-01-29",
       "fileId": "mff-2028-2034",
       "date": "2026-01-29",
@@ -1472,6 +2186,18 @@
       "push": false
     },
     {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-256920-2026-01-28",
+      "fileId": "mff-2028-2034",
+      "date": "2026-01-28",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "256920",
+      "group": "EPP",
+      "push": false
+    },
+    {
       "id": "mff-2028-2034:ep:2025-0555-NMSR-256805-2026-01-28",
       "fileId": "mff-2028-2034",
       "date": "2026-01-28",
@@ -1508,6 +2234,18 @@
       "push": false
     },
     {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-88552-2026-01-27",
+      "fileId": "mff-2028-2034",
+      "date": "2026-01-27",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "88552",
+      "group": "PfE",
+      "push": false
+    },
+    {
       "id": "mff-2028-2034:ep:2025-0571-NMSR-256952-2026-01-27",
       "fileId": "mff-2028-2034",
       "date": "2026-01-27",
@@ -1529,6 +2267,18 @@
       "title": "Opinion shadow rapporteur recorded",
       "personId": "30482",
       "group": "The Left",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-256903-2026-01-26",
+      "fileId": "mff-2028-2034",
+      "date": "2026-01-26",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "256903",
+      "group": "S&D",
       "push": false
     },
     {
@@ -1628,6 +2378,18 @@
       "push": false
     },
     {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-257257-2026-01-22",
+      "fileId": "mff-2028-2034",
+      "date": "2026-01-22",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "257257",
+      "group": "Renew",
+      "push": false
+    },
+    {
       "id": "mff-2028-2034:ep:2025-0555-NMSR-204414-2026-01-22",
       "fileId": "mff-2028-2034",
       "date": "2026-01-22",
@@ -1700,6 +2462,30 @@
       "push": false
     },
     {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-197794-2026-01-21",
+      "fileId": "mff-2028-2034",
+      "date": "2026-01-21",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "197794",
+      "group": "ECR",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-40224-2026-01-21",
+      "fileId": "mff-2028-2034",
+      "date": "2026-01-21",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "40224",
+      "group": "S&D",
+      "push": false
+    },
+    {
       "id": "mff-2028-2034:ep:2025-0555-NMCP-257237-IMCO-2026-01-21",
       "fileId": "mff-2028-2034",
       "date": "2026-01-21",
@@ -1734,6 +2520,18 @@
       "title": "Opinion shadow rapporteur recorded",
       "personId": "257117",
       "group": "ECR",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-101039-2026-01-20",
+      "fileId": "mff-2028-2034",
+      "date": "2026-01-20",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "101039",
+      "group": "PfE",
       "push": false
     },
     {
@@ -1969,6 +2767,43 @@
       "push": false
     },
     {
+      "id": "mff-2028-2034:ep:2025-0545-NMCP-197702-FEMM-2026-01-15",
+      "fileId": "mff-2028-2034",
+      "date": "2026-01-15",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion rapporteur named",
+      "personId": "197702",
+      "group": "S&D",
+      "committee": "FEMM",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-106936-2026-01-15",
+      "fileId": "mff-2028-2034",
+      "date": "2026-01-15",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "106936",
+      "group": "Greens/EFA",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-197802-2026-01-15",
+      "fileId": "mff-2028-2034",
+      "date": "2026-01-15",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "197802",
+      "group": "Greens/EFA",
+      "push": false
+    },
+    {
       "id": "mff-2028-2034:ep:2025-0555-NMCP-257020-BUDG-2026-01-15",
       "fileId": "mff-2028-2034",
       "date": "2026-01-15",
@@ -2052,6 +2887,18 @@
       "title": "Opinion shadow rapporteur recorded",
       "personId": "125104",
       "group": "EPP",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-99878-2026-01-14",
+      "fileId": "mff-2028-2034",
+      "date": "2026-01-14",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "99878",
+      "group": "ECR",
       "push": false
     },
     {
@@ -2356,6 +3203,56 @@
       "push": false
     },
     {
+      "id": "mff-2028-2034:ep:2025-0545-NMCOR-197412-CONT-2026-01-12",
+      "fileId": "mff-2028-2034",
+      "date": "2026-01-12",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Co-rapporteur named",
+      "personId": "197412",
+      "group": "EPP",
+      "committee": "CONT",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545-NMCOR-256901-BUDG-2026-01-12",
+      "fileId": "mff-2028-2034",
+      "date": "2026-01-12",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Co-rapporteur named",
+      "personId": "256901",
+      "group": "S&D",
+      "committee": "BUDG",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-257044-2026-01-12",
+      "fileId": "mff-2028-2034",
+      "date": "2026-01-12",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "257044",
+      "group": "Greens/EFA",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-96780-2026-01-12",
+      "fileId": "mff-2028-2034",
+      "date": "2026-01-12",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "96780",
+      "group": "EPP",
+      "push": false
+    },
+    {
       "id": "mff-2028-2034:ep:2025-0571-NMSR-197468-2026-01-12",
       "fileId": "mff-2028-2034",
       "date": "2026-01-12",
@@ -2389,6 +3286,31 @@
       "title": "Opinion shadow rapporteur recorded",
       "personId": "198076",
       "group": "Greens/EFA",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545-NMCP-256970-REGI-2026-01-09",
+      "fileId": "mff-2028-2034",
+      "date": "2026-01-09",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion rapporteur named",
+      "personId": "256970",
+      "group": "Renew",
+      "committee": "REGI",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-197400-2026-01-09",
+      "fileId": "mff-2028-2034",
+      "date": "2026-01-09",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "197400",
+      "group": "Renew",
       "push": false
     },
     {
@@ -2500,6 +3422,18 @@
       "push": false
     },
     {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-256905-2026-01-06",
+      "fileId": "mff-2028-2034",
+      "date": "2026-01-06",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "256905",
+      "group": "S&D",
+      "push": false
+    },
+    {
       "id": "mff-2028-2034:ep:2025-0555-NMSR-257088-2026-01-06",
       "fileId": "mff-2028-2034",
       "date": "2026-01-06",
@@ -2509,6 +3443,31 @@
       "title": "Opinion shadow rapporteur recorded",
       "personId": "257088",
       "group": "S&D",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545-NMCP-256920-PECH-2026-01-05",
+      "fileId": "mff-2028-2034",
+      "date": "2026-01-05",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion rapporteur named",
+      "personId": "256920",
+      "group": "EPP",
+      "committee": "PECH",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-214839-2026-01-05",
+      "fileId": "mff-2028-2034",
+      "date": "2026-01-05",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "214839",
+      "group": "Renew",
       "push": false
     },
     {
@@ -2773,6 +3732,32 @@
       "push": false
     },
     {
+      "id": "mff-2028-2034:ep:2025-0545-NMCP-124836-AGRI-2025-12-15",
+      "fileId": "mff-2028-2034",
+      "date": "2025-12-15",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion rapporteur named",
+      "personId": "124836",
+      "group": "S&D",
+      "committee": "AGRI",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545-NMCP-256965-TRAN-2025-12-15",
+      "fileId": "mff-2028-2034",
+      "date": "2025-12-15",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion rapporteur named",
+      "personId": "256965",
+      "group": "Greens/EFA",
+      "committee": "TRAN",
+      "push": false
+    },
+    {
       "id": "mff-2028-2034:ep:2025-0571-NMCP-257041-CONT-2025-12-15",
       "fileId": "mff-2028-2034",
       "date": "2025-12-15",
@@ -2835,6 +3820,18 @@
       "push": false
     },
     {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-256805-2025-12-12",
+      "fileId": "mff-2028-2034",
+      "date": "2025-12-12",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "256805",
+      "group": "The Left",
+      "push": false
+    },
+    {
       "id": "mff-2028-2034:ep:2025-0555-NMSR-257116-2025-12-12",
       "fileId": "mff-2028-2034",
       "date": "2025-12-12",
@@ -2880,6 +3877,18 @@
       "title": "Opinion shadow rapporteur recorded",
       "personId": "257050",
       "group": "PfE",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-257038-2025-12-11",
+      "fileId": "mff-2028-2034",
+      "date": "2025-12-11",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "257038",
+      "group": "Renew",
       "push": false
     },
     {
@@ -2988,6 +3997,18 @@
       "kind": "people",
       "title": "Opinion shadow rapporteur recorded",
       "personId": "2268",
+      "group": "The Left",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-256890-2025-12-09",
+      "fileId": "mff-2028-2034",
+      "date": "2025-12-09",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "256890",
       "group": "The Left",
       "push": false
     },
@@ -3102,6 +4123,18 @@
       "push": false
     },
     {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-256934-2025-12-05",
+      "fileId": "mff-2028-2034",
+      "date": "2025-12-05",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "256934",
+      "group": "S&D",
+      "push": false
+    },
+    {
       "id": "mff-2028-2034:ep:2025-0240-NMSR-233862-2025-12-04",
       "fileId": "mff-2028-2034",
       "date": "2025-12-04",
@@ -3209,6 +4242,19 @@
       "title": "Draft report tabled",
       "push": true,
       "ref": "BUDG-PR-779351"
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545-NMCP-197652-ITRE-2025-12-02",
+      "fileId": "mff-2028-2034",
+      "date": "2025-12-02",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion rapporteur named",
+      "personId": "197652",
+      "group": "EPP",
+      "committee": "ITRE",
+      "push": false
     },
     {
       "id": "mff-2028-2034:ep:2025-0571-NMSR-125012-2025-12-02",
@@ -3330,6 +4376,18 @@
       "kind": "people",
       "title": "Opinion shadow rapporteur recorded",
       "personId": "256891",
+      "group": "Renew",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-256815-2025-11-27",
+      "fileId": "mff-2028-2034",
+      "date": "2025-11-27",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "256815",
       "group": "Renew",
       "push": false
     },
@@ -3830,6 +4888,28 @@
       "proc": "2025-0240",
       "kind": "procedural",
       "title": "Referred to committee",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545-ANPRO-2025-10-23",
+      "fileId": "mff-2028-2034",
+      "date": "2025-10-23",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "procedural",
+      "title": "Referred to committee",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545-NMSR-257061-2025-10-23",
+      "fileId": "mff-2028-2034",
+      "date": "2025-10-23",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "257061",
+      "group": "Renew",
       "push": false
     },
     {
@@ -4958,6 +6038,16 @@
     }
   ],
   "tech-sovereignty-package": [
+    {
+      "id": "tech-sovereignty-package:next:2026-11-10:a52875",
+      "fileId": "tech-sovereignty-package",
+      "date": "2026-11-10",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "CADA: Council telecoms working party on the first compromise text of Title IV (Autonomy), doc 14918/26",
+      "push": true,
+      "pushOn": "2026-11-10"
+    },
     {
       "id": "tech-sovereignty-package:ep:2026-0139-NMCP-256809-IMCO-2026-10-29",
       "fileId": "tech-sovereignty-package",
@@ -7243,16 +8333,6 @@
       "push": true
     },
     {
-      "id": "co2-cars:next:2026-11-04:7b1ed4",
-      "fileId": "co2-cars",
-      "date": "2026-11-04",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "ENVI committee vote (reported by Agence Europe; not yet in the Observatory)",
-      "push": true,
-      "pushOn": "2026-11-04"
-    },
-    {
       "id": "co2-cars:ep:opinions:2026-10-22",
       "fileId": "co2-cars",
       "date": "2026-10-22",
@@ -7599,6 +8679,16 @@
       "pushOn": "2026-12-14"
     },
     {
+      "id": "medical-devices:next:2026-11-12:94e165",
+      "fileId": "medical-devices",
+      "date": "2026-11-12",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Council working party, 12 and 13 November: fourth Presidency compromise (doc 14673/26)",
+      "push": true,
+      "pushOn": "2026-11-12"
+    },
+    {
       "id": "medical-devices:ep:opinions:2026-11-04",
       "fileId": "medical-devices",
       "date": "2026-11-04",
@@ -7833,6 +8923,16 @@
       "title": "Directive: plenary vote (indicative date in the Observatory)",
       "push": true,
       "pushOn": "2026-11-23"
+    },
+    {
+      "id": "biotech-act:next:2026-11-11:2b60f8",
+      "fileId": "biotech-act",
+      "date": "2026-11-11",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Regulation: Council attachés on the third Presidency compromise text, Article 58 on clinical trials",
+      "push": true,
+      "pushOn": "2026-11-11"
     },
     {
       "id": "biotech-act:ep:2025-0405-NMSR-256942-2026-10-13",
@@ -8421,6 +9521,36 @@
   ],
   "digital-euro": [
     {
+      "id": "digital-euro:next:2026-11-30:7a5c09",
+      "fileId": "digital-euro",
+      "date": "2026-11-30",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Working Party on Financial Services (digital euro)",
+      "push": true,
+      "pushOn": "2026-11-30"
+    },
+    {
+      "id": "digital-euro:next:2026-11-16:70603c",
+      "fileId": "digital-euro",
+      "date": "2026-11-16",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Financial services attachés (digital euro)",
+      "push": true,
+      "pushOn": "2026-11-16"
+    },
+    {
+      "id": "digital-euro:next:2026-11-13:c97009",
+      "fileId": "digital-euro",
+      "date": "2026-11-13",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Financial services attachés prepare the seventh trilogue",
+      "push": true,
+      "pushOn": "2026-11-13"
+    },
+    {
       "id": "digital-euro:ep:2023-0212-MEET-TRI1-2026-11-05",
       "fileId": "digital-euro",
       "date": "2026-11-05",
@@ -8429,16 +9559,6 @@
       "kind": "milestone",
       "title": "Trilogue",
       "push": true
-    },
-    {
-      "id": "digital-euro:next:2026-11-05:b4416e",
-      "fileId": "digital-euro",
-      "date": "2026-11-05",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Political trilogue (reported by Agence Europe)",
-      "push": true,
-      "pushOn": "2026-11-05"
     },
     {
       "id": "digital-euro:ep:2023-0212-MEET-TRI1-2026-10-20",
@@ -9101,6 +10221,36 @@
   ],
   "era-act": [],
   "military-mobility": [
+    {
+      "id": "military-mobility:next:2026-11-27:9e6261",
+      "fileId": "military-mobility",
+      "date": "2026-11-27",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Council ad hoc working party on military mobility",
+      "push": true,
+      "pushOn": "2026-11-27"
+    },
+    {
+      "id": "military-mobility:next:2026-11-24:9e6261",
+      "fileId": "military-mobility",
+      "date": "2026-11-24",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Council ad hoc working party on military mobility",
+      "push": true,
+      "pushOn": "2026-11-24"
+    },
+    {
+      "id": "military-mobility:next:2026-11-13:b91010",
+      "fileId": "military-mobility",
+      "date": "2026-11-13",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Council ad hoc working party: debrief of the technical meetings of 5, 6 and 9 November and the revised annexes",
+      "push": true,
+      "pushOn": "2026-11-13"
+    },
     {
       "id": "military-mobility:ep:2025-0847-MEET-TRI1-2026-10-20",
       "fileId": "military-mobility",
