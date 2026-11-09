@@ -34,5 +34,17 @@
     "role": "Assistant to Iolanda Marmol Lorenzo and Thomas Auger"
    }
   ]
+ },
+ {
+  "at": "2026-11-09T13:22:09.296Z",
+  "source": "commission",
+  "changes": [
+   {
+    "type": "added",
+    "commissioner": "jessika-roswall",
+    "name": "Anna Carin Wigh",
+    "role": "ASSISTANT TO THE HEAD OF CABINET"
+   }
+  ]
  }
 ]

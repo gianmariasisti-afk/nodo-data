@@ -1,5 +1,5 @@
 {
- "run": "2026-11-06T12:27:28.965Z",
+ "run": "2026-11-09T13:20:50.988Z",
  "college": {
   "found": 26,
   "added": [],
@@ -117,16 +117,9 @@
   "maria-luis-albuquerque": {
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/maria-luis-albuquerque/maria-luis-albuquerques-team_en",
    "parsed": 16,
-   "existing": 17,
-   "added": [
-    "Zuzana Gentner Vavrova",
-    "Joaquin Perez Cordellat"
-   ],
-   "removed": [
-    "Elena Arveras",
-    "Lauro Panella",
-    "Ovidiu-Nicusor Melinte"
-   ]
+   "existing": 16,
+   "added": [],
+   "removed": []
   },
   "hadja-lahbib": {
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/hadja-lahbib/hadja-lahbibs-team_en",
@@ -138,17 +131,17 @@
   "magnus-brunner": {
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/magnus-brunner/magnus-brunners-team_en",
    "parsed": 16,
-   "existing": 17,
+   "existing": 16,
    "added": [],
-   "removed": [
-    "Adam Kittl"
-   ]
+   "removed": []
   },
   "jessika-roswall": {
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/jessika-roswall/jessika-roswalls-team_en",
-   "parsed": 16,
+   "parsed": 17,
    "existing": 16,
-   "added": [],
+   "added": [
+    "Anna Carin Wigh"
+   ],
    "removed": []
   },
   "piotr-serafin": {
@@ -202,76 +195,15 @@
   }
  },
  "autonomy": {
-  "applied": false,
-  "waits": [
-   "9 changes in one run (limit 5)",
-   "senior role: Gosia Pearson (magnus-brunner), Cabinet Expert / Acting Deputy Head of Cabinet → CABINET EXPERT"
-  ]
+  "applied": true,
+  "waits": []
  },
  "auto": [],
- "structural": [
-  {
-   "type": "role",
-   "commissioner": "maria-luis-albuquerque",
-   "name": "Mateusz Szymanski",
-   "from": "Assistant to Edoardo Rulli and Lauro Panella",
-   "to": "ASSISTANT TO EDOARDO RULLI AND ZUZANA GENTNER VAVROVA"
-  },
-  {
-   "type": "added",
-   "commissioner": "maria-luis-albuquerque",
-   "name": "Zuzana Gentner Vavrova",
-   "role": "MEMBER"
-  },
-  {
-   "type": "added",
-   "commissioner": "maria-luis-albuquerque",
-   "name": "Joaquin Perez Cordellat",
-   "role": "ASSISTANT TO RIIKKA TORPPA, LARISA DRAGOMIR AND PHILIPPE THILL"
-  },
-  {
-   "type": "removed",
-   "commissioner": "maria-luis-albuquerque",
-   "name": "Elena Arveras",
-   "role": "Member"
-  },
-  {
-   "type": "removed",
-   "commissioner": "maria-luis-albuquerque",
-   "name": "Lauro Panella",
-   "role": "Member"
-  },
-  {
-   "type": "removed",
-   "commissioner": "maria-luis-albuquerque",
-   "name": "Ovidiu-Nicusor Melinte",
-   "role": "Assistant to Riikka Torppa, Larisa Dragomir and Philippe Thill"
-  },
-  {
-   "type": "role",
-   "commissioner": "magnus-brunner",
-   "name": "Gosia Pearson",
-   "from": "Cabinet Expert / Acting Deputy Head of Cabinet",
-   "to": "CABINET EXPERT"
-  },
-  {
-   "type": "role",
-   "commissioner": "magnus-brunner",
-   "name": "Valentina Russo",
-   "from": "Assistant to Mauro Gagliardi and Adam Kittl",
-   "to": "ASSISTANT TO NATASHA BERTAUD AND MAURO GAGLIARDI"
-  },
-  {
-   "type": "removed",
-   "commissioner": "magnus-brunner",
-   "name": "Adam Kittl",
-   "role": "Member"
-  }
- ],
+ "structural": [],
  "summary": {
   "auto": 0,
-  "structural": 9,
-  "autoApplied": 0,
+  "structural": 0,
+  "autoApplied": 1,
   "failed": 0
  }
 }
