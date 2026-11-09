@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-02T08:58:20.957Z",
+ "generated": "2026-11-09T08:54:54.396Z",
  "windowDays": 30,
  "maxPerFile": 3,
  "files": {
@@ -97,6 +97,23 @@
    }
   ],
   "mff-2028-2034": [
+   {
+    "id": "e9456366ad",
+    "date": "2026-11-04",
+    "source": "Agence Europe",
+    "inst": "press",
+    "kind": "press",
+    "text": "More than 1,000 amendments were tabled to the draft Performance Regulation, about 300 on its results indicators. At a joint BUDG-CONT meeting on 4 November, the groups split over the do no significant harm principle.",
+    "url": "https://agenceurope.eu/en/bulletin/article/13975/22/mff-2028-2034-more-than-1000-amendments-tabled-to-performance-regulation-confirm-divisions-in-european-parliament",
+    "people": [
+     "ep:256901",
+     "ep:197412",
+     "ep:96780"
+    ],
+    "stage": false,
+    "paywall": true,
+    "added": "2026-11-09"
+   },
    {
     "id": "e09cacbea4",
     "date": "2026-10-29",
