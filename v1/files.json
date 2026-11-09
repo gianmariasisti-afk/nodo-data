@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-09T08:23:38Z",
+ "generated": "2026-11-09T12:11:11Z",
  "asOf": "2026-11-09",
  "source": "Parliament Open Data Portal (basis ep-open-data); Parliament Legislative Observatory procedure files (basis ep-procedure-file); press and Council documents (basis press); commission.json for commissioners and cabinets",
  "legend": {
@@ -65,8 +65,8 @@
    "status": "The Irish Presidency tabled a revised negotiating box on 10 October 2026 (Council doc 13922/26): €1,622bn in commitments at 2025 prices, 8% below the Commission proposal, with all figures in brackets. At the 15–16 October European Council, leaders asked António Costa to advance the talks; Agence Europe reported on 22 October that he will present his own negotiating box with figures ahead of the Special European Council on 26–27 November; on 30 October it reported that Member States do not expect his box before the last week of November and see a compromise at the 17–18 December European Council as the most likely outcome. Unanimity in Council, then Parliament consent. Two programmes are followed as parts: the European Competitiveness Fund (ITRE co-rapporteurs Christian Ehler and Dan Nica; Council partial position on 16 June 2026) and the National and Regional Partnership Plans fund (BUDG, REGI and AGRI: Karlo Ressler, Andrey Novakov and Elsi Katainen), where Agence Europe reported a partial general approach on 16 June 2026.",
    "next": [
     {
-     "date": "2026-11-17",
-     "what": "Council MFF working party (AHWP MFF)",
+     "date": "2026-11-19",
+     "what": "Council MFF working party (Global Europe Instrument)",
      "src": "council-mpo-calendar"
     },
     {
@@ -74,6 +74,12 @@
      "what": "NRPP fund: plenary vote (indicative date in the Observatory)",
      "src": "oeil-2025-0240-cod",
      "part": "nrpp"
+    },
+    {
+     "date": "2026-11-24",
+     "what": "Council MFF working party (European Competitiveness Fund)",
+     "src": "council-mpo-calendar",
+     "part": "ecf"
     },
     {
      "date": "2026-11-26",
@@ -1951,6 +1957,12 @@
    "status": "The Commission proposed both on 3 June 2026. In Parliament, ITRE leads the Chips Act 2.0 (rapporteur Oliver Schenk, appointed 31 August) and ITRE and IMCO share the CADA (Diego Solier and Reinier van Lanschot); neither has a draft report or a committee vote date yet. The Council's industry working party took up the Chips Act 2.0 on 2 September and on 12 and 13 October, and had the Presidency compromise text (doc 13545/26 REV 1) on its agenda on 29 and 30 October. The CADA aims to triple EU data-centre capacity within five to seven years and creates a framework to assess cloud and AI sovereignty, which is the most contested element.",
    "next": [
     {
+     "date": "2026-11-10",
+     "what": "CADA: Council telecoms working party on the first compromise text of Title IV (Autonomy), doc 14918/26",
+     "src": "council-cm-4811",
+     "part": "cada"
+    },
+    {
      "date": null,
      "what": "Parliament committee votes: no dates set yet",
      "src": "oeil-2026-0139-cod"
@@ -2213,7 +2225,7 @@
     ],
     "configsBasis": "inferred",
     "presidency": "IE",
-    "note": "Working Party on Competitiveness resumed Chips Act 2.0 talks on 2 September 2026 (SEMI Europe) and met on it on 12 and 13 October (Council meeting documents).",
+    "note": "Working Party on Competitiveness resumed Chips Act 2.0 talks on 2 September 2026 (SEMI Europe) and met on it on 12 and 13 October (Council meeting documents). The telecoms working party takes the CADA: it has the first Presidency compromise text of Title IV on its 10 November agenda (CM 4811/26).",
     "workingParties": [
      {
       "part": "chips-act-2",
@@ -2275,6 +2287,11 @@
      "id": "council-cm-4566",
      "title": "Council: notice of meeting CM 4566/26, industry working party on the Chips Act 2.0, 29-30 Oct 2026",
      "url": "https://data.consilium.europa.eu/doc/document/CM-4566-2026-INIT/en/pdf"
+    },
+    {
+     "id": "council-cm-4811",
+     "title": "Council: notice of meeting CM 4811/26, working party on telecommunications and information society (CADA), 10 Nov 2026",
+     "url": "https://data.consilium.europa.eu/doc/document/CM-4811-2026-INIT/en/pdf"
     }
    ],
    "checked": "2026-11-09",
@@ -3328,6 +3345,11 @@
    "status": "The Commission proposed on 16 December 2025 to simplify the MDR and IVDR, with adapted pathways for breakthrough and orphan devices, more proportionate surveillance and changes to software classification. SANT leads in Parliament with Oliver Schenk as rapporteur; his draft report of 1 July 2026 tables more than 130 amendments, including a new category of niche devices. IMCO named Anna Cavazzini to draft its opinion on 15 October. The Council's working party began the article-by-article examination on 23 March 2026; the June progress report says more work on the text is needed. There is no Council general approach yet.",
    "next": [
     {
+     "date": "2026-11-12",
+     "what": "Council working party, 12 and 13 November: fourth Presidency compromise (doc 14673/26)",
+     "src": "council-cm-4831"
+    },
+    {
      "date": "2026-12-14",
      "what": "Plenary vote (indicative date in the Observatory)",
      "src": "oeil-2025-0404-cod"
@@ -3465,6 +3487,11 @@
      "id": "council-wp-pharma-nov",
      "title": "Council: Working Party on Pharmaceuticals and Medical Devices, November 2026 sessions",
      "url": "https://www.consilium.europa.eu/en/meetings/mpo/2026/11/wp-on-pharmaceuticals-and-medical-devices-suite-22-(370796)/"
+    },
+    {
+     "id": "council-cm-4831",
+     "title": "Council: notice of meeting CM 4831/26, working party on pharmaceuticals and medical devices, 12-13 Nov 2026",
+     "url": "https://data.consilium.europa.eu/doc/document/CM-4831-2026-INIT/en/pdf"
     }
    ],
    "checked": "2026-11-09",
@@ -3482,6 +3509,12 @@
    "lede": "The Council has its position on the directive; the regulation is at its first Presidency compromise.",
    "status": "The Commission proposed the European Biotech Act on 16 December 2025: a regulation covering health biotechnology from funding and clinical trials to authorisation and manufacturing, with a directive on genetically modified micro-organisms and the processing of organs. The Council agreed its position on the directive at the Health Council on 16 June 2026 and held a policy debate on the regulation; the Presidency tabled its first compromise text on the regulation to the working party on 8 and 9 October. In Parliament, SANT and ITRE share the regulation (Vytenis Andriukaitis and Wouter Beke) and ENVI and SANT share the directive (Marta Temido and Adam Jarubas). A Biotech Act II on the wider bioeconomy is in preparation.",
    "next": [
+    {
+     "date": "2026-11-11",
+     "what": "Regulation: Council attachés on the third Presidency compromise text, Article 58 on clinical trials",
+     "src": "council-cm-4780",
+     "part": "regulation"
+    },
     {
      "date": "2026-11-23",
      "what": "Directive: plenary vote (indicative date in the Observatory)",
@@ -3844,6 +3877,11 @@
      "id": "parlament-at-biotech-oct",
      "title": "Austrian Parliament EU database: Presidency compromise on the Biotech Act (8 Oct 2026)",
      "url": "https://www.parlament.gv.at/gegenstand/XXVIII/EU/97015"
+    },
+    {
+     "id": "council-cm-4780",
+     "title": "Council: notice of meeting CM 4780/26, pharmaceuticals and medical devices attachés (Biotech Act), 11 Nov 2026",
+     "url": "https://data.consilium.europa.eu/doc/document/CM-4780-2026-INIT/en/pdf"
     }
    ],
    "checked": "2026-11-09",
@@ -3859,12 +3897,27 @@
    "stage": "trilogue",
    "sector": "finance",
    "lede": "Trilogues under way; data protection and exceptions for merchants are still open.",
-   "status": "The Commission proposed it in June 2023. The Council agreed its position on 19 December 2025. Parliament's ECON adopted Fernando Navarrete's report on 23 June 2026 and plenary confirmed the mandate on 9 July. Trilogues are under way: the fifth, on 20 October, covered offline payment limits, anti-money-laundering rules for small payments and the long-term operating model. Still open: data protection, exceptions to merchant acceptance, cash acceptance, the roll-out and use outside the euro area. The ECB aims for issuance from 2029 if the law passes.",
+   "status": "The Commission proposed it in June 2023. The Council agreed its position on 19 December 2025. Parliament's ECON adopted Fernando Navarrete's report on 23 June 2026 and plenary confirmed the mandate on 9 July. Trilogues are under way: the fifth, on 20 October, covered offline payment limits, anti-money-laundering rules for small payments and the long-term operating model, and Council attachés meet on 13 November to prepare the seventh (Council notice CM 4946/26). Still open: data protection, exceptions to merchant acceptance, cash acceptance, the roll-out and use outside the euro area. The ECB aims for issuance from 2029 if the law passes.",
    "next": [
     {
+     "date": "2026-11-13",
+     "what": "Financial services attachés prepare the seventh trilogue",
+     "src": "council-cm-4946"
+    },
+    {
+     "date": "2026-11-16",
+     "what": "Financial services attachés (digital euro)",
+     "src": "council-mpo-calendar"
+    },
+    {
+     "date": "2026-11-30",
+     "what": "Working Party on Financial Services (digital euro)",
+     "src": "council-mpo-calendar"
+    },
+    {
      "date": null,
-     "what": "Next political trilogue: no date in the sources checked (Agence Europe had reported one for 5 November)",
-     "src": "agenceurope-13964"
+     "what": "Seventh political trilogue: no date in the sources checked",
+     "src": "council-cm-4946"
     }
    ],
    "ep": {
@@ -4016,6 +4069,16 @@
      "id": "council-cm-4227",
      "title": "Council notice CM 4227/26: financial services attachés (digital euro), 21 Sep 2026",
      "url": "https://data.consilium.europa.eu/doc/document/CM-4227-2026-INIT/en/pdf"
+    },
+    {
+     "id": "council-cm-4946",
+     "title": "Council: notice of meeting CM 4946/26, financial services attachés (digital euro), 13 Nov 2026",
+     "url": "https://data.consilium.europa.eu/doc/document/CM-4946-2026-INIT/en/pdf"
+    },
+    {
+     "id": "council-mpo-calendar",
+     "title": "Council: preparatory bodies meeting calendar",
+     "url": "https://www.consilium.europa.eu/en/meetings/calendar/?category=mpo"
     }
    ],
    "checked": "2026-11-09",
@@ -4336,6 +4399,21 @@
    "status": "The Commission proposed it on 19 November 2025. Coreper agreed the Council mandate on 17 June 2026; SEDE and TRAN adopted Parliament's position on 23 June (co-rapporteurs Michał Szczerba and Roberts Zīle), confirmed in plenary on 8 July. Trilogues opened on 16 July; the second met in Strasbourg on 20 October. Agence Europe reports a third in December to settle the European Military Mobility Enhanced Response System (EMERS), private-sector involvement and the link with the Civil Protection Mechanism. The European Council asked for agreement by the end of 2026.",
    "next": [
     {
+     "date": "2026-11-13",
+     "what": "Council ad hoc working party: debrief of the technical meetings of 5, 6 and 9 November and the revised annexes",
+     "src": "council-cm-4914"
+    },
+    {
+     "date": "2026-11-24",
+     "what": "Council ad hoc working party on military mobility",
+     "src": "council-mpo-calendar"
+    },
+    {
+     "date": "2026-11-27",
+     "what": "Council ad hoc working party on military mobility",
+     "src": "council-mpo-calendar"
+    },
+    {
      "date": null,
      "what": "Third trilogue in December (reported by Agence Europe); no day set"
     }
@@ -4518,6 +4596,16 @@
      "id": "council-cm-4701",
      "title": "Council: notice of meeting CM 4701/26, ad hoc working party on military mobility, 30 Oct 2026",
      "url": "https://data.consilium.europa.eu/doc/document/CM-4701-2026-INIT/en/pdf"
+    },
+    {
+     "id": "council-cm-4914",
+     "title": "Council: notice of meeting CM 4914/26, ad hoc working party on military mobility, 13 Nov 2026",
+     "url": "https://data.consilium.europa.eu/doc/document/CM-4914-2026-INIT/en/pdf"
+    },
+    {
+     "id": "council-mpo-calendar",
+     "title": "Council: preparatory bodies meeting calendar",
+     "url": "https://www.consilium.europa.eu/en/meetings/calendar/?category=mpo"
     }
    ],
    "checked": "2026-11-09",
