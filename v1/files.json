@@ -2225,7 +2225,7 @@
     ],
     "configsBasis": "inferred",
     "presidency": "IE",
-    "note": "Working Party on Competitiveness resumed Chips Act 2.0 talks on 2 September 2026 (SEMI Europe) and met on it on 12 and 13 October (Council meeting documents). The telecoms working party takes the CADA: it has the first Presidency compromise text of Title IV on its 10 November agenda (CM 4811/26).",
+    "note": "Working Party on Competitiveness resumed Chips Act 2.0 talks on 2 September 2026 (SEMI Europe) and met on it on 12 and 13 October (Council meeting documents).",
     "workingParties": [
      {
       "part": "chips-act-2",
@@ -2234,8 +2234,9 @@
      },
      {
       "part": "cada",
-      "name": "Not identified",
-      "basis": "none"
+      "name": "Working Party on Telecommunications and Information Society",
+      "basis": "source",
+      "note": "Had the first Presidency compromise text of Title IV (Autonomy) and Annexes II and III on its 10 November 2026 agenda (Council notice CM 4811/26, doc 14918/26)."
      }
     ]
    },
