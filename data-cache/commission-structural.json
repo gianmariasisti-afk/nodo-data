@@ -1,0 +1,85 @@
+{
+ "at": "2026-11-10",
+ "changes": [
+  {
+   "type": "role",
+   "commissioner": "ursula-von-der-leyen",
+   "name": "Patricia Reilly",
+   "from": "Agriculture and Health Member · Policy Coordinator / Member Financial Services (acting)",
+   "to": "AGRICULTURE AND HEALTH MEMBER"
+  },
+  {
+   "type": "role",
+   "commissioner": "ursula-von-der-leyen",
+   "name": "Michele Piergiovanni",
+   "from": "Senior Economic Adviser (acting) · Digital Adviser",
+   "to": "DIGITAL ADVISER"
+  },
+  {
+   "type": "removed",
+   "commissioner": "ursula-von-der-leyen",
+   "name": "Alisa James",
+   "role": "Assistant"
+  },
+  {
+   "type": "removed",
+   "commissioner": "ursula-von-der-leyen",
+   "name": "Cidalia Santos",
+   "role": "Assistant"
+  },
+  {
+   "type": "removed",
+   "commissioner": "ursula-von-der-leyen",
+   "name": "Michaël Vlahogiannis",
+   "role": "Assistant"
+  },
+  {
+   "type": "removed",
+   "commissioner": "ursula-von-der-leyen",
+   "name": "Corina Zieger",
+   "role": "Assistant"
+  },
+  {
+   "type": "removed",
+   "commissioner": "ursula-von-der-leyen",
+   "name": "Claire Saelens",
+   "role": "Assistant"
+  },
+  {
+   "type": "removed",
+   "commissioner": "ursula-von-der-leyen",
+   "name": "Irene Robles Ruiz",
+   "role": "Assistant"
+  },
+  {
+   "type": "removed",
+   "commissioner": "ursula-von-der-leyen",
+   "name": "Efthymia Papadimitriou",
+   "role": "Assistant"
+  },
+  {
+   "type": "removed",
+   "commissioner": "ursula-von-der-leyen",
+   "name": "Jonathan Cocozza",
+   "role": "Assistant"
+  },
+  {
+   "type": "removed",
+   "commissioner": "ursula-von-der-leyen",
+   "name": "Eivilte Kandrataviciute",
+   "role": "Assistant"
+  },
+  {
+   "type": "removed",
+   "commissioner": "ursula-von-der-leyen",
+   "name": "Katarzyna Dudzinska",
+   "role": "Assistant"
+  },
+  {
+   "type": "added",
+   "commissioner": "marta-kos",
+   "name": "Hrisanti Petrescu",
+   "role": "ASSISTANT TO ABERTO FERNANDEZ DIEZ, VIKTORIYA PETRIKOVA-VOETEN AND GESINE HEINRICH"
+  }
+ ]
+}

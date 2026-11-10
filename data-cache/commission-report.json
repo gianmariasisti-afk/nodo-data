@@ -1,5 +1,5 @@
 {
- "run": "2026-11-09T13:20:50.988Z",
+ "run": "2026-11-10T12:58:02.785Z",
  "college": {
   "found": 26,
   "added": [],
@@ -7,7 +7,22 @@
  },
  "teams": {
   "ursula-von-der-leyen": {
-   "error": "no team link"
+   "url": "https://commission.europa.eu/about/organisation/president/president-von-der-leyens-team_en",
+   "parsed": 22,
+   "existing": 32,
+   "added": [],
+   "removed": [
+    "Alisa James",
+    "Cidalia Santos",
+    "Michaël Vlahogiannis",
+    "Corina Zieger",
+    "Claire Saelens",
+    "Irene Robles Ruiz",
+    "Efthymia Papadimitriou",
+    "Jonathan Cocozza",
+    "Eivilte Kandrataviciute",
+    "Katarzyna Dudzinska"
+   ]
   },
   "teresa-ribera": {
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/teresa-ribera/teresa-riberas-team_en",
@@ -95,9 +110,11 @@
   },
   "marta-kos": {
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/marta-kos/marta-koss-team_en",
-   "parsed": 15,
+   "parsed": 16,
    "existing": 15,
-   "added": [],
+   "added": [
+    "Hrisanti Petrescu"
+   ],
    "removed": []
   },
   "jozef-sikela": {
@@ -138,10 +155,8 @@
   "jessika-roswall": {
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/jessika-roswall/jessika-roswalls-team_en",
    "parsed": 17,
-   "existing": 16,
-   "added": [
-    "Anna Carin Wigh"
-   ],
+   "existing": 17,
+   "added": [],
    "removed": []
   },
   "piotr-serafin": {
@@ -195,15 +210,322 @@
   }
  },
  "autonomy": {
-  "applied": true,
-  "waits": []
+  "applied": false,
+  "waits": [
+   "13 changes in one run (limit 5)",
+   "President's cabinet changes always go to review"
+  ]
  },
- "auto": [],
- "structural": [],
+ "auto": [
+  {
+   "commissioner": "ursula-von-der-leyen",
+   "name": "Alexandra Henman",
+   "fields": [
+    "resp"
+   ],
+   "diff": {
+    "resp": {
+     "from": [
+      "Communication Matters",
+      "Personal Media activities of the President",
+      "Spokespersons' Service",
+      "Speeches of the President",
+      "Social Media activities of the President"
+     ],
+     "to": [
+      "Communication Matters",
+      "Personal Media activities of the President",
+      "Spokespersons' Service",
+      "Speeches of the President",
+      "Social Media activities of the President",
+      "Global Europe and International Partnerships Cabinet Team"
+     ]
+    }
+   }
+  },
+  {
+   "commissioner": "ursula-von-der-leyen",
+   "name": "Selma Haenicke",
+   "fields": [
+    "resp"
+   ],
+   "diff": {
+    "resp": {
+     "from": [
+      "Enlargement",
+      "Western Balkans",
+      "Eastern Neighbourhood"
+     ],
+     "to": [
+      "Enlargement",
+      "Western Balkans",
+      "Eastern Neighbourhood",
+      "Legal, Internal Affairs and Social Cabinet Team"
+     ]
+    }
+   }
+  },
+  {
+   "commissioner": "ursula-von-der-leyen",
+   "name": "Irina Stefuriuc",
+   "fields": [
+    "resp"
+   ],
+   "diff": {
+    "resp": {
+     "from": [
+      "Rule of Law",
+      "Justice (civil law and criminal law)",
+      "Consumers",
+      "GDPR",
+      "Relations with the European Prosecutor's Office (EPPO)",
+      "OLAF"
+     ],
+     "to": [
+      "Rule of Law",
+      "Justice (civil law and criminal law)",
+      "Consumers",
+      "GDPR",
+      "Relations with the European Prosecutor's Office (EPPO)",
+      "OLAF",
+      "Clean Transition Cabinet Team"
+     ]
+    }
+   }
+  },
+  {
+   "commissioner": "ursula-von-der-leyen",
+   "name": "Patricia Reilly",
+   "fields": [
+    "phone",
+    "resp"
+   ],
+   "diff": {
+    "phone": {
+     "from": "+32 2 29 57922",
+     "to": "+32 2 29 86577"
+    },
+    "resp": {
+     "from": [
+      "Agriculture",
+      "Health and Food safety",
+      "Animal Welfare",
+      "Equality",
+      "Tourism",
+      "Project Group Vision for Agriculture and Food",
+      "Financial services",
+      "Banking Union and Capital Markets Union",
+      "Taxation and Customs",
+      "Project Group Savings and Investment Union"
+     ],
+     "to": [
+      "Agriculture",
+      "Health and Food safety",
+      "Animal Welfare",
+      "Equality",
+      "Tourism",
+      "Project Group Vision for Agriculture and Food",
+      "Economic and Financial Cabinet Team",
+      "Michele Piergiovanni",
+      "SENIOR ECONOMIC ADVISER (acting)",
+      "Coordination of the Economic and Financial Cabinet Team",
+      "Recovery and Resilience Facility",
+      "European Semester Coordination",
+      "Cohesion and Reforms",
+      "Entrepreneurship and SMEs",
+      "Internal aspects of EU taxation",
+      "Relations with Eurostat",
+      "Relations with the European Fiscal Board",
+      "Relations with the European Investment Bank (EIB), European Bank for Reconstruction and Development (EBRD), and other financial institutions"
+     ]
+    }
+   }
+  },
+  {
+   "commissioner": "ursula-von-der-leyen",
+   "name": "Michele Piergiovanni",
+   "fields": [
+    "phone",
+    "resp"
+   ],
+   "diff": {
+    "phone": {
+     "from": "",
+     "to": "+32 2 29 57922"
+    },
+    "resp": {
+     "from": [
+      "Coordination of the Economic and Financial Cabinet Team",
+      "Recovery and Resilience Facility",
+      "European Semester Coordination",
+      "Cohesion and Reforms",
+      "Entrepreneurship and SMEs",
+      "Internal aspects of EU taxation",
+      "Relations with Eurostat",
+      "Relations with the European Fiscal Board",
+      "Relations with the European Investment Bank (EIB), European Bank for Reconstruction and Development (EBRD), and other financial institutions",
+      "Digital Society and Economy",
+      "Digital Single Market",
+      "Internal Market",
+      "Defence Industry and Space",
+      "Startups, Research and Innovation",
+      "Competition",
+      "Competitiveness",
+      "Simplification and Implementation",
+      "Project Group AI",
+      "Project Group Startups"
+     ],
+     "to": [
+      "Digital Society and Economy",
+      "Digital Single Market",
+      "Internal Market",
+      "Defence Industry and Space",
+      "Startups, Research and Innovation",
+      "Competition",
+      "Competitiveness",
+      "Simplification and Implementation",
+      "Project Group AI",
+      "Project Group Startups",
+      "Patricia Reilly",
+      "POLICY COORDINATOR / MEMBER FINANCIAL SERVICES (acting)",
+      "Financial services",
+      "Banking Union and Capital Markets Union",
+      "Taxation and Customs",
+      "Project Group Savings and Investment Union"
+     ]
+    }
+   }
+  },
+  {
+   "commissioner": "ursula-von-der-leyen",
+   "name": "Inare Semlali",
+   "fields": [
+    "phone",
+    "resp"
+   ],
+   "diff": {
+    "phone": {
+     "from": "+32 2 29 50071",
+     "to": "+32 2 29 55012"
+    },
+    "resp": {
+     "from": [
+      "Provide policy and coordination support to the Head of Cabinet",
+      "Ensure coordination with the President’s services (SG, LS, COMM/SPP, I.D.E.A.)",
+      "Contribute to internal communication and policy coordination",
+      "Support EUCO coordination, preparation and follow-up",
+      "Coordinate the preparation of Hebdo and College files",
+      "Coordinate briefings for the Head of Cabinet",
+      "Support coordination and preparation of COREPER and G7/G20 Sherpa-related activities",
+      "Prepare high-level meetings and coordinate with the Protocol service",
+      "Provide ad hoc support on HR and ethics matters for the Head of Cabinet"
+     ],
+     "to": [
+      "Provide policy and coordination support to the Head of Cabinet",
+      "Ensure coordination with the President’s services (SG, LS, COMM/SPP, I.D.E.A.)",
+      "Contribute to internal communication and policy coordination",
+      "Support EUCO coordination, preparation and follow-up",
+      "Coordinate the preparation of Hebdo and College files",
+      "Coordinate briefings for the Head of Cabinet",
+      "Support coordination and preparation of COREPER and G7/G20 Sherpa-related activities",
+      "Prepare high-level meetings and coordinate with the Protocol service",
+      "Provide ad hoc support on HR and ethics matters for the Head of Cabinet",
+      "Assistants",
+      "Alisa James",
+      "ASSISTANT",
+      "to the President"
+     ]
+    }
+   }
+  }
+ ],
+ "structural": [
+  {
+   "type": "role",
+   "commissioner": "ursula-von-der-leyen",
+   "name": "Patricia Reilly",
+   "from": "Agriculture and Health Member · Policy Coordinator / Member Financial Services (acting)",
+   "to": "AGRICULTURE AND HEALTH MEMBER"
+  },
+  {
+   "type": "role",
+   "commissioner": "ursula-von-der-leyen",
+   "name": "Michele Piergiovanni",
+   "from": "Senior Economic Adviser (acting) · Digital Adviser",
+   "to": "DIGITAL ADVISER"
+  },
+  {
+   "type": "removed",
+   "commissioner": "ursula-von-der-leyen",
+   "name": "Alisa James",
+   "role": "Assistant"
+  },
+  {
+   "type": "removed",
+   "commissioner": "ursula-von-der-leyen",
+   "name": "Cidalia Santos",
+   "role": "Assistant"
+  },
+  {
+   "type": "removed",
+   "commissioner": "ursula-von-der-leyen",
+   "name": "Michaël Vlahogiannis",
+   "role": "Assistant"
+  },
+  {
+   "type": "removed",
+   "commissioner": "ursula-von-der-leyen",
+   "name": "Corina Zieger",
+   "role": "Assistant"
+  },
+  {
+   "type": "removed",
+   "commissioner": "ursula-von-der-leyen",
+   "name": "Claire Saelens",
+   "role": "Assistant"
+  },
+  {
+   "type": "removed",
+   "commissioner": "ursula-von-der-leyen",
+   "name": "Irene Robles Ruiz",
+   "role": "Assistant"
+  },
+  {
+   "type": "removed",
+   "commissioner": "ursula-von-der-leyen",
+   "name": "Efthymia Papadimitriou",
+   "role": "Assistant"
+  },
+  {
+   "type": "removed",
+   "commissioner": "ursula-von-der-leyen",
+   "name": "Jonathan Cocozza",
+   "role": "Assistant"
+  },
+  {
+   "type": "removed",
+   "commissioner": "ursula-von-der-leyen",
+   "name": "Eivilte Kandrataviciute",
+   "role": "Assistant"
+  },
+  {
+   "type": "removed",
+   "commissioner": "ursula-von-der-leyen",
+   "name": "Katarzyna Dudzinska",
+   "role": "Assistant"
+  },
+  {
+   "type": "added",
+   "commissioner": "marta-kos",
+   "name": "Hrisanti Petrescu",
+   "role": "ASSISTANT TO ABERTO FERNANDEZ DIEZ, VIKTORIYA PETRIKOVA-VOETEN AND GESINE HEINRICH"
+  }
+ ],
  "summary": {
-  "auto": 0,
-  "structural": 0,
-  "autoApplied": 1,
-  "failed": 0
+  "auto": 6,
+  "structural": 13,
+  "autoApplied": 0,
+  "failed": 0,
+  "unchecked": []
  }
 }
