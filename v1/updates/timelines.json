@@ -4949,6 +4949,17 @@
   ],
   "digital-omnibus-data": [
     {
+      "id": "digital-omnibus-data:ep:opinions:2026-11-10",
+      "fileId": "digital-omnibus-data",
+      "date": "2026-11-10",
+      "source": "ep",
+      "proc": "2025-0360",
+      "kind": "milestone",
+      "title": "Committee opinions adopted",
+      "count": 1,
+      "push": false
+    },
+    {
       "id": "digital-omnibus-data:ep:opinions:2026-11-04",
       "fileId": "digital-omnibus-data",
       "date": "2026-11-04",
@@ -7184,6 +7195,16 @@
       "pushOn": "2026-11-17"
     },
     {
+      "id": "grids-package:ep:2025-0399-MEET-TRI1-2026-11-10",
+      "fileId": "grids-package",
+      "date": "2026-11-10",
+      "source": "ep",
+      "proc": "2025-0399",
+      "kind": "milestone",
+      "title": "Trilogue",
+      "push": true
+    },
+    {
       "id": "grids-package:ep:2025-0399-MEET-TRI1-2026-10-13",
       "fileId": "grids-package",
       "date": "2026-10-13",
@@ -8689,6 +8710,17 @@
       "pushOn": "2026-11-12"
     },
     {
+      "id": "medical-devices:ep:opinions:2026-11-10",
+      "fileId": "medical-devices",
+      "date": "2026-11-10",
+      "source": "ep",
+      "proc": "2025-0404",
+      "kind": "milestone",
+      "title": "Committee opinions adopted",
+      "count": 1,
+      "push": false
+    },
+    {
       "id": "medical-devices:ep:opinions:2026-11-04",
       "fileId": "medical-devices",
       "date": "2026-11-04",
@@ -8710,6 +8742,18 @@
       "personId": "86793",
       "group": "Greens/EFA",
       "committee": "IMCO",
+      "push": false
+    },
+    {
+      "id": "medical-devices:ep:2025-0404-NMSR-197870-2026-10-12",
+      "fileId": "medical-devices",
+      "date": "2026-10-12",
+      "source": "ep",
+      "proc": "2025-0404",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "197870",
+      "group": "Greens/EFA",
       "push": false
     },
     {
@@ -8933,6 +8977,16 @@
       "title": "Regulation: Council attachés on the third Presidency compromise text, Article 58 on clinical trials",
       "push": true,
       "pushOn": "2026-11-11"
+    },
+    {
+      "id": "biotech-act:ep:2025-0405-DEC-ADCP-2026-11-10",
+      "fileId": "biotech-act",
+      "date": "2026-11-10",
+      "source": "ep",
+      "proc": "2025-0405",
+      "kind": "milestone",
+      "title": "Report adopted in committee",
+      "push": true
     },
     {
       "id": "biotech-act:ep:2025-0405-NMSR-256942-2026-10-13",

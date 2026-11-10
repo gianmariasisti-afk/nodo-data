@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-09T00:00:00Z",
+  "generatedAt": "2026-11-10T00:00:00Z",
   "events": [
     {
       "id": "biotech-act:next:2026-12-14:4e1f33",
@@ -230,6 +230,48 @@
       "title": "Commission proposal expected (indicative date)",
       "push": true,
       "pushOn": "2026-11-11"
+    },
+    {
+      "id": "biotech-act:ep:2025-0405-DEC-ADCP-2026-11-10",
+      "fileId": "biotech-act",
+      "date": "2026-11-10",
+      "source": "ep",
+      "proc": "2025-0405",
+      "kind": "milestone",
+      "title": "Report adopted in committee",
+      "push": true
+    },
+    {
+      "id": "digital-omnibus-data:ep:opinions:2026-11-10",
+      "fileId": "digital-omnibus-data",
+      "date": "2026-11-10",
+      "source": "ep",
+      "proc": "2025-0360",
+      "kind": "milestone",
+      "title": "Committee opinions adopted",
+      "count": 1,
+      "push": false
+    },
+    {
+      "id": "grids-package:ep:2025-0399-MEET-TRI1-2026-11-10",
+      "fileId": "grids-package",
+      "date": "2026-11-10",
+      "source": "ep",
+      "proc": "2025-0399",
+      "kind": "milestone",
+      "title": "Trilogue",
+      "push": true
+    },
+    {
+      "id": "medical-devices:ep:opinions:2026-11-10",
+      "fileId": "medical-devices",
+      "date": "2026-11-10",
+      "source": "ep",
+      "proc": "2025-0404",
+      "kind": "milestone",
+      "title": "Committee opinions adopted",
+      "count": 1,
+      "push": false
     },
     {
       "id": "mff-2028-2034:next:2026-11-10:f27f98",
@@ -566,6 +608,18 @@
       "title": "Amendments tabled in committee",
       "count": 3,
       "push": true
+    },
+    {
+      "id": "medical-devices:ep:2025-0404-NMSR-197870-2026-10-12",
+      "fileId": "medical-devices",
+      "date": "2026-10-12",
+      "source": "ep",
+      "proc": "2025-0404",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "197870",
+      "group": "Greens/EFA",
+      "push": false
     },
     {
       "id": "tech-sovereignty-package:ep:2026-0138-NMSR-197462-2026-10-09",
