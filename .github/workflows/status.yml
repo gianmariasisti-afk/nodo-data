@@ -67,6 +67,7 @@ jobs:
               freshness: $data[0].freshness,
               files: $data[0].files,
               reference: $data[0].reference,
+              autonomy: $data[0].autonomy,
               manifestProblems: $data[0].manifest,
               sizes: $sizes[0],
               workflows: (

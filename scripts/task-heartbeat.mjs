@@ -17,7 +17,7 @@ import { fileURLToPath } from "node:url";
 export const TASKS = {
   "reference-refresh": { name: "nodo reference refresh (Mon and Thu)", maxAgeDays: 5 },
   "press-scan": { name: "nodo press scan (Mon and Thu)", maxAgeDays: 5 },
-  "council-minutes": { name: "nodo Council and minutes refresh (weekdays)", maxAgeDays: 4 },
+  "council-minutes": { name: "nodo Council and minutes refresh", maxAgeDays: 5 },
 };
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 export const DIR = path.join(ROOT, "data-cache", "tasks");

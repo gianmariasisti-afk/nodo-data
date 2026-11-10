@@ -223,7 +223,7 @@ Data with a feed is refreshed by GitHub Actions (above). Everything editorial or
 
 | Task | When | Covers |
 |---|---|---|
-| nodo Council and minutes refresh (weekdays) | Mon–Fri 07:30, on Gianmaria's Mac (built-in browser) | council.json meetings, Coreper, participant lists; minutes.json (the Council's and the Parliament's bot checks block the cloud). A run with nothing new changes no data |
+| nodo Council and minutes refresh (Mon and Thu) | Mon and Thu 07:30, on Gianmaria's Mac (built-in browser); to move to every weekday, which only Gianmaria can set in the app | council.json meetings, Coreper, participant lists; minutes.json (the Council's and the Parliament's bot checks block the cloud). A run with nothing new changes no data |
 | nodo reference refresh (Mon and Thu) | Mon and Thu 09:07, cloud | Monday, full run: files.json status and next steps (scope `files`); MEP lists against the Observatory (scope `meps`); auto pages; Parliament calendar (`calendar`); Presidency handover (`presidency`); hand-added permanent representatives (`permreps`). Thursday, short run: MEP lists, then status and next steps only for files in trilogue, in the Council negotiating box or with a step in the next 14 days |
 | nodo press scan (Mon and Thu) | Mon and Thu 09:47, cloud | Latest developments for every priority file: institutional items go live, press items wait on `review/press` |
 | nodo weekly requests and backend | Mon 08:52, cloud | file requests and empty searches from Supabase events; Supabase security and performance advisors, auth and API errors; one email |
