@@ -1,15 +1,9 @@
 {
- "about": "Latest developments: the scan that picks press items for nodo's files. scripts/press-feeds.mjs reads `feeds` every day on GitHub; the Mon/Thu cloud task adds web search on top and proposes items through scripts/press-merge.mjs. `pilot` lists the files scanned during the pilot; `aliases` adds search terms the files' data does not give. Every feed must be on nodo's source list (v1/sources.json): press-feeds.mjs skips any feed that is not, and the validator flags it.",
+ "about": "Latest developments: the scan that picks items for nodo's files. scripts/press-feeds.mjs reads `feeds` every day on GitHub; the Mon/Thu cloud task adds web search on top and passes items through scripts/press-merge.mjs. `files` is \"all\" (every priority file in v1/files.json) or a list of file ids; `aliases` adds search terms the files' data does not give; `exclude` drops look-alikes. Institutional items that do not change a stage are published without review, press items wait on review/press (scripts/autonomy.mjs, classifyPress). Every feed must be on nodo's source list (v1/sources.json): press-feeds.mjs skips any feed that is not, and the validator flags it.",
  "windowDays": 30,
  "keepDays": 90,
  "maxPerFile": 3,
- "pilot": [
-  "digital-omnibus-data",
-  "industrial-accelerator-act",
-  "mff-2028-2034",
-  "digital-networks-act",
-  "ai-act-implementation"
- ],
+ "files": "all",
  "aliases": {
   "digital-omnibus-data": [
    "Digital Omnibus",
@@ -42,6 +36,66 @@
    "AI Act",
    "Digital Omnibus on AI",
    "AI omnibus"
+  ],
+  "digital-fairness-act": [
+   "Digital Fairness Act",
+   "DFA consumer",
+   "dark patterns"
+  ],
+  "tech-sovereignty-package": [
+   "Chips Act 2.0",
+   "Chips Act II",
+   "Cloud and AI Development Act",
+   "CADA",
+   "Technology Sovereignty Package"
+  ],
+  "grids-package": [
+   "European Grids Package",
+   "Grids Package",
+   "TEN-E"
+  ],
+  "cef-2028-2034": [
+   "Connecting Europe Facility",
+   "CEF III"
+  ],
+  "co2-cars": [
+   "CO2 standards for cars",
+   "2035 combustion engine",
+   "CO2 emission standards for cars and vans"
+  ],
+  "afir-review": [
+   "AFIR",
+   "Alternative Fuels Infrastructure Regulation"
+  ],
+  "medical-devices": [
+   "Medical Devices Regulation",
+   "MDR",
+   "IVDR",
+   "medical devices revision"
+  ],
+  "biotech-act": [
+   "Biotech Act",
+   "European Biotech Act"
+  ],
+  "digital-euro": [
+   "digital euro"
+  ],
+  "food-feed-omnibus": [
+   "food and feed omnibus",
+   "food and feed safety omnibus",
+   "Omnibus X"
+  ],
+  "era-act": [
+   "ERA Act",
+   "European Research Area Act"
+  ],
+  "military-mobility": [
+   "military mobility"
+  ],
+  "kids-act": [
+   "KIDS Act",
+   "social media minimum age",
+   "minimum age for social media"
   ]
  },
  "exclude": {
@@ -54,6 +108,9 @@
    "IAA motor show",
    "IAA Mobility",
    "IAA Transportation"
+  ],
+  "medical-devices": [
+   "MDR-TB"
   ]
  },
  "feeds": [

@@ -8,6 +8,7 @@ import fs from "node:fs";
 import path from "node:path";
 import crypto from "node:crypto";
 import { fileURLToPath } from "node:url";
+import { readHeartbeats } from "./task-heartbeat.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const V1 = path.join(ROOT, "v1");
@@ -55,6 +56,13 @@ const reference = {
   presidency: { current: ci >= 0 ? rot[ci][0] : null, currentProfile: ci >= 0 ? prof(rot[ci][0]) : false, next: nxt ? nxt[0] : null, nextStarts: nxt ? nxt[1] + "-01" : null,
     daysToHandover: nxt ? Math.round((Date.parse(nxt[1] + "-01") - Date.parse(today)) / 864e5) : null, nextProfile: nxt ? prof(nxt[0]) : false },
   permrepsExtra: { entries: extraDates.length, oldestCheck: extraDates[0] || null, oldestDays: ageDays(extraDates[0]) },
+  /* Scheduled Claude tasks: last run, result and whether it is late (scripts/task-heartbeat.mjs). late null = no heartbeat yet. */
+  tasks: readHeartbeats(today),
+  /* College members whose team page the last Commission run could not read: their cabinet is not being checked. */
+  commission: { unchecked: Object.entries((ecReport && ecReport.teams) || {}).filter(([, t]) => t.error || t.skipped).map(([k, t]) => ({ slug: k, why: t.error || t.skipped })) },
+  /* Latest developments: files with an item in the app's window, and the newest item. */
+  press: (() => { const pr = read("press.json"); const xs = Object.values((pr && pr.files) || {}); const dates = xs.flat().map((x) => x.date).sort();
+    return { files: xs.filter((l) => l.length).length, of: ((files && files.files) || []).length, newest: dates[dates.length - 1] || null, newestDays: ageDays(dates[dates.length - 1]) }; })(),
 };
 
 const manifest = [];

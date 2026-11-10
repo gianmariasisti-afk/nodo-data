@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 /* Latest developments (press.json), step 1 of 2: collect candidates from public feeds (runs every day on GitHub, .github/workflows/press.yml).
 
-   Reads the feeds in tools/press/config.json, keeps the entries that name one of the pilot files (title or summary
+   Reads the feeds in tools/press/config.json, keeps the entries that name one of the priority files (title or summary
    match a file's search terms: short name, procedure numbers, Commission reference, aliases), and writes them to
    data-cache/press/candidates.json. Nothing here reaches the app: the Mon/Thu cloud task reads the candidates, adds
    web search, applies the inclusion test and proposes items through scripts/press-merge.mjs.
 
    node scripts/press-feeds.mjs            collect
-   node scripts/press-feeds.mjs --packs    print the search pack of every pilot file (used by the cloud task) */
+   node scripts/press-feeds.mjs --packs    print the search pack of every priority file (used by the cloud task) */
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -38,7 +38,9 @@ export function packOf(f) {
   }).filter(Boolean);
   return { id: f.id, short: f.short, title: f.title, terms: [...terms].filter(Boolean), exclude: cfg.exclude[f.id] || [], people, councilDocs: docs };
 }
-const PACKS = cfg.pilot.map((id) => files.find((f) => f.id === id)).filter(Boolean).map(packOf);
+/* Which files are scanned: every priority file ("files": "all", since 10 Nov 2026) or a list of ids. */
+const SCAN = cfg.files === "all" || !Array.isArray(cfg.files) ? files : cfg.files.map((id) => files.find((f) => f.id === id)).filter(Boolean);
+const PACKS = SCAN.map(packOf);
 
 if (args.includes("--packs")) { console.log(JSON.stringify(PACKS, null, 1)); process.exit(0); }
 

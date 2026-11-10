@@ -4,6 +4,12 @@
    node scripts/press-merge.mjs <items.json>     add items (a JSON array, see checkItem), rewrite press.json and its manifest entry
    node scripts/press-merge.mjs --remove <id>     drop one published item
    node scripts/press-merge.mjs --prune           only drop items older than keepDays
+   node scripts/press-merge.mjs --split <items.json> <auto.json> <review.json> [--log]
+                                                  check every item, then sort them by the autonomy policy (scripts/autonomy.mjs,
+                                                  classifyPress): institutional items that do not change a stage go to <auto.json>
+                                                  (published to main without review), the rest to <review.json> (branch review/press).
+                                                  Items already published are left out of both. --log appends the automatic ones to
+                                                  data-cache/autonomy-log.json. Writes nothing to press.json.
 
    Every item is checked here and again by scripts/validate-data.mjs. An item that fails is refused with the reason and
    nothing is written. Items already published (same file and url) are kept as they are. */
@@ -11,7 +17,8 @@ import fs from "node:fs";
 import path from "node:path";
 import crypto from "node:crypto";
 import { fileURLToPath } from "node:url";
-import { checkPressSource } from "./sources.mjs";
+import { checkPressSource, resolve as resolveSource } from "./sources.mjs";
+import { classifyPress, logAuto } from "./autonomy.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = path.join(ROOT, "v1/press.json");
@@ -77,6 +84,28 @@ function main() {
     save(doc); console.log(`removed ${id}`); return;
   }
   if (args[0] === "--prune") { save(doc); console.log("pruned"); return; }
+  if (args[0] === "--split") {
+    const [, src, autoOut, reviewOut] = args;
+    if (!src || !autoOut || !reviewOut) { console.error("usage: press-merge.mjs --split <items.json> <auto.json> <review.json> [--log]"); process.exit(2); }
+    const items = JSON.parse(fs.readFileSync(src, "utf8"));
+    if (!Array.isArray(items)) { console.error("items file must hold a JSON array"); process.exit(2); }
+    const c = ctx(), refused = [];
+    items.forEach((x, i) => { const p = checkItem(x, c); if (p.length) refused.push(`item ${i + 1} (${x.url || "no url"}): ${p.join("; ")}`); });
+    if (refused.length) { console.error("Refused, nothing written:\n" + refused.join("\n")); process.exit(1); }
+    const fresh = items.filter((x) => !(doc.files[x.file] || []).some((y) => y.id === idOf(x)));
+    const v = classifyPress(fresh);
+    /* Automatic only from an institution the source list names with its own inst (Parliament, Council, Commission, advisory
+       bodies); a generic europa.eu page or a national source waits for review. */
+    const sure = (x) => { const r = resolveSource(x.url); return !!(r && r.group === "institutions" && r.entry.inst && r.entry.inst === x.inst); };
+    for (const x of v.auto.filter((y) => !sure(y))) { v.review.push(x); v.reasons.push(`${x.file}: source is not a named EU institution on the source list (${x.source})`); }
+    v.auto = v.auto.filter(sure);
+    fs.writeFileSync(autoOut, JSON.stringify(v.auto, null, 1) + "\n");
+    fs.writeFileSync(reviewOut, JSON.stringify(v.review, null, 1) + "\n");
+    const done = () => console.log(JSON.stringify({ auto: v.auto.length, review: v.review.length, alreadyPublished: items.length - fresh.length, reasons: v.reasons }, null, 1));
+    if (args.includes("--log") && v.auto.length) logAuto(path.join(ROOT, "data-cache"), { source: "press", changes: v.auto.map((x) => ({ type: "published", name: `${x.file}: ${x.source} ${x.date}`, url: x.url })) }).then(done);
+    else done();
+    return;
+  }
   if (!args[0]) { console.error("usage: press-merge.mjs <items.json> | --remove <id> | --prune"); process.exit(2); }
   const items = JSON.parse(fs.readFileSync(args[0], "utf8"));
   if (!Array.isArray(items)) { console.error("items file must hold a JSON array"); process.exit(2); }

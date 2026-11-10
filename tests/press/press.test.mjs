@@ -64,3 +64,19 @@ test("citations may be analysis but not excluded or unmapped tier 3", () => {
   assert.deepEqual(checkRegistry(reg, new Set(["dna", "iaa"])), []);
   assert.ok(checkRegistry(reg, new Set(["iaa"])).some((p) => /unknown file dna/.test(p)));
 });
+
+/* Autonomy: which Latest developments items go live without review (scripts/autonomy.mjs) */
+import { classifyPress } from "../../scripts/autonomy.mjs";
+const inst = { file: "iaa", date: "2026-11-05", source: "Council press release", inst: "council", kind: "institutional", url: "https://www.consilium.europa.eu/en/press/x", text: "x", stage: false };
+test("institutional items without a stage change publish; press and stage changes wait", () => {
+  const v = classifyPress([inst, { ...inst, stage: true }, { ...ok, file: "iaa" }, { ...inst, inst: "press" }]);
+  assert.equal(v.auto.length, 1);
+  assert.equal(v.review.length, 3);
+  assert.ok(v.reasons.some((r) => /stage/.test(r)) && v.reasons.some((r) => /press reporting/.test(r)));
+});
+test("too many institutional items in one run all wait", () => {
+  const many = Array.from({ length: 13 }, (_, i) => ({ ...inst, url: inst.url + i }));
+  const v = classifyPress(many);
+  assert.equal(v.auto.length, 0);
+  assert.equal(v.review.length, 13);
+});

@@ -48,6 +48,8 @@ if (args.includes("--sync-manifest")) {
 }
 
 for (const rel of changed) {
+  /* Every task may write its own heartbeat (scripts/task-heartbeat.mjs). */
+  if (/^data-cache\/tasks\/[a-z-]+\.json$/.test(rel)) continue;
   const allowedBy = PATHS[rel];
   if (!allowedBy || (!allowedBy.includes("*") && !allowedBy.some((s) => scopes.has(s)))) refused.push(`${rel} changed (outside scope ${[...scopes].join(",")})`);
 }

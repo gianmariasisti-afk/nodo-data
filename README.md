@@ -85,10 +85,13 @@ Dated items on nodo's files, each with nodo's own one- or two-sentence takeaway 
 
 How it is kept up to date:
 
-1. Every morning the Action "Collect press candidates" (`.github/workflows/press.yml`, `scripts/press-feeds.mjs`) reads the feeds in `tools/press/config.json` and keeps the entries that name a pilot file in `data-cache/press/candidates.json`; `data-cache/press/feeds.json` says which feeds answered. A feed that fails is logged, not fatal.
+1. Every morning the Action "Collect press candidates" (`.github/workflows/press.yml`, `scripts/press-feeds.mjs`) reads the feeds in `tools/press/config.json` and keeps the entries that name a priority file in `data-cache/press/candidates.json`; `data-cache/press/feeds.json` says which feeds answered. A feed that fails is logged, not fatal. Since 10 Nov 2026 every priority file is scanned (`"files": "all"` in the config; before that, five pilot files).
 2. On Mondays and Thursdays the cloud scheduled task "nodo press scan" reads the candidates, runs each file's search pack (`node scripts/press-feeds.mjs --packs`: short name, aliases, procedure numbers, Council documents, rapporteurs and shadows) through web search, applies the inclusion test (an item gets in only if it moves the file: a new position, a date, a person, a compromise or a fight) and writes the takeaways.
-3. `node scripts/press-merge.mjs items.json` checks every item, refuses the batch if one fails, and rewrites `press.json` and its manifest entry. `scripts/validate-data.mjs` checks the file again on every push.
-4. Proposed items go to the rolling branch `review/press` with one open issue labelled `press`. Merging the branch publishes them. Facts that contradict `files.json` are listed in the issue as data checks; they never edit `files.json` (the weekly reference refresh does, and the Observatory wins over the press).
+3. `node scripts/press-merge.mjs --split items.json auto.json review.json --log` checks every item and sorts them by the autonomy policy (`classifyPress` in `scripts/autonomy.mjs`):
+   - **Published without review:** items an EU institution published on its own pages (Parliament, Council, Commission, EESC, Committee of the Regions) that do not change the file's stage. The task merges them into `press.json` on main (`node scripts/press-merge.mjs auto.json`) through the validator; each one is appended to `data-cache/autonomy-log.json` and listed under `autonomy` in `status.json` for 7 days. More than 12 in one run all wait.
+   - **Waits for a merge:** press reporting, every item that changes a stage, and items from a generic europa.eu page or a national source. They go to the rolling branch `review/press` with one open issue labelled `press`. Merging the branch publishes them.
+4. `scripts/validate-data.mjs` checks the file again on every push. To take an item down: `node scripts/press-merge.mjs --remove <id>`.
+5. Facts that contradict `files.json` are listed in the issue as data checks; they never edit `files.json` (the reference refresh does, and the Observatory wins over the press).
 
 ## agenda.json
 
@@ -174,6 +177,7 @@ The GitHub Action "Update plenary agenda" (`.github/workflows/agenda.yml`, `scri
 Changes are sorted into three tiers. The policy lives in `scripts/autonomy.mjs`; its tests in `tests/commission/autonomy.test.mjs`.
 
 - **Tier 1, applied automatically.** Commission cabinet changes when a run finds at most 5 of them and none touches a Head of Cabinet, Deputy Head of Cabinet (including acting) or Director of Coordination. Additions, removals and role changes all qualify. Each application is appended to `data-cache/autonomy-log.json` and listed under `autonomy` in `status.json` for 7 days. Phone, responsibility and contact updates were already automatic.
+- **Tier 1 for Latest developments (since 10 Nov 2026).** Items from an EU institution's own page that do not change a file's stage are published by the press scan without review, logged the same way. See "press.json".
 - **Tier 3, waits for a merge.** Senior cabinet roles, commissioners joining or leaving the College, and any batch over the limit. The rule is all-or-nothing per run: one change that needs review holds the whole batch on `review/commission`, and the issue says why.
 - **Failure issues close themselves.** The Commission, MEP directory, file stream and agenda workflows close their own "build needs attention" issue on the next successful run.
 
@@ -219,17 +223,20 @@ Data with a feed is refreshed by GitHub Actions (above). Everything editorial or
 
 | Task | When | Covers |
 |---|---|---|
-| nodo Council refresh (Mon and Thu) | Mon and Thu 07:30, on Gianmaria's Mac (built-in browser) | council.json meetings, Coreper, participant lists (the Council site's bot check blocks the cloud) |
-| Weekly nodo reference refresh | Mon 08:07, cloud | files.json status and next steps (scope `files`); MEP lists against the Observatory (`tools/files/oeil_diff.py` then `apply_mep_diff.py`, scope `meps`); Parliament calendar (`calendar`); Presidency handover (`presidency`); hand-added permanent representatives (`permreps`) |
+| nodo Council and minutes refresh (weekdays) | Mon–Fri 07:30, on Gianmaria's Mac (built-in browser) | council.json meetings, Coreper, participant lists; minutes.json (the Council's and the Parliament's bot checks block the cloud). A run with nothing new changes no data |
+| nodo reference refresh (Mon and Thu) | Mon and Thu 09:07, cloud | Monday, full run: files.json status and next steps (scope `files`); MEP lists against the Observatory (scope `meps`); auto pages; Parliament calendar (`calendar`); Presidency handover (`presidency`); hand-added permanent representatives (`permreps`). Thursday, short run: MEP lists, then status and next steps only for files in trilogue, in the Council negotiating box or with a step in the next 14 days |
+| nodo press scan (Mon and Thu) | Mon and Thu 09:47, cloud | Latest developments for every priority file: institutional items go live, press items wait on `review/press` |
 | nodo weekly requests and backend | Mon 08:52, cloud | file requests and empty searches from Supabase events; Supabase security and performance advisors, auth and API errors; one email |
-| Weekday nodo data check | Mon–Fri 07:30, cloud | reads status.json: workflows, freshness, files `checkedDays`, `reference` (calendar age, days to the Presidency handover and whether the next profile exists, oldest hand-added perm rep check), open issues |
+| Weekday nodo data check | Mon–Fri 09:47, cloud | reads status.json: workflows, freshness, files `checkedDays`, `reference` (calendar age, Presidency handover, perm reps, task heartbeats, unchecked cabinets, Latest developments coverage), open issues |
+
+**Task heartbeats.** GitHub workflows show in `status.json` through the Actions API; scheduled Claude tasks did not, so a task that stopped was only noticed through old data. Each task that pushes now ends with `node scripts/task-heartbeat.mjs <task> <ok|failed> "<note>"` and commits `data-cache/tasks/<task>.json`, also when the run changed nothing. `status.json` lists them under `reference.tasks` with `ageDays` and `late` (older than the task's longest scheduled gap plus a day; `null` until the first heartbeat). `reference.commission.unchecked` names College members whose team page the last Commission run could not read, and `reference.press` gives the files with a recent item and the newest item's age. The Mac task's prompt carries the heartbeat from its next regeneration (`tools/browser/routine-prompt.py`); until then its `late` stays `null` and the weekday check goes by data age.
 
 - `checked` (per file) is the day status and next steps were last confirmed against sources. The file screen shows it as "Status checked". The validator refuses a `checked` date in the future and any `next` date earlier than `checked`.
 - `scripts/refresh-guard.mjs --scope <list> [--sync-manifest]` refuses any change outside the named scopes: `files` (per file status, stage, next, sources, caveats, checked, council.note; top-level asOf and generated), `meps` (the meps lists), `calendar` (v1/calendar.json), `presidency` (presidency.current and presidency.next in council.json), `permreps` (tools/council/permreps-extra.json). `--sync-manifest` updates bytes and sha256 of changed v1 files. Adding or removing a priority file, or changing commissioners, cabinet, DGs or working parties, always stops the push.
 - Presidency: the app shows motto, priorities and links from whichever of `presidency.current` or `presidency.next` matches the Presidency in office by date, and nothing when neither does. The reference task adds `next` once the incoming Presidency publishes its programme, and from the handover moves it to `current`.
 - `tools/council/permreps-extra.json` holds ambassadors and deputies not named in Council participant lists, as [name, date checked, https source]. The reference task rechecks each entry against its source once a month and updates the date. The Council refresh merges the file into council.json.
 - `calendar.json` carries `checked`, set by the reference task after comparing plenary sessions and the published calendar with the Parliament's official calendar pages.
-- The Commission updater reads the President's cabinet like the others; its people changes always wait for review on `review/commission`.
+- The Commission updater reads the President's cabinet from `/about/organisation/president_en` (the other members sit under `college-commissioners/<slug>`); its people changes always wait for review on `review/commission`. Until 10 Nov 2026 it looked under the commissioners' path, found no team link and skipped the President silently; a member without a team link now counts as a failure and shows in `status.json`.
 
 ## Search, automatic pages and your files
 

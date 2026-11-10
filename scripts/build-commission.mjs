@@ -66,6 +66,11 @@ const keepEmail = (e) => (/^cab-/.test(e) ? e : "");
 export const roleClass = (role) => (isSeniorRole(role) ? "lead" : /policy assistant/i.test(role) ? "policy" : /assistant|officer|logistics|secretary|registry|document|mission/i.test(role) && !/adviser|member/i.test(role) ? "office" : "policy");
 export const tidyRole = (r) => r.toLowerCase().replace(/(^|[\s/(-])([a-z])/g, (m, a, b) => a + b.toUpperCase()).replace(/\bOf\b/g, "of").replace(/\bAnd\b/g, "and").replace(/\bTo\b/g, "to").replace(/\bThe\b/g, "the").replace(/\//g, " / ").replace(/\s+/g, " ").trim();
 
+/* Where a College member's own page lives, and the link to their team page on it. The President's pages sit under
+   /about/organisation/president, not under college-commissioners/<slug> (the cause of "no team link" until 10 Nov 2026). */
+export const pagePath = (m) => (m.kind === "president" ? "/about/organisation/president_en" : `/about/organisation/college-commissioners/${m.slug}_en`);
+export const teamLinkRe = (m) => new RegExp(`href="((?:https://commission\\.europa\\.eu)?/about/organisation/${m.kind === "president" ? "president" : "college-commissioners/" + m.slug}/[^"]*team_en)"`);
+
 async function main() {
   await fs.mkdir(CACHE, { recursive: true });
   const cm = await readJson(path.join(V1, "commission.json"), null);
@@ -85,12 +90,13 @@ async function main() {
     const idx = cm.college.indexOf(m);
     let teamUrl = null;
     try {
-      const page = await get(`${BASE}/about/organisation/college-commissioners/${m.slug}_en`);
-      const t = page && page.match(new RegExp(`href="((?:https://commission\\.europa\\.eu)?/about/organisation/college-commissioners/${m.slug}/[^"]*team_en)"`));
+      const page = await get(BASE + pagePath(m));
+      const t = page && page.match(teamLinkRe(m));
       if (t) teamUrl = t[1].startsWith("http") ? t[1] : BASE + t[1];
     } catch { failed++; report.teams[m.slug] = { error: "commissioner page" }; continue; }
     await sleep(900);
-    if (!teamUrl) { report.teams[m.slug] = { error: "no team link" }; continue; }
+    // A member whose team page cannot be found is not being checked: count it, so the run and status.json say so.
+    if (!teamUrl) { failed++; report.teams[m.slug] = { error: "no team link" }; continue; }
     let people;
     try { people = parseTeam(toLines(await get(teamUrl))); } catch { failed++; report.teams[m.slug] = { error: "team page" }; continue; }
     await sleep(900);
@@ -141,7 +147,7 @@ async function main() {
   const applyAll = structural.length > 0 && verdict.auto;
   report.autonomy = { applied: applyAll, waits: applyAll ? [] : verdict.reasons };
   report.auto = auto.slice(0, 60); report.structural = applyAll ? [] : structural;
-  report.summary = { auto: auto.length, structural: applyAll ? 0 : structural.length, autoApplied: applyAll ? structural.length : 0, failed };
+  report.summary = { auto: auto.length, structural: applyAll ? 0 : structural.length, autoApplied: applyAll ? structural.length : 0, failed, unchecked: Object.entries(report.teams).filter(([, t]) => t.error || t.skipped).map(([k]) => k) };
   await fs.writeFile(path.join(CACHE, "commission-report.json"), JSON.stringify(report, null, 1) + "\n");
   if (!REPORT_ONLY) {
     const today = new Date().toISOString().slice(0, 10);

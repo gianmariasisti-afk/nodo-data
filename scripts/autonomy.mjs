@@ -1,6 +1,7 @@
 /* Autonomy policy: which detected changes go live without a human, and the log of what did.
 
-   Tier 1 (applied automatically, logged): a small set of ordinary cabinet changes.
+   Tier 1 (applied automatically, logged): a small set of ordinary cabinet changes; Latest developments items
+   from an EU institution's own page that do not change a file's stage (since 10 Nov 2026).
    Tier 3 (wait for Gianmaria): anything senior, anything about who sits in the College, and any large batch.
    The rule is all-or-nothing per run: if one change in the batch needs review, the whole batch waits,
    so the review branch never has to be reconciled with a half-applied proposal.
@@ -36,6 +37,24 @@ export function classifyCommission(changes, policy = POLICY.commission) {
     if (roles.some(isSeniorRole)) reasons.push(`senior role: ${who}, ${roles.filter(Boolean).join(" → ")}`);
   }
   return { auto: reasons.length === 0, reasons };
+}
+
+/* Latest developments. An item goes live without review when an institution published it (Parliament, Council,
+   Commission, advisory bodies: kind institutional, never inst press) and it does not change the file's stage.
+   Press reporting and every stage change wait for Gianmaria on review/press. More than maxAuto institutional items
+   in one run looks like a scan gone wrong: then all of them wait. Returns { auto: [...], review: [...], reasons }. */
+POLICY.press = { maxAuto: 12, autoInst: ["ep", "council", "commission", "advisory"] };
+export function classifyPress(items, policy = POLICY.press) {
+  const auto = [], review = [], reasons = [];
+  for (const x of items) {
+    const why = x.kind !== "institutional" || !policy.autoInst.includes(x.inst) ? "press reporting" : x.stage === true ? "changes the file's stage" : null;
+    if (why) { review.push(x); reasons.push(`${x.file}: ${why} (${x.source})`); } else auto.push(x);
+  }
+  if (auto.length > policy.maxAuto) {
+    reasons.push(`${auto.length} institutional items in one run (limit ${policy.maxAuto}): all wait`);
+    return { auto: [], review: [...auto, ...review], reasons };
+  }
+  return { auto, review, reasons };
 }
 
 const LOG_KEEP = 200;
