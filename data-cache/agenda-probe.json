@@ -1,24 +1,23 @@
 {
- "run": "2026-11-10T13:29:45.394Z",
+ "run": "2026-11-10T22:22:54.331Z",
  "sessions": {
   "2026-11-11": {
    "days": {
     "2026-11-11": {
      "status": 200,
-     "activities": 8
+     "activities": 15
     },
     "2026-11-12": {
      "status": 200,
-     "activities": 14
+     "activities": 18
     }
    },
    "types": {
-    "def/ep-activities/MEETING_PART": 3,
+    "def/ep-activities/MEETING_PART": 9,
     "def/ep-activities/PLENARY_DEBATE": 9,
-    "def/ep-activities/PLENARY_VOTE": 10
+    "def/ep-activities/PLENARY_VOTE": 15
    },
-   "items": 19,
-   "unchanged": true
+   "items": 24
   },
   "2026-11-23": {
    "days": {

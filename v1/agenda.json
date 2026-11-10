@@ -1040,17 +1040,34 @@
    }
   },
   "2026-11-11": {
-   "stage": "draft",
-   "updated": "2026-10-22",
+   "stage": "final-draft",
+   "updated": "2026-11-10",
    "link": "https://www.europarl.europa.eu/plenary/en/agendas.html",
    "src": {
     "api": "foreseen-activities",
-    "sha256": "039e033ef6a6343229425bf83adc35a471d7f842ee0d9025b773162b9de2a7aa"
+    "sha256": "689c62937c57b9dd4f904a17288f4e1a74d95a0deb5db06d84e75906a8f30c77"
    },
    "days": {
     "2026-11-11": [
      {
-      "time": "15:00–20:00",
+      "time": "15:00–15:15",
+      "type": "debate",
+      "title": "Resumption of session and order of business"
+     },
+     {
+      "time": "15:15–15:45",
+      "type": "debate",
+      "title": "Ukrainian children forcibly deported to Russia or living in Russian-occupied territories in Ukraine",
+      "sub": "2026/2947(RSP)"
+     },
+     {
+      "time": "15:45–17:00",
+      "type": "debate",
+      "title": "Commission Work Programme 2027",
+      "sub": "2026/2899(RSP)"
+     },
+     {
+      "time": "17:00–18:00",
       "type": "debate",
       "title": "Union Civil Protection Mechanism and Union support for health emergency preparedness and response",
       "sub": "C10-0174/2025 · A10-0271/2026 · ***I",
@@ -1062,24 +1079,7 @@
       "committee": "ENVI"
      },
      {
-      "time": "15:00–20:00",
-      "type": "debate",
-      "title": "One-minute speeches (Rule 179)"
-     },
-     {
-      "time": "15:00–20:00",
-      "type": "debate",
-      "title": "Commission Work Programme 2027",
-      "sub": "2026/2899(RSP)"
-     },
-     {
-      "time": "15:00–20:00",
-      "type": "debate",
-      "title": "Ukrainian children forcibly deported to Russia or living in Russian-occupied territories in Ukraine",
-      "sub": "2026/2947(RSP)"
-     },
-     {
-      "time": "15:00–20:00",
+      "time": "18:00–18:30",
       "type": "debate",
       "title": "Europe’s Beating Cancer Plan",
       "sub": "A10-0261/2026 · 2025/2139(INI)",
@@ -1090,15 +1090,21 @@
       "committee": "SANT"
      },
      {
-      "time": "15:00–20:00",
+      "time": "18:30–19:30",
       "type": "debate",
-      "title": "Cyber resilience protecting critical infrastructure and essential supply chains",
+      "title": "Resilience against cyber and other hybrid attacks, protecting critical infrastructure and essential supply chains",
       "sub": "2026/2948(RSP)"
      },
      {
-      "time": "15:00–20:00",
+      "time": "19:30–21:00",
       "type": "debate",
-      "title": "Resumption of session and order of business"
+      "title": "One-minute speeches (Rule 179)"
+     },
+     {
+      "time": "19:30–21:00",
+      "type": "debate",
+      "title": "Media freedom and rule of law in the Czech Republic: threats to the independence of public broadcasters",
+      "sub": "2026/2969(RSP)"
      }
     ],
     "2026-11-12": [
@@ -1121,14 +1127,15 @@
      },
      {
       "time": "11:00–13:00",
-      "type": "debate",
-      "title": "Texts on which debate is closed"
+      "type": "votes",
+      "title": "Election of a Vice-President of the European Parliament (to replace Nicolae Ștefănuță)",
+      "sub": "2026/2952(RSO)"
      },
      {
       "time": "11:00–13:00",
       "type": "votes",
-      "title": "Election of a Vice-President of the European Parliament (to replace Nicolae Ștefănuță)",
-      "sub": "2026/2952(RSO)"
+      "title": "Ukrainian children forcibly deported to Russia or living in Russian-occupied territories in Ukraine",
+      "sub": "2026/2947(RSP)"
      },
      {
       "time": "11:00–13:00",
@@ -1188,6 +1195,28 @@
      {
       "time": "11:00–13:00",
       "type": "votes",
+      "title": "Request for the waiver of the immunity of András Tivadar Kulja",
+      "sub": "A10-0283/2026 · 2026/2016(IMM)",
+      "rapporteur": "Marcin Sypniewski",
+      "rapporteurs": [
+       "257070"
+      ],
+      "committee": "JURI"
+     },
+     {
+      "time": "11:00–13:00",
+      "type": "votes",
+      "title": "Request for the waiver of the immunity of Afroditi Latinopoulou",
+      "sub": "A10-0284/2026 · 2026/2049(IMM)",
+      "rapporteur": "Dainius Žalimas",
+      "rapporteurs": [
+       "256807"
+      ],
+      "committee": "JURI"
+     },
+     {
+      "time": "11:00–13:00",
+      "type": "votes",
       "title": "European Chemicals Agency and amending regulations",
       "sub": "C10-0141/2025 · A10-0093/2026 · ***I",
       "rapporteur": "Christophe Clergeau",
@@ -1195,6 +1224,17 @@
        "245018"
       ],
       "committee": "ENVI"
+     },
+     {
+      "time": "11:00–13:00",
+      "type": "votes",
+      "title": "Europe’s Beating Cancer Plan",
+      "sub": "A10-0261/2026 · 2025/2139(INI)",
+      "rapporteur": "Vlad Vasile-Voiculescu",
+      "rapporteurs": [
+       "257112"
+      ],
+      "committee": "SANT"
      },
      {
       "time": "11:00–13:00",
@@ -1210,8 +1250,20 @@
      {
       "time": "11:00–13:00",
       "type": "votes",
+      "title": "Union Civil Protection Mechanism and Union support for health emergency preparedness and response",
+      "sub": "C10-0174/2025 · A10-0271/2026 · ***I",
+      "rapporteur": "Leire Pajín, Aurelijus Veryga",
+      "rapporteurs": [
+       "256993",
+       "256811"
+      ],
+      "committee": "ENVI"
+     },
+     {
+      "time": "11:00–13:00",
+      "type": "votes",
       "title": "Institutional aspects of artificial intelligence in the context of European integration",
-      "sub": "2025/2118(INI)",
+      "sub": "A10-0280/2026 · 2025/2118(INI)",
       "rapporteur": "Emmanouil Kefalogiannis",
       "rapporteurs": [
        "125068"
