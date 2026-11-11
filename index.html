@@ -1,8 +1,6 @@
 <!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><link rel=manifest href=manifest.webmanifest><meta name=theme-color content="#0E1B4D"><meta name=apple-mobile-web-app-capable content=yes><meta name=mobile-web-app-capable content=yes><meta name=apple-mobile-web-app-title content=nodo><meta name=apple-mobile-web-app-status-bar-style content=black-translucent><link rel=apple-touch-icon href=icons/apple-touch-icon.png><link rel=icon type=image/png href=icons/icon-192.png></head><body>
 <title>nodo</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Instrument+Sans:wght@400..700&display=swap">
+<link rel="stylesheet" href="fonts/fonts.css">
 <style>
 /* nodo: Untangle the EU. Dossier is now nodo and wears the nodo design system.
    Layout: one phone-width screen (surface, radius-xl) on the canvas, with a floating ink TabBar. Home runs top bar,
@@ -1229,7 +1227,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   const fetchJson = (u) => fetch(u).then((r) => { if (!r.ok) throw new Error(u + " " + r.status); return r.json(); });
   /* Hosted data first; the bundled copy in data/ is the fallback when the host cannot be reached. */
   const SRC = {};
-  const getData = (f) => fetchJson(DATA_BASE + f + ".json").then((d) => { SRC[f] = "host"; return d; }).catch(() => fetchJson("data/" + f + ".json").then((d) => { SRC[f] = "bundled"; return d; }));
+  const getData = (f) => fetchJson(DATA_BASE + (f === "meps" || f === "commission" ? "lite/" : "") + f + ".json").then((d) => { SRC[f] = "host"; return d; }).catch(() => fetchJson("data/" + f + ".json").then((d) => { SRC[f] = "bundled"; return d; }));
   window.nodoDataSource = SRC;
   let DATA = null;
   while (!DATA) {
@@ -1243,6 +1241,9 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
         getData("files").catch(() => ({ files: [] })),
       ]);
       DATA = { mep, ec, cal, co, ag, fl };
+      /* Portraits as files: "portraits/x.webp" in the light files becomes an address next to the data. */
+      { const fix = (o) => { if (o && typeof o.photo === "string" && o.photo.startsWith("portraits/")) o.photo = DATA_BASE + o.photo; };
+        (mep.meps || []).forEach(fix); (ec.college || []).forEach((c) => { fix(c); (c.cabinet || []).forEach(fix); }); }
     } catch {
       bootMsg.textContent = "The directory could not load. Check your connection and try again.";
       bootRetry.hidden = false;
@@ -3600,11 +3601,11 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const provNames = (CFG.providers || []).map((k) => (PROVIDERS[k] || {}).name).filter(Boolean);
     return `<div class="block">
       ${LIVE ? sec("With an account", "nodo keeps one record for you: your name and email, the organisation, role and countries you enter, a profile picture if you add one, the people you save, the files you follow and the changes you make to stakeholder lists. The record sits in nodo's database, hosted by Supabase. Other people who use nodo cannot read it.")
-        + sec("How you use nodo", "While you are signed in, nodo keeps a usage log for your account: the sections and profiles you open, what you type in search and how many results came back, when you save or follow something, and whether you took the tour. The team behind nodo reads it to see what works and what is missing. It sits in the same database, is not shared with anyone else and is not used for advertising.")
+        + sec("How you use nodo", "While you are signed in, nodo keeps a usage log for your account: the sections and profiles you open, what you type in search and how many results came back, when you save or follow something, whether you took the tour, and any error the app runs into (the message and where in the code it happened). The team behind nodo reads it to see what works and what is missing. It sits in the same database, is not shared with anyone else and is not used for advertising.")
         + sec("Signing in", "With email you choose a password. It goes straight to the sign-in service, which keeps only a scrambled form of it; nodo never stores it. " + (provNames.length ? "If you sign in with " + provNames.join(" or ") + ", that service passes nodo your name and email address. " : "") + "nodo posts nothing on your behalf and does not read your contacts.")
         : sec("In this preview", "There are no accounts here. Your profile, the people you save, the files you follow and your list changes stay in this browser" + (state.me.id ? ", and in your own Claude account when you open nodo there" : "") + ". The sign-in screens are simulated: nothing you type in them is saved or sent.")}
       ${sec("Without an account", "The same information stays in this browser and goes nowhere. Names you add under Perm reps always stay on the device where you typed them.")}
-      ${sec("What the app loads", "The directory comes from nodo's own data files. The typefaces load from Google Fonts" + (LIVE ? ", and sign-in runs through Supabase" : "") + ". This version carries no advertising" + (LIVE ? " and no third-party analytics: the usage log above is nodo's own." : " and no analytics."))}
+      ${sec("What the app loads", "The directory comes from nodo's own data files. The typefaces are copies kept on nodo's own site" + (LIVE ? ", and sign-in runs through Supabase" : "") + ". This version carries no advertising" + (LIVE ? " and no third-party analytics: the usage log above is nodo's own." : " and no analytics."))}
       ${sec("Your controls", "Your profile has Export my data" + (LIVE ? ", which includes your usage log, Clear my profile and Delete my account and data. Deleting removes your record and your usage log for good, on every device." : " and Clear my profile and saved people."))}
     </div>`;
   }
@@ -3735,7 +3736,8 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
           ${pwField("current-password", false)}
           ${ferr("form")}
         </form>
-        <button class="textbtn textbtn--brand auth-forgot" data-onb="forgot" type="button">Forgot your password?</button>`;
+        <button class="textbtn textbtn--brand auth-forgot" data-onb="forgot" type="button">Forgot your password?</button>
+        ${socialAltHtml()}`;
       foot = `<button class="eu-btn eu-btn--brand eu-btn--block" type="submit" form="fIn"${a.busy ? " disabled" : ""}>Sign in</button>
         <p class="auth-alt">New to nodo?<button class="textbtn textbtn--brand" data-onb="password" type="button">Create an account</button></p>
         ${PREVIEW ? `<p class="fine">Preview build: sign-in is simulated and nothing is sent.</p>` : ""}`;
@@ -8474,6 +8476,65 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   }, true);
   document.addEventListener("change", (e) => { const r = e.target.closest && e.target.closest("[data-epxfmt]"); if (r) EPX.fmt = r.value; }, true);
 
+  /* ======================= Features promoted from the preview on 2026-11-11 =======================
+     Source: next/features.js. tools/preview/build.mjs injects this file into the app's main script just before
+     start-up, so it runs inside the same scope and uses the app's own helpers. Nothing here reaches the live app
+     until it is promoted (tools/preview/promote.mjs). Everything up to 2026-10-31 was promoted on 2026-10-31. */
+
+  /* ---------- Email sign-in hint (since 11 Nov 2026) ----------
+     People who joined with Apple or Google have no nodo password, yet "Already have an account? Sign in" opens the
+     email form. The form now says so and repeats the social buttons (the same providers as the first screen: Apple
+     joins Google in the iOS app). Feature patch "email sign-in hint" in tools/preview/build.mjs calls it. */
+  function socialAltHtml() {
+    const alt = Object.entries(PROVIDERS).filter(([k]) => !LIVE || (CFG.providers || []).includes(k));
+    if (!alt.length) return "";
+    const names = alt.map(([, v]) => v.name).join(" or ");
+    return `<div class="auth-social-alt"><p class="fine">Joined with ${names}? You have no nodo password. Use ${alt.length > 1 ? "those buttons" : "the button"} instead.</p>
+      ${alt.map(([k, v]) => `<button class="eu-btn eu-btn--outline eu-btn--block" data-prov="${k}" type="button"><span class="pmark" aria-hidden="true">${v.mark}</span>Continue with ${v.name}</button>`).join("")}</div>`;
+  }
+
+  /* ---------- Error reporting (since 11 Nov 2026) ----------
+     A script error used to leave a blank screen and no trace. Now each distinct error goes to the usage log as an
+     "error" event (section: error / promise / startup, item: the message, query: file and line), at most 10 per
+     session. Errors from before the session is restored wait up to a minute for it; nothing is logged signed out.
+     A failure during start-up shows the boot screen again with a Try again button instead of a blank page
+     (feature patch "startup catch" in tools/preview/build.mjs calls window.nxBootFailed). The data notice says so. */
+  const ERR = { n: 0, seen: new Set(), pend: [] };
+  function errReport(kind, e, where) {
+    const msg = String((e && (e.message || e.reason)) || e || "unknown").replace(/\s+/g, " ").slice(0, 160);
+    if (ERR.n >= 10 || msg === "Script error." || ERR.seen.has(kind + msg)) return;
+    ERR.seen.add(kind + msg); ERR.n++;
+    const at = where || ((e && e.stack) ? (String(e.stack).split("\n").find((l) => /:\d+:\d+/.test(l)) || "") : "");
+    const row = { section: kind, item: msg, query: String(at).trim().replace(/^at\s+/, "").slice(-120) || null };
+    if (LIVE && acct.user) Track.log("error", row); else ERR.pend.push(row);
+  }
+  addEventListener("error", (ev) => {
+    if (!ev.error && !ev.message) return;
+    errReport("error", ev.error || ev.message, ev.filename ? `${ev.filename.split("/").pop()}:${ev.lineno}:${ev.colno}` : "");
+  });
+  addEventListener("unhandledrejection", (ev) => errReport("promise", ev.reason));
+  (function errFlush(t) {
+    if (ERR.pend.length && LIVE && acct.user) ERR.pend.splice(0).forEach((r) => Track.log("error", r));
+    if (ERR.pend.length && t < 30) setTimeout(() => errFlush(t + 1), 2000);
+  })(0);
+  window.nxBootFailed = (e) => {
+    errReport("startup", e);
+    setTimeout(() => {
+      bootMsg.textContent = "nodo hit a problem while opening. Try again. If it keeps happening, write to hello@getnodo.eu.";
+      bootRetry.onclick = () => location.reload();
+      bootRetry.hidden = false; boot.hidden = false;
+    }, 0);
+  };
+
+  /* ---------- Portraits out of the first download (since 11 Nov 2026) ----------
+     Portraits are separate files (v1/portraits/), loaded as they are shown. Offline, or if one is missing, the image
+     is hidden rather than shown broken; the coloured disc behind it stays. Patches "light data files" and
+     "portrait addresses" in tools/preview/build.mjs. */
+  document.addEventListener("error", (e) => {
+    const t = e.target;
+    if (t && t.tagName === "IMG" && /\/portraits\//.test(t.src || "")) t.style.visibility = "hidden";
+  }, true);
+
   initHome(); initEp(); initEc();
   let startView = "home";
   try { const h = (location.hash || "").slice(1); startView = { parliament: "ep", commission: "ec", council: "co", calendar: "cal", agenda: "agenda", saved: "saved", files: "files", news: "news" }[h] || "home"; } catch { /* ignore */ }
@@ -8486,7 +8547,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   const signedIn = LIVE ? !!acct.user : !!(state.profile && state.profile.method);
   if (!signedIn) openOnb(0, false); else if (store.get(SIGNED_KEY)) openOnb("back", false);
   Store.connect();
-  } finally { boot.hidden = true; }
+  } catch (e) { if (window.nxBootFailed) window.nxBootFailed(e); else throw e; } finally { boot.hidden = true; }
 })();
 
 /* Offline support: only on the hosted PWA. */
@@ -8497,7 +8558,7 @@ if ("serviceWorker" in navigator && /github\.io$/.test(location.hostname)) addEv
 /* nodo preview features: styles. Injected by tools/preview/build.mjs. Uses the app's own tokens. */
 /* Dossier type (31 Oct 2026): Outfit for display, Figtree for text. Only the weights Dossier uses are loaded; see the
    Dossier theme at the end of this file. */
-@import url("https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600&family=Outfit:wght@400;500&display=swap");
+/* Outfit and Figtree are self-hosted since 11 Nov 2026: fonts/fonts.css. */
 
 /* ---------- 1. home: the Monday edition ---------- */
 #vHome #homeCal, #vHome #newsWrap, #vHome #doorFiles { display: none !important; }
@@ -10098,5 +10159,12 @@ body { font-variant-numeric: tabular-nums; }
 .ep-dl { display: inline-flex; align-items: center; gap: 6px; height: 36px; margin-left: auto; padding: 0 14px 0 10px; border: 1.5px solid var(--ink); border-radius: var(--radius-pill); background: none; color: var(--ink); font: inherit; font-size: 13px; font-weight: 600; cursor: pointer; }
 .ep-dl svg { width: 18px; height: 18px; flex: none; }
 .ep-dl:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+</style>
+<style>
+/* Promoted from the preview on 2026-11-11 (was next/features.css). */
+/* nodo preview styles (next/features.css). Everything up to 2026-10-31 was promoted to the live app on 2026-10-31. */
+/* Email sign-in hint (11 Nov 2026): socialAltHtml in features.js. */
+.auth-social-alt { display: grid; gap: 10px; margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--hairline); }
+.auth-social-alt .fine { margin: 0; }
 </style>
 </body></html>
