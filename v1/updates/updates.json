@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-10T00:00:00Z",
+  "generatedAt": "2026-11-11T00:00:00Z",
   "events": [
     {
       "id": "biotech-act:next:2026-12-14:4e1f33",
@@ -242,6 +242,16 @@
       "push": true
     },
     {
+      "id": "cef-2028-2034:ep:2025-0221-DEC-ADCP-2026-11-10",
+      "fileId": "cef-2028-2034",
+      "date": "2026-11-10",
+      "source": "ep",
+      "proc": "2025-0221",
+      "kind": "milestone",
+      "title": "Report adopted in committee",
+      "push": true
+    },
+    {
       "id": "digital-omnibus-data:ep:opinions:2026-11-10",
       "fileId": "digital-omnibus-data",
       "date": "2026-11-10",
@@ -272,6 +282,27 @@
       "title": "Committee opinions adopted",
       "count": 1,
       "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545:amendments:2026-11-10",
+      "fileId": "mff-2028-2034",
+      "date": "2026-11-10",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "milestone",
+      "title": "Amendments tabled in committee",
+      "count": 1,
+      "push": true
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0555-DEC-ADCP-2026-11-10",
+      "fileId": "mff-2028-2034",
+      "date": "2026-11-10",
+      "source": "ep",
+      "proc": "2025-0555",
+      "kind": "milestone",
+      "title": "Report adopted in committee",
+      "push": true
     },
     {
       "id": "mff-2028-2034:next:2026-11-10:f27f98",
@@ -376,7 +407,7 @@
       "proc": "2025-0545",
       "kind": "milestone",
       "title": "Amendments tabled in committee",
-      "count": 10,
+      "count": 9,
       "push": true
     },
     {

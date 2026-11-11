@@ -945,7 +945,10 @@
     "grids-package:ep:2025-0399-MEET-TRI1-2026-11-10": true,
     "medical-devices:ep:opinions:2026-11-10": true,
     "medical-devices:ep:2025-0404-NMSR-197870-2026-10-12": true,
-    "biotech-act:ep:2025-0405-DEC-ADCP-2026-11-10": true
+    "biotech-act:ep:2025-0405-DEC-ADCP-2026-11-10": true,
+    "mff-2028-2034:ep:2025-0545:amendments:2026-11-10": true,
+    "mff-2028-2034:ep:2025-0555-DEC-ADCP-2026-11-10": true,
+    "cef-2028-2034:ep:2025-0221-DEC-ADCP-2026-11-10": true
   },
   "seeded": {
     "mff-2028-2034": true,
@@ -1014,7 +1017,9 @@
     "mff-2028-2034:next:2026-11-05:7cc675": true,
     "digital-euro:next:2026-11-05:b4416e": true,
     "mff-2028-2034:next:2026-11-10:f27f98": true,
-    "tech-sovereignty-package:next:2026-11-10:a52875": true
+    "tech-sovereignty-package:next:2026-11-10:a52875": true,
+    "digital-fairness-act:next:2026-11-11:5a01ad": true,
+    "biotech-act:next:2026-11-11:2b60f8": true
   },
   "seededProcs": {
     "2025-0571": true,
