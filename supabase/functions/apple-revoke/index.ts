@@ -92,11 +92,17 @@ Deno.serve(async (req) => {
     if (!input.code) return json({ error: "Missing code" }, 400);
 
     const r = await exchange(input.code, secret);
-    if (!r.ok) return json({ error: "Apple refused the code", apple: r.body.error ?? "unknown" }, 502);
+    if (!r.ok) {
+      console.error("apple-revoke: token exchange refused", JSON.stringify(r.body));
+      return json({ error: "Apple refused the code", apple: r.body.error ?? "unknown", detail: r.body.error_description ?? "" }, 502);
+    }
 
     // The code must belong to the Apple ID linked to this nodo account.
     const appleSub = (apple.identity_data as Record<string, string> | undefined)?.sub ?? apple.id;
-    if (r.body.id_token && jwtSub(r.body.id_token) !== appleSub) return json({ error: "Apple ID does not match this account" }, 403);
+    if (r.body.id_token && jwtSub(r.body.id_token) !== appleSub) {
+      console.error("apple-revoke: Apple ID mismatch");
+      return json({ error: "Apple ID does not match this account" }, 403);
+    }
 
     const token = r.body.refresh_token ?? r.body.access_token;
     const hint = r.body.refresh_token ? "refresh_token" : "access_token";
@@ -105,7 +111,12 @@ Deno.serve(async (req) => {
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: new URLSearchParams({ client_id: env("APPLE_CLIENT_ID"), client_secret: secret, token, token_type_hint: hint }),
     });
-    if (!rev.ok) return json({ error: "Apple did not confirm the revocation", status: rev.status }, 502);
+    if (!rev.ok) {
+      const detail = await rev.text().catch(() => "");
+      console.error("apple-revoke: revoke refused", rev.status, detail);
+      return json({ error: "Apple did not confirm the revocation", status: rev.status, detail }, 502);
+    }
+    console.log("apple-revoke: revoked", hint);
     return json({ revoked: true });
   } catch (e) {
     return json({ error: e instanceof Error ? e.message : String(e) }, 500);
