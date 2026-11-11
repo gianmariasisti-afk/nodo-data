@@ -8,6 +8,7 @@
   "use strict";
   const Cap = window.Capacitor;
   if (!Cap || !Cap.isNativePlatform || !Cap.isNativePlatform()) return;
+  if (typeof Cap.registerPlugin !== "function") { console.error("nodo: capacitor.js is not loaded; native sign-in is off"); return; }
 
   const CALLBACK = "eu.getnodo.app://auth";
   const WEB_URL = "https://gianmariasisti-afk.github.io/nodo-data/";
