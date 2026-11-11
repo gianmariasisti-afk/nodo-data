@@ -1,5 +1,5 @@
 {
- "run": "2026-11-10T22:22:54.331Z",
+ "run": "2026-11-11T12:43:37.847Z",
  "sessions": {
   "2026-11-11": {
    "days": {
@@ -17,7 +17,8 @@
     "def/ep-activities/PLENARY_DEBATE": 9,
     "def/ep-activities/PLENARY_VOTE": 15
    },
-   "items": 24
+   "items": 24,
+   "unchanged": true
   },
   "2026-11-23": {
    "days": {
