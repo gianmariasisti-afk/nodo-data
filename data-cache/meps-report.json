@@ -1,15 +1,43 @@
 {
- "run": "2026-11-10T13:25:10.891Z",
- "checked": "2026-11-10",
+ "run": "2026-11-11T12:40:52.684Z",
+ "checked": "2026-11-11",
  "api": 720,
  "nodo": 720,
  "failed": [],
- "auto": [],
+ "auto": [
+  {
+   "id": "202352",
+   "name": "Antoni COMÍN I OLIVERES",
+   "changes": {
+    "committees": {
+     "from": [],
+     "to": [
+      "ENVI Substitute"
+     ]
+    }
+   }
+  },
+  {
+   "id": "257019",
+   "name": "Alvise PÉREZ",
+   "changes": {
+    "committees": {
+     "from": [
+      "PETI Substitute"
+     ],
+     "to": [
+      "PETI Substitute",
+      "INTA Substitute"
+     ]
+    }
+   }
+  }
+ ],
  "structural": [],
  "summary": {
-  "auto": 0,
+  "auto": 2,
   "structural": 0,
   "failed": 0,
-  "changed": false
+  "changed": true
  }
 }
