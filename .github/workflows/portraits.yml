@@ -1,0 +1,46 @@
+name: Split portraits
+
+# Keeps v1/lite/ and v1/portraits/ in step with v1/meps.json and v1/commission.json (scripts/split-portraits.mjs).
+# meps.yml and commission.yml run the script themselves before they commit. Their pushes use the workflow token and
+# start no other workflow, so this one covers every other change: merged review branches, the Mac task, hand edits.
+# The daily run is a safety net.
+
+on:
+  push:
+    branches: [main]
+    paths: [v1/meps.json, v1/commission.json, scripts/split-portraits.mjs]
+  schedule:
+    - cron: "37 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: portraits
+  cancel-in-progress: false
+
+jobs:
+  split:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Split and commit
+        run: |
+          git config user.name "nodo-data bot"
+          git config user.email "actions@users.noreply.github.com"
+          for i in 1 2 3 4; do
+            git fetch -q origin main
+            git reset -q --hard origin/main
+            node scripts/split-portraits.mjs
+            git add v1/lite v1/portraits
+            if git diff --cached --quiet; then echo "Already in step."; exit 0; fi
+            git commit -q -m "Split portraits $(date -u +%F)"
+            if git push -q origin HEAD:main; then echo "Pushed."; exit 0; fi
+            echo "Push rejected, retrying ($i)"; sleep 5
+          done
+          echo "Could not push after 4 tries"; exit 1

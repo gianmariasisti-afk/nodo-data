@@ -59,6 +59,8 @@ jobs:
               [ -f "$RUNNER_TEMP/out/meps-structural.json" ] && cp "$RUNNER_TEMP/out/meps-structural.json" data-cache/
             fi
             cp "$RUNNER_TEMP/out/meps-report.json" data-cache/ 2>/dev/null || true
+            # Light copies without inline photos, and the portraits as files (the preview loads these first).
+            node scripts/split-portraits.mjs
             node scripts/validate-data.mjs 2>&1 | tee -a build.log; [ "${PIPESTATUS[0]}" -eq 0 ] || { echo "Validation failed: nothing pushed"; exit 1; }
             git add v1 data-cache
             if git diff --cached --quiet; then echo "Nothing new."; exit 0; fi

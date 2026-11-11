@@ -11,9 +11,7 @@ window.nodoPreviewDenied = function () {
 };
 </script><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><link rel=manifest href=manifest.webmanifest><meta name=theme-color content="#0E1B4D"><meta name=apple-mobile-web-app-capable content=yes><meta name=mobile-web-app-capable content=yes><meta name=apple-mobile-web-app-title content="nodo next"><meta name=apple-mobile-web-app-status-bar-style content=black-translucent><link rel=apple-touch-icon href=../icons/apple-touch-icon.png><link rel=icon type=image/png href=../icons/icon-192.png></head><body>
 <title>nodo preview</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Instrument+Sans:wght@400..700&display=swap">
+<link rel="stylesheet" href="../fonts/fonts.css">
 <style>
 /* nodo: Untangle the EU. Dossier is now nodo and wears the nodo design system.
    Layout: one phone-width screen (surface, radius-xl) on the canvas, with a floating ink TabBar. Home runs top bar,
@@ -774,8 +772,6 @@ html.touring { overflow: hidden; }
 .onb-xl--auth { font-size: 44px; line-height: 48px; }
 .auth-list { display: grid; gap: var(--space-2); margin-top: var(--space-6); }
 .auth-list--tight { margin-top: 0; }
-.auth-social-alt { display: grid; gap: 10px; margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--border-control); }
-.auth-social-alt .fine { margin: 0; }
 .pmark, .pface { width: 28px; height: 28px; flex: none; border-radius: 50%; }
 .pmark { display: grid; place-items: center; background: var(--tint-brand); color: var(--ink); font-size: 12px; line-height: 1; font-weight: 700; }
 .pface { object-fit: cover; }
@@ -1242,7 +1238,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   const fetchJson = (u) => fetch(u).then((r) => { if (!r.ok) throw new Error(u + " " + r.status); return r.json(); });
   /* Hosted data first; the bundled copy in data/ is the fallback when the host cannot be reached. */
   const SRC = {};
-  const getData = (f) => fetchJson(DATA_BASE + f + ".json").then((d) => { SRC[f] = "host"; return d; }).catch(() => fetchJson("data/" + f + ".json").then((d) => { SRC[f] = "bundled"; return d; }));
+  const getData = (f) => fetchJson(DATA_BASE + (f === "meps" || f === "commission" ? "lite/" : "") + f + ".json").then((d) => { SRC[f] = "host"; return d; }).catch(() => fetchJson("data/" + f + ".json").then((d) => { SRC[f] = "bundled"; return d; }));
   window.nodoDataSource = SRC;
   let DATA = null;
   while (!DATA) {
@@ -1256,6 +1252,9 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
         getData("files").catch(() => ({ files: [] })),
       ]);
       DATA = { mep, ec, cal, co, ag, fl };
+      /* Portraits as files: "portraits/x.webp" in the light files becomes an address next to the data. */
+      { const fix = (o) => { if (o && typeof o.photo === "string" && o.photo.startsWith("portraits/")) o.photo = DATA_BASE + o.photo; };
+        (mep.meps || []).forEach(fix); (ec.college || []).forEach((c) => { fix(c); (c.cabinet || []).forEach(fix); }); }
     } catch {
       bootMsg.textContent = "The directory could not load. Check your connection and try again.";
       bootRetry.hidden = false;
@@ -3383,6 +3382,9 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
 
   /* ---------- real accounts (Supabase) ----------
      Switched on by config.js. Without it the app runs in preview mode exactly as before. */
+  /* In the store app, native.js (app/) sets window.nodoNative: email links go to the web app and sign-in uses the
+     native flows. On the web it is undefined and nothing changes. */
+  const backUrl = () => (window.nodoNative && window.nodoNative.webUrl) || location.origin + location.pathname;
   const SB = {
     client: null, ready: null,
     load() {
@@ -3413,7 +3415,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     },
     async sendLink(email, meta) {
       const c = await this.load(); if (!c) throw new Error("unavailable");
-      const { error } = await c.auth.signInWithOtp({ email, options: { shouldCreateUser: true, emailRedirectTo: location.origin + location.pathname, data: meta || {} } });
+      const { error } = await c.auth.signInWithOtp({ email, options: { shouldCreateUser: true, emailRedirectTo: backUrl(), data: meta || {} } });
       if (error) throw error;
     },
     async verify(email, token) {
@@ -3423,7 +3425,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     },
     async signUp(email, password, name) {
       const c = await this.load(); if (!c) throw new Error("unavailable");
-      const { data, error } = await c.auth.signUp({ email, password, options: { emailRedirectTo: location.origin + location.pathname, data: name ? { full_name: name, name } : {} } });
+      const { data, error } = await c.auth.signUp({ email, password, options: { emailRedirectTo: backUrl(), data: name ? { full_name: name, name } : {} } });
       if (error) throw error; return data;
     },
     async signIn(email, password) {
@@ -3433,12 +3435,12 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     },
     async resetLink(email) {
       const c = await this.load(); if (!c) throw new Error("unavailable");
-      const { error } = await c.auth.resetPasswordForEmail(email, { redirectTo: location.origin + location.pathname });
+      const { error } = await c.auth.resetPasswordForEmail(email, { redirectTo: backUrl() });
       if (error) throw error;
     },
     async resendConfirm(email) {
       const c = await this.load(); if (!c) throw new Error("unavailable");
-      const { error } = await c.auth.resend({ type: "signup", email, options: { emailRedirectTo: location.origin + location.pathname } });
+      const { error } = await c.auth.resend({ type: "signup", email, options: { emailRedirectTo: backUrl() } });
       if (error) throw error;
     },
     async setPassword(password) {
@@ -3448,7 +3450,8 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     },
     async oauth(provider) {
       const c = await this.load(); if (!c) throw new Error("unavailable");
-      const { error } = await c.auth.signInWithOAuth({ provider: provider === "linkedin" ? "linkedin_oidc" : provider, options: { redirectTo: location.origin + location.pathname } });
+      if (window.nodoNative) return window.nodoNative.oauth(provider, c);
+      const { error } = await c.auth.signInWithOAuth({ provider: provider === "linkedin" ? "linkedin_oidc" : provider, options: { redirectTo: backUrl() } });
       if (error) throw error;
     },
   };
@@ -3459,7 +3462,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     if (!(window.NODO_PREVIEW && window.NODO_PREVIEW.accounts.includes(user.id))) { window.nodoPreviewDenied(); return; }
     if (acct.user && acct.user.id === user.id) return;
     acct.user = user;
-    Track.log("app_open", { section: state.view, item: matchMedia("(display-mode: standalone)").matches || navigator.standalone ? "installed" : "browser" });
+    Track.log("app_open", { section: state.view, item: window.nodoNative ? "app-" + window.nodoNative.platform : matchMedia("(display-mode: standalone)").matches || navigator.standalone ? "installed" : "browser" });
     try { await Store.connectSb(user); } catch { Store.setStatus(navigator.onLine === false ? "offline" : "error"); }
     const prev = state.profile || {};
     state.profile = { ...prev, name: prev.name || nameOfUser(user), email: user.email || prev.email || "", method: providerOf(user), v: 1 };
@@ -3595,19 +3598,11 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   const WORDMARK = `<span class="wordmark" role="img" aria-label="nodo"><svg viewBox="0 0 300.0 100" aria-hidden="true"><path fill="currentColor" d="M27.4 39.2V46.2Q34 40.6 38.9 38Q44.6 34.9 49.8 34.9Q57.6 34.9 62 40.2Q66.3 45.4 67.3 54.2L70.8 86.4Q71 88.5 71.5 89.5Q72 90.4 73.3 90.8L75.5 91.4Q76.7 91.9 77.3 92.6Q77.9 93.2 77.9 94.2Q77.9 95.4 77 96.1Q76.2 96.8 74.3 96.8H49.5Q45.9 96.8 45.9 94Q45.9 92.3 47.9 91.4L50.4 90.8Q51.6 90.4 52.2 89.4Q52.9 88.4 52.6 86.4L49.3 56.8Q48.7 51.2 46.5 48.4Q44.3 45.6 40 45.6Q37.3 45.6 34.4 47Q31.4 48.4 28.1 51.2L27.4 51.8V86.6Q27.4 88.6 28 89.5Q28.6 90.4 29.7 90.8L32 91.4Q34.1 92.3 34.1 94Q34.1 96.8 30.5 96.8H5.9Q4.1 96.8 3.3 96.1Q2.4 95.4 2.4 94.2Q2.4 93.2 3 92.6Q3.5 91.9 4.7 91.4L7.3 90.8Q8.4 90.4 9 89.5Q9.5 88.6 9.5 86.6V50Q9.5 48.4 9 47.7Q8.6 47 7.5 46.8L4.1 46.5Q2.9 46.3 2.4 45.7Q1.9 45.1 1.9 44.2Q1.9 43.1 2.5 42.5Q3.1 41.9 4.9 41.2L16.7 36.9Q19.1 36 20.6 35.6Q22.1 35.2 23.4 35.2Q25.4 35.2 26.4 36.3Q27.4 37.5 27.4 39.2ZM114.6 34.9Q124.5 34.9 132 38.9Q139.4 42.9 143.6 50.1Q147.8 57.3 147.8 66.8Q147.8 75.8 143.5 83Q139.2 90.1 131.6 94.3Q124 98.4 114 98.4Q104.1 98.4 96.7 94.3Q89.3 90.2 85.1 83.1Q80.9 75.9 80.9 66.5Q80.9 57.4 85.2 50.3Q89.5 43.1 97.1 39Q104.7 34.9 114.6 34.9ZM119.1 91.7Q123.5 91.1 126.1 87.7Q128.8 84.4 129.5 78.5Q130.2 72.6 128.7 64.4Q127.2 56.2 124.4 50.8Q121.6 45.5 117.8 43.1Q114 40.8 109.5 41.5Q105.1 42.2 102.5 45.6Q99.8 48.9 99.1 54.8Q98.5 60.6 99.9 68.9Q101.4 77.1 104.2 82.4Q107 87.7 110.8 90.1Q114.7 92.5 119.1 91.7ZM154.3 68.3Q154.3 58.1 158.4 50.6Q162.4 43.1 169.4 39Q176.3 34.9 184.9 34.9Q192.5 34.9 198.4 38.4Q199.4 39.1 200.3 39.7V16.7Q200.3 15.1 199.8 14.4Q199.3 13.7 198.1 13.5L194.8 13.3Q193.7 13 193.2 12.4Q192.7 11.8 192.7 10.9Q192.7 9.9 193.3 9.3Q193.9 8.6 195.6 8L207.5 3.6Q209.9 2.7 211.4 2.3Q212.8 1.9 214.2 1.9Q216.1 1.9 217.2 3Q218.2 4.1 218.2 6V86.6Q218.2 88.6 218.8 89.5Q219.3 90.4 220.5 90.8L222.9 91.4Q224.1 91.8 224.7 92.5Q225.3 93.2 225.3 94.2Q225.3 95.4 224.4 96.1Q223.5 96.8 221.8 96.8H208.6Q205.2 96.8 203.1 94.6Q200.9 92.6 200.8 89.2Q198.1 92 195.1 93.9Q188.5 98.4 180.5 98.4Q173 98.4 167.1 94.5Q161.1 90.7 157.7 83.9Q154.3 77.1 154.3 68.3ZM200.3 47.7Q198.5 45.9 196.7 44.7Q192.7 42.1 188.2 42.1Q183.9 42.1 180.4 44.7Q177 47.3 175 52.6Q173 57.9 173 66.3Q173 74.1 174.9 79.2Q176.8 84.3 180.2 86.8Q183.5 89.3 187.8 89.3Q192.5 89.3 196.5 86.5Q198.5 85.2 200.3 83.2Z"/><path class="wm-node" d="M264.9 34.9Q274.8 34.9 282.3 38.9Q289.7 42.9 293.9 50.1Q298.1 57.3 298.1 66.8Q298.1 75.8 293.8 83Q289.5 90.1 281.9 94.3Q274.3 98.4 264.3 98.4Q254.4 98.4 247 94.3Q239.6 90.2 235.4 83.1Q231.1 75.9 231.1 66.5Q231.1 57.4 235.4 50.3Q239.8 43.1 247.4 39Q254.9 34.9 264.9 34.9ZM269.4 91.7Q273.8 91.1 276.4 87.7Q279.1 84.4 279.8 78.5Q280.5 72.6 279 64.4Q277.5 56.2 274.7 50.8Q271.9 45.5 268.1 43.1Q264.3 40.8 259.8 41.5Q255.4 42.2 252.7 45.6Q250.1 48.9 249.4 54.8Q248.8 60.6 250.2 68.9Q251.7 77.1 254.5 82.4Q257.3 87.7 261.1 90.1Q265 92.5 269.4 91.7Z"/></svg></span>`;
   const LOGO_D = `<svg class="logo-mark" viewBox="0 0 96 96" aria-hidden="true"><path fill="currentColor" d="M32 30.8V35.3Q36.2 31.7 39.3 30Q43.1 28 46.4 28Q51.5 28 54.3 31.4Q57.1 34.8 57.7 40.5L60 61.3Q60.1 62.6 60.5 63.3Q60.8 63.9 61.6 64.1L63 64.5Q63.8 64.8 64.2 65.3Q64.5 65.7 64.5 66.3Q64.5 67.1 64 67.5Q63.5 68 62.3 68H46.2Q43.9 68 43.9 66.2Q43.9 65.1 45.2 64.5L46.8 64.1Q47.5 63.8 48 63.2Q48.4 62.6 48.2 61.3L46.1 42.1Q45.7 38.6 44.3 36.7Q42.8 34.9 40.1 34.9Q38.4 34.9 36.4 35.8Q34.5 36.7 32.4 38.6L32 38.9V61.4Q32 62.7 32.3 63.3Q32.7 63.8 33.4 64.1L34.9 64.5Q36.2 65.1 36.2 66.2Q36.2 68 33.9 68H18Q16.9 68 16.3 67.5Q15.8 67.1 15.8 66.3Q15.8 65.7 16.1 65.3Q16.5 64.8 17.3 64.5L18.9 64.1Q19.7 63.8 20 63.3Q20.4 62.7 20.4 61.4V37.8Q20.4 36.7 20.1 36.2Q19.8 35.8 19.1 35.7L16.9 35.5Q16.1 35.3 15.8 35Q15.5 34.6 15.5 34Q15.5 33.3 15.9 32.9Q16.2 32.5 17.4 32.1L25 29.3Q26.6 28.7 27.5 28.5Q28.5 28.2 29.4 28.2Q30.6 28.2 31.3 28.9Q32 29.6 32 30.8Z"/><circle class="wm-node" cx="75.5" cy="63.0" r="5"/></svg>`;
   const PROVIDERS = {
-    apple: { name: "Apple", mark: "A", vow: "Nothing else from your account is shared with nodo." },
+    apple: { name: "Apple", mark: '<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M16.37 12.6c-.02-2.2 1.8-3.26 1.88-3.31-1.03-1.5-2.62-1.7-3.18-1.73-1.35-.14-2.64.8-3.33.8-.69 0-1.74-.78-2.86-.76-1.47.02-2.83.86-3.59 2.17-1.53 2.66-.39 6.6 1.1 8.76.73 1.06 1.6 2.24 2.73 2.2 1.1-.04 1.51-.71 2.84-.71 1.32 0 1.7.71 2.86.69 1.18-.02 1.93-1.08 2.65-2.14.84-1.22 1.18-2.41 1.2-2.47-.03-.01-2.3-.88-2.3-3.5zM14.2 6.14c.6-.73 1.01-1.75.9-2.76-.87.04-1.92.58-2.54 1.31-.56.65-1.05 1.68-.92 2.68.97.07 1.96-.49 2.56-1.23z"/></svg>', vow: "Nothing else from your account is shared with nodo." },
     google: { name: "Google", mark: "G", vow: "Nothing else from your account is shared with nodo." },
     linkedin: { name: "LinkedIn", mark: "in", vow: "Nothing is posted to LinkedIn and your connections stay private." },
     microsoft: { name: "Microsoft", mark: "M", vow: "Nothing else from your account is shared with nodo." },
   };
-  /* Email sign-in screen: people who joined with Apple or Google have no password. Point them back to those buttons. */
-  function socialAltHtml() {
-    const alt = Object.entries(PROVIDERS).filter(([k]) => !LIVE || (CFG.providers || []).includes(k));
-    if (!alt.length) return "";
-    const names = alt.map(([, v]) => v.name).join(" or ");
-    return `<div class="auth-social-alt"><p class="fine">Joined with ${names}? You have no nodo password. Use ${alt.length > 1 ? "those buttons" : "the button"} instead.</p>
-      ${alt.map(([k, v]) => `<button class="eu-btn eu-btn--outline eu-btn--block" data-prov="${k}" type="button"><span class="pmark" aria-hidden="true">${v.mark}</span>Continue with ${v.name}</button>`).join("")}</div>`;
-  }
   const METHOD_LABEL = { linkedin: "LinkedIn", google: "Google", microsoft: "Microsoft", apple: "Apple", email: "email and password", password: "email and password", claude: "your Claude account" };
   const LIGHT_STEPS = new Set(["email", "inbox", "password", "provider", "passkey", "data", "signin", "forgot", "sent", "confirm", "newpw"]);
   /* What nodo stores, in plain words. Shown from the sign-in screens and from the profile. It describes what this code does:
@@ -3618,11 +3613,11 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const provNames = (CFG.providers || []).map((k) => (PROVIDERS[k] || {}).name).filter(Boolean);
     return `<div class="block">
       ${LIVE ? sec("With an account", "nodo keeps one record for you: your name and email, the organisation, role and countries you enter, a profile picture if you add one, the people you save, the files you follow and the changes you make to stakeholder lists. The record sits in nodo's database, hosted by Supabase. Other people who use nodo cannot read it.")
-        + sec("How you use nodo", "While you are signed in, nodo keeps a usage log for your account: the sections and profiles you open, what you type in search and how many results came back, when you save or follow something, and whether you took the tour. The team behind nodo reads it to see what works and what is missing. It sits in the same database, is not shared with anyone else and is not used for advertising.")
+        + sec("How you use nodo", "While you are signed in, nodo keeps a usage log for your account: the sections and profiles you open, what you type in search and how many results came back, when you save or follow something, whether you took the tour, and any error the app runs into (the message and where in the code it happened). The team behind nodo reads it to see what works and what is missing. It sits in the same database, is not shared with anyone else and is not used for advertising.")
         + sec("Signing in", "With email you choose a password. It goes straight to the sign-in service, which keeps only a scrambled form of it; nodo never stores it. " + (provNames.length ? "If you sign in with " + provNames.join(" or ") + ", that service passes nodo your name and email address. " : "") + "nodo posts nothing on your behalf and does not read your contacts.")
         : sec("In this preview", "There are no accounts here. Your profile, the people you save, the files you follow and your list changes stay in this browser" + (state.me.id ? ", and in your own Claude account when you open nodo there" : "") + ". The sign-in screens are simulated: nothing you type in them is saved or sent.")}
       ${sec("Without an account", "The same information stays in this browser and goes nowhere. Names you add under Perm reps always stay on the device where you typed them.")}
-      ${sec("What the app loads", "The directory comes from nodo's own data files. The typefaces load from Google Fonts" + (LIVE ? ", and sign-in runs through Supabase" : "") + ". This version carries no advertising" + (LIVE ? " and no third-party analytics: the usage log above is nodo's own." : " and no analytics."))}
+      ${sec("What the app loads", "The directory comes from nodo's own data files. The typefaces are copies kept on nodo's own site" + (LIVE ? ", and sign-in runs through Supabase" : "") + ". This version carries no advertising" + (LIVE ? " and no third-party analytics: the usage log above is nodo's own." : " and no analytics."))}
       ${sec("Your controls", "Your profile has Export my data" + (LIVE ? ", which includes your usage log, Clear my profile and Delete my account and data. Deleting removes your record and your usage log for good, on every device." : " and Clear my profile and saved people."))}
     </div>`;
   }
@@ -8516,6 +8511,60 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     return u ? `<a class="fd-open" href="${esc(u)}" target="_blank" rel="noopener" aria-label="Read the verbatim of ${esc(it.title || "this speech")} (opens the Parliament's site)">Read the verbatim${FD_SVG.ext}</a>` : "";
   }
 
+  /* ---------- Email sign-in hint (since 11 Nov 2026) ----------
+     People who joined with Apple or Google have no nodo password, yet "Already have an account? Sign in" opens the
+     email form. The form now says so and repeats the social buttons (the same providers as the first screen: Apple
+     joins Google in the iOS app). Feature patch "email sign-in hint" in tools/preview/build.mjs calls it. */
+  function socialAltHtml() {
+    const alt = Object.entries(PROVIDERS).filter(([k]) => !LIVE || (CFG.providers || []).includes(k));
+    if (!alt.length) return "";
+    const names = alt.map(([, v]) => v.name).join(" or ");
+    return `<div class="auth-social-alt"><p class="fine">Joined with ${names}? You have no nodo password. Use ${alt.length > 1 ? "those buttons" : "the button"} instead.</p>
+      ${alt.map(([k, v]) => `<button class="eu-btn eu-btn--outline eu-btn--block" data-prov="${k}" type="button"><span class="pmark" aria-hidden="true">${v.mark}</span>Continue with ${v.name}</button>`).join("")}</div>`;
+  }
+
+  /* ---------- Error reporting (since 11 Nov 2026) ----------
+     A script error used to leave a blank screen and no trace. Now each distinct error goes to the usage log as an
+     "error" event (section: error / promise / startup, item: the message, query: file and line), at most 10 per
+     session. Errors from before the session is restored wait up to a minute for it; nothing is logged signed out.
+     A failure during start-up shows the boot screen again with a Try again button instead of a blank page
+     (feature patch "startup catch" in tools/preview/build.mjs calls window.nxBootFailed). The data notice says so. */
+  const ERR = { n: 0, seen: new Set(), pend: [] };
+  function errReport(kind, e, where) {
+    const msg = String((e && (e.message || e.reason)) || e || "unknown").replace(/\s+/g, " ").slice(0, 160);
+    if (ERR.n >= 10 || msg === "Script error." || ERR.seen.has(kind + msg)) return;
+    ERR.seen.add(kind + msg); ERR.n++;
+    const at = where || ((e && e.stack) ? (String(e.stack).split("\n").find((l) => /:\d+:\d+/.test(l)) || "") : "");
+    const row = { section: kind, item: msg, query: String(at).trim().replace(/^at\s+/, "").slice(-120) || null };
+    if (LIVE && acct.user) Track.log("error", row); else ERR.pend.push(row);
+  }
+  addEventListener("error", (ev) => {
+    if (!ev.error && !ev.message) return;
+    errReport("error", ev.error || ev.message, ev.filename ? `${ev.filename.split("/").pop()}:${ev.lineno}:${ev.colno}` : "");
+  });
+  addEventListener("unhandledrejection", (ev) => errReport("promise", ev.reason));
+  (function errFlush(t) {
+    if (ERR.pend.length && LIVE && acct.user) ERR.pend.splice(0).forEach((r) => Track.log("error", r));
+    if (ERR.pend.length && t < 30) setTimeout(() => errFlush(t + 1), 2000);
+  })(0);
+  window.nxBootFailed = (e) => {
+    errReport("startup", e);
+    setTimeout(() => {
+      bootMsg.textContent = "nodo hit a problem while opening. Try again. If it keeps happening, write to hello@getnodo.eu.";
+      bootRetry.onclick = () => location.reload();
+      bootRetry.hidden = false; boot.hidden = false;
+    }, 0);
+  };
+
+  /* ---------- Portraits out of the first download (since 11 Nov 2026) ----------
+     Portraits are separate files (v1/portraits/), loaded as they are shown. Offline, or if one is missing, the image
+     is hidden rather than shown broken; the coloured disc behind it stays. Patches "light data files" and
+     "portrait addresses" in tools/preview/build.mjs. */
+  document.addEventListener("error", (e) => {
+    const t = e.target;
+    if (t && t.tagName === "IMG" && /\/portraits\//.test(t.src || "")) t.style.visibility = "hidden";
+  }, true);
+
   initHome(); initEp(); initEc();
   let startView = "home";
   try { const h = (location.hash || "").slice(1); startView = { parliament: "ep", commission: "ec", council: "co", calendar: "cal", agenda: "agenda", saved: "saved", files: "files", news: "news" }[h] || "home"; } catch { /* ignore */ }
@@ -8528,7 +8577,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   const signedIn = LIVE ? !!acct.user : !!(state.profile && state.profile.method);
   if (!signedIn) openOnb(0, false); else if (store.get(SIGNED_KEY)) openOnb("back", false);
   Store.connect();
-  } finally { boot.hidden = true; }
+  } catch (e) { if (window.nxBootFailed) window.nxBootFailed(e); else throw e; } finally { boot.hidden = true; }
 })();
 
 /* Offline support: only on the hosted PWA. */
@@ -8539,7 +8588,7 @@ if ("serviceWorker" in navigator && /github\.io$/.test(location.hostname)) addEv
 /* nodo preview features: styles. Injected by tools/preview/build.mjs. Uses the app's own tokens. */
 /* Dossier type (31 Oct 2026): Outfit for display, Figtree for text. Only the weights Dossier uses are loaded; see the
    Dossier theme at the end of this file. */
-@import url("https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600&family=Outfit:wght@400;500&display=swap");
+/* Outfit and Figtree are self-hosted since 11 Nov 2026: fonts/fonts.css. */
 
 /* ---------- 1. home: the Monday edition ---------- */
 #vHome #homeCal, #vHome #newsWrap, #vHome #doorFiles { display: none !important; }
@@ -10149,6 +10198,9 @@ body { font-variant-numeric: tabular-nums; }
 </style>
 <style>
 /* nodo preview styles (next/features.css). Everything up to 2026-10-31 was promoted to the live app on 2026-10-31. */
+/* Email sign-in hint (11 Nov 2026): socialAltHtml in features.js. */
+.auth-social-alt { display: grid; gap: 10px; margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--hairline); }
+.auth-social-alt .fine { margin: 0; }
 </style>
 <div id="nxBadge" aria-hidden="true">PREVIEW</div>
 </body></html>

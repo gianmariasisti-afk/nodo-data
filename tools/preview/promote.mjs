@@ -28,6 +28,23 @@ function patch(text, file, rules) {
 
 /* The feature patches, as in build.mjs. The ones promoted on 31 Oct 2026 are already in the live page and left this list then. */
 const FEATURE_PATCHES = [
+  /* Self-hosted fonts (since 11 Nov 2026): Outfit and Figtree from fonts/, no request to Google. The old Bricolage
+     Grotesque and Instrument Sans link goes too: the Dossier theme replaced them on 31 Oct. Same patches in promote.mjs. */
+  ["self-hosted fonts", '<link rel="preconnect" href="https://fonts.googleapis.com">\n<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Instrument+Sans:wght@400..700&display=swap">', '<link rel="stylesheet" href="fonts/fonts.css">'],
+  ["no google fonts import", '@import url("https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600&family=Outfit:wght@400;500&display=swap");', '/* Outfit and Figtree are self-hosted since 11 Nov 2026: fonts/fonts.css. */'],
+  /* Portraits out of the first download (since 11 Nov 2026): MEPs and Commission load from v1/lite/ (no inline photos,
+     scripts/split-portraits.mjs) and each portrait loads from v1/portraits/ when it is shown. The bundled copy in data/
+     (iOS app, offline) still carries inline photos. A portrait that cannot load is hidden (features.js). Same patches in promote.mjs. */
+  ["light data files", "const getData = (f) => fetchJson(DATA_BASE + f + \".json\")", "const getData = (f) => fetchJson(DATA_BASE + (f === \"meps\" || f === \"commission\" ? \"lite/\" : \"\") + f + \".json\")"],
+  ["portrait addresses", "      DATA = { mep, ec, cal, co, ag, fl };", "      DATA = { mep, ec, cal, co, ag, fl };\n      /* Portraits as files: \"portraits/x.webp\" in the light files becomes an address next to the data. */\n      { const fix = (o) => { if (o && typeof o.photo === \"string\" && o.photo.startsWith(\"portraits/\")) o.photo = DATA_BASE + o.photo; };\n        (mep.meps || []).forEach(fix); (ec.college || []).forEach((c) => { fix(c); (c.cabinet || []).forEach(fix); }); }"],
+  /* Error reporting (since 11 Nov 2026): a start-up failure shows the boot screen with Try again instead of a blank page
+     (window.nxBootFailed in features.js); errors join the usage log, and the data notice says so. Same patches in promote.mjs. */
+  ["startup catch", "  } finally { boot.hidden = true; }", "  } catch (e) { if (window.nxBootFailed) window.nxBootFailed(e); else throw e; } finally { boot.hidden = true; }"],
+  ["notice: errors", "how many results came back, when you save or follow something, and whether you took the tour.", "how many results came back, when you save or follow something, whether you took the tour, and any error the app runs into (the message and where in the code it happened)."],
+  ["notice: fonts", 'The typefaces load from Google Fonts"', 'The typefaces are copies kept on nodo\'s own site"'],
+  /* Email sign-in hint (since 11 Nov 2026): people who joined with Apple or Google have no password; the email
+     sign-in screen says so and repeats those buttons (socialAltHtml in features.js). Same patch in promote.mjs. */
+  ["email sign-in hint", 'Forgot your password?</button>`;\n      foot = `<button class="eu-btn eu-btn--brand eu-btn--block" type="submit" form="fIn"', 'Forgot your password?</button>\n        ${socialAltHtml()}`;\n      foot = `<button class="eu-btn eu-btn--brand eu-btn--block" type="submit" form="fIn"'],
   ["speech card link", 'Question PDF</a>` : ""}` : "";', 'Question PDF</a>` : ""}` : fdSpeechAct(it);'],
 ];
 

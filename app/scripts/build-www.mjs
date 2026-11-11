@@ -13,7 +13,7 @@ rmSync(WWW, { recursive: true, force: true });
 mkdirSync(WWW, { recursive: true });
 
 // Files and folders the root index.html loads by relative path.
-for (const p of ["config.js", "avatars.js", "europe-dots.json", "manifest.webmanifest", "icons", "vendor", "monuments"]) {
+for (const p of ["config.js", "avatars.js", "europe-dots.json", "manifest.webmanifest", "icons", "vendor", "monuments", "fonts"]) {
   if (existsSync(join(ROOT, p))) cpSync(join(ROOT, p), join(WWW, p), { recursive: true });
 }
 cpSync(join(APP, "native", "native.js"), join(WWW, "native.js"));

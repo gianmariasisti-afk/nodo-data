@@ -1,1 +1,4 @@
 /* nodo preview styles (next/features.css). Everything up to 2026-10-31 was promoted to the live app on 2026-10-31. */
+/* Email sign-in hint (11 Nov 2026): socialAltHtml in features.js. */
+.auth-social-alt { display: grid; gap: 10px; margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--hairline); }
+.auth-social-alt .fine { margin: 0; }

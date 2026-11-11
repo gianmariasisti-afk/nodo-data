@@ -60,6 +60,8 @@ jobs:
             [ -f "$RUNNER_TEMP/out/commission-structural.json" ] && cp "$RUNNER_TEMP/out/commission-structural.json" data-cache/
             [ -f "$RUNNER_TEMP/out/autonomy-log.json" ] && cp "$RUNNER_TEMP/out/autonomy-log.json" data-cache/
             node -e 'const f=require("fs");const e=JSON.parse(f.readFileSync(process.env.RUNNER_TEMP+"/out/entry.json","utf8"));if(e&&!process.env.SKIP){const m=JSON.parse(f.readFileSync("v1/manifest.json","utf8"));m.files=m.files||{};m.files.commission=e;m.generated=new Date().toISOString();f.writeFileSync("v1/manifest.json",JSON.stringify(m,null,1)+"\n")}'
+            # Light copies without inline photos, and the portraits as files (the preview loads these first).
+            node scripts/split-portraits.mjs
             node scripts/validate-data.mjs 2>&1 | tee -a build.log; [ "${PIPESTATUS[0]}" -eq 0 ] || { echo "Validation failed: nothing pushed"; exit 1; }
             git add v1 data-cache
             if git diff --cached --quiet; then echo "Nothing new."; exit 0; fi
