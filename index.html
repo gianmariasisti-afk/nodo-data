@@ -3477,6 +3477,11 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     toast("Signed out. Your lists stay in your account.", 2600);
   }
   async function deleteAccount() {
+    /* iOS app: Apple sign-in users confirm with Apple first so nodo can revoke its Apple tokens (native.js). */
+    if (window.nodoNative && window.nodoNative.beforeDelete) {
+      try { await window.nodoNative.beforeDelete(SB.client); }
+      catch (e) { if (e && e.code === "CANCELED") return toast("Account not deleted", 2400); }
+    }
     try { const { error } = await SB.client.rpc("delete_my_account"); if (error) throw error; }
     catch { return toast("The account could not be deleted. Try again.", 3000); }
     leaveAccount();

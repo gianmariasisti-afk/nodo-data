@@ -64,9 +64,27 @@
     else if (frag.get("access_token")) await client.auth.setSession({ access_token: frag.get("access_token"), refresh_token: frag.get("refresh_token") });
   });
 
+  /* Account deletion: Apple requires apps with Sign in with Apple to revoke their Apple tokens when an account is
+     deleted (guideline 5.1.1(v)). A fresh Apple sheet gives a one-time code; the apple-revoke function exchanges it
+     at Apple and revokes the token. Cancelling the sheet cancels the deletion. A failure at Apple does not block the
+     deletion: people must always be able to leave. */
+  async function beforeDelete(client) {
+    if (platform !== "ios") return;
+    let user = null;
+    try { ({ data: { user } } = await client.auth.getUser()); } catch { /* checked below */ }
+    if (!user || !(user.identities || []).some((i) => i.provider === "apple")) return;
+    const res = await AppleSignIn.authorize({ nonce: randomNonce() }); /* throws CANCELED if the person closes the sheet */
+    if (!res.authorizationCode) { console.warn("nodo: Apple returned no authorization code"); return; }
+    try {
+      const { data, error } = await client.functions.invoke("apple-revoke", { body: { code: res.authorizationCode } });
+      if (error || !data || !data.revoked) console.warn("nodo: Apple token not revoked", error || data);
+    } catch (e) { console.warn("nodo: Apple token not revoked", e); }
+  }
+
   window.nodoNative = {
     platform,
     webUrl: WEB_URL,
+    beforeDelete,
     async oauth(provider, client) {
       if (provider === "apple" && platform === "ios") return apple(client);
       return browserFlow(provider, client);

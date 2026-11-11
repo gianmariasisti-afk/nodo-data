@@ -77,6 +77,7 @@ public class NodoAppleSignInPlugin: CAPPlugin, CAPBridgedPlugin, ASAuthorization
         }
         call.resolve([
             "identityToken": token,
+            "authorizationCode": credential.authorizationCode.flatMap { String(data: $0, encoding: .utf8) } ?? "",
             "user": credential.user,
             "email": credential.email ?? "",
             "givenName": credential.fullName?.givenName ?? "",

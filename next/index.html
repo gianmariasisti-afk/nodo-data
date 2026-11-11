@@ -774,6 +774,8 @@ html.touring { overflow: hidden; }
 .onb-xl--auth { font-size: 44px; line-height: 48px; }
 .auth-list { display: grid; gap: var(--space-2); margin-top: var(--space-6); }
 .auth-list--tight { margin-top: 0; }
+.auth-social-alt { display: grid; gap: 10px; margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--border-control); }
+.auth-social-alt .fine { margin: 0; }
 .pmark, .pface { width: 28px; height: 28px; flex: none; border-radius: 50%; }
 .pmark { display: grid; place-items: center; background: var(--tint-brand); color: var(--ink); font-size: 12px; line-height: 1; font-weight: 700; }
 .pface { object-fit: cover; }
@@ -3485,6 +3487,11 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     toast("Signed out. Your lists stay in your account.", 2600);
   }
   async function deleteAccount() {
+    /* iOS app: Apple sign-in users confirm with Apple first so nodo can revoke its Apple tokens (native.js). */
+    if (window.nodoNative && window.nodoNative.beforeDelete) {
+      try { await window.nodoNative.beforeDelete(SB.client); }
+      catch (e) { if (e && e.code === "CANCELED") return toast("Account not deleted", 2400); }
+    }
     try { const { error } = await SB.client.rpc("delete_my_account"); if (error) throw error; }
     catch { return toast("The account could not be deleted. Try again.", 3000); }
     leaveAccount();
@@ -3593,6 +3600,14 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     linkedin: { name: "LinkedIn", mark: "in", vow: "Nothing is posted to LinkedIn and your connections stay private." },
     microsoft: { name: "Microsoft", mark: "M", vow: "Nothing else from your account is shared with nodo." },
   };
+  /* Email sign-in screen: people who joined with Apple or Google have no password. Point them back to those buttons. */
+  function socialAltHtml() {
+    const alt = Object.entries(PROVIDERS).filter(([k]) => !LIVE || (CFG.providers || []).includes(k));
+    if (!alt.length) return "";
+    const names = alt.map(([, v]) => v.name).join(" or ");
+    return `<div class="auth-social-alt"><p class="fine">Joined with ${names}? You have no nodo password. Use ${alt.length > 1 ? "those buttons" : "the button"} instead.</p>
+      ${alt.map(([k, v]) => `<button class="eu-btn eu-btn--outline eu-btn--block" data-prov="${k}" type="button"><span class="pmark" aria-hidden="true">${v.mark}</span>Continue with ${v.name}</button>`).join("")}</div>`;
+  }
   const METHOD_LABEL = { linkedin: "LinkedIn", google: "Google", microsoft: "Microsoft", apple: "Apple", email: "email and password", password: "email and password", claude: "your Claude account" };
   const LIGHT_STEPS = new Set(["email", "inbox", "password", "provider", "passkey", "data", "signin", "forgot", "sent", "confirm", "newpw"]);
   /* What nodo stores, in plain words. Shown from the sign-in screens and from the profile. It describes what this code does:
@@ -3738,7 +3753,8 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
           ${pwField("current-password", false)}
           ${ferr("form")}
         </form>
-        <button class="textbtn textbtn--brand auth-forgot" data-onb="forgot" type="button">Forgot your password?</button>`;
+        <button class="textbtn textbtn--brand auth-forgot" data-onb="forgot" type="button">Forgot your password?</button>
+        ${socialAltHtml()}`;
       foot = `<button class="eu-btn eu-btn--brand eu-btn--block" type="submit" form="fIn"${a.busy ? " disabled" : ""}>Sign in</button>
         <p class="auth-alt">New to nodo?<button class="textbtn textbtn--brand" data-onb="password" type="button">Create an account</button></p>
         ${PREVIEW ? `<p class="fine">Preview build: sign-in is simulated and nothing is sent.</p>` : ""}`;
