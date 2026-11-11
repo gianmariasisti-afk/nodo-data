@@ -23,7 +23,7 @@ const b64url = (bytes: Uint8Array) =>
 const b64urlJson = (o: unknown) => b64url(new TextEncoder().encode(JSON.stringify(o)));
 
 function env(name: string): string {
-  const v = Deno.env.get(name);
+  const v = Deno.env.get(name)?.trim(); // values pasted from a web page often carry spaces or a line break
   if (!v) throw new Error(`Missing secret ${name}`);
   return v;
 }
@@ -77,9 +77,17 @@ Deno.serve(async (req) => {
     const secret = await clientSecret();
 
     if (input.check) {
-      const r = await exchange("nodo-config-check", secret);
-      const err = r.body.error ?? "";
-      return json({ keyAccepted: err === "invalid_grant", apple: err || "ok" });
+      // Apple answers invalid_grant to a dummy code before it checks the client, so this only proves the key parses.
+      // The format report helps spot a wrong value without revealing the private key.
+      const show = (n: string) => { const raw = Deno.env.get(n) ?? "", v = raw.trim(); return { length: v.length, starts: v.slice(0, 3), extraSpaces: raw !== v }; };
+      const pk = Deno.env.get("APPLE_PRIVATE_KEY") ?? "";
+      return json({
+        keyParses: true,
+        teamId: show("APPLE_TEAM_ID"),
+        keyId: show("APPLE_KEY_ID"),
+        clientIdIsBundleId: Deno.env.get("APPLE_CLIENT_ID")?.trim() === "eu.getnodo.app",
+        privateKey: { hasBeginLine: pk.includes("BEGIN PRIVATE KEY"), length: pk.length },
+      });
     }
 
     const auth = req.headers.get("Authorization") ?? "";
