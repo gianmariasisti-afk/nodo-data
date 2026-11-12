@@ -38,7 +38,10 @@ export function toLines(html) {
     .split("\n").map((l) => l.replace(/\s+/g, " ").trim()).filter(Boolean);
 }
 const deob = (s) => s.replace(/\s*\[\s*dot\s*\]\s*/gi, ".").replace(/\s*\[\s*at\s*\]\s*/gi, "@");
-const isRole = (l) => /^\p{Lu}[\p{Lu}0-9 /,&()'’.:-]{2,120}$/u.test(l) && /\p{Lu}{3}/u.test(l) && !/^(EMAIL|PHONE|RESPONSIBILITIES|PRESS CONTACTS)\b/.test(l);
+/* A role line is all capitals ("HEAD OF CABINET"), or opens with a word in capitals and goes on in lower case
+   ("ASSISTANT to the President", "SENIOR ECONOMIC ADVISER (acting)"). Until 12 Nov 2026 only the first form counted,
+   which dropped ten assistants of the President's cabinet from the reading. */
+const isRole = (l) => (/^\p{Lu}[\p{Lu}0-9 /,&()'’.:-]{2,120}$/u.test(l) && /\p{Lu}{3}/u.test(l) || (/^\p{Lu}{3,}(?!\p{Ll})/u.test(l) && l.length <= 160)) && !/^(EMAIL|PHONE|RESPONSIBILITIES|PRESS CONTACTS)\b/.test(l);
 
 /* A team page lists people as: Name / ROLE / Email: … / Phone number: … / Responsibilities / items / Responsibilities outside the portfolio / items / Country coordinator: … */
 export function parseTeam(lines) {
@@ -59,11 +62,20 @@ export function parseTeam(lines) {
     if (isRole(lines[i + 1] || "") && /^Email/i.test(lines[i + 2] || "")) continue; /* next person's name */
     if (mode === "resp") cur.resp.push(l); else if (mode === "outside") cur.outside.push(l);
   }
-  return people;
+  /* A person listed twice holds two posts: one record, the roles joined in page order. */
+  const byName = new Map(), merged = [];
+  for (const p of people) {
+    const o = byName.get(nk(p.name));
+    if (!o) { byName.set(nk(p.name), p); merged.push(p); continue; }
+    if (!o.role.split(" · ").some((r) => nk(r) === nk(p.role))) o.role += " · " + p.role;
+    o.email = o.email || p.email; o.phone = o.phone || p.phone; o.note = o.note || p.note;
+    for (const k of ["resp", "outside", "countries"]) for (const x of p[k]) if (!o[k].includes(x)) o[k].push(x);
+  }
+  return merged;
 }
 const keepEmail = (e) => (/^cab-/.test(e) ? e : "");
 // "Assistant to the Head of Cabinet" is office staff, not the lead: seniority is decided by isSeniorRole, not by a substring.
-export const roleClass = (role) => (isSeniorRole(role) ? "lead" : /policy assistant/i.test(role) ? "policy" : /assistant|officer|logistics|secretary|registry|document|mission/i.test(role) && !/adviser|member/i.test(role) ? "office" : "policy");
+export const roleClass = (role) => (isSeniorRole(role) ? "lead" : /policy assistant/i.test(role) ? "policy" : /^assistant\b/i.test(String(role || "").trim()) ? "office" : /assistant|officer|logistics|secretary|registry|document|mission/i.test(role) && !/adviser|member/i.test(role) ? "office" : "policy");
 export const tidyRole = (r) => r.toLowerCase().replace(/(^|[\s/(-])([a-z])/g, (m, a, b) => a + b.toUpperCase()).replace(/\bOf\b/g, "of").replace(/\bAnd\b/g, "and").replace(/\bTo\b/g, "to").replace(/\bThe\b/g, "the").replace(/\//g, " / ").replace(/\s+/g, " ").trim();
 
 /* Where a College member's own page lives, and the link to their team page on it. The President's pages sit under

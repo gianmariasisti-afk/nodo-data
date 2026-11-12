@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { classifyCommission, isSeniorRole } from "../../scripts/autonomy.mjs";
-import { roleClass, tidyRole } from "../../scripts/build-commission.mjs";
+import { roleClass, tidyRole, parseTeam } from "../../scripts/build-commission.mjs";
 
 test("assistants to heads of cabinet are not senior", () => {
   assert.equal(isSeniorRole("Assistant to the Head of Cabinet and Andreja Viher-White"), false);
@@ -74,4 +74,22 @@ test("one senior change holds the whole batch", () => {
     { type: "added", commissioner: "x", name: "Q", role: "Head of Cabinet" },
   ]);
   assert.equal(v.auto, false);
+});
+
+test("mixed-case roles and people with two posts are read (President's team page, 12 Nov 2026)", () => {
+  const lines = [
+    "Björn Seibert", "HEAD OF CABINET", "Email: bjorn.seibert[at]ec.europa.eu", "Phone number: +32 2 000 00 00", "Responsibilities", "Overall coordination",
+    "Michele Piergiovanni", "SENIOR ECONOMIC ADVISER (acting)", "Email: m.p[at]ec.europa.eu", "Phone number: +32 2 000 00 01",
+    "Michele Piergiovanni", "DIGITAL ADVISER", "Email: m.p[at]ec.europa.eu", "Phone number: +32 2 000 00 01", "Responsibilities", "Digital",
+    "Assistants",
+    "Alisa James", "ASSISTANT to the President", "Email: a.j[at]ec.europa.eu", "Phone number: +32 2 000 00 02",
+    "Claire Saelens", "ASSISTANT to the Deputy Head of Cabinet and the Policy Coordinator/Member Western Balkans, East and Enlargement", "Email: c.s[at]ec.europa.eu", "Phone number: +32 2 000 00 03",
+  ];
+  const people = parseTeam(lines);
+  assert.deepEqual(people.map((p) => p.name), ["Björn Seibert", "Michele Piergiovanni", "Alisa James", "Claire Saelens"]);
+  assert.equal(people[1].role, "SENIOR ECONOMIC ADVISER (acting) · DIGITAL ADVISER");
+  assert.equal(tidyRole(people[2].role), "Assistant to the President");
+  assert.equal(roleClass(people[2].role), "office");
+  assert.equal(roleClass(people[3].role), "office"); // an assistant stays office staff whoever they assist
+  assert.deepEqual(people[0].resp, ["Overall coordination"]);
 });
