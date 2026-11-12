@@ -68,15 +68,36 @@ test("citations may be analysis but not excluded or unmapped tier 3", () => {
 /* Autonomy: which Latest developments items go live without review (scripts/autonomy.mjs) */
 import { classifyPress } from "../../scripts/autonomy.mjs";
 const inst = { file: "iaa", date: "2026-11-05", source: "Council press release", inst: "council", kind: "institutional", url: "https://www.consilium.europa.eu/en/press/x", text: "x", stage: false };
-test("institutional items without a stage change publish; press and stage changes wait", () => {
-  const v = classifyPress([inst, { ...inst, stage: true }, { ...ok, file: "iaa" }, { ...inst, inst: "press" }]);
+test("institutional items without a stage change publish; press and stage changes wait for the double check", () => {
+  const v = classifyPress([inst, { ...inst, stage: true }, { ...ok, file: "iaa" }, { ...inst, inst: "press" }], undefined, { today: "2026-11-12" });
   assert.equal(v.auto.length, 1);
   assert.equal(v.review.length, 3);
+  assert.equal(v.pending.length, 3);
   assert.ok(v.reasons.some((r) => /stage/.test(r)) && v.reasons.some((r) => /press reporting/.test(r)));
 });
-test("too many institutional items in one run all wait", () => {
+test("a second source, or a later run, publishes a press item or a stage change", () => {
+  const press = { ...ok, file: "iaa" }, stage = { ...inst, stage: true };
+  const id = (x) => x.file + "|" + x.url;
+  assert.equal(classifyPress([{ ...press, confirm: "https://www.consilium.europa.eu/en/press/y" }], undefined, { today: "2026-11-12" }).auto.length, 1);
+  const first = classifyPress([press, stage], undefined, { today: "2026-11-12", idOf: id });
+  assert.equal(first.auto.length, 0);
+  assert.equal(classifyPress([press, stage], undefined, { today: "2026-11-12", idOf: id, pending: first.pending }).auto.length, 0);
+  assert.equal(classifyPress([press, stage], undefined, { today: "2026-11-16", idOf: id, pending: first.pending }).auto.length, 2);
+});
+test("analysis is never published and an unnamed institution needs the double check", () => {
+  const v = classifyPress([{ ...inst, kind: "analysis" }, inst], undefined, { today: "2026-11-12", sure: () => false });
+  assert.equal(v.auto.length, 0);
+  assert.equal(v.pending.length, 1);
+});
+test("too many items in one run: none is published", () => {
   const many = Array.from({ length: 13 }, (_, i) => ({ ...inst, url: inst.url + i }));
   const v = classifyPress(many);
   assert.equal(v.auto.length, 0);
   assert.equal(v.review.length, 13);
+  assert.equal(v.overLimit, true);
+});
+test("confirm must be a listed source on another site", () => {
+  assert.deepEqual(checkItem({ ...ok, confirm: "https://www.consilium.europa.eu/en/press/y" }, ctx).filter((p) => /confirm/.test(p)), []);
+  assert.ok(checkItem({ ...ok, confirm: "https://example.org/a" }, ctx).some((p) => /confirm/.test(p)));
+  assert.ok(checkItem({ ...ok, confirm: ok.url + "/again" }, ctx).some((p) => /different site/.test(p)));
 });

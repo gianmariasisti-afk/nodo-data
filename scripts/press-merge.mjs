@@ -6,10 +6,14 @@
    node scripts/press-merge.mjs --prune           only drop items older than keepDays
    node scripts/press-merge.mjs --split <items.json> <auto.json> <review.json> [--log]
                                                   check every item, then sort them by the autonomy policy (scripts/autonomy.mjs,
-                                                  classifyPress): institutional items that do not change a stage go to <auto.json>
-                                                  (published to main without review), the rest to <review.json> (branch review/press).
-                                                  Items already published are left out of both. --log appends the automatic ones to
-                                                  data-cache/autonomy-log.json. Writes nothing to press.json.
+                                                  classifyPress). <auto.json> gets what is published to main now: institutional
+                                                  items that do not change a stage, and press items or stage changes that passed
+                                                  the double check (a second listed source in "confirm", or seen by a run on an
+                                                  earlier day and submitted again). <review.json> gets the rest, which waits in
+                                                  data-cache/press/pending.json for the next run. Items already published are left
+                                                  out of both. --log appends the published ones to data-cache/autonomy-log.json and
+                                                  rewrites pending.json. Writes nothing to press.json.
+   node scripts/press-merge.mjs --pending         print the items that wait for a second look (JSON array)
 
    Every item is checked here and again by scripts/validate-data.mjs. An item that fails is refused with the reason and
    nothing is written. Items already published (same file and url) are kept as they are. */
@@ -47,6 +51,13 @@ export function checkItem(x, { fileIds, mepIds, reg }) {
   for (const k of x.people || []) if (!/^ep:\d+$/.test(k) || (mepIds && !mepIds.has(k.slice(3)))) p.push(`person ${k} is not an MEP in meps.json`);
   if (x.stage !== undefined && typeof x.stage !== "boolean") p.push("stage must be true or false");
   if (x.paywall !== undefined && typeof x.paywall !== "boolean") p.push("paywall must be true or false");
+  /* confirm: a second page stating the same fact, on the source list (media or institution) and on another site than url. */
+  if (x.confirm !== undefined) {
+    const host = (u) => { try { return new URL(u).hostname.replace(/^www\./, ""); } catch { return ""; } };
+    const r = /^https:\/\/[^\s]+$/.test(x.confirm || "") ? resolveSource(x.confirm, reg) : null;
+    if (!r || r.excluded || !["media", "institutions"].includes(r.group)) p.push("confirm is not an https page of a media outlet or institution on nodo's source list");
+    else if (host(x.confirm) === host(x.url)) p.push("confirm must be a different site than url");
+  }
   return p;
 }
 export const idOf = (x) => crypto.createHash("sha1").update(x.file + "|" + x.url).digest("hex").slice(0, 10);
@@ -74,6 +85,10 @@ function save(doc) {
   return out;
 }
 
+const PENDING = path.join(ROOT, "data-cache/press/pending.json");
+function loadPending() { try { const a = JSON.parse(fs.readFileSync(PENDING, "utf8")); return Array.isArray(a) ? a.filter((p) => p && p.id && p.item) : []; } catch { return []; } }
+function savePending(list) { fs.mkdirSync(path.dirname(PENDING), { recursive: true }); fs.writeFileSync(PENDING, JSON.stringify(list, null, 1) + "\n"); }
+
 function main() {
   const args = process.argv.slice(2);
   const doc = load();
@@ -93,19 +108,24 @@ function main() {
     items.forEach((x, i) => { const p = checkItem(x, c); if (p.length) refused.push(`item ${i + 1} (${x.url || "no url"}): ${p.join("; ")}`); });
     if (refused.length) { console.error("Refused, nothing written:\n" + refused.join("\n")); process.exit(1); }
     const fresh = items.filter((x) => !(doc.files[x.file] || []).some((y) => y.id === idOf(x)));
-    const v = classifyPress(fresh);
-    /* Automatic only from an institution the source list names with its own inst (Parliament, Council, Commission, advisory
-       bodies); a generic europa.eu page or a national source waits for review. */
+    /* At once only from an institution the source list names with its own inst (Parliament, Council, Commission, advisory
+       bodies); a generic europa.eu page or a national source needs the double check like press reporting. */
     const sure = (x) => { const r = resolveSource(x.url); return !!(r && r.group === "institutions" && r.entry.inst && r.entry.inst === x.inst); };
-    for (const x of v.auto.filter((y) => !sure(y))) { v.review.push(x); v.reasons.push(`${x.file}: source is not a named EU institution on the source list (${x.source})`); }
-    v.auto = v.auto.filter(sure);
+    const before = loadPending();
+    const v = classifyPress(fresh, undefined, { pending: before, idOf, sure });
     fs.writeFileSync(autoOut, JSON.stringify(v.auto, null, 1) + "\n");
     fs.writeFileSync(reviewOut, JSON.stringify(v.review, null, 1) + "\n");
-    const done = () => console.log(JSON.stringify({ auto: v.auto.length, review: v.review.length, alreadyPublished: items.length - fresh.length, reasons: v.reasons }, null, 1));
-    if (args.includes("--log") && v.auto.length) logAuto(path.join(ROOT, "data-cache"), { source: "press", changes: v.auto.map((x) => ({ type: "published", name: `${x.file}: ${x.source} ${x.date}`, url: x.url })) }).then(done);
+    const done = () => console.log(JSON.stringify({ auto: v.auto.length, waiting: v.pending.length, review: v.review.length, alreadyPublished: items.length - fresh.length, overLimit: v.overLimit, reasons: v.reasons }, null, 1));
+    if (!args.includes("--log")) { done(); return; }
+    /* Waiting items: this run's, plus earlier ones this run did not submit again, for cfg.pendingDays at most. */
+    const keepFrom = addDays(today, -(cfg.pendingDays || 14)), now = new Set(fresh.map(idOf)), published = new Set(v.auto.map(idOf));
+    const carried = before.filter((p) => !now.has(p.id) && !published.has(p.id) && p.firstSeen >= keepFrom && !(doc.files[p.item.file] || []).some((y) => y.id === p.id));
+    savePending([...carried, ...v.pending]);
+    if (v.auto.length) logAuto(path.join(ROOT, "data-cache"), { source: "press", changes: v.auto.map((x) => ({ type: "published", name: `${x.file}: ${x.source} ${x.date}`, url: x.url, check: x.kind === "institutional" && x.stage !== true && sure(x) ? "institution's own page" : x.confirm ? "second source" : "verified on two runs" })) }).then(done);
     else done();
     return;
   }
+  if (args[0] === "--pending") { console.log(JSON.stringify(loadPending().map((p) => ({ ...p.item, firstSeen: p.firstSeen })), null, 1)); return; }
   if (!args[0]) { console.error("usage: press-merge.mjs <items.json> | --remove <id> | --prune"); process.exit(2); }
   const items = JSON.parse(fs.readFileSync(args[0], "utf8"));
   if (!Array.isArray(items)) { console.error("items file must hold a JSON array"); process.exit(2); }
@@ -116,7 +136,7 @@ function main() {
   for (const x of items) {
     const id = idOf(x), list = (doc.files[x.file] = doc.files[x.file] || []);
     if (list.some((y) => y.id === id)) { kept++; continue; }
-    const { file, ...rest } = x;
+    const { file, confirm, firstSeen, ...rest } = x; // confirm and firstSeen belong to the double check, not to the app
     list.push({ id, ...rest, people: rest.people || [], stage: !!rest.stage, paywall: !!rest.paywall, added: today });
     added++;
   }

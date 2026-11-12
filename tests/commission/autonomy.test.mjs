@@ -29,18 +29,40 @@ test("this morning's batch would have gone live on its own", () => {
   assert.equal(v.auto, true, v.reasons.join("; "));
 });
 
-test("a new Head of Cabinet waits for review", () => {
-  const v = classifyCommission([{ type: "role", commissioner: "x", name: "A", from: "Member", to: "HEAD OF CABINET" }]);
-  assert.equal(v.auto, false);
-  assert.match(v.reasons[0], /senior role/);
+test("a new Head of Cabinet waits for a second reading, then applies", () => {
+  const change = [{ type: "role", commissioner: "x", name: "A", from: "Member", to: "HEAD OF CABINET" }];
+  const first = classifyCommission(change, undefined, { today: "2026-11-12" });
+  assert.equal(first.auto, false);
+  assert.equal(first.decision, false);
+  assert.match(first.reasons[0], /senior role/);
+  assert.equal(first.pending.length, 1);
+  // the same day again: still one reading
+  assert.equal(classifyCommission(change, undefined, { today: "2026-11-12", pending: first.pending }).auto, false);
+  // a later day reads the same change: it applies
+  const second = classifyCommission(change, undefined, { today: "2026-11-13", pending: first.pending });
+  assert.equal(second.auto, true, second.reasons.join("; "));
+  // a later day reads something else: the new change starts its own count
+  const other = classifyCommission([{ ...change[0], name: "B" }], undefined, { today: "2026-11-13", pending: first.pending });
+  assert.equal(other.auto, false);
+  assert.equal(other.pending[0].firstSeen, "2026-11-13");
+});
+
+test("the President's cabinet needs the second reading even for ordinary roles", () => {
+  const change = [{ type: "added", commissioner: "ursula-von-der-leyen", name: "P", role: "Member" }];
+  const opts = { today: "2026-11-12", alwaysConfirm: (c) => c.commissioner === "ursula-von-der-leyen" };
+  const first = classifyCommission(change, undefined, opts);
+  assert.equal(first.auto, false);
+  assert.equal(classifyCommission(change, undefined, { ...opts, today: "2026-11-16", pending: first.pending }).auto, true);
 });
 
 test("removing a deputy head waits for review", () => {
   assert.equal(classifyCommission([{ type: "removed", commissioner: "x", name: "B", role: "Deputy Head of Cabinet" }]).auto, false);
 });
 
-test("College changes and large batches wait for review", () => {
-  assert.equal(classifyCommission([{ type: "commissioner-added", slug: "new-person" }]).auto, false);
+test("College changes and large batches wait for a person, however often they are read", () => {
+  const college = classifyCommission([{ type: "commissioner-added", slug: "new-person" }], undefined, { today: "2026-11-13", pending: [{ key: "commissioner-added|new-person||", firstSeen: "2026-11-12" }] });
+  assert.equal(college.auto, false);
+  assert.equal(college.decision, true);
   const six = Array.from({ length: 6 }, (_, i) => ({ type: "added", commissioner: "x", name: "P" + i, role: "Member" }));
   assert.equal(classifyCommission(six).auto, false);
   assert.equal(classifyCommission(six.slice(0, 5)).auto, true);

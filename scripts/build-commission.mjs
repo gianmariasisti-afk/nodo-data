@@ -139,13 +139,16 @@ async function main() {
   for (const s of report.college.added) structural.push({ type: "commissioner-added", slug: s });
   for (const s of report.college.removed) structural.push({ type: "commissioner-removed", slug: s });
 
-  // Autonomy: a small batch of ordinary cabinet changes goes live; anything senior or large waits for review.
-  const verdict = classifyCommission(structural);
-  // The President's cabinet joined the updater on 19 Oct 2026: its people changes go to review until the parse has proven itself.
+  // Autonomy: ordinary cabinet changes go live at once; senior roles and the President's cabinet go live when a run on a
+  // later day reads the same change (double check, since 12 Nov 2026); College changes and large batches wait for a person.
   const presSlugs = new Set(cm.college.filter((m) => m.kind === "president").map((m) => m.slug));
-  if (structural.some((c) => presSlugs.has(c.commissioner))) { verdict.auto = false; verdict.reasons.push("President's cabinet changes always go to review"); }
+  const prevReport = await readJson(path.join(CACHE, "commission-report.json"), null);
+  const verdict = classifyCommission(structural, undefined, { pending: (prevReport && prevReport.pending) || [], alwaysConfirm: (c) => presSlugs.has(c.commissioner) });
   const applyAll = structural.length > 0 && verdict.auto;
-  report.autonomy = { applied: applyAll, waits: applyAll ? [] : verdict.reasons };
+  // Waiting only for the second reading: nothing for a person to review, so no proposal branch and no issue.
+  const confirmingOnly = structural.length > 0 && !verdict.auto && !verdict.decision;
+  report.autonomy = { applied: applyAll, waits: applyAll ? [] : verdict.reasons, confirming: verdict.confirming.length, decision: verdict.decision };
+  report.pending = applyAll ? [] : verdict.pending;
   report.auto = auto.slice(0, 60); report.structural = applyAll ? [] : structural;
   report.summary = { auto: auto.length, structural: applyAll ? 0 : structural.length, autoApplied: applyAll ? structural.length : 0, failed, unchecked: Object.entries(report.teams).filter(([, t]) => t.error || t.skipped).map(([k]) => k) };
   await fs.writeFile(path.join(CACHE, "commission-report.json"), JSON.stringify(report, null, 1) + "\n");
@@ -160,7 +163,7 @@ async function main() {
       if (man && man.files && man.files.commission) { man.files.commission = { ...man.files.commission, bytes: buf.length, sha256: sha(buf) }; man.generated = new Date().toISOString(); await fs.writeFile(mp, JSON.stringify(man, null, 1) + "\n"); }
     }
     if (applyAll) await logAuto(CACHE, { source: "commission", changes: structural });
-    if (structural.length && !applyAll) {
+    if (structural.length && !applyAll && !confirmingOnly) {
       proposed.fetched = today;
       await fs.writeFile(path.join(CACHE, "commission-structural.json"), JSON.stringify({ at: today, changes: structural }, null, 1) + "\n");
       await fs.writeFile(path.join(CACHE, "commission-proposed.json"), JSON.stringify(proposed));
