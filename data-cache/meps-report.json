@@ -1,6 +1,6 @@
 {
- "run": "2026-11-11T12:40:52.684Z",
- "checked": "2026-11-11",
+ "run": "2026-11-12T13:43:19.757Z",
+ "checked": "2026-11-12",
  "api": 720,
  "nodo": 720,
  "failed": [],
@@ -10,9 +10,88 @@
    "name": "Antoni COMÍN I OLIVERES",
    "changes": {
     "committees": {
+     "from": [
+      "ENVI Substitute"
+     ],
+     "to": [
+      "ENVI Substitute",
+      "INTA Member"
+     ]
+    },
+    "party": {
+     "from": "Junts",
+     "to": "JUNTS-UE"
+    }
+   }
+  },
+  {
+   "id": "125325",
+   "name": "Sander SMIT",
+   "changes": {
+    "committees": {
+     "from": [
+      "ENVI Substitute",
+      "PECH Substitute",
+      "AFCO Member"
+     ],
+     "to": [
+      "PECH Substitute",
+      "AFCO Member",
+      "ENVI Member"
+     ]
+    }
+   }
+  },
+  {
+   "id": "256878",
+   "name": "Marie-Luce BRASIER-CLAIN",
+   "changes": {
+    "committees": {
+     "from": [
+      "SANT Substitute",
+      "REGI Substitute",
+      "ENVI Member"
+     ],
+     "to": [
+      "REGI Substitute",
+      "ENVI Member",
+      "SANT Member"
+     ]
+    }
+   }
+  },
+  {
+   "id": "23699",
+   "name": "Kateřina KONEČNÁ",
+   "changes": {
+    "committees": {
      "from": [],
      "to": [
-      "ENVI Substitute"
+      "SANT Substitute",
+      "EMPL Member"
+     ]
+    }
+   }
+  },
+  {
+   "id": "198490",
+   "name": "Emmanouil FRAGKOS",
+   "changes": {
+    "committees": {
+     "from": [
+      "INTA Substitute",
+      "AFET Substitute",
+      "ENVI Member",
+      "SANT Vice Chair",
+      "DROI Member",
+      "AGRI Substitute"
+     ],
+     "to": [
+      "INTA Substitute",
+      "AFET Substitute",
+      "SANT Vice Chair",
+      "DROI Member",
+      "AGRI Substitute"
      ]
     }
    }
@@ -23,11 +102,36 @@
    "changes": {
     "committees": {
      "from": [
-      "PETI Substitute"
+      "PETI Substitute",
+      "INTA Substitute"
      ],
      "to": [
       "PETI Substitute",
-      "INTA Substitute"
+      "INTA Substitute",
+      "IMCO Member"
+     ]
+    }
+   }
+  },
+  {
+   "id": "257026",
+   "name": "Michał SZCZERBA",
+   "changes": {
+    "delegations": {
+     "from": [
+      "D-US Member",
+      "DEPA Substitute",
+      "DSCA Vice Chair",
+      "D-UA Member",
+      "DNAT Substitute"
+     ],
+     "to": [
+      "D-US Member",
+      "DEPA Substitute",
+      "DSCA Vice Chair",
+      "D-UA Member",
+      "DNAT Substitute",
+      "DPAP Member"
      ]
     }
    }
@@ -35,7 +139,7 @@
  ],
  "structural": [],
  "summary": {
-  "auto": 2,
+  "auto": 7,
   "structural": 0,
   "failed": 0,
   "changed": true
