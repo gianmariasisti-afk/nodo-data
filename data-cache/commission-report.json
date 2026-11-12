@@ -1,5 +1,5 @@
 {
- "run": "2026-11-11T12:09:11.609Z",
+ "run": "2026-11-12T13:14:14.019Z",
  "college": {
   "found": 26,
   "added": [],
@@ -212,85 +212,242 @@
  "autonomy": {
   "applied": false,
   "waits": [
-   "13 changes in one run (limit 5)",
-   "President's cabinet changes always go to review"
-  ]
+   "11 changes in one run (limit 5)",
+   "President's cabinet: Alisa James (ursula-von-der-leyen), Assistant to the President (seen once; applies when a later run finds it again)",
+   "President's cabinet: Cidalia Santos (ursula-von-der-leyen), Assistant to the President (seen once; applies when a later run finds it again)",
+   "President's cabinet: Michaël Vlahogiannis (ursula-von-der-leyen), Assistant to the Head of Cabinet (seen once; applies when a later run finds it again)",
+   "President's cabinet: Corina Zieger (ursula-von-der-leyen), Assistant to the Director of Coordination and Administration (seen once; applies when a later run finds it again)",
+   "President's cabinet: Claire Saelens (ursula-von-der-leyen), Assistant to the Deputy Head of Cabinet and the Policy Coordinator / Member Western Balkans, East and Enlargement (seen once; applies when a later run finds it again)",
+   "President's cabinet: Irene Robles Ruiz (ursula-von-der-leyen), Assistant to the Chief Diplomatic Adviser (seen once; applies when a later run finds it again)",
+   "President's cabinet: Efthymia Papadimitriou (ursula-von-der-leyen), Assistant to the Clean Transition Team (seen once; applies when a later run finds it again)",
+   "President's cabinet: Jonathan Cocozza (ursula-von-der-leyen), Assistant to the Trade Adviser, Defence Adviser and Policy Coordinator / Member G7 / G20 and Global Gateway (seen once; applies when a later run finds it again)",
+   "President's cabinet: Eivilte Kandrataviciute (ursula-von-der-leyen), Assistant to the Legal, Internal Affairs and Social Team (seen once; applies when a later run finds it again)",
+   "President's cabinet: Katarzyna Dudzinska (ursula-von-der-leyen), Assistant to the Economic and Financial Team and to the Communication Adviser (seen once; applies when a later run finds it again)"
+  ],
+  "confirming": 10,
+  "decision": true
  },
- "auto": [],
- "structural": [
+ "pending": [
   {
-   "type": "role",
+   "key": "removed|ursula-von-der-leyen|alisa james|assistant to the president",
+   "firstSeen": "2026-11-12"
+  },
+  {
+   "key": "removed|ursula-von-der-leyen|cidalia santos|assistant to the president",
+   "firstSeen": "2026-11-12"
+  },
+  {
+   "key": "removed|ursula-von-der-leyen|michaël vlahogiannis|assistant to the head of cabinet",
+   "firstSeen": "2026-11-12"
+  },
+  {
+   "key": "removed|ursula-von-der-leyen|corina zieger|assistant to the director of coordination and administration",
+   "firstSeen": "2026-11-12"
+  },
+  {
+   "key": "removed|ursula-von-der-leyen|claire saelens|assistant to the deputy head of cabinet and the policy coordinator / member western balkans, east and enlargement",
+   "firstSeen": "2026-11-12"
+  },
+  {
+   "key": "removed|ursula-von-der-leyen|irene robles ruiz|assistant to the chief diplomatic adviser",
+   "firstSeen": "2026-11-12"
+  },
+  {
+   "key": "removed|ursula-von-der-leyen|efthymia papadimitriou|assistant to the clean transition team",
+   "firstSeen": "2026-11-12"
+  },
+  {
+   "key": "removed|ursula-von-der-leyen|jonathan cocozza|assistant to the trade adviser, defence adviser and policy coordinator / member g7 / g20 and global gateway",
+   "firstSeen": "2026-11-12"
+  },
+  {
+   "key": "removed|ursula-von-der-leyen|eivilte kandrataviciute|assistant to the legal, internal affairs and social team",
+   "firstSeen": "2026-11-12"
+  },
+  {
+   "key": "removed|ursula-von-der-leyen|katarzyna dudzinska|assistant to the economic and financial team and to the communication adviser",
+   "firstSeen": "2026-11-12"
+  }
+ ],
+ "auto": [
+  {
    "commissioner": "ursula-von-der-leyen",
    "name": "Patricia Reilly",
-   "from": "Agriculture and Health Member · Policy Coordinator / Member Financial Services (acting)",
-   "to": "AGRICULTURE AND HEALTH MEMBER"
+   "fields": [
+    "phone",
+    "resp"
+   ],
+   "diff": {
+    "phone": {
+     "from": "+32 2 29 86577",
+     "to": "+32 2 29 57922"
+    },
+    "resp": {
+     "from": [
+      "Agriculture",
+      "Health and Food safety",
+      "Animal Welfare",
+      "Equality",
+      "Tourism",
+      "Project Group Vision for Agriculture and Food",
+      "Economic and Financial Cabinet Team",
+      "Michele Piergiovanni",
+      "SENIOR ECONOMIC ADVISER (acting)",
+      "Coordination of the Economic and Financial Cabinet Team",
+      "Recovery and Resilience Facility",
+      "European Semester Coordination",
+      "Cohesion and Reforms",
+      "Entrepreneurship and SMEs",
+      "Internal aspects of EU taxation",
+      "Relations with Eurostat",
+      "Relations with the European Fiscal Board",
+      "Relations with the European Investment Bank (EIB), European Bank for Reconstruction and Development (EBRD), and other financial institutions"
+     ],
+     "to": [
+      "Agriculture",
+      "Health and Food safety",
+      "Animal Welfare",
+      "Equality",
+      "Tourism",
+      "Project Group Vision for Agriculture and Food",
+      "Economic and Financial Cabinet Team",
+      "Financial services",
+      "Banking Union and Capital Markets Union",
+      "Taxation and Customs",
+      "Project Group Savings and Investment Union"
+     ]
+    }
+   }
   },
   {
-   "type": "role",
    "commissioner": "ursula-von-der-leyen",
    "name": "Michele Piergiovanni",
-   "from": "Senior Economic Adviser (acting) · Digital Adviser",
-   "to": "DIGITAL ADVISER"
+   "fields": [
+    "phone",
+    "resp"
+   ],
+   "diff": {
+    "phone": {
+     "from": "+32 2 29 57922",
+     "to": "+32 2 29 86577"
+    },
+    "resp": {
+     "from": [
+      "Digital Society and Economy",
+      "Digital Single Market",
+      "Internal Market",
+      "Defence Industry and Space",
+      "Startups, Research and Innovation",
+      "Competition",
+      "Competitiveness",
+      "Simplification and Implementation",
+      "Project Group AI",
+      "Project Group Startups",
+      "Patricia Reilly",
+      "POLICY COORDINATOR / MEMBER FINANCIAL SERVICES (acting)",
+      "Financial services",
+      "Banking Union and Capital Markets Union",
+      "Taxation and Customs",
+      "Project Group Savings and Investment Union"
+     ],
+     "to": [
+      "Coordination of the Economic and Financial Cabinet Team",
+      "Recovery and Resilience Facility",
+      "European Semester Coordination",
+      "Cohesion and Reforms",
+      "Entrepreneurship and SMEs",
+      "Internal aspects of EU taxation",
+      "Relations with Eurostat",
+      "Relations with the European Fiscal Board",
+      "Relations with the European Investment Bank (EIB), European Bank for Reconstruction and Development (EBRD), and other financial institutions",
+      "Digital Society and Economy",
+      "Digital Single Market",
+      "Internal Market",
+      "Defence Industry and Space",
+      "Startups, Research and Innovation",
+      "Competition",
+      "Competitiveness",
+      "Simplification and Implementation",
+      "Project Group AI",
+      "Project Group Startups"
+     ]
+    }
+   }
   },
+  {
+   "commissioner": "raffaele-fitto",
+   "name": "Marie Tavernier",
+   "fields": [
+    "note"
+   ],
+   "diff": {
+    "note": {
+     "from": "",
+     "to": "absent"
+    }
+   }
+  }
+ ],
+ "structural": [
   {
    "type": "removed",
    "commissioner": "ursula-von-der-leyen",
    "name": "Alisa James",
-   "role": "Assistant"
+   "role": "Assistant to the President"
   },
   {
    "type": "removed",
    "commissioner": "ursula-von-der-leyen",
    "name": "Cidalia Santos",
-   "role": "Assistant"
+   "role": "Assistant to the President"
   },
   {
    "type": "removed",
    "commissioner": "ursula-von-der-leyen",
    "name": "Michaël Vlahogiannis",
-   "role": "Assistant"
+   "role": "Assistant to the Head of Cabinet"
   },
   {
    "type": "removed",
    "commissioner": "ursula-von-der-leyen",
    "name": "Corina Zieger",
-   "role": "Assistant"
+   "role": "Assistant to the Director of Coordination and Administration"
   },
   {
    "type": "removed",
    "commissioner": "ursula-von-der-leyen",
    "name": "Claire Saelens",
-   "role": "Assistant"
+   "role": "Assistant to the Deputy Head of Cabinet and the Policy Coordinator / Member Western Balkans, East and Enlargement"
   },
   {
    "type": "removed",
    "commissioner": "ursula-von-der-leyen",
    "name": "Irene Robles Ruiz",
-   "role": "Assistant"
+   "role": "Assistant to the Chief Diplomatic Adviser"
   },
   {
    "type": "removed",
    "commissioner": "ursula-von-der-leyen",
    "name": "Efthymia Papadimitriou",
-   "role": "Assistant"
+   "role": "Assistant to the Clean Transition Team"
   },
   {
    "type": "removed",
    "commissioner": "ursula-von-der-leyen",
    "name": "Jonathan Cocozza",
-   "role": "Assistant"
+   "role": "Assistant to the Trade Adviser, Defence Adviser and Policy Coordinator / Member G7 / G20 and Global Gateway"
   },
   {
    "type": "removed",
    "commissioner": "ursula-von-der-leyen",
    "name": "Eivilte Kandrataviciute",
-   "role": "Assistant"
+   "role": "Assistant to the Legal, Internal Affairs and Social Team"
   },
   {
    "type": "removed",
    "commissioner": "ursula-von-der-leyen",
    "name": "Katarzyna Dudzinska",
-   "role": "Assistant"
+   "role": "Assistant to the Economic and Financial Team and to the Communication Adviser"
   },
   {
    "type": "added",
@@ -300,8 +457,8 @@
   }
  ],
  "summary": {
-  "auto": 0,
-  "structural": 13,
+  "auto": 3,
+  "structural": 11,
   "autoApplied": 0,
   "failed": 0,
   "unchecked": []

@@ -1,79 +1,65 @@
 {
- "at": "2026-11-11",
+ "at": "2026-11-12",
  "changes": [
-  {
-   "type": "role",
-   "commissioner": "ursula-von-der-leyen",
-   "name": "Patricia Reilly",
-   "from": "Agriculture and Health Member · Policy Coordinator / Member Financial Services (acting)",
-   "to": "AGRICULTURE AND HEALTH MEMBER"
-  },
-  {
-   "type": "role",
-   "commissioner": "ursula-von-der-leyen",
-   "name": "Michele Piergiovanni",
-   "from": "Senior Economic Adviser (acting) · Digital Adviser",
-   "to": "DIGITAL ADVISER"
-  },
   {
    "type": "removed",
    "commissioner": "ursula-von-der-leyen",
    "name": "Alisa James",
-   "role": "Assistant"
+   "role": "Assistant to the President"
   },
   {
    "type": "removed",
    "commissioner": "ursula-von-der-leyen",
    "name": "Cidalia Santos",
-   "role": "Assistant"
+   "role": "Assistant to the President"
   },
   {
    "type": "removed",
    "commissioner": "ursula-von-der-leyen",
    "name": "Michaël Vlahogiannis",
-   "role": "Assistant"
+   "role": "Assistant to the Head of Cabinet"
   },
   {
    "type": "removed",
    "commissioner": "ursula-von-der-leyen",
    "name": "Corina Zieger",
-   "role": "Assistant"
+   "role": "Assistant to the Director of Coordination and Administration"
   },
   {
    "type": "removed",
    "commissioner": "ursula-von-der-leyen",
    "name": "Claire Saelens",
-   "role": "Assistant"
+   "role": "Assistant to the Deputy Head of Cabinet and the Policy Coordinator / Member Western Balkans, East and Enlargement"
   },
   {
    "type": "removed",
    "commissioner": "ursula-von-der-leyen",
    "name": "Irene Robles Ruiz",
-   "role": "Assistant"
+   "role": "Assistant to the Chief Diplomatic Adviser"
   },
   {
    "type": "removed",
    "commissioner": "ursula-von-der-leyen",
    "name": "Efthymia Papadimitriou",
-   "role": "Assistant"
+   "role": "Assistant to the Clean Transition Team"
   },
   {
    "type": "removed",
    "commissioner": "ursula-von-der-leyen",
    "name": "Jonathan Cocozza",
-   "role": "Assistant"
+   "role": "Assistant to the Trade Adviser, Defence Adviser and Policy Coordinator / Member G7 / G20 and Global Gateway"
   },
   {
    "type": "removed",
    "commissioner": "ursula-von-der-leyen",
    "name": "Eivilte Kandrataviciute",
-   "role": "Assistant"
+   "role": "Assistant to the Legal, Internal Affairs and Social Team"
   },
   {
    "type": "removed",
    "commissioner": "ursula-von-der-leyen",
    "name": "Katarzyna Dudzinska",
-   "role": "Assistant"
+   "role": "Assistant to the Economic and Financial Team and to the Communication Adviser"
   },
   {
    "type": "added",
