@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-11-11T00:00:00Z",
+  "generatedAt": "2026-11-12T00:00:00Z",
   "events": [
     {
-      "id": "biotech-act:next:2026-12-14:4e1f33",
-      "fileId": "biotech-act",
-      "date": "2026-12-14",
+      "id": "medical-devices:next:2027-01-18:43a63c",
+      "fileId": "medical-devices",
+      "date": "2027-01-18",
       "source": "nodo",
       "kind": "scheduled",
-      "title": "Regulation: plenary vote (indicative date in the Observatory)",
+      "title": "Plenary vote (indicative date in the Observatory)",
       "push": true,
-      "pushOn": "2026-12-14"
+      "pushOn": "2027-01-18"
     },
     {
       "id": "co2-cars:next:2026-12-14:43a63c",
@@ -42,12 +42,12 @@
       "pushOn": "2026-12-14"
     },
     {
-      "id": "medical-devices:next:2026-12-14:43a63c",
-      "fileId": "medical-devices",
+      "id": "mff-2028-2034:next:2026-12-14:ac720c",
+      "fileId": "mff-2028-2034",
       "date": "2026-12-14",
       "source": "nodo",
       "kind": "scheduled",
-      "title": "Plenary vote (indicative date in the Observatory)",
+      "title": "Performance Regulation: plenary vote (indicative date in the Observatory)",
       "push": true,
       "pushOn": "2026-12-14"
     },
@@ -142,16 +142,6 @@
       "pushOn": "2026-11-23"
     },
     {
-      "id": "mff-2028-2034:next:2026-11-23:fea05d",
-      "fileId": "mff-2028-2034",
-      "date": "2026-11-23",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "NRPP fund: plenary vote (indicative date in the Observatory)",
-      "push": true,
-      "pushOn": "2026-11-23"
-    },
-    {
       "id": "mff-2028-2034:next:2026-11-19:7cb3a3",
       "fileId": "mff-2028-2034",
       "date": "2026-11-19",
@@ -202,6 +192,15 @@
       "pushOn": "2026-11-13"
     },
     {
+      "id": "digital-fairness-act:stage:positions-in-preparation",
+      "fileId": "digital-fairness-act",
+      "date": "2026-11-12",
+      "source": "nodo",
+      "kind": "milestone",
+      "title": "Stage change: pre proposal to positions in preparation",
+      "push": true
+    },
+    {
       "id": "medical-devices:next:2026-11-12:94e165",
       "fileId": "medical-devices",
       "date": "2026-11-12",
@@ -212,24 +211,16 @@
       "pushOn": "2026-11-12"
     },
     {
-      "id": "biotech-act:next:2026-11-11:2b60f8",
-      "fileId": "biotech-act",
+      "id": "tech-sovereignty-package:ep:2026-0138-NMSR-257073-2026-11-11",
+      "fileId": "tech-sovereignty-package",
       "date": "2026-11-11",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Regulation: Council attachés on the third Presidency compromise text, Article 58 on clinical trials",
-      "push": true,
-      "pushOn": "2026-11-11"
-    },
-    {
-      "id": "digital-fairness-act:next:2026-11-11:5a01ad",
-      "fileId": "digital-fairness-act",
-      "date": "2026-11-11",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Commission proposal expected (indicative date)",
-      "push": true,
-      "pushOn": "2026-11-11"
+      "source": "ep",
+      "proc": "2026-0138",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "257073",
+      "group": "ECR",
+      "push": false
     },
     {
       "id": "biotech-act:ep:2025-0405-DEC-ADCP-2026-11-10",
@@ -303,26 +294,6 @@
       "kind": "milestone",
       "title": "Report adopted in committee",
       "push": true
-    },
-    {
-      "id": "mff-2028-2034:next:2026-11-10:f27f98",
-      "fileId": "mff-2028-2034",
-      "date": "2026-11-10",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "ECF: ITRE vote on the compromise amendments",
-      "push": true,
-      "pushOn": "2026-11-10"
-    },
-    {
-      "id": "tech-sovereignty-package:next:2026-11-10:a52875",
-      "fileId": "tech-sovereignty-package",
-      "date": "2026-11-10",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "CADA: Council telecoms working party on the first compromise text of Title IV (Autonomy), doc 14918/26",
-      "push": true,
-      "pushOn": "2026-11-10"
     },
     {
       "id": "digital-euro:ep:2023-0212-MEET-TRI1-2026-11-05",

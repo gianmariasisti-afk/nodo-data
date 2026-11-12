@@ -948,7 +948,11 @@
     "biotech-act:ep:2025-0405-DEC-ADCP-2026-11-10": true,
     "mff-2028-2034:ep:2025-0545:amendments:2026-11-10": true,
     "mff-2028-2034:ep:2025-0555-DEC-ADCP-2026-11-10": true,
-    "cef-2028-2034:ep:2025-0221-DEC-ADCP-2026-11-10": true
+    "cef-2028-2034:ep:2025-0221-DEC-ADCP-2026-11-10": true,
+    "mff-2028-2034:next:2026-12-14:ac720c": true,
+    "digital-fairness-act:stage:positions-in-preparation": true,
+    "tech-sovereignty-package:ep:2026-0138-NMSR-257073-2026-11-11": true,
+    "medical-devices:next:2027-01-18:43a63c": true
   },
   "seeded": {
     "mff-2028-2034": true,
@@ -975,7 +979,7 @@
     "digital-omnibus-data": "positions-in-preparation",
     "industrial-accelerator-act": "positions-in-preparation",
     "digital-networks-act": "positions-in-preparation",
-    "digital-fairness-act": "pre-proposal",
+    "digital-fairness-act": "positions-in-preparation",
     "tech-sovereignty-package": "positions-in-preparation",
     "ai-act-implementation": "in-force",
     "grids-package": "trilogue",
@@ -1019,7 +1023,8 @@
     "mff-2028-2034:next:2026-11-10:f27f98": true,
     "tech-sovereignty-package:next:2026-11-10:a52875": true,
     "digital-fairness-act:next:2026-11-11:5a01ad": true,
-    "biotech-act:next:2026-11-11:2b60f8": true
+    "biotech-act:next:2026-11-11:2b60f8": true,
+    "medical-devices:next:2026-11-12:94e165": true
   },
   "seededProcs": {
     "2025-0571": true,

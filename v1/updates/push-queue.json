@@ -1,56 +1,24 @@
 {
-  "generatedAt": "2026-11-11T00:00:00Z",
+  "generatedAt": "2026-11-12T00:00:00Z",
   "events": [
     {
-      "id": "mff-2028-2034:ep:2025-0545:amendments:2026-11-10",
-      "fileId": "mff-2028-2034",
-      "date": "2026-11-10",
-      "source": "ep",
-      "proc": "2025-0545",
-      "kind": "milestone",
-      "title": "Amendments tabled in committee",
-      "count": 1,
-      "push": true
-    },
-    {
-      "id": "mff-2028-2034:ep:2025-0555-DEC-ADCP-2026-11-10",
-      "fileId": "mff-2028-2034",
-      "date": "2026-11-10",
-      "source": "ep",
-      "proc": "2025-0555",
-      "kind": "milestone",
-      "title": "Report adopted in committee",
-      "push": true
-    },
-    {
-      "id": "digital-fairness-act:next:2026-11-11:5a01ad",
+      "id": "digital-fairness-act:stage:positions-in-preparation",
       "fileId": "digital-fairness-act",
-      "date": "2026-11-11",
+      "date": "2026-11-12",
       "source": "nodo",
-      "kind": "scheduled",
-      "title": "Commission proposal expected (indicative date)",
-      "push": true,
-      "pushOn": "2026-11-11"
-    },
-    {
-      "id": "cef-2028-2034:ep:2025-0221-DEC-ADCP-2026-11-10",
-      "fileId": "cef-2028-2034",
-      "date": "2026-11-10",
-      "source": "ep",
-      "proc": "2025-0221",
       "kind": "milestone",
-      "title": "Report adopted in committee",
+      "title": "Stage change: pre proposal to positions in preparation",
       "push": true
     },
     {
-      "id": "biotech-act:next:2026-11-11:2b60f8",
-      "fileId": "biotech-act",
-      "date": "2026-11-11",
+      "id": "medical-devices:next:2026-11-12:94e165",
+      "fileId": "medical-devices",
+      "date": "2026-11-12",
       "source": "nodo",
       "kind": "scheduled",
-      "title": "Regulation: Council attachés on the third Presidency compromise text, Article 58 on clinical trials",
+      "title": "Council working party, 12 and 13 November: fourth Presidency compromise (doc 14673/26)",
       "push": true,
-      "pushOn": "2026-11-11"
+      "pushOn": "2026-11-12"
     }
   ]
 }
