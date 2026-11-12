@@ -1,6 +1,6 @@
 {
- "generated": "2026-11-09T12:11:11Z",
- "asOf": "2026-11-09",
+ "generated": "2026-11-12T08:18:26Z",
+ "asOf": "2026-11-12",
  "source": "Parliament Open Data Portal (basis ep-open-data); Parliament Legislative Observatory procedure files (basis ep-procedure-file); press and Council documents (basis press); commission.json for commissioners and cabinets",
  "legend": {
   "roles": [
@@ -62,24 +62,12 @@
     "2025/0571R(APP)"
    ],
    "stage": "council-negotiating-box",
-   "status": "The Irish Presidency tabled a revised negotiating box on 10 October 2026 (Council doc 13922/26): €1,622bn in commitments at 2025 prices, 8% below the Commission proposal, with all figures in brackets. At the 15–16 October European Council, leaders asked António Costa to advance the talks; Agence Europe reported on 22 October that he will present his own negotiating box with figures ahead of the Special European Council on 26–27 November; on 30 October it reported that Member States do not expect his box before the last week of November and see a compromise at the 17–18 December European Council as the most likely outcome. Unanimity in Council, then Parliament consent. Two programmes are followed as parts: the European Competitiveness Fund (ITRE co-rapporteurs Christian Ehler and Dan Nica; Council partial position on 16 June 2026) and the National and Regional Partnership Plans fund (BUDG, REGI and AGRI: Karlo Ressler, Andrey Novakov and Elsi Katainen), where Agence Europe reported a partial general approach on 16 June 2026. A third part is the Performance Regulation (BUDG and CONT jointly, co-rapporteurs Jean-Marc Germain and Niclas Herbst): more than 1,000 amendments were tabled to their draft report, and the groups split over the do no significant harm principle at a joint meeting on 4 November (Agence Europe).",
+   "status": "The Irish Presidency tabled a revised negotiating box on 10 October 2026 (Council doc 13922/26): €1,622bn in commitments at 2025 prices, 8% below the Commission proposal, with all figures in brackets. At the 15–16 October European Council, leaders asked António Costa to advance the talks; Agence Europe reported on 22 October that he will present his own negotiating box with figures ahead of the Special European Council on 26–27 November; on 30 October it reported that Member States do not expect his box before the last week of November and see a compromise at the 17–18 December European Council as the most likely outcome. Unanimity in Council, then Parliament consent. Two programmes are followed as parts: the European Competitiveness Fund (ITRE co-rapporteurs Christian Ehler and Dan Nica; Council partial position on 16 June 2026; ITRE adopted its report and a mandate to negotiate on 10 November 2026, per the Observatory) and the National and Regional Partnership Plans fund (BUDG, REGI and AGRI: Karlo Ressler, Andrey Novakov and Elsi Katainen), where Agence Europe reported a partial general approach on 16 June 2026. A third part is the Performance Regulation (BUDG and CONT jointly, co-rapporteurs Jean-Marc Germain and Niclas Herbst): more than 1,000 amendments were tabled to their draft report, and the groups split over the do no significant harm principle at a joint meeting on 4 November (Agence Europe).",
    "next": [
-    {
-     "date": "2026-11-10",
-     "what": "ECF: ITRE vote on the compromise amendments",
-     "src": "agenceurope-13966-ecf",
-     "part": "ecf"
-    },
     {
      "date": "2026-11-19",
      "what": "Council MFF working party (Global Europe Instrument)",
      "src": "council-mpo-calendar"
-    },
-    {
-     "date": "2026-11-23",
-     "what": "NRPP fund: plenary vote (indicative date in the Observatory)",
-     "src": "oeil-2025-0240-cod",
-     "part": "nrpp"
     },
     {
      "date": "2026-11-24",
@@ -96,6 +84,12 @@
      "date": "2026-12-07",
      "what": "Council MFF working party (AHWP MFF)",
      "src": "council-mpo-calendar"
+    },
+    {
+     "date": "2026-12-14",
+     "what": "Performance Regulation: plenary vote (indicative date in the Observatory)",
+     "src": "oeil-2025-0545-cod",
+     "part": "performance"
     }
    ],
    "ep": {
@@ -677,7 +671,7 @@
     {
      "id": "256901",
      "role": "rapporteur",
-     "committee": "BUDG-CONT",
+     "committee": "BUDG",
      "basis": "ep-procedure-file",
      "ref": "2025/0545(COD)",
      "part": "performance"
@@ -685,7 +679,7 @@
     {
      "id": "197412",
      "role": "rapporteur",
-     "committee": "BUDG-CONT",
+     "committee": "CONT",
      "basis": "ep-procedure-file",
      "ref": "2025/0545(COD)",
      "part": "performance"
@@ -782,6 +776,86 @@
      "id": "257020",
      "role": "shadow",
      "committee": "BUDG-CONT",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0545(COD)",
+     "part": "performance"
+    },
+    {
+     "id": "251874",
+     "role": "opinion-rapporteur",
+     "committee": "DEVE",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0545(COD)",
+     "part": "performance"
+    },
+    {
+     "id": "23781",
+     "role": "opinion-rapporteur",
+     "committee": "ECON",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0545(COD)",
+     "part": "performance"
+    },
+    {
+     "id": "256880",
+     "role": "opinion-rapporteur",
+     "committee": "EMPL",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0545(COD)",
+     "part": "performance"
+    },
+    {
+     "id": "257727",
+     "role": "opinion-rapporteur",
+     "committee": "ENVI",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0545(COD)",
+     "part": "performance"
+    },
+    {
+     "id": "197652",
+     "role": "opinion-rapporteur",
+     "committee": "ITRE",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0545(COD)",
+     "part": "performance"
+    },
+    {
+     "id": "256965",
+     "role": "opinion-rapporteur",
+     "committee": "TRAN",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0545(COD)",
+     "part": "performance"
+    },
+    {
+     "id": "256970",
+     "role": "opinion-rapporteur",
+     "committee": "REGI",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0545(COD)",
+     "part": "performance"
+    },
+    {
+     "id": "124836",
+     "role": "opinion-rapporteur",
+     "committee": "AGRI",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0545(COD)",
+     "part": "performance"
+    },
+    {
+     "id": "256920",
+     "role": "opinion-rapporteur",
+     "committee": "PECH",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0545(COD)",
+     "part": "performance"
+    },
+    {
+     "id": "197702",
+     "role": "opinion-rapporteur",
+     "committee": "FEMM",
      "basis": "ep-procedure-file",
      "ref": "2025/0545(COD)",
      "part": "performance"
@@ -980,7 +1054,7 @@
      "url": "https://agenceurope.eu/en/bulletin/article/13975/22/mff-2028-2034-more-than-1000-amendments-tabled-to-performance-regulation-confirm-divisions-in-european-parliament"
     }
    ],
-   "checked": "2026-11-09",
+   "checked": "2026-11-12",
    "parts": [
     {
      "id": "ecf",
@@ -1783,13 +1857,13 @@
    "kind": "pre-proposal",
    "area": "digital",
    "procedure": null,
-   "stage": "pre-proposal",
-   "status": "The Commission's indicative planning lists the proposal for 11 November 2026 (MLex, 29 September); the date can still move. Expected themes: dark patterns, addictive design, influencer marketing, unfair personalisation and minors. The social media minimum age is no longer part of it: the Commission proposed it separately in the EU KIDS Act on 17 September 2026 (minimum age of 15), which nodo follows as its own file. Member States had moved first on a minimum age, for example Denmark's consultation on a minimum age of 15 launched 7 September 2026.",
+   "stage": "positions-in-preparation",
+   "status": "The Commission adopted the Digital Fairness Act proposal on 11 November 2026, with a Simplification Directive, in a consumer package that also revises the Consumer Protection Cooperation Regulation; it calls it the biggest upgrade of EU consumer law in over 20 years. The proposal targets dark patterns, addictive design, problems with influencer marketing, unfair personalisation that exploits vulnerabilities, and dynamic or misleading pricing, and addresses hard-to-cancel contracts, automatic subscription renewals and free trials that turn into paid subscriptions. The social media minimum age is not part of it: the Commission proposed it separately in the EU KIDS Act on 17 September 2026, which nodo follows as its own file. Parliament's committee referral and rapporteur, and the Council working party, are still to come.",
    "next": [
     {
-     "date": "2026-11-11",
-     "what": "Commission proposal expected (indicative date)",
-     "src": "mlex-dfa-20260929"
+     "date": null,
+     "what": "Parliament committee referral and rapporteur: not yet announced",
+     "src": "ec-dfa-20261111"
     }
    ],
    "ep": {
@@ -2007,10 +2081,10 @@
     "configs": [],
     "configsBasis": "none",
     "presidency": "IE",
-    "note": "Nothing to negotiate until the proposal lands."
+    "note": "The Commission adopted the proposal on 11 November 2026; no Council working party is named yet."
    },
    "caveats": [
-    "Not yet proposed. MEP entries are relevance markers from earlier work and carry no role on the file."
+    "Proposed on 11 November 2026; no Parliament procedure file is followed yet. MEP entries are relevance markers from earlier work and carry no role on the file."
    ],
    "sources": [
     {
@@ -2042,9 +2116,14 @@
      "id": "euobserver-ballarin-20250722",
      "title": "EUobserver: Laura Ballarín, S&D coordinator in IMCO, on dynamic pricing and the DFA (22 Jul 2025)",
      "url": "https://euobserver.com/44831/protecting-consumer-rights-dynamic-pricing-must-not-enrich-the-few/"
+    },
+    {
+     "id": "ec-dfa-20261111",
+     "title": "European Commission: Digital Fairness Act (proposal adopted 11 November 2026)",
+     "url": "https://commission.europa.eu/law/law-topic/consumer-protection-law/digital-fairness-act_en"
     }
    ],
-   "checked": "2026-11-09",
+   "checked": "2026-11-12",
    "lede": "Commission proposal in preparation, in a consumer package. The social media minimum age moved to the EU KIDS Act.",
    "related": [
     {
@@ -2095,12 +2174,6 @@
    "stage": "positions-in-preparation",
    "status": "The Commission proposed both on 3 June 2026. In Parliament, ITRE leads the Chips Act 2.0 (rapporteur Oliver Schenk, appointed 31 August) and ITRE and IMCO share the CADA (Diego Solier and Reinier van Lanschot); neither has a draft report or a committee vote date yet. The Council's industry working party took up the Chips Act 2.0 on 2 September and on 12 and 13 October, and had the Presidency compromise text (doc 13545/26 REV 1) on its agenda on 29 and 30 October. The CADA aims to triple EU data-centre capacity within five to seven years and creates a framework to assess cloud and AI sovereignty, which is the most contested element.",
    "next": [
-    {
-     "date": "2026-11-10",
-     "what": "CADA: Council telecoms working party on the first compromise text of Title IV (Autonomy), doc 14918/26",
-     "src": "council-cm-4811",
-     "part": "cada"
-    },
     {
      "date": null,
      "what": "Parliament committee votes: no dates set yet",
@@ -2434,7 +2507,7 @@
      "url": "https://data.consilium.europa.eu/doc/document/CM-4811-2026-INIT/en/pdf"
     }
    ],
-   "checked": "2026-11-09",
+   "checked": "2026-11-12",
    "lede": "The Council works on the Chips Act 2.0 compromise; neither text has a draft report in Parliament yet."
   },
   {
@@ -2968,7 +3041,7 @@
      "url": "https://data.consilium.europa.eu/doc/document/CM-4715-2026-INIT/en/pdf"
     }
    ],
-   "checked": "2026-11-09",
+   "checked": "2026-11-12",
    "asOf": "2026-10-21"
   },
   {
@@ -3490,7 +3563,7 @@
      "src": "council-cm-4831"
     },
     {
-     "date": "2026-12-14",
+     "date": "2027-01-18",
      "what": "Plenary vote (indicative date in the Observatory)",
      "src": "oeil-2025-0404-cod"
     },
@@ -3634,7 +3707,7 @@
      "url": "https://data.consilium.europa.eu/doc/document/CM-4831-2026-INIT/en/pdf"
     }
    ],
-   "checked": "2026-11-09",
+   "checked": "2026-11-12",
    "asOf": "2026-10-21"
   },
   {
@@ -3647,14 +3720,8 @@
    "stage": "positions-in-preparation",
    "sector": "health",
    "lede": "The Council has its position on the directive; the regulation is at its first Presidency compromise.",
-   "status": "The Commission proposed the European Biotech Act on 16 December 2025: a regulation covering health biotechnology from funding and clinical trials to authorisation and manufacturing, with a directive on genetically modified micro-organisms and the processing of organs. The Council agreed its position on the directive at the Health Council on 16 June 2026 and held a policy debate on the regulation; the Presidency tabled its first compromise text on the regulation to the working party on 8 and 9 October. In Parliament, SANT and ITRE share the regulation (Vytenis Andriukaitis and Wouter Beke) and ENVI and SANT share the directive (Marta Temido and Adam Jarubas). A Biotech Act II on the wider bioeconomy is in preparation.",
+   "status": "The Commission proposed the European Biotech Act on 16 December 2025: a regulation covering health biotechnology from funding and clinical trials to authorisation and manufacturing, with a directive on genetically modified micro-organisms and the processing of organs. The Council agreed its position on the directive at the Health Council on 16 June 2026 and held a policy debate on the regulation; the Presidency tabled its first compromise text on the regulation to the working party on 8 and 9 October. In Parliament, SANT and ITRE share the regulation (Vytenis Andriukaitis and Wouter Beke) and ENVI and SANT share the directive (Marta Temido and Adam Jarubas), which they voted on 10 November 2026; its plenary vote is indicated for 23 November. A Biotech Act II on the wider bioeconomy is in preparation.",
    "next": [
-    {
-     "date": "2026-11-11",
-     "what": "Regulation: Council attachés on the third Presidency compromise text, Article 58 on clinical trials",
-     "src": "council-cm-4780",
-     "part": "regulation"
-    },
     {
      "date": "2026-11-23",
      "what": "Directive: plenary vote (indicative date in the Observatory)",
@@ -3662,8 +3729,8 @@
      "part": "directive"
     },
     {
-     "date": "2026-12-14",
-     "what": "Regulation: plenary vote (indicative date in the Observatory)",
+     "date": null,
+     "what": "Regulation: plenary vote: the Observatory no longer gives an indicative date",
      "src": "oeil-2025-0406-cod",
      "part": "regulation"
     }
@@ -4024,7 +4091,7 @@
      "url": "https://data.consilium.europa.eu/doc/document/CM-4780-2026-INIT/en/pdf"
     }
    ],
-   "checked": "2026-11-09",
+   "checked": "2026-11-12",
    "asOf": "2026-10-21"
   },
   {
@@ -4221,7 +4288,7 @@
      "url": "https://www.consilium.europa.eu/en/meetings/calendar/?category=mpo"
     }
    ],
-   "checked": "2026-11-09",
+   "checked": "2026-11-12",
    "asOf": "2026-10-21"
   },
   {
@@ -4748,7 +4815,7 @@
      "url": "https://www.consilium.europa.eu/en/meetings/calendar/?category=mpo"
     }
    ],
-   "checked": "2026-11-09",
+   "checked": "2026-11-12",
    "asOf": "2026-10-21"
   },
   {
