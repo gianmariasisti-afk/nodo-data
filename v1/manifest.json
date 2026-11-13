@@ -11,8 +11,8 @@
   "commission": {
    "path": "commission.json",
    "description": "European Commission: College, cabinets, portfolios",
-   "bytes": 1729268,
-   "sha256": "6753f13ee1cf5dc3e104e09727a042aa6b3b07119a9c6df0c8015aedd6632d2a"
+   "bytes": 1708661,
+   "sha256": "06a44cf25aafcef72f5e64e1e68953af30c1a4205c39695e57d7ecf1c99dafd6"
   },
   "calendar": {
    "path": "calendar.json",
