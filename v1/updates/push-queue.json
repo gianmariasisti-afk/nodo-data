@@ -1,24 +1,25 @@
 {
-  "generatedAt": "2026-11-12T00:00:00Z",
+  "generatedAt": "2026-11-13T00:00:00Z",
   "events": [
     {
-      "id": "digital-fairness-act:stage:positions-in-preparation",
-      "fileId": "digital-fairness-act",
-      "date": "2026-11-12",
-      "source": "nodo",
-      "kind": "milestone",
-      "title": "Stage change: pre proposal to positions in preparation",
-      "push": true
-    },
-    {
-      "id": "medical-devices:next:2026-11-12:94e165",
-      "fileId": "medical-devices",
-      "date": "2026-11-12",
+      "id": "digital-euro:next:2026-11-13:c97009",
+      "fileId": "digital-euro",
+      "date": "2026-11-13",
       "source": "nodo",
       "kind": "scheduled",
-      "title": "Council working party, 12 and 13 November: fourth Presidency compromise (doc 14673/26)",
+      "title": "Financial services attachés prepare the seventh trilogue",
       "push": true,
-      "pushOn": "2026-11-12"
+      "pushOn": "2026-11-13"
+    },
+    {
+      "id": "military-mobility:next:2026-11-13:b91010",
+      "fileId": "military-mobility",
+      "date": "2026-11-13",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Council ad hoc working party: debrief of the technical meetings of 5, 6 and 9 November and the revised annexes",
+      "push": true,
+      "pushOn": "2026-11-13"
     }
   ]
 }

@@ -1024,7 +1024,9 @@
     "tech-sovereignty-package:next:2026-11-10:a52875": true,
     "digital-fairness-act:next:2026-11-11:5a01ad": true,
     "biotech-act:next:2026-11-11:2b60f8": true,
-    "medical-devices:next:2026-11-12:94e165": true
+    "medical-devices:next:2026-11-12:94e165": true,
+    "digital-euro:next:2026-11-13:c97009": true,
+    "military-mobility:next:2026-11-13:b91010": true
   },
   "seededProcs": {
     "2025-0571": true,
