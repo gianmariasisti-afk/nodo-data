@@ -1,5 +1,5 @@
 {
- "run": "2026-11-12T13:14:14.019Z",
+ "run": "2026-11-13T12:36:40.704Z",
  "college": {
   "found": 26,
   "added": [],
@@ -154,9 +154,11 @@
   },
   "jessika-roswall": {
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/jessika-roswall/jessika-roswalls-team_en",
-   "parsed": 17,
+   "parsed": 18,
    "existing": 17,
-   "added": [],
+   "added": [
+    "Luisa Samarelli"
+   ],
    "removed": []
   },
   "piotr-serafin": {
@@ -212,19 +214,9 @@
  "autonomy": {
   "applied": false,
   "waits": [
-   "11 changes in one run (limit 5)",
-   "President's cabinet: Alisa James (ursula-von-der-leyen), Assistant to the President (seen once; applies when a later run finds it again)",
-   "President's cabinet: Cidalia Santos (ursula-von-der-leyen), Assistant to the President (seen once; applies when a later run finds it again)",
-   "President's cabinet: Michaël Vlahogiannis (ursula-von-der-leyen), Assistant to the Head of Cabinet (seen once; applies when a later run finds it again)",
-   "President's cabinet: Corina Zieger (ursula-von-der-leyen), Assistant to the Director of Coordination and Administration (seen once; applies when a later run finds it again)",
-   "President's cabinet: Claire Saelens (ursula-von-der-leyen), Assistant to the Deputy Head of Cabinet and the Policy Coordinator / Member Western Balkans, East and Enlargement (seen once; applies when a later run finds it again)",
-   "President's cabinet: Irene Robles Ruiz (ursula-von-der-leyen), Assistant to the Chief Diplomatic Adviser (seen once; applies when a later run finds it again)",
-   "President's cabinet: Efthymia Papadimitriou (ursula-von-der-leyen), Assistant to the Clean Transition Team (seen once; applies when a later run finds it again)",
-   "President's cabinet: Jonathan Cocozza (ursula-von-der-leyen), Assistant to the Trade Adviser, Defence Adviser and Policy Coordinator / Member G7 / G20 and Global Gateway (seen once; applies when a later run finds it again)",
-   "President's cabinet: Eivilte Kandrataviciute (ursula-von-der-leyen), Assistant to the Legal, Internal Affairs and Social Team (seen once; applies when a later run finds it again)",
-   "President's cabinet: Katarzyna Dudzinska (ursula-von-der-leyen), Assistant to the Economic and Financial Team and to the Communication Adviser (seen once; applies when a later run finds it again)"
+   "12 changes in one run (limit 5)"
   ],
-  "confirming": 10,
+  "confirming": 0,
   "decision": true
  },
  "pending": [
@@ -271,112 +263,255 @@
  ],
  "auto": [
   {
-   "commissioner": "ursula-von-der-leyen",
-   "name": "Patricia Reilly",
+   "commissioner": "magnus-brunner",
+   "name": "Natasha Bertaud",
    "fields": [
-    "phone",
-    "resp"
+    "countries"
    ],
    "diff": {
-    "phone": {
-     "from": "+32 2 29 86577",
-     "to": "+32 2 29 57922"
-    },
-    "resp": {
+    "countries": {
      "from": [
-      "Agriculture",
-      "Health and Food safety",
-      "Animal Welfare",
-      "Equality",
-      "Tourism",
-      "Project Group Vision for Agriculture and Food",
-      "Economic and Financial Cabinet Team",
-      "Michele Piergiovanni",
-      "SENIOR ECONOMIC ADVISER (acting)",
-      "Coordination of the Economic and Financial Cabinet Team",
-      "Recovery and Resilience Facility",
-      "European Semester Coordination",
-      "Cohesion and Reforms",
-      "Entrepreneurship and SMEs",
-      "Internal aspects of EU taxation",
-      "Relations with Eurostat",
-      "Relations with the European Fiscal Board",
-      "Relations with the European Investment Bank (EIB), European Bank for Reconstruction and Development (EBRD), and other financial institutions"
+      "United Kingdom",
+      "Switzerland",
+      "EEA",
+      "Ukraine"
      ],
      "to": [
-      "Agriculture",
-      "Health and Food safety",
-      "Animal Welfare",
-      "Equality",
-      "Tourism",
-      "Project Group Vision for Agriculture and Food",
-      "Economic and Financial Cabinet Team",
-      "Financial services",
-      "Banking Union and Capital Markets Union",
-      "Taxation and Customs",
-      "Project Group Savings and Investment Union"
+      "FR",
+      "IE"
      ]
     }
    }
   },
   {
-   "commissioner": "ursula-von-der-leyen",
-   "name": "Michele Piergiovanni",
+   "commissioner": "magnus-brunner",
+   "name": "Grigorios Delavekouras",
    "fields": [
-    "phone",
-    "resp"
+    "resp",
+    "outside"
    ],
    "diff": {
-    "phone": {
-     "from": "+32 2 29 57922",
-     "to": "+32 2 29 86577"
-    },
     "resp": {
      "from": [
-      "Digital Society and Economy",
-      "Digital Single Market",
-      "Internal Market",
-      "Defence Industry and Space",
-      "Startups, Research and Innovation",
-      "Competition",
-      "Competitiveness",
-      "Simplification and Implementation",
-      "Project Group AI",
-      "Project Group Startups",
-      "Patricia Reilly",
-      "POLICY COORDINATOR / MEMBER FINANCIAL SERVICES (acting)",
-      "Financial services",
-      "Banking Union and Capital Markets Union",
-      "Taxation and Customs",
-      "Project Group Savings and Investment Union"
+      "Diplomatic Adviser",
+      "Global migration cooperation – overall coordination",
+      "Return and Readmission policy",
+      "Relations with United Nations, UNHCR and IOM",
+      "Anti-smuggling",
+      "Sanctions",
+      "Council of Europe"
      ],
      "to": [
-      "Coordination of the Economic and Financial Cabinet Team",
-      "Recovery and Resilience Facility",
-      "European Semester Coordination",
-      "Cohesion and Reforms",
-      "Entrepreneurship and SMEs",
-      "Internal aspects of EU taxation",
-      "Relations with Eurostat",
-      "Relations with the European Fiscal Board",
-      "Relations with the European Investment Bank (EIB), European Bank for Reconstruction and Development (EBRD), and other financial institutions",
-      "Digital Society and Economy",
-      "Digital Single Market",
-      "Internal Market",
-      "Defence Industry and Space",
-      "Startups, Research and Innovation",
-      "Competition",
-      "Competitiveness",
-      "Simplification and Implementation",
-      "Project Group AI",
-      "Project Group Startups"
+      "Diplomatic Adviser",
+      "Migration Diplomacy – overall coordination",
+      "Readmission policy",
+      "Relations with United Nations, UNHCR and IOM",
+      "Council of Europe",
+      "External aspects of home affairs"
+     ]
+    },
+    "outside": {
+     "from": [
+      "Foreign Affairs and Security Policy",
+      "Middle East, North Africa and the Gulf",
+      "Enlargement and Eastern Neighbourhood",
+      "International Partnerships",
+      "Group for External Coordination (EXCO)",
+      "External Relations: Western Balkans, Middle East, Candidate countries, East, West and Sub-Saharan Africa, Central Asia, Gulf"
+     ],
+     "to": [
+      "Foreign Affairs and Security Policy",
+      "Middle East, North Africa and the Gulf",
+      "Enlargement and Eastern Neighbourhood",
+      "International Partnerships",
+      "Group for External Coordination (EXCO)",
+      "External Relations: Western Balkans, MENA region, Africa, Candidate countries, Central and South Asia"
      ]
     }
    }
   },
   {
-   "commissioner": "raffaele-fitto",
-   "name": "Marie Tavernier",
+   "commissioner": "magnus-brunner",
+   "name": "Mauro Gagliardi",
+   "fields": [
+    "resp"
+   ],
+   "diff": {
+    "resp": {
+     "from": [
+      "Pact on Migration and Asylum – implementation",
+      "Return and readmission policy",
+      "European Union Agency for Asylum (EUAA)",
+      "Migration Fund AMIF",
+      "Ukraine",
+      "Talent Mobility"
+     ],
+     "to": [
+      "Pact on Migration and Asylum – implementation",
+      "Return policy",
+      "European Union Agency for Asylum (EUAA)",
+      "Migration Fund AMIF"
+     ]
+    }
+   }
+  },
+  {
+   "commissioner": "magnus-brunner",
+   "name": "Cathrin Bauer-Bulst",
+   "fields": [
+    "resp"
+   ],
+   "diff": {
+    "resp": {
+     "from": [
+      "Internal Security",
+      "Cybercrime",
+      "Organised Crime (with GL)",
+      "Child Sexual Abuse",
+      "Access to Data",
+      "EU Internet Forum",
+      "Counter-terrorism",
+      "Firearms and explosives",
+      "Infringements",
+      "European Union Agency for Law Enforcement",
+      "Cooperation (Europol)"
+     ],
+     "to": [
+      "Internal Security",
+      "Cybercrime",
+      "Child Sexual Abuse",
+      "Access to Data",
+      "EU Internet Forum",
+      "Counter-terrorism",
+      "Firearms and explosives",
+      "Infringements",
+      "European Union Agency for Law Enforcement Cooperation (Europol)"
+     ]
+    }
+   }
+  },
+  {
+   "commissioner": "magnus-brunner",
+   "name": "Anne Lamminmäki",
+   "fields": [
+    "resp"
+   ],
+   "diff": {
+    "resp": {
+     "from": [
+      "Talent Mobility and integration",
+      "Resettlement",
+      "Anti-smuggling",
+      "Financial crime",
+      "Confiscation and asset recovery",
+      "Drug Policy",
+      "Trafficking in human beings",
+      "Advance Passenger Information and Passenger Name Record",
+      "Critical infrastructure",
+      "Hybrid Threats/Instrumentalisation of Migration",
+      "Sanctions",
+      "European Union Agency for Law Enforcement Training (CEPOL)"
+     ],
+     "to": [
+      "Talent Mobility and integration",
+      "Resettlement",
+      "Anti-smuggling",
+      "Hybrid Threats including Instrumentalisation of Migration",
+      "Financial crime",
+      "Confiscation and asset recovery",
+      "Cooperation with ports on fighting crime",
+      "Trafficking in human beings",
+      "Advance Passenger Information and Passenger Name Record",
+      "Critical infrastructure",
+      "Sanctions",
+      "European Union Agency for Law Enforcement Training (CEPOL)"
+     ]
+    }
+   }
+  },
+  {
+   "commissioner": "magnus-brunner",
+   "name": "Mateo Matijevic",
+   "fields": [
+    "resp"
+   ],
+   "diff": {
+    "resp": {
+     "from": [
+      "Relations with the European Parliament",
+      "Relations with the Committee of the Regions",
+      "Relations with the Ombudsman",
+      "Relations with national Parliaments",
+      "Coordination of Parliamentary Questions",
+      "Relations with European Political Parties and Organisations",
+      "Relations with Think-Tanks, Academics and civil society"
+     ],
+     "to": [
+      "Relations with the European Parliament",
+      "Relations with the Committee of the Regions",
+      "Relations with the Ombudsman",
+      "Relations with national Parliaments",
+      "Relations with the European Economic and Social Committee",
+      "Coordination of Parliamentary Questions",
+      "Relations with European Political Parties and Organisations",
+      "Relations with Think-Tanks, Academics and civil society"
+     ]
+    }
+   }
+  },
+  {
+   "commissioner": "magnus-brunner",
+   "name": "Georg Luke",
+   "fields": [
+    "resp",
+    "outside"
+   ],
+   "diff": {
+    "resp": {
+     "from": [
+      "Organised Crime (with CBB)",
+      "Drug Policy (with AL)",
+      "European Union Drugs Agency (EUDA)",
+      "Pact on Migration and Asylum – implementation",
+      "Preparation of College and Home Affairs Council",
+      "Migration and Security Funds: BMVI, ISF"
+     ],
+     "to": [
+      "Organised Crime",
+      "Drug Policy",
+      "European Union Drugs Agency (EUDA)",
+      "Pact on Migration and Asylum – support to the implementation",
+      "Preparation of Home Affairs Council",
+      "Migration and Security Funds: BMVI, ISF"
+     ]
+    },
+    "outside": {
+     "from": [
+      "Budget",
+      "Relations with the Council (with NB)",
+      "European Court of Auditors",
+      "Environment",
+      "Agriculture and Rural Development",
+      "Climate Action",
+      "Regional and Urban Policy",
+      "External relations: Central America, South Asia"
+     ],
+     "to": [
+      "Budget",
+      "Relations with the Council",
+      "European Court of Auditors",
+      "Environment",
+      "Agriculture and Rural Development",
+      "Climate Action",
+      "Regional and Urban Policy",
+      "External relations: Central America"
+     ]
+    }
+   }
+  },
+  {
+   "commissioner": "jessika-roswall",
+   "name": "Ilaria Flores Martin",
    "fields": [
     "note"
    ],
@@ -454,11 +589,17 @@
    "commissioner": "marta-kos",
    "name": "Hrisanti Petrescu",
    "role": "ASSISTANT TO ABERTO FERNANDEZ DIEZ, VIKTORIYA PETRIKOVA-VOETEN AND GESINE HEINRICH"
+  },
+  {
+   "type": "added",
+   "commissioner": "jessika-roswall",
+   "name": "Luisa Samarelli",
+   "role": "PERSONAL ASSISTANT/MEMBER"
   }
  ],
  "summary": {
-  "auto": 3,
-  "structural": 11,
+  "auto": 8,
+  "structural": 12,
   "autoApplied": 0,
   "failed": 0,
   "unchecked": []

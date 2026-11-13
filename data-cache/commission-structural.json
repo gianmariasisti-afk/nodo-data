@@ -1,5 +1,5 @@
 {
- "at": "2026-11-12",
+ "at": "2026-11-13",
  "changes": [
   {
    "type": "removed",
@@ -66,6 +66,12 @@
    "commissioner": "marta-kos",
    "name": "Hrisanti Petrescu",
    "role": "ASSISTANT TO ABERTO FERNANDEZ DIEZ, VIKTORIYA PETRIKOVA-VOETEN AND GESINE HEINRICH"
+  },
+  {
+   "type": "added",
+   "commissioner": "jessika-roswall",
+   "name": "Luisa Samarelli",
+   "role": "PERSONAL ASSISTANT/MEMBER"
   }
  ]
 }
