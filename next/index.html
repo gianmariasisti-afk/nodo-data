@@ -10136,6 +10136,13 @@ body { font-variant-numeric: tabular-nums; }
 .cm-leg b { color: #d9f266; }
 .cm-strip [aria-checked="true"] { background: #d9f266; color: #111312; }
 .cm-n.is-sel span { color: #111312; }
+
+/* Brand mark (14 Nov 2026): the node, the final o of the wordmark and the dot of the "n." mark, is gold #F5B800
+   on every ground and in every theme, as on the app icon (gold on navy #0E1B4D). It is a logo, so it stays fixed
+   rather than following the theme's --node, which still colours the small UI dots. The "n." disc takes the icon's navy. */
+:root { --brand-node: #F5B800; --brand-navy: #0E1B4D; }
+.wm-node { fill: var(--brand-node) !important; }
+.auth-disc--deep { background: var(--brand-navy); color: #EAF0FF; }
 </style>
 <style>
 /* Promoted from the preview on 2026-11-02 (was next/features.css). */
