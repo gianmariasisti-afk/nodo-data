@@ -1,0 +1,369 @@
+{
+  "generated": "2026-11-14T11:39:42Z",
+  "manifestGenerated": "2026-11-14T11:39:17.819Z",
+  "counts": {
+    "activityFiles": 722,
+    "questionFiles": 10623
+  },
+  "freshness": {
+    "meps": "2026-11-12",
+    "mepsChecked": "2026-11-13",
+    "commission": "2026-11-13",
+    "commissionChecked": "2026-11-13",
+    "council": "2026-11-12",
+    "calendar": "2026-10-01",
+    "agendaChecked": "2026-11-13",
+    "activity": "2026-11-14",
+    "updates": "2026-11-13",
+    "filesAsOf": "2026-11-12"
+  },
+  "files": [
+    {
+      "id": "mff-2028-2034",
+      "short": "MFF 2028–2034",
+      "checked": "2026-11-12",
+      "checkedDays": 2,
+      "lastNext": "2026-12-14",
+      "upcoming": 5,
+      "past": 0
+    },
+    {
+      "id": "digital-omnibus-data",
+      "short": "Digital Omnibus (data)",
+      "checked": "2026-11-09",
+      "checkedDays": 5,
+      "lastNext": null,
+      "upcoming": 0,
+      "past": 0
+    },
+    {
+      "id": "industrial-accelerator-act",
+      "short": "Industrial Accelerator Act",
+      "checked": "2026-11-09",
+      "checkedDays": 5,
+      "lastNext": "2026-12-14",
+      "upcoming": 1,
+      "past": 0
+    },
+    {
+      "id": "digital-networks-act",
+      "short": "Digital Networks Act",
+      "checked": "2026-11-09",
+      "checkedDays": 5,
+      "lastNext": "2026-12-01",
+      "upcoming": 1,
+      "past": 0
+    },
+    {
+      "id": "digital-fairness-act",
+      "short": "Digital Fairness Act",
+      "checked": "2026-11-12",
+      "checkedDays": 2,
+      "lastNext": null,
+      "upcoming": 0,
+      "past": 0
+    },
+    {
+      "id": "tech-sovereignty-package",
+      "short": "Chips Act 2.0 and CADA",
+      "checked": "2026-11-12",
+      "checkedDays": 2,
+      "lastNext": null,
+      "upcoming": 0,
+      "past": 0
+    },
+    {
+      "id": "ai-act-implementation",
+      "short": "AI Act after the Omnibus",
+      "checked": "2026-11-09",
+      "checkedDays": 5,
+      "lastNext": "2026-12-02",
+      "upcoming": 1,
+      "past": 0
+    },
+    {
+      "id": "grids-package",
+      "short": "Grids Package",
+      "checked": "2026-11-12",
+      "checkedDays": 2,
+      "lastNext": "2026-11-17",
+      "upcoming": 1,
+      "past": 0
+    },
+    {
+      "id": "cef-2028-2034",
+      "short": "CEF 2028–2034",
+      "checked": "2026-11-09",
+      "checkedDays": 5,
+      "lastNext": null,
+      "upcoming": 0,
+      "past": 0
+    },
+    {
+      "id": "co2-cars",
+      "short": "CO2 standards for cars",
+      "checked": "2026-11-09",
+      "checkedDays": 5,
+      "lastNext": "2026-12-14",
+      "upcoming": 1,
+      "past": 0
+    },
+    {
+      "id": "afir-review",
+      "short": "AFIR review",
+      "checked": "2026-11-09",
+      "checkedDays": 5,
+      "lastNext": null,
+      "upcoming": 0,
+      "past": 0
+    },
+    {
+      "id": "medical-devices",
+      "short": "Medical devices revision",
+      "checked": "2026-11-12",
+      "checkedDays": 2,
+      "lastNext": "2027-01-18",
+      "upcoming": 1,
+      "past": 1
+    },
+    {
+      "id": "biotech-act",
+      "short": "Biotech Act I",
+      "checked": "2026-11-12",
+      "checkedDays": 2,
+      "lastNext": "2026-11-23",
+      "upcoming": 1,
+      "past": 0
+    },
+    {
+      "id": "digital-euro",
+      "short": "Digital euro",
+      "checked": "2026-11-12",
+      "checkedDays": 2,
+      "lastNext": "2026-11-30",
+      "upcoming": 2,
+      "past": 1
+    },
+    {
+      "id": "food-feed-omnibus",
+      "short": "Food and feed omnibus",
+      "checked": "2026-11-09",
+      "checkedDays": 5,
+      "lastNext": "2026-12-14",
+      "upcoming": 1,
+      "past": 0
+    },
+    {
+      "id": "era-act",
+      "short": "ERA Act",
+      "checked": "2026-11-09",
+      "checkedDays": 5,
+      "lastNext": null,
+      "upcoming": 0,
+      "past": 0
+    },
+    {
+      "id": "military-mobility",
+      "short": "Military mobility",
+      "checked": "2026-11-12",
+      "checkedDays": 2,
+      "lastNext": "2026-11-27",
+      "upcoming": 2,
+      "past": 1
+    },
+    {
+      "id": "kids-act",
+      "short": "EU KIDS Act",
+      "checked": "2026-11-09",
+      "checkedDays": 5,
+      "lastNext": null,
+      "upcoming": 0,
+      "past": 0
+    }
+  ],
+  "reference": {
+    "calendar": {
+      "checked": "2026-11-02",
+      "checkedDays": 12,
+      "lastSession": "2027-12-13"
+    },
+    "presidency": {
+      "current": "IE",
+      "currentProfile": true,
+      "next": "LT",
+      "nextStarts": "2027-01-01",
+      "daysToHandover": 48,
+      "nextProfile": false
+    },
+    "permrepsExtra": {
+      "entries": 6,
+      "oldestCheck": "2026-10-10",
+      "oldestDays": 35
+    },
+    "tasks": [
+      {
+        "task": "reference-refresh",
+        "name": "nodo reference refresh (Mon and Thu)",
+        "at": "2026-11-12T08:18:34.536Z",
+        "result": "ok",
+        "note": "short run: 8 files (MFF, DFA, tech sovereignty, grids, medical devices, biotech, digital euro, military mobility); 12 MFF MEP list changes; DFA proposed 11 Nov (stage moved); ECF ITRE vote and biotech directive committee vote added; Observatory plenary forecasts updated",
+        "ageDays": 2,
+        "maxAgeDays": 5,
+        "late": false
+      },
+      {
+        "task": "press-scan",
+        "name": "nodo press scan (Mon and Thu)",
+        "at": "2026-11-12T08:53:12.878Z",
+        "result": "ok",
+        "note": "0 published, 9 waiting for a second look",
+        "ageDays": 2,
+        "maxAgeDays": 5,
+        "late": false
+      },
+      {
+        "task": "council-minutes",
+        "name": "nodo Council and minutes refresh",
+        "at": null,
+        "result": null,
+        "note": "",
+        "ageDays": null,
+        "maxAgeDays": 5,
+        "late": null
+      }
+    ],
+    "commission": {
+      "unchecked": []
+    },
+    "press": {
+      "files": 4,
+      "of": 18,
+      "newest": "2026-11-04",
+      "newestDays": 10
+    }
+  },
+  "autonomy": [
+    {
+      "at": "2026-11-09",
+      "source": "commission",
+      "changes": [
+        "added: Anna Carin Wigh (jessika-roswall)"
+      ]
+    }
+  ],
+  "manifestProblems": [],
+  "sizes": {
+    "largest": [
+      {
+        "bytes": 4709933,
+        "path": "data-cache/questions.json"
+      },
+      {
+        "bytes": 3690418,
+        "path": "v1/meps.json"
+      },
+      {
+        "bytes": 1729268,
+        "path": "v1/commission.json"
+      }
+    ]
+  },
+  "workflows": [
+    {
+      "name": "Collect press candidates",
+      "latest": {
+        "conclusion": "success",
+        "at": "2026-11-13T13:15:35Z",
+        "event": "schedule",
+        "url": "https://github.com/gianmariasisti-afk/nodo-data/actions/runs/43432122994"
+      },
+      "lastSuccessAt": "2026-11-13T13:15:35Z"
+    },
+    {
+      "name": "Split portraits",
+      "latest": {
+        "conclusion": "success",
+        "at": "2026-11-13T14:53:03Z",
+        "event": "schedule",
+        "url": "https://github.com/gianmariasisti-afk/nodo-data/actions/runs/43446997758"
+      },
+      "lastSuccessAt": "2026-11-13T14:53:03Z"
+    },
+    {
+      "name": "Update Commission and cabinets",
+      "latest": {
+        "conclusion": "success",
+        "at": "2026-11-13T12:36:30Z",
+        "event": "schedule",
+        "url": "https://github.com/gianmariasisti-afk/nodo-data/actions/runs/43426613401"
+      },
+      "lastSuccessAt": "2026-11-13T12:36:30Z"
+    },
+    {
+      "name": "Update MEP activity",
+      "latest": {
+        "conclusion": "success",
+        "at": "2026-11-14T10:45:06Z",
+        "event": "schedule",
+        "url": "https://github.com/gianmariasisti-afk/nodo-data/actions/runs/43586746053"
+      },
+      "lastSuccessAt": "2026-11-14T10:45:06Z"
+    },
+    {
+      "name": "Update MEP directory",
+      "latest": {
+        "conclusion": "success",
+        "at": "2026-11-13T13:01:45Z",
+        "event": "schedule",
+        "url": "https://github.com/gianmariasisti-afk/nodo-data/actions/runs/43430112532"
+      },
+      "lastSuccessAt": "2026-11-13T13:01:45Z"
+    },
+    {
+      "name": "Update file stream",
+      "latest": {
+        "conclusion": "success",
+        "at": "2026-11-13T14:53:04Z",
+        "event": "schedule",
+        "url": "https://github.com/gianmariasisti-afk/nodo-data/actions/runs/43447001099"
+      },
+      "lastSuccessAt": "2026-11-13T14:53:04Z"
+    },
+    {
+      "name": "Update plenary agenda",
+      "latest": {
+        "conclusion": "success",
+        "at": "2026-11-13T20:29:15Z",
+        "event": "schedule",
+        "url": "https://github.com/gianmariasisti-afk/nodo-data/actions/runs/43501989109"
+      },
+      "lastSuccessAt": "2026-11-13T20:29:15Z"
+    },
+    {
+      "name": "Validate data",
+      "latest": {
+        "conclusion": "success",
+        "at": "2026-11-12T08:53:57Z",
+        "event": "push",
+        "url": "https://github.com/gianmariasisti-afk/nodo-data/actions/runs/43186734045"
+      },
+      "lastSuccessAt": "2026-11-12T08:53:57Z"
+    }
+  ],
+  "openIssues": [
+    {
+      "number": 86,
+      "title": "Commission/cabinets: changes to review",
+      "labels": [
+        "structural",
+        "commission"
+      ],
+      "createdAt": "2026-11-12T13:15:45Z",
+      "url": "https://github.com/gianmariasisti-afk/nodo-data/issues/86"
+    }
+  ],
+  "reviewBranches": [
+    "review/commission",
+    "review/press"
+  ]
+}
