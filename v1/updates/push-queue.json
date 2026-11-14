@@ -1,25 +1,4 @@
 {
-  "generatedAt": "2026-11-13T00:00:00Z",
-  "events": [
-    {
-      "id": "digital-euro:next:2026-11-13:c97009",
-      "fileId": "digital-euro",
-      "date": "2026-11-13",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Financial services attachés prepare the seventh trilogue",
-      "push": true,
-      "pushOn": "2026-11-13"
-    },
-    {
-      "id": "military-mobility:next:2026-11-13:b91010",
-      "fileId": "military-mobility",
-      "date": "2026-11-13",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Council ad hoc working party: debrief of the technical meetings of 5, 6 and 9 November and the revised annexes",
-      "push": true,
-      "pushOn": "2026-11-13"
-    }
-  ]
+  "generatedAt": "2026-11-14T00:00:00Z",
+  "events": []
 }
