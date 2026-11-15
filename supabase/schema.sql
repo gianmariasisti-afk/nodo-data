@@ -168,3 +168,82 @@ end;
 $$;
 revoke execute on function public.admin_overview() from public, anon;
 grant execute on function public.admin_overview() to authenticated;
+
+-- Data health for the maintenance dashboard (applied as migration data_status_from_github, 15 Nov 2026).
+-- public.data_status holds one row: the latest status.json from the status branch. It has row-level security and no
+-- grants, so only the dashboard's own SQL connection reads it. The "Publish health status" workflow calls
+-- refresh_data_status() with the publishable key after each publish. The function takes no input and fetches the file
+-- from this repo itself (GitHub API first, raw.githubusercontent.com as a fallback), at most once every 30 seconds,
+-- and never replaces a newer file with an older one. Needs the `http` extension.
+create extension if not exists http with schema extensions;
+
+create table if not exists public.data_status (
+  id smallint primary key default 1 check (id = 1),
+  body jsonb not null default '{}'::jsonb,
+  generated text,
+  fetched_at timestamptz,
+  tried_at timestamptz,
+  last_error text
+);
+alter table public.data_status enable row level security;
+revoke all on public.data_status from anon, authenticated;
+insert into public.data_status (id) values (1) on conflict do nothing;
+
+create or replace function public.refresh_data_status()
+returns jsonb language plpgsql security definer set search_path to ''
+as $$
+declare
+  cur public.data_status%rowtype;
+  code integer;
+  txt text;
+  doc jsonb;
+  src text;
+begin
+  select * into cur from public.data_status where id = 1 for update;
+  if cur.tried_at is not null and cur.tried_at > now() - interval '30 seconds' then
+    return jsonb_build_object('status', 'skipped', 'generated', cur.generated, 'fetched_at', cur.fetched_at);
+  end if;
+
+  begin
+    perform extensions.http_set_curlopt('CURLOPT_TIMEOUT', '10');
+    -- The API serves the branch as it is now; raw.githubusercontent.com can lag by five minutes.
+    src := 'api';
+    select h.status, h.content into code, txt from extensions.http((
+      'GET',
+      'https://api.github.com/repos/gianmariasisti-afk/nodo-data/contents/status.json?ref=status',
+      array[extensions.http_header('Accept', 'application/vnd.github.raw+json'), extensions.http_header('User-Agent', 'nodo-data-status')],
+      null, null)::extensions.http_request) h;
+    if code is distinct from 200 then
+      src := 'raw';
+      select h.status, h.content into code, txt
+      from extensions.http_get('https://raw.githubusercontent.com/gianmariasisti-afk/nodo-data/status/status.json') h;
+    end if;
+    if code is distinct from 200 then
+      raise exception 'GitHub answered %', code;
+    end if;
+    if length(txt) > 500000 then
+      raise exception 'status.json is % characters', length(txt);
+    end if;
+    doc := txt::jsonb;
+    if jsonb_typeof(doc) <> 'object' or (doc ->> 'generated') is null or not (doc ? 'freshness') or not (doc ? 'workflows') then
+      raise exception 'status.json has not the expected shape';
+    end if;
+  exception when others then
+    update public.data_status set tried_at = now(), last_error = left(sqlerrm, 300) where id = 1;
+    return jsonb_build_object('status', 'error', 'error', left(sqlerrm, 300), 'generated', cur.generated, 'fetched_at', cur.fetched_at);
+  end;
+
+  -- Never go back to an older file (a lagging copy from the raw host).
+  if cur.generated is not null and (doc ->> 'generated') < cur.generated then
+    update public.data_status set tried_at = now(), last_error = null where id = 1;
+    return jsonb_build_object('status', 'older', 'source', src, 'generated', cur.generated, 'fetched_at', cur.fetched_at);
+  end if;
+
+  update public.data_status
+    set body = doc, generated = doc ->> 'generated', fetched_at = now(), tried_at = now(), last_error = null
+    where id = 1;
+  return jsonb_build_object('status', 'ok', 'source', src, 'generated', doc ->> 'generated', 'fetched_at', now());
+end;
+$$;
+revoke execute on function public.refresh_data_status() from public, authenticated;
+grant execute on function public.refresh_data_status() to anon, service_role;

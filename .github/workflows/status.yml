@@ -3,6 +3,7 @@ name: Publish health status
 # Writes status.json to the `status` branch so the daily nodo check can read the
 # state of every workflow, every open issue and the age of every data file from raw.githubusercontent.com.
 # It runs after each data workflow finishes, so the snapshot is always as fresh as the data.
+# The last step has Supabase take a copy (public.data_status), which the maintenance dashboard reads.
 # GitHub starts scheduled runs on this repo 6–7 hours late, so the schedule below is only a backstop.
 
 on:
@@ -96,3 +97,24 @@ jobs:
           git add status.json
           git commit -q -m "Status $(date -u +%FT%TZ)"
           git push -q -f origin status
+      - name: Copy the status to Supabase
+        # public.refresh_data_status() takes no input: it fetches status.json from the status branch itself and keeps it in
+        # public.data_status. So the publishable key (public, the same one as in config.js) is enough and nothing can be
+        # injected. The loop waits until Supabase holds the file just published. A failure here never fails the run.
+        continue-on-error: true
+        env:
+          SUPABASE_URL: https://dmishwyqipqbfgtdpalk.supabase.co
+          SUPABASE_KEY: sb_publishable_D27BtfFg8CurRjDAs0Sb3Q_Kuzs_52Q
+        run: |
+          set -uo pipefail
+          WANT=$(jq -r '.generated' "$RUNNER_TEMP/out/status.json")
+          for i in 1 2 3 4 5 6 7 8; do
+            ANSWER=$(curl -sS --max-time 30 -X POST "$SUPABASE_URL/rest/v1/rpc/refresh_data_status" \
+              -H "apikey: $SUPABASE_KEY" -H "Content-Type: application/json" -d '{}' || true)
+            GOT=$(printf '%s' "$ANSWER" | jq -r '.generated // empty' 2>/dev/null || true)
+            echo "Attempt $i: Supabase holds '$GOT', published '$WANT' ($ANSWER)"
+            if [ "$GOT" = "$WANT" ]; then exit 0; fi
+            sleep 40
+          done
+          echo "::warning::Supabase did not take the status.json published at $WANT"
+          exit 1

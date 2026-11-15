@@ -188,6 +188,8 @@ The gate is `scripts/validate-data.mjs`. It checks counts, required fields, role
 
 The Action "Publish health status" (`.github/workflows/status.yml`) writes `status.json` to the `status` branch after every data workflow finishes (and on weekdays at 06:20 UTC as a backstop). It holds the latest run of each workflow, open issues, review branches, file counts, the build date of every data file (`freshness`), the dates still ahead for each priority file (`files`) and manifest entries that no longer match their file (`manifestProblems`, from `scripts/status-data.mjs`). The weekday Claude check reads it from `https://raw.githubusercontent.com/gianmariasisti-afk/nodo-data/status/status.json`.
 
+Since 15 Nov 2026 the workflow's last step also has Supabase take a copy: it calls `public.refresh_data_status()` with the publishable key, and the function fetches `status.json` from the `status` branch itself and keeps it in `public.data_status` (one row; see `supabase/schema.sql`). The maintenance dashboard reads its Data health from that table, so it is as fresh as the last status run. No secret is involved, and a failed copy never fails the run (it shows as a warning on the step).
+
 GitHub starts scheduled runs on this repo 6–7 hours late and skips some (observed 5–12 October 2026): the morning jobs land around midday UTC and the agenda job runs about twice a day out of four slots. Times in this README are the scheduled ones.
 
 The daily "Update file stream" run also recomputes the `files` entry of `v1/manifest.json` from `v1/files.json`, which is edited by hand, and removes anything in the files map that is not an entry.
