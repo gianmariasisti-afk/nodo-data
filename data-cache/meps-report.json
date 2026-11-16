@@ -1,15 +1,26 @@
 {
- "run": "2026-11-13T13:02:12.827Z",
- "checked": "2026-11-13",
+ "run": "2026-11-16T13:34:44.254Z",
+ "checked": "2026-11-16",
  "api": 720,
  "nodo": 720,
  "failed": [],
- "auto": [],
+ "auto": [
+  {
+   "id": "202352",
+   "name": "Antoni COMÍN I OLIVERES",
+   "changes": {
+    "email": {
+     "from": "antoni.cominioliveres@europarl.europa.eu",
+     "to": "toni.comin@europarl.europa.eu"
+    }
+   }
+  }
+ ],
  "structural": [],
  "summary": {
-  "auto": 0,
+  "auto": 1,
   "structural": 0,
   "failed": 0,
-  "changed": false
+  "changed": true
  }
 }
