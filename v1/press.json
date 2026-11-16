@@ -1,8 +1,59 @@
 {
- "generated": "2026-11-09T08:54:54.396Z",
+ "generated": "2026-11-16T08:57:35.421Z",
  "windowDays": 30,
  "maxPerFile": 3,
  "files": {
+  "biotech-act": [
+   {
+    "id": "d035b91a2c",
+    "date": "2026-11-10",
+    "source": "Agence Europe",
+    "inst": "press",
+    "kind": "press",
+    "text": "Agence Europe reports that the committees adopted Marta Temido and Adam Jarubas's report on the directive on GMMs and organs on 10 November by 54 votes to 18 with 16 abstentions. Greens/EFA amendments allowing national bans were rejected.",
+    "url": "https://agenceurope.eu/en/bulletin/article/13979/4/meps-back-tailored-framework-for-genetically-modified-micro-organisms",
+    "people": [
+     "ep:210480",
+     "ep:197517"
+    ],
+    "stage": false,
+    "paywall": true,
+    "added": "2026-11-16"
+   }
+  ],
+  "cef-2028-2034": [
+   {
+    "id": "44a7ca332b",
+    "date": "2026-11-10",
+    "source": "Agence Europe",
+    "inst": "press",
+    "kind": "press",
+    "text": "Agence Europe reports that ITRE and TRAN adopted their position on the CEF on 10 November by 101 votes to 1 with 17 abstentions. They ask for €91.28bn, against €81.42bn in the Commission proposal.",
+    "url": "https://agenceurope.eu/en/bulletin/article/13979/11/connecting-europe-facility-meps-highly-critical-of-proposed-cuts-to-next-multiannual-budget",
+    "people": [
+     "ep:257032",
+     "ep:256987"
+    ],
+    "stage": false,
+    "paywall": true,
+    "added": "2026-11-16"
+   }
+  ],
+  "digital-fairness-act": [
+   {
+    "id": "9d747fe0e5",
+    "date": "2026-11-11",
+    "source": "Commission press release",
+    "inst": "commission",
+    "kind": "institutional",
+    "text": "The Commission presented its proposal for a Digital Fairness Act, an update of EU consumer protection rules so that consumers get the same protection online as offline.",
+    "url": "https://ec.europa.eu/commission/presscorner/detail/en/ip_26_2407",
+    "people": [],
+    "stage": true,
+    "paywall": false,
+    "added": "2026-11-16"
+   }
+  ],
   "digital-networks-act": [
    {
     "id": "ba26170ad6",
@@ -98,6 +149,21 @@
   ],
   "mff-2028-2034": [
    {
+    "id": "1fa14ce147",
+    "date": "2026-11-10",
+    "source": "Agence Europe",
+    "inst": "press",
+    "kind": "press",
+    "text": "Agence Europe reports that ITRE adopted its position on the European Competitiveness Fund on 10 November by 61 votes to 13 with 12 abstentions, and a negotiating mandate by 56 to 26. It raises the fund to €264bn for 2028–2034.",
+    "url": "https://agenceurope.eu/en/bulletin/article/13979/2/meps-secure-negotiating-mandate-on-european-competitiveness-fund",
+    "people": [
+     "ep:124784"
+    ],
+    "stage": false,
+    "paywall": true,
+    "added": "2026-11-16"
+   },
+   {
     "id": "e9456366ad",
     "date": "2026-11-04",
     "source": "Agence Europe",
@@ -167,6 +233,23 @@
     "stage": false,
     "paywall": true,
     "added": "2026-11-01"
+   }
+  ],
+  "military-mobility": [
+   {
+    "id": "47a075f2ad",
+    "date": "2026-11-09",
+    "source": "Agence Europe",
+    "inst": "press",
+    "kind": "press",
+    "text": "Agence Europe reports that negotiators agreed a five-day deadline for military transport permissions in normal times, but remain split on the crisis framework and EMERS. The next trilogue is set for 9 December.",
+    "url": "https://agenceurope.eu/en/bulletin/article/13978/7/military-mobility-negotiations-still-stalled-over-scope-of-eu-powers-in-a-crisis",
+    "people": [
+     "ep:28615"
+    ],
+    "stage": false,
+    "paywall": true,
+    "added": "2026-11-16"
    }
   ]
  }

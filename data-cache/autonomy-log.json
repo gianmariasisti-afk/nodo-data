@@ -46,5 +46,41 @@
     "role": "ASSISTANT TO THE HEAD OF CABINET"
    }
   ]
+ },
+ {
+  "at": "2026-11-16T08:57:32.266Z",
+  "source": "press",
+  "changes": [
+   {
+    "type": "published",
+    "name": "mff-2028-2034: Agence Europe 2026-11-10",
+    "url": "https://agenceurope.eu/en/bulletin/article/13979/2/meps-secure-negotiating-mandate-on-european-competitiveness-fund",
+    "check": "verified on two runs"
+   },
+   {
+    "type": "published",
+    "name": "cef-2028-2034: Agence Europe 2026-11-10",
+    "url": "https://agenceurope.eu/en/bulletin/article/13979/11/connecting-europe-facility-meps-highly-critical-of-proposed-cuts-to-next-multiannual-budget",
+    "check": "verified on two runs"
+   },
+   {
+    "type": "published",
+    "name": "biotech-act: Agence Europe 2026-11-10",
+    "url": "https://agenceurope.eu/en/bulletin/article/13979/4/meps-back-tailored-framework-for-genetically-modified-micro-organisms",
+    "check": "verified on two runs"
+   },
+   {
+    "type": "published",
+    "name": "military-mobility: Agence Europe 2026-11-09",
+    "url": "https://agenceurope.eu/en/bulletin/article/13978/7/military-mobility-negotiations-still-stalled-over-scope-of-eu-powers-in-a-crisis",
+    "check": "verified on two runs"
+   },
+   {
+    "type": "published",
+    "name": "digital-fairness-act: Commission press release 2026-11-11",
+    "url": "https://ec.europa.eu/commission/presscorner/detail/en/ip_26_2407",
+    "check": "verified on two runs"
+   }
+  ]
  }
 ]
