@@ -81,10 +81,26 @@
     } catch (e) { console.warn("nodo: Apple token not revoked", e); }
   }
 
+  /* Push notifications (16 Nov 2026), iOS only for now: NodoPushPlugin in SceneDelegate.swift.
+     status() → "prompt" | "granted" | "denied"; request() shows the iOS prompt and returns the new status;
+     register() → { token, env } from Apple; onTap(fn) receives { kind, files } when a notification is opened,
+     including the one that started the app. */
+  const PushPlugin = platform === "ios" ? Cap.registerPlugin("NodoPush") : null;
+  const push = PushPlugin && {
+    async status() { try { return (await PushPlugin.status()).status; } catch { return "unknown"; } },
+    async request() { return (await PushPlugin.request()).status; },
+    register() {
+      return Promise.race([PushPlugin.register(), new Promise((_, no) => setTimeout(() => no(new Error("No answer from Apple")), 15000))]);
+    },
+    openSettings() { return PushPlugin.openSettings(); },
+    onTap(fn) { PushPlugin.addListener("tap", (d) => { try { fn(d || {}); } catch (e) { console.error(e); } }); },
+  };
+
   window.nodoNative = {
     platform,
     webUrl: WEB_URL,
     beforeDelete,
+    push,
     async oauth(provider, client) {
       if (provider === "apple" && platform === "ios") return apple(client);
       return browserFlow(provider, client);

@@ -206,6 +206,22 @@ The Action "Update file stream" (`.github/workflows/updates.yml`) runs `scripts/
 
 Commission and cabinet changes that need a decision follow the same pattern as the MEP directory: one rolling branch `review/commission` and one open issue, rebuilt on every run.
 
+## Push notifications (iPhone app, since 16 Nov 2026)
+
+Design: canvas "nodo Notifications". Three tiers, about files people follow only:
+
+- **File moves**, right away (weekdays 08:00–19:00 Brussels): a stage change or a milestone that moves the file (report adopted in committee, plenary vote, trilogue agreement endorsed, signature, Official Journal).
+- **Weekday roundup**, 08:30: everything else new on followed files (people, steps, Latest developments).
+- **Monday week ahead**, 08:30: the next 7 days on followed files; it takes Monday's roundup slot.
+
+At most one a day per person; an update is never sent twice; muted files, switched-off tiers and people hidden on a list are skipped. The rules are in `supabase/functions/push-send/plan.js` (tests: `tests/push/plan.test.mjs`).
+
+- **App**: `NodoPushPlugin` in `app/ios/App/App/SceneDelegate.swift` (permission, Apple token, taps), `AppDelegate.swift` forwards the token, `App.entitlements` has `aps-environment`. `app/native/native.js` exposes `nodoNative.push`. In `index.html`, the "Push notifications" block asks at the first follow (nodo's sheet, then iOS), replaces You › Notifications when push is open, registers the phone with `register_push_device`, and lands a tap on Today. The web app is unchanged.
+- **Server**: `supabase/push.sql` (also at the end of `schema.sql`): `push_devices`, `push_seen` (when each update was first seen, so "new" means new to nodo, whatever the institution's date), `push_log`, `push_settings` (kill switch, audience, cron secret). The `push-send` Edge Function reads `v1/updates/updates.json`, `v1/files.json` and `v1/press.json` from Pages and sends through Apple (APNs). pg_cron job `nodo-push` calls it at :30 every weekday hour from 06:30 to 17:30 UTC.
+- **Audience**: `push_settings.audience = 'admins'` until it is opened with `update public.push_settings set audience = 'all' where id = 1`. `enabled = false` stops every send.
+- **Secrets** (Supabase › Edge Functions): `APNS_KEY_ID`, `APNS_PRIVATE_KEY` (the .p8 text), `APNS_TEAM_ID` (or the existing `APPLE_TEAM_ID`).
+- **Test**: a signed-in admin can POST `{ "test": true }` to the function to receive "nodo test" on their own phones, or `{}` for a dry run of today's plan.
+
 ## Country pages: monument photos and flag band
 
 Each country page shows a national monument photo cut into five columns, a band in the flag's colours, and the monument's name in the top bar. Photos live in `monuments/` (from Unsplash, 900 px wide, photographer credited on the page). Name, place, year, crop and flag layout per country are in `MONUMENTS` and `FLAGS` in `index.html`. Years appear only where a source gives one completion or opening date.

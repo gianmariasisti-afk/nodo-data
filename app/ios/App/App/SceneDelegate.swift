@@ -2,6 +2,7 @@ import UIKit
 import Capacitor
 import AuthenticationServices
 import CryptoKit
+import UserNotifications
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
@@ -29,6 +30,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 class NodoBridgeViewController: CAPBridgeViewController {
     override open func capacitorDidLoad() {
         bridge?.registerPluginInstance(NodoAppleSignInPlugin())
+        bridge?.registerPluginInstance(NodoPushPlugin())
     }
 }
 
@@ -93,5 +95,100 @@ public class NodoAppleSignInPlugin: CAPPlugin, CAPBridgedPlugin, ASAuthorization
         } else {
             call.reject(error.localizedDescription, "FAILED")
         }
+    }
+}
+
+/// Push notifications for nodo (16 Nov 2026). The web layer (app/native/native.js) asks for permission only after
+/// nodo's own sheet, then registers the phone with Apple and stores the token in Supabase (register_push_device).
+/// Taps are passed to the web layer as a "tap" event, kept until a listener takes it (the app may be starting).
+@objc(NodoPushPlugin)
+public class NodoPushPlugin: CAPPlugin, CAPBridgedPlugin, NotificationHandlerProtocol {
+    public let identifier = "NodoPushPlugin"
+    public let jsName = "NodoPush"
+    public let pluginMethods: [CAPPluginMethod] = [
+        CAPPluginMethod(name: "status", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "request", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "register", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "openSettings", returnType: CAPPluginReturnPromise)
+    ]
+
+    private var tokenCalls: [CAPPluginCall] = []
+
+    /// Debug builds run from Xcode talk to Apple's sandbox; TestFlight and App Store builds to production.
+    private var apnsEnv: String {
+        #if DEBUG
+        return "sandbox"
+        #else
+        return "production"
+        #endif
+    }
+
+    override public func load() {
+        bridge?.notificationRouter.pushNotificationHandler = self
+        NotificationCenter.default.addObserver(self, selector: #selector(didRegister(_:)), name: .capacitorDidRegisterForRemoteNotifications, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didFail(_:)), name: .capacitorDidFailToRegisterForRemoteNotifications, object: nil)
+    }
+
+    private static func label(_ s: UNAuthorizationStatus) -> String {
+        switch s {
+        case .notDetermined: return "prompt"
+        case .denied: return "denied"
+        default: return "granted"
+        }
+    }
+
+    @objc func status(_ call: CAPPluginCall) {
+        UNUserNotificationCenter.current().getNotificationSettings { settings in
+            call.resolve(["status": NodoPushPlugin.label(settings.authorizationStatus)])
+        }
+    }
+
+    /// Shows the iOS prompt (only the first time; afterwards iOS answers with the stored choice).
+    @objc func request(_ call: CAPPluginCall) {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { _, _ in
+            UNUserNotificationCenter.current().getNotificationSettings { settings in
+                call.resolve(["status": NodoPushPlugin.label(settings.authorizationStatus)])
+            }
+        }
+    }
+
+    /// Asks Apple for this phone's token. Resolves with { token, env }.
+    @objc func register(_ call: CAPPluginCall) {
+        call.keepAlive = true
+        tokenCalls.append(call)
+        DispatchQueue.main.async { UIApplication.shared.registerForRemoteNotifications() }
+    }
+
+    @objc func openSettings(_ call: CAPPluginCall) {
+        DispatchQueue.main.async {
+            var s = UIApplication.openSettingsURLString
+            if #available(iOS 16.0, *) { s = UIApplication.openNotificationSettingsURLString }
+            if let url = URL(string: s) { UIApplication.shared.open(url) }
+            call.resolve()
+        }
+    }
+
+    @objc private func didRegister(_ note: Notification) {
+        guard let data = note.object as? Data else { return }
+        let token = data.map { String(format: "%02x", $0) }.joined()
+        let calls = tokenCalls; tokenCalls = []
+        for c in calls { c.resolve(["token": token, "env": apnsEnv]); bridge?.releaseCall(c) }
+    }
+
+    @objc private func didFail(_ note: Notification) {
+        let message = (note.object as? Error)?.localizedDescription ?? "Registration failed"
+        let calls = tokenCalls; tokenCalls = []
+        for c in calls { c.reject(message); bridge?.releaseCall(c) }
+    }
+
+    /// While nodo is open, nothing pops up: Today already shows the changes.
+    public func willPresent(notification: UNNotification) -> UNNotificationPresentationOptions {
+        return []
+    }
+
+    public func didReceive(response: UNNotificationResponse) {
+        let info = response.notification.request.content.userInfo
+        let nodo = info["nodo"] as? [String: Any] ?? [:]
+        notifyListeners("tap", data: JSTypes.coerceDictionaryToJSObject(nodo) ?? [:], retainUntilConsumed: true)
     }
 }
