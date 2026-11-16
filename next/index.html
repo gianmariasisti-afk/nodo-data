@@ -9999,6 +9999,9 @@ html:has(body.nx-burger:not(.nx-on-home)):not(:has(.profile:not([hidden]))) { ba
 .fr-sec[aria-labelledby="frH-energy"]   { --area-tint: var(--tint-mint); }
 .fr-sec[aria-labelledby="frH-health"]   { --area-tint: var(--tint-rose); }
 .fr-sec[aria-labelledby="frH-budget"]   { --area-tint: var(--tint-butter); }
+.fr-sec[aria-labelledby="frH-agri"]     { --area-tint: #E3EBC4; } /* olive, Agriculture (16 Nov 2026) */
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .fr-sec[aria-labelledby="frH-agri"] { --area-tint: #3F4A1E; } }
+:root[data-theme="dark"] .fr-sec[aria-labelledby="frH-agri"] { --area-tint: #3F4A1E; }
 .fr-sec[aria-labelledby^="frH-"] { --area-bg: color-mix(in srgb, var(--area-tint, var(--surface-sunken)) var(--area-mix), var(--surface-sunken)); background: var(--area-bg); }
 .fr-sec .fr__av .fr-ava { border-color: var(--area-bg, var(--surface-sunken)); }
 

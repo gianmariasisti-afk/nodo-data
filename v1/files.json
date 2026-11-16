@@ -44,6 +44,10 @@
     "name": "Health and food"
    },
    {
+    "id": "agri",
+    "name": "Agriculture"
+   },
+   {
     "id": "budget",
     "name": "Budget, finance and defence"
    }
@@ -5134,6 +5138,360 @@
      "whyBy": "nodo"
     }
    ]
+  },
+  {
+   "id": "cap-2028-2034",
+   "short": "CAP 2028–2034",
+   "title": "Common Agricultural Policy 2028–2034: conditions for EU support to farmers",
+   "kind": "regulation",
+   "area": "agri",
+   "procedure": "2025/0241(COD)",
+   "proposal": "COM(2025)560",
+   "stage": "positions-in-preparation",
+   "lede": "The Council has a partial position without the money; Parliament's AGRI committee votes in late January at the earliest.",
+   "status": "The Commission proposed it on 16 July 2025 as part of the MFF package. CAP money would sit inside the National and Regional Partnership Plans fund, which is followed as a part of nodo's MFF file. Agriculture ministers agreed a partial negotiating position unanimously at the AGRIFISH Council on 26 October 2026, after preparation in the Special Committee on Agriculture and the Working Party on Horizontal Agricultural Questions; financial and horizontal issues wait for the MFF deal. In Parliament, AGRI rapporteur Norbert Lins (EPP) tabled his draft report on 12 June 2026 and about 3,500 amendments followed. ENVI and REGI adopted their opinions in July. The groups are negotiating compromises, with capping and degressivity, social conditionality and environmental ambition the open fights. Agence Europe reported on 13 November that the AGRI vote is planned for 27–28 January 2027, subject to agreement on the partnership plans; in October the EPP's AGRI delegation suspended its support for those plans over funding guarantees for the CAP.",
+   "next": [
+    {
+     "date": "2026-12-02",
+     "what": "AGRI shadow rapporteurs meet on compromises (CAP and CMO)",
+     "src": "agenceurope-13981-cmo"
+    },
+    {
+     "date": "2027-01-27",
+     "what": "AGRI committee vote on the Lins report (planned 27–28 January, subject to agreement on the partnership plans)",
+     "src": "agenceurope-13981-cmo"
+    },
+    {
+     "date": null,
+     "what": "Parliament plenary, first reading: no date set"
+    }
+   ],
+   "ep": {
+    "lead": [
+     "AGRI"
+    ],
+    "note": "AGRI leads. ENVI and REGI give opinions; BUDG gives a budgetary assessment."
+   },
+   "meps": [
+    {
+     "id": "124808",
+     "role": "rapporteur",
+     "committee": "AGRI",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0241(COD)"
+    },
+    {
+     "id": "257111",
+     "role": "shadow",
+     "committee": "AGRI",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0241(COD)"
+    },
+    {
+     "id": "197825",
+     "role": "shadow",
+     "committee": "AGRI",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0241(COD)"
+    },
+    {
+     "id": "96810",
+     "role": "shadow",
+     "committee": "AGRI",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0241(COD)"
+    },
+    {
+     "id": "257297",
+     "role": "shadow",
+     "committee": "AGRI",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0241(COD)"
+    },
+    {
+     "id": "190464",
+     "role": "shadow",
+     "committee": "AGRI",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0241(COD)"
+    },
+    {
+     "id": "124985",
+     "role": "shadow",
+     "committee": "AGRI",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0241(COD)"
+    },
+    {
+     "id": "197556",
+     "role": "shadow",
+     "committee": "AGRI",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0241(COD)"
+    },
+    {
+     "id": "96668",
+     "role": "opinion-rapporteur",
+     "committee": "ENVI",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0241(COD)"
+    },
+    {
+     "id": "256829",
+     "role": "opinion-shadow",
+     "committee": "ENVI",
+     "basis": "ep-open-data",
+     "ref": "ENVI-AD-784303"
+    },
+    {
+     "id": "256881",
+     "role": "opinion-shadow",
+     "committee": "ENVI",
+     "basis": "ep-open-data",
+     "ref": "ENVI-AD-784303"
+    },
+    {
+     "id": "257150",
+     "role": "opinion-shadow",
+     "committee": "ENVI",
+     "basis": "ep-open-data",
+     "ref": "ENVI-AD-784303"
+    },
+    {
+     "id": "257038",
+     "role": "opinion-shadow",
+     "committee": "ENVI",
+     "basis": "ep-open-data",
+     "ref": "ENVI-AD-784303"
+    },
+    {
+     "id": "197398",
+     "role": "opinion-shadow",
+     "committee": "ENVI",
+     "basis": "ep-open-data",
+     "ref": "ENVI-AD-784303"
+    },
+    {
+     "id": "197416",
+     "role": "opinion-shadow",
+     "committee": "ENVI",
+     "basis": "ep-open-data",
+     "ref": "ENVI-AD-784303"
+    },
+    {
+     "id": "197690",
+     "role": "opinion-rapporteur",
+     "committee": "REGI",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0241(COD)"
+    },
+    {
+     "id": "197647",
+     "role": "opinion-shadow",
+     "committee": "REGI",
+     "basis": "ep-open-data",
+     "ref": "REGI-AD-786678"
+    },
+    {
+     "id": "256935",
+     "role": "opinion-shadow",
+     "committee": "REGI",
+     "basis": "ep-open-data",
+     "ref": "REGI-AD-786678"
+    },
+    {
+     "id": "197824",
+     "role": "opinion-shadow",
+     "committee": "REGI",
+     "basis": "ep-open-data",
+     "ref": "REGI-AD-786678"
+    },
+    {
+     "id": "257298",
+     "role": "opinion-shadow",
+     "committee": "REGI",
+     "basis": "ep-open-data",
+     "ref": "REGI-AD-786678"
+    },
+    {
+     "id": "257130",
+     "role": "opinion-shadow",
+     "committee": "REGI",
+     "basis": "ep-open-data",
+     "ref": "REGI-AD-786678"
+    },
+    {
+     "id": "257299",
+     "role": "opinion-shadow",
+     "committee": "REGI",
+     "basis": "ep-open-data",
+     "ref": "REGI-AD-786678"
+    },
+    {
+     "id": "256945",
+     "role": "opinion-shadow",
+     "committee": "REGI",
+     "basis": "ep-open-data",
+     "ref": "REGI-AD-786678"
+    },
+    {
+     "id": "88882",
+     "role": "opinion-rapporteur",
+     "committee": "BUDG",
+     "basis": "ep-open-data",
+     "ref": "BUDG-PA-786807"
+    },
+    {
+     "id": "257296",
+     "role": "opinion-shadow",
+     "committee": "BUDG",
+     "basis": "ep-open-data",
+     "ref": "BUDG-PA-786807"
+    },
+    {
+     "id": "88552",
+     "role": "opinion-shadow",
+     "committee": "BUDG",
+     "basis": "ep-open-data",
+     "ref": "BUDG-PA-786807"
+    },
+    {
+     "id": "197545",
+     "role": "opinion-shadow",
+     "committee": "BUDG",
+     "basis": "ep-open-data",
+     "ref": "BUDG-PA-786807"
+    },
+    {
+     "id": "197445",
+     "role": "opinion-shadow",
+     "committee": "BUDG",
+     "basis": "ep-open-data",
+     "ref": "BUDG-PA-786807"
+    },
+    {
+     "id": "257044",
+     "role": "opinion-shadow",
+     "committee": "BUDG",
+     "basis": "ep-open-data",
+     "ref": "BUDG-PA-786807"
+    }
+   ],
+   "commission": {
+    "lead": [
+     "christophe-hansen"
+    ],
+    "associated": [
+     "piotr-serafin"
+    ]
+   },
+   "dg": {
+    "lead": [
+     "AGRI"
+    ],
+    "basis": "source",
+    "note": "The Parliament's procedure file lists DG Agriculture and Rural Development and Commissioner Hansen."
+   },
+   "cabinet": [
+    {
+     "k": "christophe-hansen~alisa-tiganj",
+     "why": "Deputy Head of Cabinet; future CAP and partnership plans; AGRIFISH Council; MFF 2028–2034"
+    },
+    {
+     "k": "christophe-hansen~antonella-rossetti",
+     "why": "Future CAP and CMO legislation, interinstitutional aspects; relations with the European Parliament"
+    },
+    {
+     "k": "christophe-hansen~maxi-espeter",
+     "why": "Environmental sustainability and generational renewal in the CAP; relations with the European Parliament"
+    },
+    {
+     "k": "christophe-hansen~pawel-wisniewski",
+     "why": "Risk management instruments; CAP budget"
+    },
+    {
+     "k": "christophe-hansen~esther-de-lange",
+     "why": "Head of Cabinet"
+    },
+    {
+     "k": "piotr-serafin~anne-funch-jensen",
+     "why": "Deputy Head of Cabinet; MFF (the CAP envelope is set in the MFF deal)"
+    }
+   ],
+   "council": {
+    "configs": [
+     "AGRIFISH"
+    ],
+    "configsBasis": "source",
+    "presidency": "IE",
+    "note": "Partial general approach agreed at the AGRIFISH Council on 26 October 2026, without financial and horizontal issues. The budget follows the MFF negotiation.",
+    "workingParties": [
+     {
+      "name": "Special Committee on Agriculture (SCA)",
+      "basis": "source",
+      "note": "Prepares the AGRIFISH Council on the file; Presidency note to the SCA of 7 September 2026 (Council doc 12310/26)."
+     },
+     {
+      "name": "Working Party on Horizontal Agricultural Questions (Post-2027 CAP)",
+      "basis": "source",
+      "note": "Examines the text block by block. The Ad Hoc Working Party on the MFF handles the bracketed parts."
+     }
+    ]
+   },
+   "caveats": [
+    "The AGRI rapporteur and shadows and the ENVI and REGI rapporteurs come from the Parliament's procedure file. The opinion shadows and the BUDG names come from the Parliament's open data, which does not say which committee each opinion shadow sits for; nodo reads it from the order the Parliament lists them in.",
+    "BUDG gives a budgetary assessment, not a full opinion; its rapporteur and shadows are listed as opinion roles.",
+    "The committee vote date comes from press reporting and depends on the partnership plans; an earlier report had pointed to around 1 December."
+   ],
+   "sources": [
+    {
+     "id": "ep-proc-2025-0241",
+     "title": "European Parliament Open Data: procedure 2025/0241(COD)",
+     "url": "https://data.europarl.europa.eu/api/v2/procedures/2025-0241"
+    },
+    {
+     "id": "oeil-2025-0241-cod",
+     "title": "Legislative Observatory: procedure file 2025/0241(COD)",
+     "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2025/0241(COD)"
+    },
+    {
+     "id": "council-14480",
+     "title": "Council doc 14480/26: CAP post-2027 Regulation (22 Oct 2026)",
+     "url": "https://data.consilium.europa.eu/doc/document/ST-14480-2026-INIT/en/pdf"
+    },
+    {
+     "id": "council-12310",
+     "title": "Council doc 12310/26: Presidency note to the SCA (7 Sep 2026)",
+     "url": "https://data.consilium.europa.eu/doc/document/ST-12310-2026-INIT/en/pdf"
+    },
+    {
+     "id": "council-agrifish-20261026",
+     "title": "Council: Agriculture and Fisheries Council, 26–27 Oct 2026, main results",
+     "url": "https://www.consilium.europa.eu/en/meetings/agrifish/2026/10/26/"
+    },
+    {
+     "id": "agenceurope-13929",
+     "title": "Agence Europe: differences in Parliament over capping of 2028–2034 aid",
+     "url": "https://agenceurope.eu/en/bulletin/article/13929/8/differences-in-european-parliament-over-capping-of-2028-2034-aid"
+    },
+    {
+     "id": "agenceurope-13977",
+     "title": "Agence Europe: Lins backs optional capping of farm support after 2027",
+     "url": "https://agenceurope.eu/en/bulletin/article/13977/10/mep-norbert-lins-backs-optional-capping-of-farm-support-after-2027"
+    },
+    {
+     "id": "agenceurope-13981-cmo",
+     "title": "Agence Europe: AGRI votes on CMO and CAP reports planned for 27–28 January 2027",
+     "url": "https://agenceurope.eu/en/bulletin/article/13981/10/meps-reach-compromises-on-eu-strategic-stocks-to-be-confirmed-in-late-january-2027"
+    },
+    {
+     "id": "agenceurope-13981-nrpp",
+     "title": "Agence Europe: no Parliament vote on the partnership plans before January 2027",
+     "url": "https://agenceurope.eu/en/bulletin/article/13981/4/2028-2034-mff-meps-will-not-vote-on-regulation-introducing-nrpps-future-budgets-centrepiece-before-january-2027"
+    }
+   ],
+   "checked": "2026-11-16",
+   "asOf": "2026-11-16"
   }
  ]
 }
