@@ -8547,6 +8547,219 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     if (t && t.tagName === "IMG" && /\/portraits\//.test(t.src || "")) t.style.visibility = "hidden";
   }, true);
 
+  /* ======================= Push notifications (16 Nov 2026) =======================
+     Approved design: canvas "nodo Notifications". iPhone app only (window.nodoNative.push, app/native/native.js);
+     the web app is unchanged. While public.push_settings.audience is 'admins', only admin accounts see any of it
+     (public.push_open()), so it can be tried on TestFlight before everyone gets it.
+     Tiers and rules live server-side in supabase/functions/push-send/plan.js. Choices sync on profile.notify:
+     pushMoves, pushDaily, pushWeek (default on), pushMuted (file ids), pushAsks (times the sheet was shown).
+     The ask: nodo's sheet the first time someone follows a file, then the iOS prompt only after "Turn on".
+     "Not now" asks once more at the third followed file, then only from You > Notifications.
+     A tap opens Today with the notification's files ringed in "Since you last looked"; the week ahead opens
+     "Next 7 days"; a file move with no row on Today opens the file. */
+  const PN = { api: (window.nodoNative && window.nodoNative.push) || null, on: false, status: "unknown", token: "", uid: "", seen: new Set(), tapped: null };
+  const pnNotify = () => Object.assign({ pushMoves: true, pushDaily: true, pushWeek: true, pushMuted: [], pushAsks: 0 }, (state.profile && state.profile.notify) || {});
+  const pnSave = (patch) => { if (!state.profile) state.profile = {}; state.profile.notify = { ...((state.profile && state.profile.notify) || {}), ...patch }; saveProfile(); };
+  const PN_BELL = (off) => `<svg class="pn-ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10 21h4"/>${off ? '<path d="M3 3l18 18"/>' : ""}</svg>`;
+
+  async function pnRegister() {
+    if (!PN.on || PN.status !== "granted" || !acct.user || !SB.client) return;
+    try {
+      const r = await PN.api.register();
+      if (!r || !r.token) return;
+      const { error } = await SB.client.rpc("register_push_device", { p_token: r.token, p_platform: window.nodoNative.platform, p_env: r.env || "production" });
+      if (!error) { PN.token = r.token; PN.uid = acct.user.id; }
+    } catch (e) { console.warn("nodo: push registration", e); }
+  }
+  async function pnSync() {
+    if (!PN.api || !LIVE || !acct.user || !SB.client) return;
+    try { const { data, error } = await SB.client.rpc("push_open"); PN.on = !error && data === true; } catch { PN.on = false; }
+    if (!PN.on) return;
+    PN.status = await PN.api.status();
+    PN.seen = new Set(state.follow);
+    await pnRegister();
+    if (PN.tapped) { const d = PN.tapped; PN.tapped = null; pnOpen(d); }
+  }
+
+  /* ---------- the ask, at the first follow ---------- */
+  function pnShouldAsk() {
+    if (!PN.on || PN.status !== "prompt" || !acct.user) return false;
+    if (!$("sheet").hidden || !$("onb").hidden || state.touring) return false;
+    const n = pnNotify();
+    return n.pushAsks < 1 || (n.pushAsks === 1 && state.follow.size >= 3);
+  }
+  function pnAsk(fid) {
+    const f = FILE_BY[fid];
+    state.sheet = "pnask";
+    if ($("sheet").hidden) layer.sheet = document.activeElement;
+    pnSave({ pushAsks: pnNotify().pushAsks + 1 });
+    $("sheet").innerHTML = `<div class="sheet__bar"><button class="eu-iconbtn eu-iconbtn--sm" type="button" data-sheet-close aria-label="Close">${icon("x")}</button></div>
+      <div class="pn-ask">
+        <span class="pn-badge" aria-hidden="true">${PN_BELL()}<i></i></span>
+        <h2 id="sName">Get a heads-up when ${esc(f ? f.short : "your files")} ${f ? "moves" : "move"}?</h2>
+        <ul class="pn-list">
+          <li>Right away when it changes stage: a vote, a deal, an adoption.</li>
+          <li>One short roundup at 08:30 on days your files change.</li>
+          <li>Your week ahead, Monday morning.</li>
+        </ul>
+        <p class="pn-fine">At most one a day. Never at weekends. Only about files you follow.</p>
+        <div class="pn-acts"><button class="eu-btn eu-btn--ink eu-btn--block" type="button" data-pnallow>Turn on notifications</button>
+          <button class="eu-btn eu-btn--block" type="button" data-pnlater>Not now</button></div>
+        <p class="pn-fine pn-c">iOS asks next. Change it any time in You › Notifications.</p>
+      </div>`;
+    $("scrim").hidden = false; $("sheet").hidden = false; $("sheet").scrollTop = 0;
+    syncLayers();
+    $("sheet").querySelector("[data-pnallow]").focus({ preventScroll: true });
+    Track.log("push_ask", { section: "shown", item: fid || "" });
+  }
+  async function pnAllow(from) {
+    let st = "unknown";
+    try { st = await PN.api.request(); } catch { /* treated as not granted */ }
+    PN.status = st;
+    Track.log("push_ask", { section: st === "granted" ? "allowed" : "refused", item: from });
+    if (st === "granted") {
+      const n = pnNotify(); pnSave({ pushMoves: n.pushMoves !== false, pushDaily: n.pushDaily !== false, pushWeek: n.pushWeek !== false });
+      await pnRegister();
+      toast("Notifications on. At most one a day.");
+    } else if (st === "denied") toast("Notifications are off in iOS Settings", 2600);
+  }
+  /* After any tap that added a followed file: ask, once the follow's own toast and sheet have settled. */
+  document.addEventListener("click", () => {
+    if (!PN.on) return;
+    setTimeout(() => {
+      const added = [...state.follow].filter((id) => !PN.seen.has(id));
+      PN.seen = new Set(state.follow);
+      if (added.length && pnShouldAsk()) pnAsk(added[added.length - 1]);
+    }, 900);
+  });
+  document.addEventListener("click", async (e) => {
+    const t = e.target;
+    if (t.closest("[data-pnallow]")) { closeSheet(); await pnAllow(state.open === "me:notify" ? "settings" : "sheet"); if (state.open === "me:notify") pnPage(true); return; }
+    if (t.closest("[data-pnlater]")) { Track.log("push_ask", { section: "later" }); return closeSheet(); }
+    if (t.closest("[data-pntest]")) {
+      try { const { data, error } = await SB.client.functions.invoke("push-send", { body: { test: true } }); if (error) throw error;
+        toast(data && data.results && data.results.some((r) => r.ok) ? "Test sent. Lock the phone to see it." : "Apple refused it: " + ((data && data.results && data.results[0] && data.results[0].reason) || "no phone registered"), 3600);
+      } catch (err) { toast("Test failed: " + String((err && err.message) || err).slice(0, 80), 3600); }
+      return;
+    }
+    if (t.closest("[data-pnios]")) { try { await PN.api.openSettings(); } catch { /* nothing to open */ } return; }
+    const s = t.closest("[data-pnset]");
+    if (s) {
+      const k = s.dataset.pnset, v = !pnNotify()[k];
+      pnSave({ [k]: v }); s.setAttribute("aria-checked", String(v));
+      Track.log("notify", { section: k, item: v ? "on" : "off" });
+      return;
+    }
+    const m = t.closest("[data-pnmute]");
+    if (m) {
+      const id = m.dataset.pnmute, mu = new Set(pnNotify().pushMuted), was = mu.has(id);
+      was ? mu.delete(id) : mu.add(id);
+      pnSave({ pushMuted: [...mu] });
+      Track.log("notify", { section: "mute", item: (was ? "on:" : "off:") + id });
+      const top = $("profile").scrollTop; pnPage(); $("profile").scrollTop = top;
+      const b = $("profile").querySelector(`[data-pnmute="${CSS.escape(id)}"]`); if (b) b.focus({ preventScroll: true });
+    }
+  });
+
+  /* ---------- You > Notifications ---------- */
+  function pnPage(keep) {
+    state.open = "me:notify";
+    const n = pnNotify(), muted = new Set(n.pushMuted), fol = followedFiles(), top = $("profile").scrollTop;
+    const sw = (k, title, sub) => `<div class="yu-set"><span class="yu-set__tx" id="pnL-${k}"><b>${title}</b><span>${sub}</span></span>
+      <button class="nx-switch" type="button" role="switch" data-pnset="${k}" aria-checked="${n[k] !== false}" aria-labelledby="pnL-${k}"></button></div>`;
+    const fileRow = (f) => { const off = muted.has(f.id);
+      return `<div class="yu-set"><span class="yu-set__tx"><b>${esc(f.short)}</b><span>${esc((STAGE[f.stage] || [f.stage || ""])[0])}</span></span>
+        <button class="pn-mute${off ? " is-off" : ""}" type="button" data-pnmute="${esc(f.id)}" aria-pressed="${off}" aria-label="${off ? "Unmute" : "Mute"} ${esc(f.short)}">${PN_BELL(off)}<span>${off ? "Muted" : "On"}</span></button></div>`; };
+    const tiers = PN.status === "granted"
+      ? `<section aria-label="What nodo sends"><div class="yu-list">
+          ${sw("pushMoves", "File moves", "Right away when a file changes stage. Rare.")}
+          ${sw("pushDaily", "Weekday roundup", "One message at 08:30 on days your files change.")}
+          ${sw("pushWeek", "Monday week ahead", "The next 7 days on your files, at 08:30.")}
+        </div></section>
+        <section aria-labelledby="pnF"><h3 class="yu-cap" id="pnF">Your files</h3>
+          <p class="pn-fine pn-pad">Mute a file to keep following it without notifications.</p>
+          ${fol.length ? `<div class="yu-list">${fol.map(fileRow).join("")}</div>` : `<p class="yu-empty pn-pad">You follow no file yet. Star a file to get its news.</p>`}
+        </section>`
+      : PN.status === "denied"
+        ? `<section class="pn-off" aria-labelledby="pnOff"><h3 id="pnOff">Off in iOS Settings</h3>
+            <p>nodo can't send anything until you allow it. Changes still show on Today.</p>
+            <button class="eu-btn" type="button" data-pnios>Open iOS Settings</button></section>`
+        : `<section class="pn-off" aria-labelledby="pnOff"><h3 id="pnOff">Not turned on yet</h3>
+            <p>File moves right away, a roundup at 08:30 on days your files change, and your week ahead on Monday.</p>
+            <button class="eu-btn eu-btn--ink" type="button" data-pnallow>Turn on notifications</button></section>`;
+    showProfile(`${yuTop}<div class="yu">
+      <div><h2 class="yu-title" id="pName">Notifi<strong>cations</strong></h2><p class="yu-lead">Only about files you follow. At most one a day, weekdays 08:00–19:00 Brussels time.</p></div>
+      ${tiers}
+      ${ad.on && PN.status === "granted" ? `<section class="pn-off" aria-labelledby="pnT"><h3 id="pnT">Admin: test this phone</h3>
+        <p>Sends "nodo test" to the phones on your account, outside the one-a-day rule.</p>
+        <button class="eu-btn" type="button" data-pntest>Send a test notification</button></section>` : ""}
+    </div>`);
+    if (keep) $("profile").scrollTop = top;
+  }
+  const pnRouteBase = openRoute;
+  openRoute = function (key) {
+    if (key === "me:notify" && PN.on) return pnPage();
+    return pnRouteBase(key);
+  };
+  /* The You page: the Notifications row counts the tiers that are on. */
+  const pnMeBase = openMe;
+  openMe = function () {
+    const r = pnMeBase.apply(this, arguments);
+    if (PN.on) {
+      const n = pnNotify(), on = PN.status === "granted" ? ["pushMoves", "pushDaily", "pushWeek"].filter((k) => n[k] !== false).length : 0;
+      const m = $("profile").querySelector('[data-yugo="me:notify"] .yu-row__meta');
+      if (m) m.textContent = on ? `${on} on` : "Off";
+    }
+    return r;
+  };
+
+  /* ---------- a tap on a notification ---------- */
+  function pnOpen(d) {
+    if (!acct.user) { PN.tapped = d; return; }
+    const kind = String(d.kind || ""), files = Array.isArray(d.files) ? d.files.filter((id) => FILE_BY[id]) : [];
+    Track.log("push_open", { section: kind, item: files.join(",").slice(0, 200) });
+    if (!$("sheet").hidden) closeSheet();
+    setView("home");
+    let tries = 0;
+    (function land() {
+      if (UPD.status !== "done" && tries++ < 20) return setTimeout(land, 250);
+      if (kind === "week") { const w = $("tdNext"); if (w) w.scrollIntoView({ block: "start" }); return; }
+      const rows = [...document.querySelectorAll("#tdSince .td-row")].filter((r) => files.includes(r.dataset.file));
+      if (!rows.length) { if (files.length === 1 && kind !== "test") openFile(files[0]); else { const s = $("tdSince"); if (s) s.scrollIntoView({ block: "start" }); } return; }
+      rows.forEach((r) => r.classList.add("pn-hit"));
+      rows[0].scrollIntoView({ block: "center" });
+      const clear = () => { rows.forEach((r) => r.classList.remove("pn-hit")); removeEventListener("scroll", once, true); };
+      let y0 = null; const once = () => { const y = scrollY; if (y0 === null) y0 = y; if (Math.abs(y - y0) > 240) clear(); };
+      setTimeout(() => addEventListener("scroll", once, true), 600);
+      rows.forEach((r) => r.addEventListener("click", clear, { once: true }));
+    })();
+  }
+  if (PN.api) PN.api.onTap((d) => { if (PN.on) pnOpen(d); else PN.tapped = d; });
+
+  /* Sign-in and sign-out: register this phone for the new account, release it from the old one. */
+  const pnIdBase = identityChanged;
+  identityChanged = function () {
+    const r = pnIdBase.apply(this, arguments);
+    if (!PN.api) return r;
+    if (acct.user && acct.user.id !== PN.uid) pnSync();
+    else if (!acct.user && PN.token && SB.client) { const t = PN.token; PN.token = ""; PN.uid = ""; PN.on = false; SB.client.rpc("unregister_push_device", { p_token: t }).then(() => {}, () => {}); }
+    return r;
+  };
+  /* Coming back to the app: the iOS switch may have changed in Settings. */
+  document.addEventListener("visibilitychange", async () => {
+    if (document.visibilityState !== "visible" || !PN.on) return;
+    const was = PN.status; PN.status = await PN.api.status();
+    if (PN.status === "granted" && was !== "granted") await pnRegister();
+    if (state.open === "me:notify" && was !== PN.status) pnPage(true);
+  });
+  /* What nodo stores: one more paragraph on the iPhone app. */
+  const pnNoticeBase = dataNoticeHtml;
+  dataNoticeHtml = function () {
+    const h = pnNoticeBase();
+    if (!PN.api) return h;
+    return h.replace(/<\/div>\s*$/, `<section><h4>Notifications</h4><p>If you allow notifications on your phone, nodo keeps the address Apple gives your phone for them, which files you muted, and a log of what it sent you, so it sends at most one a day and never the same update twice. Turning notifications off in iOS Settings stops them at once; signing out or deleting your account removes the address.</p></section></div>`);
+  };
+
   /* ======================= nodo preview features =======================
      Source: next/features.js. tools/preview/build.mjs injects this file into the app's main script just before
      start-up, so it runs inside the same scope and uses the app's own helpers. Nothing here reaches the live app
@@ -8571,96 +8784,6 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     return u ? `<a class="fd-open" href="${esc(u)}" target="_blank" rel="noopener" aria-label="Read the verbatim of ${esc(it.title || "this speech")} (opens the Parliament's site)">Read the verbatim${FD_SVG.ext}</a>` : "";
   }
 
-
-  /* ---------- Request fulfilled (16 Nov 2026) ----------
-     When a file the user asked for with "Request a full page" becomes one of nodo's curated files, Today opens with one
-     card above everything else: "CAP 2028–2034 now has a full page", Follow and Open page (two or more ready: one card,
-     a row and a Follow each). It goes for good once the user follows, opens or dismisses it; a file they already follow
-     shows no card. After Follow, a one-line "You follow …" stays until the next render of a fresh visit.
-     Matching a request (the folded text kept in nodo.requested) to a file: one of the file's procedure numbers in it,
-     every meaningful word of it in the file's short or full title (one file only), or a
-     Brussels nickname from search-terms.json that points at that file alone. Requests live on this device only. */
-  const RQ = { DONE: "nodo.requestDone", just: new Set(), st: false };
-  const rqDone = () => { try { return new Set(JSON.parse(store.get(RQ.DONE) || "[]")); } catch { return new Set(); } };
-  const rqMark = (ids) => { const s = rqDone(); ids.forEach((id) => s.add(id)); store.set(RQ.DONE, JSON.stringify([...s].slice(-300))); };
-  function rqFileFor(k) {
-    const kw = words(k), kn = fold(k).replace(/\s+/g, "");
-    const cur = FILES.filter((f) => !f.auto);
-    const byProc = cur.filter((f) => stProcs(f).some((p) => kn.includes(fold(p).replace(/\s+/g, "")) || kn.includes(fold(p).slice(0, 9))));
-    if (byProc.length === 1) return byProc[0];
-    /* Every meaningful word of the request in the file's short or full title ("cap", "common agricultural policy"). */
-    const core = stQueryCore(k).split(" ").filter(Boolean);
-    const byName = core.join("").length < 3 ? [] : cur.filter((f) => { const hay = words(f.short + " " + (f.title || "")); return core.every((w) => hay.includes(" " + w + " ")); });
-    if (byName.length === 1) return byName[0];
-    if (ST.data) {
-      let best = null, len = 0;
-      for (const n of ST.data.nicknames || []) for (const a of n._aka || []) if (kw.includes(a) && a.length > len) { best = n; len = a.length; }
-      const hit = best ? [...new Set(best.procedures.map((p) => cur.find((f) => stProcs(f).includes(p))).filter(Boolean))] : [];
-      if (hit.length === 1) return hit[0];
-    } else if (!RQ.st) { RQ.st = true; Promise.resolve(stLoad()).then(() => { if (ST.data) rqRender(); }); }
-    return null;
-  }
-  function rqReady() {
-    const done = rqDone(), out = new Map();
-    for (const k of nxRequested()) {
-      const f = rqFileFor(k);
-      if (!f || out.has(f.id) || (done.has(f.id) && !RQ.just.has(f.id))) continue;
-      if (state.follow.has(f.id) && !RQ.just.has(f.id)) continue;
-      out.set(f.id, f);
-    }
-    return [...out.values()];
-  }
-  function rqWho(f) {
-    const ms = f.meps || [], raps = ms.filter((m) => m.role === "rapporteur").map((m) => BYKEY.get("ep:" + m.id)).filter(Boolean).map((x) => x.o.name);
-    const lead = ((f.commission && f.commission.lead) || []).map((s) => COLL.find((c) => c.slug === s)).filter(Boolean)[0];
-    const parts = [];
-    if (raps.length === 1) parts.push(`Rapporteur ${raps[0]}${ms.length > 1 ? ` and ${ms.length - 1} more MEPs` : ""}`);
-    else if (ms.length) parts.push(`${ms.length} MEPs`);
-    if (lead) parts.push(`Commissioner ${lead.short}'s team`);
-    if (f.council && ((f.council.workingParties || []).length || (f.council.configs || []).length)) parts.push("the Council bodies");
-    return parts.length ? parts.join(", ").replace(/, ([^,]*)$/, " and $1") + ", checked by nodo." : "Checked by nodo.";
-  }
-  function rqHtml() {
-    const ready = rqReady(); if (!ready.length) return "";
-    const open = ready.filter((f) => !RQ.just.has(f.id));
-    if (!open.length) {
-      const f = ready[0];
-      return `<div class="rq-done"><span class="rq-tick" aria-hidden="true">${icon("check")}</span><span class="rq-done__t"><b>You follow ${esc(f.short)}</b><span class="cap">Its steps join Next 7 days and Calendar.</span></span><button class="linkbtn" type="button" data-rqopen="${esc(f.id)}">Open</button></div>`;
-    }
-    const pill = `<span class="rq-pill">${icon("check")}${open.length > 1 ? "You asked, they're here" : "You asked, it's here"}</span>`;
-    const x = `<button class="eu-iconbtn eu-iconbtn--sm rq-x" type="button" data-rqx="${esc(open.map((f) => f.id).join(" "))}" aria-label="Dismiss">${icon("x")}</button>`;
-    if (open.length === 1) {
-      const f = open[0];
-      return `<div class="rq-h">${pill}${x}</div><h2 class="td-t" id="tdReqH">${esc(f.short)} now has a full page</h2><p class="cap rq-who">${esc(rqWho(f))}</p>
-        <div class="rq-acts"><button class="eu-btn eu-btn--brand" type="button" data-rqfollow="${esc(f.id)}">${icon("star")}Follow</button><button class="eu-btn" type="button" data-rqopen="${esc(f.id)}">Open page${icon("arrow")}</button></div>`;
-    }
-    const area = (f) => (((DATA.fl.legend || {}).areas || []).find((a) => a.id === f.area) || {}).name;
-    return `<div class="rq-h">${pill}${x}</div><h2 class="td-t" id="tdReqH">${open.length} files now have a full page</h2>
-      <div class="rq-list">${open.map((f) => `<div class="rq-row"><button class="rq-row__b" type="button" data-rqopen="${esc(f.id)}"><b>${esc(f.short)}</b><span class="cap">${esc([area(f), (f.meps || []).length ? `${(f.meps || []).length} MEPs` : ""].filter(Boolean).join(" · "))}</span></button><button class="eu-btn eu-btn--sm eu-btn--brand" type="button" data-rqfollow="${esc(f.id)}">Follow</button></div>`).join("")}</div>`;
-  }
-  function rqRender() {
-    const el = $("tdReq"); if (!el) return;
-    const html = rqHtml(); el.innerHTML = html; el.hidden = !html;
-    el.classList.toggle("rq--done", !!html && !el.querySelector(".rq-pill"));
-  }
-  const rqEdBase = edRender;
-  edRender = function () { rqEdBase(); rqRender(); };
-  (function rqMount() {
-    const b = $("edBody"); if (!b || $("tdReq")) return;
-    b.insertAdjacentHTML("afterbegin", `<section id="tdReq" class="td-card rq" aria-labelledby="tdReqH" hidden></section>`);
-  })();
-  document.addEventListener("click", (e) => {
-    const fo = e.target.closest("[data-rqfollow]"), op = e.target.closest("[data-rqopen]"), x = e.target.closest("[data-rqx]");
-    if (!fo && !op && !x) return;
-    e.stopPropagation(); e.preventDefault();
-    if (x) { const ids = x.dataset.rqx.split(" "); rqMark(ids); Track.log("request_dismiss", { section: "today", item: ids.join(",") }); rqRender(); return; }
-    if (op) { const id = op.dataset.rqopen; rqMark([id]); RQ.just.delete(id); Track.log("request_open", { section: "today", item: id }); return openFile(id); }
-    const id = fo.dataset.rqfollow;
-    if (!state.follow.has(id)) toggleFollow(id);
-    rqMark([id]); RQ.just.add(id);
-    rqRender();
-    const n = $("tdReq").querySelector("[data-rqfollow], [data-rqopen]"); if (n) n.focus({ preventScroll: true });
-  }, true);
 
   initHome(); initEp(); initEc();
   let startView = "home";
@@ -10236,26 +10359,6 @@ body { font-variant-numeric: tabular-nums; }
 :root { --brand-node: #F5B800; --brand-navy: #0E1B4D; }
 .wm-node { fill: var(--brand-node) !important; }
 .auth-disc--deep { background: var(--brand-navy); color: #EAF0FF; }
-/* Request fulfilled (16 Nov 2026): the card on top of Today when a requested file gets a full page. Lime ring and pill,
-   the one highlight; ink Follow, outline Open page. Hit areas 44px; the dismiss button sits in the corner. */
-.rq { gap: 10px; box-shadow: 0 0 0 2px var(--lime, #d9f266), var(--shadow-card); }
-.rq.rq--done { box-shadow: var(--shadow-card); padding: 16px 20px; }
-.rq-h { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-.rq-pill { display: inline-flex; align-items: center; gap: 6px; height: 24px; padding: 0 10px; border-radius: var(--radius-pill); background: var(--lime, #d9f266); color: #111312; font-size: 11px; line-height: 14px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; }
-.rq-pill svg { width: 12px; height: 12px; }
-.rq-x { width: 44px; height: 44px; margin: -10px -10px -10px 0; background: transparent; color: var(--ink-muted); }
-.rq-who { margin: 0; }
-.rq-acts { display: flex; gap: 8px; margin-top: 4px; }
-.rq-acts .eu-btn { flex: 1; justify-content: center; gap: 6px; }
-.rq-list { display: flex; flex-direction: column; }
-.rq-row { display: flex; align-items: center; gap: 12px; padding: 8px 0; }
-.rq-row + .rq-row { border-top: 1px solid var(--hairline); }
-.rq-row__b { flex: 1; min-width: 0; min-height: 44px; display: flex; flex-direction: column; justify-content: center; gap: 2px; padding: 0; border: 0; background: none; color: inherit; font: inherit; text-align: left; cursor: pointer; }
-.rq-done { display: flex; align-items: center; gap: 12px; }
-.rq-tick { flex: none; width: 36px; height: 36px; border-radius: var(--radius-pill); background: var(--lime, #d9f266); color: #111312; display: flex; align-items: center; justify-content: center; }
-.rq-tick svg { width: 18px; height: 18px; }
-.rq-done__t { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
-.rq-done .linkbtn { min-height: 44px; color: var(--brand); text-decoration: none; }
 </style>
 <style>
 /* Promoted from the preview on 2026-11-02 (was next/features.css). */
@@ -10323,6 +10426,29 @@ body { font-variant-numeric: tabular-nums; }
 /* Email sign-in hint (11 Nov 2026): socialAltHtml in features.js. */
 .auth-social-alt { display: grid; gap: 10px; margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--hairline); }
 .auth-social-alt .fine { margin: 0; }
+</style>
+<style>
+/* Push notifications (16 Nov 2026): the ask sheet, You > Notifications, the ring on Today after a tap. iPhone app only. */
+.pn-ask { display: grid; gap: var(--space-4); padding-bottom: var(--space-2); }
+.pn-ask h2 { margin: 0; font-size: 26px; line-height: 32px; letter-spacing: -0.01em; }
+.pn-badge { position: relative; width: 56px; height: 56px; border-radius: 18px; display: grid; place-items: center; background: #0E1B4D; color: #f4f6f2; }
+.pn-badge .pn-ic { width: 28px; height: 28px; }
+.pn-badge i { position: absolute; top: 11px; right: 12px; width: 10px; height: 10px; border-radius: 50%; background: #F5B800; }
+.pn-list { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; color: var(--ink-muted); font-size: 15px; line-height: 21px; }
+.pn-list li { position: relative; padding-left: 18px; }
+.pn-list li::before { content: ""; position: absolute; left: 0; top: 7px; width: 8px; height: 8px; border-radius: 50%; background: var(--ink); }
+.pn-fine { margin: 0; font-size: 13px; line-height: 18px; color: var(--ink-muted); }
+.pn-c { text-align: center; }
+.pn-pad { margin: 0 var(--space-1) var(--space-3); }
+.pn-acts { display: grid; gap: var(--space-2); }
+.pn-mute { flex: none; display: inline-flex; align-items: center; gap: 6px; min-width: 44px; height: 36px; padding: 0 12px; border: 1px solid var(--border-control); border-radius: var(--radius-pill); background: var(--surface); color: var(--ink); font: 600 13px/1 var(--font-sans); cursor: pointer; }
+.pn-mute.is-off { border-color: transparent; background: var(--hairline); color: var(--ink-muted); }
+.pn-mute .pn-ic { width: 18px; height: 18px; }
+.pn-mute:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+.pn-off { display: grid; gap: var(--space-3); justify-items: start; padding: var(--space-5); border-radius: var(--radius-lg); background: var(--surface-sunken); }
+.pn-off h3 { margin: 0; font-size: 17px; line-height: 22px; }
+.pn-off p { margin: 0; color: var(--ink-muted); font-size: 14px; line-height: 20px; }
+.td-row.pn-hit { box-shadow: 0 0 0 2px var(--node); }
 </style>
 <style>
 #nxBadge{position:fixed;top:max(2px,calc(env(safe-area-inset-top,0px) - 12px));left:50%;transform:translateX(-50%);z-index:2147483000;pointer-events:none;padding:0 6px;border-radius:999px;background:rgba(20,20,19,.55);color:#fff;font:700 8px/12px -apple-system,BlinkMacSystemFont,sans-serif;letter-spacing:.08em}
