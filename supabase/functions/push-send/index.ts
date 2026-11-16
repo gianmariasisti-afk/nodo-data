@@ -31,17 +31,24 @@ const env = (n: string, fallback?: string) => {
 /* ---------- APNs ---------- */
 const b64url = (bytes: Uint8Array) => btoa(String.fromCharCode(...bytes)).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
 const b64urlJson = (o: unknown) => b64url(new TextEncoder().encode(JSON.stringify(o)));
-let jwtCache: { token: string; at: number } | null = null;
+let jwtCache: { token: string; at: number; sig: string } | null = null;
+/** Which key and team the token is built from (no secret material): shown in push_log errors to debug Apple refusals. */
+function apnsWho() {
+  const kid = env("APNS_KEY_ID", "APPLE_KEY_ID"), team = env("APNS_TEAM_ID", "APPLE_TEAM_ID");
+  return `key ${kid.slice(0, 3)}…${kid.slice(-3)} (${Deno.env.get("APNS_KEY_ID") ? "APNS" : "APPLE"}), team ${team.slice(0, 3)}…${team.slice(-3)} (${Deno.env.get("APNS_TEAM_ID") ? "APNS" : "APPLE"}), lengths ${kid.length}/${team.length}`;
+}
 async function apnsJwt(): Promise<string> {
   const now = Math.floor(Date.now() / 1000);
-  if (jwtCache && now - jwtCache.at < 40 * 60) return jwtCache.token; // Apple accepts a token for up to an hour
+  const kid = env("APNS_KEY_ID", "APPLE_KEY_ID"), team = env("APNS_TEAM_ID", "APPLE_TEAM_ID");
   const pem = env("APNS_PRIVATE_KEY", "APPLE_PRIVATE_KEY").replace(/\\n/g, "\n");
+  const sig0 = `${kid}|${team}|${pem.length}|${pem.slice(-24)}`; // rebuild whenever a secret changes
+  if (jwtCache && jwtCache.sig === sig0 && now - jwtCache.at < 40 * 60) return jwtCache.token; // Apple accepts a token for up to an hour
   const der = Uint8Array.from(atob(pem.replace(/-----(BEGIN|END) PRIVATE KEY-----/g, "").replace(/\s+/g, "")), (c) => c.charCodeAt(0));
   const key = await crypto.subtle.importKey("pkcs8", der, { name: "ECDSA", namedCurve: "P-256" }, false, ["sign"]);
-  const head = b64urlJson({ alg: "ES256", kid: env("APNS_KEY_ID", "APPLE_KEY_ID") });
-  const claims = b64urlJson({ iss: env("APNS_TEAM_ID", "APPLE_TEAM_ID"), iat: now });
+  const head = b64urlJson({ alg: "ES256", kid });
+  const claims = b64urlJson({ iss: team, iat: now });
   const sig = new Uint8Array(await crypto.subtle.sign({ name: "ECDSA", hash: "SHA-256" }, key, new TextEncoder().encode(`${head}.${claims}`)));
-  jwtCache = { token: `${head}.${claims}.${b64url(sig)}`, at: now };
+  jwtCache = { token: `${head}.${claims}.${b64url(sig)}`, at: now, sig: sig0 };
   return jwtCache.token;
 }
 
@@ -125,7 +132,7 @@ async function testRun(db: ReturnType<typeof createClient>, userId: string) {
     if (r.gone) await db.from("push_devices").delete().eq("token", d.token);
     results.push({ env: d.env, ok: r.ok, reason: r.reason });
   }
-  await db.from("push_log").insert({ user_id: userId, kind: "test", title: m.title, body: m.body, devices: results.length, delivered: results.filter((r) => r.ok).length, error: results.find((r) => !r.ok)?.reason ?? null });
+  await db.from("push_log").insert({ user_id: userId, kind: "test", title: m.title, body: m.body, devices: results.length, delivered: results.filter((r) => r.ok).length, error: results.some((r) => !r.ok) ? `${results.find((r) => !r.ok)!.reason} | ${apnsWho()}`.slice(0, 390) : null });
   return { devices: results.length, results };
 }
 
