@@ -181,8 +181,11 @@ public class NodoPushPlugin: CAPPlugin, CAPBridgedPlugin, NotificationHandlerPro
         for c in calls { c.reject(message); bridge?.releaseCall(c) }
     }
 
-    /// While nodo is open, nothing pops up: Today already shows the changes.
+    /// While nodo is open, nothing pops up: Today already shows the changes. The admin test is the exception,
+    /// so it can be seen without leaving the app.
     public func willPresent(notification: UNNotification) -> UNNotificationPresentationOptions {
+        let nodo = notification.request.content.userInfo["nodo"] as? [String: Any]
+        if (nodo?["kind"] as? String) == "test" { return [.banner, .list, .sound] }
         return []
     }
 
