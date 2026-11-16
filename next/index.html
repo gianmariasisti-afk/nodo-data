@@ -8572,6 +8572,96 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   }
 
 
+  /* ---------- Request fulfilled (16 Nov 2026) ----------
+     When a file the user asked for with "Request a full page" becomes one of nodo's curated files, Today opens with one
+     card above everything else: "CAP 2028–2034 now has a full page", Follow and Open page (two or more ready: one card,
+     a row and a Follow each). It goes for good once the user follows, opens or dismisses it; a file they already follow
+     shows no card. After Follow, a one-line "You follow …" stays until the next render of a fresh visit.
+     Matching a request (the folded text kept in nodo.requested) to a file: one of the file's procedure numbers in it,
+     every meaningful word of it in the file's short or full title (one file only), or a
+     Brussels nickname from search-terms.json that points at that file alone. Requests live on this device only. */
+  const RQ = { DONE: "nodo.requestDone", just: new Set(), st: false };
+  const rqDone = () => { try { return new Set(JSON.parse(store.get(RQ.DONE) || "[]")); } catch { return new Set(); } };
+  const rqMark = (ids) => { const s = rqDone(); ids.forEach((id) => s.add(id)); store.set(RQ.DONE, JSON.stringify([...s].slice(-300))); };
+  function rqFileFor(k) {
+    const kw = words(k), kn = fold(k).replace(/\s+/g, "");
+    const cur = FILES.filter((f) => !f.auto);
+    const byProc = cur.filter((f) => stProcs(f).some((p) => kn.includes(fold(p).replace(/\s+/g, "")) || kn.includes(fold(p).slice(0, 9))));
+    if (byProc.length === 1) return byProc[0];
+    /* Every meaningful word of the request in the file's short or full title ("cap", "common agricultural policy"). */
+    const core = stQueryCore(k).split(" ").filter(Boolean);
+    const byName = core.join("").length < 3 ? [] : cur.filter((f) => { const hay = words(f.short + " " + (f.title || "")); return core.every((w) => hay.includes(" " + w + " ")); });
+    if (byName.length === 1) return byName[0];
+    if (ST.data) {
+      let best = null, len = 0;
+      for (const n of ST.data.nicknames || []) for (const a of n._aka || []) if (kw.includes(a) && a.length > len) { best = n; len = a.length; }
+      const hit = best ? [...new Set(best.procedures.map((p) => cur.find((f) => stProcs(f).includes(p))).filter(Boolean))] : [];
+      if (hit.length === 1) return hit[0];
+    } else if (!RQ.st) { RQ.st = true; Promise.resolve(stLoad()).then(() => { if (ST.data) rqRender(); }); }
+    return null;
+  }
+  function rqReady() {
+    const done = rqDone(), out = new Map();
+    for (const k of nxRequested()) {
+      const f = rqFileFor(k);
+      if (!f || out.has(f.id) || (done.has(f.id) && !RQ.just.has(f.id))) continue;
+      if (state.follow.has(f.id) && !RQ.just.has(f.id)) continue;
+      out.set(f.id, f);
+    }
+    return [...out.values()];
+  }
+  function rqWho(f) {
+    const ms = f.meps || [], raps = ms.filter((m) => m.role === "rapporteur").map((m) => BYKEY.get("ep:" + m.id)).filter(Boolean).map((x) => x.o.name);
+    const lead = ((f.commission && f.commission.lead) || []).map((s) => COLL.find((c) => c.slug === s)).filter(Boolean)[0];
+    const parts = [];
+    if (raps.length === 1) parts.push(`Rapporteur ${raps[0]}${ms.length > 1 ? ` and ${ms.length - 1} more MEPs` : ""}`);
+    else if (ms.length) parts.push(`${ms.length} MEPs`);
+    if (lead) parts.push(`Commissioner ${lead.short}'s team`);
+    if (f.council && ((f.council.workingParties || []).length || (f.council.configs || []).length)) parts.push("the Council bodies");
+    return parts.length ? parts.join(", ").replace(/, ([^,]*)$/, " and $1") + ", checked by nodo." : "Checked by nodo.";
+  }
+  function rqHtml() {
+    const ready = rqReady(); if (!ready.length) return "";
+    const open = ready.filter((f) => !RQ.just.has(f.id));
+    if (!open.length) {
+      const f = ready[0];
+      return `<div class="rq-done"><span class="rq-tick" aria-hidden="true">${icon("check")}</span><span class="rq-done__t"><b>You follow ${esc(f.short)}</b><span class="cap">Its steps join Next 7 days and Calendar.</span></span><button class="linkbtn" type="button" data-rqopen="${esc(f.id)}">Open</button></div>`;
+    }
+    const pill = `<span class="rq-pill">${icon("check")}${open.length > 1 ? "You asked, they're here" : "You asked, it's here"}</span>`;
+    const x = `<button class="eu-iconbtn eu-iconbtn--sm rq-x" type="button" data-rqx="${esc(open.map((f) => f.id).join(" "))}" aria-label="Dismiss">${icon("x")}</button>`;
+    if (open.length === 1) {
+      const f = open[0];
+      return `<div class="rq-h">${pill}${x}</div><h2 class="td-t" id="tdReqH">${esc(f.short)} now has a full page</h2><p class="cap rq-who">${esc(rqWho(f))}</p>
+        <div class="rq-acts"><button class="eu-btn eu-btn--brand" type="button" data-rqfollow="${esc(f.id)}">${icon("star")}Follow</button><button class="eu-btn" type="button" data-rqopen="${esc(f.id)}">Open page${icon("arrow")}</button></div>`;
+    }
+    const area = (f) => (((DATA.fl.legend || {}).areas || []).find((a) => a.id === f.area) || {}).name;
+    return `<div class="rq-h">${pill}${x}</div><h2 class="td-t" id="tdReqH">${open.length} files now have a full page</h2>
+      <div class="rq-list">${open.map((f) => `<div class="rq-row"><button class="rq-row__b" type="button" data-rqopen="${esc(f.id)}"><b>${esc(f.short)}</b><span class="cap">${esc([area(f), (f.meps || []).length ? `${(f.meps || []).length} MEPs` : ""].filter(Boolean).join(" · "))}</span></button><button class="eu-btn eu-btn--sm eu-btn--brand" type="button" data-rqfollow="${esc(f.id)}">Follow</button></div>`).join("")}</div>`;
+  }
+  function rqRender() {
+    const el = $("tdReq"); if (!el) return;
+    const html = rqHtml(); el.innerHTML = html; el.hidden = !html;
+    el.classList.toggle("rq--done", !!html && !el.querySelector(".rq-pill"));
+  }
+  const rqEdBase = edRender;
+  edRender = function () { rqEdBase(); rqRender(); };
+  (function rqMount() {
+    const b = $("edBody"); if (!b || $("tdReq")) return;
+    b.insertAdjacentHTML("afterbegin", `<section id="tdReq" class="td-card rq" aria-labelledby="tdReqH" hidden></section>`);
+  })();
+  document.addEventListener("click", (e) => {
+    const fo = e.target.closest("[data-rqfollow]"), op = e.target.closest("[data-rqopen]"), x = e.target.closest("[data-rqx]");
+    if (!fo && !op && !x) return;
+    e.stopPropagation(); e.preventDefault();
+    if (x) { const ids = x.dataset.rqx.split(" "); rqMark(ids); Track.log("request_dismiss", { section: "today", item: ids.join(",") }); rqRender(); return; }
+    if (op) { const id = op.dataset.rqopen; rqMark([id]); RQ.just.delete(id); Track.log("request_open", { section: "today", item: id }); return openFile(id); }
+    const id = fo.dataset.rqfollow;
+    if (!state.follow.has(id)) toggleFollow(id);
+    rqMark([id]); RQ.just.add(id);
+    rqRender();
+    const n = $("tdReq").querySelector("[data-rqfollow], [data-rqopen]"); if (n) n.focus({ preventScroll: true });
+  }, true);
+
   initHome(); initEp(); initEc();
   let startView = "home";
   try { const h = (location.hash || "").slice(1); startView = { parliament: "ep", commission: "ec", council: "co", calendar: "cal", agenda: "agenda", saved: "saved", files: "files", news: "news" }[h] || "home"; } catch { /* ignore */ }
@@ -10146,6 +10236,26 @@ body { font-variant-numeric: tabular-nums; }
 :root { --brand-node: #F5B800; --brand-navy: #0E1B4D; }
 .wm-node { fill: var(--brand-node) !important; }
 .auth-disc--deep { background: var(--brand-navy); color: #EAF0FF; }
+/* Request fulfilled (16 Nov 2026): the card on top of Today when a requested file gets a full page. Lime ring and pill,
+   the one highlight; ink Follow, outline Open page. Hit areas 44px; the dismiss button sits in the corner. */
+.rq { gap: 10px; box-shadow: 0 0 0 2px var(--lime, #d9f266), var(--shadow-card); }
+.rq.rq--done { box-shadow: var(--shadow-card); padding: 16px 20px; }
+.rq-h { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.rq-pill { display: inline-flex; align-items: center; gap: 6px; height: 24px; padding: 0 10px; border-radius: var(--radius-pill); background: var(--lime, #d9f266); color: #111312; font-size: 11px; line-height: 14px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; }
+.rq-pill svg { width: 12px; height: 12px; }
+.rq-x { width: 44px; height: 44px; margin: -10px -10px -10px 0; background: transparent; color: var(--ink-muted); }
+.rq-who { margin: 0; }
+.rq-acts { display: flex; gap: 8px; margin-top: 4px; }
+.rq-acts .eu-btn { flex: 1; justify-content: center; gap: 6px; }
+.rq-list { display: flex; flex-direction: column; }
+.rq-row { display: flex; align-items: center; gap: 12px; padding: 8px 0; }
+.rq-row + .rq-row { border-top: 1px solid var(--hairline); }
+.rq-row__b { flex: 1; min-width: 0; min-height: 44px; display: flex; flex-direction: column; justify-content: center; gap: 2px; padding: 0; border: 0; background: none; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+.rq-done { display: flex; align-items: center; gap: 12px; }
+.rq-tick { flex: none; width: 36px; height: 36px; border-radius: var(--radius-pill); background: var(--lime, #d9f266); color: #111312; display: flex; align-items: center; justify-content: center; }
+.rq-tick svg { width: 18px; height: 18px; }
+.rq-done__t { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.rq-done .linkbtn { min-height: 44px; color: var(--brand); text-decoration: none; }
 </style>
 <style>
 /* Promoted from the preview on 2026-11-02 (was next/features.css). */
