@@ -952,7 +952,57 @@
     "mff-2028-2034:next:2026-12-14:ac720c": true,
     "digital-fairness-act:stage:positions-in-preparation": true,
     "tech-sovereignty-package:ep:2026-0138-NMSR-257073-2026-11-11": true,
-    "medical-devices:next:2027-01-18:43a63c": true
+    "medical-devices:next:2027-01-18:43a63c": true,
+    "mff-2028-2034:next:2026-11-21:e502a3": true,
+    "mff-2028-2034:next:2026-11-19:025e2f": true,
+    "digital-networks-act:next:2026-11-17:fc1024": true,
+    "tech-sovereignty-package:ep:ITRE-PR-797426-DEPOT-2026-11-09": true,
+    "tech-sovereignty-package:ep:2026-0139-NMSR-257070-2026-10-06": true,
+    "tech-sovereignty-package:ep:2026-0139-NMSR-127766-2026-09-24": true,
+    "grids-package:next:2026-11-19:fb7745": true,
+    "cef-2028-2034:ep:tabled:2026-11-16": true,
+    "biotech-act:next:2026-11-25:a5871d": true,
+    "biotech-act:next:2026-11-17:05439c": true,
+    "food-feed-omnibus:next:2026-11-17:27e8cb": true,
+    "kids-act:ep:2026-0286-NMSR-197529-2026-11-03": true,
+    "cap-2028-2034:next:2027-01-27:7e2fa2": true,
+    "cap-2028-2034:next:2026-12-02:967903": true,
+    "cap-2028-2034:next:2026-11-17:cf1687": true,
+    "cap-2028-2034:ep:amendments:2026-07-17": true,
+    "cap-2028-2034:ep:opinions:2026-07-15": true,
+    "cap-2028-2034:ep:amendments:2026-07-13": true,
+    "cap-2028-2034:ep:opinions:2026-07-02": true,
+    "cap-2028-2034:ep:2025-0241-NMSR-197445-2026-06-23": true,
+    "cap-2028-2034:ep:AGRI-PR-787635-DEPOT-2026-06-12": true,
+    "cap-2028-2034:ep:2025-0241-NMSR-257111-2026-06-11": true,
+    "cap-2028-2034:ep:2025-0241-NMSR-197545-2026-06-09": true,
+    "cap-2028-2034:ep:2025-0241-NMSR-257044-2026-06-09": true,
+    "cap-2028-2034:ep:2025-0241-NMSR-88552-2026-06-02": true,
+    "cap-2028-2034:ep:2025-0241-NMSR-256945-2026-04-08": true,
+    "cap-2028-2034:ep:2025-0241-NMSR-256881-2026-02-25": true,
+    "cap-2028-2034:ep:2025-0241-NMSR-256829-2026-02-24": true,
+    "cap-2028-2034:ep:2025-0241-NMSR-197398-2026-02-23": true,
+    "cap-2028-2034:ep:2025-0241-NMSR-257150-2026-02-19": true,
+    "cap-2028-2034:ep:2025-0241-NMSR-190464-2026-02-04": true,
+    "cap-2028-2034:ep:2025-0241-NMCP-197690-REGI-2026-02-02": true,
+    "cap-2028-2034:ep:2025-0241-NMCP-96668-ENVI-2026-01-30": true,
+    "cap-2028-2034:ep:2025-0241-NMSR-197416-2026-01-30": true,
+    "cap-2028-2034:ep:2025-0241-NMSR-257038-2026-01-30": true,
+    "cap-2028-2034:ep:2025-0241-NMSR-197647-2026-01-26": true,
+    "cap-2028-2034:ep:2025-0241-NMSR-197824-2026-01-23": true,
+    "cap-2028-2034:ep:2025-0241-NMSR-257296-2026-01-23": true,
+    "cap-2028-2034:ep:2025-0241-NMSR-256935-2026-01-22": true,
+    "cap-2028-2034:ep:2025-0241-NMSR-257297-2026-01-20": true,
+    "cap-2028-2034:ep:2025-0241-NMSR-257130-2026-01-16": true,
+    "cap-2028-2034:ep:2025-0241-NMSR-257298-2026-01-16": true,
+    "cap-2028-2034:ep:2025-0241-NMSR-124985-2026-01-15": true,
+    "cap-2028-2034:ep:2025-0241-NMCP-124808-AGRI-2026-01-14": true,
+    "cap-2028-2034:ep:2025-0241-NMSR-197556-2026-01-14": true,
+    "cap-2028-2034:ep:2025-0241-NMSR-197825-2026-01-14": true,
+    "cap-2028-2034:ep:2025-0241-NMSR-257299-2026-01-14": true,
+    "cap-2028-2034:ep:2025-0241-NMSR-96810-2026-01-14": true,
+    "cap-2028-2034:ep:2025-0241-NMCP-88882-BUDG-2026-01-13": true,
+    "cap-2028-2034:ep:2025-0241-ANPRO-2025-10-23": true
   },
   "seeded": {
     "mff-2028-2034": true,
@@ -972,7 +1022,8 @@
     "era-act": true,
     "military-mobility": true,
     "kids-act": true,
-    "cef-2028-2034": true
+    "cef-2028-2034": true,
+    "cap-2028-2034": true
   },
   "stages": {
     "mff-2028-2034": "council-negotiating-box",
@@ -992,7 +1043,8 @@
     "era-act": "pre-proposal",
     "military-mobility": "trilogue",
     "kids-act": "positions-in-preparation",
-    "cef-2028-2034": "positions-in-preparation"
+    "cef-2028-2034": "positions-in-preparation",
+    "cap-2028-2034": "positions-in-preparation"
   },
   "pushed": {
     "mff-2028-2034:next:2026-10-09:a6fbc3": true,
@@ -1026,7 +1078,8 @@
     "biotech-act:next:2026-11-11:2b60f8": true,
     "medical-devices:next:2026-11-12:94e165": true,
     "digital-euro:next:2026-11-13:c97009": true,
-    "military-mobility:next:2026-11-13:b91010": true
+    "military-mobility:next:2026-11-13:b91010": true,
+    "digital-euro:next:2026-11-16:70603c": true
   },
   "seededProcs": {
     "2025-0571": true,
@@ -1051,6 +1104,7 @@
     "2025-0847": true,
     "2026-0286": true,
     "2025-0221": true,
-    "2025-0545": true
+    "2025-0545": true,
+    "2025-0241": true
   }
 }

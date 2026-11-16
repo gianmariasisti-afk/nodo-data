@@ -41,12 +41,22 @@
       "pushOn": "2026-11-24"
     },
     {
-      "id": "mff-2028-2034:next:2026-11-19:7cb3a3",
+      "id": "mff-2028-2034:next:2026-11-21:e502a3",
+      "fileId": "mff-2028-2034",
+      "date": "2026-11-21",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "António Costa's negotiating box with figures expected (reported by Agence Europe)",
+      "push": true,
+      "pushOn": "2026-11-21"
+    },
+    {
+      "id": "mff-2028-2034:next:2026-11-19:025e2f",
       "fileId": "mff-2028-2034",
       "date": "2026-11-19",
       "source": "nodo",
       "kind": "scheduled",
-      "title": "Council MFF working party (Global Europe Instrument)",
+      "title": "Ad hoc working party on the MFF (Global Europe Instrument): preparation of interinstitutional engagement",
       "push": true,
       "pushOn": "2026-11-19"
     },
@@ -5784,6 +5794,16 @@
       "pushOn": "2026-12-01"
     },
     {
+      "id": "digital-networks-act:next:2026-11-17:fc1024",
+      "fileId": "digital-networks-act",
+      "date": "2026-11-17",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Telecoms working party: governance, Articles 148–180 (doc 5600/26)",
+      "push": true,
+      "pushOn": "2026-11-17"
+    },
+    {
       "id": "digital-networks-act:ep:opinions:2026-11-04",
       "fileId": "digital-networks-act",
       "date": "2026-11-04",
@@ -6072,6 +6092,17 @@
       "push": false
     },
     {
+      "id": "tech-sovereignty-package:ep:ITRE-PR-797426-DEPOT-2026-11-09",
+      "fileId": "tech-sovereignty-package",
+      "date": "2026-11-09",
+      "source": "ep",
+      "proc": "2026-0139",
+      "kind": "milestone",
+      "title": "Draft report tabled",
+      "push": true,
+      "ref": "ITRE-PR-797426"
+    },
+    {
       "id": "tech-sovereignty-package:ep:2026-0139-NMCP-256809-IMCO-2026-10-29",
       "fileId": "tech-sovereignty-package",
       "date": "2026-10-29",
@@ -6218,6 +6249,18 @@
       "push": false
     },
     {
+      "id": "tech-sovereignty-package:ep:2026-0139-NMSR-257070-2026-10-06",
+      "fileId": "tech-sovereignty-package",
+      "date": "2026-10-06",
+      "source": "ep",
+      "proc": "2026-0139",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "257070",
+      "group": "ESN",
+      "push": false
+    },
+    {
       "id": "tech-sovereignty-package:ep:2026-0138-NMSR-256860-2026-10-01",
       "fileId": "tech-sovereignty-package",
       "date": "2026-10-01",
@@ -6251,6 +6294,18 @@
       "title": "Opinion shadow rapporteur recorded",
       "personId": "197490",
       "group": "EPP",
+      "push": false
+    },
+    {
+      "id": "tech-sovereignty-package:ep:2026-0139-NMSR-127766-2026-09-24",
+      "fileId": "tech-sovereignty-package",
+      "date": "2026-09-24",
+      "source": "ep",
+      "proc": "2026-0139",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "127766",
+      "group": "The Left",
       "push": false
     },
     {
@@ -7197,6 +7252,16 @@
   ],
   "grids-package": [
     {
+      "id": "grids-package:next:2026-11-19:fb7745",
+      "fileId": "grids-package",
+      "date": "2026-11-19",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Energy working party: examination of the EP position on TEN-E (doc 15832/26)",
+      "push": true,
+      "pushOn": "2026-11-19"
+    },
+    {
       "id": "grids-package:next:2026-11-17:2e20f7",
       "fileId": "grids-package",
       "date": "2026-11-17",
@@ -7757,6 +7822,17 @@
     }
   ],
   "cef-2028-2034": [
+    {
+      "id": "cef-2028-2034:ep:tabled:2026-11-16",
+      "fileId": "cef-2028-2034",
+      "date": "2026-11-16",
+      "source": "ep",
+      "proc": "2025-0221",
+      "kind": "procedural",
+      "title": "Report tabled for plenary",
+      "count": 1,
+      "push": false
+    },
     {
       "id": "cef-2028-2034:ep:2025-0221-DEC-ADCP-2026-11-10",
       "fileId": "cef-2028-2034",
@@ -8722,16 +8798,6 @@
       "pushOn": "2027-01-18"
     },
     {
-      "id": "medical-devices:next:2026-11-12:94e165",
-      "fileId": "medical-devices",
-      "date": "2026-11-12",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Council working party, 12 and 13 November: fourth Presidency compromise (doc 14673/26)",
-      "push": true,
-      "pushOn": "2026-11-12"
-    },
-    {
       "id": "medical-devices:ep:opinions:2026-11-10",
       "fileId": "medical-devices",
       "date": "2026-11-10",
@@ -8971,14 +9037,24 @@
   ],
   "biotech-act": [
     {
-      "id": "biotech-act:next:2026-11-23:c6e633",
+      "id": "biotech-act:next:2026-11-25:a5871d",
       "fileId": "biotech-act",
-      "date": "2026-11-23",
+      "date": "2026-11-25",
       "source": "nodo",
       "kind": "scheduled",
-      "title": "Directive: plenary vote (indicative date in the Observatory)",
+      "title": "Directive: plenary vote (draft agenda of the 23–26 November session)",
       "push": true,
-      "pushOn": "2026-11-23"
+      "pushOn": "2026-11-25"
+    },
+    {
+      "id": "biotech-act:next:2026-11-17:05439c",
+      "fileId": "biotech-act",
+      "date": "2026-11-17",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Pharmaceuticals working party, 17 and 18 November: Presidency compromise texts on clinical trials, ATMPs and Chapters 2, 5 and 6 (docs 15676/26 to 15678/26)",
+      "push": true,
+      "pushOn": "2026-11-17"
     },
     {
       "id": "biotech-act:ep:2025-0405-DEC-ADCP-2026-11-10",
@@ -9021,7 +9097,7 @@
       "proc": "2025-0405",
       "kind": "milestone",
       "title": "Amendments tabled in committee",
-      "count": 2,
+      "count": 1,
       "push": true
     },
     {
@@ -9597,16 +9673,6 @@
       "pushOn": "2026-11-16"
     },
     {
-      "id": "digital-euro:next:2026-11-13:c97009",
-      "fileId": "digital-euro",
-      "date": "2026-11-13",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Financial services attachés prepare the seventh trilogue",
-      "push": true,
-      "pushOn": "2026-11-13"
-    },
-    {
       "id": "digital-euro:ep:2023-0212-MEET-TRI1-2026-11-05",
       "fileId": "digital-euro",
       "date": "2026-11-05",
@@ -9893,6 +9959,16 @@
       "title": "Plenary vote (indicative date in the Observatory)",
       "push": true,
       "pushOn": "2026-12-14"
+    },
+    {
+      "id": "food-feed-omnibus:next:2026-11-17:27e8cb",
+      "fileId": "food-feed-omnibus",
+      "date": "2026-11-17",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Chief Plant Health Officers working party: state of play of the omnibus, information from the Presidency",
+      "push": true,
+      "pushOn": "2026-11-17"
     },
     {
       "id": "food-feed-omnibus:ep:amendments:2026-07-28",
@@ -10298,16 +10374,6 @@
       "pushOn": "2026-11-24"
     },
     {
-      "id": "military-mobility:next:2026-11-13:b91010",
-      "fileId": "military-mobility",
-      "date": "2026-11-13",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Council ad hoc working party: debrief of the technical meetings of 5, 6 and 9 November and the revised annexes",
-      "push": true,
-      "pushOn": "2026-11-13"
-    },
-    {
       "id": "military-mobility:ep:2025-0847-MEET-TRI1-2026-10-20",
       "fileId": "military-mobility",
       "date": "2026-10-20",
@@ -10563,11 +10629,472 @@
   ],
   "kids-act": [
     {
+      "id": "kids-act:ep:2026-0286-NMSR-197529-2026-11-03",
+      "fileId": "kids-act",
+      "date": "2026-11-03",
+      "source": "ep",
+      "proc": "2026-0286",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "197529",
+      "group": "The Left",
+      "push": false
+    },
+    {
       "id": "kids-act:ep:2026-0286-ANPRO-2026-10-22",
       "fileId": "kids-act",
       "date": "2026-10-22",
       "source": "ep",
       "proc": "2026-0286",
+      "kind": "procedural",
+      "title": "Referred to committee",
+      "push": false
+    }
+  ],
+  "cap-2028-2034": [
+    {
+      "id": "cap-2028-2034:next:2027-01-27:7e2fa2",
+      "fileId": "cap-2028-2034",
+      "date": "2027-01-27",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "AGRI committee vote on the Lins report (planned 27–28 January, subject to agreement on the partnership plans)",
+      "push": true,
+      "pushOn": "2027-01-27"
+    },
+    {
+      "id": "cap-2028-2034:next:2026-12-02:967903",
+      "fileId": "cap-2028-2034",
+      "date": "2026-12-02",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "AGRI shadow rapporteurs meet on compromises (CAP and CMO)",
+      "push": true,
+      "pushOn": "2026-12-02"
+    },
+    {
+      "id": "cap-2028-2034:next:2026-11-17:cf1687",
+      "fileId": "cap-2028-2034",
+      "date": "2026-11-17",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Horizontal agricultural questions working party (post-2027 CAP), 17–18 November: exchange of views on doc 15406/26",
+      "push": true,
+      "pushOn": "2026-11-17"
+    },
+    {
+      "id": "cap-2028-2034:ep:amendments:2026-07-17",
+      "fileId": "cap-2028-2034",
+      "date": "2026-07-17",
+      "source": "ep",
+      "proc": "2025-0241",
+      "kind": "milestone",
+      "title": "Amendments tabled in committee",
+      "count": 1,
+      "push": true
+    },
+    {
+      "id": "cap-2028-2034:ep:opinions:2026-07-15",
+      "fileId": "cap-2028-2034",
+      "date": "2026-07-15",
+      "source": "ep",
+      "proc": "2025-0241",
+      "kind": "milestone",
+      "title": "Committee opinions adopted",
+      "count": 1,
+      "push": false
+    },
+    {
+      "id": "cap-2028-2034:ep:amendments:2026-07-13",
+      "fileId": "cap-2028-2034",
+      "date": "2026-07-13",
+      "source": "ep",
+      "proc": "2025-0241",
+      "kind": "milestone",
+      "title": "Amendments tabled in committee",
+      "count": 12,
+      "push": true
+    },
+    {
+      "id": "cap-2028-2034:ep:opinions:2026-07-02",
+      "fileId": "cap-2028-2034",
+      "date": "2026-07-02",
+      "source": "ep",
+      "proc": "2025-0241",
+      "kind": "milestone",
+      "title": "Committee opinions adopted",
+      "count": 1,
+      "push": false
+    },
+    {
+      "id": "cap-2028-2034:ep:2025-0241-NMSR-197445-2026-06-23",
+      "fileId": "cap-2028-2034",
+      "date": "2026-06-23",
+      "source": "ep",
+      "proc": "2025-0241",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "197445",
+      "group": "Renew",
+      "push": false
+    },
+    {
+      "id": "cap-2028-2034:ep:AGRI-PR-787635-DEPOT-2026-06-12",
+      "fileId": "cap-2028-2034",
+      "date": "2026-06-12",
+      "source": "ep",
+      "proc": "2025-0241",
+      "kind": "milestone",
+      "title": "Draft report tabled",
+      "push": true,
+      "ref": "AGRI-PR-787635"
+    },
+    {
+      "id": "cap-2028-2034:ep:2025-0241-NMSR-257111-2026-06-11",
+      "fileId": "cap-2028-2034",
+      "date": "2026-06-11",
+      "source": "ep",
+      "proc": "2025-0241",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "257111",
+      "group": "S&D",
+      "push": false
+    },
+    {
+      "id": "cap-2028-2034:ep:2025-0241-NMSR-197545-2026-06-09",
+      "fileId": "cap-2028-2034",
+      "date": "2026-06-09",
+      "source": "ep",
+      "proc": "2025-0241",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "197545",
+      "group": "ECR",
+      "push": false
+    },
+    {
+      "id": "cap-2028-2034:ep:2025-0241-NMSR-257044-2026-06-09",
+      "fileId": "cap-2028-2034",
+      "date": "2026-06-09",
+      "source": "ep",
+      "proc": "2025-0241",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "257044",
+      "group": "Greens/EFA",
+      "push": false
+    },
+    {
+      "id": "cap-2028-2034:ep:2025-0241-NMSR-88552-2026-06-02",
+      "fileId": "cap-2028-2034",
+      "date": "2026-06-02",
+      "source": "ep",
+      "proc": "2025-0241",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "88552",
+      "group": "PfE",
+      "push": false
+    },
+    {
+      "id": "cap-2028-2034:ep:2025-0241-NMSR-256945-2026-04-08",
+      "fileId": "cap-2028-2034",
+      "date": "2026-04-08",
+      "source": "ep",
+      "proc": "2025-0241",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "256945",
+      "group": "ESN",
+      "push": false
+    },
+    {
+      "id": "cap-2028-2034:ep:2025-0241-NMSR-256881-2026-02-25",
+      "fileId": "cap-2028-2034",
+      "date": "2026-02-25",
+      "source": "ep",
+      "proc": "2025-0241",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "256881",
+      "group": "PfE",
+      "push": false
+    },
+    {
+      "id": "cap-2028-2034:ep:2025-0241-NMSR-256829-2026-02-24",
+      "fileId": "cap-2028-2034",
+      "date": "2026-02-24",
+      "source": "ep",
+      "proc": "2025-0241",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "256829",
+      "group": "S&D",
+      "push": false
+    },
+    {
+      "id": "cap-2028-2034:ep:2025-0241-NMSR-197398-2026-02-23",
+      "fileId": "cap-2028-2034",
+      "date": "2026-02-23",
+      "source": "ep",
+      "proc": "2025-0241",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "197398",
+      "group": "Greens/EFA",
+      "push": false
+    },
+    {
+      "id": "cap-2028-2034:ep:2025-0241-NMSR-257150-2026-02-19",
+      "fileId": "cap-2028-2034",
+      "date": "2026-02-19",
+      "source": "ep",
+      "proc": "2025-0241",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "257150",
+      "group": "ECR",
+      "push": false
+    },
+    {
+      "id": "cap-2028-2034:ep:2025-0241-NMSR-190464-2026-02-04",
+      "fileId": "cap-2028-2034",
+      "date": "2026-02-04",
+      "source": "ep",
+      "proc": "2025-0241",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "190464",
+      "group": "Greens/EFA",
+      "push": false
+    },
+    {
+      "id": "cap-2028-2034:ep:2025-0241-NMCP-197690-REGI-2026-02-02",
+      "fileId": "cap-2028-2034",
+      "date": "2026-02-02",
+      "source": "ep",
+      "proc": "2025-0241",
+      "kind": "people",
+      "title": "Opinion rapporteur named",
+      "personId": "197690",
+      "group": "PfE",
+      "committee": "REGI",
+      "push": false
+    },
+    {
+      "id": "cap-2028-2034:ep:2025-0241-NMCP-96668-ENVI-2026-01-30",
+      "fileId": "cap-2028-2034",
+      "date": "2026-01-30",
+      "source": "ep",
+      "proc": "2025-0241",
+      "kind": "people",
+      "title": "Opinion rapporteur named",
+      "personId": "96668",
+      "group": "EPP",
+      "committee": "ENVI",
+      "push": false
+    },
+    {
+      "id": "cap-2028-2034:ep:2025-0241-NMSR-197416-2026-01-30",
+      "fileId": "cap-2028-2034",
+      "date": "2026-01-30",
+      "source": "ep",
+      "proc": "2025-0241",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "197416",
+      "group": "The Left",
+      "push": false
+    },
+    {
+      "id": "cap-2028-2034:ep:2025-0241-NMSR-257038-2026-01-30",
+      "fileId": "cap-2028-2034",
+      "date": "2026-01-30",
+      "source": "ep",
+      "proc": "2025-0241",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "257038",
+      "group": "Renew",
+      "push": false
+    },
+    {
+      "id": "cap-2028-2034:ep:2025-0241-NMSR-197647-2026-01-26",
+      "fileId": "cap-2028-2034",
+      "date": "2026-01-26",
+      "source": "ep",
+      "proc": "2025-0241",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "197647",
+      "group": "EPP",
+      "push": false
+    },
+    {
+      "id": "cap-2028-2034:ep:2025-0241-NMSR-197824-2026-01-23",
+      "fileId": "cap-2028-2034",
+      "date": "2026-01-23",
+      "source": "ep",
+      "proc": "2025-0241",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "197824",
+      "group": "ECR",
+      "push": false
+    },
+    {
+      "id": "cap-2028-2034:ep:2025-0241-NMSR-257296-2026-01-23",
+      "fileId": "cap-2028-2034",
+      "date": "2026-01-23",
+      "source": "ep",
+      "proc": "2025-0241",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "257296",
+      "group": "EPP",
+      "push": false
+    },
+    {
+      "id": "cap-2028-2034:ep:2025-0241-NMSR-256935-2026-01-22",
+      "fileId": "cap-2028-2034",
+      "date": "2026-01-22",
+      "source": "ep",
+      "proc": "2025-0241",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "256935",
+      "group": "S&D",
+      "push": false
+    },
+    {
+      "id": "cap-2028-2034:ep:2025-0241-NMSR-257297-2026-01-20",
+      "fileId": "cap-2028-2034",
+      "date": "2026-01-20",
+      "source": "ep",
+      "proc": "2025-0241",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "257297",
+      "group": "Renew",
+      "push": false
+    },
+    {
+      "id": "cap-2028-2034:ep:2025-0241-NMSR-257130-2026-01-16",
+      "fileId": "cap-2028-2034",
+      "date": "2026-01-16",
+      "source": "ep",
+      "proc": "2025-0241",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "257130",
+      "group": "Greens/EFA",
+      "push": false
+    },
+    {
+      "id": "cap-2028-2034:ep:2025-0241-NMSR-257298-2026-01-16",
+      "fileId": "cap-2028-2034",
+      "date": "2026-01-16",
+      "source": "ep",
+      "proc": "2025-0241",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "257298",
+      "group": "Renew",
+      "push": false
+    },
+    {
+      "id": "cap-2028-2034:ep:2025-0241-NMSR-124985-2026-01-15",
+      "fileId": "cap-2028-2034",
+      "date": "2026-01-15",
+      "source": "ep",
+      "proc": "2025-0241",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "124985",
+      "group": "The Left",
+      "push": false
+    },
+    {
+      "id": "cap-2028-2034:ep:2025-0241-NMCP-124808-AGRI-2026-01-14",
+      "fileId": "cap-2028-2034",
+      "date": "2026-01-14",
+      "source": "ep",
+      "proc": "2025-0241",
+      "kind": "people",
+      "title": "Rapporteur named",
+      "personId": "124808",
+      "group": "EPP",
+      "committee": "AGRI",
+      "push": false
+    },
+    {
+      "id": "cap-2028-2034:ep:2025-0241-NMSR-197556-2026-01-14",
+      "fileId": "cap-2028-2034",
+      "date": "2026-01-14",
+      "source": "ep",
+      "proc": "2025-0241",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "197556",
+      "group": "ESN",
+      "push": false
+    },
+    {
+      "id": "cap-2028-2034:ep:2025-0241-NMSR-197825-2026-01-14",
+      "fileId": "cap-2028-2034",
+      "date": "2026-01-14",
+      "source": "ep",
+      "proc": "2025-0241",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "197825",
+      "group": "PfE",
+      "push": false
+    },
+    {
+      "id": "cap-2028-2034:ep:2025-0241-NMSR-257299-2026-01-14",
+      "fileId": "cap-2028-2034",
+      "date": "2026-01-14",
+      "source": "ep",
+      "proc": "2025-0241",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "257299",
+      "group": "The Left",
+      "push": false
+    },
+    {
+      "id": "cap-2028-2034:ep:2025-0241-NMSR-96810-2026-01-14",
+      "fileId": "cap-2028-2034",
+      "date": "2026-01-14",
+      "source": "ep",
+      "proc": "2025-0241",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "96810",
+      "group": "ECR",
+      "push": false
+    },
+    {
+      "id": "cap-2028-2034:ep:2025-0241-NMCP-88882-BUDG-2026-01-13",
+      "fileId": "cap-2028-2034",
+      "date": "2026-01-13",
+      "source": "ep",
+      "proc": "2025-0241",
+      "kind": "people",
+      "title": "Opinion rapporteur named",
+      "personId": "88882",
+      "group": "S&D",
+      "committee": "BUDG",
+      "push": false
+    },
+    {
+      "id": "cap-2028-2034:ep:2025-0241-ANPRO-2025-10-23",
+      "fileId": "cap-2028-2034",
+      "date": "2025-10-23",
+      "source": "ep",
+      "proc": "2025-0241",
       "kind": "procedural",
       "title": "Referred to committee",
       "push": false

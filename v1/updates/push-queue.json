@@ -1,4 +1,26 @@
 {
-  "generatedAt": "2026-11-15T00:00:00Z",
-  "events": []
+  "generatedAt": "2026-11-16T00:00:00Z",
+  "events": [
+    {
+      "id": "tech-sovereignty-package:ep:ITRE-PR-797426-DEPOT-2026-11-09",
+      "fileId": "tech-sovereignty-package",
+      "date": "2026-11-09",
+      "source": "ep",
+      "proc": "2026-0139",
+      "kind": "milestone",
+      "title": "Draft report tabled",
+      "push": true,
+      "ref": "ITRE-PR-797426"
+    },
+    {
+      "id": "digital-euro:next:2026-11-16:70603c",
+      "fileId": "digital-euro",
+      "date": "2026-11-16",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Financial services attachés (digital euro)",
+      "push": true,
+      "pushOn": "2026-11-16"
+    }
+  ]
 }

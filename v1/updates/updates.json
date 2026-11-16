@@ -1,6 +1,16 @@
 {
-  "generatedAt": "2026-11-15T00:00:00Z",
+  "generatedAt": "2026-11-16T00:00:00Z",
   "events": [
+    {
+      "id": "cap-2028-2034:next:2027-01-27:7e2fa2",
+      "fileId": "cap-2028-2034",
+      "date": "2027-01-27",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "AGRI committee vote on the Lins report (planned 27–28 January, subject to agreement on the partnership plans)",
+      "push": true,
+      "pushOn": "2027-01-27"
+    },
     {
       "id": "medical-devices:next:2027-01-18:43a63c",
       "fileId": "medical-devices",
@@ -72,6 +82,16 @@
       "pushOn": "2026-12-02"
     },
     {
+      "id": "cap-2028-2034:next:2026-12-02:967903",
+      "fileId": "cap-2028-2034",
+      "date": "2026-12-02",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "AGRI shadow rapporteurs meet on compromises (CAP and CMO)",
+      "push": true,
+      "pushOn": "2026-12-02"
+    },
+    {
       "id": "digital-networks-act:next:2026-12-01:4e0163",
       "fileId": "digital-networks-act",
       "date": "2026-12-01",
@@ -112,6 +132,16 @@
       "pushOn": "2026-11-26"
     },
     {
+      "id": "biotech-act:next:2026-11-25:a5871d",
+      "fileId": "biotech-act",
+      "date": "2026-11-25",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Directive: plenary vote (draft agenda of the 23–26 November session)",
+      "push": true,
+      "pushOn": "2026-11-25"
+    },
+    {
       "id": "mff-2028-2034:next:2026-11-24:bf4fd9",
       "fileId": "mff-2028-2034",
       "date": "2026-11-24",
@@ -132,24 +162,74 @@
       "pushOn": "2026-11-24"
     },
     {
-      "id": "biotech-act:next:2026-11-23:c6e633",
-      "fileId": "biotech-act",
-      "date": "2026-11-23",
+      "id": "mff-2028-2034:next:2026-11-21:e502a3",
+      "fileId": "mff-2028-2034",
+      "date": "2026-11-21",
       "source": "nodo",
       "kind": "scheduled",
-      "title": "Directive: plenary vote (indicative date in the Observatory)",
+      "title": "António Costa's negotiating box with figures expected (reported by Agence Europe)",
       "push": true,
-      "pushOn": "2026-11-23"
+      "pushOn": "2026-11-21"
     },
     {
-      "id": "mff-2028-2034:next:2026-11-19:7cb3a3",
+      "id": "grids-package:next:2026-11-19:fb7745",
+      "fileId": "grids-package",
+      "date": "2026-11-19",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Energy working party: examination of the EP position on TEN-E (doc 15832/26)",
+      "push": true,
+      "pushOn": "2026-11-19"
+    },
+    {
+      "id": "mff-2028-2034:next:2026-11-19:025e2f",
       "fileId": "mff-2028-2034",
       "date": "2026-11-19",
       "source": "nodo",
       "kind": "scheduled",
-      "title": "Council MFF working party (Global Europe Instrument)",
+      "title": "Ad hoc working party on the MFF (Global Europe Instrument): preparation of interinstitutional engagement",
       "push": true,
       "pushOn": "2026-11-19"
+    },
+    {
+      "id": "biotech-act:next:2026-11-17:05439c",
+      "fileId": "biotech-act",
+      "date": "2026-11-17",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Pharmaceuticals working party, 17 and 18 November: Presidency compromise texts on clinical trials, ATMPs and Chapters 2, 5 and 6 (docs 15676/26 to 15678/26)",
+      "push": true,
+      "pushOn": "2026-11-17"
+    },
+    {
+      "id": "cap-2028-2034:next:2026-11-17:cf1687",
+      "fileId": "cap-2028-2034",
+      "date": "2026-11-17",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Horizontal agricultural questions working party (post-2027 CAP), 17–18 November: exchange of views on doc 15406/26",
+      "push": true,
+      "pushOn": "2026-11-17"
+    },
+    {
+      "id": "digital-networks-act:next:2026-11-17:fc1024",
+      "fileId": "digital-networks-act",
+      "date": "2026-11-17",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Telecoms working party: governance, Articles 148–180 (doc 5600/26)",
+      "push": true,
+      "pushOn": "2026-11-17"
+    },
+    {
+      "id": "food-feed-omnibus:next:2026-11-17:27e8cb",
+      "fileId": "food-feed-omnibus",
+      "date": "2026-11-17",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Chief Plant Health Officers working party: state of play of the omnibus, information from the Presidency",
+      "push": true,
+      "pushOn": "2026-11-17"
     },
     {
       "id": "grids-package:next:2026-11-17:2e20f7",
@@ -162,6 +242,17 @@
       "pushOn": "2026-11-17"
     },
     {
+      "id": "cef-2028-2034:ep:tabled:2026-11-16",
+      "fileId": "cef-2028-2034",
+      "date": "2026-11-16",
+      "source": "ep",
+      "proc": "2025-0221",
+      "kind": "procedural",
+      "title": "Report tabled for plenary",
+      "count": 1,
+      "push": false
+    },
+    {
       "id": "digital-euro:next:2026-11-16:70603c",
       "fileId": "digital-euro",
       "date": "2026-11-16",
@@ -172,26 +263,6 @@
       "pushOn": "2026-11-16"
     },
     {
-      "id": "digital-euro:next:2026-11-13:c97009",
-      "fileId": "digital-euro",
-      "date": "2026-11-13",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Financial services attachés prepare the seventh trilogue",
-      "push": true,
-      "pushOn": "2026-11-13"
-    },
-    {
-      "id": "military-mobility:next:2026-11-13:b91010",
-      "fileId": "military-mobility",
-      "date": "2026-11-13",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Council ad hoc working party: debrief of the technical meetings of 5, 6 and 9 November and the revised annexes",
-      "push": true,
-      "pushOn": "2026-11-13"
-    },
-    {
       "id": "digital-fairness-act:stage:positions-in-preparation",
       "fileId": "digital-fairness-act",
       "date": "2026-11-12",
@@ -199,16 +270,6 @@
       "kind": "milestone",
       "title": "Stage change: pre proposal to positions in preparation",
       "push": true
-    },
-    {
-      "id": "medical-devices:next:2026-11-12:94e165",
-      "fileId": "medical-devices",
-      "date": "2026-11-12",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Council working party, 12 and 13 November: fourth Presidency compromise (doc 14673/26)",
-      "push": true,
-      "pushOn": "2026-11-12"
     },
     {
       "id": "tech-sovereignty-package:ep:2026-0138-NMSR-257073-2026-11-11",
@@ -296,6 +357,17 @@
       "push": true
     },
     {
+      "id": "tech-sovereignty-package:ep:ITRE-PR-797426-DEPOT-2026-11-09",
+      "fileId": "tech-sovereignty-package",
+      "date": "2026-11-09",
+      "source": "ep",
+      "proc": "2026-0139",
+      "kind": "milestone",
+      "title": "Draft report tabled",
+      "push": true,
+      "ref": "ITRE-PR-797426"
+    },
+    {
       "id": "digital-euro:ep:2023-0212-MEET-TRI1-2026-11-05",
       "fileId": "digital-euro",
       "date": "2026-11-05",
@@ -369,6 +441,18 @@
       "title": "Amendments tabled in committee",
       "count": 1,
       "push": true
+    },
+    {
+      "id": "kids-act:ep:2026-0286-NMSR-197529-2026-11-03",
+      "fileId": "kids-act",
+      "date": "2026-11-03",
+      "source": "ep",
+      "proc": "2026-0286",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "197529",
+      "group": "The Left",
+      "push": false
     },
     {
       "id": "mff-2028-2034:ep:2025-0545:amendments:2026-11-03",
@@ -692,6 +776,18 @@
       "push": false
     },
     {
+      "id": "tech-sovereignty-package:ep:2026-0139-NMSR-257070-2026-10-06",
+      "fileId": "tech-sovereignty-package",
+      "date": "2026-10-06",
+      "source": "ep",
+      "proc": "2026-0139",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "257070",
+      "group": "ESN",
+      "push": false
+    },
+    {
       "id": "industrial-accelerator-act:ep:opinions:2026-10-05",
       "fileId": "industrial-accelerator-act",
       "date": "2026-10-05",
@@ -778,6 +874,18 @@
       "title": "Opinion shadow rapporteur recorded",
       "personId": "197490",
       "group": "EPP",
+      "push": false
+    },
+    {
+      "id": "tech-sovereignty-package:ep:2026-0139-NMSR-127766-2026-09-24",
+      "fileId": "tech-sovereignty-package",
+      "date": "2026-09-24",
+      "source": "ep",
+      "proc": "2026-0139",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "127766",
+      "group": "The Left",
       "push": false
     },
     {
@@ -1007,7 +1115,7 @@
       "proc": "2025-0405",
       "kind": "milestone",
       "title": "Amendments tabled in committee",
-      "count": 2,
+      "count": 1,
       "push": true
     },
     {
