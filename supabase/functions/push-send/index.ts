@@ -7,8 +7,8 @@
 //   admin  Authorization: Bearer <signed-in admin's token>, body { test: true }
 //          sends "nodo test" to the admin's own phones, to check the setup end to end
 //
-// Secrets (Supabase > Edge Functions > Secrets): APNS_KEY_ID, APNS_PRIVATE_KEY (the .p8 text), APNS_TEAM_ID
-// (falls back to APPLE_TEAM_ID). Optional APNS_TOPIC (default eu.getnodo.app). The cron secret is generated in
+// Secrets (Supabase > Edge Functions > Secrets): APNS_KEY_ID, APNS_PRIVATE_KEY (the .p8 text), APNS_TEAM_ID, each
+// falling back to APPLE_KEY_ID, APPLE_PRIVATE_KEY, APPLE_TEAM_ID (the Sign in with Apple key, which also has APNs). Optional APNS_TOPIC (default eu.getnodo.app). The cron secret is generated in
 // public.push_settings.cron_secret (service role only), which the pg_cron job also reads.
 // Deployed with verify_jwt off: it checks the cron secret or the admin itself.
 import { createClient } from "jsr:@supabase/supabase-js@2";
@@ -35,10 +35,10 @@ let jwtCache: { token: string; at: number } | null = null;
 async function apnsJwt(): Promise<string> {
   const now = Math.floor(Date.now() / 1000);
   if (jwtCache && now - jwtCache.at < 40 * 60) return jwtCache.token; // Apple accepts a token for up to an hour
-  const pem = env("APNS_PRIVATE_KEY").replace(/\\n/g, "\n");
+  const pem = env("APNS_PRIVATE_KEY", "APPLE_PRIVATE_KEY").replace(/\\n/g, "\n");
   const der = Uint8Array.from(atob(pem.replace(/-----(BEGIN|END) PRIVATE KEY-----/g, "").replace(/\s+/g, "")), (c) => c.charCodeAt(0));
   const key = await crypto.subtle.importKey("pkcs8", der, { name: "ECDSA", namedCurve: "P-256" }, false, ["sign"]);
-  const head = b64urlJson({ alg: "ES256", kid: env("APNS_KEY_ID") });
+  const head = b64urlJson({ alg: "ES256", kid: env("APNS_KEY_ID", "APPLE_KEY_ID") });
   const claims = b64urlJson({ iss: env("APNS_TEAM_ID", "APPLE_TEAM_ID"), iat: now });
   const sig = new Uint8Array(await crypto.subtle.sign({ name: "ECDSA", hash: "SHA-256" }, key, new TextEncoder().encode(`${head}.${claims}`)));
   jwtCache = { token: `${head}.${claims}.${b64url(sig)}`, at: now };
