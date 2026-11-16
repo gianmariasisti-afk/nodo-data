@@ -1,6 +1,6 @@
 {
- "generated": "2026-11-12T08:18:26Z",
- "asOf": "2026-11-12",
+ "generated": "2026-11-16T08:28:59Z",
+ "asOf": "2026-11-16",
  "source": "Parliament Open Data Portal (basis ep-open-data); Parliament Legislative Observatory procedure files (basis ep-procedure-file); press and Council documents (basis press); commission.json for commissioners and cabinets",
  "legend": {
   "roles": [
@@ -66,12 +66,17 @@
     "2025/0571R(APP)"
    ],
    "stage": "council-negotiating-box",
-   "status": "The Irish Presidency tabled a revised negotiating box on 10 October 2026 (Council doc 13922/26): €1,622bn in commitments at 2025 prices, 8% below the Commission proposal, with all figures in brackets. At the 15–16 October European Council, leaders asked António Costa to advance the talks; Agence Europe reported on 22 October that he will present his own negotiating box with figures ahead of the Special European Council on 26–27 November; on 30 October it reported that Member States do not expect his box before the last week of November and see a compromise at the 17–18 December European Council as the most likely outcome. Unanimity in Council, then Parliament consent. Two programmes are followed as parts: the European Competitiveness Fund (ITRE co-rapporteurs Christian Ehler and Dan Nica; Council partial position on 16 June 2026; ITRE adopted its report and a mandate to negotiate on 10 November 2026, per the Observatory) and the National and Regional Partnership Plans fund (BUDG, REGI and AGRI: Karlo Ressler, Andrey Novakov and Elsi Katainen), where Agence Europe reported a partial general approach on 16 June 2026. A third part is the Performance Regulation (BUDG and CONT jointly, co-rapporteurs Jean-Marc Germain and Niclas Herbst): more than 1,000 amendments were tabled to their draft report, and the groups split over the do no significant harm principle at a joint meeting on 4 November (Agence Europe).",
+   "status": "The Irish Presidency tabled a revised negotiating box on 10 October 2026 (Council doc 13922/26): €1,622bn in commitments at 2025 prices, 8% below the Commission proposal, with all figures in brackets. At the 15–16 October European Council, leaders asked António Costa to advance the talks; Agence Europe reported that he will present his own negotiating box with figures on 21 November, ahead of the Special European Council on 26–27 November; on 30 October it reported that Member States do not expect his box before the last week of November and see a compromise at the 17–18 December European Council as the most likely outcome. Unanimity in Council, then Parliament consent. Two programmes are followed as parts: the European Competitiveness Fund (ITRE co-rapporteurs Christian Ehler and Dan Nica; Council partial position on 16 June 2026; ITRE adopted its report and a mandate to negotiate on 10 November 2026, per the Observatory) and the National and Regional Partnership Plans fund (BUDG, REGI and AGRI: Karlo Ressler, Andrey Novakov and Elsi Katainen), where Agence Europe reported a partial general approach on 16 June 2026. A third part is the Performance Regulation (BUDG and CONT jointly, co-rapporteurs Jean-Marc Germain and Niclas Herbst): more than 1,000 amendments were tabled to their draft report, and the groups split over the do no significant harm principle at a joint meeting on 4 November (Agence Europe).",
    "next": [
     {
      "date": "2026-11-19",
-     "what": "Council MFF working party (Global Europe Instrument)",
-     "src": "council-mpo-calendar"
+     "what": "Ad hoc working party on the MFF (Global Europe Instrument): preparation of interinstitutional engagement",
+     "src": "council-cm-5034"
+    },
+    {
+     "date": "2026-11-21",
+     "what": "António Costa's negotiating box with figures expected (reported by Agence Europe)",
+     "src": "agenceurope-13981"
     },
     {
      "date": "2026-11-24",
@@ -1056,9 +1061,19 @@
      "id": "agenceurope-13975-mff",
      "title": "Agence Europe: more than 1,000 amendments tabled to Performance Regulation (4 Nov 2026)",
      "url": "https://agenceurope.eu/en/bulletin/article/13975/22/mff-2028-2034-more-than-1000-amendments-tabled-to-performance-regulation-confirm-divisions-in-european-parliament"
+    },
+    {
+     "id": "council-cm-5034",
+     "title": "Council: notice of meeting CM 5034/26, AHWP MFF (Global Europe Instrument), 19 Nov 2026",
+     "url": "https://data.consilium.europa.eu/doc/document/CM-5034-2026-INIT/en/pdf"
+    },
+    {
+     "id": "agenceurope-13981",
+     "title": "Agence Europe: António Costa expected to unveil new proposal with figures on 21 November",
+     "url": "https://agenceurope.eu/en/bulletin/article/13981/30/mff-2028-2034-antonio-costa-expected-to-unveil-new-proposal-with-figures-on-21-november"
     }
    ],
-   "checked": "2026-11-12",
+   "checked": "2026-11-16",
    "parts": [
     {
      "id": "ecf",
@@ -1348,7 +1363,7 @@
      "url": "https://data.consilium.europa.eu/doc/document/ST-14756-2026-INIT/en/pdf"
     }
    ],
-   "checked": "2026-11-09",
+   "checked": "2026-11-16",
    "lede": "The Council has its negotiating mandate; Parliament's joint ITRE-LIBE position will take months."
   },
   {
@@ -1661,7 +1676,7 @@
      "url": "https://data.consilium.europa.eu/doc/document/CM-4565-2026-INIT/en/pdf"
     }
    ],
-   "checked": "2026-11-09",
+   "checked": "2026-11-16",
    "lede": "The Council works through the third Presidency compromise; INTA-ITRE-IMCO sorts more than 5,000 amendments."
   },
   {
@@ -1674,6 +1689,11 @@
    "stage": "positions-in-preparation",
    "status": "Proposed 21 January 2026. It replaces the EECC, BEREC regulation and Radio Spectrum Policy Programme and extends authorisation rules to cloud providers and CDNs. The Irish Presidency presented its first compromise text on Articles 1–12 and 87–114 (doc 14468/26) to the telecoms working party on 22 October and aims for a progress report at the Telecoms Council on 1 December. In Parliament, ITRE published its draft report on 20 October 2026 (PE791.994); no committee vote date is set. IMCO and LIBE draft opinions came out in June.",
    "next": [
+    {
+     "date": "2026-11-17",
+     "what": "Telecoms working party: governance, Articles 148–180 (doc 5600/26)",
+     "src": "council-cm-4889"
+    },
     {
      "date": "2026-12-01",
      "what": "Telecoms Council: Presidency progress report on the Digital Networks Act (planned)",
@@ -1849,9 +1869,14 @@
      "id": "council-cm-4581",
      "title": "Council: notice of meeting CM 4581/26, telecoms working party, 22 Oct 2026",
      "url": "https://data.consilium.europa.eu/doc/document/CM-4581-2026-INIT/en/pdf"
+    },
+    {
+     "id": "council-cm-4889",
+     "title": "Council: notice of meeting CM 4889/26, Working Party on Telecommunications and Information Society, 17 Nov 2026",
+     "url": "https://data.consilium.europa.eu/doc/document/CM-4889-2026-INIT/en/pdf"
     }
    ],
-   "checked": "2026-11-09",
+   "checked": "2026-11-16",
    "lede": "The Presidency's first compromise text is in the telecoms working party; ITRE's draft report is out."
   },
   {
@@ -2127,7 +2152,7 @@
      "url": "https://commission.europa.eu/law/law-topic/consumer-protection-law/digital-fairness-act_en"
     }
    ],
-   "checked": "2026-11-12",
+   "checked": "2026-11-16",
    "lede": "Commission proposal in preparation, in a consumer package. The social media minimum age moved to the EU KIDS Act.",
    "related": [
     {
@@ -2511,7 +2536,7 @@
      "url": "https://data.consilium.europa.eu/doc/document/CM-4811-2026-INIT/en/pdf"
     }
    ],
-   "checked": "2026-11-12",
+   "checked": "2026-11-16",
    "lede": "The Council works on the Chips Act 2.0 compromise; neither text has a draft report in Parliament yet."
   },
   {
@@ -2785,7 +2810,7 @@
      "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2025/0359(COD)"
     }
    ],
-   "checked": "2026-11-09",
+   "checked": "2026-11-16",
    "lede": "In force. Standards, AI Office enforcement and national authorities are the live issues."
   },
   {
@@ -2804,6 +2829,12 @@
      "date": "2026-11-17",
      "what": "TEN-E trilogue (reported by Agence Europe)",
      "src": "agenceurope-13961",
+     "part": "ten-e"
+    },
+    {
+     "date": "2026-11-19",
+     "what": "Energy working party: examination of the EP position on TEN-E (doc 15832/26)",
+     "src": "council-cm-5031",
      "part": "ten-e"
     }
    ],
@@ -3043,9 +3074,14 @@
      "id": "council-cm-4715",
      "title": "Council: notice of meeting CM 4715/26, energy working party, 27 Oct 2026",
      "url": "https://data.consilium.europa.eu/doc/document/CM-4715-2026-INIT/en/pdf"
+    },
+    {
+     "id": "council-cm-5031",
+     "title": "Council: notice of meeting CM 5031/26, Working Party on Energy, 19 Nov 2026",
+     "url": "https://data.consilium.europa.eu/doc/document/CM-5031-2026-INIT/en/pdf"
     }
    ],
-   "checked": "2026-11-12",
+   "checked": "2026-11-16",
    "asOf": "2026-10-21"
   },
   {
@@ -3059,16 +3095,12 @@
    "stage": "positions-in-preparation",
    "sector": "transport",
    "lede": "The Council has a partial mandate without the money; Parliament's joint ITRE-TRAN committee still has to vote.",
-   "status": "The Commission proposed it on 16 July 2025 as part of the MFF package: €81.4bn for trans-European transport and energy networks (€33.7bn in 2021–2027), of which €29.9bn for energy and €17.6bn for military mobility. The Council agreed a partial general approach at the Energy Council on 15 December 2025; it leaves out financial and horizontal issues, which wait for the MFF deal. In Parliament, the joint ITRE-TRAN committee (co-rapporteurs Kamila Gasiuk-Pihowicz and Oihane Agirregoitia Martínez) published its draft report on 25 March 2026; amendments followed in April. BUDG's opinion asks to raise the envelope to €91.3bn. The Observatory shows the file awaiting the committee vote and, since 2 November 2026, no longer gives an indicative plenary date (it had listed 23 November).",
+   "status": "The Commission proposed it on 16 July 2025 as part of the MFF package: €81.4bn for trans-European transport and energy networks (€33.7bn in 2021–2027), of which €29.9bn for energy and €17.6bn for military mobility. The Council agreed a partial general approach at the Energy Council on 15 December 2025; it leaves out financial and horizontal issues, which wait for the MFF deal. In Parliament, the joint ITRE-TRAN committee (co-rapporteurs Kamila Gasiuk-Pihowicz and Oihane Agirregoitia Martínez) adopted its report on 10 November 2026 together with a decision to open interinstitutional negotiations, per the Observatory. MEPs criticised the proposed cuts to the envelope (Agence Europe); BUDG's opinion asks to raise it to €91.3bn.",
    "next": [
     {
      "date": null,
-     "what": "Parliament plenary, first reading: no indicative date (the Observatory dropped the 23 November forecast)",
+     "what": "Plenary announcement of the committee's decision to open negotiations: no date set",
      "src": "oeil-2025-0221-cod"
-    },
-    {
-     "date": null,
-     "what": "Joint ITRE-TRAN committee vote: no date set yet"
     }
    ],
    "ep": {
@@ -3253,7 +3285,7 @@
    "caveats": [
     "Rapporteurs, shadows and opinion rapporteurs come from the Parliament's procedure file (rechecked each week).",
     "The Observatory names no commissioner. The lead and associated commissioners follow the DGs it lists and the cabinet portfolios.",
-    "The 23 November plenary date is the Observatory's indicative forecast. No committee vote date is set, so the date may move."
+    "Negotiations with the Council can open once plenary has had the committee's decision announced; the Council's position leaves out the financial issues until the MFF deal."
    ],
    "sources": [
     {
@@ -3290,9 +3322,14 @@
      "id": "eprs-cef",
      "title": "EPRS briefing: Connecting Europe Facility 2028–2034 (12 Dec 2025)",
      "url": "https://www.europarl.europa.eu/thinktank/en/document/EPRS_BRI(2025)779264"
+    },
+    {
+     "id": "agenceurope-13979",
+     "title": "Agence Europe: Connecting Europe Facility, MEPs highly critical of proposed cuts to next multiannual budget",
+     "url": "https://agenceurope.eu/en/bulletin/article/13979/11/connecting-europe-facility-meps-highly-critical-of-proposed-cuts-to-next-multiannual-budget"
     }
    ],
-   "checked": "2026-11-09",
+   "checked": "2026-11-16",
    "asOf": "2026-11-01"
   },
   {
@@ -3477,7 +3514,7 @@
      "url": "https://agenceurope.eu/en/bulletin/article/13971/9/car-co2-emissions-standards-jens-gieseke-optimistic-about-adoption-of-agreement-in-committee-on-environment-on-4-november"
     }
    ],
-   "checked": "2026-11-09",
+   "checked": "2026-11-16",
    "asOf": "2026-10-21"
   },
   {
@@ -3546,7 +3583,7 @@
      "url": "https://observatory.clean-hydrogen.europa.eu/eu-policy/alternative-fuels-infrastructure-regulation"
     }
    ],
-   "checked": "2026-11-09",
+   "checked": "2026-11-16",
    "asOf": "2026-10-21"
   },
   {
@@ -3561,11 +3598,6 @@
    "lede": "SANT draft report out with 130+ amendments; Council still at working party level.",
    "status": "The Commission proposed on 16 December 2025 to simplify the MDR and IVDR, with adapted pathways for breakthrough and orphan devices, more proportionate surveillance and changes to software classification. SANT leads in Parliament with Oliver Schenk as rapporteur; his draft report of 1 July 2026 tables more than 130 amendments, including a new category of niche devices. IMCO named Anna Cavazzini to draft its opinion on 15 October. The Council's working party began the article-by-article examination on 23 March 2026; the June progress report says more work on the text is needed. There is no Council general approach yet.",
    "next": [
-    {
-     "date": "2026-11-12",
-     "what": "Council working party, 12 and 13 November: fourth Presidency compromise (doc 14673/26)",
-     "src": "council-cm-4831"
-    },
     {
      "date": "2027-01-18",
      "what": "Plenary vote (indicative date in the Observatory)",
@@ -3711,7 +3743,7 @@
      "url": "https://data.consilium.europa.eu/doc/document/CM-4831-2026-INIT/en/pdf"
     }
    ],
-   "checked": "2026-11-12",
+   "checked": "2026-11-16",
    "asOf": "2026-10-21"
   },
   {
@@ -3724,12 +3756,18 @@
    "stage": "positions-in-preparation",
    "sector": "health",
    "lede": "The Council has its position on the directive; the regulation is at its first Presidency compromise.",
-   "status": "The Commission proposed the European Biotech Act on 16 December 2025: a regulation covering health biotechnology from funding and clinical trials to authorisation and manufacturing, with a directive on genetically modified micro-organisms and the processing of organs. The Council agreed its position on the directive at the Health Council on 16 June 2026 and held a policy debate on the regulation; the Presidency tabled its first compromise text on the regulation to the working party on 8 and 9 October. In Parliament, SANT and ITRE share the regulation (Vytenis Andriukaitis and Wouter Beke) and ENVI and SANT share the directive (Marta Temido and Adam Jarubas), which they voted on 10 November 2026; its plenary vote is indicated for 23 November. A Biotech Act II on the wider bioeconomy is in preparation.",
+   "status": "The Commission proposed the European Biotech Act on 16 December 2025: a regulation covering health biotechnology from funding and clinical trials to authorisation and manufacturing, with a directive on genetically modified micro-organisms and the processing of organs. The Council agreed its position on the directive at the Health Council on 16 June 2026 and held a policy debate on the regulation; the Presidency tabled its first compromise text on the regulation to the working party on 8 and 9 October. In Parliament, SANT and ITRE share the regulation (Vytenis Andriukaitis and Wouter Beke) and ENVI and SANT share the directive (Marta Temido and Adam Jarubas), which they voted on 10 November 2026; the draft plenary agenda puts its vote on 25 November. A Biotech Act II on the wider bioeconomy is in preparation.",
    "next": [
     {
-     "date": "2026-11-23",
-     "what": "Directive: plenary vote (indicative date in the Observatory)",
-     "src": "oeil-2025-0405-cod",
+     "date": "2026-11-17",
+     "what": "Pharmaceuticals working party, 17 and 18 November: Presidency compromise texts on clinical trials, ATMPs and Chapters 2, 5 and 6 (docs 15676/26 to 15678/26)",
+     "src": "council-cm-4917",
+     "part": "regulation"
+    },
+    {
+     "date": "2026-11-25",
+     "what": "Directive: plenary vote (draft agenda of the 23–26 November session)",
+     "src": "ep-plenary-agendas",
      "part": "directive"
     },
     {
@@ -4093,9 +4131,19 @@
      "id": "council-cm-4780",
      "title": "Council: notice of meeting CM 4780/26, pharmaceuticals and medical devices attachés (Biotech Act), 11 Nov 2026",
      "url": "https://data.consilium.europa.eu/doc/document/CM-4780-2026-INIT/en/pdf"
+    },
+    {
+     "id": "council-cm-4917",
+     "title": "Council: notice of meeting CM 4917/26, Working Party on Pharmaceuticals and Medical Devices, 17–18 Nov 2026",
+     "url": "https://data.consilium.europa.eu/doc/document/CM-4917-2026-INIT/en/pdf"
+    },
+    {
+     "id": "ep-plenary-agendas",
+     "title": "European Parliament: plenary agendas",
+     "url": "https://www.europarl.europa.eu/plenary/en/agendas.html"
     }
    ],
-   "checked": "2026-11-12",
+   "checked": "2026-11-16",
    "asOf": "2026-10-21"
   },
   {
@@ -4108,13 +4156,8 @@
    "stage": "trilogue",
    "sector": "finance",
    "lede": "Trilogues under way; data protection and exceptions for merchants are still open.",
-   "status": "The Commission proposed it in June 2023. The Council agreed its position on 19 December 2025. Parliament's ECON adopted Fernando Navarrete's report on 23 June 2026 and plenary confirmed the mandate on 9 July. Trilogues are under way: the fifth, on 20 October, covered offline payment limits, anti-money-laundering rules for small payments and the long-term operating model, and Council attachés meet on 13 November to prepare the seventh (Council notice CM 4946/26). Still open: data protection, exceptions to merchant acceptance, cash acceptance, the roll-out and use outside the euro area. The ECB aims for issuance from 2029 if the law passes.",
+   "status": "The Commission proposed it in June 2023. The Council agreed its position on 19 December 2025. Parliament's ECON adopted Fernando Navarrete's report on 23 June 2026 and plenary confirmed the mandate on 9 July. Trilogues are under way: the fifth, on 20 October, covered offline payment limits, anti-money-laundering rules for small payments and the long-term operating model, and Council attachés met on 13 November to prepare the seventh (Council notice CM 4946/26). Still open: data protection, exceptions to merchant acceptance, cash acceptance, the roll-out and use outside the euro area. The ECB aims for issuance from 2029 if the law passes.",
    "next": [
-    {
-     "date": "2026-11-13",
-     "what": "Financial services attachés prepare the seventh trilogue",
-     "src": "council-cm-4946"
-    },
     {
      "date": "2026-11-16",
      "what": "Financial services attachés (digital euro)",
@@ -4292,7 +4335,7 @@
      "url": "https://www.consilium.europa.eu/en/meetings/calendar/?category=mpo"
     }
    ],
-   "checked": "2026-11-12",
+   "checked": "2026-11-16",
    "asOf": "2026-10-21"
   },
   {
@@ -4310,6 +4353,11 @@
    "lede": "Council mandates done; Parliament's joint ENVI-AGRI committee still to vote.",
    "status": "The Commission proposed the omnibus on 16 December 2025: a regulation amending ten acts on pesticides, residue levels, GMOs, feed and official controls, and a directive amending related directives. The Council agreed its position on the directive on 27 May 2026 and its mandate on the regulation on 30 September, and wants a provisional agreement by the end of 2026. In Parliament, a joint ENVI-AGRI committee leads with Michele Picaro (ECR, ENVI) and Herbert Dorfmann (EPP, AGRI); foodwatch criticised their draft report of 6 July for going further than the Commission on pesticide reviews.",
    "next": [
+    {
+     "date": "2026-11-17",
+     "what": "Chief Plant Health Officers working party: state of play of the omnibus, information from the Presidency",
+     "src": "council-cm-4757"
+    },
     {
      "date": "2026-12-14",
      "what": "Plenary vote (indicative date in the Observatory)",
@@ -4498,9 +4546,14 @@
      "id": "council-cm-4051",
      "title": "Council notice CM 4051/26: Antici Group (Simplification), 14 Sep 2026",
      "url": "https://data.consilium.europa.eu/doc/document/CM-4051-2026-INIT/en/pdf"
+    },
+    {
+     "id": "council-cm-4757",
+     "title": "Council: notice of meeting CM 4757/26, Working Party on Plants and Plant Health Questions (Chief Plant Health Officers), 17 Nov 2026",
+     "url": "https://data.consilium.europa.eu/doc/document/CM-4757-2026-INIT/en/pdf"
     }
    ],
-   "checked": "2026-11-09",
+   "checked": "2026-11-16",
    "asOf": "2026-10-21"
   },
   {
@@ -4580,7 +4633,7 @@
      "url": "https://sciencebusiness.net/news/european-research-area/race-era-act-begins-mep-unveils-early-proposal"
     }
    ],
-   "checked": "2026-11-09",
+   "checked": "2026-11-16",
    "asOf": "2026-10-21",
    "related": [
     {
@@ -4609,11 +4662,6 @@
    "lede": "Trilogues under way; the crisis mechanism is still to settle.",
    "status": "The Commission proposed it on 19 November 2025. Coreper agreed the Council mandate on 17 June 2026; SEDE and TRAN adopted Parliament's position on 23 June (co-rapporteurs Michał Szczerba and Roberts Zīle), confirmed in plenary on 8 July. Trilogues opened on 16 July; the second met in Strasbourg on 20 October. Agence Europe reports a third in December to settle the European Military Mobility Enhanced Response System (EMERS), private-sector involvement and the link with the Civil Protection Mechanism. The European Council asked for agreement by the end of 2026.",
    "next": [
-    {
-     "date": "2026-11-13",
-     "what": "Council ad hoc working party: debrief of the technical meetings of 5, 6 and 9 November and the revised annexes",
-     "src": "council-cm-4914"
-    },
     {
      "date": "2026-11-24",
      "what": "Council ad hoc working party on military mobility",
@@ -4819,7 +4867,7 @@
      "url": "https://www.consilium.europa.eu/en/meetings/calendar/?category=mpo"
     }
    ],
-   "checked": "2026-11-12",
+   "checked": "2026-11-16",
    "asOf": "2026-10-21"
   },
   {
@@ -5096,7 +5144,7 @@
      "url": "https://oeil.europarl.europa.eu/oeil/en/document-summary?id=1874426"
     }
    ],
-   "checked": "2026-11-09",
+   "checked": "2026-11-16",
    "asOf": "2026-10-21",
    "related": [
     {
@@ -5151,6 +5199,11 @@
    "lede": "The Council has a partial position without the money; Parliament's AGRI committee votes in late January at the earliest.",
    "status": "The Commission proposed it on 16 July 2025 as part of the MFF package. CAP money would sit inside the National and Regional Partnership Plans fund, which is followed as a part of nodo's MFF file. Agriculture ministers agreed a partial negotiating position unanimously at the AGRIFISH Council on 26 October 2026, after preparation in the Special Committee on Agriculture and the Working Party on Horizontal Agricultural Questions; financial and horizontal issues wait for the MFF deal. In Parliament, AGRI rapporteur Norbert Lins (EPP) tabled his draft report on 12 June 2026 and about 3,500 amendments followed. ENVI and REGI adopted their opinions in July. The groups are negotiating compromises, with capping and degressivity, social conditionality and environmental ambition the open fights. Agence Europe reported on 13 November that the AGRI vote is planned for 27–28 January 2027, subject to agreement on the partnership plans; in October the EPP's AGRI delegation suspended its support for those plans over funding guarantees for the CAP.",
    "next": [
+    {
+     "date": "2026-11-17",
+     "what": "Horizontal agricultural questions working party (post-2027 CAP), 17–18 November: exchange of views on doc 15406/26",
+     "src": "council-cm-4789"
+    },
     {
      "date": "2026-12-02",
      "what": "AGRI shadow rapporteurs meet on compromises (CAP and CMO)",
@@ -5488,6 +5541,11 @@
      "id": "agenceurope-13981-nrpp",
      "title": "Agence Europe: no Parliament vote on the partnership plans before January 2027",
      "url": "https://agenceurope.eu/en/bulletin/article/13981/4/2028-2034-mff-meps-will-not-vote-on-regulation-introducing-nrpps-future-budgets-centrepiece-before-january-2027"
+    },
+    {
+     "id": "council-cm-4789",
+     "title": "Council: notice of meeting CM 4789/26, Working Party on Horizontal Agricultural Questions (Post-2027 CAP), 17–18 Nov 2026",
+     "url": "https://data.consilium.europa.eu/doc/document/CM-4789-2026-INIT/en/pdf"
     }
    ],
    "checked": "2026-11-16",
