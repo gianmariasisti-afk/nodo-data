@@ -1002,7 +1002,9 @@
     "cap-2028-2034:ep:2025-0241-NMSR-257299-2026-01-14": true,
     "cap-2028-2034:ep:2025-0241-NMSR-96810-2026-01-14": true,
     "cap-2028-2034:ep:2025-0241-NMCP-88882-BUDG-2026-01-13": true,
-    "cap-2028-2034:ep:2025-0241-ANPRO-2025-10-23": true
+    "cap-2028-2034:ep:2025-0241-ANPRO-2025-10-23": true,
+    "grids-package:ep:2025-0400-MEET-TRI1-2026-11-17": true,
+    "biotech-act:ep:2025-0405:tabled:2026-11-16": true
   },
   "seeded": {
     "mff-2028-2034": true,
@@ -1079,7 +1081,12 @@
     "medical-devices:next:2026-11-12:94e165": true,
     "digital-euro:next:2026-11-13:c97009": true,
     "military-mobility:next:2026-11-13:b91010": true,
-    "digital-euro:next:2026-11-16:70603c": true
+    "digital-euro:next:2026-11-16:70603c": true,
+    "digital-networks-act:next:2026-11-17:fc1024": true,
+    "grids-package:next:2026-11-17:2e20f7": true,
+    "biotech-act:next:2026-11-17:05439c": true,
+    "food-feed-omnibus:next:2026-11-17:27e8cb": true,
+    "cap-2028-2034:next:2026-11-17:cf1687": true
   },
   "seededProcs": {
     "2025-0571": true,
