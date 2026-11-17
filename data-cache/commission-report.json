@@ -1,5 +1,5 @@
 {
- "run": "2026-11-16T13:07:57.818Z",
+ "run": "2026-11-17T13:49:56.794Z",
  "college": {
   "found": 26,
   "added": [],
@@ -214,7 +214,7 @@
  "autonomy": {
   "applied": false,
   "waits": [
-   "12 changes in one run (limit 5)"
+   "13 changes in one run (limit 5)"
   ],
   "confirming": 0,
   "decision": true
@@ -334,11 +334,18 @@
    "commissioner": "jessika-roswall",
    "name": "Luisa Samarelli",
    "role": "PERSONAL ASSISTANT/MEMBER"
+  },
+  {
+   "type": "role",
+   "commissioner": "piotr-serafin",
+   "name": "Fatima Ez-Zammoury",
+   "from": "Administrative Assistant to Marek Nohejl and Wouter Coussens",
+   "to": "ADMINISTRATIVE ASSISTANT TO WOUTER COUSSENS AND DANIELA VATRACHKI"
   }
  ],
  "summary": {
   "auto": 0,
-  "structural": 12,
+  "structural": 13,
   "autoApplied": 0,
   "failed": 0,
   "unchecked": []

@@ -1,5 +1,5 @@
 {
- "at": "2026-11-16",
+ "at": "2026-11-17",
  "changes": [
   {
    "type": "removed",
@@ -72,6 +72,13 @@
    "commissioner": "jessika-roswall",
    "name": "Luisa Samarelli",
    "role": "PERSONAL ASSISTANT/MEMBER"
+  },
+  {
+   "type": "role",
+   "commissioner": "piotr-serafin",
+   "name": "Fatima Ez-Zammoury",
+   "from": "Administrative Assistant to Marek Nohejl and Wouter Coussens",
+   "to": "ADMINISTRATIVE ASSISTANT TO WOUTER COUSSENS AND DANIELA VATRACHKI"
   }
  ]
 }
