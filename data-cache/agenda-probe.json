@@ -1,25 +1,6 @@
 {
- "run": "2026-11-16T13:40:22.383Z",
+ "run": "2026-11-17T00:48:14.922Z",
  "sessions": {
-  "2026-11-11": {
-   "days": {
-    "2026-11-11": {
-     "status": 200,
-     "activities": 15
-    },
-    "2026-11-12": {
-     "status": 200,
-     "activities": 18
-    }
-   },
-   "types": {
-    "def/ep-activities/MEETING_PART": 9,
-    "def/ep-activities/PLENARY_DEBATE": 9,
-    "def/ep-activities/PLENARY_VOTE": 15
-   },
-   "items": 24,
-   "unchanged": true
-  },
   "2026-11-23": {
    "days": {
     "2026-11-23": {
