@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generated": "2026-11-17T23:51:22.105Z",
+ "generated": "2026-11-18T08:49:05.729Z",
  "files": {
   "meps": {
    "path": "meps.json",
@@ -17,8 +17,8 @@
   "calendar": {
    "path": "calendar.json",
    "description": "Parliament calendar: plenary, committee and group weeks",
-   "bytes": 2633,
-   "sha256": "a09e29fc9419db64c60a8f6d0c1052291a15f79574abf4a2a94e65080fe1be56"
+   "bytes": 3111,
+   "sha256": "184ead0052939f0187a3e45ed15c0e13154bea92b4ed584f03402edb79524fea"
   },
   "council": {
    "path": "council.json",
