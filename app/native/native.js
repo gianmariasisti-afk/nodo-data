@@ -96,6 +96,18 @@
     onTap(fn) { PushPlugin.addListener("tap", (d) => { try { fn(d || {}); } catch (e) { console.error(e); } }); },
   };
 
+  /* Document links open in an in-app Safari sheet (18 Nov 2026), so people stay in nodo: speech verbatims,
+     question and report PDFs and every other https link the app opens in a new tab. mailto: and tel: are left alone. */
+  document.addEventListener("click", (e) => {
+    const a = e.target && e.target.closest ? e.target.closest('a[target="_blank"][href]') : null;
+    if (!a || e.defaultPrevented) return;
+    let url;
+    try { url = new URL(a.href, location.href); } catch { return; }
+    if (url.protocol !== "https:" || url.origin === location.origin) return;
+    e.preventDefault();
+    Browser.open({ url: url.href, presentationStyle: "popover" }).catch(() => { window.open(url.href, "_blank"); });
+  }, true);
+
   window.nodoNative = {
     platform,
     webUrl: WEB_URL,
