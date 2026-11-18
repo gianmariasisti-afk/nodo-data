@@ -375,17 +375,6 @@
       "push": false
     },
     {
-      "id": "mff-2028-2034:ep:2025-0555:amendments:2026-06-05",
-      "fileId": "mff-2028-2034",
-      "date": "2026-06-05",
-      "source": "ep",
-      "proc": "2025-0555",
-      "kind": "milestone",
-      "title": "Amendments tabled in committee",
-      "count": 1,
-      "push": true
-    },
-    {
       "id": "mff-2028-2034:ep:2025-0240:opinions:2026-06-03",
       "fileId": "mff-2028-2034",
       "date": "2026-06-03",
@@ -452,7 +441,7 @@
       "proc": "2025-0555",
       "kind": "milestone",
       "title": "Amendments tabled in committee",
-      "count": 14,
+      "count": 7,
       "push": true
     },
     {
