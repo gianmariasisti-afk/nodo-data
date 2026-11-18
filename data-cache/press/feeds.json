@@ -1,39 +1,39 @@
 {
- "checked": "2026-11-17",
+ "checked": "2026-11-18",
  "feeds": {
   "ep-press": {
    "ok": false,
    "skipped": "Parliament's site answers GitHub runners with a bot check (28 Oct 2026). The cloud scan reads Parliament press releases with web search instead.",
-   "checked": "2026-11-17"
+   "checked": "2026-11-18"
   },
   "ep-thinktank": {
    "ok": false,
    "skipped": "Parliament's site answers GitHub runners with a bot check (28 Oct 2026). The cloud scan reads Parliament press releases with web search instead.",
-   "checked": "2026-11-17"
+   "checked": "2026-11-18"
   },
   "council-press": {
    "ok": true,
    "entries": 20,
    "matched": 0,
-   "checked": "2026-11-17"
+   "checked": "2026-11-18"
   },
   "ec-presscorner": {
    "ok": true,
    "entries": 10,
    "matched": 0,
-   "checked": "2026-11-17"
+   "checked": "2026-11-18"
   },
   "euractiv": {
    "ok": true,
    "entries": 100,
-   "matched": 7,
-   "checked": "2026-11-17"
+   "matched": 6,
+   "checked": "2026-11-18"
   },
   "politico-eu": {
    "ok": true,
    "entries": 10,
    "matched": 0,
-   "checked": "2026-11-17"
+   "checked": "2026-11-18"
   }
  }
 }

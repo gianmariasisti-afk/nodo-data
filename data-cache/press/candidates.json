@@ -1,7 +1,37 @@
 {
- "generated": "2026-11-17T14:41:34.153Z",
+ "generated": "2026-11-18T14:20:20.563Z",
  "windowDays": 30,
  "items": [
+  {
+   "title": "FIRST AID: What EU health ministers have left this year",
+   "url": "https://www.rapporteur.com/news/first-aid-what-eu-health-ministers-have-left-this-year/",
+   "date": "2026-11-18",
+   "summary": "In today's edition: pancreatic cancer, Biotech Act, Mélenchon",
+   "feed": "euractiv",
+   "source": "Euractiv",
+   "inst": "press",
+   "kind": "press",
+   "files": [
+    "biotech-act"
+   ],
+   "people": [],
+   "seen": "2026-11-18"
+  },
+  {
+   "title": "THE HACK: How many cloud sovereignty tiers?",
+   "url": "https://www.rapporteur.com/news/the-hack-how-many-cloud-sovereignty-tiers/",
+   "date": "2026-11-18",
+   "summary": "In today's edition: AI safety, Kids Act, data transfers",
+   "feed": "euractiv",
+   "source": "Euractiv",
+   "inst": "press",
+   "kind": "press",
+   "files": [
+    "kids-act"
+   ],
+   "people": [],
+   "seen": "2026-11-18"
+  },
   {
    "title": "INTERVIEW: Kids Act rapporteur expects backing for under 15s ban",
    "url": "https://www.rapporteur.com/news/interview-kids-act-rapporteur-expects-backing-for-under-15s-ban/",
