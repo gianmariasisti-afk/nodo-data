@@ -28,7 +28,7 @@ function patch(text, file, rules) {
 
 /* The feature patches, as in build.mjs. The ones promoted on 31 Oct and 11 Nov 2026 are already in the live page and left this list then. */
 const FEATURE_PATCHES = [
-  ["speech card link", 'Question PDF</a>` : ""}` : "";', 'Question PDF</a>` : ""}` : fdSpeechAct(it);'],
+  /* "speech card link" was promoted on 18 Nov 2026. */
 ];
 
 const js = readFileSync(join(NEXT, "features.js"), "utf8").replace("/* ======================= nodo preview features =======================",

@@ -8760,7 +8760,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     return h.replace(/<\/div>\s*$/, `<section><h4>Notifications</h4><p>If you allow notifications on your phone, nodo keeps the address Apple gives your phone for them, which files you muted, and a log of what it sent you, so it sends at most one a day and never the same update twice. Turning notifications off in iOS Settings stops them at once; signing out or deleting your account removes the address.</p></section></div>`);
   };
 
-  /* ======================= nodo preview features =======================
+  /* ======================= Features promoted from the preview on 2026-11-18 =======================
      Source: next/features.js. tools/preview/build.mjs injects this file into the app's main script just before
      start-up, so it runs inside the same scope and uses the app's own helpers. Nothing here reaches the live app
      until it is promoted (tools/preview/promote.mjs). Promoted on 2026-11-11: portraits as files, self-hosted fonts,
@@ -8784,6 +8784,11 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     return u ? `<a class="fd-open" href="${esc(u)}" target="_blank" rel="noopener" aria-label="Read the verbatim of ${esc(it.title || "this speech")} (opens the Parliament's site)">Read the verbatim${FD_SVG.ext}</a>` : "";
   }
 
+
+  /* ======================= nodo preview features =======================
+     Source: next/features.js. tools/preview/build.mjs injects this file into the app's main script just before
+     start-up, so it runs inside the same scope and uses the app's own helpers. Nothing here reaches the live app
+     until it is promoted (tools/preview/promote.mjs). Everything up to 2026-11-18 was promoted on 2026-11-18. */
 
   initHome(); initEp(); initEc();
   let startView = "home";
@@ -10451,13 +10456,17 @@ body { font-variant-numeric: tabular-nums; }
 .td-row.pn-hit { box-shadow: 0 0 0 2px var(--node); }
 </style>
 <style>
+/* Promoted from the preview on 2026-11-18 (was next/features.css). */
+/* nodo preview styles (next/features.css). Everything up to 2026-11-11 was promoted to the live app on 2026-11-11. */
+</style>
+<style>
 #nxBadge{position:fixed;top:max(2px,calc(env(safe-area-inset-top,0px) - 12px));left:50%;transform:translateX(-50%);z-index:2147483000;pointer-events:none;padding:0 6px;border-radius:999px;background:rgba(20,20,19,.55);color:#fff;font:700 8px/12px -apple-system,BlinkMacSystemFont,sans-serif;letter-spacing:.08em}
 #nxDenied{position:fixed;inset:0;z-index:2147483001;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:32px;background:#0E1B4D;color:#fff;text-align:center;font:16px/24px -apple-system,BlinkMacSystemFont,sans-serif}
 #nxDenied h1{margin:0;font-size:28px;line-height:34px}
 #nxDenied a{display:inline-block;padding:14px 24px;border-radius:999px;background:#fff;color:#0E1B4D;font-weight:600;text-decoration:none}
 </style>
 <style>
-/* nodo preview styles (next/features.css). Everything up to 2026-11-11 was promoted to the live app on 2026-11-11. */
+/* nodo preview styles (next/features.css). Everything up to 2026-11-18 was promoted to the live app on 2026-11-18. */
 </style>
 <div id="nxBadge" aria-hidden="true">PREVIEW</div>
 </body></html>
