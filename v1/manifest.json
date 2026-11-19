@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generated": "2026-11-18T23:24:22.954Z",
+ "generated": "2026-11-19T06:38:52Z",
  "files": {
   "meps": {
    "path": "meps.json",
@@ -53,8 +53,8 @@
   "minutes": {
    "path": "minutes.json",
    "description": "Who spoke on nodo's files in Parliament committee meetings, from the committees' minutes",
-   "bytes": 20365,
-   "sha256": "77cc98ff4857921640cb05bbc094cbb678f2a68e5ecd614c1286dd4ac913615e"
+   "bytes": 25048,
+   "sha256": "76e2c73dd628af7f26f65cd43ef37f9217a535ccfea7e575768745addce60c82"
   },
   "press": {
    "path": "press.json",
