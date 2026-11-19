@@ -126,5 +126,55 @@
    "stage": false,
    "paywall": true
   }
+ },
+ {
+  "id": "5271f30426",
+  "firstSeen": "2026-11-19",
+  "item": {
+   "file": "tech-sovereignty-package",
+   "date": "2026-11-18",
+   "source": "Agence Europe",
+   "inst": "press",
+   "kind": "press",
+   "text": "Agence Europe reports that the Irish Presidency tabled a new CADA compromise text in Council that relaxes the environmental provisions for acceleration areas.",
+   "url": "https://agenceurope.eu/en/bulletin/article/13984/12/cada-eu-council-irish-presidency-relaxes-environmental-provisions-for-acceleration-areas-in-new-compromise-text",
+   "people": [],
+   "stage": false,
+   "paywall": true
+  }
+ },
+ {
+  "id": "5b18535552",
+  "firstSeen": "2026-11-19",
+  "item": {
+   "file": "biotech-act",
+   "date": "2026-11-17",
+   "source": "Euractiv",
+   "inst": "press",
+   "kind": "press",
+   "text": "Euractiv reports that the Irish Presidency dropped language on cross-border clinical trials from its Biotech Act draft. EU countries are split over how to help patients join trials abroad.",
+   "url": "https://www.rapporteur.com/news/ireland-drops-cross-border-trials-language-from-biotech-act-draft/",
+   "people": [],
+   "stage": false,
+   "paywall": false
+  }
+ },
+ {
+  "id": "43f07c467a",
+  "firstSeen": "2026-11-19",
+  "item": {
+   "file": "kids-act",
+   "date": "2026-11-17",
+   "source": "Euractiv",
+   "inst": "press",
+   "kind": "press",
+   "text": "Euractiv reports that Laura Ballarín Cereza (S&D), rapporteur on the KIDS Act, expects backing for a ban for under-15s. She also wants age limits for risky AI systems.",
+   "url": "https://www.rapporteur.com/news/interview-kids-act-rapporteur-expects-backing-for-under-15s-ban/",
+   "people": [
+    "ep:247735"
+   ],
+   "stage": false,
+   "paywall": false
+  }
  }
 ]

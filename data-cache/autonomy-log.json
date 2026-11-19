@@ -82,5 +82,17 @@
     "check": "verified on two runs"
    }
   ]
+ },
+ {
+  "at": "2026-11-19T08:54:44.229Z",
+  "source": "press",
+  "changes": [
+   {
+    "type": "published",
+    "name": "grids-package: Council press release 2026-11-18",
+    "url": "https://www.consilium.europa.eu/en/press/press-releases/2026/11/18/grids-package-council-and-parliament-agree-to-streamline-permitting-for-a-faster-clean-energy-transition/",
+    "check": "second source"
+   }
+  ]
  }
 ]

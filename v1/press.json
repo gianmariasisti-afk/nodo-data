@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-16T08:57:35.421Z",
+ "generated": "2026-11-19T08:54:47.245Z",
  "windowDays": 30,
  "maxPerFile": 3,
  "files": {
@@ -84,6 +84,21 @@
     "people": [],
     "paywall": false,
     "added": "2026-10-28"
+   }
+  ],
+  "grids-package": [
+   {
+    "id": "ca2adee493",
+    "date": "2026-11-18",
+    "source": "Council press release",
+    "inst": "council",
+    "kind": "institutional",
+    "text": "Council and Parliament negotiators reached a provisional agreement on the grids package permitting directive on 18 November 2026. ITRE, plenary and the Council must still endorse it.",
+    "url": "https://www.consilium.europa.eu/en/press/press-releases/2026/11/18/grids-package-council-and-parliament-agree-to-streamline-permitting-for-a-faster-clean-energy-transition/",
+    "people": [],
+    "stage": true,
+    "paywall": false,
+    "added": "2026-11-19"
    }
   ],
   "industrial-accelerator-act": [
