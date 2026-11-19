@@ -1,22 +1,14 @@
 {
- "run": "2026-11-18T13:53:23.165Z",
- "checked": "2026-11-18",
+ "run": "2026-11-19T14:22:04.127Z",
+ "checked": "2026-11-19",
  "api": 720,
  "nodo": 720,
  "failed": [],
  "auto": [],
- "structural": [
-  {
-   "type": "group",
-   "from": "NI",
-   "to": "PfE",
-   "id": "220908",
-   "name": "Branko GRIMS"
-  }
- ],
+ "structural": [],
  "summary": {
   "auto": 0,
-  "structural": 1,
+  "structural": 0,
   "failed": 0,
   "changed": false
  }
