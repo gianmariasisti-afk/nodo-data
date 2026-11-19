@@ -5,8 +5,8 @@
   "meps": {
    "path": "meps.json",
    "description": "Members of the European Parliament: name, group, country, committees, contacts",
-   "bytes": 3690407,
-   "sha256": "52b76fb651fc9ccb7bc57a18575929c9fd1ff4f45b06041899c3729bebe5852e"
+   "bytes": 3690408,
+   "sha256": "b3af0d3bd3ac426e22c3cff5850618696857eeac5cbb88c8b701202063087321"
   },
   "commission": {
    "path": "commission.json",
