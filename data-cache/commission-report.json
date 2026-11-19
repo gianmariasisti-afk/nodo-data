@@ -1,5 +1,5 @@
 {
- "run": "2026-11-18T13:25:46.728Z",
+ "run": "2026-11-19T13:53:02.196Z",
  "college": {
   "found": 26,
   "added": [],
@@ -8,21 +8,10 @@
  "teams": {
   "ursula-von-der-leyen": {
    "url": "https://commission.europa.eu/about/organisation/president/president-von-der-leyens-team_en",
-   "parsed": 22,
+   "parsed": 32,
    "existing": 32,
    "added": [],
-   "removed": [
-    "Alisa James",
-    "Cidalia Santos",
-    "Michaël Vlahogiannis",
-    "Corina Zieger",
-    "Claire Saelens",
-    "Irene Robles Ruiz",
-    "Efthymia Papadimitriou",
-    "Jonathan Cocozza",
-    "Eivilte Kandrataviciute",
-    "Katarzyna Dudzinska"
-   ]
+   "removed": []
   },
   "teresa-ribera": {
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/teresa-ribera/teresa-riberas-team_en",
@@ -111,10 +100,8 @@
   "marta-kos": {
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/marta-kos/marta-koss-team_en",
    "parsed": 16,
-   "existing": 15,
-   "added": [
-    "Hrisanti Petrescu"
-   ],
+   "existing": 16,
+   "added": [],
    "removed": []
   },
   "jozef-sikela": {
@@ -155,10 +142,8 @@
   "jessika-roswall": {
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/jessika-roswall/jessika-roswalls-team_en",
    "parsed": 18,
-   "existing": 17,
-   "added": [
-    "Luisa Samarelli"
-   ],
+   "existing": 18,
+   "added": [],
    "removed": []
   },
   "piotr-serafin": {
@@ -214,446 +199,131 @@
  "autonomy": {
   "applied": false,
   "waits": [
-   "13 changes in one run (limit 5)"
+   "President's cabinet: Irene Robles Ruiz (ursula-von-der-leyen), Assistant to the Chief Diplomatic Adviser → ASSISTANT to the Chief Diplomatic Adviser and Migration Adviser (seen once; applies when a later run finds it again)",
+   "President's cabinet: Eivilte Kandrataviciute (ursula-von-der-leyen), Assistant to the Legal, Internal Affairs and Social Team → ASSISTANT to the Legal and Internal Affairs Senior Adviser, Skills and Social Adviser and Policy Coordinator/Member Rule of Law (seen once; applies when a later run finds it again)"
   ],
-  "confirming": 0,
-  "decision": true
+  "confirming": 2,
+  "decision": false
  },
  "pending": [
   {
-   "key": "removed|ursula-von-der-leyen|alisa james|assistant to the president",
-   "firstSeen": "2026-11-12"
+   "key": "role|ursula-von-der-leyen|irene robles ruiz|assistant to the chief diplomatic adviser>assistant to the chief diplomatic adviser and migration adviser",
+   "firstSeen": "2026-11-19"
   },
   {
-   "key": "removed|ursula-von-der-leyen|cidalia santos|assistant to the president",
-   "firstSeen": "2026-11-12"
-  },
-  {
-   "key": "removed|ursula-von-der-leyen|michaël vlahogiannis|assistant to the head of cabinet",
-   "firstSeen": "2026-11-12"
-  },
-  {
-   "key": "removed|ursula-von-der-leyen|corina zieger|assistant to the director of coordination and administration",
-   "firstSeen": "2026-11-12"
-  },
-  {
-   "key": "removed|ursula-von-der-leyen|claire saelens|assistant to the deputy head of cabinet and the policy coordinator / member western balkans, east and enlargement",
-   "firstSeen": "2026-11-12"
-  },
-  {
-   "key": "removed|ursula-von-der-leyen|irene robles ruiz|assistant to the chief diplomatic adviser",
-   "firstSeen": "2026-11-12"
-  },
-  {
-   "key": "removed|ursula-von-der-leyen|efthymia papadimitriou|assistant to the clean transition team",
-   "firstSeen": "2026-11-12"
-  },
-  {
-   "key": "removed|ursula-von-der-leyen|jonathan cocozza|assistant to the trade adviser, defence adviser and policy coordinator / member g7 / g20 and global gateway",
-   "firstSeen": "2026-11-12"
-  },
-  {
-   "key": "removed|ursula-von-der-leyen|eivilte kandrataviciute|assistant to the legal, internal affairs and social team",
-   "firstSeen": "2026-11-12"
-  },
-  {
-   "key": "removed|ursula-von-der-leyen|katarzyna dudzinska|assistant to the economic and financial team and to the communication adviser",
-   "firstSeen": "2026-11-12"
+   "key": "role|ursula-von-der-leyen|eivilte kandrataviciute|assistant to the legal, internal affairs and social team>assistant to the legal and internal affairs senior adviser, skills and social adviser and policy coordinator/member rule of law",
+   "firstSeen": "2026-11-19"
   }
  ],
  "auto": [
   {
-   "commissioner": "michael-mcgrath",
-   "name": "Kevin Barrett",
+   "commissioner": "ursula-von-der-leyen",
+   "name": "Inare Semlali",
    "fields": [
+    "phone",
     "resp"
-   ],
-   "diff": {
-    "resp": {
-     "from": [
-      "Overall strategic coordination/policy setting",
-      "Management of the Cabinet",
-      "Strategic inter-institutional issues (European Parliament, European Council, Council, Court of Justice)",
-      "Relations with Cabinets of President and Executive Vice-President",
-      "Senior staff matters",
-      "Hebdo"
-     ],
-     "to": [
-      "Overall strategic coordination/policy setting",
-      "Management of the Cabinet",
-      "Strategic inter-institutional issues (European Parliament, European Council, Council, Court of Justice)",
-      "Relations with Cabinets of President and Executive Vice-President",
-      "Senior staff matters",
-      "Hebdo",
-      "EU Inc and 28th regime"
-     ]
-    }
-   }
-  },
-  {
-   "commissioner": "michael-mcgrath",
-   "name": "Simona Constantin",
-   "fields": [
-    "resp"
-   ],
-   "diff": {
-    "resp": {
-     "from": [
-      "Democracy",
-      "European Democracy Shield",
-      "European Media Freedom Act (EMFA)",
-      "Media Literacy and funding",
-      "Foreign information manipulation and interference and disinformation",
-      "Fairness and integrity of elections",
-      "Anti-SLAPP and safety of journalists",
-      "Citizenship, free movement",
-      "Political parties",
-      "Exco",
-      "Anti-Fraud Architecture: EPPO and OLAF"
-     ],
-     "to": [
-      "Democracy",
-      "European Democracy Shield",
-      "European Media Freedom Act (EMFA)",
-      "Media Literacy and funding",
-      "Foreign information manipulation and interference and disinformation",
-      "Fairness and integrity of elections",
-      "Anti-SLAPP and safety of journalists",
-      "Citizenship, free movement",
-      "Exco",
-      "Anti-Fraud Architecture: EPPO and OLAF",
-      "European Centre for Democratic Resilience"
-     ]
-    }
-   }
-  },
-  {
-   "commissioner": "michael-mcgrath",
-   "name": "Egelyn Braun",
-   "fields": [
-    "outside"
-   ],
-   "diff": {
-    "outside": {
-     "from": [
-      "Digital (CNECT)",
-      "Competitiveness",
-      "Single Market (Digital)",
-      "Taxation",
-      "Defense"
-     ],
-     "to": [
-      "Digital (CNECT)",
-      "Single Market (Digital)",
-      "Taxation",
-      "Defense"
-     ]
-    }
-   }
-  },
-  {
-   "commissioner": "michael-mcgrath",
-   "name": "Jördis Ferroli",
-   "fields": [
-    "resp",
-    "outside"
-   ],
-   "diff": {
-    "resp": {
-     "from": [
-      "Criminal Justice, including international criminal justice",
-      "Victims’ Rights Strategy",
-      "Eurojust",
-      "European Arrest Warrant",
-      "Preparation for the Justice Affairs Council",
-      "Relations with EP",
-      "Relations with National Parliaments",
-      "Relations with the Committee of Regions",
-      "Relations with the European Ombudsman",
-      "Coordination of parliamentary questions, Petitions, Ombudsman, EP Resolutions"
-     ],
-     "to": [
-      "Criminal Justice, including international criminal justice",
-      "Victims’ Rights Strategy",
-      "Eurojust",
-      "European Arrest Warrant",
-      "Preparation for the Justice Affairs Council",
-      "Relations with EP",
-      "Relations with National Parliaments",
-      "Relations with the Committee of Regions",
-      "Relations with the European Ombudsman",
-      "Coordination of parliamentary questions, Petitions, Ombudsman, EP Resolutions",
-      "Political parties"
-     ]
-    },
-    "outside": {
-     "from": [
-      "FISMA related files",
-      "Humanitarian Aid and Crisis Response, including preparedness",
-      "People, skills and preparedness"
-     ],
-     "to": [
-      "People, skills and preparedness",
-      "Culture",
-      "Sport",
-      "Education",
-      "Intergenerational Fairness",
-      "Youth"
-     ]
-    }
-   }
-  },
-  {
-   "commissioner": "michael-mcgrath",
-   "name": "Maria Zafra Saura",
-   "fields": [
-    "resp",
-    "outside"
-   ],
-   "diff": {
-    "resp": {
-     "from": [
-      "Ukraine (accountability and damages, criminalization of sanction circumvention, Task Force Freeze and Seize)",
-      "Data protection, including external dimension",
-      "Fundamental Rights",
-      "Relations with the European Union Agency for Fundamental Rights",
-      "Justice Funds",
-      "Youth Platform"
-     ],
-     "to": [
-      "Ukraine (accountability and damages, criminalization of sanction circumvention, Task Force Freeze and Seize)",
-      "Data protection, including external dimension",
-      "Fundamental Rights",
-      "Relations with the European Union Agency for Fundamental Rights",
-      "Justice Funds",
-      "Youth Platform",
-      "Youth Policy Dialogue"
-     ]
-    },
-    "outside": {
-     "from": [
-      "Equality",
-      "Budget (non-Rule of Law aspects), MFF and Public Administration",
-      "Culture",
-      "Sport",
-      "Education",
-      "Intergenerational Fairness",
-      "Youth"
-     ],
-     "to": [
-      "Equality",
-      "Budget (non-Rule of Law aspects), MFF and Public Administration",
-      "Internal security",
-      "Migration",
-      "Humanitarian Aid and Crisis Response, including preparedness"
-     ]
-    }
-   }
-  },
-  {
-   "commissioner": "michael-mcgrath",
-   "name": "Laetitia Close",
-   "fields": [
-    "resp",
-    "outside"
-   ],
-   "diff": {
-    "resp": {
-     "from": [
-      "Communication strategy",
-      "Communications (social media)",
-      "Social Media Strategy",
-      "Relations with press",
-      "Relations with the Spokespersons' Service",
-      "Relations with the Economic and Social Committee"
-     ],
-     "to": [
-      "Communication strategy",
-      "Communications (social media)",
-      "Social Media Strategy",
-      "Relations with press",
-      "Relations with the Spokespersons' Service",
-      "Relations with the Economic and Social Committee",
-      "Strategic Communication",
-      "Civil Society Strategy: Civil Society Platform",
-      "Relations with the Committee of the Regions"
-     ]
-    },
-    "outside": {
-     "from": [],
-     "to": [
-      "Agriculture and Food"
-     ]
-    }
-   }
-  },
-  {
-   "commissioner": "michael-mcgrath",
-   "name": "Sham Abdurahim",
-   "fields": [
-    "outside"
-   ],
-   "diff": {
-    "outside": {
-     "from": [
-      "Agriculture and Food",
-      "Fisheries and Oceans",
-      "Health",
-      "Cohesion and Reforms"
-     ],
-     "to": [
-      "Fisheries and Oceans",
-      "Health",
-      "Cohesion and Reforms"
-     ]
-    }
-   }
-  },
-  {
-   "commissioner": "michael-mcgrath",
-   "name": "Lucie Rousselle",
-   "fields": [
-    "note",
-    "resp",
-    "outside"
-   ],
-   "diff": {
-    "note": {
-     "from": "Absent",
-     "to": ""
-    },
-    "resp": {
-     "from": [
-      "Consumer Protection",
-      "Product Safety",
-      "E-commerce Communication",
-      "Package Travel Directive",
-      "Sustainable consumption",
-      "Corporate Sustainability Due Diligence",
-      "Competitiveness",
-      "Simplification"
-     ],
-     "to": [
-      "Company Law, including banking governance and Shareholder rights Directive",
-      "Corporate Sustainability Due Diligence",
-      "Simplification, including the simplification agenda for citizens",
-      "Consumer Protection",
-      "Product Safety",
-      "E-commerce Communication",
-      "Package Travel Directive",
-      "Sustainable consumption"
-     ]
-    },
-    "outside": {
-     "from": [],
-     "to": [
-      "Competitiveness",
-      "Single market (green, including circular economy, excl. digital)",
-      "Industrial Strategy",
-      "Financial services",
-      "Transport and Tourism"
-     ]
-    }
-   }
-  },
-  {
-   "commissioner": "michael-mcgrath",
-   "name": "Lavinia Ruxandra Gligor",
-   "fields": [
-    "phone"
    ],
    "diff": {
     "phone": {
-     "from": "+32 2 29 51922",
-     "to": "+32 2 29 52068"
+     "from": "+32 2 29 55012",
+     "to": "+32 2 29 50071"
+    },
+    "resp": {
+     "from": [
+      "Provide policy and coordination support to the Head of Cabinet",
+      "Ensure coordination with the President’s services (SG, LS, COMM/SPP, I.D.E.A.)",
+      "Contribute to internal communication and policy coordination",
+      "Support EUCO coordination, preparation and follow-up",
+      "Coordinate the preparation of Hebdo and College files",
+      "Coordinate briefings for the Head of Cabinet",
+      "Support coordination and preparation of COREPER and G7/G20 Sherpa-related activities",
+      "Prepare high-level meetings and coordinate with the Protocol service",
+      "Provide ad hoc support on HR and ethics matters for the Head of Cabinet",
+      "Assistants",
+      "Alisa James",
+      "ASSISTANT",
+      "to the President"
+     ],
+     "to": [
+      "Provide policy and coordination support to the Head of Cabinet",
+      "Ensure coordination with the President’s services (SG, LS, COMM/SPP, I.D.E.A.)",
+      "Contribute to internal communication and policy coordination",
+      "Support EUCO coordination, preparation and follow-up",
+      "Coordinate the preparation of Hebdo and College files",
+      "Coordinate briefings for the Head of Cabinet",
+      "Support coordination and preparation of COREPER and G7/G20 Sherpa-related activities",
+      "Prepare high-level meetings and coordinate with the Protocol service",
+      "Provide ad hoc support on HR and ethics matters for the Head of Cabinet",
+      "Assistants"
+     ]
+    }
+   }
+  },
+  {
+   "commissioner": "jessika-roswall",
+   "name": "Pernille Weiss-Ehler",
+   "fields": [
+    "resp"
+   ],
+   "diff": {
+    "resp": {
+     "from": [
+      "Water Resilience Expert",
+      "Zero pollution / Air and Industrial emissions",
+      "New European Bauhaus",
+      "Relations with the European Environmental Agency"
+     ],
+     "to": [
+      "Water Resilience Expert",
+      "Zero pollution",
+      "New European Bauhaus",
+      "Relations with the European Environmental Agency"
+     ]
+    }
+   }
+  },
+  {
+   "commissioner": "jessika-roswall",
+   "name": "Luisa Samarelli",
+   "fields": [
+    "resp"
+   ],
+   "diff": {
+    "resp": {
+     "from": [
+      "Biodiversity",
+      "Bioeconomy",
+      "GRI (Deputising for Jan Ceyssens)"
+     ],
+     "to": [
+      "Biodiversity",
+      "Bioeconomy",
+      "Industrial Emissions",
+      "GRI (Deputising for Jan Ceyssens)"
+     ]
     }
    }
   }
  ],
  "structural": [
   {
-   "type": "removed",
-   "commissioner": "ursula-von-der-leyen",
-   "name": "Alisa James",
-   "role": "Assistant to the President"
-  },
-  {
-   "type": "removed",
-   "commissioner": "ursula-von-der-leyen",
-   "name": "Cidalia Santos",
-   "role": "Assistant to the President"
-  },
-  {
-   "type": "removed",
-   "commissioner": "ursula-von-der-leyen",
-   "name": "Michaël Vlahogiannis",
-   "role": "Assistant to the Head of Cabinet"
-  },
-  {
-   "type": "removed",
-   "commissioner": "ursula-von-der-leyen",
-   "name": "Corina Zieger",
-   "role": "Assistant to the Director of Coordination and Administration"
-  },
-  {
-   "type": "removed",
-   "commissioner": "ursula-von-der-leyen",
-   "name": "Claire Saelens",
-   "role": "Assistant to the Deputy Head of Cabinet and the Policy Coordinator / Member Western Balkans, East and Enlargement"
-  },
-  {
-   "type": "removed",
+   "type": "role",
    "commissioner": "ursula-von-der-leyen",
    "name": "Irene Robles Ruiz",
-   "role": "Assistant to the Chief Diplomatic Adviser"
-  },
-  {
-   "type": "removed",
-   "commissioner": "ursula-von-der-leyen",
-   "name": "Efthymia Papadimitriou",
-   "role": "Assistant to the Clean Transition Team"
-  },
-  {
-   "type": "removed",
-   "commissioner": "ursula-von-der-leyen",
-   "name": "Jonathan Cocozza",
-   "role": "Assistant to the Trade Adviser, Defence Adviser and Policy Coordinator / Member G7 / G20 and Global Gateway"
-  },
-  {
-   "type": "removed",
-   "commissioner": "ursula-von-der-leyen",
-   "name": "Eivilte Kandrataviciute",
-   "role": "Assistant to the Legal, Internal Affairs and Social Team"
-  },
-  {
-   "type": "removed",
-   "commissioner": "ursula-von-der-leyen",
-   "name": "Katarzyna Dudzinska",
-   "role": "Assistant to the Economic and Financial Team and to the Communication Adviser"
-  },
-  {
-   "type": "added",
-   "commissioner": "marta-kos",
-   "name": "Hrisanti Petrescu",
-   "role": "ASSISTANT TO ABERTO FERNANDEZ DIEZ, VIKTORIYA PETRIKOVA-VOETEN AND GESINE HEINRICH"
-  },
-  {
-   "type": "added",
-   "commissioner": "jessika-roswall",
-   "name": "Luisa Samarelli",
-   "role": "PERSONAL ASSISTANT/MEMBER"
+   "from": "Assistant to the Chief Diplomatic Adviser",
+   "to": "ASSISTANT to the Chief Diplomatic Adviser and Migration Adviser"
   },
   {
    "type": "role",
-   "commissioner": "piotr-serafin",
-   "name": "Fatima Ez-Zammoury",
-   "from": "Administrative Assistant to Marek Nohejl and Wouter Coussens",
-   "to": "ADMINISTRATIVE ASSISTANT TO WOUTER COUSSENS AND DANIELA VATRACHKI"
+   "commissioner": "ursula-von-der-leyen",
+   "name": "Eivilte Kandrataviciute",
+   "from": "Assistant to the Legal, Internal Affairs and Social Team",
+   "to": "ASSISTANT to the Legal and Internal Affairs Senior Adviser, Skills and Social Adviser and Policy Coordinator/Member Rule of Law"
   }
  ],
  "summary": {
-  "auto": 9,
-  "structural": 13,
+  "auto": 3,
+  "structural": 2,
   "autoApplied": 0,
   "failed": 0,
   "unchecked": []
