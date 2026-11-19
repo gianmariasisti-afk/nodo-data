@@ -44,7 +44,15 @@ const deob = (s) => s.replace(/\s*\[\s*dot\s*\]\s*/gi, ".").replace(/\s*\[\s*at\
 const isRole = (l) => (/^\p{Lu}[\p{Lu}0-9 /,&()'’.:-]{2,120}$/u.test(l) && /\p{Lu}{3}/u.test(l) || (/^\p{Lu}{3,}(?!\p{Ll})/u.test(l) && l.length <= 160)) && !/^(EMAIL|PHONE|RESPONSIBILITIES|PRESS CONTACTS)\b/.test(l);
 
 /* A team page lists people as: Name / ROLE / Email: … / Phone number: … / Responsibilities / items / Responsibilities outside the portfolio / items / Country coordinator: … */
-export function parseTeam(lines) {
+export function parseTeam(rawLines) {
+  /* The President's page breaks some roles over two lines: "ASSISTANT" then "to the President" (seen 19 Nov 2026).
+     A role line followed by a line in lower case and then the email is one role: join the two before reading. */
+  const lines = [];
+  for (let i = 0; i < rawLines.length; i++) {
+    const l = rawLines[i], prev = lines[lines.length - 1];
+    if (prev && /^\p{Ll}/u.test(l) && isRole(prev) && /^Email/i.test(rawLines[i + 1] || "")) { lines[lines.length - 1] = prev + " " + l; continue; }
+    lines.push(l);
+  }
   const people = []; let cur = null, mode = "";
   for (let i = 0; i < lines.length; i++) {
     const l = lines[i];

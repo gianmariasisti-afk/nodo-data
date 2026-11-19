@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { classifyCommission, isSeniorRole } from "../../scripts/autonomy.mjs";
-import { roleClass, tidyRole, parseTeam } from "../../scripts/build-commission.mjs";
+import { roleClass, tidyRole, parseTeam, toLines } from "../../scripts/build-commission.mjs";
 
 test("assistants to heads of cabinet are not senior", () => {
   assert.equal(isSeniorRole("Assistant to the Head of Cabinet and Andreja Viher-White"), false);
@@ -92,4 +92,25 @@ test("mixed-case roles and people with two posts are read (President's team page
   assert.equal(roleClass(people[2].role), "office");
   assert.equal(roleClass(people[3].role), "office"); // an assistant stays office staff whoever they assist
   assert.deepEqual(people[0].resp, ["Overall coordination"]);
+});
+
+test("a role broken over two lines is one role (President's team page as published, 19 Nov 2026)", () => {
+  const lines = [
+    "Inare Semlali", "POLICY ASSISTANT TO THE HEAD OF CABINET", "Email: Inare [dot] SEMLALI[at]ec [dot] europa [dot] eu", "Phone number: +32 2 000 00 04",
+    "Alisa James", "ASSISTANT", "to the President", "Email: Alisa [dot] JAMES[at]ec [dot] europa [dot] eu", "Phone number: +32 2 000 00 02",
+    "Claire Saelens", "ASSISTANT", "to the Deputy Head of Cabinet and the Policy Coordinator/Member Western Balkans, East and Enlargement", "Email: c.s[at]ec.europa.eu", "Phone number: +32 2 000 00 03",
+    "Responsibilities", "lower-case item stays a responsibility",
+  ];
+  const people = parseTeam(lines);
+  assert.deepEqual(people.map((p) => p.name), ["Inare Semlali", "Alisa James", "Claire Saelens"]);
+  assert.equal(tidyRole(people[1].role), "Assistant to the President");
+  assert.equal(tidyRole(people[2].role), "Assistant to the Deputy Head of Cabinet and the Policy Coordinator / Member Western Balkans, East and Enlargement");
+  assert.equal(roleClass(people[1].role), "office");
+  assert.deepEqual(people[2].resp, ["lower-case item stays a responsibility"]);
+  // Same entry as HTML, with the break the page uses between the two parts of the role.
+  const html = "<main><h2>Alisa James</h2><p>ASSISTANT<br>to the President</p><p><strong>Email:</strong> Alisa [dot] JAMES<img alt=\"at\">ec [dot] europa [dot] eu (alisa[dot]james[at]ec[dot]europa[dot]eu)</p><p><strong>Phone number:</strong> +32 2 29 99464</p></main>";
+  const fromHtml = parseTeam(toLines(html));
+  assert.equal(fromHtml.length, 1);
+  assert.equal(fromHtml[0].role, "ASSISTANT to the President");
+  assert.equal(fromHtml[0].email, "alisa.james@ec.europa.eu");
 });
