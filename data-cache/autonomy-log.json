@@ -94,5 +94,25 @@
     "check": "second source"
    }
   ]
+ },
+ {
+  "at": "2026-11-20T13:36:46.627Z",
+  "source": "commission",
+  "changes": [
+   {
+    "type": "role",
+    "commissioner": "ursula-von-der-leyen",
+    "name": "Irene Robles Ruiz",
+    "from": "Assistant to the Chief Diplomatic Adviser",
+    "to": "ASSISTANT to the Chief Diplomatic Adviser and Migration Adviser"
+   },
+   {
+    "type": "role",
+    "commissioner": "ursula-von-der-leyen",
+    "name": "Eivilte Kandrataviciute",
+    "from": "Assistant to the Legal, Internal Affairs and Social Team",
+    "to": "ASSISTANT to the Legal and Internal Affairs Senior Adviser, Skills and Social Adviser and Policy Coordinator/Member Rule of Law"
+   }
+  ]
  }
 ]

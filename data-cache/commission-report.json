@@ -1,5 +1,5 @@
 {
- "run": "2026-11-19T13:53:02.196Z",
+ "run": "2026-11-20T13:35:40.878Z",
  "college": {
   "found": 26,
   "added": [],
@@ -197,134 +197,18 @@
   }
  },
  "autonomy": {
-  "applied": false,
-  "waits": [
-   "President's cabinet: Irene Robles Ruiz (ursula-von-der-leyen), Assistant to the Chief Diplomatic Adviser → ASSISTANT to the Chief Diplomatic Adviser and Migration Adviser (seen once; applies when a later run finds it again)",
-   "President's cabinet: Eivilte Kandrataviciute (ursula-von-der-leyen), Assistant to the Legal, Internal Affairs and Social Team → ASSISTANT to the Legal and Internal Affairs Senior Adviser, Skills and Social Adviser and Policy Coordinator/Member Rule of Law (seen once; applies when a later run finds it again)"
-  ],
-  "confirming": 2,
+  "applied": true,
+  "waits": [],
+  "confirming": 0,
   "decision": false
  },
- "pending": [
-  {
-   "key": "role|ursula-von-der-leyen|irene robles ruiz|assistant to the chief diplomatic adviser>assistant to the chief diplomatic adviser and migration adviser",
-   "firstSeen": "2026-11-19"
-  },
-  {
-   "key": "role|ursula-von-der-leyen|eivilte kandrataviciute|assistant to the legal, internal affairs and social team>assistant to the legal and internal affairs senior adviser, skills and social adviser and policy coordinator/member rule of law",
-   "firstSeen": "2026-11-19"
-  }
- ],
- "auto": [
-  {
-   "commissioner": "ursula-von-der-leyen",
-   "name": "Inare Semlali",
-   "fields": [
-    "phone",
-    "resp"
-   ],
-   "diff": {
-    "phone": {
-     "from": "+32 2 29 55012",
-     "to": "+32 2 29 50071"
-    },
-    "resp": {
-     "from": [
-      "Provide policy and coordination support to the Head of Cabinet",
-      "Ensure coordination with the President’s services (SG, LS, COMM/SPP, I.D.E.A.)",
-      "Contribute to internal communication and policy coordination",
-      "Support EUCO coordination, preparation and follow-up",
-      "Coordinate the preparation of Hebdo and College files",
-      "Coordinate briefings for the Head of Cabinet",
-      "Support coordination and preparation of COREPER and G7/G20 Sherpa-related activities",
-      "Prepare high-level meetings and coordinate with the Protocol service",
-      "Provide ad hoc support on HR and ethics matters for the Head of Cabinet",
-      "Assistants",
-      "Alisa James",
-      "ASSISTANT",
-      "to the President"
-     ],
-     "to": [
-      "Provide policy and coordination support to the Head of Cabinet",
-      "Ensure coordination with the President’s services (SG, LS, COMM/SPP, I.D.E.A.)",
-      "Contribute to internal communication and policy coordination",
-      "Support EUCO coordination, preparation and follow-up",
-      "Coordinate the preparation of Hebdo and College files",
-      "Coordinate briefings for the Head of Cabinet",
-      "Support coordination and preparation of COREPER and G7/G20 Sherpa-related activities",
-      "Prepare high-level meetings and coordinate with the Protocol service",
-      "Provide ad hoc support on HR and ethics matters for the Head of Cabinet",
-      "Assistants"
-     ]
-    }
-   }
-  },
-  {
-   "commissioner": "jessika-roswall",
-   "name": "Pernille Weiss-Ehler",
-   "fields": [
-    "resp"
-   ],
-   "diff": {
-    "resp": {
-     "from": [
-      "Water Resilience Expert",
-      "Zero pollution / Air and Industrial emissions",
-      "New European Bauhaus",
-      "Relations with the European Environmental Agency"
-     ],
-     "to": [
-      "Water Resilience Expert",
-      "Zero pollution",
-      "New European Bauhaus",
-      "Relations with the European Environmental Agency"
-     ]
-    }
-   }
-  },
-  {
-   "commissioner": "jessika-roswall",
-   "name": "Luisa Samarelli",
-   "fields": [
-    "resp"
-   ],
-   "diff": {
-    "resp": {
-     "from": [
-      "Biodiversity",
-      "Bioeconomy",
-      "GRI (Deputising for Jan Ceyssens)"
-     ],
-     "to": [
-      "Biodiversity",
-      "Bioeconomy",
-      "Industrial Emissions",
-      "GRI (Deputising for Jan Ceyssens)"
-     ]
-    }
-   }
-  }
- ],
- "structural": [
-  {
-   "type": "role",
-   "commissioner": "ursula-von-der-leyen",
-   "name": "Irene Robles Ruiz",
-   "from": "Assistant to the Chief Diplomatic Adviser",
-   "to": "ASSISTANT to the Chief Diplomatic Adviser and Migration Adviser"
-  },
-  {
-   "type": "role",
-   "commissioner": "ursula-von-der-leyen",
-   "name": "Eivilte Kandrataviciute",
-   "from": "Assistant to the Legal, Internal Affairs and Social Team",
-   "to": "ASSISTANT to the Legal and Internal Affairs Senior Adviser, Skills and Social Adviser and Policy Coordinator/Member Rule of Law"
-  }
- ],
+ "pending": [],
+ "auto": [],
+ "structural": [],
  "summary": {
-  "auto": 3,
-  "structural": 2,
-  "autoApplied": 0,
+  "auto": 0,
+  "structural": 0,
+  "autoApplied": 2,
   "failed": 0,
   "unchecked": []
  }
