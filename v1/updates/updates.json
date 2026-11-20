@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-18T00:00:00Z",
+  "generatedAt": "2026-11-20T00:00:00Z",
   "events": [
     {
       "id": "cap-2028-2034:next:2027-01-27:7e2fa2",
@@ -10,6 +10,26 @@
       "title": "AGRI committee vote on the Lins report (planned 27–28 January, subject to agreement on the partnership plans)",
       "push": true,
       "pushOn": "2027-01-27"
+    },
+    {
+      "id": "biotech-act:next:2027-01-18:4e1f33",
+      "fileId": "biotech-act",
+      "date": "2027-01-18",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Regulation: plenary vote (indicative date in the Observatory)",
+      "push": true,
+      "pushOn": "2027-01-18"
+    },
+    {
+      "id": "cap-2028-2034:next:2027-01-18:05a220",
+      "fileId": "cap-2028-2034",
+      "date": "2027-01-18",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Parliament plenary, first reading (indicative date in the Observatory; it precedes the planned AGRI vote)",
+      "push": true,
+      "pushOn": "2027-01-18"
     },
     {
       "id": "medical-devices:next:2027-01-18:43a63c",
@@ -48,16 +68,6 @@
       "source": "nodo",
       "kind": "scheduled",
       "title": "Parliament plenary vote (indicative date)",
-      "push": true,
-      "pushOn": "2026-12-14"
-    },
-    {
-      "id": "mff-2028-2034:next:2026-12-14:ac720c",
-      "fileId": "mff-2028-2034",
-      "date": "2026-12-14",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Performance Regulation: plenary vote (indicative date in the Observatory)",
       "push": true,
       "pushOn": "2026-12-14"
     },
@@ -142,12 +152,12 @@
       "pushOn": "2026-11-25"
     },
     {
-      "id": "mff-2028-2034:next:2026-11-24:bf4fd9",
+      "id": "mff-2028-2034:next:2026-11-24:05e4ba",
       "fileId": "mff-2028-2034",
       "date": "2026-11-24",
       "source": "nodo",
       "kind": "scheduled",
-      "title": "Council MFF working party (European Competitiveness Fund)",
+      "title": "Ad hoc working party on the MFF (European Competitiveness Fund): preparation for interinstitutional engagement on Chapter VII",
       "push": true,
       "pushOn": "2026-11-24"
     },
@@ -172,6 +182,38 @@
       "pushOn": "2026-11-21"
     },
     {
+      "id": "biotech-act:ep:2025-0405:tabled:2026-11-20",
+      "fileId": "biotech-act",
+      "date": "2026-11-20",
+      "source": "ep",
+      "proc": "2025-0405",
+      "kind": "procedural",
+      "title": "Report tabled for plenary",
+      "count": 1,
+      "push": false
+    },
+    {
+      "id": "cap-2028-2034:ep:opinions:2026-11-19",
+      "fileId": "cap-2028-2034",
+      "date": "2026-11-19",
+      "source": "ep",
+      "proc": "2025-0241",
+      "kind": "milestone",
+      "title": "Committee opinions adopted",
+      "count": 1,
+      "push": false
+    },
+    {
+      "id": "digital-networks-act:next:2026-11-19:ff3df0",
+      "fileId": "digital-networks-act",
+      "date": "2026-11-19",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Telecoms attachés: governance, Articles 148–180 (doc 5600/26), continued",
+      "push": true,
+      "pushOn": "2026-11-19"
+    },
+    {
       "id": "grids-package:next:2026-11-19:fb7745",
       "fileId": "grids-package",
       "date": "2026-11-19",
@@ -192,44 +234,26 @@
       "pushOn": "2026-11-19"
     },
     {
-      "id": "biotech-act:next:2026-11-17:05439c",
+      "id": "biotech-act:ep:2025-0405:tabled:2026-11-18",
       "fileId": "biotech-act",
-      "date": "2026-11-17",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Pharmaceuticals working party, 17 and 18 November: Presidency compromise texts on clinical trials, ATMPs and Chapters 2, 5 and 6 (docs 15676/26 to 15678/26)",
-      "push": true,
-      "pushOn": "2026-11-17"
+      "date": "2026-11-18",
+      "source": "ep",
+      "proc": "2025-0405",
+      "kind": "procedural",
+      "title": "Report tabled for plenary",
+      "count": 2,
+      "push": false
     },
     {
-      "id": "cap-2028-2034:next:2026-11-17:cf1687",
-      "fileId": "cap-2028-2034",
-      "date": "2026-11-17",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Horizontal agricultural questions working party (post-2027 CAP), 17–18 November: exchange of views on doc 15406/26",
-      "push": true,
-      "pushOn": "2026-11-17"
-    },
-    {
-      "id": "digital-networks-act:next:2026-11-17:fc1024",
-      "fileId": "digital-networks-act",
-      "date": "2026-11-17",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Telecoms working party: governance, Articles 148–180 (doc 5600/26)",
-      "push": true,
-      "pushOn": "2026-11-17"
-    },
-    {
-      "id": "food-feed-omnibus:next:2026-11-17:27e8cb",
-      "fileId": "food-feed-omnibus",
-      "date": "2026-11-17",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Chief Plant Health Officers working party: state of play of the omnibus, information from the Presidency",
-      "push": true,
-      "pushOn": "2026-11-17"
+      "id": "mff-2028-2034:ep:2025-0555:tabled:2026-11-18",
+      "fileId": "mff-2028-2034",
+      "date": "2026-11-18",
+      "source": "ep",
+      "proc": "2025-0555",
+      "kind": "procedural",
+      "title": "Report tabled for plenary",
+      "count": 1,
+      "push": false
     },
     {
       "id": "grids-package:ep:2025-0400-MEET-TRI1-2026-11-17",
@@ -240,16 +264,6 @@
       "kind": "milestone",
       "title": "Trilogue",
       "push": true
-    },
-    {
-      "id": "grids-package:next:2026-11-17:2e20f7",
-      "fileId": "grids-package",
-      "date": "2026-11-17",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "TEN-E trilogue (reported by Agence Europe)",
-      "push": true,
-      "pushOn": "2026-11-17"
     },
     {
       "id": "biotech-act:ep:2025-0405:tabled:2026-11-16",
@@ -272,16 +286,6 @@
       "title": "Report tabled for plenary",
       "count": 1,
       "push": false
-    },
-    {
-      "id": "digital-euro:next:2026-11-16:70603c",
-      "fileId": "digital-euro",
-      "date": "2026-11-16",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Financial services attachés (digital euro)",
-      "push": true,
-      "pushOn": "2026-11-16"
     },
     {
       "id": "digital-fairness-act:stage:positions-in-preparation",

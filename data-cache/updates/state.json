@@ -1004,7 +1004,15 @@
     "cap-2028-2034:ep:2025-0241-NMCP-88882-BUDG-2026-01-13": true,
     "cap-2028-2034:ep:2025-0241-ANPRO-2025-10-23": true,
     "grids-package:ep:2025-0400-MEET-TRI1-2026-11-17": true,
-    "biotech-act:ep:2025-0405:tabled:2026-11-16": true
+    "biotech-act:ep:2025-0405:tabled:2026-11-16": true,
+    "mff-2028-2034:next:2026-11-24:05e4ba": true,
+    "mff-2028-2034:ep:2025-0555:tabled:2026-11-18": true,
+    "digital-networks-act:next:2026-11-19:ff3df0": true,
+    "biotech-act:next:2027-01-18:4e1f33": true,
+    "biotech-act:ep:2025-0405:tabled:2026-11-20": true,
+    "biotech-act:ep:2025-0405:tabled:2026-11-18": true,
+    "cap-2028-2034:next:2027-01-18:05a220": true,
+    "cap-2028-2034:ep:opinions:2026-11-19": true
   },
   "seeded": {
     "mff-2028-2034": true,
