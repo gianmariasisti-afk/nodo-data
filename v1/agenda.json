@@ -1274,32 +1274,62 @@
    }
   },
   "2026-11-23": {
-   "stage": "draft",
-   "updated": "2026-11-02",
+   "stage": "final-draft",
+   "updated": "2026-11-20",
    "link": "https://www.europarl.europa.eu/plenary/en/agendas.html",
    "src": {
     "api": "foreseen-activities",
-    "sha256": "c822d016e11a00a21f7c7b1cd2154a4800c326cac9a527622d3755b11aa26432"
+    "sha256": "e8815e82e305b63ed4f3f1de107f5329168e071ea0bdabdcaff2c836dc2c3723"
    },
    "days": {
     "2026-11-23": [
      {
-      "time": "17:00–21:00",
-      "type": "debate",
-      "title": "One-minute speeches (Rule 179)"
-     },
-     {
-      "time": "17:00–21:00",
+      "time": "17:00–17:15",
       "type": "debate",
       "title": "Resumption of session and order of business"
+     },
+     {
+      "time": "17:15–18:15",
+      "type": "debate",
+      "title": "Revising the Audiovisual Media Services Directive to strengthen European democracy",
+      "sub": "2026/2978(RSP)"
+     },
+     {
+      "time": "18:15–19:15",
+      "type": "debate",
+      "title": "Protection of the Union’s financial interests in the post-2027 multiannual financial framework through the revision of the anti-fraud architecture",
+      "sub": "A10-0288/2026 · 2026/2006(INI)",
+      "rapporteur": "Tomáš Zdechovský, Dick Erixon",
+      "rapporteurs": [
+       "124713",
+       "257091"
+      ],
+      "committee": "CONT"
+     },
+     {
+      "time": "19:15–20:00",
+      "type": "debate",
+      "title": "The 35th anniversary of the fall and destruction of Vukovar",
+      "sub": "2026/2979(RSP)"
+     },
+     {
+      "time": "19:15–20:00",
+      "type": "debate",
+      "title": "One-minute speeches (Rule 179)"
      }
     ],
     "2026-11-24": [
      {
       "time": "09:00–11:50",
       "type": "debate",
-      "title": "Restoration of the Rule of Law and fundamental values of the Union in Hungary (following the 2026 Parliamentary elections)",
+      "title": "Restoration of the rule of law and fundamental values of the Union in Hungary (following the 2026 parliamentary elections)",
       "sub": "2026/2946(RSP)"
+     },
+     {
+      "time": "10:30–11:50",
+      "type": "debate",
+      "title": "From citizens' demands and youth mobilisation: putting affordability at the heart of Europe's agenda",
+      "sub": "2026/2980(RSP)"
      },
      {
       "time": "12:00–13:00",
@@ -1322,11 +1352,6 @@
        "257034"
       ],
       "committee": "PECH"
-     },
-     {
-      "time": "12:00–13:00",
-      "type": "votes",
-      "title": "Texts on which debate is closed"
      },
      {
       "time": "12:00–13:00",
@@ -1365,11 +1390,6 @@
      {
       "time": "12:00–13:00",
       "type": "votes",
-      "title": "(possibly) Votes on requests for urgent procedure (Rule 170)"
-     },
-     {
-      "time": "12:00–13:00",
-      "type": "votes",
       "title": "Amending certain Regulations as regards the extension of certain mitigating measures available for small and medium sized enterprises to small mid-cap enterprises and further simplification measures (Omnibus IV)",
       "sub": "C10-0092/2025 · A10-0041/2026 · ***I",
       "rapporteur": "Mariateresa Vivaldini, Niels Flemming Hansen, Lukas Mandl",
@@ -1384,7 +1404,7 @@
       "time": "12:00–13:00",
       "type": "votes",
       "title": "Speeding-up environmental assessments (Omnibus VIII on environmental legislation)",
-      "sub": "C10-0337/2025 · ***I",
+      "sub": "C10-0337/2025 · A10-0290/2026 · ***I",
       "rapporteur": "Emma Ytterell",
       "rapporteurs": [
        "214839"
@@ -1394,13 +1414,14 @@
      {
       "time": "12:00–13:00",
       "type": "votes",
-      "title": "Exemption of certain N2 electric vehicles from the requirement to install and use a speed limitation device (Omnibus IX on automotive)",
-      "sub": "C10-0356/2025 · ***I",
-      "rapporteur": "Merja Kyllönen",
+      "title": "Protection of the Union’s financial interests in the post-2027 multiannual financial framework through the revision of the anti-fraud architecture",
+      "sub": "A10-0288/2026 · 2026/2006(INI)",
+      "rapporteur": "Tomáš Zdechovský, Dick Erixon",
       "rapporteurs": [
-       "124736"
+       "124713",
+       "257091"
       ],
-      "committee": "TRAN"
+      "committee": "CONT"
      },
      {
       "time": "12:00–13:00",
@@ -1416,45 +1437,81 @@
      {
       "time": "13:00–15:00",
       "type": "debate",
-      "title": "2027 budgetary procedure: outcome of the conciliation"
+      "title": "2027 budgetary procedure: joint text",
+      "sub": "C10-0218/2026 · A10-0305/2026 · 2026/0196(BUD)",
+      "rapporteur": "Nils Ušakovs, Michalis Hadjipantela",
+      "rapporteurs": [
+       "197810",
+       "256985"
+      ],
+      "committee": "BUDG"
      },
      {
       "time": "15:00–20:00",
       "type": "debate",
-      "title": "Debate on foreign affairs issues in the presence of the Vice-President of the Commission/High Representative of the Union for Foreign Affairs and Security Policy (to be defined)"
+      "title": "Presentation of the European Semester autumn package",
+      "sub": "2026/2982(RSP)"
      },
      {
-      "time": "15:00–20:00",
+      "time": "15:45–16:45",
+      "type": "debate",
+      "title": "The illegal Türkiye–Libya Memorandum of Understanding and infringement of the United Nations Convention on the Law of the Sea",
+      "sub": "2026/2981(RSP)"
+     },
+     {
+      "time": "16:45–18:00",
+      "type": "debate",
+      "title": "Humanitarian situation in Gaza",
+      "sub": "2026/2983(RSP)"
+     },
+     {
+      "time": "18:00–18:45",
+      "type": "debate",
+      "title": "Continuation of sanctions on Russia in international sports",
+      "sub": "2026/2984(RSP)"
+     },
+     {
+      "time": "18:45–20:00",
       "type": "debate",
       "title": "Explanations of votes"
      },
      {
-      "time": "15:00–20:00",
+      "time": "18:45–20:00",
       "type": "debate",
-      "title": "Question Time (Commission)"
-     },
-     {
-      "time": "15:00–20:00",
-      "type": "debate",
-      "title": "Question Time (VPC/HR)"
-     },
-     {
-      "time": "15:00–20:00",
-      "type": "debate",
-      "title": "Scrutiny session"
+      "title": "The impact of Europe’s eastern border security challenges on frontline Member States",
+      "sub": "2026/2985(RSP)"
      }
     ],
     "2026-11-25": [
      {
-      "time": "09:00–11:50",
-      "type": "other",
-      "title": "KEY DEBATE"
+      "time": "09:00–10:15",
+      "type": "debate",
+      "title": "Europe’s role and capacity to protect the international order and secure a just and lasting peace for Ukraine",
+      "sub": "2026/2989(RSP)"
+     },
+     {
+      "time": "10:15–11:50",
+      "type": "debate",
+      "title": "Unlocking the 2028–2034 MFF negotiations including new own resources following the revised negotiating box",
+      "sub": "2026/2988(RSP)"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "Establishing Global Europe",
+      "sub": "C10-0175/2025 · A10-0277/2026 · ***I",
+      "rapporteur": "Michael Gahler, Robert Biedroń",
+      "rapporteurs": [
+       "2341",
+       "197498"
+      ],
+      "committee": "AFET"
      },
      {
       "time": "12:00–13:00",
       "type": "votes",
       "title": "Placing on the market of genetically modified micro-organisms and the processing of organs",
-      "sub": "C10-0358/2025 · ***I",
+      "sub": "C10-0358/2025 · A10-0304/2026 · ***I",
       "rapporteur": "Marta Temido, Adam Jarubas",
       "rapporteurs": [
        "210480",
@@ -1487,19 +1544,8 @@
      {
       "time": "12:00–13:00",
       "type": "votes",
-      "title": "Specific programme implementing Horizon Europe framework programme for research and innovation 2028–2034",
-      "sub": "C10-0218/2025 · *",
-      "rapporteur": "René Repasi",
-      "rapporteurs": [
-       "229839"
-      ],
-      "committee": "ITRE"
-     },
-     {
-      "time": "12:00–13:00",
-      "type": "votes",
       "title": "Towards an EU strategy to protect and strengthen the international justice system and its institutions, mechanisms and partners",
-      "sub": "2026/2004(INI)",
+      "sub": "A10-0281/2026 · 2026/2004(INI)",
       "rapporteur": "Mounir Satouri",
       "rapporteurs": [
        "197500"
@@ -1510,7 +1556,7 @@
       "time": "12:00–13:00",
       "type": "votes",
       "title": "VAT reverse-charge mechanism",
-      "sub": "2025/2261(INI)",
+      "sub": "A10-0300/2026 · 2025/2261(INI)",
       "rapporteur": "Pierre Pimpie",
       "rapporteurs": [
        "256893"
@@ -1521,7 +1567,7 @@
       "time": "12:00–13:00",
       "type": "votes",
       "title": "Draft amending budget No 3/2026: adjustments in expenditure, update of revenues and other technical updates",
-      "sub": "2026/0314(BUD)",
+      "sub": "C10-0294/2026 · A10-0310/2026 · 2026/0314(BUD)",
       "rapporteur": "Andrzej Halicki",
       "rapporteurs": [
        "197514"
@@ -1532,17 +1578,12 @@
       "time": "12:00–13:00",
       "type": "votes",
       "title": "Union procedures for the authorisation and supervision of medicinal products for human use and rules governing the European Medicines Agency",
-      "sub": "C10-0243/2026 · ***II",
+      "sub": "C10-0243/2026 · A10-0296/2026 · ***II",
       "rapporteur": "Tiemo Wölken",
       "rapporteurs": [
        "185619"
       ],
       "committee": "SANT"
-     },
-     {
-      "time": "12:00–13:00",
-      "type": "votes",
-      "title": "2027 budgetary procedure: joint text"
      },
      {
       "time": "12:00–13:00",
@@ -1554,6 +1595,23 @@
        "197557"
       ],
       "committee": "AFET"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "Objection pursuant to Rule 115(2) and (3): European List of ship recycling facilities",
+      "sub": "2026/2922(RSP)"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "Euratom research and training programme 2028-2032",
+      "sub": "C10-0217/2025 · A10-0293/2026 · *",
+      "rapporteur": "Sophie Wilmès",
+      "rapporteurs": [
+       "220801"
+      ],
+      "committee": "ITRE"
      },
      {
       "time": "12:00–13:00",
@@ -1570,7 +1628,7 @@
       "time": "12:00–13:00",
       "type": "votes",
       "title": "VAT fraud: extension of the application period of the optional reverse charge mechanism and Quick Reaction Mechanism",
-      "sub": "C10-0254/2026 · *",
+      "sub": "C10-0254/2026 · A10-0282/2026 · *",
       "rapporteur": "Aurore Lalucq",
       "rapporteurs": [
        "197697"
@@ -1581,7 +1639,7 @@
       "time": "12:00–13:00",
       "type": "votes",
       "title": "Amendments to Parliament’s Rules of Procedure on proxy voting during pregnancy and immediately after childbirth",
-      "sub": "2026/2105(REG)",
+      "sub": "A10-0298/2026 · 2026/2105(REG)",
       "rapporteur": "Juan Fernando López Aguilar",
       "rapporteurs": [
        "96812"
@@ -1591,13 +1649,26 @@
      {
       "time": "12:00–13:00",
       "type": "votes",
-      "title": "Texts on which debate is closed"
+      "title": "Media freedom and rule of law in the Czech Republic: threats to the independence of public broadcasters",
+      "sub": "2026/2969(RSP)"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "2027 budgetary procedure: joint text",
+      "sub": "C10-0218/2026 · A10-0305/2026 · 2026/0196(BUD)",
+      "rapporteur": "Nils Ušakovs, Michalis Hadjipantela",
+      "rapporteurs": [
+       "197810",
+       "256985"
+      ],
+      "committee": "BUDG"
      },
      {
       "time": "12:00–13:00",
       "type": "votes",
       "title": "Union code relating to medicinal products for human use",
-      "sub": "C10-0244/2026 · ***II",
+      "sub": "C10-0244/2026 · A10-0297/2026 · ***II",
       "rapporteur": "Dolors Montserrat",
       "rapporteurs": [
        "197711"
@@ -1605,58 +1676,123 @@
       "committee": "SANT"
      },
      {
-      "time": "13:00–20:00",
+      "time": "13:00–14:15",
       "type": "debate",
-      "title": "Topical debate requested by a political group (The Left) (Rule 169)"
+      "title": "Topical debate requested by a political group (The Left) (Rule 169) - Cost of living: time to declare a state of social emergency to tackle poverty and end the housing crisis"
      },
      {
-      "time": "13:00–20:00",
+      "time": "14:15–15:30",
       "type": "debate",
-      "title": "Debates on cases of breaches of human rights, democracy and the rule of law (Rule 150)"
+      "title": "Combating gender-based violence in the age of digital technology",
+      "sub": "2026/2993(RSP)"
      },
      {
-      "time": "13:00–20:00",
+      "time": "15:30–17:15",
+      "type": "debate",
+      "title": "Political and media hate speech fuelling racism and violence in Europe",
+      "sub": "2026/2994(RSP)"
+     },
+     {
+      "time": "17:15–18:15",
+      "type": "debate",
+      "title": "Extending the EU Global Human Rights Sanctions Regime to corruption",
+      "sub": "2026/2995(RSP)"
+     },
+     {
+      "time": "18:15–18:30",
+      "type": "debate",
+      "title": "EU Equal Pay Day",
+      "sub": "2026/2996(RSP)"
+     },
+     {
+      "time": "18:30–20:00",
+      "type": "debate",
+      "title": "Case of Paata Burchuladze and political prisoners under the Georgian Dream Regime",
+      "sub": "2026/2992(RSP)"
+     },
+     {
+      "time": "18:30–20:00",
       "type": "debate",
       "title": "Explanations of votes"
      },
      {
-      "time": "13:00–20:00",
+      "time": "18:30–20:00",
       "type": "debate",
-      "title": "Topical debate requested by a political group (ESN) (Rule 169)"
+      "title": "Condemnation of pro-democracy activist and former lawmaker Au Kam San in Macao",
+      "sub": "2026/2991(RSP)"
+     },
+     {
+      "time": "18:30–20:00",
+      "type": "debate",
+      "title": "Case of Eritrean Swedish journalist Dawit Isaak, arbitrarily detained in Eritrea",
+      "sub": "2026/2990(RSP)"
      }
     ],
     "2026-11-26": [
      {
-      "time": "09:00–11:50",
-      "type": "other",
-      "title": "Debates"
+      "time": "09:00–10:15",
+      "type": "debate",
+      "title": "Outcome of the Antalya UN climate summit (COP 31)",
+      "sub": "2026/2987(RSP)"
+     },
+     {
+      "time": "10:15–11:30",
+      "type": "debate",
+      "title": "European response to US pharmaceutical policies: safeguarding patients’ access to essential, innovative and life-saving medicines",
+      "sub": "2026/2923(RSP)"
+     },
+     {
+      "time": "11:30–11:50",
+      "type": "debate",
+      "title": "Supporting Milan’s candidacy to host a new United Nations pillar for the independent assessment and ethical governance of AI",
+      "sub": "2026/2997(RSP)"
      },
      {
       "time": "12:00–14:00",
       "type": "votes",
-      "title": "Texts on which debate is closed"
+      "title": "Case of Eritrean Swedish journalist Dawit Isaak, arbitrarily detained in Eritrea",
+      "sub": "2026/2990(RSP)"
      },
      {
       "time": "12:00–14:00",
       "type": "votes",
-      "title": "Protection of the Union’s financial interests in the post-2027 multiannual financial framework through the revision of the anti-fraud architecture",
-      "sub": "2026/2006(INI)",
-      "rapporteur": "Tomáš Zdechovský, Dick Erixon",
-      "rapporteurs": [
-       "124713",
-       "257091"
-      ],
-      "committee": "CONT"
+      "title": "The 35th anniversary of the fall and destruction of Vukovar",
+      "sub": "2026/2979(RSP)"
+     },
+     {
+      "time": "12:00–14:00",
+      "type": "votes",
+      "title": "Case of Paata Burchuladze and political prisoners under the Georgian Dream Regime",
+      "sub": "2026/2992(RSP)"
+     },
+     {
+      "time": "12:00–14:00",
+      "type": "votes",
+      "title": "Condemnation of pro-democracy activist and former lawmaker Au Kam San in Macao",
+      "sub": "2026/2991(RSP)"
+     },
+     {
+      "time": "12:00–14:00",
+      "type": "votes",
+      "title": "Supporting Milan’s candidacy to host a new United Nations pillar for the independent assessment and ethical governance of AI",
+      "sub": "2026/2997(RSP)"
+     },
+     {
+      "time": "12:00–14:00",
+      "type": "votes",
+      "title": "The illegal Türkiye–Libya Memorandum of Understanding and infringement of the United Nations Convention on the Law of the Sea",
+      "sub": "2026/2981(RSP)"
+     },
+     {
+      "time": "15:00–16:00",
+      "type": "debate",
+      "title": "Situation of the European silicon metal industry",
+      "sub": "2026/2998(RSP)"
      },
      {
       "time": "15:00–16:00",
       "type": "debate",
       "title": "Explanations of votes"
-     },
-     {
-      "time": "15:00–16:00",
-      "type": "debate",
-      "title": "Major interpellations (Rule 145)"
      }
     ]
    }
