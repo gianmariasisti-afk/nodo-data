@@ -6070,6 +6070,17 @@
   ],
   "tech-sovereignty-package": [
     {
+      "id": "tech-sovereignty-package:ep:CJ18-PR-797430-DEPOT-2026-11-17",
+      "fileId": "tech-sovereignty-package",
+      "date": "2026-11-17",
+      "source": "ep",
+      "proc": "2026-0138",
+      "kind": "milestone",
+      "title": "Draft report tabled",
+      "push": true,
+      "ref": "CJ18-PR-797430"
+    },
+    {
       "id": "tech-sovereignty-package:ep:2026-0138-NMSR-257073-2026-11-11",
       "fileId": "tech-sovereignty-package",
       "date": "2026-11-11",
@@ -6091,6 +6102,30 @@
       "title": "Draft report tabled",
       "push": true,
       "ref": "ITRE-PR-797426"
+    },
+    {
+      "id": "tech-sovereignty-package:ep:2026-0138-NMSR-197529-2026-11-03",
+      "fileId": "tech-sovereignty-package",
+      "date": "2026-11-03",
+      "source": "ep",
+      "proc": "2026-0138",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "197529",
+      "group": "The Left",
+      "push": false
+    },
+    {
+      "id": "tech-sovereignty-package:ep:2026-0138-NMSR-96709-2026-11-03",
+      "fileId": "tech-sovereignty-package",
+      "date": "2026-11-03",
+      "source": "ep",
+      "proc": "2026-0138",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "96709",
+      "group": "Renew",
+      "push": false
     },
     {
       "id": "tech-sovereignty-package:ep:2026-0139-NMCP-256809-IMCO-2026-10-29",
@@ -9065,7 +9100,7 @@
       "proc": "2025-0405",
       "kind": "procedural",
       "title": "Report tabled for plenary",
-      "count": 2,
+      "count": 3,
       "push": false
     },
     {
