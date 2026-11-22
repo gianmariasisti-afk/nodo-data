@@ -1,26 +1,4 @@
 {
-  "generatedAt": "2026-11-21T00:00:00Z",
-  "events": [
-    {
-      "id": "mff-2028-2034:next:2026-11-21:e502a3",
-      "fileId": "mff-2028-2034",
-      "date": "2026-11-21",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "António Costa's negotiating box with figures expected (reported by Agence Europe)",
-      "push": true,
-      "pushOn": "2026-11-21"
-    },
-    {
-      "id": "tech-sovereignty-package:ep:CJ18-PR-797430-DEPOT-2026-11-17",
-      "fileId": "tech-sovereignty-package",
-      "date": "2026-11-17",
-      "source": "ep",
-      "proc": "2026-0138",
-      "kind": "milestone",
-      "title": "Draft report tabled",
-      "push": true,
-      "ref": "CJ18-PR-797430"
-    }
-  ]
+  "generatedAt": "2026-11-22T00:00:00Z",
+  "events": []
 }
