@@ -114,5 +114,47 @@
     "to": "ASSISTANT to the Legal and Internal Affairs Senior Adviser, Skills and Social Adviser and Policy Coordinator/Member Rule of Law"
    }
   ]
+ },
+ {
+  "at": "2026-11-23T08:52:09.115Z",
+  "source": "press",
+  "changes": [
+   {
+    "type": "published",
+    "name": "mff-2028-2034: Agence Europe 2026-11-10",
+    "url": "https://agenceurope.eu/en/bulletin/article/13979/14/friedrich-merz-wants-to-link-2027-ukraine-aid-burden-sharing-to-budget-negotiations-over-mff-2028-2034",
+    "check": "verified on two runs"
+   },
+   {
+    "type": "published",
+    "name": "grids-package: Agence Europe 2026-11-12",
+    "url": "https://agenceurope.eu/en/bulletin/article/13980/29/ten-e-regulation-council-and-parliament-make-progress-on-central-scenario-and-congestion-income-and-expect-agreement-in-early-december",
+    "check": "verified on two runs"
+   },
+   {
+    "type": "published",
+    "name": "mff-2028-2034: Agence Europe 2026-11-13",
+    "url": "https://agenceurope.eu/en/bulletin/article/13981/4/2028-2034-mff-meps-will-not-vote-on-regulation-introducing-nrpps-future-budgets-centrepiece-before-january-2027",
+    "check": "verified on two runs"
+   },
+   {
+    "type": "published",
+    "name": "kids-act: Agence Europe 2026-11-13",
+    "url": "https://agenceurope.eu/en/bulletin/article/13981/16/european-data-protection-supervisor-warns-against-age-verification-envisaged-under-kids-act",
+    "check": "verified on two runs"
+   },
+   {
+    "type": "published",
+    "name": "tech-sovereignty-package: MLex 2026-11-11",
+    "url": "https://www.mlex.com/mlex/articles/2548983",
+    "check": "verified on two runs"
+   },
+   {
+    "type": "published",
+    "name": "tech-sovereignty-package: Agence Europe 2026-11-18",
+    "url": "https://agenceurope.eu/en/bulletin/article/13984/12/cada-eu-council-irish-presidency-relaxes-environmental-provisions-for-acceleration-areas-in-new-compromise-text",
+    "check": "verified on two runs"
+   }
+  ]
  }
 ]

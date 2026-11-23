@@ -1,21 +1,5 @@
 [
  {
-  "id": "9f05848a4a",
-  "firstSeen": "2026-11-12",
-  "item": {
-   "file": "mff-2028-2034",
-   "date": "2026-11-10",
-   "source": "Agence Europe",
-   "inst": "press",
-   "kind": "press",
-   "text": "Agence Europe reports that Friedrich Merz asked António Costa in a letter of 6 November to link fair sharing of the 2027 Ukraine aid gap, about €70bn, to the MFF 2028–2034 talks. Finland and Estonia oppose the link.",
-   "url": "https://agenceurope.eu/en/bulletin/article/13979/14/friedrich-merz-wants-to-link-2027-ukraine-aid-burden-sharing-to-budget-negotiations-over-mff-2028-2034",
-   "people": [],
-   "stage": false,
-   "paywall": true
-  }
- },
- {
   "id": "33ce7b41d4",
   "firstSeen": "2026-11-12",
   "item": {
@@ -64,86 +48,6 @@
   }
  },
  {
-  "id": "084e4427fd",
-  "firstSeen": "2026-11-16",
-  "item": {
-   "file": "grids-package",
-   "date": "2026-11-12",
-   "source": "Agence Europe",
-   "inst": "press",
-   "kind": "press",
-   "text": "Agence Europe reports that Council and Parliament negotiators held the third and penultimate TEN-E trilogue on 10 November. The final round is planned for early December.",
-   "url": "https://agenceurope.eu/en/bulletin/article/13980/29/ten-e-regulation-council-and-parliament-make-progress-on-central-scenario-and-congestion-income-and-expect-agreement-in-early-december",
-   "people": [],
-   "stage": false,
-   "paywall": true
-  }
- },
- {
-  "id": "bd6e660183",
-  "firstSeen": "2026-11-16",
-  "item": {
-   "file": "mff-2028-2034",
-   "date": "2026-11-13",
-   "source": "Agence Europe",
-   "inst": "press",
-   "kind": "press",
-   "text": "Agence Europe reports that the AGRI, BUDG and REGI committees will not vote on the National and Regional Partnership Plans regulation before January 2027. The vote had been planned for December.",
-   "url": "https://agenceurope.eu/en/bulletin/article/13981/4/2028-2034-mff-meps-will-not-vote-on-regulation-introducing-nrpps-future-budgets-centrepiece-before-january-2027",
-   "people": [],
-   "stage": false,
-   "paywall": true
-  }
- },
- {
-  "id": "bf4c28f843",
-  "firstSeen": "2026-11-16",
-  "item": {
-   "file": "kids-act",
-   "date": "2026-11-13",
-   "source": "Agence Europe",
-   "inst": "press",
-   "kind": "press",
-   "text": "Agence Europe reports that the European Data Protection Supervisor published an opinion on the KIDS Act on 12 November. It recommends that age verification duties apply only once privacy-preserving solutions are available across the EU.",
-   "url": "https://agenceurope.eu/en/bulletin/article/13981/16/european-data-protection-supervisor-warns-against-age-verification-envisaged-under-kids-act",
-   "people": [],
-   "stage": false,
-   "paywall": true
-  }
- },
- {
-  "id": "b5034b9401",
-  "firstSeen": "2026-11-16",
-  "item": {
-   "file": "tech-sovereignty-package",
-   "date": "2026-11-11",
-   "source": "MLex",
-   "inst": "press",
-   "kind": "press",
-   "text": "MLex reports that the two MEPs leading Parliament work on the Cloud and AI Development Act set out a draft report that seeks to streamline approval procedures and address energy constraints.",
-   "url": "https://www.mlex.com/mlex/articles/2548983",
-   "people": [],
-   "stage": false,
-   "paywall": true
-  }
- },
- {
-  "id": "5271f30426",
-  "firstSeen": "2026-11-19",
-  "item": {
-   "file": "tech-sovereignty-package",
-   "date": "2026-11-18",
-   "source": "Agence Europe",
-   "inst": "press",
-   "kind": "press",
-   "text": "Agence Europe reports that the Irish Presidency tabled a new CADA compromise text in Council that relaxes the environmental provisions for acceleration areas.",
-   "url": "https://agenceurope.eu/en/bulletin/article/13984/12/cada-eu-council-irish-presidency-relaxes-environmental-provisions-for-acceleration-areas-in-new-compromise-text",
-   "people": [],
-   "stage": false,
-   "paywall": true
-  }
- },
- {
   "id": "5b18535552",
   "firstSeen": "2026-11-19",
   "item": {
@@ -175,6 +79,74 @@
    ],
    "stage": false,
    "paywall": false
+  }
+ },
+ {
+  "id": "6ee40b6927",
+  "firstSeen": "2026-11-23",
+  "item": {
+   "file": "mff-2028-2034",
+   "date": "2026-11-22",
+   "source": "Agence Europe",
+   "inst": "press",
+   "kind": "press",
+   "text": "Agence Europe reports that António Costa's negotiating box of 21 November sets the MFF 2028–2034 at €1,582bn in 2025 prices, €180.5bn (10%) below the Commission proposal, and adds a 3% digital services tax.",
+   "url": "https://agenceurope.eu/en/bulletin/article/13987/1/mff-2028-2034-antonio-costa-proposes-further-eur40-billion-in-cuts-slower-debt-repayment-and-digital-tax",
+   "people": [],
+   "stage": false,
+   "paywall": true
+  }
+ },
+ {
+  "id": "efa661a8ff",
+  "firstSeen": "2026-11-23",
+  "item": {
+   "file": "mff-2028-2034",
+   "date": "2026-11-22",
+   "source": "Agence Europe",
+   "inst": "press",
+   "kind": "press",
+   "text": "Agence Europe reports that co-rapporteur Siegfried Mureşan called Costa's proposal unacceptable. Germany, the Netherlands and Sweden said it is still too large, and France called it very disappointing.",
+   "url": "https://agenceurope.eu/en/bulletin/article/13987/2/mff-2028-2034-germany-france-european-parliament-antonio-costas-compromise-proposal-draws-a-range-of-criticism",
+   "people": [
+    "ep:124802"
+   ],
+   "stage": false,
+   "paywall": true
+  }
+ },
+ {
+  "id": "ae22631b5c",
+  "firstSeen": "2026-11-23",
+  "item": {
+   "file": "industrial-accelerator-act",
+   "date": "2026-11-11",
+   "source": "MLex",
+   "inst": "press",
+   "kind": "press",
+   "text": "MLex reports that Parliament's committee vote on the Industrial Accelerator Act is set for 1 December, with compromises on the main political questions not yet agreed. Anna Cavazzini said the EPP is engaging constructively.",
+   "url": "https://www.mlex.com/mlex/articles/2548982",
+   "people": [
+    "ep:86793"
+   ],
+   "stage": false,
+   "paywall": true
+  }
+ },
+ {
+  "id": "278d7f2491",
+  "firstSeen": "2026-11-23",
+  "item": {
+   "file": "industrial-accelerator-act",
+   "date": "2026-11-10",
+   "source": "EUobserver",
+   "inst": "press",
+   "kind": "press",
+   "text": "EUobserver reports that the Irish Presidency is on its third Industrial Accelerator Act compromise without a deal. A minority led by France wants the list of countries that count as Made in Europe kept short.",
+   "url": "https://euobserver.com/248217/made-in-europe-and-low-carbon-rules-up-for-debate-as-eu-eyes-industrial-law-deal/",
+   "people": [],
+   "stage": false,
+   "paywall": true
   }
  }
 ]
