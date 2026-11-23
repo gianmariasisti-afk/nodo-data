@@ -1,5 +1,5 @@
 {
- "run": "2026-11-20T13:35:40.878Z",
+ "run": "2026-11-23T15:21:17.612Z",
  "college": {
   "found": 26,
   "added": [],
@@ -197,8 +197,10 @@
   }
  },
  "autonomy": {
-  "applied": true,
-  "waits": [],
+  "applied": false,
+  "waits": [
+   "nothing to apply"
+  ],
   "confirming": 0,
   "decision": false
  },
@@ -208,7 +210,7 @@
  "summary": {
   "auto": 0,
   "structural": 0,
-  "autoApplied": 2,
+  "autoApplied": 0,
   "failed": 0,
   "unchecked": []
  }
