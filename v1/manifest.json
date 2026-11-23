@@ -23,8 +23,8 @@
   "council": {
    "path": "council.json",
    "description": "Council of the EU: configurations, meetings, presidency rotation, voting weights",
-   "bytes": 83073,
-   "sha256": "fb95b643e8ba50f25d7e5f7b0f1f58f1b3f388ddc5d9d1e9ec2c950a6c6ff0cb"
+   "bytes": 84292,
+   "sha256": "6f2fe7216d5bfa7e1a4d0f66522abc47ad68b5232e40f9765327662a96d83391"
   },
   "agenda": {
    "path": "agenda.json",
