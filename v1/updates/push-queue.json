@@ -1,4 +1,35 @@
 {
-  "generatedAt": "2026-11-22T00:00:00Z",
-  "events": []
+  "generatedAt": "2026-11-23T00:00:00Z",
+  "events": [
+    {
+      "id": "mff-2028-2034:next:2026-11-23:f8b664",
+      "fileId": "mff-2028-2034",
+      "date": "2026-11-23",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "ECF: ITRE's mandate to negotiate announced in plenary in Strasbourg (reported by Agence Europe); a plenary vote follows only if 72 MEPs ask for one",
+      "push": true,
+      "pushOn": "2026-11-23"
+    },
+    {
+      "id": "cef-2028-2034:next:2026-11-23:01b987",
+      "fileId": "cef-2028-2034",
+      "date": "2026-11-23",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Plenary announcement of ITRE-TRAN's decision to open negotiations, in Strasbourg (reported by Agence Europe); a plenary vote follows only if 72 MEPs ask for one",
+      "push": true,
+      "pushOn": "2026-11-23"
+    },
+    {
+      "id": "digital-euro:ep:2023-0212-MEET-TRI1-2026-11-18",
+      "fileId": "digital-euro",
+      "date": "2026-11-18",
+      "source": "ep",
+      "proc": "2023-0212",
+      "kind": "milestone",
+      "title": "Trilogue",
+      "push": true
+    }
+  ]
 }

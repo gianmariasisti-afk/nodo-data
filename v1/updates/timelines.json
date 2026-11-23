@@ -31,24 +31,14 @@
       "pushOn": "2026-11-24"
     },
     {
-      "id": "mff-2028-2034:next:2026-11-21:e502a3",
+      "id": "mff-2028-2034:next:2026-11-23:f8b664",
       "fileId": "mff-2028-2034",
-      "date": "2026-11-21",
+      "date": "2026-11-23",
       "source": "nodo",
       "kind": "scheduled",
-      "title": "António Costa's negotiating box with figures expected (reported by Agence Europe)",
+      "title": "ECF: ITRE's mandate to negotiate announced in plenary in Strasbourg (reported by Agence Europe); a plenary vote follows only if 72 MEPs ask for one",
       "push": true,
-      "pushOn": "2026-11-21"
-    },
-    {
-      "id": "mff-2028-2034:next:2026-11-19:025e2f",
-      "fileId": "mff-2028-2034",
-      "date": "2026-11-19",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Ad hoc working party on the MFF (Global Europe Instrument): preparation of interinstitutional engagement",
-      "push": true,
-      "pushOn": "2026-11-19"
+      "pushOn": "2026-11-23"
     },
     {
       "id": "mff-2028-2034:ep:2025-0555:tabled:2026-11-18",
@@ -5354,6 +5344,16 @@
       "pushOn": "2026-12-14"
     },
     {
+      "id": "industrial-accelerator-act:next:2026-11-27:759f6d",
+      "fileId": "industrial-accelerator-act",
+      "date": "2026-11-27",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Industry working party: fourth Presidency compromise text (doc 15418/26)",
+      "push": true,
+      "pushOn": "2026-11-27"
+    },
+    {
       "id": "industrial-accelerator-act:ep:amendments:2026-10-19",
       "fileId": "industrial-accelerator-act",
       "date": "2026-10-19",
@@ -5784,16 +5784,6 @@
       "pushOn": "2026-12-01"
     },
     {
-      "id": "digital-networks-act:next:2026-11-19:ff3df0",
-      "fileId": "digital-networks-act",
-      "date": "2026-11-19",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Telecoms attachés: governance, Articles 148–180 (doc 5600/26), continued",
-      "push": true,
-      "pushOn": "2026-11-19"
-    },
-    {
       "id": "digital-networks-act:ep:opinions:2026-11-04",
       "fileId": "digital-networks-act",
       "date": "2026-11-04",
@@ -6069,6 +6059,16 @@
     }
   ],
   "tech-sovereignty-package": [
+    {
+      "id": "tech-sovereignty-package:next:2026-11-24:150b70",
+      "fileId": "tech-sovereignty-package",
+      "date": "2026-11-24",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Telecoms working party: CADA first compromise text on Pillars 1 and 2 and general and final provisions (doc 15830/26), and the EESC opinion",
+      "push": true,
+      "pushOn": "2026-11-24"
+    },
     {
       "id": "tech-sovereignty-package:ep:CJ18-PR-797430-DEPOT-2026-11-17",
       "fileId": "tech-sovereignty-package",
@@ -7277,16 +7277,6 @@
   ],
   "grids-package": [
     {
-      "id": "grids-package:next:2026-11-19:fb7745",
-      "fileId": "grids-package",
-      "date": "2026-11-19",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Energy working party: examination of the EP position on TEN-E (doc 15832/26)",
-      "push": true,
-      "pushOn": "2026-11-19"
-    },
-    {
       "id": "grids-package:ep:2025-0400-MEET-TRI1-2026-11-17",
       "fileId": "grids-package",
       "date": "2026-11-17",
@@ -7847,6 +7837,16 @@
     }
   ],
   "cef-2028-2034": [
+    {
+      "id": "cef-2028-2034:next:2026-11-23:01b987",
+      "fileId": "cef-2028-2034",
+      "date": "2026-11-23",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Plenary announcement of ITRE-TRAN's decision to open negotiations, in Strasbourg (reported by Agence Europe); a plenary vote follows only if 72 MEPs ask for one",
+      "push": true,
+      "pushOn": "2026-11-23"
+    },
     {
       "id": "cef-2028-2034:ep:tabled:2026-11-16",
       "fileId": "cef-2028-2034",
@@ -8467,6 +8467,16 @@
       "pushOn": "2026-12-14"
     },
     {
+      "id": "co2-cars:next:2026-11-25:218d68",
+      "fileId": "co2-cars",
+      "date": "2026-11-25",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Environment working party: revised Presidency compromise text (doc 16044/26)",
+      "push": true,
+      "pushOn": "2026-11-25"
+    },
+    {
       "id": "co2-cars:ep:2025-0420-DEC-ADCP-2026-11-04",
       "fileId": "co2-cars",
       "date": "2026-11-04",
@@ -9082,9 +9092,9 @@
       "pushOn": "2026-11-25"
     },
     {
-      "id": "biotech-act:ep:2025-0405:tabled:2026-11-20",
+      "id": "biotech-act:ep:2025-0405:tabled:2026-11-23",
       "fileId": "biotech-act",
-      "date": "2026-11-20",
+      "date": "2026-11-23",
       "source": "ep",
       "proc": "2025-0405",
       "kind": "procedural",
@@ -9719,6 +9729,16 @@
       "title": "Working Party on Financial Services (digital euro)",
       "push": true,
       "pushOn": "2026-11-30"
+    },
+    {
+      "id": "digital-euro:ep:2023-0212-MEET-TRI1-2026-11-18",
+      "fileId": "digital-euro",
+      "date": "2026-11-18",
+      "source": "ep",
+      "proc": "2023-0212",
+      "kind": "milestone",
+      "title": "Trilogue",
+      "push": true
     },
     {
       "id": "digital-euro:ep:2023-0212-MEET-TRI1-2026-11-05",
@@ -10402,12 +10422,12 @@
       "pushOn": "2026-11-27"
     },
     {
-      "id": "military-mobility:next:2026-11-24:9e6261",
+      "id": "military-mobility:next:2026-11-24:58a37b",
       "fileId": "military-mobility",
       "date": "2026-11-24",
       "source": "nodo",
       "kind": "scheduled",
-      "title": "Council ad hoc working party on military mobility",
+      "title": "Ad hoc working party on military mobility: debrief from the technical meetings of 12–20 November (four-column table WK 16494/26 REV 3)",
       "push": true,
       "pushOn": "2026-11-24"
     },
