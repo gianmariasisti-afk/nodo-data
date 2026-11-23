@@ -29,7 +29,8 @@ const freshness = {
   commission: day(ec && ec.fetched),
   commissionChecked: day((ecReport && ecReport.run) || (ec && ec.fetched)),
   council: day(council && council.fetched),
-  calendar: day(cal && cal.fetched),
+  /* The calendar is rebuilt rarely (a new year's PDF); `checked` holds the last check or reload, `fetched` the first build. */
+  calendar: day(cal && (cal.checked || cal.fetched)),
   agendaChecked: day(ag && ag.checked),
   activity: day(act && act.generated),
   updates: day(upd && upd.generatedAt),

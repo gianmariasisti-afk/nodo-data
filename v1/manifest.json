@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generated": "2026-11-23T18:42:21.343Z",
+ "generated": "2026-11-23T21:36:09.296Z",
  "files": {
   "meps": {
    "path": "meps.json",
@@ -23,8 +23,8 @@
   "council": {
    "path": "council.json",
    "description": "Council of the EU: configurations, meetings, presidency rotation, voting weights",
-   "bytes": 84292,
-   "sha256": "6f2fe7216d5bfa7e1a4d0f66522abc47ad68b5232e40f9765327662a96d83391"
+   "bytes": 85691,
+   "sha256": "06558421389c0d790fa6e0c7d75b6235709d5036124674a5678c46cffc9101df"
   },
   "agenda": {
    "path": "agenda.json",
