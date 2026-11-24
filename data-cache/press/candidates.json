@@ -1,7 +1,37 @@
 {
- "generated": "2026-11-23T16:12:47.077Z",
+ "generated": "2026-11-24T16:00:44.590Z",
  "windowDays": 30,
  "items": [
+  {
+   "title": "FIRST AID: Biotech Act caught in limbo",
+   "url": "https://www.rapporteur.com/news/first-aid-biotech-act-caught-in-limbo/",
+   "date": "2026-11-24",
+   "summary": "In today's edition: nerve agents, tobacco, medical devices",
+   "feed": "euractiv",
+   "source": "Euractiv",
+   "inst": "press",
+   "kind": "press",
+   "files": [
+    "biotech-act"
+   ],
+   "people": [],
+   "seen": "2026-11-24"
+  },
+  {
+   "title": "Parliament’s Biotech Act position slips to 2027",
+   "url": "https://www.rapporteur.com/news/parliaments-biotech-act-position-slips-to-2027/",
+   "date": "2026-11-24",
+   "summary": "A production waiver is emerging as a key sticking point in negotiations",
+   "feed": "euractiv",
+   "source": "Euractiv",
+   "inst": "press",
+   "kind": "press",
+   "files": [
+    "biotech-act"
+   ],
+   "people": [],
+   "seen": "2026-11-24"
+  },
   {
    "title": "EU clinical trials reform support grows, as industry calls for consistent investment signals [Partner Content]",
    "url": "https://www.rapporteur.com/news/eu-clinical-trials-reform-support-grows-as-industry-calls-for-consistent-investment-signals/",
