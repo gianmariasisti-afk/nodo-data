@@ -1,5 +1,5 @@
 {
- "checked": "2026-11-23",
+ "checked": "2026-11-24",
  "source": "https://www.europarl.europa.eu/plenary/en/agendas.html",
  "sessions": {
   "2026-10-05": {
@@ -1274,12 +1274,12 @@
    }
   },
   "2026-11-23": {
-   "stage": "final-draft",
-   "updated": "2026-11-20",
+   "stage": "agenda",
+   "updated": "2026-11-24",
    "link": "https://www.europarl.europa.eu/plenary/en/agendas.html",
    "src": {
     "api": "foreseen-activities",
-    "sha256": "e8815e82e305b63ed4f3f1de107f5329168e071ea0bdabdcaff2c836dc2c3723"
+    "sha256": "2c50b47755ba1bd73b729c7ccff366ab8183b2eafc577ddfe7ce9336f9ce77bd"
    },
    "days": {
     "2026-11-23": [
@@ -1307,15 +1307,21 @@
       "committee": "CONT"
      },
      {
-      "time": "19:15–20:00",
+      "time": "19:15–19:30",
       "type": "debate",
       "title": "The 35th anniversary of the fall and destruction of Vukovar",
       "sub": "2026/2979(RSP)"
      },
      {
-      "time": "19:15–20:00",
+      "time": "19:30–21:00",
       "type": "debate",
       "title": "One-minute speeches (Rule 179)"
+     },
+     {
+      "time": "19:30–21:00",
+      "type": "debate",
+      "title": "The International Court of Justice’s judgment on Myanmar",
+      "sub": "2026/3002(RSP)"
      }
     ],
     "2026-11-24": [
@@ -1438,7 +1444,7 @@
       "time": "13:00–15:00",
       "type": "debate",
       "title": "2027 budgetary procedure: joint text",
-      "sub": "C10-0218/2026 · A10-0305/2026 · 2026/0196(BUD)",
+      "sub": "C10-0218/2026 · C10-0314/2026 · A10-0305/2026 · 2026/0196(BUD)",
       "rapporteur": "Nils Ušakovs, Michalis Hadjipantela",
       "rapporteurs": [
        "197810",
@@ -1656,7 +1662,7 @@
       "time": "12:00–13:00",
       "type": "votes",
       "title": "2027 budgetary procedure: joint text",
-      "sub": "C10-0218/2026 · A10-0305/2026 · 2026/0196(BUD)",
+      "sub": "C10-0218/2026 · C10-0314/2026 · A10-0305/2026 · 2026/0196(BUD)",
       "rapporteur": "Nils Ušakovs, Michalis Hadjipantela",
       "rapporteurs": [
        "197810",
@@ -1744,7 +1750,7 @@
      {
       "time": "11:30–11:50",
       "type": "debate",
-      "title": "Supporting Milan’s candidacy to host a new United Nations pillar for the independent assessment and ethical governance of AI",
+      "title": "Supporting EU cities' candidacies to host a new United Nations pillar for the independent assessment and ethical governance of AI",
       "sub": "2026/2997(RSP)"
      },
      {
@@ -1774,7 +1780,7 @@
      {
       "time": "12:00–14:00",
       "type": "votes",
-      "title": "Supporting Milan’s candidacy to host a new United Nations pillar for the independent assessment and ethical governance of AI",
+      "title": "Supporting EU cities' candidacies to host a new United Nations pillar for the independent assessment and ethical governance of AI",
       "sub": "2026/2997(RSP)"
      },
      {
