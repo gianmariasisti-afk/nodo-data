@@ -1274,12 +1274,12 @@
    }
   },
   "2026-11-23": {
-   "stage": "agenda",
+   "stage": "updated",
    "updated": "2026-11-24",
    "link": "https://www.europarl.europa.eu/plenary/en/agendas.html",
    "src": {
     "api": "foreseen-activities",
-    "sha256": "2c50b47755ba1bd73b729c7ccff366ab8183b2eafc577ddfe7ce9336f9ce77bd"
+    "sha256": "08089ba3c3103ee356a8f7cbc9ee0471e9b1c97547e6e28489b9b2cc16fdf60c"
    },
    "days": {
     "2026-11-23": [
@@ -1405,17 +1405,6 @@
        "190713"
       ],
       "committee": "ECON"
-     },
-     {
-      "time": "12:00–13:00",
-      "type": "votes",
-      "title": "Speeding-up environmental assessments (Omnibus VIII on environmental legislation)",
-      "sub": "C10-0337/2025 · A10-0290/2026 · ***I",
-      "rapporteur": "Emma Ytterell",
-      "rapporteurs": [
-       "214839"
-      ],
-      "committee": "ENVI"
      },
      {
       "time": "12:00–13:00",
@@ -1682,6 +1671,17 @@
       "committee": "SANT"
      },
      {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "Speeding-up environmental assessments (Omnibus VIII on environmental legislation)",
+      "sub": "C10-0337/2025 · A10-0290/2026 · ***I",
+      "rapporteur": "Emma Ytterell",
+      "rapporteurs": [
+       "214839"
+      ],
+      "committee": "ENVI"
+     },
+     {
       "time": "13:00–14:15",
       "type": "debate",
       "title": "Topical debate requested by a political group (The Left) (Rule 169) - Cost of living: time to declare a state of social emergency to tackle poverty and end the housing crisis"
@@ -1788,6 +1788,17 @@
       "type": "votes",
       "title": "The illegal Türkiye–Libya Memorandum of Understanding and infringement of the United Nations Convention on the Law of the Sea",
       "sub": "2026/2981(RSP)"
+     },
+     {
+      "time": "12:00–14:00",
+      "type": "votes",
+      "title": "Reduction of methane emissions in the energy sector: postponement of certain obligations",
+      "sub": "C10-0258/2026 · ***I",
+      "rapporteur": "Dimitris Tsiodras, Borys Budka",
+      "rapporteurs": [
+       "256950",
+       "257047"
+      ]
      },
      {
       "time": "15:00–16:00",

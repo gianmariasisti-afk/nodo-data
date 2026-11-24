@@ -1,5 +1,5 @@
 {
- "run": "2026-11-24T03:23:36.061Z",
+ "run": "2026-11-24T15:54:01.518Z",
  "sessions": {
   "2026-11-23": {
    "days": {
@@ -9,23 +9,23 @@
     },
     "2026-11-24": {
      "status": 200,
-     "activities": 27
+     "activities": 26
     },
     "2026-11-25": {
      "status": 200,
-     "activities": 37
+     "activities": 38
     },
     "2026-11-26": {
      "status": 200,
-     "activities": 16
+     "activities": 17
     }
    },
    "types": {
     "def/ep-activities/MEETING_PART": 28,
     "def/ep-activities/PLENARY_DEBATE": 31,
-    "def/ep-activities/PLENARY_VOTE": 32
+    "def/ep-activities/PLENARY_VOTE": 33
    },
-   "items": 63
+   "items": 64
   },
   "2026-12-14": {
    "days": {
