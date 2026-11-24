@@ -8722,7 +8722,31 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       rows.forEach((r) => r.addEventListener("click", clear, { once: true }));
     })();
   }
-  if (PN.api) PN.api.onTap((d) => { if (PN.on) pnOpen(d); else PN.tapped = d; });
+  /* ---------- Fresh data in the store app (since 24 Nov 2026) ----------
+     The iPhone app has no service worker and loads its data once per launch, while iOS can keep it in memory for days.
+     Coming back after at least 10 minutes away, with data older than 30 minutes and nothing open, the app reloads.
+     A notification tap on data older than 15 minutes reloads first, then lands: the tap waits in sessionStorage.
+     The web app is unchanged (it has its service worker). */
+  const FR = { native: !!window.nodoNative, loadedAt: Date.now(), hiddenAt: 0, KEY: "nodo.pendingTap" };
+  const frBusy = () => !$("sheet").hidden || !$("profile").hidden || !$("onb").hidden;
+  const frTap = (d) => { if (PN.on) pnOpen(d); else PN.tapped = d; };
+  if (FR.native) {
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "hidden") { FR.hiddenAt = Date.now(); return; }
+      const away = FR.hiddenAt ? Date.now() - FR.hiddenAt : 0;
+      if (away >= 10 * 60e3 && Date.now() - FR.loadedAt >= 30 * 60e3 && !frBusy()) { Track.flush(); location.reload(); }
+    });
+    try {
+      const saved = sessionStorage.getItem(FR.KEY);
+      if (saved) { sessionStorage.removeItem(FR.KEY); frTap(JSON.parse(saved)); }
+    } catch { /* nothing waiting */ }
+  }
+  if (PN.api) PN.api.onTap((d) => {
+    if (FR.native && Date.now() - FR.loadedAt >= 15 * 60e3) {
+      try { sessionStorage.setItem(FR.KEY, JSON.stringify(d || {})); Track.flush(); location.reload(); return; } catch { /* land on the data in memory */ }
+    }
+    frTap(d);
+  });
 
   /* Sign-in and sign-out: register this phone for the new account, release it from the old one. */
   const pnIdBase = identityChanged;
