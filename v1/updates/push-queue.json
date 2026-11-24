@@ -1,35 +1,35 @@
 {
-  "generatedAt": "2026-11-23T00:00:00Z",
+  "generatedAt": "2026-11-24T00:00:00Z",
   "events": [
     {
-      "id": "mff-2028-2034:next:2026-11-23:f8b664",
+      "id": "mff-2028-2034:next:2026-11-24:05e4ba",
       "fileId": "mff-2028-2034",
-      "date": "2026-11-23",
+      "date": "2026-11-24",
       "source": "nodo",
       "kind": "scheduled",
-      "title": "ECF: ITRE's mandate to negotiate announced in plenary in Strasbourg (reported by Agence Europe); a plenary vote follows only if 72 MEPs ask for one",
+      "title": "Ad hoc working party on the MFF (European Competitiveness Fund): preparation for interinstitutional engagement on Chapter VII",
       "push": true,
-      "pushOn": "2026-11-23"
+      "pushOn": "2026-11-24"
     },
     {
-      "id": "cef-2028-2034:next:2026-11-23:01b987",
-      "fileId": "cef-2028-2034",
-      "date": "2026-11-23",
+      "id": "tech-sovereignty-package:next:2026-11-24:150b70",
+      "fileId": "tech-sovereignty-package",
+      "date": "2026-11-24",
       "source": "nodo",
       "kind": "scheduled",
-      "title": "Plenary announcement of ITRE-TRAN's decision to open negotiations, in Strasbourg (reported by Agence Europe); a plenary vote follows only if 72 MEPs ask for one",
+      "title": "Telecoms working party: CADA first compromise text on Pillars 1 and 2 and general and final provisions (doc 15830/26), and the EESC opinion",
       "push": true,
-      "pushOn": "2026-11-23"
+      "pushOn": "2026-11-24"
     },
     {
-      "id": "digital-euro:ep:2023-0212-MEET-TRI1-2026-11-18",
-      "fileId": "digital-euro",
-      "date": "2026-11-18",
-      "source": "ep",
-      "proc": "2023-0212",
-      "kind": "milestone",
-      "title": "Trilogue",
-      "push": true
+      "id": "military-mobility:next:2026-11-24:58a37b",
+      "fileId": "military-mobility",
+      "date": "2026-11-24",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Ad hoc working party on military mobility: debrief from the technical meetings of 12–20 November (four-column table WK 16494/26 REV 3)",
+      "push": true,
+      "pushOn": "2026-11-24"
     }
   ]
 }

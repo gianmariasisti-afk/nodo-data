@@ -1108,7 +1108,10 @@
     "cap-2028-2034:next:2026-11-17:cf1687": true,
     "mff-2028-2034:next:2026-11-21:e502a3": true,
     "mff-2028-2034:next:2026-11-23:f8b664": true,
-    "cef-2028-2034:next:2026-11-23:01b987": true
+    "cef-2028-2034:next:2026-11-23:01b987": true,
+    "mff-2028-2034:next:2026-11-24:05e4ba": true,
+    "tech-sovereignty-package:next:2026-11-24:150b70": true,
+    "military-mobility:next:2026-11-24:58a37b": true
   },
   "seededProcs": {
     "2025-0571": true,
