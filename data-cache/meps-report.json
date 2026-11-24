@@ -1,15 +1,88 @@
 {
- "run": "2026-11-23T15:54:35.010Z",
- "checked": "2026-11-23",
+ "run": "2026-11-24T15:46:52.527Z",
+ "checked": "2026-11-24",
  "api": 720,
  "nodo": 720,
  "failed": [],
- "auto": [],
+ "auto": [
+  {
+   "id": "197392",
+   "name": "Evin INCIR",
+   "changes": {
+    "delegations": {
+     "from": [
+      "D-CL Substitute",
+      "DLAT Member",
+      "D-IQ Vice Chair"
+     ],
+     "to": [
+      "DLAT Member",
+      "D-IQ Vice Chair",
+      "DCAS Substitute"
+     ]
+    }
+   }
+  },
+  {
+   "id": "220840",
+   "name": "Jaroslav BŽOCH",
+   "changes": {
+    "committees": {
+     "from": [
+      "LIBE Member",
+      "EUDS Member",
+      "AFET Member",
+      "IMCO Substitute"
+     ],
+     "to": [
+      "LIBE Member",
+      "EUDS Member",
+      "AFET Member"
+     ]
+    }
+   }
+  },
+  {
+   "id": "23699",
+   "name": "Kateřina KONEČNÁ",
+   "changes": {
+    "committees": {
+     "from": [
+      "SANT Substitute",
+      "EMPL Member"
+     ],
+     "to": [
+      "SANT Substitute",
+      "EMPL Member",
+      "IMCO Substitute"
+     ]
+    }
+   }
+  },
+  {
+   "id": "257085",
+   "name": "Krzysztof ŚMISZEK",
+   "changes": {
+    "delegations": {
+     "from": [
+      "DANZ Member",
+      "D-CA Substitute",
+      "DCAS Substitute"
+     ],
+     "to": [
+      "DANZ Member",
+      "D-CA Substitute",
+      "D-CL Substitute"
+     ]
+    }
+   }
+  }
+ ],
  "structural": [],
  "summary": {
-  "auto": 0,
+  "auto": 4,
   "structural": 0,
   "failed": 0,
-  "changed": false
+  "changed": true
  }
 }
