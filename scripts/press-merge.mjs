@@ -60,6 +60,15 @@ export function checkItem(x, { fileIds, mepIds, reg }) {
   }
   return p;
 }
+/* Canonical form of a source url, applied before every check and id, so the same article always gets the same id.
+   MLex: links copied from search results carry a section path (/mlex/<section>/articles/<n>) that the site answers
+   with an error; the working page is /mlex/articles/<n>. */
+export function canonicalUrl(u) {
+  const s = String(u || "");
+  const m = s.match(/^https:\/\/(?:www\.)?mlex\.com\/mlex\/(?:[^/?#]+\/)+articles\/(\d+)/i);
+  return m ? `https://www.mlex.com/mlex/articles/${m[1]}` : s;
+}
+const canon = (xs) => xs.map((x) => (x && x.url ? { ...x, url: canonicalUrl(x.url), ...(x.confirm ? { confirm: canonicalUrl(x.confirm) } : {}) } : x));
 export const idOf = (x) => crypto.createHash("sha1").update(x.file + "|" + x.url).digest("hex").slice(0, 10);
 
 function ctx() {
@@ -102,8 +111,9 @@ function main() {
   if (args[0] === "--split") {
     const [, src, autoOut, reviewOut] = args;
     if (!src || !autoOut || !reviewOut) { console.error("usage: press-merge.mjs --split <items.json> <auto.json> <review.json> [--log]"); process.exit(2); }
-    const items = JSON.parse(fs.readFileSync(src, "utf8"));
-    if (!Array.isArray(items)) { console.error("items file must hold a JSON array"); process.exit(2); }
+    const raw = JSON.parse(fs.readFileSync(src, "utf8"));
+    if (!Array.isArray(raw)) { console.error("items file must hold a JSON array"); process.exit(2); }
+    const items = canon(raw);
     const c = ctx(), refused = [];
     items.forEach((x, i) => { const p = checkItem(x, c); if (p.length) refused.push(`item ${i + 1} (${x.url || "no url"}): ${p.join("; ")}`); });
     if (refused.length) { console.error("Refused, nothing written:\n" + refused.join("\n")); process.exit(1); }
@@ -127,8 +137,9 @@ function main() {
   }
   if (args[0] === "--pending") { console.log(JSON.stringify(loadPending().map((p) => ({ ...p.item, firstSeen: p.firstSeen })), null, 1)); return; }
   if (!args[0]) { console.error("usage: press-merge.mjs <items.json> | --remove <id> | --prune"); process.exit(2); }
-  const items = JSON.parse(fs.readFileSync(args[0], "utf8"));
-  if (!Array.isArray(items)) { console.error("items file must hold a JSON array"); process.exit(2); }
+  const raw = JSON.parse(fs.readFileSync(args[0], "utf8"));
+  if (!Array.isArray(raw)) { console.error("items file must hold a JSON array"); process.exit(2); }
+  const items = canon(raw);
   const c = ctx(), refused = [];
   items.forEach((x, i) => { const p = checkItem(x, c); if (p.length) refused.push(`item ${i + 1} (${x.url || "no url"}): ${p.join("; ")}`); });
   if (refused.length) { console.error("Refused, nothing written:\n" + refused.join("\n")); process.exit(1); }

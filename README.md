@@ -82,6 +82,8 @@ Dated items on nodo's files, each with nodo's own one- or two-sentence takeaway 
 - `text` is 40–240 characters, nodo's own words: no quotation marks, no exclamation marks. `people` are MEP keys from `meps.json`.
 - `stage` marks an item that changes a file's stage (the only kind meant to trigger a push, once nodo sends any).
 - Items older than `keepDays` (90) are dropped on the next merge; the app shows the last `windowDays` (30).
+- `press-merge.mjs` puts every `url` and `confirm` in canonical form before it checks them or computes the id (`canonicalUrl`): MLex links with a section path (`/mlex/<section>/articles/<n>`, which the site answers with an error) become `/mlex/articles/<n>`.
+- `text` states facts in the tense the source uses on its publication date: a meeting a page announces stays announced, so the second look can still find the fact on the page.
 
 How it is kept up to date:
 

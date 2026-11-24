@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { checkItem, idOf } from "../../scripts/press-merge.mjs";
+import { checkItem, idOf, canonicalUrl } from "../../scripts/press-merge.mjs";
 import { parseFeed, matchFiles } from "../../scripts/press-feeds.mjs";
 import { resolve, checkPressSource, checkCitation, checkRegistry } from "../../scripts/sources.mjs";
 
@@ -100,4 +100,12 @@ test("confirm must be a listed source on another site", () => {
   assert.deepEqual(checkItem({ ...ok, confirm: "https://www.consilium.europa.eu/en/press/y" }, ctx).filter((p) => /confirm/.test(p)), []);
   assert.ok(checkItem({ ...ok, confirm: "https://example.org/a" }, ctx).some((p) => /confirm/.test(p)));
   assert.ok(checkItem({ ...ok, confirm: ok.url + "/again" }, ctx).some((p) => /different site/.test(p)));
+});
+
+test("MLex section links become the working article link; other urls are untouched", () => {
+  assert.equal(canonicalUrl("https://www.mlex.com/mlex/data-privacy-security/articles/2548297"), "https://www.mlex.com/mlex/articles/2548297");
+  assert.equal(canonicalUrl("https://mlex.com/mlex/a/b/articles/12?x=1"), "https://www.mlex.com/mlex/articles/12");
+  assert.equal(canonicalUrl("https://www.mlex.com/mlex/articles/2548983"), "https://www.mlex.com/mlex/articles/2548983");
+  const ae = "https://agenceurope.eu/en/bulletin/article/13978/4/x";
+  assert.equal(canonicalUrl(ae), ae);
 });
