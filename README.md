@@ -224,6 +224,10 @@ At most one a day per person; an update is never sent twice; muted files, switch
 - **Secrets** (Supabase › Edge Functions): `APNS_KEY_ID`, `APNS_PRIVATE_KEY` (the .p8 text), `APNS_TEAM_ID` (or the existing `APPLE_TEAM_ID`).
 - **Test**: a signed-in admin can POST `{ "test": true }` to the function to receive "nodo test" on their own phones, or `{}` for a dry run of today's plan.
 
+## Workflow start times (Supabase pg_cron, since 24 Nov 2026)
+
+GitHub's `schedule:` trigger starts runs 7 to 12 hours late. `supabase/dispatch.sql` (migration `workflow_dispatch_schedule`) adds eight pg_cron jobs, `gh-activity` to `gh-updates`, that call GitHub's workflow_dispatch API at the same UTC times as the workflows' `schedule:` lines. They read a fine-grained token (nodo-data only, Actions read and write) from Supabase Vault under the name `github_dispatch_token`; until it is stored, every job does nothing. The `schedule:` lines stay as a late fallback until the dispatched runs have been checked for a few days, then they come out so nothing runs twice.
+
 ## Country pages: monument photos and flag band
 
 Each country page shows a national monument photo cut into five columns, a band in the flag's colours, and the monument's name in the top bar. Photos live in `monuments/` (from Unsplash, 900 px wide, photographer credited on the page). Name, place, year, crop and flag layout per country are in `MONUMENTS` and `FLAGS` in `index.html`. Years appear only where a source gives one completion or opening date.
