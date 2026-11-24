@@ -1,5 +1,5 @@
 {
- "run": "2026-11-23T15:21:17.612Z",
+ "run": "2026-11-24T15:15:59.671Z",
  "college": {
   "found": 26,
   "added": [],
@@ -205,10 +205,447 @@
   "decision": false
  },
  "pending": [],
- "auto": [],
+ "auto": [
+  {
+   "commissioner": "maria-luis-albuquerque",
+   "name": "Riikka Torppa",
+   "fields": [
+    "resp"
+   ],
+   "diff": {
+    "resp": {
+     "from": [
+      "Deputising for the Head of Cabinet",
+      "Inter-institutional Relations Group (GRI)",
+      "EXCO",
+      "Jour fixe coordination",
+      "Commission Work Programme",
+      "Policy definition and planning",
+      "International relations",
+      "Restrictive measures",
+      "Relationship with the UK"
+     ],
+     "to": [
+      "Deputising for the Head of Cabinet",
+      "Inter-institutional Relations Group (GRI)",
+      "EXCO",
+      "Jour fixe coordination",
+      "Commission Work Programme",
+      "Policy definition and planning",
+      "Restrictive measures",
+      "Relationships with international partners"
+     ]
+    }
+   }
+  },
+  {
+   "commissioner": "maria-luis-albuquerque",
+   "name": "Edoardo Rulli",
+   "fields": [
+    "resp",
+    "countries"
+   ],
+   "diff": {
+    "resp": {
+     "from": [
+      "Prudential Regulation and supervision (esp. banking report on competitiveness)",
+      "Crisis management framework (DGS, EDIS, CMDI, resolution)",
+      "Sustainable finance, transition finance and sustainability policies",
+      "Preparedness"
+     ],
+     "to": [
+      "Prudential Regulation and supervision (esp. banking report on competitiveness)",
+      "Crisis management framework (DGS, EDIS, CMDI, resolution)",
+      "Macroprudential policy and macro-economic analysis",
+      "Non-banks financial intermediation (NBFI)",
+      "Sustainable finance, transition finance and sustainability policies"
+     ]
+    },
+    "countries": {
+     "from": [
+      "HR",
+      "CY"
+     ],
+     "to": [
+      "IT",
+      "HR",
+      "CY"
+     ]
+    }
+   }
+  },
+  {
+   "commissioner": "maria-luis-albuquerque",
+   "name": "Zuzana Gentner Vavrova",
+   "fields": [
+    "resp",
+    "outside",
+    "countries"
+   ],
+   "diff": {
+    "resp": {
+     "from": [
+      "Economic analysis and evaluation",
+      "Macroprudential policy and macro-economic analysis",
+      "Non-banks financial intermediation (NBFI)",
+      "Financing of the economy through capital markets (financial instruments, institutional investors participation)",
+      "Relations with think tanks, universities, research institutes",
+      "Implementation Dialogues",
+      "Securitisation"
+     ],
+     "to": [
+      "Economic analysis and evaluation",
+      "Financing of the economy through capital markets (financial instruments, institutional investors participation, EIB, national development banks)",
+      "SMEs policies",
+      "Implementation Dialogues"
+     ]
+    },
+    "outside": {
+     "from": [
+      "European Semester",
+      "RRF",
+      "Taxation and Customs",
+      "Foresight",
+      "Regional, Cohesion policy",
+      "Industrial policy",
+      "Security and Defence, incl. Space Industry",
+      "Housing",
+      "Transport"
+     ],
+     "to": [
+      "European Semester",
+      "RRF",
+      "Taxation and Customs",
+      "Foresight",
+      "Regional, Cohesion policy",
+      "Industrial policy",
+      "Security and Defence, incl. Space Industry",
+      "Preparedness",
+      "Economic Security",
+      "Housing"
+     ]
+    },
+    "countries": {
+     "from": [
+      "IT",
+      "PL",
+      "SI",
+      "HU"
+     ],
+     "to": [
+      "CZ",
+      "HU",
+      "PL",
+      "SK"
+     ]
+    }
+   }
+  },
+  {
+   "commissioner": "maria-luis-albuquerque",
+   "name": "Philippe Thill",
+   "fields": [
+    "outside"
+   ],
+   "diff": {
+    "outside": {
+     "from": [
+      "Budget",
+      "Multiannual financial framework",
+      "Energy"
+     ],
+     "to": [
+      "Budget",
+      "Multiannual financial framework",
+      "Energy",
+      "Transport"
+     ]
+    }
+   }
+  },
+  {
+   "commissioner": "maria-luis-albuquerque",
+   "name": "Alice Guedel",
+   "fields": [
+    "resp",
+    "outside"
+   ],
+   "diff": {
+    "resp": {
+     "from": [
+      "Digital Finance (MiCA, DORA, FiDA, DLT Pilot Regime)",
+      "Payments",
+      "Venture and growth capital",
+      "Artificial intelligence in the financial sector",
+      "ESAP",
+      "Network of Digital Ambassadors",
+      "Youth Policy Dialogues"
+     ],
+     "to": [
+      "Digital Finance",
+      "Payments",
+      "Venture and growth capital",
+      "Artificial intelligence in the financial sector",
+      "Network of Digital Ambassadors",
+      "Youth Policy Dialogues"
+     ]
+    },
+    "outside": {
+     "from": [
+      "Digital agenda",
+      "Culture, Education and Youth",
+      "Innovation and Research",
+      "Start-ups and scale-ups policies",
+      "Digital euro"
+     ],
+     "to": [
+      "Digital agenda",
+      "Culture, Education and Youth",
+      "Innovation and Research",
+      "Startups and scaleups",
+      "Digital euro"
+     ]
+    }
+   }
+  },
+  {
+   "commissioner": "maria-luis-albuquerque",
+   "name": "Susanne Appel",
+   "fields": [
+    "outside",
+    "countries"
+   ],
+   "diff": {
+    "outside": {
+     "from": [
+      "Ombudsman",
+      "Democracy and Demography",
+      "Gender and Equality",
+      "Health and Food Safety"
+     ],
+     "to": [
+      "Ombudsman Democracy and Demography",
+      "Gender and Equality",
+      "Health and Food Safety"
+     ]
+    },
+    "countries": {
+     "from": [
+      "AT",
+      "CZ",
+      "DE",
+      "SK"
+     ],
+     "to": [
+      "AT",
+      "DE",
+      "SI"
+     ]
+    }
+   }
+  },
+  {
+   "commissioner": "maria-luis-albuquerque",
+   "name": "Andres Borja Alcaraz Riano",
+   "fields": [
+    "resp",
+    "outside",
+    "countries"
+   ],
+   "diff": {
+    "resp": {
+     "from": [
+      "Application and enforcement of EU legislation (notably infringements)",
+      "Insolvency, Bankruptcy, Second chance",
+      "European Citizens’ Panels",
+      "SMEs policies",
+      "Accounting and audit policy"
+     ],
+     "to": [
+      "Application and enforcement of EU legislation (notably infringements)",
+      "Insolvency, Bankruptcy, Second chance",
+      "European Citizens’ Panels",
+      "Accounting and audit policy"
+     ]
+    },
+    "outside": {
+     "from": [
+      "Competition, State aid",
+      "Justice, Home affairs",
+      "Agriculture and Forestry",
+      "Oceans and Fisheries",
+      "Humanitarian and crisis management",
+      "OLAF, EPPO, Europol, European Court of Auditors"
+     ],
+     "to": [
+      "Competition, State aid and Foreign Subsidies",
+      "Justice and Home affairs",
+      "Agriculture and Forestry",
+      "Oceans and Fisheries",
+      "Humanitarian and crisis management",
+      "OLAF, EPPO, Europol, European Court of Auditors"
+     ]
+    },
+    "countries": {
+     "from": [
+      "LV",
+      "LT",
+      "BG",
+      "ES"
+     ],
+     "to": [
+      "BG",
+      "LV",
+      "LT",
+      "ES"
+     ]
+    }
+   }
+  },
+  {
+   "commissioner": "maria-luis-albuquerque",
+   "name": "Lídia Peixoto",
+   "fields": [
+    "resp"
+   ],
+   "diff": {
+    "resp": {
+     "from": [
+      "Agenda/diary of the Commissioner",
+      "Assisting the policy assistants",
+      "Webpages (publications of speeches)"
+     ],
+     "to": [
+      "Agenda/diary of the Commissioner"
+     ]
+    }
+   }
+  },
+  {
+   "commissioner": "maria-luis-albuquerque",
+   "name": "Cristina Guerra",
+   "fields": [
+    "resp"
+   ],
+   "diff": {
+    "resp": {
+     "from": [
+      "Agenda/diary of the Commissioner",
+      "Organisation events Commissioner",
+      "Missions Commissioner and Communication Adviser",
+      "Webpages (publications of calendar)",
+      "ATMOS missions (for Commissioner)",
+      "Drivers",
+      "College evacuation guide"
+     ],
+     "to": [
+      "Agenda/diary of the Commissioner",
+      "Organisation events Commissioner",
+      "Missions Commissioner and members",
+      "Webpages (publications of calendar)",
+      "ATMOS missions (for Commissioner)",
+      "Drivers",
+      "College evacuation guide"
+     ]
+    }
+   }
+  },
+  {
+   "commissioner": "maria-luis-albuquerque",
+   "name": "Nora Puspoki",
+   "fields": [
+    "resp"
+   ],
+   "diff": {
+    "resp": {
+     "from": [
+      "Agenda/diary of the HoC",
+      "Accueil visitors Head of Cabinet",
+      "Mission authorisations for members on behalf of the Head of Cabinet",
+      "Publication of meetings (ATMOS)",
+      "CARES and office supplies",
+      "Global envelope: Mission budget, Representation budget, Internal meetings budget",
+      "Coordinating holidays permanence",
+      "Leave management GECO",
+      "HR - Dealing with spontaneous job applications and trainees",
+      "Ethics and Transparency Contact Point"
+     ],
+     "to": [
+      "Agenda/diary of the Head of Cabinet",
+      "Accueil visitors Head of Cabinet",
+      "Mission authorisations for members on behalf of the Head of Cabinet",
+      "BASIS coordinator for the Cabinet",
+      "Publication of meetings (ATMOS)",
+      "Global envelope: Mission budget, Representation budget, Internal meetings budget",
+      "Coordinating holidays permanence / Leave management GECO",
+      "HR - Dealing with spontaneous job applications and trainees",
+      "Ethics and Transparency Contact Point"
+     ]
+    }
+   }
+  },
+  {
+   "commissioner": "maria-luis-albuquerque",
+   "name": "Joaquin Perez Cordellat",
+   "fields": [
+    "resp"
+   ],
+   "diff": {
+    "resp": {
+     "from": [
+      "Agenda/diary",
+      "Accueil visitors Deputy Head of Cabinet and members",
+      "Publication of meetings (ATMOS)",
+      "GRI",
+      "EXCO",
+      "BASIS coordinator for the Cabinet",
+      "Relations with FISMA + organisation of Jour Fixes",
+      "COFO"
+     ],
+     "to": [
+      "Agenda/diary",
+      "Accueil visitors Deputy Head of Cabinet and members",
+      "Publication of meetings (ATMOS)",
+      "GRI",
+      "EXCO",
+      "Relations with FISMA + organisation of Jour Fixes",
+      "CARES & office supplies",
+      "COFO"
+     ]
+    }
+   }
+  },
+  {
+   "commissioner": "maria-luis-albuquerque",
+   "name": "Mateusz Szymanski",
+   "fields": [
+    "resp"
+   ],
+   "diff": {
+    "resp": {
+     "from": [
+      "Assistant to two members and support to policy assistants",
+      "Agenda/diary",
+      "Accueil visitors for the members",
+      "Publication of meetings (ATMOS)",
+      "Cabinet Digital Ambassador (back up for Alice)",
+      "Data protection contact point"
+     ],
+     "to": [
+      "Agenda/diary",
+      "Accueil visitors for the members",
+      "Publication of meetings (ATMOS)",
+      "Cabinet Digital Ambassador (back up for Alice)",
+      "Data protection contact point",
+      "Provide assistance to policy assistants"
+     ]
+    }
+   }
+  }
+ ],
  "structural": [],
  "summary": {
-  "auto": 0,
+  "auto": 12,
   "structural": 0,
   "autoApplied": 0,
   "failed": 0,
