@@ -1,12 +1,11 @@
 {
- "generated": "2026-11-25T08:17:07.708Z",
+ "generated": "2026-11-25T08:18:14.489Z",
  "source": "Open Data Portal report (.docx): final vote by roll call by the committee responsible",
  "reports": {
   "A-10-2026-0185": {
    "id": "A-10-2026-0185",
    "ok": false,
    "problems": [
-    "for: 46 names, result line says 43",
     "1 vote column(s) read, 3 expected"
    ],
    "docx": "https://data.europarl.europa.eu/distribution/reds_iPlRp/A-10-2026-0185/A-10-2026-0185_en.docx",
@@ -71,406 +70,476 @@
      "Date tabled | 26.6.2026"
     ],
     "rollCallText": [
-     "DRAFT EUROPEAN PARLIAMENT LEGISLATIVE RESOLUTION",
-     "on the proposal for a regulation of the European Parliament and of the Council on the establishment of the digital euro",
-     "(COM(2023)0369 – C90219/2023 – 2023/0212(COD))",
-     "(Ordinary legislative procedure: first reading)",
-     "The European Parliament,",
-     "– having regard to the Commission proposal to Parliament and the Council (COM(2023)0369),",
-     "– having regard to Article 294(2) and Article 133 of the Treaty on the Functioning of the European Union, pursuant to which the Commission submitted the proposal to Parliament (C90219/2023),",
-     "– having regard to Article 294(3) of the Treaty on the Functioning of the European Union,",
-     "– having regard to the opinion of the European Central Bank of 31 October 2023,",
-     "– having regard to the opinion of the European Economic and Social Committee,",
-     "– having regard to Rule 60 of its Rules of Procedure,",
-     "– having regard to the opinion of the Committee on Civil Liberties, Justice and Home Affairs,",
-     "– having regard to the report of the Committee on Economic and Monetary Affairs \n(A10-0185/2026),",
-     "1. Adopts its position at first reading hereinafter set out;",
-     "2. Calls on the Commission to refer the matter to Parliament again if it replaces, substantially amends or intends to substantially amend its proposal;",
-     "3. Instructs its President to forward its position to the Council, the Commission and the national parliaments.",
-     "Amendment 1",
-     "AMENDMENTS BY THE EUROPEAN PARLIAMENT*",
-     "to the Commission proposal",
-     "---------------------------------------------------------",
-     "2023/0212 (COD)",
-     "Proposal for a",
-     "REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL",
-     "on the establishment of the digital euro",
-     "THE EUROPEAN PARLIAMENT AND THE COUNCIL OF THE EUROPEAN UNION,",
-     "Having regard to the Treaty on the Functioning of the European Union, and in particular Article 133 thereof,",
-     "Having regard to the proposal from the European Commission,",
-     "After transmission of the draft legislative act to the national parliaments,",
-     "Having regard to the opinion of the European Central Bank,",
-     "Having regard to the opinion of the European Economic and Social Committee,",
-     "Acting in accordance with the ordinary legislative procedure,",
-     "Whereas:",
-     "(1) The Commission emphasised in the Digital Finance and Retail Payment Strategies of September 2020 and updated in November 2023 that a digital euro, as a retail central bank digital currency, available for both consumers and businesses, would act as a catalyst for innovation in payments, ﬁnance and commerce in the context of ongoing efforts to reduce the fragmentation of the Union retail payments market. The Eurosummits of March 2021 and October 2025 called for a stronger and more innovative digital finance sector and more efficient and resilient payment systems and reiterated that in an increasingly digital world, the digital euro offers a strategic opportunity for supporting a resilient European payment system, contributing to Europe’s strategic autonomy and economic security, and strengthening the international role of the euro. ▌In that context, both the European Parliament and ECOFIN Council welcomed in February and March 2022 the European Central Bank’s decision to launch a two-year investigation phase of a digital euro project, starting from October 2021.",
-     "(2) On 2 October 2020, the European Central Bank published its “Report on a digital euro”. The report formed the basis for seeking views on the benefits and challenges of issuing a digital euro and on its possible design, including both online and offline digital euro payment functionalities. Subsequently, on 30 October 2025, the European Central Bank published a closing progress report on the two-year preparation phase to lay the groundwork for the digital euro, focussing on the development of a draft digital euro rulebook, provider selection, testing and experimentation.",
-     "(3) Central bank money in the form of banknotes and coins cannot be used for online payments. Today, online payments rely entirely on commercial bank money. The acceptability and fungibility of commercial bank money rely on its convertibility on a one-to-one basis to central bank money with legal tender, which serves as a monetary anchor. That monetary anchor is at the core of the functioning of monetary and financial systems. It underpins users’ confidence in commercial bank money and in the euro as a currency and is therefore essential to safeguard the stability of the monetary system in a digitalised economy and society. As central bank money in physical form alone cannot address the needs of a rapidly digitalising economy, this could gradually remove the monetary anchor for commercial bank money. Additionally, to address the increasing challenges to the Union economy and the Union´s strategic sovereignty, the Union payments infrastructure should aim to reduce dependence on non-European providers and ensure that citizens and businesses have sovereign, secure, efficient and accessible options for their daily payments. The introduction of the digital euro would offer a twofold solution: it would reduce overreliance on non-European providers by becoming a pan-European means of payment and it would bring the single currency into the digital era by giving Union citizens the freedom to opt to pay with central bank money in their daily transactions. ▌",
-     "(4) To address the need of a rapidly digitalising economy, the digital euro should support a variety of use cases of retail payments. Those use case include person to person, person to business, person to government, business to person, business to business, business to government, government to person, government to business, and government to government payments. In addition, the digital euro should also be able to fulfil future payments needs, and in particular machine to machine payment in the context of Industry 4.0 and payments in the decentralised internet (web3). The retail solution for the digital euro should not cater for payments between financial intermediaries, payment service providers and other market participants (that is to say wholesale payments), for which settlement systems in central bank money exist and where the use of different technologies is being further investigated by the Eurosystem.",
-     "(5) In a context of the increasing digitalisation of the economy, it is essential to support financial inclusion by ensuring an accessible digital euro, specifically catering for vulnerable groups of the society. ▌According to the World Bank and the Bank for International Settlements, “efficient, accessible and safe retail payment systems and services are critical for greater financial inclusion”. That finding was further substantiated by the study on new Digital Payment Methods commissioned by the European Central Bank, which concluded that for the unbanked/underbanked/offline population, the most important features of a new payment method are easiness of use, not requiring technological skills, and to be secure and free of charge. A digital euro would ▌support financial inclusion as it would be designed along these objectives, thus catering for free access, easiness of use and wide accessibility and acceptance.",
-     "(6) The digital euro should complement euro banknotes and coins and should not replace the physical forms of the single currency. As legal tender instruments, both cash and digital euro are equally important and people should have the freedom to choose how to pay. Regulation (EU)).../...*, Directive (EU) .../...**, Regulation (EU) .../…*** and, with regard to instant transfers in euros, Regulation (EU) No 260/2012 of the European Parliament and of the Council, Regulation (EU) 2021/1230 of the European Parliament and of the Council, Directive 98/26/EC of the European Parliament and of the Council and Directive (EU) 2015/2366 of the European Parliament and of the Council, aim to strengthen both physical central bank money and retail digital payment solutions. Regulation (EU) .../…**** ▌would harmonise legal tender for cash and ensure that cash is widely distributed and effectively used, through, inter alia, the possibility of imposing penalties for infringements of that Regulation.",
-     "(7) Future developments in digital payments may affect the role of the euro in retail payment markets both in the European Union and internationally.▌For instance, so-called third country stablecoins not denominated in euro and their derivatives, could, if widely used for payments, displace euro denominated payments in the Union’s economy by satisfying demand for programmable payments (which are referred as conditional payments in the context of this Regulation), including in e-commerce, capital markets or industry 4.0. A digital euro would therefore be important to maintain the role of the euro in the digital age.",
-     "(8) It is therefore necessary to lay down a legal framework for establishing a digital form of the euro with the status of legal tender, for retail use ▌. As the digital euro is a new form of the euro available to the general public, ▌it is ▌necessary to establish it and to regulate its main characteristics, as a measure of monetary law. The European Central Bank is competent to issue and to authorise the issuance of the digital euro by national central banks of the Member States whose currency is the euro, exercising its powers under the Treaties. On the basis of those powers and in accordance with the legal framework set out in this Regulation, the European Central Bank should thus be able to decide whether to issue the digital euro, at which times and in what amounts, and other particular measures that are intrinsically connected to its issuance, in addition to banknotes and coins.",
-     "(8a) To ensure the integrity and independence of the Union’s institutional framework, it is necessary for the European Central Bank to maintain a clear separation between, on the one hand, its activities related to the management of the digital euro and, on the other, its monetary policy, supervisory and payment systems oversight tasks under the Treaty on the Functioning of the European Union (TFEU). Establishing robust safeguards against potential conflicts of interest is essential to preserve the impartiality of decisionmaking and uphold public confidence in the digital euro.",
-     "(8b) To ensure transparency, predictability and adequate preparation by all stakeholders, the European Central Bank should publicly announce the envisaged date of the first issuance of the digital euro once it has authorised its issuance.",
-     "(8c) In view of the technical and organisational complexity of preparing for the digital euro, the European Central Bank should undertake all necessary preparatory work ahead of that issuance. Such preparatory work includes finalising the digital euro scheme rulebook, developing and deploying the required infrastructure, establishing appropriate governance provisions, conducting pilot testing and defining clear liability rules.",
-     "(8d) Following the authorisation of the issuance of the digital euro, the European Central Bank should provide for a rollout phase of at least 24 months to allow the Eurosystem, payment service providers and digital euro users to reach the necessary level of readiness for a secure, resilient and gradual adaptation. A rollout phase involves a progressive and controlled introduction of the new instrument, during which technical systems are scaled up, operational processes are tested in realworld conditions, and users and intermediaries are supported in transitioning to the new environment. Any possible postponement of the date of the first issuance of the digital euro by the European Central Bank should not necessarily be reflected in the duration of the roll-out period.",
-     "(8e) In addition, before the first issuance of the digital euro, the European Central Bank should carry out pilot testing in a controlled reallife environment for an adequate period of time in order to verify the digital euro’s technical reliability, security features and usability. The pilot testing should cover both online and offline digital euro functionalities, with particular attention to offlinespecific cyber risks such as doublespending prevention, device integrity, and the resilience of secure elements. It should involve a voluntary and representative selection of payment service providers, merchants and end users established or residing in Member States whose currency is the euro, reflecting diverse technological environments, network conditions, device types and user profiles. The pilot testing should be able to include end users from vulnerable groups such as elderly persons, persons with limited digital skills, and persons with disabilities, so as to confirm that the digital euro is accessible and usable for all population groups, including those who are digitally excluded or rely heavily on cash. After completion of the pilot testing, the European Central Bank should publish a report summarising the results and any identified shortcomings and corrective measures taken, including in relation to cybersecurity, operational resilience and privacy protection, and transmit it to the European Parliament, the Council and the Commission.",
-     "(9) Like euro banknotes and coins, the digital euro should be a direct liability on the balance sheet of the European Central Bank or of the national central banks of the Member States whose currency is the euro towards digital euro users. The digital euro should be issued for an amount equal to the face value of the corresponding liability on the consolidated balance sheet of the European Central Bank and the national central banks of the Member States whose currency is the euro, in particular by converting payment service providers’ central bank reserves into digital euro holdings, to satisfy demand from digital euro users. To hold and use digital euros, digital euro users should only need to establish a contractual relationship with payment service providers distributing the digital euro to open digital euro payment accounts. No account or other contractual relationship would be established between the digital euro user and the European Central Bank or the national central banks. Payment service providers should manage the digital euro accounts of digital euro users on their behalf and provide them with digital euro payment services. Since payment service providers are not a party to the direct liability held by digital euro users towards the European Central Bank and the national central banks of the Member States whose currency is the euro, and are acting on behalf of digital euro users, the insolvency of payment service providers would not affect digital euro users.",
-     "(10) The digital euro should be governed by the provisions of this Regulation. They may be supplemented by the delegated acts that the Commission is empowered to adopt pursuant to Articles 14, 16a, 34, 35, 36, 37 and 38, and by the implementing acts pursuant to Articles 17, 17a, 19, 33 that the Commission is empowered to adopt pursuant to Article 39. In addition, within the framework of this Regulation and its delegated acts, the European Central Bank may adopt detailed measures, rules and standards pursuant to its own competences. Where such measures, rules and standards have an impact on the protection of individual’s rights and freedoms with regard to the processing of personal data, the European Central Bank should consult the European Data Protection Supervisor. Such detailed measures, rules and standards should fully implement the principles of data minimisation, and of data protection by design and by default, as defined in Regulation (EU) 2016/679, and shall implement privacy-enhancing technologies. To ensure legal certainty, the Regulation also clarifies that the digital euro is subject to Directive (EU) 2024/1640 of the European Parliament and of the Council,▌and to Regulation (EU) 2023/1113 of the European Parliament and of the Council, ▌without prejudice to the adjusted anti-money laundering and counter terrorist financing framework laid down in this regulation for offline digital euro payment transactions. Digital euro payment transactions and the related payment services are also subject to Directive (EU) 2015/2366 of the European Parliament and of the Council, ▌which has provided that ‘funds’ include central bank money issued for retail use (i.e. banknotes, coins and central bank digital currencies), and to Regulation (EU) 2021/1230 of the European Parliament and of the Council. In addition, payment service providers providing digital euro payment services are subject to Regulation (EU) 2022/2554 of the European Parliament and of the Council.",
-     "(10a) To support the consistent and effective implementation of the digital euro, the European Central Bank should establish an advisory platform dedicated to the digital euro scheme rulebook. That platform should contribute on an ongoing basis to matters such as interoperability between payment service providers, the functioning of the digital euro settlement infrastructure, usability considerations and the development of technical standards for digital euro payment services. Its composition should include participants from the market for payment services, merchants, and representatives of end users and consumer organisations, and should operate with full transparency regarding its membership and working methods. The European Central Bank should also ensure public transparency of the discussions held within the advisory platform.",
-     "(11) To ensure the effective protection of the legal tender status of the digital euro as a single currency throughout the euro area, and the acceptance of payments in digital euro, rules on sanctions for infringements should be introduced and applied in the Member States.",
-     "(12) The relevant provisions of Directive (EU) 2015/2366 ▌, Directive (EU) 2024/1640 and Regulation (EU) 2016/679 of the European Parliament and of the Council should govern the supervision by competent authorities and the sanctions regime and supervisory arrangements between the competent authorities of the home Member States and of the host Member States, concerning the activities of Payment Services Providers established in Member States whose currency is not the euro. To ensure an efficient supervision of payment services providers distributing the digital euro, the competent authorities responsible under Directive (EU) 2015/2366 for supervising the provision of payment services should also cooperate with the European Central Bank for the purposes of supervising the application of payment-related obligations laid down in this Regulation▌. Any personal data processing under this Regulation must comply with Regulation (EU) 2016/679 and Regulation (EU) 2018/1725 of the European Parliament and of the Council insofar as they fall within their respective scope of application. Therefore, the supervisory authorities under Regulation (EU) 2016/679 and Regulation (EU) 2018/1725 are responsible for the supervision of processing of personal data carried out in the context of this Regulation.",
-     "(13) Member States, their relevant authorities and payment service providers should take adequate measures among citizens and merchants to ensure the necessary level of awareness and knowledge about the possibilities of access to the digital euro, its use, and its impact on resilience, inclusiveness, and accessibility. Those awarenessraising activities should be carried out in close coordination with all relevant stakeholders, including the European Central Bank, the national central banks and the relevant market participants, so as to ensure coherent, accurate and widely accessible communication across the Union.",
-     "(14) According to the case-law of the Court of Justice of the European Union , the concept of ‘legal tender’ of a means of payment denominated in a currency unit signifies, in its ordinary sense, that that means of payment cannot generally be refused in settlement of a debt denominated in the same currency unit, at its full-face value, with the effect of discharging the debt.",
-     "(15) Legal tender status is a defining characteristic of central bank money. In the euro area, until now euro banknotes and coins are the only means of payment that have the status of legal tender, pursuant to Article 128(1) of the ▌TFEU) and Articles 10 and 11 of Council Regulation (EC) No 974/98 ▌.",
-     "(16) The digital euro, as a digital currency with the status of legal tender denominated in euro issued by the European Central Bank and national central banks of the Member States whose currency is the euro, as part of the Eurosystem, should be widely accessible, usable and accepted as a means of payment. Granting legal tender status to the digital euro should support its usability in payments across the euro area and thus also support the efforts to ensure the continued availability and accessibility of central bank money ▌, as cash alone cannot address the needs of a rapidly digitalising economy. In addition, the mandatory acceptance of payments in digital euro as one of the main conditions of the legal tender status ensures that people and businesses benefit from a wide acceptance and have a real choice to pay with central bank money in a digital way and in a uniform manner throughout the euro area.",
-     "(17) The digital euro should have legal tender status for payments of a monetary debt denominated in euro to ▌a payee residing or established in the euro area, where the payer is also residing or established in the euro area. ▌In cases where the payee is required to accept both online and offline digital euro payment transactions, the payer should remain free to choose whether to pay with the online or offline digital euro payment functionality. That upholds the principle of legal tender, ensuring that the digital euro is accepted for both online and offline digital euro payment transactions, while respecting the freedom of choice of the payer.",
-     "(18) Since the digital euro requires the capacity to accept digital means of payment, imposing an obligation of mandatory acceptance of payments in digital euro on all payees could be disproportionate. To this end, exceptions to the mandatory acceptance of payments in digital euro should be provided for natural persons acting as self-employed persons in a commercial activity or in the course of a purely personal or household activity. Exceptions to mandatory acceptance should also be provided for small and micro enterprises, which are particularly important in the euro area for the development of entrepreneurship job creation and innovation, playing a vital role in shaping the economy. Union policies and actions should reduce regulatory burdens for enterprises of that size. Exceptions to mandatory acceptance should also be provided for non-profit legal entities which promote the public interest and serve the public good performing a variety of goals of societal interest, including equity, education, health, environmental protection and human rights. For small and microenterprises and non-profit legal entities, the acquisition of the required infrastructure and the acceptance costs could be disproportionate. They should therefore be exempted from the obligation to accept payments in digital euro. In such cases, other means for the settlement of monetary debts should remain available. Nevertheless, small and microenterprises and non-profit legal entities that accept other digital means of payment from payers should be subject to the mandatory acceptance of payments in digital euro. Other digital means of payment should include debit card payment or instant payment or other future technological solutions used at the point of interaction, but should exclude credit transfer and direct debit that are not initiated at the point of interaction. Small and micro enterprises and non-profit legal entities that do not accept other digital means of payment from their payers in settlement of a debt (e.g. they only accept euro banknotes and coins) ▌ should not be subject to the mandatory acceptance of payments in digital euro. ▌A payee may also refuse a payment in digital euro if the refusal is made in good faith and if the payee justifies the refusal on legitimate and temporary grounds, proportionate to concrete circumstances beyond its control, leading to an impossibility to accept payments in digital euro at the relevant time of the transaction, such as a power outage in the case of online digital euro payment transactions, or a defective device in the case of offline or online digital euro payment transactions. Finally, a payee should be able to refuse a payment in digital euro when the payment is to be done at an unmanned point of sale that does not support any other digital means of payment.",
-     "▌",
-     "(20) In order to ensure that people and businesses benefit from a wide acceptance network and are able to effectively use the digital euro in their day-to-day payments, payees who are subject to the mandatory acceptance of payments in digital euro should not unilaterally exclude payments in digital euro through contractual terms that have not been individually negotiated, where the payer is a consumer or a self-employed person engaged in a commercial activity. Such payees should also refrain from engaging in commercial practices that have the object or effect of excluding the use of the digital euro by payers of monetary debts denominated in euro.",
-     "(21) The main objective of the establishment of the digital euro is its use as a form of the single currency with legal tender in the euro area. For this purpose and in line with the Agreement on the European Economic Area, digital euro users residing or established in the euro area, including individuals belonging to vulnerable groups, such as individuals with no fixed address, asylum seekers, beneficiaries of international protection, or consumers who are not granted a residence permit but whose expulsion is impossible for legal or factual reasons, may be provided with digital euro payment services by PSPs established in the European Economic Area. Natural or legal persons residing or established in Member States whose currency is not the euro, or in third countries, should also be allowed to receive digital euro payment services while they exercise their rights of free movement in a Member State whose currency is the euro. That would cover, among others, citizens who have a right to work, study or provide goods and services in a Member State whose currency is the euro even though they do not reside there. Furthermore, natural and legal persons who were already receiving digital euro payment services, because they opened a digital euro payment account at the time they resided or were established in a Member State whose currency is the euro, but no longer reside or are established in such Member State, may still receive digital euro payment services by payment service providers established in the European Economic Area, in line with the Agreement on the European Economic Area ▌. Finally, visitors to the euro area should also be allowed to receive digital euro payment services. The European Central Bank should be able to define and impose restrictions on the access and use in time of the digital euro for visitors to the euro area and natural and legal persons who no longer reside nor are established in Member States whose currency is the euro.",
-     "(22) In accordance with Directive (EU) 2015/2366 of the European Parliament and the Council, the notion of ‘funds’ means banknotes and coins, scriptural money or electronic money. As a new form of central bank money with legal tender, the digital euro should be considered as funds under Directive (EU) 2015/2366. It should be ensured that payment service providers distributing the digital euro should be subject to the requirements laid down in this Directive as transposed by Member States and supervised for this purpose by the competent authorities referred to in this Directive as well. When issuing the digital euro, the European Central Bank and national central banks of the Member States whose currency is the euro, as part of the Eurosystem, would be acting in their capacity as monetary authority and should therefore not subject to Directive (EU) 2015/2366 in accordance with Article 1(e) of that Directive.",
-     "(23) Digital euro payment accounts are a category of payment accounts denominated in euro through which digital euro users are able to carry out inter alia the following transactions: place funds, withdraw cash and execute and receive payment transactions to and from third parties, irrespective of the technology used and the structure of the ledger or of the data (e.g. whether digital euros are recorded as holding balances or units of value). Where these activities require processing of personal data, the payment service providers should be controllers.",
-     "(23a) Payment service providers that provide account servicing payment services within the meaning of [PSD3/PSR] should enable digital euro users who are natural persons to manually or automatically fund or defund their digital euro payment accounts from or to non-digital euro payment accounts at any point in time. In contrast, legal or natural persons acting as self-employed in a commercial activity should be enabled only to automatically defund their digital euro holdings to a non-digital euro payment account at any point in time, in line with the digital euro holding restrictions applicable to them. In addition, natural persons should be able to fund or defund their digital euro payment accounts from or to euro banknotes and coins, whenever the payment service provider provides cash services. When it does so, cash funding and defunding functionalities in respect of digital euro payment accounts should be provided by the payment service provider in the same manner as that provider provides cash in respect of non-digital euro pament accounts, thus ensuring that digital euro funding and defunding operations are subject to the same terms and conditions which each specific provider applies to cash services, including being free of charge where applicable.",
-     "(23b) With the exception of the funding and defunding resulting from offline digital euro payment transactions, the funding and defunding of local storage devices should always take place through digital euro payment accounts. As such, payment service providers that provide account servicing payment services within the meaning of [PSD3/PSR] should enable natural persons to manually or automatically fund or defund their local storage devices from or to the correspective digital euro payment accouunts at any point in time.",
-     "▌",
-     "(26) To support universal access to the digital euro by the general public in the euro area, and to foster innovation and a high level of competition in the retail payment market, all the relevant intermediaries should be able to distribute the digital euro. All account servicing payment service providers under Directive (EU) 2015/2366, including credit institutions, electronic money institutions, payment institutions, post office giro institutions which are entitled under national law to provide payment services, the European Central Bank and national central banks of Member States whose currency is the euro, as part of the Eurosystem, when not acting in their capacity as monetary authority or other public authorities, and Member States or their regional or local authorities when not acting in their capacity as public authorities should be able to provide digital euro payment accounts and the related digital euro payment services, regardless of their location in the European Economic Area. Crypto asset services providers regulated under Regulation (EU) 2023/1114 of the European Parliament and of the Council that are account servicing payment service providers under Directive (EU) 2015/2366 should also be allowed to distribute the digital euro. ▌",
-     "(27) In case the availability of the digital euro were contingent upon free business decisions by all payment service providers, the digital euro could be marginalised or even excluded by the payment service providers. That could prevent users from paying and receiving payments in a form of currency endowed with the status of legal tender. In that case, the singleness in the use of the digital euro throughout the euro area required by Article 133 TFEU, would not be guaranteed. It is therefore essential that designated payment service providers be required to distribute digital euro and provide mandatory digital euro acquiring services and that payees under the acceptance obligation have guaranteed access to mandatory digital euro acquiring services.",
-     "(28) A requirement to distribute the digital euro should be proportionate to the objective of ensuring an effective use of the digital euro as a legal tender means of payment. Restricting that obligation to credit institutions that are already active in retail business services would ensure the effectiveness of legal tender status, while avoiding putting a disproportionate burden on payment service providers with specialised, non-consumer oriented business models. The obligation to distribute the digital euro is therefore limited to credit institutions providing payment account services at the request of their clients. This is without prejudice to the application of Chapter IV of the Payment Account Directive on access to payment account with basic features to the access to digital euro account with basic features to consumers which are not client of a credit institution. The obligation for payment service providers to provide mandatory digital euro acquiring services is limited to their clients who are under the acceptance obligation and to whom they already provide acquiring services.",
-     "(29) To ensure a wide usage of the digital euro, including for people who do not have a non-digital euro payment account, do not wish to open a digital euro payment account at a credit institution or at another payment service providers that may distribute the digital euro, or persons with disabilities, functional limitations or limited digital skills, and elderly persons, it is essential that public entities, including local or regional authorities, or postal offices, distribute the digital euro. For that purpose, Member States should designate one or more public payment service providers that should carry out that task within their territory. In addition, Member States should be able to entrust such services to one or more private service providers, following a public procurement procedure for that purpose. Member States should also be permitted, by mutual agreeent with another Member State, to designate the authority designated in that other Member State to provide such services as its own designated authority, provided that its citizens are granted the same conditions and the same ease of access as they would receive if the authority were established in their own Member State. Such entities, as payment services providers under Directive (EU) 2015/2366, should comply with the provisions of this Regulation, including Directive (EU) 2015/2366 and Directive (EU) 2015/849.",
-     "(29a) To ensure that access to basic digital euro payment services is effective for vulnerable groups, the application of anti-money laundering and countering the financing of terrorism (AML/CFT) requirements should be specified in a manner that ensure consistency with, and does not undermine, the objective of financial inclusion. In particular, asylum seekers, beneficiaries of international protection, persons with no fixed address and third-country nationals who are not granted a residence permit but whose removal is impossible for legal or factual reasons, can face difficulties in satisfying standard customer due diligence requirements where they are unable to provide official identity documents or a proof of address. The Authority for Anti-Money Laundering and Countering the Financing of Terrorism (AMLA), established by Regulation (EU) 2024/1620 of the European Parliament and of the Council and the European Supervisory Authority (European Banking Authority) (EBA), esablished by Regulation (EU) No 1093/2010 of the European Parliament and of the Council, should therefore, building on existing guidelines, specify the interaction between AML/CFT requirements and the provision of basic digital euro payment services, including the possibility of onboarding on the basis of alternative means of identification and verification or the conditions under which payment service providers are able to apply simplified due diligence or postpone verification where appropriate in accordance with a risk-based approach.",
-     "(29b) The digital euro should contribute to safeguarding the strategic autonomy of the Union and ensuring that natural and legal persons residing or established in the Union can access and use payment services without undue interference from third countries. To that end, the digital euro should be distributed through public providers or designated entities and ensure universal accessibility and continuity of access. Such distribution channels should contribute to protecting users from disruptions resulting from the extra-territorial application of third-country legislation or sanctions not recognised by the Union. Where persons or entities are affected by an undue interruption, restriction or denial of access to digital payments resulting from such extraterritorial effects of third-country sanctions, the Commission should be able to adopt targeted, temporary and proportionate exceptional measures to restore or preserve effective access to digital euro payment services. Such measures could include temporary adjustments to online or offline transaction or holding limits, the transfer of a digital euro account to a public provider or designated entity, or other operational measures necessary to ensure the continuity and effectiveness of access to the digital euro. Such measures are without prejudice to the application of any restrictive measure adopted by the Union and to the obligations of payment service providers under Union law relating to AML/CFT.",
-     "(30) To enable a wide usage of the digital euro and keep pace with innovation in digital payments, digital euro payment services should include basic and additional digital euro payment services. Basic digital euro payment services are payment, account or support services that are considered essential for the use of the digital euro by natural persons. This includes inter alia the provision, upon request of the user, of at least one payment instrument to natural persons, beyond the digital euro user interface, such as a payment card. Payment service providers that decide to provide digital euro payment services to consummers or do so upon the request of their clients should provide the entire set of basic digital euro payment services. In addition to these basic digital euro payment services, account servicing payment service providers and other payment service providers under Directive 2015/2366 may develop and provide additional digital euro payment services. Additional digital euro payment services include for instance conditional digital euro payment transactions like pay-per-use or payment initiation services. The digital euro infrastructure should facilitate the deployment of such optional services.",
-     "▌",
-     "(32) An unrestricted use of digital euro as a store of value could endanger financial stability in the euro area, and undermine the capacity of credit institutions to provide credit to the economy. Accordingly, it is necessary for the European Central Bank, with a view to safeguarding monetary sovereignty and to mitigating risks to the stability of the financial system, while respecting the principle of proportionality and the broader objectives of the digital euro, to define quantitative limits on the digital euro holdings of natural persons and to develop, where needed, other instruments to limit the use of the digital euro as a store of value, such as limits to conversion of other categories of funds to digital euro in a specified timeframe. Holding limits should be calibrated, in particular, with a view to safeguarding monetary sovereignty, supporting monetary policy, ensuring the usability and acceptance of the digital euro as a legal tender instrument, and contributing to mitigating risks of a significant outflow of retail deposits and structural disintermediation in the banking sector. Those limits should be in place before the first issuance of the digital euro across the euro area to ensure the use of the digital euro as a single currency. When deciding on the parameters to set the limits and use of such instruments ▌, the European Central Bank should, in particular, respect the principle of an open market economy with free competition, in accordance with Article 127(1) TFEU.",
-     "(32a) Prior to setting quantitative limits on digital euro holdings, the European Central Bank should, after consulting the European Systemic Risk Board, assess the impact of such limits not only at Union level, but also at Member State level, having regard to the different business models of Union deposit-taking institutions, to ensure that the introduction of the digital euro does not entail any financial instability. When carrying out that assessment, the European Central Bank should consider stress scenarios, including with regard to severe liquidity and tail-risk events, and analyse the granular data concerning the distribution of deposit structures within deposit-taking entities across the Union banking sector, including with regard to the weight of small-value deposits in bank funding and the specific deposit structure of financial institutions primarily relying on retail small-value deposits.",
-     "(32b) As a general rule, legal persons should not maintain any digital euro holdings. Nonetheless, legal persons, when acting as payees in digital euro payment transactions, should be allowed to temporarily accumulate digital euro holdings of incoming digital euro payments for a maximum period of 24 hours, to allow for consolidated defunding operations that combine multiple individual defunding operations (‘batch defunding’), similar to the emptying of cash registries. Additionally, allowing legal entities to temporarily maintain holdings of digital euro with no limits during severe disruptions of the network is appropriate to ensure that citizens are not deprived of a soverign payment solution in crisis situations. As soon as the network disruption comes to an end, such temporary holdings should be automatically defunded to the corresponding non-digital euro accounts.",
-     "(33) Limits should not be used to substitute for early intervention or other supervisory measures. Neither should such limits be imposed to address situations of individual credit institutions which competent resolution authorities or other relevant authorities would normally deal with by using tools and powers at their disposal, including suspensions of payment, moratoria, measures available under Directive 2013/36/EU, Directive 2014/59/EU or Regulation (EU) No 806/2014, or other similar measures which are aimed at restoring the viability, resolving the institution concerned or otherwise remedying the situation of financial distress.",
-     "(33a) There should be an overall ceiling to the quantitative limits on digital euro holdings of natural persons defined by the European Central Bank. For the purpose of establishing that celing, the Europen Central Bank should, following the publication of a technical report on the specific quantitative limits on digital euro holdings of natural persons and on any instruments developed to limit the use of the digital euro as a store of value, submit a recommendation to the European Parliament, the Council and the Commission on the figure for the overall ceiling. Within three months of receipt of that recommendation, the Commission should adopt a delegated act to set the overall ceiling to the quantitative limits on digital euro holdings of natural persons, which should be set at a level that avoids interference with the European Central Bank’s exclusive power to authorise the issuance of the digital euro. To avoid a scenario where the digital euro is issued without a quantiative limit on digital euro holdings for natural persons first being set, in the event that the Commission delegated act is not in force at the latest by six months from the notification of the delegated act to the European Parliament and the Council on the overall ceiling (for example as the result of an objection being expressed by the European Parliament or the Council), the European Central Bank should be entitled to move forward with the definition of the the quantitative limits on digital euro holdings for natural persons in line with its technical report. However, as soon as the delegated act enters into force, the European Central Bank should adjust the quantitive limits set in accordance with that ceiling.",
-     "(33b) The overall ceiling for quantitative limits on the digital euro holdings of natural persons should be reviewed at least every two years. To that end, at least six months before the end of every two-year period after the entry into force of the delegated act that sets the overall ceiling to the quantitative limits on digital euro holdings of natural persons, the European Central Bank should publish a new recommendation for the updated figure of the overall ceiling and submit it to the European Parliament, to the Council and to the Commission. In line with the recommendation from the European Central Bank, the Commission is empowered to adopt a delegated act to revise the overall ceiling.",
-     "▌",
-     "(36) The digital euro should allow for a smooth payment experience. Any limits or instruments that the European Central Bank might employ to ▌ digital euro’s store of value function should take this objective into account. Automated mechanisms that link a digital euro payment account with a non-digital euro payment account should allow for an uninhibited payment functionality of the digital euro, by ensuring that transactions are successfully executed in the presence of individual digital euro holding limits that may become binding on the payer’s or payee’s side. In particular, digital euro users should be able to initiate a digital euro payment transaction even though the amount of their digital euro holdings is inferior to the amount of the transaction, by automatically mobilising funds from a non-digital euro payment account to complement the transaction amount (‘reverse waterfall functionality’). Conversely, digital euro users should be able to receive digital euro payment transactions even though the amount of the transaction exceeds the limit set on their digital euro holdings, by automatically transferring funds in excess of the limit to a non-digital euro payment account (‘waterfall functionality’). Such payment functionalities should be expressly authorized by digital euro users. Where digital euro payment account held by one payment service provider is linked to a non-digital euro payment account held by another payment service provider, the waterfall functionality should be enabled. In contrast, the reverse waterfall functionality should only be available where two payment service providers have entered into an arrangement defining the conditions for enabling the funding and defunding functionalities provided by the payment service provider holding the non-digital euro payment account. Any other funding and defunding functionality apart fom waterfall and reverse waterfall should only be available when the operations take place between the same payment service provider, unless payment service providers enter into specific voluntary contractual arrangements for such purposes.",
-     "(37) While instruments employed by the European Central Bank to limit an excessive use of the digital euro as a store of value aim at safeguarding financial stability and financial intermediation, they may nonetheless impact on and interact with the European Central Bank’s monetary policy stance. Such instruments would therefore need to be applied uniformly across the euro area in order to ensure the use of the digital euro as a single currency and the singleness of the monetary policy. Furthermore, a uniform application would be necessary to ensure a level playing field for payment service providers in the European single market or avoid an overly complex enforcement of any instrument through payment service providers on the basis of digital euro users’ residency. ▌The digital euro should not bear interest and, as such, the European Central Bank and the national central banks, as issuers of the digital euro, should neither pay nor charge interest to a digital euro user for the mere holding of digital euros.",
-     "(38) Limits to the use of the digital euro for digital euro users residing or established outside the euro area should not be more favourable than for digital euro users residing or established in the euro area, also to cater for monetary sovereignty and financial stability concerns both within and outside the euro area.",
-     "(39) Any limits to the store of value function that the European Central Bank decided on should be binding on and implemented by the payment service providers distributing the digital euro. While natural ▌persons may have one or more digital euro payment accounts at the same payment service provider or at different payment service providers, they should be subject to an individual holding limit that a digital euro user may allocate across different payment services providers. Payment service providers may offer digital euro users the possibility to legally have a joint digital euro payment account. In this case, any holding limit applied to the joint digital euro payment account should be equal to the sum of the allocated holding limits of the digital euro users. Where a digital euro payment account is legally held by only one digital euro user, but can be technically accessed to and used by several persons, upon de facto or legal mandate given by the digital euro user, any holding limit applied to the digital euro payment account should be equal to the sum of the individual holding limits allocated to it by each of its users.",
-     "(39a) The quantitive limits on digital euro holdings apply both to the online and offline digital euro payment functionality. As a digital euro user, a natural person could set its limits to offline digital euro holding at any amount between zero and the specific holding limit set to that functionality. Accordingly, for a natural person using both online and offline digital euro payment functionalities, the limit that applies to digital euro holdings should equal the value resulting from the specific quantitative overall holding limit of digital euro holdings defined by the European Central Bank, deducted for the limit for offline digital euro holdings determined by that user.",
-     "(40) To ensure wide access to and use of the digital euro, consistent with its status of legal tender, and to support its role as monetary anchor in the euro area, natural persons residing in the euro area, natural persons who opened a digital euro payment account at the time they resided in the euro area, but no longer reside there, as well as visitors to the euro area, and natural persons acting as self-employed in a commercial activity in their capacity as payer, should not be charged for basic digital euro payment services. That means that such digital euro users should not bear any direct fees for their basic access to and basic use of the digital euro, including not being charged transaction fees or any other fees that are directly associated with the provision of services related to the basic use of the digital euro.▌ Where the digital euro user asks to receive only basic digital euro payment services with a payment service provider, those services should not be charged, including for waterfall ▌where the digital euro user also has a non-digital euro payment account with another payment service provider. ▌",
-     "(40a) Payment service providers should be able to charge digital euro users for additional digital euro payment services beyond the basic digital euro payment services. However, payment service providers should not impose commercial practices which have the purpose or effect of circumventing the right of digital euro users to have basic digital euro payment services provided free of charge. Such commercial practices include, among others, account maintenance fees, inactivity fees, minimum balance requirements, or similar charges on digital euro accounts for basic digital euro payment services. For the same reason, payment service providers should not bundle basic digital euro payment services with additional services in a manner that makes it impossible or unreasonably difficult for digital euro users to access basic digital euro payment services without charge. Digital euro users should not be required to have or open a non-digital euro payment account or to accept other non-digital euro products and should not be discriminated against in any way by their payment service provider for choosing to use only basic digital euro payment services, to the detriment of any other additional services provided by the same payment service provider. Where a digital euro user agrees to a package of services comprising both non-digital euro services and basic digital euro payment services, the payment service provider should provide clear information to the user about the charge applicable to the services for the non-digital euro services only, to ensure that all basic digital euro payment services, including the opening, holding and management of a digital euro payment account, remain as a free addition to that package. Any fees for additional services provided beyond the basic digital euro payment services should be clearly disclosed in advance, individually negotiated and separately itemised from those basic digital euro payment services and be set contractually.",
-     "(41) ▌The European Central Bank and the national central banks should not charge payment service providers for the tasks that they perform through the digital euro settlement infrastructure, nor for the provision of support services to payment service providers. Since the European Central Bank and the national central banks should not charge settlement and scheme fees to payment service providers, the fees charged by payment service providers to digital euro users or to other payment service providers should not include costs of activities for which the European Central Bank and the national central banks bear the costs, including settlement and scheme activities.",
-     "(42) As the digital euro is a form of the single currency having legal tender status, digital euro payment transactions should not be subject to excessive fees by payment service providers. In particular, granting the digital euro legal tender status, with the corollary of mandatory acceptance, means that merchants would have no choice but to accept digital euro payment transactions. Furthermore, any charge or fee per transaction or period erodes, directly or indirectly, the face value of payments received, which is an essential component of the legal tender status. It is therefore essential that a fee or a charge, as a restriction of the face value of the digital euro, be objectively justified and proportionate to the objective of ensuring an effective use of the digital euro as a legal tender means of payment. For those reasons, any merchant service charges and inter-payment service provider fees in relation to digital euro payment transactions are subject to specific euro-area uniform caps.",
-     "(42a) A transparent and equitable level playing field between payment service providers requires that the total fees charged for digital euro payment transactions should be aggregated into a single merchant service charge, thus avoiding any hidden or duplicative costs for merchants. That merchant service charge should represent the totality of costs applied by payment service providers for acquiring services and should be expressed as a percentage of the total value of transactions processed over a given period, irrespective of the underlying pricing model. The inter-payment service provider fee should provide sufficient compensation for the distribution costs of the distributing service providers. Offline digital euro transactions should not be subject to any inter-payment service fee or any merchant service charge, given that the settlement of those transactions takes place device-to-device without the intermediation of any payment service provider. Inter-payment service fees should also not apply to funding and defunding operations with payment service providers belonging to the same economic group.",
-     "(42b) In order to ensure the effective use of the digital euro as legal tender, to prevent unjustified or disproportionate charges to merchants, and to provide adequate compensation for payment service providers, this Regulation should establish rules on fees and charges that duly take account of the fact that the use of the digital euro will develop over time and that it may only reach a sufficiently stable situation once a significant period of time has elapsed from its first issuance.",
-     "(42c) During the initial phase after the first issuance of the digital euro, the absence of reliable cost data and the lack of stabilised unit costs mean that it will not be possible to calculate the euro-area uniform caps on the basis of actual costs incurred for the provision of digital euro payment services. Consequently, the euro-area uniform caps applicable to both inter-payment service provider fees and merchant service charges during at least the first phase of application of this Regulation should be based on relevant data concerning comparable digital means of payment, comprising both international and domestic consumer debit card schemes that can be used by consumers at points of sale and in e-commerce. The Commission, with the technical assistance of the European Central Bank, should adopt the necessary implementing acts to determine, publish and periodically review the euro-area uniform caps, following a methodology that is based on the weighted average fee and charge levels based on volume of the inter-payment service provider fee and the merchant service charge applied to the comparable digital means of payment during the preceding 12-month period, relative to the aggregate value of payment transactions in that period.",
-     "(42d) The calculation of the euro-area uniform caps, based on the weighted average fee and charge levels, should be subject to an adjustment factor bearing in mind that payment service providers will have to make investments associated with connecting to the digital euro payment infrastructure, that the public nature of the digital euro payment infrastructure absorbs any scheme and processing fee, and that the cost reduction should be assigned equally among payment service providers and merchants. The adjustment factor aims to provide an additional incentive for merchants to use the digital euro, in the sense that it might be helpful in leaving them in a situation where they can positively benefit from the compensation model applied to the digital euro, in comparison to card schemes.",
-     "(42e) As a final feature of the calculation of the euro-area uniform caps, it is important to guarantee a ‘no worse-off principle’ for all merchants to make sure that, irrespective of the value of the euro-area uniform cap, no merchant is charged a higher merchant service charge by a payment service provider for the provision of a digital euro payment service than it would be charged by that same payment service provider in respect of any comparable digital means of payment. The Commission, with the technical assistance of the European Central Bank, should collect all of the information on fees and charges necessary to implement the ‘no-worse off principle’ and peiodically publish the aggregated amounts of the relevant data. Additionally, payment service providers should disclose to their clients in a standardised format that is clear, simple and easy to understand, and that facilitates comparison of information about the fees charged for the provision of acquiring services with comparable digital means of payment for that specific merchant. The application of the ‘no worse-off principle’ takes account of concrete national specificities, including national system wide exceptions in the determination of the fees thereby ensuring that the digital euro will not make any person pay more than what that person is currently charged for comparable digital means of payment. Such national specificities may include arrangements establishing specific treatment of small value payments. The ‘no worse-off’ principle should ensure that merchants benefiting from such arrangements are not placed in a worse position than under the comparable means of payment to which those agreements apply.",
-     "(42f) Without prejudice to the euro-area uniform caps fee system, by no later than five years after the first issuance of the digital euro, the Commission, after consulting the European Central Bank, should carry out a review and evaluate the conditions for the application of a cost-based compensation model. That review should be able to be carried out beforehand if the Commission considers that relevant, sufficient and reliable data for digital euro transactions are available in an accurate, harmonised and verifiable manner, and that the average unit cots and volume of total digital euro transactions have stabilised after consumers’ adoption period. If the Commission concludes that the fees and charges that could result from a cost-based compensation model, including a reasonable margin of profit, are lower than those resulting from a model based on the euro-area uniform caps fee system, it should adopt an implementing act to establish uniform conditions for a new cost-based compensation model, which will replace the euro-area uniform caps fee system. If the Commission considers that those conditions are not met, it should repeat the review on a biannual basis, for a maximum of five years.",
-     "(42g) The cost-based compensation model to be implemented by the Commission should guarantee that merchant service charges or inter-payment service provider fees is determined by the relevant costs incurred by a group of the most efficient payment service providers for the provision of digital euro payment services, including a reasonable margin of profit, calculated on the basis of the profit margin applied by those payment service providers charging the lowest margins distributed in the euro area in a given year. Additionally, the cost-based compensation model should be applied in an uniform and non-discriminatory manner across the Union, ensuring a homogeneous regime for all payment service providers and merchants, and should provide for proportionate treatment for small value transactions initiated in microenterprises, including the possibility for a flat fee or per transaction fee, to avoid disproportionate cost burdens.",
-     "(42h) The Commission, with the technical assistance of the European Central Bank, should reassess the cost-based compensation model at least every five years after its implementation and update the model accordingly. The reasessment of the model should only cease in the event that the Commission concludes at a certain point that the relevant costs are zero or near to zero.",
-     "▌",
-     "(46) The distribution of the digital euro by natural or legal persons residing or established outside the euro area would contribute to foster the international use of the euro. This would also bring benefits to the euro area and other economies by facilitating cross-border payments for the purpose of trade or remittances, in line with the G20 agenda.",
-     "(47) An excessive distribution of the digital euro outside the euro area could have an unwanted impact on the size and composition of the consolidated balance sheet of the European Central Bank and national central banks. Impacts on monetary sovereignty and financial stability of non-euro area countries may also differ depending on the use of the digital euro outside the euro area. Those impacts could be harmful in case the digital euro replaces the local currency in a high number of domestic transactions. In particular, a situation in which the digital euro becomes dominant in a Member State whose currency is not the euro, thus de facto replacing the national currency, could interfere with the euro area adoption criteria and process set out in Article 140 TFEU. To avoid undesirable effects and prevent monetary sovereignty and financial stability risks, both within and outside the euro area, it is necessary to provide for the possibility for the Union to conclude agreements with third countries, and for the European Central Bank to conclude arrangements with the national central banks of Member States whose currency is not the euro and with the national central banks of third countries, to specify the conditions for the regular provision of digital euro payment services to digital euro users residing or established outside the euro area. Such agreements and arrangements should not cover visitors to the euro area, to whom payment service providers established in the European Economic Area, in line with the Agreement on the European Economic Area, may directly provide digital euro payment services.",
-     "(48) The provision of digital euro payment services to digital euro users residing or established in a Member State whose currency is not the euro should be subject to a prior agreement between the European Central Bank and the national central bank of the Member State whose currency is not the euro, following a request from the Member State whose currency is not the euro. In line with the Agreement on the European Economic Area, digital euro users residing or established in non-euro area Member States may be provided digital euro payment services by payment service providers established in the European Economic Area.",
-     "(49) The provision of digital euro payment services to digital euro users residing or established in third countries, with the exclusion of third countries or territories that are under a monetary agreement with the Union, should be subject to a prior agreement between the Union and such third country. This should also apply in the case of States that are a party to the Agreement on the European Economic Area or the Convention establishing the European Free Trade Association. Such agreement should be complemented by an arrangement between the European Central Bank and the national central bank of the third country. Intermediaries established in the same country of residence or establishment than digital euro users and payment service providers established in the European Economic Area may provide digital euro payment services to digital euro users residing or established in third countries. Intermediaries providing digital euro payment services in third countries should be subject to adequate regulatory and supervisory requirements, with the objectives to ensure that the digital euro, which is a central bank money, is safely and adequately distributed, and is not misused. Regulatory and supervisory requirements should be determined as part of the conclusion of the international agreement, based on proportionate, objective and uniform criteria. Agreements and arrangements with high-risk third countries identified pursuant to Regulation [please insert reference – proposal for a Regulation for Anti-Money Laundering Regulation – COM/2021/421 final) should be restricted, suspended, or terminated.",
-     "(50) The provision of digital euro payment services to digital euro users residing or established in third countries or territories, under a monetary agreement with the Union, should be governed by monetary agreements. Intermediaries established in the same country of residence or establishment than digital euro users and payment service providers established in the European Economic Area may provide digital euro payment services to digital euro users residing or established in third countries or territories, under a monetary agreement with the Union.",
-     "(51) The use of the digital euro in cross-currency payments would furthermore contribute to foster the international use of the euro. This would also bring benefits to the euro area and other economies by facilitating cross-border payments for the purpose of trade or remittances, in line with the G20 agenda.",
-     "(52) Digital euro users, whether they reside or are established within the euro area or not, may also have the capacity to receive or initiate cross-currency payments between the digital euro and a local currency. Arrangements concluded between the European Central Bank and national central banks in Member States whose currency is not the euro and in third countries should specify the conditions for access to and use of interoperable payment systems for the purpose of cross-currency payments involving the digital euro.",
-     "(53) Agreements and arrangements related to the provision of digital euro payment services or cross-currency payments involving the digital euro should be concluded on a voluntary basis, in priority with non-euro area Member States. The European Central Bank should cooperate with national central banks of Member States whose currency is not the euro for the purpose of cross-currency payments involving the digital euro.",
-     "(54) The technical design of the digital euro should make it widely accessible to and usable by the general public. That design should, in particular, support access to financially excluded persons or persons at risk of financial exclusion, persons with disabilities by ensuring compliance with accessibility requirements laid down in Annex I of Directive (EU) 2019/882 of the European Parliament and the Council (European Accessibility Act), persons with functional limitations who would also benefit from accessibility, or persons with limited digital skills and elderly persons. For that purpose, the digital euro should have usage features that are accessible, visible, simple and easy to handle, and should be sufficiently accessible through a wide range of hardware devices to cater for the needs of different groups of the population. Furthermore, payment service providers should provide digital euro users with digital euro payment services, regardless of those users holding non-digital euro payment accounts. In addition, those users should be allowed to have digital euro payment accounts with payment service providers that are different from the ones with which they have non-digital euro payment accounts. The possibility to use digital euro services without any other product or service from that same provider should be offered in an equally accessible manner.",
-     "(54a) The design and operation of the settlement infrastructure for the digital euro should rely on state-of-the-art technologies that ensure the implementation of privacy-by-design and privacy-by-default principles, including advanced cryptography such as zero-knowledge proof technology, and other state-of-the-art technologies, enabling the unlinkability and minimisation of data and the verification of transactions without the disclosure of personal data, while ensuring robust protection against data breaches and unauthorised access. The European Central Bank should, additionally, guarantee that the development of the digital euro settlement infrastrucutre ensures its security, continuity and integrity as well as its resilience against cyber-threats, while ensuring the readiness of back-up solutions. Overall, and to ensure the digital euro fulfils its objective to enhance the soverignty of the Union, the European Central Bank should minimise to the maximum extent possible dependencies from third country providers. The European Central Bank should additionally take into account measures to reduce the carbon footprint impact of the digital euro settlement infrastructure and consider energy efficiency metrics while developing and contracting the necessary technical solutions.",
-     "(54b) The European Central Bank should monitor technological developments, including any innovation designed to strengthen privacy, data protection, cyber-security, operational resilience, and the detection and prevention of fraud and money laundering. The European Central Bank should consider implementing new technological developments to the digital euro infrastructure after assessing their purpose, scalability and interoperability with existing infrastructure, as well as their impact on the safety, integrity, efficiency and innovation of the digital euro settlement infrastructure.",
-     "(55) The digital euro should support the programming of conditional digital euro payment transactions by payment service providers. The digital euro should, however, not be “programmable money”, which means units that, due to intrinsically defined spending conditions, can only be used for buying specific types of goods or services, or are subject to time limits after which they are no longer usable. Conditional payment transactions are payments which are automatically triggered by software based on pre-defined and agreed conditions. Conditional payments should not have, as object or effect, the use of digital euro as programmable money. Payment service providers could develop different types of logic to offer a range of conditional payment transactions to digital euro users, including automated payment transactions for placing or withdrawing digital euros, payment standing orders that trigger automatic payments of a specific amount on a specific date, and payments between machines where those machines are programmed to automatically trigger payments for their own spare parts upon ordering them, for charging and paying electricity at most favourable market conditions, for paying insurance, and leasing and maintenance fees on a usage basis.",
-     "(56) To facilitate the use of digital euro and the provision of innovative services, the Eurosystem should support the provision of conditional digital euro payment transactions, in close cooperation with market participants, notably in consultation with the advisory platform for the digital euro scheme rulebook. First, some types of conditional payment services could be supported through detailed measures, rules and standards that could help payment service providers to develop and operate interoperable applications that execute conditional logic. That could include a set of technical tools such as application programming interfaces. Second, the Eurosystem could provide additional functionalities in the digital euro settlement infrastructure, necessary for the provision of conditional payment services to digital euro users. That could facilitate the reservation of funds in the settlement infrastructure for future execution of some conditional payments. Payment service providers should adapt the business logic for conditional digital euro payment transactions in accordance with the standards and application programming interfaces which the Eurosystem may adopt to facilitate such transactions.",
-     "(57) European Digital Identity Wallets could facilitate digital transactions by enabling authentication, identification and the exchange of attributes including licenses and certificates. European Digital Identity Wallets should contribute to the effective universal access to and use of the digital euro. Member States should issue European Digital Identity Wallets based on common standards and practices set out in the implementing legislation. The European Digital Identity Wallet should have strong and specific safeguards to ensure data protection and privacy and high-level security certification. Front-end solutions to be developed by the European Central Bank should therefore duly consider the technical specifications governing the European Digital Identity Wallets. This would enable the relevant interoperability with the European Digital Identity Wallets that would allow to capitalise on these benefits. Based on user choice, interoperability with the European Digital Identity Wallet should also allow to discharge customer due diligence under Regulation (EU) [please insert reference – proposal for a Regulation for Anti-Money Laundering Regulation – COM/2021/421 final). Furthermore, to achieve a coherent customer experience, intermediaries might choose to fully integrate their digital euro user interface into the specifications governing the European Digital Identity Wallets.",
-     "(58) Users should be able, if they so wish, to onboard and authorise payments with the digital euro by using the European Digital Identity Wallets. Payment service providers should therefore be obliged to accept the European Digital Identity Wallets for the verification of both prospective and existing customers’ identities, in line with Regulation (EU) [please insert reference – proposal for a Regulation for Anti-Money Laundering Regulation – COM/2021/421 final). To facilitate the opening of digital euro accounts across the Union, payment service providers should also be able to rely on qualified attestations provided by the European Digital Identity Wallets, including for the remote performance of customer due diligence. Payment service providers should also accept the use of European Digital Identity Wallets if the payer wishes to use the wallet for payment authorisation of both online and offline digital euro payment transactions. ▌ In addition, where a provider of European Digital Identity Wallets allows for the integration and use of payment instruments, payment service providers should ensure that, upon request, a digital euro user is able to access that user’s digital euro account information and initiate digital euro payments via the user’s European Digital Identity Wallet. Use of European Digital Identity Wallets should be voluntary and should contribute to a seamless and protected user experience, reduce administrative burden and strengthen trust, security and user control over personal data. A provider of European Digital Identity Wallet should not access transaction data.",
-     "(58a) In accordance with Article 5a(15) of Regulation (EU) No 910/2014, use of European Digital Identity Wallets remains voluntary. Additionally, in line with the principles of data minimisation and privacy by design and by default, payment service providers should provide, at the user’s request, the possibility of authentication and identification by means of non-biometric data.",
-     "(59) To facilitate a harmonised user experience, the digital euro rules, standards and processes that the European Central Bank may adopt pursuant to its own competences, should ensure that any digital euro user is able to carry out digital euro payment transactions with any other digital euro users across the euro area regardless of the payment service providers involved and the front-end services used. To reduce the fragmentation of the European retail payments market, and to support competition, efficiency and innovation in that market, and the development of payment instruments across the Union in keeping with the objective of the Commission’s retail payment strategy, the digital euro should be, to the extent possible, compatible with private digital payment solutions, building on functional and technical synergies. In particular, the European Central Bank should seek to ensure that the digital euro is compatible with private digital payment solutions at the point of interaction, and in person-to-person payments, where the fragmentation of the Union retail payments market is currently significant. The use of open standards, common rules and processes, and possibly shared infrastructures could support such compatibility. While existing solutions may be reused where such solutions are deemed appropriate to ensure that compatibility and interoperability, notably in view of minimising overall adaptation costs, such existing solutions should not create undue dependencies that could prevent adaptation of the digital euro to new technologies or would be incompatible with the digital euro features. In order to achieve these objectives, and without conferring any enforceable rights upon market operators, the European Central Bank should seek to ensure that the digital euro is compatible with private digital payment solutions on a best-effort basis and where deemed appropriate, and that digital euro solutions should be open by design, relying on open standards, rules and processes to which payment service providers can easily adhere.",
-     "▌",
-     "(60a) To protect consumers, maintain trust in the digital euro and contribute to its proper functioning, the European Central Bank and the national central banks should ensure that mechanisms are in place to support payment service providers in facilitating the resolution of pre-disputes and disputes related to digital euro payment transactions. The European Central Bank and the national central banks should, as a minimum, establish mechanisms of technical and functional support that facilitate the exchange of messages between payment service providers with a view to the resolution of pre-disputes and disputes and make those mechanisms easily accessible and usable for digital euro users. Disputes may arise in a number of situations, including those concerning the execution of a digital euro payment transaction, such as payment-related fraud or technical issues, or those relating to the good or service underlying a transaction. Technical disputes include situations where the transaction amount differs, where there are duplicates, or where there is an issue with authorisation or pre-validation or with the switching of digital euro payment accounts. Payment-related fraud disputes include inter alia situations of identity theft, merchant identity fraud, and payment service provider impersonation fraud. Payment service providers should establish and apply appropriate and effective procedures for handling and resolving complaints received from digital euro users, in line with the applicable requirements of [PSD3/PSR], and which are at least equivalent to those available for comparable instruments.",
-     "(60b) The European Central Bank should act as the dispute-settlement body for settling disputes among payment service providers relating to the application of the rulebook governing the operation of the digital euro. The role and functions of the European Central Bank in that capacity should be established by means of a contract between the European Central Bank and all payment service providers distributing the digital euro. To perform those functions, the European Central Bank should adopt internal rules and a governance framework for dispute settlement that ensures no interference and full independence from the European Central Bank payment-system oversight functions. Decisions issued by the European Central Bank under that mechanism should be final and binding on all participating payment service providers and directly enforceable vis-à-vis their users through the payment service providers’ contractual obligations, without prejudice to the right to seek redress before judicial authorities in accordance with Union and national law.",
-     "(60c) As the responsible entity and guarantor of the infrastrucutre and functionalities operated by the European Central Bank, or national central banks, which govern the operation of the digital euro, the European System of Central Banks should be liable for any loss or damage attributuable to its actions or omissions in relation to such infrastructure or functionalities. That includes the possibility of right of recourse by payment service providers against the European System of Central Banks for any loss or damage incurred in their role as digital euro distributors attributable to the digital user interface provided by the European Central Bank. Digital euro users should not bear any loss of online digital euro holdings resulting from any system outage, technical malfunction or disruption of the digital euro settlement infrastructure.",
-     "(61) To access and use the digital euro as part of digital euro payment services, digital euro users should be provided with an accessible, visible and simple digital euro user interface. Those users should have the possibility to access and use basic digital euro payment services via at least one digital euro user interface provided by the payment service providers, which could be the one made available by the European Central Bank, the one developed by that payment service provider directly, or the digital euro user interface provided by other payment service providers. ▌Where digital euro users are offered the possibility to choose between different digital euro user interfaces, the decision to select a given digital euro user interface should ultimately rest in the hands of those users ▌. However, payment service providers designated by a Member State to provide basic digital euro services to natural persons who do not hold or do not wish to hold a non-digital euro payment account, or to provide digital inclusion support services, should offer access to the digital euro user interface made available by the European Central Bank. The European Central Bank and the payment service providers should implement appropriate technical and organisational measures including state-of-the-art security and privacy-preserving measures to ensure that the identity of individual digital euro users cannot be accessed by the ECB via its digital euro user interface.",
-     "(62) To avoid interfering in the payment service providers’ customer relationships and their role in the digital euro distribution, the digital euro user interface provided by the European Central Bank should be limited to providing an interface between digital euro users and the payment infrastructures of payment service providers. In particular, the Eurosystem would not have a contractual relationship with digital euro users even if those users use the digital euro user interface provided by the European Central Bank ▌."
+     "43 | +",
+     "ECR | Stefano Cavedagna, Giovanni Crosetto, Daniele Polato",
+     "PPE | Georgios Aftias, Stefan Berger, Regina Doherty, Marco Falcone, Markus Ferber, Loucas Fourlas, Dirk Gotink, Sérgio Humberto, Kinga Kollár, Siegfried Mureşan, Fernando Navarrete Rojas, Luděk Niedermayer, Sirpa Pietikäinen, Paulius Saudargas, Andreas Schwab, Juan Ignacio Zoido Álvarez",
+     "Renew | Gilles Boyer, Valérie Devaux, Ľudovít Ódor, Anouk Van Brug, Stéphanie Yon-Courtin",
+     "S&D | Sakis Arnaoutoglou, Jonás Fernández, Claire Fita, André Franqueira Rodrigues, Eero Heinäluoma, Aurore Lalucq, Costas Mavrides, Nikos Papandreou, Evelyn Regner, Elena Sancho Murillo, Lara Wolters",
+     "The Left | Danilo Della Valle, Gaetano Pedulla', Jussi Saramo, Pasquale Tridico",
+     "Verts/ALE | Rasmus Andresen, Damian Boeselager, Mélissa Camara, Anna Strolenberg",
+     "14",
+     "-",
+     "ECR",
+     "Stephen Nikola Bartulica, Marlena Maląg, Maciej Wąsik",
+     "ESN",
+     "Siegbert Frank Droese, Rada Laykova",
+     "NI",
+     "Fabio De Masi",
+     "PfE",
+     "Mireia Borrás Pabón, Juan Carlos Girauta Vidal, Enikő Győri, Jaroslav Knot, Tomáš Kubín, Pierre Pimpie, Auke Zijlstra",
+     "Renew",
+     "Engin Eroglu",
+     "1",
+     "0",
+     "ECR",
+     "Johan Van Overtveldt"
+    ],
+    "headings": [
+     [
+      1252,
+      "[table 3 rows: ]"
+     ],
+     [
+      1257,
+      "[table 3 rows: ]"
+     ],
+     [
+      1262,
+      "[table 3 rows: ]"
+     ],
+     [
+      1267,
+      "[table 3 rows: ]"
+     ],
+     [
+      1272,
+      "[table 3 rows: ]"
+     ],
+     [
+      1277,
+      "[table 3 rows: ]"
+     ],
+     [
+      1282,
+      "[table 3 rows: ]"
+     ],
+     [
+      1287,
+      "[table 3 rows: ]"
+     ],
+     [
+      1292,
+      "[table 3 rows: ]"
+     ],
+     [
+      1297,
+      "[table 3 rows: ]"
+     ],
+     [
+      1302,
+      "[table 3 rows: ]"
+     ],
+     [
+      1307,
+      "[table 3 rows: ]"
+     ],
+     [
+      1312,
+      "[table 3 rows: ]"
+     ],
+     [
+      1317,
+      "[table 3 rows: ]"
+     ],
+     [
+      1322,
+      "[table 3 rows: ]"
+     ],
+     [
+      1327,
+      "[table 3 rows: ]"
+     ],
+     [
+      1332,
+      "[table 3 rows: ]"
+     ],
+     [
+      1337,
+      "[table 3 rows: ]"
+     ],
+     [
+      1342,
+      "[table 3 rows: ]"
+     ],
+     [
+      1347,
+      "[table 3 rows: ]"
+     ],
+     [
+      1352,
+      "[table 3 rows: ]"
+     ],
+     [
+      1357,
+      "[table 3 rows: ]"
+     ],
+     [
+      1362,
+      "[table 3 rows: ]"
+     ],
+     [
+      1367,
+      "[table 3 rows: ]"
+     ],
+     [
+      1372,
+      "[table 3 rows: ]"
+     ],
+     [
+      1377,
+      "[table 3 rows: ]"
+     ],
+     [
+      1382,
+      "[table 3 rows: ]"
+     ],
+     [
+      1387,
+      "[table 3 rows: ]"
+     ],
+     [
+      1390,
+      "<FootprintIntro>Pursuant to Article 8 of Annex I to the Rules of Procedure, the rapporteur for opinion declares that he included in his opinion input on matters pertaining to the subject of the file that he received, in the preparation of the opinion, prior to the adoption thereof in committee, from the following interest representatives falling within the scope of the Interinstitutional Agreement on a mandatory transparency register, or from the following representatives of public authorities of third countries, including their diplomatic missions and embassies:</FootprintIntro>"
+     ],
+     [
+      1391,
+      "[table 4 rows: 1. Interest representatives falling within the scope of the Interinstitutional A]"
+     ],
+     [
+      1394,
+      "PROCEDURE – COMMITTEE ASKED FOR OPINION"
+     ],
+     [
+      1395,
+      "[table 10 rows: Title | Establishment of the digital euro]"
+     ],
+     [
+      1396,
+      "FINAL VOTE BY ROLL CALL\nBY THE COMMITTEE ASKED FOR OPINION"
+     ],
+     [
+      1397,
+      "[table 6 rows: 46 | +]"
+     ],
+     [
+      1420,
+      "Key to symbols:"
+     ],
+     [
+      1424,
+      "PROCEDURE – COMMITTEE RESPONSIBLE"
+     ],
+     [
+      1425,
+      "[table 10 rows: Title | Establishment of the digital euro]"
+     ],
+     [
+      1426,
+      "FINAL VOTE BY ROLL CALL\nBY THE COMMITTEE RESPONSIBLE"
+     ],
+     [
+      1427,
+      "[table 7 rows: 43 | +]"
+     ],
+     [
+      1444,
+      "Key to symbols:"
+     ]
     ]
    },
    "columns": [
     {
      "vote": "for",
-     "printed": 46,
-     "counted": 46
+     "printed": 43,
+     "counted": 43
     }
    ],
    "byGroup": {
-    "EPP": {
-     "for": 17,
+    "ECR": {
+     "for": 3,
      "against": 0,
      "abstention": 0
     },
-    "PfE": {
-     "for": 1,
+    "EPP": {
+     "for": 16,
      "against": 0,
      "abstention": 0
     },
     "Renew": {
-     "for": 9,
+     "for": 5,
      "against": 0,
      "abstention": 0
     },
     "S&D": {
-     "for": 13,
+     "for": 11,
+     "against": 0,
+     "abstention": 0
+    },
+    "The Left": {
+     "for": 4,
      "against": 0,
      "abstention": 0
     },
     "Greens/EFA": {
-     "for": 6,
+     "for": 4,
      "against": 0,
      "abstention": 0
     }
    },
    "votes": [
     {
-     "id": "197490",
-     "name": "Magdalena ADAMOWICZ",
+     "id": "257096",
+     "name": "Stefano CAVEDAGNA",
+     "group": "ECR",
+     "vote": "for"
+    },
+    {
+     "id": "257094",
+     "name": "Giovanni CROSETTO",
+     "group": "ECR",
+     "vote": "for"
+    },
+    {
+     "id": "257145",
+     "name": "Daniele POLATO",
+     "group": "ECR",
+     "vote": "for"
+    },
+    {
+     "id": "256820",
+     "name": "Georgios AFTIAS",
      "group": "EPP",
      "vote": "for"
     },
     {
-     "id": "256947",
-     "name": "Fredis BELERIS",
+     "id": "197410",
+     "name": "Stefan BERGER",
      "group": "EPP",
      "vote": "for"
     },
     {
-     "id": "251324",
-     "name": "Krzysztof BREJZA",
+     "id": "257237",
+     "name": "Regina DOHERTY",
      "group": "EPP",
      "vote": "for"
     },
     {
-     "id": "28122",
-     "name": "David CASA",
+     "id": "257137",
+     "name": "Marco FALCONE",
      "group": "EPP",
      "vote": "for"
     },
     {
-     "id": "124861",
-     "name": "Caterina CHINNICI",
+     "id": "1917",
+     "name": "Markus FERBER",
      "group": "EPP",
      "vote": "for"
     },
     {
-     "id": "197473",
-     "name": "Christian DOLESCHAL",
+     "id": "197414",
+     "name": "Loucas FOURLAS",
      "group": "EPP",
      "vote": "for"
     },
     {
-     "id": "99945",
-     "name": "Lena DÜPONT",
+     "id": "97399",
+     "name": "Dirk GOTINK",
      "group": "EPP",
      "vote": "for"
     },
     {
-     "id": "96780",
-     "name": "Monika HOHLMEIER",
+     "id": "257065",
+     "name": "Sérgio HUMBERTO",
      "group": "EPP",
      "vote": "for"
     },
     {
-     "id": "97968",
-     "name": "Andrey KOVATCHEV",
+     "id": "256861",
+     "name": "Kinga KOLLÁR",
      "group": "EPP",
      "vote": "for"
     },
     {
-     "id": "95074",
-     "name": "Jeroen LENAERS",
+     "id": "124802",
+     "name": "Siegfried MUREŞAN",
      "group": "EPP",
      "vote": "for"
     },
     {
-     "id": "256974",
-     "name": "Verena MERTENS",
+     "id": "257027",
+     "name": "Fernando NAVARRETE ROJAS",
      "group": "EPP",
      "vote": "for"
     },
     {
-     "id": "110673",
-     "name": "Ana Miguel PEDRO",
+     "id": "124701",
+     "name": "Luděk NIEDERMAYER",
      "group": "EPP",
      "vote": "for"
     },
     {
-     "id": "256979",
-     "name": "Oliver SCHENK",
+     "id": "40599",
+     "name": "Sirpa PIETIKÄINEN",
      "group": "EPP",
      "vote": "for"
     },
     {
-     "id": "197402",
-     "name": "Tomas TOBÉ",
+     "id": "256809",
+     "name": "Paulius SAUDARGAS",
      "group": "EPP",
      "vote": "for"
     },
     {
-     "id": "256804",
-     "name": "Pekka TOVERI",
+     "id": "28223",
+     "name": "Andreas SCHWAB",
      "group": "EPP",
      "vote": "for"
     },
     {
-     "id": "256977",
-     "name": "Andrea WECHSLER",
+     "id": "197621",
+     "name": "Juan Ignacio ZOIDO ÁLVAREZ",
      "group": "EPP",
      "vote": "for"
     },
     {
-     "id": "197606",
-     "name": "Javier ZARZALEJOS",
-     "group": "EPP",
-     "vote": "for"
-    },
-    {
-     "id": "220840",
-     "name": "Jaroslav BŽOCH",
-     "group": "PfE",
-     "vote": "for"
-    },
-    {
-     "id": "197400",
-     "name": "Abir AL-SAHLANI",
+     "id": "197577",
+     "name": "Gilles BOYER",
      "group": "Renew",
      "vote": "for"
     },
     {
-     "id": "197781",
-     "name": "Malik AZMANI",
+     "id": "256870",
+     "name": "Valérie DEVAUX",
      "group": "Renew",
      "vote": "for"
     },
     {
-     "id": "256970",
-     "name": "Raquel GARCÍA HERMIDA-VAN DER WALLE",
+     "id": "257010",
+     "name": "Ľudovít ÓDOR",
      "group": "Renew",
      "vote": "for"
     },
     {
-     "id": "197447",
-     "name": "Irena JOVEVA",
+     "id": "257438",
+     "name": "Anouk VAN BRUG",
      "group": "Renew",
      "vote": "for"
     },
     {
-     "id": "22858",
-     "name": "Fabienne KELLER",
+     "id": "197581",
+     "name": "Stéphanie YON-COURTIN",
      "group": "Renew",
      "vote": "for"
     },
     {
-     "id": "197445",
-     "name": "Moritz KÖRNER",
-     "group": "Renew",
-     "vote": "for"
-    },
-    {
-     "id": "257300",
-     "name": "Michael MCNAMARA",
-     "group": "Renew",
-     "vote": "for"
-    },
-    {
-     "id": "257259",
-     "name": "Nikola MINCHEV",
-     "group": "Renew",
-     "vote": "for"
-    },
-    {
-     "id": "220801",
-     "name": "Sophie WILMÈS",
-     "group": "Renew",
-     "vote": "for"
-    },
-    {
-     "id": "28307",
-     "name": "Francisco ASSIS",
+     "id": "256829",
+     "name": "Sakis ARNAOUTOGLOU",
      "group": "S&D",
      "vote": "for"
     },
     {
-     "id": "197392",
-     "name": "Evin INCIR",
+     "id": "125046",
+     "name": "Jonás FERNÁNDEZ",
      "group": "S&D",
      "vote": "for"
     },
     {
-     "id": "197491",
-     "name": "Marina KALJURAND",
+     "id": "256906",
+     "name": "Claire FITA",
      "group": "S&D",
      "vote": "for"
     },
     {
-     "id": "256899",
-     "name": "Murielle LAURENT",
+     "id": "257066",
+     "name": "André FRANQUEIRA RODRIGUES",
      "group": "S&D",
      "vote": "for"
     },
     {
-     "id": "96812",
-     "name": "Juan Fernando LÓPEZ AGUILAR",
+     "id": "197800",
+     "name": "Eero HEINÄLUOMA",
      "group": "S&D",
      "vote": "for"
     },
     {
-     "id": "257053",
-     "name": "Ana Catarina MENDES",
+     "id": "197697",
+     "name": "Aurore LALUCQ",
      "group": "S&D",
      "vote": "for"
     },
     {
-     "id": "233862",
-     "name": "Matjaž NEMEC",
+     "id": "124691",
+     "name": "Costas MAVRIDES",
      "group": "S&D",
      "vote": "for"
     },
     {
-     "id": "256904",
-     "name": "Chloé RIDEL",
+     "id": "244571",
+     "name": "Nikos PAPANDREOU",
      "group": "S&D",
      "vote": "for"
     },
     {
-     "id": "96932",
-     "name": "Birgit SIPPEL",
+     "id": "96998",
+     "name": "Evelyn REGNER",
      "group": "S&D",
      "vote": "for"
     },
     {
-     "id": "257085",
-     "name": "Krzysztof ŚMISZEK",
+     "id": "257001",
+     "name": "Elena SANCHO MURILLO",
      "group": "S&D",
      "vote": "for"
     },
     {
-     "id": "257101",
-     "name": "Cecilia STRADA",
+     "id": "5392",
+     "name": "Lara WOLTERS",
      "group": "S&D",
      "vote": "for"
     },
     {
-     "id": "34232",
-     "name": "Kristian VIGENIN",
-     "group": "S&D",
+     "id": "257155",
+     "name": "Danilo DELLA VALLE",
+     "group": "The Left",
      "vote": "for"
     },
     {
-     "id": "257106",
-     "name": "Alessandro ZAN",
-     "group": "S&D",
+     "id": "257126",
+     "name": "Gaetano PEDULLA'",
+     "group": "The Left",
      "vote": "for"
     },
     {
-     "id": "197470",
-     "name": "Saskia BRICMONT",
+     "id": "127766",
+     "name": "Jussi SARAMO",
+     "group": "The Left",
+     "vote": "for"
+    },
+    {
+     "id": "257133",
+     "name": "Pasquale TRIDICO",
+     "group": "The Left",
+     "vote": "for"
+    },
+    {
+     "id": "197448",
+     "name": "Rasmus ANDRESEN",
+     "group": "Greens/EFA",
+     "vote": "for"
+    },
+    {
+     "id": "197439",
+     "name": "Damian BOESELAGER",
      "group": "Greens/EFA",
      "vote": "for"
     },
@@ -481,76 +550,26 @@
      "vote": "for"
     },
     {
-     "id": "197398",
-     "name": "Pär HOLMGREN",
-     "group": "Greens/EFA",
-     "vote": "for"
-    },
-    {
-     "id": "197464",
-     "name": "Hannah NEUMANN",
-     "group": "Greens/EFA",
-     "vote": "for"
-    },
-    {
-     "id": "2152",
-     "name": "Leoluca ORLANDO",
-     "group": "Greens/EFA",
-     "vote": "for"
-    },
-    {
-     "id": "197772",
-     "name": "Tineke STRIK",
+     "id": "256990",
+     "name": "Anna STROLENBERG",
      "group": "Greens/EFA",
      "vote": "for"
     }
    ],
    "unmatched": [],
    "notOnCommittee": [
-    "Magdalena ADAMOWICZ",
-    "Fredis BELERIS",
-    "Krzysztof BREJZA",
-    "Caterina CHINNICI",
-    "Christian DOLESCHAL",
-    "Lena DÜPONT",
-    "Monika HOHLMEIER",
-    "Andrey KOVATCHEV",
-    "Jeroen LENAERS",
-    "Verena MERTENS",
-    "Ana Miguel PEDRO",
-    "Oliver SCHENK",
-    "Tomas TOBÉ",
-    "Pekka TOVERI",
-    "Andrea WECHSLER",
-    "Javier ZARZALEJOS",
-    "Jaroslav BŽOCH",
-    "Abir AL-SAHLANI",
-    "Malik AZMANI",
-    "Raquel GARCÍA HERMIDA-VAN DER WALLE",
-    "Irena JOVEVA",
-    "Fabienne KELLER",
-    "Moritz KÖRNER",
-    "Michael MCNAMARA",
-    "Nikola MINCHEV",
-    "Sophie WILMÈS",
-    "Evin INCIR",
-    "Marina KALJURAND",
-    "Murielle LAURENT",
-    "Juan Fernando LÓPEZ AGUILAR",
-    "Ana Catarina MENDES",
-    "Matjaž NEMEC",
-    "Chloé RIDEL",
-    "Birgit SIPPEL",
-    "Krzysztof ŚMISZEK",
-    "Cecilia STRADA",
-    "Kristian VIGENIN",
-    "Alessandro ZAN",
-    "Saskia BRICMONT",
+    "Stefano CAVEDAGNA",
+    "Daniele POLATO",
+    "Loucas FOURLAS",
+    "Sérgio HUMBERTO",
+    "Juan Ignacio ZOIDO ÁLVAREZ",
+    "Valérie DEVAUX",
+    "Sakis ARNAOUTOGLOU",
+    "André FRANQUEIRA RODRIGUES",
+    "Elena SANCHO MURILLO",
+    "Danilo DELLA VALLE",
     "Mélissa CAMARA",
-    "Pär HOLMGREN",
-    "Hannah NEUMANN",
-    "Leoluca ORLANDO",
-    "Tineke STRIK"
+    "Anna STROLENBERG"
    ]
   }
  }
