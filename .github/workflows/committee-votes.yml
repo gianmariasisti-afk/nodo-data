@@ -2,7 +2,7 @@ name: Committee votes (pilot)
 
 # Pilot, 25 Nov 2026: reads the final roll-call vote in committee from each report's Word file
 # (Open Data Portal) and writes data-cache/committee-votes.json (full trace) and v1/committee-votes.json
-# (checked reports only, keyed by nodo file). Only the preview (next/) reads v1/committee-votes.json.
+# (checked reports only, keyed by nodo file), read by the app since 25 Nov 2026, and keeps the manifest in step.
 on:
   workflow_dispatch:
     inputs:
@@ -41,8 +41,9 @@ jobs:
             mkdir -p data-cache
             cp "$RUNNER_TEMP/committee-votes.json" data-cache/committee-votes.json
             cp "$RUNNER_TEMP/app-votes.json" v1/committee-votes.json
+            node scripts/manifest-sync.mjs
             node scripts/validate-data.mjs || { echo "Validation failed: nothing pushed"; exit 1; }
-            git add data-cache/committee-votes.json v1/committee-votes.json
+            git add data-cache/committee-votes.json v1/committee-votes.json v1/manifest.json
             if git diff --cached --quiet; then echo "Nothing new."; exit 0; fi
             git commit -q -m "Committee votes pilot $(date -u +%F)"
             if git push -q origin HEAD:main; then echo "Pushed."; exit 0; fi

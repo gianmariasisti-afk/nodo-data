@@ -8809,7 +8809,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   }
 
 
-  /* ======================= nodo preview features =======================
+  /* ======================= Features promoted from the preview on 2026-11-25 =======================
      Source: next/features.js. tools/preview/build.mjs injects this file into the app's main script just before
      start-up, so it runs inside the same scope and uses the app's own helpers. Nothing here reaches the live app
      until it is promoted (tools/preview/promote.mjs). Everything up to 2026-11-18 was promoted on 2026-11-18. */
@@ -8897,6 +8897,11 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     CV = j;
     const f = curFile(); if (f) openFile(f.id, true);
   }).catch(() => { /* no votes file: pages work without it */ });
+
+  /* ======================= nodo preview features =======================
+     Source: next/features.js. tools/preview/build.mjs injects this file into the app's main script just before
+     start-up, so it runs inside the same scope and uses the app's own helpers. Nothing here reaches the live app
+     until it is promoted (tools/preview/promote.mjs). Everything up to 2026-11-25 was promoted on 2026-11-25. */
 
   initHome(); initEp(); initEc();
   let startView = "home";
@@ -10568,12 +10573,7 @@ body { font-variant-numeric: tabular-nums; }
 /* nodo preview styles (next/features.css). Everything up to 2026-11-11 was promoted to the live app on 2026-11-11. */
 </style>
 <style>
-#nxBadge{position:fixed;top:max(2px,calc(env(safe-area-inset-top,0px) - 12px));left:50%;transform:translateX(-50%);z-index:2147483000;pointer-events:none;padding:0 6px;border-radius:999px;background:rgba(20,20,19,.55);color:#fff;font:700 8px/12px -apple-system,BlinkMacSystemFont,sans-serif;letter-spacing:.08em}
-#nxDenied{position:fixed;inset:0;z-index:2147483001;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:32px;background:#0E1B4D;color:#fff;text-align:center;font:16px/24px -apple-system,BlinkMacSystemFont,sans-serif}
-#nxDenied h1{margin:0;font-size:28px;line-height:34px}
-#nxDenied a{display:inline-block;padding:14px 24px;border-radius:999px;background:#fff;color:#0E1B4D;font-weight:600;text-decoration:none}
-</style>
-<style>
+/* Promoted from the preview on 2026-11-25 (was next/features.css). */
 /* nodo preview styles (next/features.css). Everything up to 2026-11-18 was promoted to the live app on 2026-11-18. */
 
 /* How the committee voted (preview, since 25 Nov 2026) */
@@ -10617,6 +10617,15 @@ body { font-variant-numeric: tabular-nums; }
 .cv-foot a { color: var(--accent-sky); }
 .eu-row .cv-v { margin-left: 8px; font-size: 13px; }
 .cv-card .pr-head { flex-direction: column; align-items: flex-start; gap: 2px; }
+</style>
+<style>
+#nxBadge{position:fixed;top:max(2px,calc(env(safe-area-inset-top,0px) - 12px));left:50%;transform:translateX(-50%);z-index:2147483000;pointer-events:none;padding:0 6px;border-radius:999px;background:rgba(20,20,19,.55);color:#fff;font:700 8px/12px -apple-system,BlinkMacSystemFont,sans-serif;letter-spacing:.08em}
+#nxDenied{position:fixed;inset:0;z-index:2147483001;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:32px;background:#0E1B4D;color:#fff;text-align:center;font:16px/24px -apple-system,BlinkMacSystemFont,sans-serif}
+#nxDenied h1{margin:0;font-size:28px;line-height:34px}
+#nxDenied a{display:inline-block;padding:14px 24px;border-radius:999px;background:#fff;color:#0E1B4D;font-weight:600;text-decoration:none}
+</style>
+<style>
+/* nodo preview styles (next/features.css). Everything up to 2026-11-25 was promoted to the live app on 2026-11-25. */
 </style>
 <div id="nxBadge" aria-hidden="true">PREVIEW</div>
 </body></html>

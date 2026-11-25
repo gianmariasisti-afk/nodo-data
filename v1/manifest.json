@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generated": "2026-11-25T09:21:30.568Z",
+ "generated": "2026-11-25T09:40:56.415Z",
  "files": {
   "meps": {
    "path": "meps.json",
@@ -79,6 +79,12 @@
    "description": "Search terms: hand-kept nicknames of files (pointing at procedures) and topic words",
    "bytes": 12264,
    "sha256": "2b94f07a6a44ee71478feb9612d6bd426c6fdccccb660eefc5e615c64b570f4e"
+  },
+  "committeeVotes": {
+   "path": "committee-votes.json",
+   "description": "How each MEP voted in the committee responsible's final roll-call vote on nodo's files, from the reports on the Parliament's Open Data Portal",
+   "bytes": 2179,
+   "sha256": "20f42c7653ba347cbae2bd83a9f5b55e70e89d497dd4393b233088c9db950754"
   }
  }
 }
