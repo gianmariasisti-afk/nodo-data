@@ -1111,7 +1111,9 @@
     "cef-2028-2034:next:2026-11-23:01b987": true,
     "mff-2028-2034:next:2026-11-24:05e4ba": true,
     "tech-sovereignty-package:next:2026-11-24:150b70": true,
-    "military-mobility:next:2026-11-24:58a37b": true
+    "military-mobility:next:2026-11-24:58a37b": true,
+    "co2-cars:next:2026-11-25:218d68": true,
+    "biotech-act:next:2026-11-25:a5871d": true
   },
   "seededProcs": {
     "2025-0571": true,

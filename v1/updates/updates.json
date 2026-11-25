@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-24T00:00:00Z",
+  "generatedAt": "2026-11-25T00:00:00Z",
   "events": [
     {
       "id": "cap-2028-2034:next:2027-01-27:7e2fa2",
@@ -518,7 +518,7 @@
       "proc": "2025-0545",
       "kind": "milestone",
       "title": "Amendments tabled in committee",
-      "count": 8,
+      "count": 9,
       "push": true
     },
     {

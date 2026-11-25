@@ -1,35 +1,25 @@
 {
-  "generatedAt": "2026-11-24T00:00:00Z",
+  "generatedAt": "2026-11-25T00:00:00Z",
   "events": [
     {
-      "id": "mff-2028-2034:next:2026-11-24:05e4ba",
-      "fileId": "mff-2028-2034",
-      "date": "2026-11-24",
+      "id": "co2-cars:next:2026-11-25:218d68",
+      "fileId": "co2-cars",
+      "date": "2026-11-25",
       "source": "nodo",
       "kind": "scheduled",
-      "title": "Ad hoc working party on the MFF (European Competitiveness Fund): preparation for interinstitutional engagement on Chapter VII",
+      "title": "Environment working party: revised Presidency compromise text (doc 16044/26)",
       "push": true,
-      "pushOn": "2026-11-24"
+      "pushOn": "2026-11-25"
     },
     {
-      "id": "tech-sovereignty-package:next:2026-11-24:150b70",
-      "fileId": "tech-sovereignty-package",
-      "date": "2026-11-24",
+      "id": "biotech-act:next:2026-11-25:a5871d",
+      "fileId": "biotech-act",
+      "date": "2026-11-25",
       "source": "nodo",
       "kind": "scheduled",
-      "title": "Telecoms working party: CADA first compromise text on Pillars 1 and 2 and general and final provisions (doc 15830/26), and the EESC opinion",
+      "title": "Directive: plenary vote (draft agenda of the 23–26 November session)",
       "push": true,
-      "pushOn": "2026-11-24"
-    },
-    {
-      "id": "military-mobility:next:2026-11-24:58a37b",
-      "fileId": "military-mobility",
-      "date": "2026-11-24",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Ad hoc working party on military mobility: debrief from the technical meetings of 12–20 November (four-column table WK 16494/26 REV 3)",
-      "push": true,
-      "pushOn": "2026-11-24"
+      "pushOn": "2026-11-25"
     }
   ]
 }
