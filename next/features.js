@@ -71,6 +71,17 @@
       <div class="list">${L.map(({ f, e, v }) => row({ el: "button", attrs: `type="button" data-file="${esc(f.id)}"`, lead: disc("file"), name: esc(f.short), wrap: true,
         meta: esc(`${e.committee} final vote, ${cvDay(e.date)}`), tail: `<span class="cv-v cv-v--${v}">${CV_WORD[v]}</span>` })).join("")}</div>`;
   };
+  /* The contact-card profile moves "On these files" up under the actions; keep "Committee votes" right under it. */
+  const cvOpenMep0 = openMep;
+  openMep = function (m) {
+    cvOpenMep0(m);
+    const P = $("profile"); if (!P || state.open !== m.key) return;
+    const hs = [...P.querySelectorAll(":scope > h3")];
+    const cv = hs.find((h) => /^Committee votes/.test(h.textContent)), on = hs.find((h) => /^On these files/.test(h.textContent));
+    if (!cv || !on) return;
+    const cvList = cv.nextElementSibling, onList = on.nextElementSibling && on.nextElementSibling.classList.contains("list") ? on.nextElementSibling : on;
+    onList.after(cv); if (cvList && cvList.classList.contains("list")) cv.after(cvList);
+  };
   fetchJson(DATA_BASE + "committee-votes.json").then((j) => {
     CV = j;
     const f = curFile(); if (f) openFile(f.id, true);
