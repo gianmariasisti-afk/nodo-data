@@ -1,0 +1,48 @@
+name: Committee votes (pilot)
+
+# Pilot, 25 Nov 2026: reads the final roll-call vote in committee from each report's Word file
+# (Open Data Portal) and writes data-cache/committee-votes.json. Nothing in v1/ or the app reads it yet.
+on:
+  workflow_dispatch:
+    inputs:
+      reports:
+        description: "Comma-separated report ids, e.g. A-10-2026-0185"
+        default: "A-10-2026-0185"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: committee-votes
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Read the votes
+        env:
+          REPORTS: ${{ inputs.reports }}
+        run: node scripts/build-committee-votes.mjs 2>&1 | tee build.log
+      - name: Commit the pilot output
+        run: |
+          git config user.name "nodo-data bot"
+          git config user.email "actions@users.noreply.github.com"
+          cp data-cache/committee-votes.json "$RUNNER_TEMP/committee-votes.json"
+          for i in 1 2 3 4; do
+            git fetch -q origin main
+            git reset -q --hard origin/main
+            mkdir -p data-cache
+            cp "$RUNNER_TEMP/committee-votes.json" data-cache/committee-votes.json
+            git add data-cache/committee-votes.json
+            if git diff --cached --quiet; then echo "Nothing new."; exit 0; fi
+            git commit -q -m "Committee votes pilot $(date -u +%F)"
+            if git push -q origin HEAD:main; then echo "Pushed."; exit 0; fi
+            echo "Push rejected, retrying ($i)"; sleep 5
+          done
+          echo "Could not push after 4 tries"; exit 1
