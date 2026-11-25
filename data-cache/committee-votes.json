@@ -1,11 +1,14 @@
 {
- "generated": "2026-11-25T08:15:30.363Z",
+ "generated": "2026-11-25T08:17:07.708Z",
  "source": "Open Data Portal report (.docx): final vote by roll call by the committee responsible",
  "reports": {
   "A-10-2026-0185": {
    "id": "A-10-2026-0185",
-   "ok": true,
-   "problems": [],
+   "ok": false,
+   "problems": [
+    "for: 46 names, result line says 43",
+    "1 vote column(s) read, 3 expected"
+   ],
    "docx": "https://data.europarl.europa.eu/distribution/reds_iPlRp/A-10-2026-0185/A-10-2026-0185_en.docx",
    "docxBuilt": true,
    "apiTried": [
@@ -48,24 +51,24 @@
    ],
    "committee": "ECON",
    "http": 200,
-   "dateAdopted": "15.7.2025",
+   "dateAdopted": "23.6.2026",
    "result": {
-    "for": 46,
-    "against": 17,
-    "abstention": 11
+    "for": 43,
+    "against": 14,
+    "abstention": 1
    },
    "debug": {
     "procedureTable": [
      "Title | Establishment of the digital euro",
      "References | COM(2023)0369 – C9-0219/2023 – 2023/0212(COD)",
+     "Date submitted to Parliament | 29.6.2023 |  |  | ",
      "Committee(s) responsible\nDate announced in plenary | ECON\n19.10.2023 |  |  | ",
-     "Opinion by\nDate announced in plenary | LIBE\n19.10.2023",
-     "Rapporteur for the opinion\nDate appointed | Emil Radev\n3.7.2025",
-     "Date adopted | 15.7.2025 |  |  | ",
-     "Result of final vote | +:\n–:\n0: | 46\n17\n11",
-     "Members present for the final vote | Magdalena Adamowicz, Abir Al-Sahlani, Giuseppe Antoci, Francisco Assis, Malik Azmani, Nikola Bartůšek, Krzysztof Brejza, Saskia Bricmont, Jaroslav Bžoch, Mélissa Camara, Susanna Ceccardi, Caterina Chinnici, Alessandro Ciriani, Lena Düpont, Marieke Ehlers, Estrella Galán, Raquel García Hermida-Van Der Walle, Evin Incir, Paolo Inselvini, Irena Joveva, Erik Kaliňák, Marina Kaljurand, Mariusz Kamiński, Assita Kanko, Fabienne Keller, Moritz Körner, Murielle Laurent, Fabrice Leggeri, Jeroen Lenaers, Juan Fernando López Aguilar, Michael McNamara, Ana Catarina Mendes, Verena Mertens, Nadine Morano, Matjaž Nemec, Ana Miguel Pedro, Chloé Ridel, Ilaria Salis, Birgit Sippel, Krzysztof Śmiszek, Petra Steger, Cecilia Strada, Tineke Strik, Georgiana Teodorescu, Tomas Tobé, Milan Uhrík, Tom Vandendriessche, Kristian Vigenin, Charlie Weimers, Sophie Wilmès, Ewa Zajączkowska-Hernik, Alessandro Zan, Javier Zarzalejos",
-     "Substitutes present for the final vote | Konstantinos Arvanitis, Fredis Beleris, David Casa, Geadis Geadi, Monika Hohlmeier, Nikola Minchev, Hannah Neumann, João Oliveira, Leoluca Orlando, Oliver Schenk, Alexander Sell, Sander Smit, António Tânger Corrêa, Pekka Toveri, Roberto Vannacci",
-     "Members under Rule 216(7) present for the final vote | Laurent Castillo, Christian Doleschal, Pietro Fiocchi, Pär Holmgren, Andrey Kovatchev, Andrea Wechsler"
+     "Committees asked for opinions\nDate announced in plenary | LIBE\n19.10.2023 |  |  | ",
+     "Rapporteurs\nDate appointed | Fernando Navarrete Rojas\n16.12.2024 |  |  | ",
+     "Discussed in committee | 5.11.2025 | 29.1.2026 |  | ",
+     "Date adopted | 23.6.2026 |  |  | ",
+     "Result of final vote | +:\n–:\n0: | 43\n14\n1",
+     "Date tabled | 26.6.2026"
     ],
     "rollCallText": [
      "DRAFT EUROPEAN PARLIAMENT LEGISLATIVE RESOLUTION",
