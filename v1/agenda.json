@@ -1275,11 +1275,11 @@
   },
   "2026-11-23": {
    "stage": "updated",
-   "updated": "2026-11-24",
+   "updated": "2026-11-25",
    "link": "https://www.europarl.europa.eu/plenary/en/agendas.html",
    "src": {
     "api": "foreseen-activities",
-    "sha256": "08089ba3c3103ee356a8f7cbc9ee0471e9b1c97547e6e28489b9b2cc16fdf60c"
+    "sha256": "3decfe0c6e20ea666f6a9bff2a96f832fd81f3c595f392bb408f2e03366463ba"
    },
    "days": {
     "2026-11-23": [
@@ -1493,6 +1493,17 @@
      {
       "time": "12:00–13:00",
       "type": "votes",
+      "title": "Union support for asylum, migration and integration 2028–2034",
+      "sub": "C10-0177/2025 · A10-0312/2026 · ***I",
+      "rapporteur": "Ana Catarina Mendes",
+      "rapporteurs": [
+       "257053"
+      ],
+      "committee": "LIBE"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
       "title": "Establishing Global Europe",
       "sub": "C10-0175/2025 · A10-0277/2026 · ***I",
       "rapporteur": "Michael Gahler, Robert Biedroń",
@@ -1505,6 +1516,18 @@
      {
       "time": "12:00–13:00",
       "type": "votes",
+      "title": "European Competitiveness Fund",
+      "sub": "C10-0165/2025 · A10-0308/2026 · ***I",
+      "rapporteur": "Christian Ehler, Dan Nica",
+      "rapporteurs": [
+       "28226",
+       "124784"
+      ],
+      "committee": "ITRE"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
       "title": "Placing on the market of genetically modified micro-organisms and the processing of organs",
       "sub": "C10-0358/2025 · A10-0304/2026 · ***I",
       "rapporteur": "Marta Temido, Adam Jarubas",
@@ -1513,6 +1536,18 @@
        "197517"
       ],
       "committee": "ENVI"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "Connecting Europe Facility 2028–2034",
+      "sub": "C10-0167/2025 · A10-0301/2026 · ***I",
+      "rapporteur": "Kamila Gasiuk-Pihowicz, Oihane Agirregoitia Martínez",
+      "rapporteurs": [
+       "257032",
+       "256987"
+      ],
+      "committee": "ITRE"
      },
      {
       "time": "12:00–13:00",
@@ -1594,6 +1629,18 @@
      {
       "time": "12:00–13:00",
       "type": "votes",
+      "title": "European Social Fund 2028–2034",
+      "sub": "C10-0172/2025 · A10-0291/2026 · ***I",
+      "rapporteur": "Marit Maij, David Casa",
+      "rapporteurs": [
+       "91636",
+       "28122"
+      ],
+      "committee": "EMPL"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
       "title": "Objection pursuant to Rule 115(2) and (3): European List of ship recycling facilities",
       "sub": "2026/2922(RSP)"
      },
@@ -1607,6 +1654,29 @@
        "220801"
       ],
       "committee": "ITRE"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "Horizon Europe framework programme for research and innovation 2028–2034",
+      "sub": "C10-0164/2025 · A10-0299/2026 · ***I",
+      "rapporteur": "Christian Ehler",
+      "rapporteurs": [
+       "28226"
+      ],
+      "committee": "ITRE"
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "votes",
+      "title": "'AgoraEU' programme 2028–2034",
+      "sub": "C10-0173/2025 · A10-0313/2026 · ***I",
+      "rapporteur": "Emma Rafowicz, Alice Kuhnke",
+      "rapporteurs": [
+       "256902",
+       "197395"
+      ],
+      "committee": "CULT"
      },
      {
       "time": "12:00–13:00",
