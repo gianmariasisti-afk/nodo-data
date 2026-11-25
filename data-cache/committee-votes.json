@@ -1,13 +1,11 @@
 {
- "generated": "2026-11-25T08:18:14.489Z",
+ "generated": "2026-11-25T08:19:47.242Z",
  "source": "Open Data Portal report (.docx): final vote by roll call by the committee responsible",
  "reports": {
   "A-10-2026-0185": {
    "id": "A-10-2026-0185",
-   "ok": false,
-   "problems": [
-    "1 vote column(s) read, 3 expected"
-   ],
+   "ok": true,
+   "problems": [],
    "docx": "https://data.europarl.europa.eu/distribution/reds_iPlRp/A-10-2026-0185/A-10-2026-0185_en.docx",
    "docxBuilt": true,
    "apiTried": [
@@ -262,13 +260,23 @@
      "vote": "for",
      "printed": 43,
      "counted": 43
+    },
+    {
+     "vote": "against",
+     "printed": 14,
+     "counted": 14
+    },
+    {
+     "vote": "abstention",
+     "printed": 1,
+     "counted": 1
     }
    ],
    "byGroup": {
     "ECR": {
      "for": 3,
-     "against": 0,
-     "abstention": 0
+     "against": 3,
+     "abstention": 1
     },
     "EPP": {
      "for": 16,
@@ -277,7 +285,7 @@
     },
     "Renew": {
      "for": 5,
-     "against": 0,
+     "against": 1,
      "abstention": 0
     },
     "S&D": {
@@ -293,6 +301,21 @@
     "Greens/EFA": {
      "for": 4,
      "against": 0,
+     "abstention": 0
+    },
+    "ESN": {
+     "for": 0,
+     "against": 2,
+     "abstention": 0
+    },
+    "NI": {
+     "for": 0,
+     "against": 1,
+     "abstention": 0
+    },
+    "PfE": {
+     "for": 0,
+     "against": 7,
      "abstention": 0
     }
    },
@@ -554,6 +577,96 @@
      "name": "Anna STROLENBERG",
      "group": "Greens/EFA",
      "vote": "for"
+    },
+    {
+     "id": "257000",
+     "name": "Stephen Nikola BARTULICA",
+     "group": "ECR",
+     "vote": "against"
+    },
+    {
+     "id": "257077",
+     "name": "Marlena MALĄG",
+     "group": "ECR",
+     "vote": "against"
+    },
+    {
+     "id": "257052",
+     "name": "Maciej WĄSIK",
+     "group": "ECR",
+     "vote": "against"
+    },
+    {
+     "id": "256949",
+     "name": "Siegbert Frank DROESE",
+     "group": "ESN",
+     "vote": "against"
+    },
+    {
+     "id": "257262",
+     "name": "Rada LAYKOVA",
+     "group": "ESN",
+     "vote": "against"
+    },
+    {
+     "id": "124858",
+     "name": "Fabio DE MASI",
+     "group": "NI",
+     "vote": "against"
+    },
+    {
+     "id": "257024",
+     "name": "Mireia BORRÁS PABÓN",
+     "group": "PfE",
+     "vote": "against"
+    },
+    {
+     "id": "125052",
+     "name": "Juan Carlos GIRAUTA VIDAL",
+     "group": "PfE",
+     "vote": "against"
+    },
+    {
+     "id": "96830",
+     "name": "Enikő GYŐRI",
+     "group": "PfE",
+     "vote": "against"
+    },
+    {
+     "id": "270261",
+     "name": "Jaroslav KNOT",
+     "group": "PfE",
+     "vote": "against"
+    },
+    {
+     "id": "261038",
+     "name": "Tomáš KUBÍN",
+     "group": "PfE",
+     "vote": "against"
+    },
+    {
+     "id": "256893",
+     "name": "Pierre PIMPIE",
+     "group": "PfE",
+     "vote": "against"
+    },
+    {
+     "id": "103246",
+     "name": "Auke ZIJLSTRA",
+     "group": "PfE",
+     "vote": "against"
+    },
+    {
+     "id": "197430",
+     "name": "Engin EROGLU",
+     "group": "Renew",
+     "vote": "against"
+    },
+    {
+     "id": "125106",
+     "name": "Johan VAN OVERTVELDT",
+     "group": "ECR",
+     "vote": "abstention"
     }
    ],
    "unmatched": [],
@@ -569,7 +682,9 @@
     "Elena SANCHO MURILLO",
     "Danilo DELLA VALLE",
     "Mélissa CAMARA",
-    "Anna STROLENBERG"
+    "Anna STROLENBERG",
+    "Maciej WĄSIK",
+    "Juan Carlos GIRAUTA VIDAL"
    ]
   }
  }
