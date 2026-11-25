@@ -1279,7 +1279,7 @@
    "link": "https://www.europarl.europa.eu/plenary/en/agendas.html",
    "src": {
     "api": "foreseen-activities",
-    "sha256": "3decfe0c6e20ea666f6a9bff2a96f832fd81f3c595f392bb408f2e03366463ba"
+    "sha256": "2dedf609db96f25659f43558b9eaaff13400705643d031330de6367aa4439ff3"
    },
    "days": {
     "2026-11-23": [
@@ -1516,7 +1516,7 @@
      {
       "time": "12:00–13:00",
       "type": "votes",
-      "title": "European Competitiveness Fund",
+      "title": "European Competitiveness Fund, including the specific programme for defence research and innovation activities",
       "sub": "C10-0165/2025 · A10-0308/2026 · ***I",
       "rapporteur": "Christian Ehler, Dan Nica",
       "rapporteurs": [
@@ -1631,10 +1631,10 @@
       "type": "votes",
       "title": "European Social Fund 2028–2034",
       "sub": "C10-0172/2025 · A10-0291/2026 · ***I",
-      "rapporteur": "Marit Maij, David Casa",
+      "rapporteur": "David Casa, Marit Maij",
       "rapporteurs": [
-       "91636",
-       "28122"
+       "28122",
+       "91636"
       ],
       "committee": "EMPL"
      },
