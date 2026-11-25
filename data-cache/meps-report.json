@@ -1,41 +1,15 @@
 {
- "run": "2026-11-25T05:11:28.484Z",
+ "run": "2026-11-25T15:31:38.825Z",
  "checked": "2026-11-25",
  "api": 720,
  "nodo": 720,
  "failed": [],
- "auto": [
-  {
-   "id": "197623",
-   "name": "Thierry MARIANI",
-   "changes": {
-    "delegations": {
-     "from": [
-      "DMED Substitute",
-      "DAFR Member",
-      "DSCA Substitute",
-      "DACP Member",
-      "DEPA Member",
-      "DCAS Member"
-     ],
-     "to": [
-      "DMED Substitute",
-      "DAFR Member",
-      "DSCA Substitute",
-      "DACP Member",
-      "DEPA Member",
-      "DCAS Member",
-      "D-IQ Substitute"
-     ]
-    }
-   }
-  }
- ],
+ "auto": [],
  "structural": [],
  "summary": {
-  "auto": 1,
+  "auto": 0,
   "structural": 0,
   "failed": 0,
-  "changed": true
+  "changed": false
  }
 }
