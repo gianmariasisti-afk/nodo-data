@@ -55,7 +55,9 @@ def key_players(html):
     for t in d.find_all("table"):
         th = t.select_one("thead th")
         head = T(th.get_text(" ")) if th else ""
-        if not re.search("committee", head, re.I) or re.search("budgetary", head, re.I):
+        # "Former committee responsible" and "Former committee for opinion" hold the previous term's people
+        # (digital euro: Stefan Berger, Emil Radev's 2023 opinion); they are not on the file now (fixed 25 Nov 2026).
+        if not re.search("committee", head, re.I) or re.search("budgetary|former", head, re.I):
             continue
         opinion, joint, rows = bool(re.search("opinion", head, re.I)), bool(re.search("joint", head, re.I)), []
         body = t.find("tbody") or t

@@ -1,9 +1,25 @@
 {
- "generated": "2026-11-23T08:52:11.784Z",
+ "generated": "2026-11-25T21:41:43.522Z",
  "windowDays": 30,
  "maxPerFile": 3,
  "files": {
   "biotech-act": [
+   {
+    "id": "3e8e612ff8",
+    "date": "2026-11-25",
+    "source": "European Parliament",
+    "inst": "ep",
+    "kind": "institutional",
+    "text": "Parliament voted the amended Biotech Act directive on genetically modified micro-organisms and organs, by 351 votes to 176 with 132 abstentions.",
+    "url": "https://data.europarl.europa.eu/api/v2/meetings/MTG-PL-2026-11-25/decisions",
+    "people": [
+     "ep:210480",
+     "ep:197517"
+    ],
+    "stage": false,
+    "paywall": false,
+    "added": "2026-11-25"
+   },
    {
     "id": "d035b91a2c",
     "date": "2026-11-10",
@@ -22,6 +38,22 @@
    }
   ],
   "cef-2028-2034": [
+   {
+    "id": "b6ee551d29",
+    "date": "2026-11-25",
+    "source": "European Parliament",
+    "inst": "ep",
+    "kind": "institutional",
+    "text": "Parliament backed ITRE-TRAN's mandate to negotiate the Connecting Europe Facility 2028–2034 with the Council, by 451 votes to 173 with 38 abstentions.",
+    "url": "https://data.europarl.europa.eu/api/v2/meetings/MTG-PL-2026-11-25/decisions",
+    "people": [
+     "ep:257032",
+     "ep:256987"
+    ],
+    "stage": false,
+    "paywall": false,
+    "added": "2026-11-25"
+   },
    {
     "id": "44a7ca332b",
     "date": "2026-11-10",
@@ -191,6 +223,19 @@
    }
   ],
   "mff-2028-2034": [
+   {
+    "id": "35b54fb267",
+    "date": "2026-11-21",
+    "source": "Council of the EU",
+    "inst": "council",
+    "kind": "institutional",
+    "text": "António Costa presented his MFF negotiating box on 21 November as the basis for the Special European Council of 26–27 November.",
+    "url": "https://www.consilium.europa.eu/en/policies/the-eu-s-long-term-budget-2028-2034/",
+    "people": [],
+    "stage": false,
+    "paywall": false,
+    "added": "2026-11-25"
+   },
    {
     "id": "bd6e660183",
     "date": "2026-11-13",

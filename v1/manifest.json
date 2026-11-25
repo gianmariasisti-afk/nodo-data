@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generated": "2026-11-25T17:36:54.701Z",
+ "generated": "2026-11-25T21:43:04.565Z",
  "files": {
   "meps": {
    "path": "meps.json",
@@ -41,8 +41,8 @@
   "files": {
    "path": "files.json",
    "description": "Legislative files linked to MEPs, Commissioners, cabinet members and Council configurations",
-   "bytes": 177146,
-   "sha256": "1eb0d14740112a8518a7fe25ce7153d62d7aa87a7354fb6c0da5050416ad2bf2"
+   "bytes": 173010,
+   "sha256": "ed1ef186f782c0d3470ee942106777e6312a61fa5bf34ffcc39fdf3a45b18a4d"
   },
   "updates": {
    "path": "updates/updates.json",
@@ -59,8 +59,8 @@
   "press": {
    "path": "press.json",
    "description": "Latest developments: dated press and institutional items on nodo's files, each with nodo's own takeaway and a link to the source",
-   "bytes": 14028,
-   "sha256": "cab7ca94766745651e4929cdbb1dda9ddc1ea90e1134ff2dfb2b3bb3775bcedc"
+   "bytes": 15553,
+   "sha256": "47a45dfae0b527e3272795f972fc11b52d1fd75e9920399c606159e025f17119"
   },
   "sources": {
    "path": "sources.json",

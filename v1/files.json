@@ -1,6 +1,6 @@
 {
- "generated": "2026-11-23T08:18:41Z",
- "asOf": "2026-11-23",
+ "generated": "2026-11-25T22:00:00Z",
+ "asOf": "2026-11-25",
  "source": "Parliament Open Data Portal (basis ep-open-data); Parliament Legislative Observatory procedure files (basis ep-procedure-file); press and Council documents (basis press); commission.json for commissioners and cabinets",
  "legend": {
   "roles": [
@@ -66,23 +66,11 @@
     "2025/0571R(APP)"
    ],
    "stage": "council-negotiating-box",
-   "status": "António Costa presented his negotiating box with figures on 21 November 2026: €1,582bn in commitments at 2025 prices, €180.5bn (10%) below the Commission proposal and about €40bn below the Irish Presidency box of 10 October (Council doc 13922/26), with heading 2 at €437.6bn, Global Europe at €150bn, cohesion at €402bn, slower repayment of NextGenerationEU debt and a 3% digital levy expected to raise about €35bn over the period (Agence Europe). Leaders take it up at the Special European Council on 26–27 November; Member States see a compromise at the 17–18 December European Council as the most likely outcome (Agence Europe, 30 October). Unanimity in Council, then Parliament consent. Two programmes are followed as parts: the European Competitiveness Fund (ITRE co-rapporteurs Christian Ehler and Dan Nica; Council partial position on 16 June 2026; ITRE adopted its report and a mandate to negotiate on 10 November 2026, tabled for plenary on 18 November, per the Observatory) and the National and Regional Partnership Plans fund (BUDG, REGI and AGRI: Karlo Ressler, Andrey Novakov and Elsi Katainen), where Agence Europe reported a partial general approach on 16 June 2026. A third part is the Performance Regulation (BUDG and CONT jointly, co-rapporteurs Jean-Marc Germain and Niclas Herbst): more than 1,000 amendments were tabled to their draft report, and the groups split over the do no significant harm principle at a joint meeting on 4 November (Agence Europe).",
+   "status": "António Costa tabled his negotiating box on 21 November 2026: €1,582bn in commitments at 2025 prices, €180.6bn below the Commission proposal and €40bn below the Irish Presidency box of 10 October, with slower repayment of NextGenerationEU debt and a digital levy. Leaders discuss it at the Special European Council on 26–27 November and aim for a deal in December. Unanimity in Council, then Parliament's consent; co-rapporteur Siegfried Mureşan called the box unacceptable to Parliament. Three programmes are followed as parts: the European Competitiveness Fund (ITRE co-rapporteurs Christian Ehler and Dan Nica; ITRE's report and mandate of 10 November were on the 25 November plenary voting list), the National and Regional Partnership Plans fund (Karlo Ressler, Andrey Novakov and Elsi Katainen; committee vote not before January 2027) and the Performance Regulation (Jean-Marc Germain and Niclas Herbst; more than 1,000 amendments, with the groups split over do no significant harm).",
    "next": [
     {
-     "date": "2026-11-23",
-     "what": "ECF: ITRE's mandate to negotiate announced in plenary in Strasbourg (reported by Agence Europe); a plenary vote follows only if 72 MEPs ask for one",
-     "src": "agenceurope-13985-mff",
-     "part": "ecf"
-    },
-    {
-     "date": "2026-11-24",
-     "what": "Ad hoc working party on the MFF (European Competitiveness Fund): preparation for interinstitutional engagement on Chapter VII",
-     "src": "council-cm-5070",
-     "part": "ecf"
-    },
-    {
      "date": "2026-11-26",
-     "what": "Special European Council, 26-27 November (Agence Europe: devoted to the MFF)",
+     "what": "Special European Council on the MFF, 26–27 November",
      "src": "council-euco-20261126"
     },
     {
@@ -936,7 +924,7 @@
    },
    "caveats": [
     "ECF, NRPP and Performance Regulation rapporteurs, shadows and opinion rapporteurs come from the Parliament's procedure files (rechecked each week).",
-    "The figures of Costa's 21 November negotiating box come from Agence Europe; the Council press release could not be read from the cloud."
+    "The figures of Costa's 21 November box come from the Council's MFF page and Agence Europe."
    ],
    "sources": [
     {
@@ -1083,9 +1071,14 @@
      "id": "agenceurope-13985-mff",
      "title": "Agence Europe: Parliament could bypass plenary vote on seven texts, including the European Competitiveness Fund",
      "url": "https://agenceurope.eu/en/bulletin/article/13985/12/mff-2028-2034-european-parliament-could-bypass-plenary-vote-on-seven-texts-including-european-competitiveness-fund-horizon-europe-and-agoraeu"
+    },
+    {
+     "id": "council-mff-page",
+     "title": "Council: the EU's long-term budget for 2028–2034",
+     "url": "https://www.consilium.europa.eu/en/policies/the-eu-s-long-term-budget-2028-2034/"
     }
    ],
-   "checked": "2026-11-23",
+   "checked": "2026-11-25",
    "parts": [
     {
      "id": "ecf",
@@ -1106,7 +1099,8 @@
      "short": "Performance"
     }
    ],
-   "lede": "Leaders negotiate on the Presidency's box; António Costa is to table his own box with figures before a special summit."
+   "lede": "Costa's €1,582bn box goes to leaders on 26–27 November; Parliament's co-rapporteurs say it cannot be the basis for consent.",
+   "ledeChecked": "2026-11-25"
   },
   {
    "id": "digital-omnibus-data",
@@ -1375,8 +1369,9 @@
      "url": "https://data.consilium.europa.eu/doc/document/ST-14756-2026-INIT/en/pdf"
     }
    ],
-   "checked": "2026-11-23",
-   "lede": "The Council has its negotiating mandate; Parliament's joint ITRE-LIBE position will take months."
+   "checked": "2026-11-25",
+   "lede": "The Council has its negotiating mandate since 21 October; the joint ITRE-LIBE committee has no vote date yet.",
+   "ledeChecked": "2026-11-25"
   },
   {
    "id": "industrial-accelerator-act",
@@ -1699,7 +1694,8 @@
     }
    ],
    "checked": "2026-11-23",
-   "lede": "The Council works through the third Presidency compromise; INTA-ITRE-IMCO sorts more than 5,000 amendments."
+   "lede": "The Council works through the third Presidency compromise; INTA-ITRE-IMCO sorts more than 5,000 amendments.",
+   "ledeChecked": "2026-11-23"
   },
   {
    "id": "digital-networks-act",
@@ -1899,17 +1895,18 @@
     }
    ],
    "checked": "2026-11-23",
-   "lede": "The Presidency's first compromise text is in the telecoms working party; ITRE's draft report is out."
+   "lede": "The Presidency's first compromise text is in the telecoms working party; ITRE's draft report is out.",
+   "ledeChecked": "2026-11-23"
   },
   {
    "id": "digital-fairness-act",
    "short": "Digital Fairness Act",
    "title": "Digital Fairness Act",
-   "kind": "pre-proposal",
+   "kind": "regulation",
    "area": "digital",
    "procedure": null,
    "stage": "positions-in-preparation",
-   "status": "The Commission adopted the Digital Fairness Act proposal on 11 November 2026, with a Simplification Directive, in a consumer package that also revises the Consumer Protection Cooperation Regulation; it calls it the biggest upgrade of EU consumer law in over 20 years. The proposal targets dark patterns, addictive design, problems with influencer marketing, unfair personalisation that exploits vulnerabilities, and dynamic or misleading pricing, and addresses hard-to-cancel contracts, automatic subscription renewals and free trials that turn into paid subscriptions. The social media minimum age is not part of it: the Commission proposed it separately in the EU KIDS Act on 17 September 2026, which nodo follows as its own file. Parliament's committee referral and rapporteur, and the Council working party, are still to come.",
+   "status": "The Commission adopted the Digital Fairness Act on 11 November 2026, in a consumer package with a Simplification Directive amending the Consumer Rights Directive and a revision of the Consumer Protection Cooperation Regulation. The DFA is a regulation that replaces the 2005 Unfair Commercial Practices Directive and gives the Commission its own power to investigate and fine, up to 6% of turnover. It targets dark patterns, addictive design, influencer marketing, personalisation that exploits vulnerabilities and misleading pricing, and addresses hard-to-cancel contracts, automatic renewals and free trials that turn into paid subscriptions. The social media minimum age sits in the EU KIDS Act, which nodo follows as its own file. Parliament's committee referral and rapporteur, and the Council working party, are still to come.",
    "next": [
     {
      "date": null,
@@ -1930,149 +1927,9 @@
      "committee": "IMCO",
      "basis": "ep-open-data",
      "ref": "IMCO-PR-772053",
-     "note": "Worked on the Parliament's 2025 report on protection of minors online",
+     "note": "Rapporteur of the Parliament's 2025 resolution on minors online, which asked for rules on dark patterns and addictive design",
      "rel": "ep-res-minors-2025",
      "relRole": "rapporteur"
-    },
-    {
-     "id": "256834",
-     "role": "relevant",
-     "committee": "IMCO",
-     "basis": "ep-open-data",
-     "ref": "IMCO-PR-772053",
-     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)",
-     "rel": "ep-res-minors-2025",
-     "relRole": "shadow"
-    },
-    {
-     "id": "197529",
-     "role": "relevant",
-     "committee": "IMCO",
-     "basis": "ep-open-data",
-     "ref": "IMCO-PR-772053",
-     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)",
-     "rel": "ep-res-minors-2025",
-     "relRole": "shadow"
-    },
-    {
-     "id": "197581",
-     "role": "relevant",
-     "committee": "IMCO",
-     "basis": "ep-open-data",
-     "ref": "IMCO-PR-772053",
-     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)",
-     "rel": "ep-res-minors-2025",
-     "relRole": "shadow"
-    },
-    {
-     "id": "197870",
-     "role": "relevant",
-     "committee": "IMCO",
-     "basis": "ep-open-data",
-     "ref": "IMCO-PR-772053",
-     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)",
-     "rel": "ep-res-minors-2025",
-     "relRole": "shadow"
-    },
-    {
-     "id": "256862",
-     "role": "relevant",
-     "committee": "IMCO",
-     "basis": "ep-open-data",
-     "ref": "IMCO-PR-772053",
-     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)",
-     "rel": "ep-res-minors-2025",
-     "relRole": "shadow"
-    },
-    {
-     "id": "124884",
-     "role": "relevant",
-     "committee": "IMCO",
-     "basis": "ep-open-data",
-     "ref": "IMCO-PR-772053",
-     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)",
-     "rel": "ep-res-minors-2025",
-     "relRole": "shadow"
-    },
-    {
-     "id": "257258",
-     "role": "relevant",
-     "committee": "CULT",
-     "basis": "ep-open-data",
-     "ref": "CULT-AD-775391",
-     "note": "Worked on the Parliament's 2025 report on protection of minors online",
-     "rel": "cult-opinion-minors-2025",
-     "relRole": "rapporteur"
-    },
-    {
-     "id": "257457",
-     "role": "relevant",
-     "committee": "CULT",
-     "basis": "ep-open-data",
-     "ref": "CULT-AD-775391",
-     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)",
-     "rel": "cult-opinion-minors-2025",
-     "relRole": "shadow"
-    },
-    {
-     "id": "197832",
-     "role": "relevant",
-     "committee": "CULT",
-     "basis": "ep-open-data",
-     "ref": "CULT-AD-775391",
-     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)",
-     "rel": "cult-opinion-minors-2025",
-     "relRole": "shadow"
-    },
-    {
-     "id": "256943",
-     "role": "relevant",
-     "committee": "CULT",
-     "basis": "ep-open-data",
-     "ref": "CULT-AD-775391",
-     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)",
-     "rel": "cult-opinion-minors-2025",
-     "relRole": "shadow"
-    },
-    {
-     "id": "256952",
-     "role": "relevant",
-     "committee": "CULT",
-     "basis": "ep-open-data",
-     "ref": "CULT-AD-775391",
-     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)",
-     "rel": "cult-opinion-minors-2025",
-     "relRole": "shadow"
-    },
-    {
-     "id": "256803",
-     "role": "relevant",
-     "committee": "CULT",
-     "basis": "ep-open-data",
-     "ref": "CULT-AD-775391",
-     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)",
-     "rel": "cult-opinion-minors-2025",
-     "relRole": "shadow"
-    },
-    {
-     "id": "256859",
-     "role": "relevant",
-     "committee": "CULT",
-     "basis": "ep-open-data",
-     "ref": "CULT-AD-775391",
-     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)",
-     "rel": "cult-opinion-minors-2025",
-     "relRole": "shadow"
-    },
-    {
-     "id": "197672",
-     "role": "relevant",
-     "committee": "CULT",
-     "basis": "ep-open-data",
-     "ref": "CULT-AD-775391",
-     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)",
-     "rel": "cult-opinion-minors-2025",
-     "relRole": "shadow"
     },
     {
      "id": "86793",
@@ -2135,7 +1992,7 @@
     "note": "The Commission adopted the proposal on 11 November 2026; no Council working party is named yet."
    },
    "caveats": [
-    "Proposed on 11 November 2026; no Parliament procedure file is followed yet. MEP entries are relevance markers from earlier work and carry no role on the file."
+    "No Parliament procedure file yet. The MEPs listed have no role on this file: they led the Parliament's 2025 work on dark patterns and addictive design, or lead IMCO, the likely lead committee."
    ],
    "sources": [
     {
@@ -2174,8 +2031,9 @@
      "url": "https://commission.europa.eu/law/law-topic/consumer-protection-law/digital-fairness-act_en"
     }
    ],
-   "checked": "2026-11-23",
-   "lede": "Commission proposal in preparation, in a consumer package. The social media minimum age moved to the EU KIDS Act.",
+   "checked": "2026-11-25",
+   "lede": "Proposed on 11 November as a regulation replacing the Unfair Commercial Practices Directive; Parliament and Council have not started.",
+   "ledeChecked": "2026-11-25",
    "related": [
     {
      "id": "ep-res-minors-2025",
@@ -2189,19 +2047,6 @@
      "url": "https://oeil.europarl.europa.eu/oeil/en/document-summary?id=1874426",
      "whyBy": "nodo",
      "why": "Asked for stronger rules on dark patterns and a ban on the most addictive design practices for minors."
-    },
-    {
-     "id": "cult-opinion-minors-2025",
-     "kind": "opinion",
-     "title": "CULT opinion on protection of minors online",
-     "short": "CULT opinion on minors online",
-     "procedure": "2025/2060(INI)",
-     "cmte": "CULT",
-     "date": "2025-10-21",
-     "doc": "CULT-AD-775391",
-     "url": "https://data.europarl.europa.eu/distribution/reds_iCmOp/CULT-AD-775391/CULT-AD-775391_en.pdf",
-     "why": "The Culture committee's input to the same resolution, on minors as users of online content and games.",
-     "whyBy": "nodo"
     },
     {
      "id": "imco-lead",
@@ -2223,14 +2068,8 @@
    "area": "digital",
    "procedure": null,
    "stage": "positions-in-preparation",
-   "status": "The Commission proposed both on 3 June 2026. In Parliament, ITRE leads the Chips Act 2.0 (rapporteur Oliver Schenk, appointed 31 August) and ITRE and IMCO share the CADA (Diego Solier and Reinier van Lanschot); neither has a draft report or a committee vote date yet. The Council's industry working party took up the Chips Act 2.0 on 2 September and on 12 and 13 October, and had the Presidency compromise text (doc 13545/26 REV 1) on its agenda on 29 and 30 October. On the CADA, the telecoms working party had the Presidency's first compromise text of Title IV on 10 November and takes up the text on Pillars 1 and 2 (doc 15830/26) on 24 November. The CADA aims to triple EU data-centre capacity within five to seven years and creates a framework to assess cloud and AI sovereignty, which is the most contested element.",
+   "status": "The Commission proposed both on 3 June 2026. In Parliament, ITRE leads the Chips Act 2.0 (rapporteur Oliver Schenk, appointed 31 August) and ITRE and IMCO share the CADA (Diego Solier and Reinier van Lanschot); neither has a draft report or a committee vote date yet. The Council's industry working party took up the Chips Act 2.0 on 2 September and on 12 and 13 October, and had the Presidency compromise text (doc 13545/26 REV 1) on its agenda on 29 and 30 October. On the CADA, the telecoms working party had the Presidency's first compromise text of Title IV on 10 November and took up the text on Pillars 1 and 2 (doc 15830/26) on 24 November. The CADA aims to triple EU data-centre capacity within five to seven years and creates a framework to assess cloud and AI sovereignty, which is the most contested element.",
    "next": [
-    {
-     "date": "2026-11-24",
-     "what": "Telecoms working party: CADA first compromise text on Pillars 1 and 2 and general and final provisions (doc 15830/26), and the EESC opinion",
-     "src": "council-cm-5068",
-     "part": "cada"
-    },
     {
      "date": null,
      "what": "Parliament committee votes: no dates set yet",
@@ -2569,8 +2408,9 @@
      "url": "https://data.consilium.europa.eu/doc/document/CM-5068-2026-INIT/en/pdf"
     }
    ],
-   "checked": "2026-11-23",
-   "lede": "The Council works on the Chips Act 2.0 compromise; neither text has a draft report in Parliament yet."
+   "checked": "2026-11-25",
+   "lede": "The Council works on the Chips Act 2.0 compromise; neither text has a draft report in Parliament yet.",
+   "ledeChecked": "2026-11-25"
   },
   {
    "id": "ai-act-implementation",
@@ -2580,12 +2420,12 @@
    "area": "digital",
    "procedure": "2025/0359(COD)",
    "stage": "in-force",
-   "status": "The Digital Omnibus on AI entered into force on 27 July 2026. Annex III high-risk obligations now apply from 2 December 2027 and Annex I from 2 August 2028. Providers of generative AI already on the market have until 2 December 2026 for labelling measures. The live issues are standards, AI Office enforcement and national authority designation.",
+   "status": "The Digital Omnibus on AI, Regulation (EU) 2026/1744, was signed on 8 July 2026 and entered into force on 27 July. Annex III high-risk obligations now apply from 2 December 2027 and Annex I obligations from 2 August 2028. On 2 December 2026 the new prohibitions apply (AI that generates non-consensual intimate imagery or child sexual abuse material), and generative AI systems placed on the market before 2 August 2026 must meet the marking duty of Article 50(2).",
    "next": [
     {
      "date": "2026-12-02",
-     "what": "Labelling cut-off for generative AI systems already on the market",
-     "src": "lewis-silkin-ai"
+     "what": "New AI Act prohibitions apply; marking deadline for generative AI already on the market",
+     "src": "eurlex-2026-1744"
     }
    ],
    "ep": {
@@ -2813,8 +2653,7 @@
     "note": "Final Council approval 29 June 2026."
    },
    "caveats": [
-    "Rapporteurs, shadows and opinion rapporteurs come from the Parliament's procedure file (rechecked each week); opinion shadows from the committees' documents in the Parliament's open data.",
-    "Sources disagree on the date of the provisional trilogue agreement (6–7 May versus 22 June 2026). The entry into force date of 27 July 2026 is consistent across sources."
+    "Rapporteurs, shadows and opinion rapporteurs come from the Parliament's procedure file (rechecked each week); opinion shadows from the committees' documents in the Parliament's open data."
    ],
    "sources": [
     {
@@ -2841,10 +2680,16 @@
      "id": "oeil-2025-0359-cod",
      "title": "Legislative Observatory: procedure file 2025/0359(COD)",
      "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2025/0359(COD)"
+    },
+    {
+     "id": "eurlex-2026-1744",
+     "title": "Regulation (EU) 2026/1744 (Digital Omnibus on AI), Official Journal",
+     "url": "https://eur-lex.europa.eu/eli/reg/2026/1744/oj"
     }
    ],
-   "checked": "2026-11-23",
-   "lede": "In force. Standards, AI Office enforcement and national authorities are the live issues."
+   "checked": "2026-11-25",
+   "lede": "In force since 27 July. Next date: 2 December 2026, when the new bans and the marking duty for existing generative AI apply.",
+   "ledeChecked": "2026-11-25"
   },
   {
    "id": "grids-package",
@@ -2855,7 +2700,8 @@
    "procedure": null,
    "stage": "trilogue",
    "sector": "energy",
-   "lede": "TEN-E trilogues under way; the Council wants a deal in 2026.",
+   "lede": "Permitting deal reached on 18 November; the final TEN-E trilogue is expected in early December.",
+   "ledeChecked": "2026-11-25",
    "status": "The Commission proposed both on 10 December 2025; the Council agreed general approaches on 26 June 2026, and Parliament's mandates (ITRE reports by Niels Fuglsang on permitting and Tsvetelina Penkova on TEN-E) were confirmed in plenary on 8 July and 16 September. Council and Parliament reached a provisional agreement on the permitting directive early on 18 November 2026, at the third trilogue: permits for solar with co-located storage and grid connections within three months, stand-alone storage and recharging points within six, and a benefit-sharing threshold cut from 10 to 7 MW (Council press release); ITRE, plenary and the Council must still endorse it. On TEN-E, the third trilogue on 10 November settled the framework assessment, while congestion income stays open; Agence Europe reports the final round for early December. The European Council asked the co-legislators to agree the package in 2026.",
    "next": [
     {
@@ -3129,7 +2975,7 @@
      "url": "https://agenceurope.eu/en/bulletin/article/13984/11/european-parliament-and-eu-council-agree-to-streamline-permitting-for-grid-construction"
     }
    ],
-   "checked": "2026-11-23",
+   "checked": "2026-11-25",
    "asOf": "2026-10-21"
   },
   {
@@ -3142,13 +2988,13 @@
    "proposal": "COM(2025)547",
    "stage": "positions-in-preparation",
    "sector": "transport",
-   "lede": "The Council has a partial mandate without the money; Parliament's joint ITRE-TRAN committee still has to vote.",
-   "status": "The Commission proposed it on 16 July 2025 as part of the MFF package: €81.4bn for trans-European transport and energy networks (€33.7bn in 2021–2027), of which €29.9bn for energy and €17.6bn for military mobility. The Council agreed a partial general approach at the Energy Council on 15 December 2025; it leaves out financial and horizontal issues, which wait for the MFF deal. In Parliament, the joint ITRE-TRAN committee (co-rapporteurs Kamila Gasiuk-Pihowicz and Oihane Agirregoitia Martínez) adopted its report on 10 November 2026 together with a decision to open interinstitutional negotiations, per the Observatory, and tabled it for plenary on 16 November; Agence Europe reports the mandate is announced in plenary on 23 November. MEPs criticised the proposed cuts to the envelope (Agence Europe); BUDG's opinion asks to raise it to €91.3bn.",
+   "lede": "Plenary backed ITRE-TRAN's negotiating mandate on 25 November; talks with the Council can open, the money waits for the MFF deal.",
+   "ledeChecked": "2026-11-25",
+   "status": "The Commission proposed it on 16 July 2025 as part of the MFF package: €81.4bn for trans-European transport and energy networks (€33.7bn in 2021–2027), of which €29.9bn for energy and €17.6bn for military mobility. The Council agreed a partial general approach at the Energy Council on 15 December 2025; it leaves out financial and horizontal issues, which wait for the MFF deal. In Parliament, the joint ITRE-TRAN committee (co-rapporteurs Kamila Gasiuk-Pihowicz and Oihane Agirregoitia Martínez) adopted its report on 10 November 2026 together with a decision to open interinstitutional negotiations, per the Observatory; a plenary vote on the mandate was requested and Parliament backed it on 25 November, 451 to 173 with 38 abstentions. MEPs criticised the proposed cuts to the envelope (Agence Europe); BUDG's opinion asks to raise it to €91.3bn.",
    "next": [
     {
-     "date": "2026-11-23",
-     "what": "Plenary announcement of ITRE-TRAN's decision to open negotiations, in Strasbourg (reported by Agence Europe); a plenary vote follows only if 72 MEPs ask for one",
-     "src": "agenceurope-13985-mff"
+     "date": null,
+     "what": "First trilogue with the Council: no date set"
     }
    ],
    "ep": {
@@ -3380,9 +3226,14 @@
      "id": "agenceurope-13985-mff",
      "title": "Agence Europe: Parliament could bypass plenary vote on seven texts, including the Connecting Europe Facility",
      "url": "https://agenceurope.eu/en/bulletin/article/13985/12/mff-2028-2034-european-parliament-could-bypass-plenary-vote-on-seven-texts-including-european-competitiveness-fund-horizon-europe-and-agoraeu"
+    },
+    {
+     "id": "ep-votes-20261125",
+     "title": "European Parliament: plenary votes of 25 November 2026",
+     "url": "https://data.europarl.europa.eu/api/v2/meetings/MTG-PL-2026-11-25/decisions"
     }
    ],
-   "checked": "2026-11-23",
+   "checked": "2026-11-25",
    "asOf": "2026-11-01"
   },
   {
@@ -3394,7 +3245,8 @@
    "procedure": "2025/0420(COD)",
    "stage": "positions-in-preparation",
    "sector": "transport",
-   "lede": "EPP, S&D and Renew have a compromise, backed by ITRE and TRAN; ENVI votes next.",
+   "lede": "ENVI adopted the EPP, S&D and Renew compromise on 4 November; plenary is indicated for 14 December; the Council has no position yet.",
+   "ledeChecked": "2026-11-25",
    "status": "The Commission proposed on 16 December 2025 to lower the 2035 target for cars and vans from 100% to 90%, with credits for renewable fuels and low-carbon EU steel. ENVI leads in Parliament with Massimiliano Salini as rapporteur; on 4 November 2026 it adopted its report (the Observatory lists the committee vote), on the EPP, S&D and Renew compromise of 20 October that eases the 2035 target further, after ITRE and TRAN backed it in their 22 October opinions. The Observatory gives 14 December as the indicative plenary date. The Council's environment working party had the proposal on its agenda on 28 October and examines a revised Presidency compromise text (doc 16044/26) on 25 November; the Council took stock of progress in June 2026 and has no position yet.",
    "next": [
     {
@@ -3537,7 +3389,7 @@
    },
    "caveats": [
     "Rapporteur, shadows and opinion rapporteurs come from the Parliament's procedure file (rechecked each week).",
-    "The compromise's exact 2035 and 2030 figures and the committee vote counts are left out until the committee voting records or an outlet on nodo's source list confirm them.",
+    "The compromise's 2030 and 2035 figures and the committee vote count are not shown until the committee report or a listed outlet publishes them.",
     "The Observatory moved the indicative plenary date from 23 November to 14 December (checked 1 November 2026); Agence Europe says the plenary vote waits for Parliament's position on the automotive part of the Industrial Accelerator Act."
    ],
    "sources": [
@@ -3577,7 +3429,7 @@
      "url": "https://data.consilium.europa.eu/doc/document/CM-5111-2026-INIT/en/pdf"
     }
    ],
-   "checked": "2026-11-23",
+   "checked": "2026-11-25",
    "asOf": "2026-10-21"
   },
   {
@@ -3590,6 +3442,7 @@
    "stage": "pre-proposal",
    "sector": "transport",
    "lede": "Proposal expected before the end of 2026.",
+   "ledeChecked": "2026-11-23",
    "status": "AFIR (Regulation 2023/1804) has to be reviewed by 31 December 2026. The Commission ran a public consultation from 11 May to 3 August 2026 and expects to adopt its proposal before the end of 2026. The review covers recharging and refuelling targets, including for trucks and hydrogen, payment and price transparency, and electricity supply at ports.",
    "next": [
     {
@@ -3659,6 +3512,7 @@
    "stage": "positions-in-preparation",
    "sector": "health",
    "lede": "SANT draft report out with 130+ amendments; Council still at working party level.",
+   "ledeChecked": "2026-11-23",
    "status": "The Commission proposed on 16 December 2025 to simplify the MDR and IVDR, with adapted pathways for breakthrough and orphan devices, more proportionate surveillance and changes to software classification. SANT leads in Parliament with Oliver Schenk as rapporteur; his draft report of 1 July 2026 tables more than 130 amendments, including a new category of niche devices. IMCO named Anna Cavazzini to draft its opinion on 15 October. The Council's working party began the article-by-article examination on 23 March 2026; the June progress report says more work on the text is needed. There is no Council general approach yet.",
    "next": [
     {
@@ -3818,15 +3672,10 @@
    "procedure": null,
    "stage": "positions-in-preparation",
    "sector": "health",
-   "lede": "The Council has its position on the directive; the regulation is at its first Presidency compromise.",
-   "status": "The Commission proposed the European Biotech Act on 16 December 2025: a regulation covering health biotechnology from funding and clinical trials to authorisation and manufacturing, with a directive on genetically modified micro-organisms and the processing of organs. The Council agreed its position on the directive at the Health Council on 16 June 2026 and held a policy debate on the regulation; the Presidency tabled its first compromise text on the regulation to the working party on 8 and 9 October. In Parliament, SANT and ITRE share the regulation (Vytenis Andriukaitis and Wouter Beke) and ENVI and SANT share the directive (Marta Temido and Adam Jarubas), which they voted on 10 November 2026; the draft plenary agenda puts its vote on 25 November. A Biotech Act II on the wider bioeconomy is in preparation.",
+   "lede": "Parliament voted the directive on 25 November and the Council has its position on it; the regulation is at its first Presidency compromise.",
+   "ledeChecked": "2026-11-25",
+   "status": "The Commission proposed the European Biotech Act on 16 December 2025: a regulation covering health biotechnology from funding and clinical trials to authorisation and manufacturing, with a directive on genetically modified micro-organisms and the processing of organs. The Council agreed its position on the directive at the Health Council on 16 June 2026 and held a policy debate on the regulation; the Presidency tabled its first compromise text on the regulation to the working party on 8 and 9 October. In Parliament, SANT and ITRE share the regulation (Vytenis Andriukaitis and Wouter Beke) and ENVI and SANT share the directive (Marta Temido and Adam Jarubas), which they voted on 10 November 2026; plenary voted the amended directive on 25 November, 351 to 176 with 132 abstentions. A Biotech Act II on the wider bioeconomy is in preparation.",
    "next": [
-    {
-     "date": "2026-11-25",
-     "what": "Directive: plenary vote (draft agenda of the 23–26 November session)",
-     "src": "ep-plenary-agendas",
-     "part": "directive"
-    },
     {
      "date": "2027-01-18",
      "what": "Regulation: plenary vote (indicative date in the Observatory)",
@@ -4198,9 +4047,14 @@
      "id": "ep-plenary-agendas",
      "title": "European Parliament: plenary agendas",
      "url": "https://www.europarl.europa.eu/plenary/en/agendas.html"
+    },
+    {
+     "id": "ep-votes-20261125",
+     "title": "European Parliament: plenary votes of 25 November 2026",
+     "url": "https://data.europarl.europa.eu/api/v2/meetings/MTG-PL-2026-11-25/decisions"
     }
    ],
-   "checked": "2026-11-23",
+   "checked": "2026-11-25",
    "asOf": "2026-10-21"
   },
   {
@@ -4212,7 +4066,8 @@
    "procedure": "2023/0212(COD)",
    "stage": "trilogue",
    "sector": "finance",
-   "lede": "Trilogues under way; data protection and exceptions for merchants are still open.",
+   "lede": "Seven trilogues, no deal: merchant exceptions, payment-provider fees, the roll-out and the holding limit are still open.",
+   "ledeChecked": "2026-11-25",
    "status": "The Commission proposed it in June 2023. The Council agreed its position on 19 December 2025. Parliament's ECON adopted Fernando Navarrete's report on 23 June 2026 and plenary confirmed the mandate on 9 July. Trilogues are under way: the fifth, on 20 October, covered offline payment limits, anti-money-laundering rules for small payments and the long-term operating model; the sixth, on 5 November, and the seventh, overnight on 18–19 November, ended without a political agreement (Agence Europe). Still open: exceptions to mandatory merchant acceptance, the remuneration model for payment providers, the staggered roll-out and who sets the holding limit; 3 and 16 December are suggested for further trilogues and the Council wants the file closed before the end of the year (Agence Europe). The ECB aims for issuance from 2029 if the law passes.",
    "next": [
     {
@@ -4286,20 +4141,6 @@
      "id": "257262",
      "role": "shadow",
      "committee": "ECON",
-     "basis": "ep-procedure-file",
-     "ref": "2023/0212(COD)"
-    },
-    {
-     "id": "197410",
-     "role": "rapporteur",
-     "committee": "ECON",
-     "basis": "ep-procedure-file",
-     "ref": "2023/0212(COD)"
-    },
-    {
-     "id": "124850",
-     "role": "opinion-rapporteur",
-     "committee": "LIBE",
      "basis": "ep-procedure-file",
      "ref": "2023/0212(COD)"
     },
@@ -4397,7 +4238,7 @@
      "url": "https://agenceurope.eu/en/bulletin/article/13985/21/european-parliament-and-eu-council-negotiators-to-meet-in-december-to-finalise-digital-euro-arrangements"
     }
    ],
-   "checked": "2026-11-23",
+   "checked": "2026-11-25",
    "asOf": "2026-10-21"
   },
   {
@@ -4413,6 +4254,7 @@
    "stage": "positions-in-preparation",
    "sector": "agrifood",
    "lede": "Council mandates done; Parliament's joint ENVI-AGRI committee still to vote.",
+   "ledeChecked": "2026-11-25",
    "status": "The Commission proposed the omnibus on 16 December 2025: a regulation amending ten acts on pesticides, residue levels, GMOs, feed and official controls, and a directive amending related directives. The Council agreed its position on the directive on 27 May 2026 and its mandate on the regulation on 30 September, and wants a provisional agreement by the end of 2026. In Parliament, a joint ENVI-AGRI committee leads with Michele Picaro (ECR, ENVI) and Herbert Dorfmann (EPP, AGRI); foodwatch criticised their draft report of 6 July for going further than the Commission on pesticide reviews.",
    "next": [
     {
@@ -4523,6 +4365,13 @@
      "committee": "ENVI-AGRI",
      "basis": "ep-procedure-file",
      "ref": "2025/0410(COD)"
+    },
+    {
+     "id": "96940",
+     "role": "shadow",
+     "committee": "ENVI-AGRI",
+     "basis": "ep-procedure-file",
+     "ref": "2025/0409(COD)"
     }
    ],
    "commission": {
@@ -4571,7 +4420,7 @@
    },
    "caveats": [
     "Rapporteurs and shadows come from the Parliament's procedure files (rechecked each week); the regulation and the directive have the same team.",
-    "The Council press release of 30 September names the 27 May position as the one on sustainable use of pesticides; that it covers the omnibus directive is inferred."
+    "The Council's press release of 30 September names its 27 May position as the one on sustainable use of pesticides; check the Council register before citing it as the position on the omnibus directive."
    ],
    "sources": [
     {
@@ -4610,7 +4459,7 @@
      "url": "https://data.consilium.europa.eu/doc/document/CM-4757-2026-INIT/en/pdf"
     }
    ],
-   "checked": "2026-11-23",
+   "checked": "2026-11-25",
    "asOf": "2026-10-21"
   },
   {
@@ -4623,7 +4472,8 @@
    "stage": "pre-proposal",
    "sector": "research",
    "lede": "Commission proposal planned for 2026, not adopted yet.",
-   "status": "The Commission plans to propose the ERA Act in 2026, brought forward from 2027 by Commissioner Ekaterina Zaharieva so it can pass in this mandate. It would add binding national commitments towards investing 3% of GDP in R&D, align EU and national research funding, and set conditions on research careers, research infrastructures and the freedom of scientific research. The consultation closed on 23 January 2026. Parliament adopted a resolution on the act on 10 March 2026, drafted by Eszter Lakos (EPP).",
+   "ledeChecked": "2026-11-25",
+   "status": "The Commission plans to propose the ERA Act in 2026, as announced in the Competitiveness Compass. It would add binding national commitments towards investing 3% of GDP in R&D, align EU and national research funding, and set conditions on research careers, research infrastructures and the freedom of scientific research. The public consultation ran from October 2025 to January 2026. Parliament adopted a resolution on the act on 10 March 2026 by 399 votes to 78 with 69 abstentions, tabled for ITRE by Eszter Lakos (EPP), Sofie Eriksson (S&D), Ivars Ijabs (Renew) and Ville Niinistö (Greens/EFA).",
    "next": [
     {
      "date": null,
@@ -4641,11 +4491,41 @@
      "id": "256865",
      "role": "relevant",
      "committee": "ITRE",
-     "basis": "press",
-     "ref": "sciencebusiness-era",
-     "note": "Drafted Parliament's resolution on the ERA Act (10 March 2026)",
+     "basis": "ep-open-data",
+     "ref": "B10-0156/2026",
+     "note": "First author of the ITRE motion for Parliament's ERA Act resolution (10 March 2026)",
      "rel": "ep-res-era-2026",
      "relRole": "rapporteur"
+    },
+    {
+     "id": "257088",
+     "role": "relevant",
+     "committee": "ITRE",
+     "basis": "ep-open-data",
+     "ref": "B10-0156/2026",
+     "note": "Co-author of the ITRE motion for Parliament's ERA Act resolution (S&D)",
+     "rel": "ep-res-era-2026",
+     "relRole": "shadow"
+    },
+    {
+     "id": "197624",
+     "role": "relevant",
+     "committee": "ITRE",
+     "basis": "ep-open-data",
+     "ref": "B10-0156/2026",
+     "note": "Co-author of the ITRE motion for Parliament's ERA Act resolution (Renew)",
+     "rel": "ep-res-era-2026",
+     "relRole": "shadow"
+    },
+    {
+     "id": "197802",
+     "role": "relevant",
+     "committee": "ITRE",
+     "basis": "ep-open-data",
+     "ref": "B10-0156/2026",
+     "note": "Co-author of the ITRE motion for Parliament's ERA Act resolution (Greens/EFA)",
+     "rel": "ep-res-era-2026",
+     "relRole": "shadow"
     }
    ],
    "commission": {
@@ -4676,7 +4556,7 @@
     "note": "Nothing to negotiate until the proposal lands."
    },
    "caveats": [
-    "Not yet proposed. The Commission's ERA Act page still says it plans to adopt it in 2026 (checked 21 October 2026)."
+    "Not yet proposed. The Commission's ERA Act page says it plans to adopt it in 2026."
    ],
    "sources": [
     {
@@ -4688,9 +4568,19 @@
      "id": "sciencebusiness-era",
      "title": "Science|Business: race for the ERA Act begins as MEP unveils early proposal",
      "url": "https://sciencebusiness.net/news/european-research-area/race-era-act-begins-mep-unveils-early-proposal"
+    },
+    {
+     "id": "ep-b10-0156",
+     "title": "European Parliament: motion B10-0156/2026 on the upcoming ERA Act (ITRE)",
+     "url": "https://www.europarl.europa.eu/doceo/document/B-10-2026-0156_EN.html"
+    },
+    {
+     "id": "oeil-2025-2951-rsp",
+     "title": "Legislative Observatory: resolution on the upcoming ERA Act, 2025/2951(RSP)",
+     "url": "https://oeil.europarl.europa.eu/oeil/en/document-summary?id=1891585"
     }
    ],
-   "checked": "2026-11-23",
+   "checked": "2026-11-25",
    "asOf": "2026-10-21",
    "related": [
     {
@@ -4700,10 +4590,11 @@
      "short": "2026 resolution on the ERA Act",
      "cmte": "ITRE",
      "date": "2026-03-10",
-     "src": "sciencebusiness-era",
-     "url": "https://sciencebusiness.net/news/european-research-area/race-era-act-begins-mep-unveils-early-proposal",
+     "src": "ep-b10-0156",
+     "url": "https://www.europarl.europa.eu/doceo/document/B-10-2026-0156_EN.html",
      "why": "Parliament's own proposal for the ERA Act, adopted before the Commission has proposed one.",
-     "whyBy": "nodo"
+     "whyBy": "nodo",
+     "procedure": "2025/2951(RSP)"
     }
    ]
   },
@@ -4717,13 +4608,9 @@
    "stage": "trilogue",
    "sector": "defence",
    "lede": "Trilogues under way; the crisis mechanism is still to settle.",
+   "ledeChecked": "2026-11-25",
    "status": "The Commission proposed it on 19 November 2025. Coreper agreed the Council mandate on 17 June 2026; SEDE and TRAN adopted Parliament's position on 23 June (co-rapporteurs Michał Szczerba and Roberts Zīle), confirmed in plenary on 8 July. Trilogues opened on 16 July; the second met in Strasbourg on 20 October, and technical meetings followed on 12, 16, 18, 19 and 20 November (Council notice CM 5135/26). Agence Europe reports a third in December to settle the European Military Mobility Enhanced Response System (EMERS), private-sector involvement and the link with the Civil Protection Mechanism. The European Council asked for agreement by the end of 2026.",
    "next": [
-    {
-     "date": "2026-11-24",
-     "what": "Ad hoc working party on military mobility: debrief from the technical meetings of 12–20 November (four-column table WK 16494/26 REV 3)",
-     "src": "council-cm-5135"
-    },
     {
      "date": "2026-11-27",
      "what": "Council ad hoc working party on military mobility",
@@ -4929,7 +4816,7 @@
      "url": "https://data.consilium.europa.eu/doc/document/CM-5135-2026-INIT/en/pdf"
     }
    ],
-   "checked": "2026-11-23",
+   "checked": "2026-11-25",
    "asOf": "2026-10-21"
   },
   {
@@ -4941,8 +4828,9 @@
    "procedure": "2026/0286(COD)",
    "stage": "positions-in-preparation",
    "sector": "digital",
-   "lede": "Proposed in September; a Council working party is on it; IMCO leads in Parliament, no rapporteur yet.",
-   "status": "The Commission proposed the EU KIDS Act on 17 September 2026 (COM(2026)681). Social-networking and video-sharing platforms would have to check that account holders are 15 or older, with safety-by-design duties for services used by minors, a compliance plan for very large platforms, and Commission and AI Office supervision with fines up to 6% of turnover. The Observatory lists Stéphane Séjourné and DG GROW as responsible; Henna Virkkunen presented the proposal with the President. In the Council, the Audiovisual and Media Working Party has examined it since 2 October. In Parliament, the referral was announced on 22 October: IMCO leads, with opinions from SANT, ITRE, CULT, JURI and LIBE; no rapporteur is appointed yet.",
+   "lede": "No social media under 13, parent-managed mini accounts at 13–14, own accounts from 15. IMCO leads; no rapporteur yet.",
+   "ledeChecked": "2026-11-25",
+   "status": "The Commission proposed the EU KIDS Act on 17 September 2026 (COM(2026)681). Children under 13 could not use social media; at 13 and 14 only through mini accounts managed by a parent, with limited features and one hour a day; from 15 with their own account. Social media and video-sharing platforms would verify age when an account is opened and check existing accounts within six months. Safety-by-design duties cover social media, video-sharing, online games, AI companions and chatbots used by under-18s. The Observatory lists Stéphane Séjourné and DG GROW as responsible; Henna Virkkunen presented the proposal with the President. In the Council, the Audiovisual and Media Working Party has examined it since 2 October. In Parliament, IMCO leads, with opinions from SANT, ITRE, CULT, JURI and LIBE; CULT named Maria Guzenina (S&D) to draft its opinion. No IMCO rapporteur yet.",
    "next": [
     {
      "date": null,
@@ -4969,16 +4857,6 @@
     },
     {
      "id": "256834",
-     "role": "relevant",
-     "committee": "IMCO",
-     "basis": "ep-open-data",
-     "ref": "IMCO-PR-772053",
-     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)",
-     "rel": "ep-res-minors-2025",
-     "relRole": "shadow"
-    },
-    {
-     "id": "197529",
      "role": "relevant",
      "committee": "IMCO",
      "basis": "ep-open-data",
@@ -5078,16 +4956,6 @@
      "relRole": "shadow"
     },
     {
-     "id": "256803",
-     "role": "relevant",
-     "committee": "CULT",
-     "basis": "ep-open-data",
-     "ref": "CULT-AD-775391",
-     "note": "Worked on the Parliament's 2025 report on protection of minors online (shadow)",
-     "rel": "cult-opinion-minors-2025",
-     "relRole": "shadow"
-    },
-    {
      "id": "256859",
      "role": "relevant",
      "committee": "CULT",
@@ -5121,6 +4989,13 @@
      "id": "197529",
      "role": "shadow",
      "committee": "IMCO",
+     "basis": "ep-procedure-file",
+     "ref": "2026/0286(COD)"
+    },
+    {
+     "id": "256803",
+     "role": "opinion-rapporteur",
+     "committee": "CULT",
      "basis": "ep-procedure-file",
      "ref": "2026/0286(COD)"
     }
@@ -5167,7 +5042,7 @@
    },
    "caveats": [
     "Commission lead follows the Observatory (Stéphane Séjourné, DG GROW). Agence Europe reports Henna Virkkunen as responsible for the dossier.",
-    "MEP entries are relevance markers from earlier work on minors online, not roles on this file."
+    "The other MEPs listed led the Parliament's 2025 resolution on minors online; they have no role on this file."
    ],
    "sources": [
     {
@@ -5204,9 +5079,14 @@
      "id": "oeil-2025-2060-ini",
      "title": "Legislative Observatory: summary of the resolution on protection of minors online, 2025/2060(INI)",
      "url": "https://oeil.europarl.europa.eu/oeil/en/document-summary?id=1874426"
+    },
+    {
+     "id": "ec-kids-20260917",
+     "title": "European Commission: EU KIDS Act, helping children navigate a safer online world (17 Sep 2026)",
+     "url": "https://commission.europa.eu/news-and-media/news/eu-kids-act-helping-children-navigate-safer-online-world-2026-09-17_en"
     }
    ],
-   "checked": "2026-11-23",
+   "checked": "2026-11-25",
    "asOf": "2026-10-21",
    "related": [
     {
@@ -5259,17 +5139,13 @@
    "proposal": "COM(2025)560",
    "stage": "positions-in-preparation",
    "lede": "The Council has a partial position without the money; Parliament's AGRI committee votes in late January at the earliest.",
-   "status": "The Commission proposed it on 16 July 2025 as part of the MFF package. CAP money would sit inside the National and Regional Partnership Plans fund, which is followed as a part of nodo's MFF file. Agriculture ministers agreed a partial negotiating position unanimously at the AGRIFISH Council on 26 October 2026, after preparation in the Special Committee on Agriculture and the Working Party on Horizontal Agricultural Questions; financial and horizontal issues wait for the MFF deal. In Parliament, AGRI rapporteur Norbert Lins (EPP) tabled his draft report on 12 June 2026 and about 3,500 amendments followed. ENVI and REGI adopted their opinions in July. The groups are negotiating compromises, with capping and degressivity, social conditionality and environmental ambition the open fights. Agence Europe reported on 13 November that the AGRI vote is planned for 27–28 January 2027, subject to agreement on the partnership plans; in October the EPP's AGRI delegation suspended its support for those plans over funding guarantees for the CAP.",
+   "ledeChecked": "2026-11-25",
+   "status": "The Commission proposed it on 16 July 2025 as part of the MFF package; CAP money would sit inside the National and Regional Partnership Plans fund, a part of nodo's MFF file. Agriculture ministers agreed a partial position unanimously on 26 October 2026; the money waits for the MFF deal. In Parliament, AGRI rapporteur Norbert Lins (EPP) tabled his draft report on 12 June 2026 and about 3,500 amendments followed; ENVI and REGI gave their opinions in July. The fights: capping and degressivity, social conditionality and environmental ambition. The AGRI vote is planned for 27–28 January 2027, subject to a deal on the partnership plans, which the EPP's AGRI members stopped backing in October over CAP funding guarantees.",
    "next": [
     {
      "date": "2026-12-02",
      "what": "AGRI shadow rapporteurs meet on compromises (CAP and CMO)",
      "src": "agenceurope-13981-cmo"
-    },
-    {
-     "date": "2027-01-18",
-     "what": "Parliament plenary, first reading (indicative date in the Observatory; it precedes the planned AGRI vote)",
-     "src": "oeil-2025-0241-cod"
     },
     {
      "date": "2027-01-27",
@@ -5606,7 +5482,7 @@
      "url": "https://data.consilium.europa.eu/doc/document/CM-4789-2026-INIT/en/pdf"
     }
    ],
-   "checked": "2026-11-23",
+   "checked": "2026-11-25",
    "asOf": "2026-11-16"
   }
  ]

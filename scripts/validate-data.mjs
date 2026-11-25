@@ -103,6 +103,24 @@ if (files) {
       if (n.date && !n.src) bad(`${at}: dated next item "${n.what}" has no source`);
     }
     for (const m of f.meps || []) if (mepIds.size && !mepIds.has(String(m.id))) bad(`${at}: MEP id ${m.id} not in meps.json`);
+    /* Editorial guardrails (since 25 Nov 2026, after the content audit). */
+    {
+      const seen = new Set();
+      for (const m of f.meps || []) {
+        const k = [m.id, m.role, m.committee || "", m.part || ""].join("|");
+        if (seen.has(k)) bad(`${at}: MEP ${m.id} listed twice as ${m.role} ${m.committee || ""}`.trim());
+        seen.add(k);
+      }
+      /* The lede is the line a reader sees first: whoever checks the status rewrites or confirms it the same day. */
+      if (f.lede && f.checked && f.ledeChecked !== f.checked) bad(`${at}: lede last reviewed ${f.ledeChecked || "never"}, status checked ${f.checked}; rewrite or confirm the lede and set ledeChecked`);
+      /* Working notes stay out of what users read. */
+      const shown = [["lede", f.lede], ["status", f.status], ...(f.caveats || []).map((c) => ["caveat", c]), ...(f.next || []).map((n) => ["next", n.what])];
+      const NOTE = /could not be read|from the cloud|\bis inferred\b|source list|earlier work|\bTODO\b|\bFIXME\b|\((?:Agence Europe|MLex|Politico|Euractiv)[^)]*:/i;
+      for (const [k, t] of shown) { const m = NOTE.exec(String(t || "")); if (m) bad(`${at}: ${k} carries a working note ("${m[0]}"); write it for the reader`); }
+      /* A plenary first reading cannot come before the committee vote it depends on. */
+      const cv = (f.next || []).filter((n) => n.date && /committee vote/i.test(n.what) && !n.part).map((n) => n.date).sort()[0];
+      for (const n of f.next || []) if (cv && n.date && !n.part && /plenary/i.test(n.what) && !/committee/i.test(n.what) && n.date < cv) bad(`${at}: plenary step "${n.what}" (${n.date}) is before the committee vote (${cv})`);
+    }
     /* Why they're here (since 29 Oct 2026): every MEP with no role on the file (role relevant) names the related text
        that puts them there and their role in it. Each related text needs nodo's "why" sentence and an https link. */
     const rel = new Map((f.related || []).map((r) => [r.id, r]));
