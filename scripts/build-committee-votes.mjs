@@ -151,16 +151,26 @@ async function getJson(url) {
   return null;
 }
 async function docxUrl(id) {
-  const j = await getJson(`${API}/plenary-documents/${id}?format=application%2Fld%2Bjson&language=en`);
-  const work = j && (j.data || [])[0];
+  /* the expression list differs by query: try with and without the language filter, keep the first that lists files */
+  let work = null; const tried = [];
   const found = [];
-  for (const ex of (work && work.is_realized_by) || []) for (const man of ex.is_embodied_by || [])
-    if (/docx/i.test(man.format || man.id || "") && man.is_exemplified_by) found.push({ lang: (ex.language || "").slice(-3), url: DIST + man.is_exemplified_by.replace(/^\//, "") });
+  for (const q of ["format=application%2Fld%2Bjson", "format=application%2Fld%2Bjson&language=en", "format=application%2Fld%2Bjson&language=es"]) {
+    const j = await getJson(`${API}/plenary-documents/${id}?${q}`);
+    const w = j && (j.data || [])[0];
+    if (!w) { tried.push(q + ": nothing"); continue; }
+    work = work || w;
+    const exprs = [].concat(w.is_realized_by || []);
+    tried.push(`${q}: ${exprs.length} expression(s), keys ${Object.keys(w).slice(0, 30).join(",")}`);
+    for (const ex of exprs) for (const man of [].concat((ex && ex.is_embodied_by) || []))
+      if (man && /docx/i.test(String(man.format || man.id || "")) && man.is_exemplified_by) found.push({ lang: String(ex.language || "").slice(-3), url: DIST + String(man.is_exemplified_by).replace(/^\//, "") });
+    if (found.length) break;
+    await sleep(800);
+  }
   const en = found.find((f) => f.lang === "ENG") || found.find((f) => /_en\.docx$/.test(f.url));
-  if (en) return { url: en.url, work };
+  if (en) return { url: en.url, work, tried };
   /* the list can be partial: build the English address from another language's */
-  if (found[0]) return { url: found[0].url.replace(/_[a-z]{2}\.docx$/, "_en.docx"), work, built: true };
-  return { url: null, work };
+  if (found[0]) return { url: found[0].url.replace(/_[a-z]{2}\.docx$/, "_en.docx"), work, built: true, tried };
+  return { url: null, work, tried };
 }
 
 /* ---------- run ---------- */
@@ -169,8 +179,8 @@ for (const id of REPORTS) {
   const rec = { id, ok: false, problems: [] };
   out.reports[id] = rec;
   try {
-    const { url, work, built } = await docxUrl(id);
-    rec.docx = url; if (built) rec.docxBuilt = true;
+    const { url, work, built, tried } = await docxUrl(id);
+    rec.docx = url; if (built) rec.docxBuilt = true; rec.apiTried = tried;
     if (work) {
       rec.label = work.label; rec.title = work.title_dcterms; rec.date = work.document_date;
       rec.procedure = ((work.inverse_created_a_realization_of || [])[0] || "").replace("eli/dl/proc/", "") || null;
