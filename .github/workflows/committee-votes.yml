@@ -1,7 +1,8 @@
 name: Committee votes (pilot)
 
 # Pilot, 25 Nov 2026: reads the final roll-call vote in committee from each report's Word file
-# (Open Data Portal) and writes data-cache/committee-votes.json. Nothing in v1/ or the app reads it yet.
+# (Open Data Portal) and writes data-cache/committee-votes.json (full trace) and v1/committee-votes.json
+# (checked reports only, keyed by nodo file). Only the preview (next/) reads v1/committee-votes.json.
 on:
   workflow_dispatch:
     inputs:
@@ -33,13 +34,15 @@ jobs:
         run: |
           git config user.name "nodo-data bot"
           git config user.email "actions@users.noreply.github.com"
-          cp data-cache/committee-votes.json "$RUNNER_TEMP/committee-votes.json"
+          cp data-cache/committee-votes.json "$RUNNER_TEMP/committee-votes.json"; cp v1/committee-votes.json "$RUNNER_TEMP/app-votes.json"
           for i in 1 2 3 4; do
             git fetch -q origin main
             git reset -q --hard origin/main
             mkdir -p data-cache
             cp "$RUNNER_TEMP/committee-votes.json" data-cache/committee-votes.json
-            git add data-cache/committee-votes.json
+            cp "$RUNNER_TEMP/app-votes.json" v1/committee-votes.json
+            node scripts/validate-data.mjs || { echo "Validation failed: nothing pushed"; exit 1; }
+            git add data-cache/committee-votes.json v1/committee-votes.json
             if git diff --cached --quiet; then echo "Nothing new."; exit 0; fi
             git commit -q -m "Committee votes pilot $(date -u +%F)"
             if git push -q origin HEAD:main; then echo "Pushed."; exit 0; fi

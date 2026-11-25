@@ -2,7 +2,8 @@
    For each report in REPORTS (comma separated, e.g. A-10-2026-0185), read the Word file from the Parliament's
    Open Data Portal, take the "final vote by roll call by the committee responsible" table and the result line of
    the procedure table, match every name to an MEP id in v1/meps.json, and check the sums.
-   Writes data-cache/committee-votes.json. Nothing in v1/ or in the app reads it yet.
+   Writes data-cache/committee-votes.json (full trace) and v1/committee-votes.json (reports that passed every check,
+   keyed by nodo file id; read by the preview only, since 25 Nov 2026).
    Why the Word file: doceo (www.europarl.europa.eu/doceo) answers scripts with an AWS WAF challenge (probe of 25 Nov). */
 import fs from "node:fs/promises";
 import zlib from "node:zlib";
@@ -252,6 +253,30 @@ for (const id of REPORTS) {
 
 await fs.mkdir("data-cache", { recursive: true });
 await fs.writeFile("data-cache/committee-votes.json", JSON.stringify(out, null, 1) + "\n");
+
+/* ---------- the app's file: v1/committee-votes.json, only reports that passed every check, keyed by nodo file ---------- */
+const FILES = JSON.parse(await fs.readFile("v1/files.json", "utf8")).files;
+const procKey = (s) => { const m = String(s || "").match(/(\d{4})[\/-](\d{4})/); return m ? m[1] + "/" + m[2] : null; };
+const fileOf = new Map();
+for (const f of FILES) for (const pr of [f.procedure, ...(f.procedures || []), ...(f.parts || []).map((x) => x.procedure)]) { const k = procKey(pr); if (k && !fileOf.has(k)) fileOf.set(k, f.id); }
+const isoDate = (d) => { const m = String(d || "").match(/^(\d{1,2})\.(\d{1,2})\.(\d{4})$/); return m ? `${m[3]}-${m[2].padStart(2, "0")}-${m[1].padStart(2, "0")}` : null; };
+let app = { files: {} };
+try { app = JSON.parse(await fs.readFile("v1/committee-votes.json", "utf8")); } catch { /* first run */ }
+const V = { for: "f", against: "a", abstention: "x" };
+for (const r of Object.values(out.reports)) {
+  const fid = fileOf.get(procKey(r.procedure));
+  if (!r.ok || !fid || !isoDate(r.dateAdopted)) { if (r.ok) console.log(`  ${r.id}: passed, but no nodo file for procedure ${r.procedure}`); continue; }
+  const entry = {
+    id: r.id, label: r.label, committee: r.committee, date: isoDate(r.dateAdopted), result: r.result,
+    groups: Object.fromEntries(Object.entries(r.byGroup).map(([g, t]) => [g, [t.for, t.against, t.abstention]])),
+    votes: Object.fromEntries(r.votes.map((v) => [v.id, V[v.vote]])),
+    url: `https://www.europarl.europa.eu/doceo/document/${r.id}_EN.html`
+  };
+  app.files[fid] = [entry, ...(app.files[fid] || []).filter((e) => e.id !== r.id)].sort((a, b) => b.date.localeCompare(a.date));
+}
+app.generated = out.generated;
+app.source = "Final roll-call vote in the committee responsible, from each report as published on the Parliament's Open Data Portal. Votes: f for, a against, x abstention.";
+await fs.writeFile("v1/committee-votes.json", JSON.stringify({ generated: app.generated, source: app.source, files: app.files }, null, 1) + "\n");
 for (const r of Object.values(out.reports)) {
   console.log(`${r.id} ${r.ok ? "OK" : "CHECK"} ${r.committee || "?"} ${r.dateAdopted || "?"} result ${JSON.stringify(r.result || null)} columns ${JSON.stringify(r.columns || [])}`);
   for (const p of r.problems) console.log("  - " + p);

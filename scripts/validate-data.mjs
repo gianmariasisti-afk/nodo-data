@@ -258,6 +258,22 @@ if (fs.existsSync(path.join(V1, "search-terms.json"))) {
   }
 }
 
+/* Committee votes (optional file, built by scripts/build-committee-votes.mjs; preview only since 25 Nov 2026) */
+if (fs.existsSync(path.join(V1, "committee-votes.json"))) {
+  const cv = load("committee-votes.json");
+  const fileIds = new Set(((files && files.files) || []).map((f) => f.id));
+  for (const [fid, xs] of Object.entries((cv && cv.files) || {})) {
+    if (!fileIds.has(fid)) bad(`committee-votes.json: unknown file ${fid}`);
+    for (const e of xs) {
+      if (!/^A-10-\d{4}-\d{4}$/.test(e.id) || !ISO.test(e.date) || !e.committee) bad(`committee-votes.json ${fid}: bad report ${e.id}`);
+      const n = { f: 0, a: 0, x: 0 };
+      for (const [id, v] of Object.entries(e.votes || {})) { if (!mepIds.has(id)) bad(`committee-votes.json ${e.id}: voter ${id} is not in meps.json`); if (!(v in n)) bad(`committee-votes.json ${e.id}: vote "${v}"`); else n[v]++; }
+      const r = e.result || {};
+      if (n.f !== r.for || n.a !== r.against || n.x !== r.abstention) bad(`committee-votes.json ${e.id}: names ${n.f}-${n.a}-${n.x} differ from the result ${r.for}-${r.against}-${r.abstention}`);
+    }
+  }
+}
+
 /* Everything else must at least parse */
 for (const rel of ["agenda.json", "manifest.json"]) load(rel);
 
