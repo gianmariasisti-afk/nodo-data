@@ -1,78 +1,31 @@
 {
- "run": "2026-11-24T15:46:52.527Z",
- "checked": "2026-11-24",
+ "run": "2026-11-25T05:11:28.484Z",
+ "checked": "2026-11-25",
  "api": 720,
  "nodo": 720,
  "failed": [],
  "auto": [
   {
-   "id": "197392",
-   "name": "Evin INCIR",
+   "id": "197623",
+   "name": "Thierry MARIANI",
    "changes": {
     "delegations": {
      "from": [
-      "D-CL Substitute",
-      "DLAT Member",
-      "D-IQ Vice Chair"
+      "DMED Substitute",
+      "DAFR Member",
+      "DSCA Substitute",
+      "DACP Member",
+      "DEPA Member",
+      "DCAS Member"
      ],
      "to": [
-      "DLAT Member",
-      "D-IQ Vice Chair",
-      "DCAS Substitute"
-     ]
-    }
-   }
-  },
-  {
-   "id": "220840",
-   "name": "Jaroslav BŽOCH",
-   "changes": {
-    "committees": {
-     "from": [
-      "LIBE Member",
-      "EUDS Member",
-      "AFET Member",
-      "IMCO Substitute"
-     ],
-     "to": [
-      "LIBE Member",
-      "EUDS Member",
-      "AFET Member"
-     ]
-    }
-   }
-  },
-  {
-   "id": "23699",
-   "name": "Kateřina KONEČNÁ",
-   "changes": {
-    "committees": {
-     "from": [
-      "SANT Substitute",
-      "EMPL Member"
-     ],
-     "to": [
-      "SANT Substitute",
-      "EMPL Member",
-      "IMCO Substitute"
-     ]
-    }
-   }
-  },
-  {
-   "id": "257085",
-   "name": "Krzysztof ŚMISZEK",
-   "changes": {
-    "delegations": {
-     "from": [
-      "DANZ Member",
-      "D-CA Substitute",
-      "DCAS Substitute"
-     ],
-     "to": [
-      "DANZ Member",
-      "D-CA Substitute",
-      "D-CL Substitute"
+      "DMED Substitute",
+      "DAFR Member",
+      "DSCA Substitute",
+      "DACP Member",
+      "DEPA Member",
+      "DCAS Member",
+      "D-IQ Substitute"
      ]
     }
    }
@@ -80,7 +33,7 @@
  ],
  "structural": [],
  "summary": {
-  "auto": 4,
+  "auto": 1,
   "structural": 0,
   "failed": 0,
   "changed": true
