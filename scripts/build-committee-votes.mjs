@@ -121,28 +121,32 @@ function procedureFacts(bl) {
 function rollCall(bl) {
   const start = lastHeading(bl, /FINAL\s+VOTE\s+BY\s+ROLL\s+CALL\s+(BY|IN)\s+(THE\s+)?COMMITTEE\s+RESPONSIBLE/i);
   if (start < 0) return null;
-  const columns = []; let cur = null;
-  const raw = [];
+  /* The section comes as tables or as plain paragraphs (in A10-0185/2026 the first column is a table and the
+     other two are paragraphs), so flatten it into one stream of texts: cells and paragraphs in reading order. */
+  const toks = [], raw = [];
   for (let i = start + 1; i < bl.length; i++) {
     const b = bl[i];
     if (b.p && /Key to symbols/i.test(b.p)) break;
-    if (b.p) { raw.push(b.p); continue; }
-    for (const r of b.rows) {
-      const cells = r.map((c) => c.trim()).filter(Boolean);
-      raw.push(cells.join(" | "));
-      if (!cells.length) continue;
-      /* a column header: count and sign, in either order */
-      const joined = cells.join(" ").replace(/\s+/g, " ").trim();
-      let hm = joined.match(/^(\d+) ([+\-–−0])$/), hv = null;
-      if (hm) hv = { n: Number(hm[1]), s: hm[2] };
-      else if ((hm = joined.match(/^([+\-–−0]) (\d+)$/))) hv = { n: Number(hm[2]), s: hm[1] };
-      if (hv) { cur = { vote: SIGN[hv.s], printed: hv.n, groups: [] }; columns.push(cur); continue; }
-      if (!cur) continue;
-      const label = cells[0];
-      if (GROUPS[label] !== undefined && cells.length >= 2) {
-        const names = cells.slice(1).join(", ").split(/\s*,\s*|\n/).map((s) => s.trim()).filter(Boolean);
-        cur.groups.push({ label, group: GROUPS[label], names });
-      }
+    if (b.p) { toks.push(b.p.trim()); raw.push(b.p); continue; }
+    for (const r of b.rows) { const cells = r.map((c) => c.trim()).filter(Boolean); raw.push(cells.join(" | ")); toks.push(...cells); }
+  }
+  const columns = []; let cur = null;
+  for (let i = 0; i < toks.length; i++) {
+    const t = toks[i].replace(/\s+/g, " ");
+    /* a column header: count and sign, in one text or two, in either order */
+    let hv = null, hm;
+    if ((hm = t.match(/^(\d+) ([+\-–−0])$/))) hv = { n: Number(hm[1]), s: hm[2] };
+    else if ((hm = t.match(/^([+\-–−0]) (\d+)$/))) hv = { n: Number(hm[2]), s: hm[1] };
+    else if (/^\d+$/.test(t) && SIGN[(toks[i + 1] || "").trim()]) { hv = { n: Number(t), s: toks[i + 1].trim() }; i++; }
+    else if (SIGN[t] && t !== "0" && /^\d+$/.test((toks[i + 1] || "").trim())) { hv = { n: Number(toks[i + 1]), s: t }; i++; }
+    if (hv) { cur = { vote: SIGN[hv.s], printed: hv.n, groups: [] }; columns.push(cur); continue; }
+    if (!cur) continue;
+    if (GROUPS[t] !== undefined) {
+      const next = (toks[i + 1] || "").trim();
+      if (!next || GROUPS[next] !== undefined || /^\d+$/.test(next) || SIGN[next]) continue;
+      const names = next.split(/\s*,\s*|\n/).map((x) => x.trim()).filter(Boolean);
+      cur.groups.push({ label: t, group: GROUPS[t], names });
+      i++;
     }
   }
   return { columns, raw: raw.slice(0, 120) };
