@@ -1,25 +1,4 @@
 {
   "generatedAt": "2026-11-25T00:00:00Z",
-  "events": [
-    {
-      "id": "co2-cars:next:2026-11-25:218d68",
-      "fileId": "co2-cars",
-      "date": "2026-11-25",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Environment working party: revised Presidency compromise text (doc 16044/26)",
-      "push": true,
-      "pushOn": "2026-11-25"
-    },
-    {
-      "id": "biotech-act:next:2026-11-25:a5871d",
-      "fileId": "biotech-act",
-      "date": "2026-11-25",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Directive: plenary vote (draft agenda of the 23–26 November session)",
-      "push": true,
-      "pushOn": "2026-11-25"
-    }
-  ]
+  "events": []
 }

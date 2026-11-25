@@ -1023,7 +1023,12 @@
     "co2-cars:next:2026-11-25:218d68": true,
     "biotech-act:ep:2025-0405:tabled:2026-11-23": true,
     "digital-euro:ep:2023-0212-MEET-TRI1-2026-11-18": true,
-    "military-mobility:next:2026-11-24:58a37b": true
+    "military-mobility:next:2026-11-24:58a37b": true,
+    "mff-2028-2034:ep:2025-0555-DEC-PLEIN1-2026-11-25": true,
+    "cef-2028-2034:ep:2025-0221-DEC-PLEIN1-2026-11-25": true,
+    "kids-act:ep:2026-0286-NMCP-256803-CULT-2026-11-24": true,
+    "kids-act:ep:2026-0286-NMCOR-247735-IMCO-2026-11-16": true,
+    "kids-act:ep:2026-0286-NMCOR-256862-IMCO-2026-11-16": true
   },
   "seeded": {
     "mff-2028-2034": true,

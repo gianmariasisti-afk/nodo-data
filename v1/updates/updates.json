@@ -162,6 +162,16 @@
       "pushOn": "2026-11-25"
     },
     {
+      "id": "cef-2028-2034:ep:2025-0221-DEC-PLEIN1-2026-11-25",
+      "fileId": "cef-2028-2034",
+      "date": "2026-11-25",
+      "source": "ep",
+      "proc": "2025-0221",
+      "kind": "procedural",
+      "title": "Plenary endorse committee interinstitutional negotiations",
+      "push": false
+    },
+    {
       "id": "co2-cars:next:2026-11-25:218d68",
       "fileId": "co2-cars",
       "date": "2026-11-25",
@@ -170,6 +180,29 @@
       "title": "Environment working party: revised Presidency compromise text (doc 16044/26)",
       "push": true,
       "pushOn": "2026-11-25"
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0555-DEC-PLEIN1-2026-11-25",
+      "fileId": "mff-2028-2034",
+      "date": "2026-11-25",
+      "source": "ep",
+      "proc": "2025-0555",
+      "kind": "procedural",
+      "title": "Plenary endorse committee interinstitutional negotiations",
+      "push": false
+    },
+    {
+      "id": "kids-act:ep:2026-0286-NMCP-256803-CULT-2026-11-24",
+      "fileId": "kids-act",
+      "date": "2026-11-24",
+      "source": "ep",
+      "proc": "2026-0286",
+      "kind": "people",
+      "title": "Opinion rapporteur named",
+      "personId": "256803",
+      "group": "S&D",
+      "committee": "CULT",
+      "push": false
     },
     {
       "id": "mff-2028-2034:next:2026-11-24:05e4ba",
@@ -316,6 +349,32 @@
       "kind": "procedural",
       "title": "Report tabled for plenary",
       "count": 1,
+      "push": false
+    },
+    {
+      "id": "kids-act:ep:2026-0286-NMCOR-247735-IMCO-2026-11-16",
+      "fileId": "kids-act",
+      "date": "2026-11-16",
+      "source": "ep",
+      "proc": "2026-0286",
+      "kind": "people",
+      "title": "Co-rapporteur named",
+      "personId": "247735",
+      "group": "S&D",
+      "committee": "IMCO",
+      "push": false
+    },
+    {
+      "id": "kids-act:ep:2026-0286-NMCOR-256862-IMCO-2026-11-16",
+      "fileId": "kids-act",
+      "date": "2026-11-16",
+      "source": "ep",
+      "proc": "2026-0286",
+      "kind": "people",
+      "title": "Co-rapporteur named",
+      "personId": "256862",
+      "group": "EPP",
+      "committee": "IMCO",
       "push": false
     },
     {
