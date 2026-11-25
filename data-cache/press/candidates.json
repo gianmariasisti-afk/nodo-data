@@ -1,7 +1,52 @@
 {
- "generated": "2026-11-25T05:23:18.718Z",
+ "generated": "2026-11-25T15:48:53.715Z",
  "windowDays": 30,
  "items": [
+  {
+   "title": "Remarks by Commissioner Serafin during the European Parliament debate Unlocking the 2028–2034 MFF negotiations including new own resources following the revised negotiating box in Strasbourg",
+   "url": "https://ec.europa.eu/commission/presscorner/detail/en/speech_26_2585",
+   "date": "2026-11-25",
+   "summary": "European Commission Speech Strasbourg, 25 Nov 2026 Opening remarks Honourable members, dear rapporteurs, Many thanks for organising this debate at very timely moment. Let me start by stressing that the Commissio...",
+   "feed": "ec-presscorner",
+   "source": "Commission press release",
+   "inst": "commission",
+   "kind": "institutional",
+   "files": [
+    "mff-2028-2034"
+   ],
+   "people": [],
+   "seen": "2026-11-25"
+  },
+  {
+   "title": "FIREPOWER: Commission postpones defence package again",
+   "url": "https://www.rapporteur.com/news/firepower-commission-postpones-defence-package-again/",
+   "date": "2026-11-25",
+   "summary": "In today's edition: military mobility, DELTA, Western Balkans",
+   "feed": "euractiv",
+   "source": "Euractiv",
+   "inst": "press",
+   "kind": "press",
+   "files": [
+    "military-mobility"
+   ],
+   "people": [],
+   "seen": "2026-11-25"
+  },
+  {
+   "title": "‘Putin escalates, EU cuts’: Kubilius warns over defence MFF reduction",
+   "url": "https://www.rapporteur.com/news/putin-escalates-eu-cuts-kubilius-warns-over-defence-mff-reduction/",
+   "date": "2026-11-25",
+   "summary": "Defence Commissioner says the proposed €39 billion cut threatens flagship European defence and space programmes",
+   "feed": "euractiv",
+   "source": "Euractiv",
+   "inst": "press",
+   "kind": "press",
+   "files": [
+    "mff-2028-2034"
+   ],
+   "people": [],
+   "seen": "2026-11-25"
+  },
   {
    "title": "FIRST AID: Biotech Act caught in limbo",
    "url": "https://www.rapporteur.com/news/first-aid-biotech-act-caught-in-limbo/",
