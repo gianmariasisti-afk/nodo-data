@@ -78,9 +78,16 @@ function blocks(xml) {
 const num = (s) => (/^\d+$/.test((s || "").trim()) ? Number(s.trim()) : null);
 const SIGN = { "+": "for", "-": "against", "–": "against", "−": "against", "0": "abstention" };
 
+function lastHeading(bl, re) {
+  for (let i = bl.length - 1; i >= 0; i--) if (bl[i].p && re.test(bl[i].p)) return i;
+  return -1;
+}
 function procedureFacts(bl) {
-  /* the committee procedure table holds "Date adopted" and "Result of final vote" (the first such table is the committee responsible's) */
-  for (const b of bl) {
+  /* the committee responsible's procedure table follows the LAST heading "PROCEDURE – COMMITTEE RESPONSIBLE"
+     (the first is in the table of contents; each opinion has its own procedure table, read before it) */
+  const from = lastHeading(bl, /^PROCEDURE\s*[–-]\s*COMMITTEE RESPONSIBLE/i);
+  if (from < 0) return null;
+  for (const b of bl.slice(from + 1)) {
     if (!b.rows) continue;
     const flat = b.rows.map((r) => r.join(" | "));
     if (!flat.some((r) => /Date adopted/i.test(r)) || !flat.some((r) => /Result of final vote/i.test(r))) continue;
@@ -112,7 +119,7 @@ function procedureFacts(bl) {
 }
 
 function rollCall(bl) {
-  const start = bl.findIndex((b) => b.p && /FINAL VOTE BY ROLL CALL BY THE COMMITTEE RESPONSIBLE/i.test(b.p));
+  const start = lastHeading(bl, /FINAL VOTE BY ROLL CALL BY THE COMMITTEE RESPONSIBLE/i);
   if (start < 0) return null;
   const columns = []; let cur = null;
   const raw = [];
@@ -125,10 +132,11 @@ function rollCall(bl) {
       raw.push(cells.join(" | "));
       if (!cells.length) continue;
       /* a column header: count and sign, in either order */
-      const n0 = num(cells[0]), n1 = num(cells[1]);
-      if (cells.length === 2 && n0 !== null && SIGN[cells[1]]) { cur = { vote: SIGN[cells[1]], printed: n0, groups: [] }; columns.push(cur); continue; }
-      if (cells.length === 2 && n1 !== null && SIGN[cells[0]]) { cur = { vote: SIGN[cells[0]], printed: n1, groups: [] }; columns.push(cur); continue; }
-      if (cells.length === 1 && n0 !== null && cur && cur.printed === undefined) { cur.printed = n0; continue; }
+      const joined = cells.join(" ").replace(/\s+/g, " ").trim();
+      let hm = joined.match(/^(\d+) ([+\-–−0])$/), hv = null;
+      if (hm) hv = { n: Number(hm[1]), s: hm[2] };
+      else if ((hm = joined.match(/^([+\-–−0]) (\d+)$/))) hv = { n: Number(hm[2]), s: hm[1] };
+      if (hv) { cur = { vote: SIGN[hv.s], printed: hv.n, groups: [] }; columns.push(cur); continue; }
       if (!cur) continue;
       const label = cells[0];
       if (GROUPS[label] !== undefined && cells.length >= 2) {
@@ -224,7 +232,7 @@ for (const id of REPORTS) {
     rec.votes = votes;
     rec.unmatched = unmatched;
     if (unmatched.length) rec.problems.push(`${unmatched.length} name(s) not matched to an MEP`);
-    if (!rc.columns.length) rec.problems.push("no vote columns read");
+    if (rc.columns.length !== 3) rec.problems.push(`${rc.columns.length} vote column(s) read, 3 expected`);
     /* committee membership check: every voter should sit on the committee, as member or substitute */
     if (rec.committee) {
       const off = votes.filter((v) => v.id).filter((v) => {
