@@ -156,5 +156,23 @@
     "check": "verified on two runs"
    }
   ]
+ },
+ {
+  "at": "2026-11-25T14:57:25.548Z",
+  "source": "commission",
+  "changes": [
+   {
+    "type": "added",
+    "commissioner": "dan-jorgensen",
+    "name": "Feodora Wester",
+    "role": "POLICY ASSISTANT"
+   },
+   {
+    "type": "removed",
+    "commissioner": "dan-jorgensen",
+    "name": "Rasmus Beim Hvide",
+    "role": "Policy Assistant"
+   }
+  ]
  }
 ]

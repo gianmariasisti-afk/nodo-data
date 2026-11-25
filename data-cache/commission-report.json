@@ -1,5 +1,5 @@
 {
- "run": "2026-11-25T04:41:20.735Z",
+ "run": "2026-11-25T14:56:03.032Z",
  "college": {
   "found": 26,
   "added": [],
@@ -157,8 +157,12 @@
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/dan-jorgensen/dan-jorgensens-team_en",
    "parsed": 18,
    "existing": 18,
-   "added": [],
-   "removed": []
+   "added": [
+    "Feodora Wester"
+   ],
+   "removed": [
+    "Rasmus Beim Hvide"
+   ]
   },
   "ekaterina-zaharieva": {
    "url": "https://commission.europa.eu/about/organisation/college-commissioners/ekaterina-zaharieva/ekaterina-zaharievas-team_en",
@@ -197,10 +201,8 @@
   }
  },
  "autonomy": {
-  "applied": false,
-  "waits": [
-   "nothing to apply"
-  ],
+  "applied": true,
+  "waits": [],
   "confirming": 0,
   "decision": false
  },
@@ -210,7 +212,7 @@
  "summary": {
   "auto": 0,
   "structural": 0,
-  "autoApplied": 0,
+  "autoApplied": 2,
   "failed": 0,
   "unchecked": []
  }
