@@ -119,7 +119,7 @@ function procedureFacts(bl) {
 }
 
 function rollCall(bl) {
-  const start = lastHeading(bl, /FINAL VOTE BY ROLL CALL BY THE COMMITTEE RESPONSIBLE/i);
+  const start = lastHeading(bl, /FINAL\s+VOTE\s+BY\s+ROLL\s+CALL\s+(BY|IN)\s+(THE\s+)?COMMITTEE\s+RESPONSIBLE/i);
   if (start < 0) return null;
   const columns = []; let cur = null;
   const raw = [];
@@ -206,7 +206,7 @@ for (const id of REPORTS) {
     const rc = rollCall(bl);
     rec.dateAdopted = proc && proc.dateAdopted;
     rec.result = proc && proc.result;
-    rec.debug = { procedureTable: proc && proc.raw, rollCallText: rc && rc.raw };
+    rec.debug = { procedureTable: proc && proc.raw, rollCallText: rc && rc.raw, headings: bl.map((b, i) => [i, b.p || (b.rows ? `[table ${b.rows.length} rows: ${(b.rows[0] || []).join(' | ').slice(0, 80)}]` : '')]).filter(([, t]) => /ROLL CALL|PROCEDURE|Key to symbols|^\[table/i.test(t)).slice(-40) };
     if (!rc) { rec.problems.push("roll-call section not found"); continue; }
     if (!rec.result) rec.problems.push("result of final vote not read from the procedure table");
 
