@@ -1890,7 +1890,7 @@
    "link": "https://www.europarl.europa.eu/plenary/en/agendas.html",
    "src": {
     "api": "foreseen-activities",
-    "sha256": "de3a09937965c13f4dc60607f373a3d1c5ee22a15b4c5242c3d388890ee73f40"
+    "sha256": "e79185a5f9f702492dfb3065ef0cd5d4e649fa460b7f6161681cb475fe7325f4"
    },
    "days": {
     "2026-12-14": [
@@ -1901,6 +1901,11 @@
      }
     ],
     "2026-12-15": [
+     {
+      "time": "09:00–11:50",
+      "type": "other",
+      "title": ""
+     },
      {
       "time": "12:00–12:30",
       "type": "other",
