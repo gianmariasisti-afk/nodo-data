@@ -1028,7 +1028,9 @@
     "cef-2028-2034:ep:2025-0221-DEC-PLEIN1-2026-11-25": true,
     "kids-act:ep:2026-0286-NMCP-256803-CULT-2026-11-24": true,
     "kids-act:ep:2026-0286-NMCOR-247735-IMCO-2026-11-16": true,
-    "kids-act:ep:2026-0286-NMCOR-256862-IMCO-2026-11-16": true
+    "kids-act:ep:2026-0286-NMCOR-256862-IMCO-2026-11-16": true,
+    "mff-2028-2034:next:2026-11-26:294cc9": true,
+    "ai-act-implementation:next:2026-12-02:cd1ee7": true
   },
   "seeded": {
     "mff-2028-2034": true,
@@ -1118,7 +1120,8 @@
     "tech-sovereignty-package:next:2026-11-24:150b70": true,
     "military-mobility:next:2026-11-24:58a37b": true,
     "co2-cars:next:2026-11-25:218d68": true,
-    "biotech-act:next:2026-11-25:a5871d": true
+    "biotech-act:next:2026-11-25:a5871d": true,
+    "mff-2028-2034:next:2026-11-26:294cc9": true
   },
   "seededProcs": {
     "2025-0571": true,

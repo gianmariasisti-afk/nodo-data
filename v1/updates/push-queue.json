@@ -1,4 +1,15 @@
 {
-  "generatedAt": "2026-11-25T00:00:00Z",
-  "events": []
+  "generatedAt": "2026-11-26T00:00:00Z",
+  "events": [
+    {
+      "id": "mff-2028-2034:next:2026-11-26:294cc9",
+      "fileId": "mff-2028-2034",
+      "date": "2026-11-26",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Special European Council on the MFF, 26–27 November",
+      "push": true,
+      "pushOn": "2026-11-26"
+    }
+  ]
 }

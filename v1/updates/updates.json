@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-25T00:00:00Z",
+  "generatedAt": "2026-11-26T00:00:00Z",
   "events": [
     {
       "id": "cap-2028-2034:next:2027-01-27:7e2fa2",
@@ -18,16 +18,6 @@
       "source": "nodo",
       "kind": "scheduled",
       "title": "Regulation: plenary vote (indicative date in the Observatory)",
-      "push": true,
-      "pushOn": "2027-01-18"
-    },
-    {
-      "id": "cap-2028-2034:next:2027-01-18:05a220",
-      "fileId": "cap-2028-2034",
-      "date": "2027-01-18",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Parliament plenary, first reading (indicative date in the Observatory; it precedes the planned AGRI vote)",
       "push": true,
       "pushOn": "2027-01-18"
     },
@@ -82,12 +72,12 @@
       "pushOn": "2026-12-07"
     },
     {
-      "id": "ai-act-implementation:next:2026-12-02:452a4f",
+      "id": "ai-act-implementation:next:2026-12-02:cd1ee7",
       "fileId": "ai-act-implementation",
       "date": "2026-12-02",
       "source": "nodo",
       "kind": "scheduled",
-      "title": "Labelling cut-off for generative AI systems already on the market",
+      "title": "New AI Act prohibitions apply; marking deadline for generative AI already on the market",
       "push": true,
       "pushOn": "2026-12-02"
     },
@@ -142,24 +132,14 @@
       "pushOn": "2026-11-27"
     },
     {
-      "id": "mff-2028-2034:next:2026-11-26:2ec5c5",
+      "id": "mff-2028-2034:next:2026-11-26:294cc9",
       "fileId": "mff-2028-2034",
       "date": "2026-11-26",
       "source": "nodo",
       "kind": "scheduled",
-      "title": "Special European Council, 26-27 November (Agence Europe: devoted to the MFF)",
+      "title": "Special European Council on the MFF, 26–27 November",
       "push": true,
       "pushOn": "2026-11-26"
-    },
-    {
-      "id": "biotech-act:next:2026-11-25:a5871d",
-      "fileId": "biotech-act",
-      "date": "2026-11-25",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Directive: plenary vote (draft agenda of the 23–26 November session)",
-      "push": true,
-      "pushOn": "2026-11-25"
     },
     {
       "id": "cef-2028-2034:ep:2025-0221-DEC-PLEIN1-2026-11-25",
@@ -205,36 +185,6 @@
       "push": false
     },
     {
-      "id": "mff-2028-2034:next:2026-11-24:05e4ba",
-      "fileId": "mff-2028-2034",
-      "date": "2026-11-24",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Ad hoc working party on the MFF (European Competitiveness Fund): preparation for interinstitutional engagement on Chapter VII",
-      "push": true,
-      "pushOn": "2026-11-24"
-    },
-    {
-      "id": "military-mobility:next:2026-11-24:58a37b",
-      "fileId": "military-mobility",
-      "date": "2026-11-24",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Ad hoc working party on military mobility: debrief from the technical meetings of 12–20 November (four-column table WK 16494/26 REV 3)",
-      "push": true,
-      "pushOn": "2026-11-24"
-    },
-    {
-      "id": "tech-sovereignty-package:next:2026-11-24:150b70",
-      "fileId": "tech-sovereignty-package",
-      "date": "2026-11-24",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Telecoms working party: CADA first compromise text on Pillars 1 and 2 and general and final provisions (doc 15830/26), and the EESC opinion",
-      "push": true,
-      "pushOn": "2026-11-24"
-    },
-    {
       "id": "biotech-act:ep:2025-0405:tabled:2026-11-23",
       "fileId": "biotech-act",
       "date": "2026-11-23",
@@ -244,26 +194,6 @@
       "title": "Report tabled for plenary",
       "count": 1,
       "push": false
-    },
-    {
-      "id": "cef-2028-2034:next:2026-11-23:01b987",
-      "fileId": "cef-2028-2034",
-      "date": "2026-11-23",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Plenary announcement of ITRE-TRAN's decision to open negotiations, in Strasbourg (reported by Agence Europe); a plenary vote follows only if 72 MEPs ask for one",
-      "push": true,
-      "pushOn": "2026-11-23"
-    },
-    {
-      "id": "mff-2028-2034:next:2026-11-23:f8b664",
-      "fileId": "mff-2028-2034",
-      "date": "2026-11-23",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "ECF: ITRE's mandate to negotiate announced in plenary in Strasbourg (reported by Agence Europe); a plenary vote follows only if 72 MEPs ask for one",
-      "push": true,
-      "pushOn": "2026-11-23"
     },
     {
       "id": "cap-2028-2034:ep:opinions:2026-11-19",
@@ -1392,18 +1322,6 @@
       "personId": "256979",
       "group": "EPP",
       "committee": "ITRE",
-      "push": false
-    },
-    {
-      "id": "mff-2028-2034:ep:2025-0545-NMSR-256890-2026-08-27",
-      "fileId": "mff-2028-2034",
-      "date": "2026-08-27",
-      "source": "ep",
-      "proc": "2025-0545",
-      "kind": "people",
-      "title": "Opinion shadow rapporteur recorded",
-      "personId": "256890",
-      "group": "The Left",
       "push": false
     }
   ]
