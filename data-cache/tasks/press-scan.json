@@ -1,6 +1,6 @@
 {
  "task": "press-scan",
- "at": "2026-11-23T08:52:26.231Z",
+ "at": "2026-11-26T08:59:50.616Z",
  "result": "ok",
- "note": "6 published, 4 waiting for a second look"
+ "note": "2 published, 6 waiting for a second look, 4 failed their second look"
 }
