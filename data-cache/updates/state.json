@@ -1030,7 +1030,14 @@
     "kids-act:ep:2026-0286-NMCOR-247735-IMCO-2026-11-16": true,
     "kids-act:ep:2026-0286-NMCOR-256862-IMCO-2026-11-16": true,
     "mff-2028-2034:next:2026-11-26:294cc9": true,
-    "ai-act-implementation:next:2026-12-02:cd1ee7": true
+    "ai-act-implementation:next:2026-12-02:cd1ee7": true,
+    "mff-2028-2034:ep:2025-0545:amendments:2026-11-26": true,
+    "mff-2028-2034:ep:2025-0545:amendments:2026-11-25": true,
+    "mff-2028-2034:ep:MTG-PL-2026-11-25-PVCRE-ITM-8-7": true,
+    "cef-2028-2034:ep:MTG-PL-2026-11-25-PVCRE-ITM-8-6": true,
+    "biotech-act:ep:MTG-PL-2026-11-25-PVCRE-ITM-8-15": true,
+    "military-mobility:next:2026-11-27:b67ccc": true,
+    "kids-act:ep:2026-0286-NMCP-257014-SANT-2026-11-25": true
   },
   "seeded": {
     "mff-2028-2034": true,

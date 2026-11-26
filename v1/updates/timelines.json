@@ -11,6 +11,17 @@
       "pushOn": "2026-12-07"
     },
     {
+      "id": "mff-2028-2034:ep:2025-0545:amendments:2026-11-26",
+      "fileId": "mff-2028-2034",
+      "date": "2026-11-26",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "milestone",
+      "title": "Amendments tabled in committee",
+      "count": 1,
+      "push": true
+    },
+    {
       "id": "mff-2028-2034:next:2026-11-26:294cc9",
       "fileId": "mff-2028-2034",
       "date": "2026-11-26",
@@ -21,6 +32,17 @@
       "pushOn": "2026-11-26"
     },
     {
+      "id": "mff-2028-2034:ep:2025-0545:amendments:2026-11-25",
+      "fileId": "mff-2028-2034",
+      "date": "2026-11-25",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "milestone",
+      "title": "Amendments tabled in committee",
+      "count": 1,
+      "push": true
+    },
+    {
       "id": "mff-2028-2034:ep:2025-0555-DEC-PLEIN1-2026-11-25",
       "fileId": "mff-2028-2034",
       "date": "2026-11-25",
@@ -29,6 +51,16 @@
       "kind": "procedural",
       "title": "Plenary endorse committee interinstitutional negotiations",
       "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:MTG-PL-2026-11-25-PVCRE-ITM-8-7",
+      "fileId": "mff-2028-2034",
+      "date": "2026-11-25",
+      "source": "ep",
+      "proc": "2025-0555",
+      "kind": "milestone",
+      "title": "Plenary vote",
+      "push": true
     },
     {
       "id": "mff-2028-2034:ep:2025-0555:tabled:2026-11-18",
@@ -63,17 +95,6 @@
       "push": true
     },
     {
-      "id": "mff-2028-2034:ep:2025-0545:amendments:2026-11-05",
-      "fileId": "mff-2028-2034",
-      "date": "2026-11-05",
-      "source": "ep",
-      "proc": "2025-0545",
-      "kind": "milestone",
-      "title": "Amendments tabled in committee",
-      "count": 1,
-      "push": true
-    },
-    {
       "id": "mff-2028-2034:ep:2025-0545:amendments:2026-11-04",
       "fileId": "mff-2028-2034",
       "date": "2026-11-04",
@@ -92,7 +113,7 @@
       "proc": "2025-0545",
       "kind": "milestone",
       "title": "Amendments tabled in committee",
-      "count": 9,
+      "count": 8,
       "push": true
     },
     {
@@ -7828,6 +7849,16 @@
       "push": false
     },
     {
+      "id": "cef-2028-2034:ep:MTG-PL-2026-11-25-PVCRE-ITM-8-6",
+      "fileId": "cef-2028-2034",
+      "date": "2026-11-25",
+      "source": "ep",
+      "proc": "2025-0221",
+      "kind": "milestone",
+      "title": "Plenary vote",
+      "push": true
+    },
+    {
       "id": "cef-2028-2034:ep:tabled:2026-11-16",
       "fileId": "cef-2028-2034",
       "date": "2026-11-16",
@@ -8447,16 +8478,6 @@
       "pushOn": "2026-12-14"
     },
     {
-      "id": "co2-cars:next:2026-11-25:218d68",
-      "fileId": "co2-cars",
-      "date": "2026-11-25",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Environment working party: revised Presidency compromise text (doc 16044/26)",
-      "push": true,
-      "pushOn": "2026-11-25"
-    },
-    {
       "id": "co2-cars:ep:2025-0420-DEC-ADCP-2026-11-04",
       "fileId": "co2-cars",
       "date": "2026-11-04",
@@ -9060,6 +9081,16 @@
       "title": "Regulation: plenary vote (indicative date in the Observatory)",
       "push": true,
       "pushOn": "2027-01-18"
+    },
+    {
+      "id": "biotech-act:ep:MTG-PL-2026-11-25-PVCRE-ITM-8-15",
+      "fileId": "biotech-act",
+      "date": "2026-11-25",
+      "source": "ep",
+      "proc": "2025-0405",
+      "kind": "milestone",
+      "title": "Plenary vote",
+      "push": true
     },
     {
       "id": "biotech-act:ep:2025-0405:tabled:2026-11-23",
@@ -10382,12 +10413,12 @@
   "era-act": [],
   "military-mobility": [
     {
-      "id": "military-mobility:next:2026-11-27:9e6261",
+      "id": "military-mobility:next:2026-11-27:b67ccc",
       "fileId": "military-mobility",
       "date": "2026-11-27",
       "source": "nodo",
       "kind": "scheduled",
-      "title": "Council ad hoc working party on military mobility",
+      "title": "Ad hoc working party on military mobility: trilogue preparation (four-column table WK 16494/2026 REV5)",
       "push": true,
       "pushOn": "2026-11-27"
     },
@@ -10646,6 +10677,19 @@
     }
   ],
   "kids-act": [
+    {
+      "id": "kids-act:ep:2026-0286-NMCP-257014-SANT-2026-11-25",
+      "fileId": "kids-act",
+      "date": "2026-11-25",
+      "source": "ep",
+      "proc": "2026-0286",
+      "kind": "people",
+      "title": "Opinion rapporteur named",
+      "personId": "257014",
+      "group": "Renew",
+      "committee": "SANT",
+      "push": false
+    },
     {
       "id": "kids-act:ep:2026-0286-NMCP-256803-CULT-2026-11-24",
       "fileId": "kids-act",

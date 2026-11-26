@@ -2,14 +2,56 @@
   "generatedAt": "2026-11-26T00:00:00Z",
   "events": [
     {
-      "id": "mff-2028-2034:next:2026-11-26:294cc9",
+      "id": "mff-2028-2034:ep:2025-0545:amendments:2026-11-26",
       "fileId": "mff-2028-2034",
       "date": "2026-11-26",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Special European Council on the MFF, 26–27 November",
-      "push": true,
-      "pushOn": "2026-11-26"
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "milestone",
+      "title": "Amendments tabled in committee",
+      "count": 1,
+      "push": true
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0545:amendments:2026-11-25",
+      "fileId": "mff-2028-2034",
+      "date": "2026-11-25",
+      "source": "ep",
+      "proc": "2025-0545",
+      "kind": "milestone",
+      "title": "Amendments tabled in committee",
+      "count": 1,
+      "push": true
+    },
+    {
+      "id": "mff-2028-2034:ep:MTG-PL-2026-11-25-PVCRE-ITM-8-7",
+      "fileId": "mff-2028-2034",
+      "date": "2026-11-25",
+      "source": "ep",
+      "proc": "2025-0555",
+      "kind": "milestone",
+      "title": "Plenary vote",
+      "push": true
+    },
+    {
+      "id": "cef-2028-2034:ep:MTG-PL-2026-11-25-PVCRE-ITM-8-6",
+      "fileId": "cef-2028-2034",
+      "date": "2026-11-25",
+      "source": "ep",
+      "proc": "2025-0221",
+      "kind": "milestone",
+      "title": "Plenary vote",
+      "push": true
+    },
+    {
+      "id": "biotech-act:ep:MTG-PL-2026-11-25-PVCRE-ITM-8-15",
+      "fileId": "biotech-act",
+      "date": "2026-11-25",
+      "source": "ep",
+      "proc": "2025-0405",
+      "kind": "milestone",
+      "title": "Plenary vote",
+      "push": true
     }
   ]
 }
