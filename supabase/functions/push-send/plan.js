@@ -120,7 +120,10 @@ export function planFor({ now, body, updates, scheduled, fileBy, sent }) {
   if ((sent || []).some((s) => s.kind !== "test" && brussels(s.sent_at).date === b.date)) return null;
 
   const p = prefsOf(body);
-  const follow = new Set((Array.isArray(body && body.follow) ? body.follow : []).filter((id) => fileBy[id] && !p.muted.has(id)));
+  /* Radar items (Files > On the radar) the person asked about count as followed once their id is a file in files.json:
+     the app moves them onto body.follow at the next visit; until then the file's first updates still reach them. */
+  const radar = Array.isArray(body && body.profile && body.profile.notify && body.profile.notify.radar) ? body.profile.notify.radar : [];
+  const follow = new Set([...(Array.isArray(body && body.follow) ? body.follow : []), ...radar].filter((id) => fileBy[id] && !p.muted.has(id)));
   if (!follow.size) return null;
 
   const done = new Set((sent || []).flatMap((s) => s.event_ids || []));

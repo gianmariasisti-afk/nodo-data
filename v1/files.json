@@ -50,6 +50,14 @@
    {
     "id": "budget",
     "name": "Budget, finance and defence"
+   },
+   {
+    "id": "finance",
+    "name": "Finance"
+   },
+   {
+    "id": "social",
+    "name": "Social and housing"
    }
   ],
   "related": "related: texts a file builds on. Every MEP with role relevant names one with rel, and their role in it with relRole (rapporteur, shadow or chair). why is nodo's own sentence on why the text matters for this file. doc, when present, is the document id in reports.json, and the validator checks relRole against it."
@@ -5499,5 +5507,56 @@
    "checked": "2026-11-25",
    "asOf": "2026-11-16"
   }
- ]
+ ],
+ "radar": {
+  "year": 2027,
+  "source": {
+   "title": "Commission work programme 2027, Annex I (4 Nov 2026)",
+   "url": "https://data.consilium.europa.eu/doc/document/ST-15343-2026-ADD-1/en/pdf"
+  },
+  "items": [
+   {
+    "id": "energy-post-2030",
+    "title": "Energy post-2030 framework and simplification package",
+    "quarter": 1,
+    "area": "energy"
+   },
+   {
+    "id": "bank-package",
+    "title": "Bank competitiveness and simplification package",
+    "quarter": 1,
+    "area": "finance"
+   },
+   {
+    "id": "transport-simplification",
+    "title": "Transport simplification package",
+    "quarter": 1,
+    "area": "energy"
+   },
+   {
+    "id": "digital-copyright-package",
+    "title": "Digital transformation, simplification and copyright package",
+    "quarter": 2,
+    "area": "digital"
+   },
+   {
+    "id": "housing-simplification",
+    "title": "Housing simplification package",
+    "quarter": 2,
+    "area": "social"
+   },
+   {
+    "id": "hdv-co2-review",
+    "title": "Review of heavy-duty vehicle CO2 standards",
+    "quarter": 3,
+    "area": "energy"
+   },
+   {
+    "id": "nature-directives-review",
+    "title": "Review of the nature directives",
+    "quarter": 3,
+    "area": "energy"
+   }
+  ]
+ }
 }

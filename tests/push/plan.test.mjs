@@ -118,3 +118,12 @@ test('week steps dedupe and window', () => {
   const s = weekSteps([fileBy.co2], [{ fileId: 'co2', kind: 'scheduled', date: '2026-11-17', title: 'ENVI vote' }], '2026-11-16');
   assert.equal(s.length, 1);
 });
+
+test('a radar item someone asked about counts as followed once it is a file', () => {
+  const fb = { ...fileBy, 'ets-review': { id: 'ets-review', short: 'ETS review' } };
+  const e = { id: 'u-ets-1', fileId: 'ets-review', kind: 'people', title: 'Rapporteur named: A. Person', firstSeen: seen };
+  const b = body({ follow: [], profile: { notify: { radar: ['ets-review', 'not-yet-a-file'] } } });
+  const m = planFor({ now: TUE_830, body: b, updates: [e], scheduled: [], fileBy: fb, sent: [] });
+  assert.ok(m && m.event_ids.includes('u-ets-1'));
+  assert.equal(planFor({ now: TUE_830, body: body({ follow: [], profile: { notify: { radar: ['not-yet-a-file'] } } }), updates: [e], scheduled: [], fileBy, sent: [] }), null);
+});

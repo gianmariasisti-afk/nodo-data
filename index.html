@@ -8907,6 +8907,151 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const f = curFile(); if (f) openFile(f.id, true);
   }).catch(() => { /* no votes file: pages work without it */ });
 
+  /* ======================= Files: policy-area index and On the radar (since 26 Nov 2026) =======================
+     Approved design: canvas "nodo Files: area index mockup" (26 Nov 2026). With about 30 files the grouped list ran to
+     six screens, so Files now opens on: Your files, one tile per policy area (its files, how many have a dated step in
+     the next 30 days, how many were added in the last 30 days), "On the radar" (the Commission proposals expected next,
+     files.json `radar`), then "Not on the list?".
+     - A tile opens the area page (route flarea:<id>, on the profile layer so Back works): the area's files, those with
+       a step in the next 30 days first, then the ones followed, then new ones. Rows are the Files rows, plus chips for
+       the next step, "New" (file `added` within 30 days) and "New part: …" (a part's `added`).
+     - "See all" opens the radar page (route flradar:all): the items by quarter, each with Notify me. The choice syncs on
+       profile.notify.radar. When an item's id turns up as a file, people who asked follow it on their next visit, and
+       push-send (plan.js) already treats those ids as followed. Items that are already files are not shown. */
+  const FA_DAYS = 30;
+  const faIso = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+  const faShift = (n) => { const d = new Date(); d.setDate(d.getDate() + n); return faIso(d); };
+  const faSoonStep = (f) => { const a = faShift(0), b = faShift(FA_DAYS);
+    return (f.next || []).filter((n) => n.date && n.date >= a && n.date <= b).sort((x, y) => x.date.localeCompare(y.date))[0] || null; };
+  const faIsNew = (f) => !!(f.added && f.added >= faShift(-FA_DAYS));
+  const faNewParts = (f) => (f.parts || []).filter((p) => p.added && p.added >= faShift(-FA_DAYS));
+  const faCurated = () => FILES.filter((f) => !f.auto);
+  const faAreaFiles = (id) => faCurated().filter((f) => f.area === id);
+  const faDay = (iso) => fmtD(new Date(iso + "T12:00:00"), { weekday: "short", day: "numeric", month: "short" });
+  const FA_RADAR = () => { const r = (DATA.fl && DATA.fl.radar) || null; return r && Array.isArray(r.items) ? r : null; };
+  const faRadarItems = () => { const r = FA_RADAR(); return r ? r.items.filter((x) => x && x.id && !FILE_BY[x.id]) : []; };
+  const faRadarOn = () => new Set(Array.isArray(pnNotify().radar) ? pnNotify().radar : []);
+  const faAreaName = (id) => ((FL_AREAS().find((a) => a.id === id) || {}).name || "");
+
+  function faTile(a) {
+    const fs = faAreaFiles(a.id), soon = fs.filter(faSoonStep).length, fresh = fs.filter(faIsNew).length;
+    return `<button class="fa-tile" type="button" data-flarea="${esc(a.id)}">
+      <span class="fa-tile__n">${esc(a.name)}</span>
+      <span class="fa-tile__bot"><span class="fa-tile__k"><b>${fs.length}</b>${fresh ? `<span class="fa-new">${fresh} new</span>` : ""}</span><span>${soon ? `${soon} with a step in the next ${FA_DAYS} days` : "No dated step in the next " + FA_DAYS + " days"}</span></span>
+    </button>`;
+  }
+  function faRadarCard() {
+    const xs = faRadarItems(), r = FA_RADAR(); if (!xs.length) return "";
+    const yr = Number(r.year) || 0, when = yr > new Date().getFullYear() ? "next year" : yr ? "in " + yr : "";
+    return `<section class="fa-radar" aria-labelledby="faRadarH">
+      <p class="fa-ov">On the radar${yr ? " · " + yr : ""}</p>
+      <h2 id="faRadarH">${xs.length} ${xs.length === 1 ? "proposal" : "proposals"} the Commission plans ${when}</h2>
+      <ul>${xs.slice(0, 3).map((x) => `<li><span class="fa-q">Q${esc(String(x.quarter || "?"))}</span><span>${esc(x.title)}</span></li>`).join("")}</ul>
+      <button class="fa-radar__all" type="button" data-flradar>See all ${xs.length}${icon("arrow")}</button>
+    </section>`;
+  }
+  {
+    const faView0 = renderFilesView;
+    renderFilesView = function () {
+      faView0();
+      if (!FILES.length || !$("filesBody")) return;
+      const areas = FL_AREAS().filter((a) => faAreaFiles(a.id).length), known = new Set(FL_AREAS().map((a) => a.id));
+      const n = faCurated().length;
+      $("filesBody").innerHTML = `<p class="fl-intro">${n} EU laws in the making, in ${areas.length} policy areas. Open one to see where it stands and who shapes it.</p>
+        <div id="flPanel" class="fl-panel">
+          ${frSec("mine", "Your files", followedFiles())}
+          <section class="fa-areas" aria-labelledby="faAreasH">
+            <div class="fr-sec__h"><h2 id="faAreasH">Browse by policy area</h2><span>${n} files</span></div>
+            <div class="fa-grid">${areas.map(faTile).join("")}</div>
+          </section>
+          ${frSec("other", "Other files", faCurated().filter((f) => !known.has(f.area)))}
+          ${faRadarCard()}
+          ${flAddHtml()}
+        </div>
+        <p class="foot">Dates for these files are in Calendar. Names come from the Parliament's open data and its Legislative Observatory procedure files.</p>`;
+    };
+  }
+
+  function faRow(f) {
+    const step = faSoonStep(f), parts = faNewParts(f);
+    const chips = [step ? `<span class="fa-chip">Next step ${esc(faDay(step.date))}</span>` : "",
+      ...parts.map((p) => `<span class="fa-chip fa-chip--new">New part: ${esc(p.short || p.title || "")}</span>`)].join("");
+    let h = frRow(f);
+    if (faIsNew(f)) h = h.replace(/(<span class="fr__n">[\s\S]*?)(<\/span>)/, `$1 <span class="fa-new fa-new--in">New</span>$2`);
+    if (chips) h = h.replace('<span class="fr__who">', `<span class="fa-chips">${chips}</span><span class="fr__who">`);
+    return h;
+  }
+  function openFlArea(id) {
+    const a = FL_AREAS().find((x) => x.id === id); if (!a) return;
+    state.open = "flarea:" + id;
+    const fs = faAreaFiles(id), at = new Map(fs.map((f, i) => [f, i]));
+    const rank = (f) => [faSoonStep(f) ? 0 : 1, state.follow.has(f.id) ? 0 : 1, faIsNew(f) ? 0 : 1, at.get(f)];
+    const sorted = fs.slice().sort((x, y) => { const p = rank(x), q = rank(y); for (let i = 0; i < p.length; i++) if (p[i] !== q[i]) return p[i] - q[i]; return 0; });
+    const soon = fs.filter(faSoonStep).length, fresh = fs.filter(faIsNew).length;
+    const rad = faRadarItems().filter((x) => x.area === id);
+    showProfile(`
+      <div class="tb">${backBtn}${icon("back")}</button></div>
+      <section class="fa-head" data-flarea="${esc(id)}" data-static>
+        <p class="fa-ov">Policy area</p>
+        <h2 class="fa-head__h" id="pName">${esc(a.name)}</h2>
+        <p class="fa-head__sum"><b>${fs.length} ${fs.length === 1 ? "file" : "files"}</b>${fresh ? `, ${fresh} new this month` : ""}. ${soon ? `${soon} with a step in the next ${FA_DAYS} days.` : `No dated step in the next ${FA_DAYS} days.`}</p>
+      </section>
+      <section class="fr-sec fa-list" aria-labelledby="frH-${esc(id)}"><h2 class="sr" id="frH-${esc(id)}">Files in ${esc(a.name)}</h2>
+        <div class="fr-list">${sorted.map(faRow).join("")}</div></section>
+      <p class="foot">Files with a step in the next ${FA_DAYS} days come first, then the ones you follow, then new files.${rad.length ? ` Coming ${Number((FA_RADAR() || {}).year) > new Date().getFullYear() ? "next year" : "soon"} in this area: ${rad.map((x) => esc(x.title) + " (Q" + esc(String(x.quarter)) + ")").join(", ")}. <button class="linkbtn" type="button" data-flradar>On the radar</button>` : ""}</p>`);
+  }
+  function openFlRadar() {
+    const r = FA_RADAR(), xs = faRadarItems(); if (!r) return;
+    state.open = "flradar:all";
+    const on = faRadarOn(), yr = Number(r.year) || "";
+    const qs = [...new Set(xs.map((x) => Number(x.quarter) || 9))].sort((a, b) => a - b);
+    const QN = { 1: "First quarter", 2: "Second quarter", 3: "Third quarter", 4: "Fourth quarter", 9: "Date not set" };
+    const item = (x) => `<li class="fa-ri">
+        <div class="fa-ri__tx"><b>${esc(x.title)}</b>${x.area && faAreaName(x.area) ? `<span class="fa-ri__area" data-flarea-tint="${esc(x.area)}">${esc(faAreaName(x.area))}</span>` : ""}</div>
+        <button class="fa-notify" type="button" data-radarnotify="${esc(x.id)}" aria-pressed="${on.has(x.id)}">${on.has(x.id) ? "Notifying" : "Notify me"}</button></li>`;
+    showProfile(`
+      <div class="tb">${backBtn}${icon("back")}</button></div>
+      <div class="hero"><h2 class="eu-headline" id="pName">On the radar${yr ? ` <strong>${esc(String(yr))}</strong>` : ""}</h2>
+        <p class="bio">Proposals the Commission plans${yr ? " for " + esc(String(yr)) : ""}. Each becomes a full file, with its people, once it is proposed.</p></div>
+      ${qs.map((q) => `<section class="fa-rq" aria-labelledby="faQ${q}"><h3 id="faQ${q}">${QN[q] || "Q" + q}</h3><ul>${xs.filter((x) => (Number(x.quarter) || 9) === q).map(item).join("")}</ul></section>`).join("")}
+      <p class="foot">${r.source && r.source.url ? `From the <a href="${esc(r.source.url)}" target="_blank" rel="noopener">${esc(r.source.title || "Commission work programme")}</a>. ` : ""}Quarters are the Commission's indicative dates and can move.</p>`);
+  }
+  {
+    const faRoute0 = openRoute;
+    openRoute = function (key) {
+      if (key.startsWith("flarea:")) return openFlArea(key.slice(7));
+      if (key === "flradar:all") return openFlRadar();
+      return faRoute0(key);
+    };
+  }
+  /* Someone asked to be told about a radar item that is now a file: follow it for them, once. */
+  function faRadarArrivals() {
+    const want = faRadarOn(); if (!want.size) return;
+    const landed = [...want].filter((id) => FILE_BY[id]); if (!landed.length) return;
+    landed.forEach((id) => { if (!state.follow.has(id)) { state.follow.add(id); Track.log("follow", { section: "radar", item: id }); } });
+    saveFollow();
+    pnSave({ radar: [...want].filter((id) => !FILE_BY[id]) });
+    const f = FILE_BY[landed[0]];
+    toast(landed.length === 1 ? `${f.short} is now a full file. You follow it.` : `${landed.length} files you asked about are now in nodo. You follow them.`, 3200);
+    if (state.view === "files") renderFilesView();
+  }
+  document.addEventListener("click", (e) => {
+    const t = e.target;
+    const a = t.closest("[data-flarea]:not([data-static])");
+    if (a) { e.stopPropagation(); Track.log("view", { section: "files-area", item: a.dataset.flarea }); return openFlArea(a.dataset.flarea); }
+    if (t.closest("[data-flradar]")) { e.stopPropagation(); Track.log("view", { section: "files-radar", item: "" }); return openFlRadar(); }
+    const nb = t.closest("[data-radarnotify]");
+    if (nb) {
+      e.stopPropagation();
+      const id = nb.dataset.radarnotify, on = faRadarOn(), had = on.has(id);
+      had ? on.delete(id) : on.add(id);
+      pnSave({ radar: [...on] });
+      nb.setAttribute("aria-pressed", String(!had)); nb.textContent = had ? "Notify me" : "Notifying";
+      Track.log(had ? "radar_off" : "radar_on", { section: "radar", item: id });
+      toast(had ? "Notification removed" : "We'll notify you when it's proposed", 2400);
+    }
+  }, true);
+
   initHome(); initEp(); initEc();
   let startView = "home";
   try { const h = (location.hash || "").slice(1); startView = { parliament: "ep", commission: "ec", council: "co", calendar: "cal", agenda: "agenda", saved: "saved", files: "files", news: "news" }[h] || "home"; } catch { /* ignore */ }
@@ -8919,6 +9064,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   const signedIn = LIVE ? !!acct.user : !!(state.profile && state.profile.method);
   if (!signedIn) openOnb(0, false); else if (store.get(SIGNED_KEY)) openOnb("back", false);
   Store.connect();
+  setTimeout(faRadarArrivals, 2500); /* after the synced follows and profile have arrived */
   } catch (e) { if (window.nxBootFailed) window.nxBootFailed(e); else throw e; } finally { boot.hidden = true; }
 })();
 
@@ -10630,5 +10776,68 @@ body { font-variant-numeric: tabular-nums; }
 .cv-foot a { color: var(--accent-sky); }
 .eu-row .cv-v { margin-left: 8px; font-size: 13px; }
 .cv-card .pr-head { flex-direction: column; align-items: flex-start; gap: 2px; }
+
+/* Files: policy-area index and On the radar (since 26 Nov 2026). Design: canvas "nodo Files: area index mockup". */
+.fa-areas { margin: 0 0 var(--space-4); }
+.fa-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.fa-tile { display: flex; flex-direction: column; justify-content: space-between; gap: 14px; min-height: 136px; padding: 16px; border: 0; border-radius: 24px; color: var(--ink); text-align: left; font: inherit; cursor: pointer;
+  background: color-mix(in srgb, var(--area-tint, var(--surface-sunken)) var(--area-mix), var(--surface-sunken)); }
+.fa-tile:focus-visible, .fa-notify:focus-visible, .fa-radar__all:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+.fa-tile__k { display: flex; align-items: center; gap: 8px; }
+.hero + .fa-rq { margin-top: var(--space-4); }
+.fa-tile__n { font-family: var(--font-display); font-weight: 600; font-size: 18px; line-height: 22px; }
+.fa-tile__bot { display: flex; flex-direction: column; gap: 2px; }
+.fa-tile__bot b { font-family: var(--font-display); font-weight: 500; font-size: 30px; line-height: 32px; font-variant-numeric: tabular-nums; }
+.fa-tile__bot > span:last-child { font-size: 13px; line-height: 17px; color: var(--ink-muted); }
+.fa-new { flex: none; padding: 3px 8px; border-radius: var(--radius-pill); background: var(--lime); color: #111312; font-family: var(--font-sans, inherit); font-size: 12px; line-height: 16px; font-weight: 600; letter-spacing: 0; }
+.fa-new--in { display: inline-block; margin-left: 4px; vertical-align: 2px; }
+[data-flarea="digital"], [data-flarea-tint="digital"] { --area-tint: var(--tint-sky); }
+[data-flarea="industry"], [data-flarea-tint="industry"] { --area-tint: var(--tint-apricot); }
+[data-flarea="energy"], [data-flarea-tint="energy"] { --area-tint: var(--tint-mint); }
+[data-flarea="health"], [data-flarea-tint="health"] { --area-tint: var(--tint-rose); }
+[data-flarea="budget"], [data-flarea-tint="budget"] { --area-tint: var(--tint-butter); }
+[data-flarea="agri"], [data-flarea-tint="agri"] { --area-tint: #E3EBC4; }
+[data-flarea="finance"], [data-flarea-tint="finance"], .fr-sec[aria-labelledby="frH-finance"] { --area-tint: #E6E0F3; }
+[data-flarea="social"], [data-flarea-tint="social"], .fr-sec[aria-labelledby="frH-social"] { --area-tint: #F5ECD2; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) :is([data-flarea="agri"], [data-flarea-tint="agri"]) { --area-tint: #3F4A1E; }
+  :root:not([data-theme="light"]) :is([data-flarea="finance"], [data-flarea-tint="finance"], .fr-sec[aria-labelledby="frH-finance"]) { --area-tint: #3E3363; }
+  :root:not([data-theme="light"]) :is([data-flarea="social"], [data-flarea-tint="social"], .fr-sec[aria-labelledby="frH-social"]) { --area-tint: #5A4A1C; }
+}
+:root[data-theme="dark"] :is([data-flarea="agri"], [data-flarea-tint="agri"]) { --area-tint: #3F4A1E; }
+:root[data-theme="dark"] :is([data-flarea="finance"], [data-flarea-tint="finance"], .fr-sec[aria-labelledby="frH-finance"]) { --area-tint: #3E3363; }
+:root[data-theme="dark"] :is([data-flarea="social"], [data-flarea-tint="social"], .fr-sec[aria-labelledby="frH-social"]) { --area-tint: #5A4A1C; }
+
+.fa-radar { margin: 0 0 var(--space-4); padding: 22px 20px 20px; border-radius: var(--radius-lg); background: #111312; color: #f4f6f2; }
+.fa-ov { margin: 0; font-size: 11px; line-height: 14px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-muted); }
+.fa-radar .fa-ov { color: #a3aaa4; }
+.fa-radar h2 { margin: 8px 0 14px; font-family: var(--font-display); font-weight: 500; font-size: 22px; line-height: 28px; }
+.fa-radar ul { display: flex; flex-direction: column; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.fa-radar li { display: flex; gap: 12px; align-items: baseline; font-size: 15px; line-height: 20px; }
+.fa-q { flex: none; width: 28px; font-size: 13px; font-weight: 600; color: var(--lime); }
+.fa-radar__all { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; margin-top: 18px; padding: 0 18px; border: 0; border-radius: var(--radius-pill); background: var(--lime); color: #111312; font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; }
+.fa-radar__all .eu-icon { width: 16px; height: 16px; }
+.fa-radar__all:focus-visible { outline-color: var(--lime); }
+
+.fa-head { margin: 4px 0 12px; padding: 22px 20px 20px; border-radius: var(--radius-lg); background: color-mix(in srgb, var(--area-tint, var(--surface-sunken)) var(--area-mix), var(--surface-sunken)); }
+.fa-head .fa-ov { color: var(--ink); opacity: .75; }
+.fa-head__h { margin: 6px 0 0; font-family: var(--font-display); font-weight: 500; font-size: 32px; line-height: 36px; letter-spacing: -.8px; }
+.fa-head__sum { margin: 12px 0 0; font-size: 15px; line-height: 21px; }
+.fa-head__sum b { font-weight: 600; }
+.fa-list { padding-top: 4px; }
+.fa-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.fa-chip { padding: 3px 9px; border-radius: var(--radius-pill); background: var(--surface); color: var(--ink); font-size: 13px; line-height: 18px; font-weight: 600; }
+.fa-chip--new { background: var(--lime); color: #111312; }
+
+.fa-rq { margin: 0 0 12px; padding: 18px 0 6px; border-radius: var(--radius-lg); background: var(--surface); box-shadow: var(--shadow-card, none); }
+.fa-rq h3 { margin: 0 20px 6px; font-size: 13px; line-height: 16px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-muted); }
+.fa-rq ul { margin: 0; padding: 0; list-style: none; }
+.fa-ri { display: flex; gap: 12px; align-items: flex-start; padding: 12px 20px; }
+.fa-ri + .fa-ri { border-top: 1px solid var(--hairline); }
+.fa-ri__tx { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; flex: 1; min-width: 0; }
+.fa-ri__tx b { font-family: var(--font-display); font-weight: 600; font-size: 17px; line-height: 22px; }
+.fa-ri__area { padding: 3px 9px; border-radius: var(--radius-pill); background: color-mix(in srgb, var(--area-tint, var(--surface-sunken)) var(--area-mix), var(--surface-sunken)); font-size: 12px; line-height: 16px; font-weight: 600; }
+.fa-notify { flex: none; min-height: 44px; padding: 0 14px; border: 1.5px solid var(--border-control); border-radius: var(--radius-pill); background: var(--surface); color: var(--ink); font: inherit; font-size: 13px; font-weight: 600; cursor: pointer; }
+.fa-notify[aria-pressed="true"] { border-color: var(--ink); background: var(--ink); color: var(--surface); }
 </style>
 </body></html>

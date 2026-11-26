@@ -82,6 +82,21 @@ if (files) {
   const stages = new Set((files.legend && files.legend.stage) || []);
   const ids = new Set();
   if (!ISO.test(String(files.asOf || ""))) bad(`files.json: asOf "${files.asOf}" is not a date`);
+  /* radar: Commission proposals expected next (Files > On the radar, since 26 Nov 2026). An id that becomes a file id
+     is hidden by the app and moves people who asked to be notified onto the file, so ids are slugs like file ids. */
+  if (files.radar !== undefined) {
+    const r = files.radar, areaIds = new Set(((files.legend && files.legend.areas) || []).map((a) => a.id)), rids = new Set();
+    if (!Array.isArray(r.items)) bad("files.json: radar.items is not a list");
+    if (r.source && !/^https:\/\//.test(r.source.url || "")) bad("files.json: radar.source.url is not https");
+    for (const x of r.items || []) {
+      if (!/^[a-z0-9][a-z0-9-]*$/.test(String(x.id || ""))) bad(`files.json radar: id "${x.id}" is not a slug`);
+      if (rids.has(x.id)) bad(`files.json radar: duplicate id ${x.id}`);
+      rids.add(x.id);
+      if (!x.title) bad(`files.json radar ${x.id}: no title`);
+      if (![1, 2, 3, 4].includes(x.quarter)) bad(`files.json radar ${x.id}: quarter must be 1-4`);
+      if (x.area !== undefined && !areaIds.has(x.area)) bad(`files.json radar ${x.id}: unknown area "${x.area}"`);
+    }
+  }
   for (const f of files.files || []) {
     const at = `files.json ${f.id}`;
     if (ids.has(f.id)) bad(`${at}: duplicate id`);
@@ -95,6 +110,9 @@ if (files) {
     /* area: the policy area the Files screen groups the file under (since 28 Oct 2026). */
     const areas = new Set(((files.legend && files.legend.areas) || []).map((a) => a.id));
     if (areas.size && !areas.has(f.area)) bad(`${at}: unknown or missing area "${f.area}"`);
+    /* added: the day the file joined nodo (Files shows "New" for 30 days); a part's added shows "New part". */
+    if (f.added !== undefined && !ISO.test(String(f.added))) bad(`${at}: added "${f.added}" is not a date`);
+    for (const p of f.parts || []) if (p.added !== undefined && !ISO.test(String(p.added))) bad(`${at}: part ${p.id} added "${p.added}" is not a date`);
     for (const n of f.next || []) {
       if (n.date !== null && !ISO.test(String(n.date))) bad(`${at}: next date "${n.date}" is not YYYY-MM-DD or null`);
       if (!n.what) bad(`${at}: next item without text`);
