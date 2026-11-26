@@ -542,6 +542,10 @@ details.office > .list { margin-top: var(--space-2); }
 .rep { display: grid; grid-template-columns: 112px 1fr; gap: var(--space-3); width: 100%; min-width: 0; padding: var(--space-3) var(--space-4); border: 0; border-radius: var(--radius-md);
   background: var(--surface-sunken); color: var(--ink); text-align: left; }
 .rep.c2 { grid-template-columns: 40px 1fr; align-items: start; }
+.rep--mine { background: var(--surface-sunken); background: color-mix(in srgb, var(--node) 10%, var(--surface-sunken)); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--node) 40%, transparent); }
+.rep > .rep-chip { grid-column: 1 / -1; justify-self: start; display: inline-flex; align-items: center; gap: 6px; max-width: 100%; padding: 3px 10px; border-radius: 999px; font-size: 12px; line-height: 16px; font-weight: 600; color: var(--ink); background: var(--surface); }
+.rep-chip::before, .rep-grp--mine::before { content: ""; flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--node); }
+.rep-grp { display: flex; align-items: center; gap: 8px; margin: var(--space-4) var(--space-1) var(--space-2); font-size: 12px; line-height: 16px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-muted); }
 .rep > span { display: block; min-width: 0; }
 .rep b { display: block; font-size: 15px; line-height: 22px; font-weight: 600; }
 .rep small, .rep i { display: block; font-size: 12px; line-height: 16px; font-weight: 500; font-style: normal; color: var(--ink-muted); }
@@ -2407,7 +2411,14 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const pres = P.rotation.filter((r) => r[0] === cc && r[2] >= today.slice(0, 7))[0];
     const meps = MEPS.filter((m) => m.country === cc), com = COLL.find((c) => c.country === cc), desk = CAB.filter((m) => m.countries.includes(cc));
     const fc = followedConfs();
-    const confs = [...CO_CONFS].sort((a, b) => (fc.has(b.id) - fc.has(a.id)) || (a.coreper === "II" ? 0 : 1) - (b.coreper === "II" ? 0 : 1));
+    /* Your files first, then the most recent meeting first; no meeting listed goes last. */
+    const fcFiles = new Map();
+    followedFiles().forEach((f) => ((f.council || {}).configs || []).forEach((id) => fcFiles.set(id, [...(fcFiles.get(id) || []), f.short])));
+    const lastMet = (c) => (c.reps[cc] || [""])[0];
+    const confs = [...CO_CONFS].sort((a, b) => (fc.has(b.id) - fc.has(a.id)) || lastMet(b).localeCompare(lastMet(a)) || (a.coreper === "II" ? 0 : 1) - (b.coreper === "II" ? 0 : 1));
+    const repBtn = (c) => { const r = c.reps[cc], fl = fcFiles.get(c.id); return `<button class="rep${fl ? " rep--mine" : ""}" type="button" data-conf="${c.id}"><span><b>${esc(c.short)}</b><small>${r ? esc(fmtIso(r[0], { day: "numeric", month: "short", year: "numeric" })) : "–"}</small></span>
+        <span>${r ? r[1].map(([n, ti]) => `<em>${esc(person(n))}<i>${esc(ti)}</i></em>`).join("") : `<i>Not listed</i>`}</span>${fl ? `<span class="rep-chip">${esc((fl.length > 1 ? "Your files: " : "Your file: ") + fl.join(", "))}</span>` : ""}</button>`; };
+    const confMine = confs.filter((c) => fc.has(c.id)), confRest = confs.filter((c) => !fc.has(c.id));
     const groups = GROUP_ORDER.map((g) => [g, meps.filter((m) => m.group === g).length]).filter((x) => x[1]);
     const mx = Math.max(1, ...groups.map((x) => x[1]));
     const prRow = (k, lab, sub) => row({ cls: "is-static", lead: disc("user"), name: pr[k] ? esc(person(pr[k][0])) : "Not listed in 2026 Council lists", wrap: true,
@@ -2421,8 +2432,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       <div class="stats"><div><b>${meps.length}</b><span>${pl(meps.length, "MEP", "MEPs")}</span></div><div><b>${com ? 1 : 0}</b><span>${pl(com ? 1 : 0, "Commissioner", "Commissioners")}</span></div><div><b>${desk.length}</b><span>${pl(desk.length, "Cabinet desk", "Cabinet desks")}</span></div></div>
       <h3>Permanent Representation</h3><div class="list">${prRow("pr", "Permanent Representative", "Coreper II")}${prRow("dpr", "Deputy Permanent Representative", "Coreper I")}</div>
       <button class="eu-btn eu-btn--block mt" type="button" data-prdel="${cc}">Open the full delegation</button>
-      <h3>In the Council <small>last meeting of each</small></h3><div class="list">${confs.map((c) => { const r = c.reps[cc]; return `<button class="rep" type="button" data-conf="${c.id}"><span><b>${esc(c.short)}</b><small>${r ? esc(fmtIso(r[0], { day: "numeric", month: "short", year: "numeric" })) : "–"}${fc.has(c.id) ? " · your file" : ""}</small></span>
-        <span>${r ? r[1].map(([n, ti]) => `<em>${esc(person(n))}<i>${esc(ti)}</i></em>`).join("") : `<i>Not listed</i>`}</span></button>`; }).join("")}</div>
+      <h3>In the Council <small>last meeting of each</small></h3>${confMine.length ? `<p class="rep-grp rep-grp--mine">On your files</p><div class="list">${confMine.map(repBtn).join("")}</div>${confRest.length ? `<p class="rep-grp">Other configurations</p>` : ""}` : ""}${confRest.length ? `<div class="list">${confRest.map(repBtn).join("")}</div>` : ""}
       ${com ? `<h3>Commissioner</h3><div class="list">${rowCom(com)}</div>` : ""}
       ${desk.length ? `<h3>Cabinet desk officers for ${esc(countryName(cc))} <small>${desk.length}</small></h3><div class="list">${desk.map((m) => rowCab(m)).join("")}</div>` : ""}
       <h3>MEPs by group <small>${meps.length}</small></h3><div class="bars">${groups.map(([g, n]) => `<button class="bar" type="button" data-epcountry="${cc}" data-epgroup="${esc(g)}" style="--gc:${gc(g)}" aria-label="${esc(g)}: ${n} MEPs">${gtag(g)}<span class="tr"><i style="width:${(n / mx * 100).toFixed(1)}%"></i></span><span class="n">${n}</span></button>`).join("")}</div>
