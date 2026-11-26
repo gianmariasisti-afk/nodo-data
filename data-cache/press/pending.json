@@ -66,22 +66,6 @@
   }
  },
  {
-  "id": "6ee40b6927",
-  "firstSeen": "2026-11-23",
-  "item": {
-   "file": "mff-2028-2034",
-   "date": "2026-11-22",
-   "source": "Agence Europe",
-   "inst": "press",
-   "kind": "press",
-   "text": "Agence Europe reports that António Costa's negotiating box of 21 November sets the MFF 2028–2034 at €1,582bn in 2025 prices, €180.5bn (10%) below the Commission proposal, and adds a 3% digital services tax.",
-   "url": "https://agenceurope.eu/en/bulletin/article/13987/1/mff-2028-2034-antonio-costa-proposes-further-eur40-billion-in-cuts-slower-debt-repayment-and-digital-tax",
-   "people": [],
-   "stage": false,
-   "paywall": true
-  }
- },
- {
   "id": "efa661a8ff",
   "firstSeen": "2026-11-23",
   "item": {
@@ -118,22 +102,6 @@
   }
  },
  {
-  "id": "278d7f2491",
-  "firstSeen": "2026-11-23",
-  "item": {
-   "file": "industrial-accelerator-act",
-   "date": "2026-11-10",
-   "source": "EUobserver",
-   "inst": "press",
-   "kind": "press",
-   "text": "EUobserver reports that the Irish Presidency is on its third Industrial Accelerator Act compromise without a deal. A minority led by France wants the list of countries that count as Made in Europe kept short.",
-   "url": "https://euobserver.com/248217/made-in-europe-and-low-carbon-rules-up-for-debate-as-eu-eyes-industrial-law-deal/",
-   "people": [],
-   "stage": false,
-   "paywall": true
-  }
- },
- {
   "id": "b342bdc537",
   "firstSeen": "2026-11-24",
   "item": {
@@ -145,6 +113,114 @@
    "text": "MLex reports that IMCO's opinion on the Digital Omnibus recommends exempting cloud providers from some switching obligations for certain older contracts.",
    "url": "https://www.mlex.com/mlex/articles/2548297",
    "people": [],
+   "stage": false,
+   "paywall": true
+  }
+ },
+ {
+  "id": "849405c334",
+  "firstSeen": "2026-11-26",
+  "item": {
+   "file": "industrial-accelerator-act",
+   "date": "2026-11-24",
+   "source": "Agence Europe",
+   "inst": "press",
+   "kind": "press",
+   "text": "Agence Europe reports that the Irish Presidency submitted a fourth Industrial Accelerator Act compromise on 23 November, to be discussed in the working party on 27 November. Ministers are to hold a policy debate on 3 December.",
+   "url": "https://agenceurope.eu/en/bulletin/article/13989/8/eu-council-irish-presidency-launches-final-industrial-accelerator-negotiations-ahead-of-ministerial-debate-on-3-december",
+   "people": [],
+   "stage": false,
+   "paywall": true
+  }
+ },
+ {
+  "id": "e686738fd1",
+  "firstSeen": "2026-11-26",
+  "item": {
+   "file": "mff-2028-2034",
+   "date": "2026-11-25",
+   "source": "Agence Europe",
+   "inst": "press",
+   "kind": "press",
+   "text": "Agence Europe reports that Parliament confirmed the ITRE mandate on the European Competitiveness Fund on 25 November by 386 votes to 252, with 23 abstentions, after a challenge led by the PfE group.",
+   "url": "https://agenceurope.eu/en/bulletin/article/13990/8/opening-defence-funds-to-all-third-countries-european-parliament-mandate-on-european-competitiveness-fund-confirmed",
+   "people": [
+    "ep:28226",
+    "ep:124784"
+   ],
+   "stage": true,
+   "paywall": true
+  }
+ },
+ {
+  "id": "37dbac2bfc",
+  "firstSeen": "2026-11-26",
+  "item": {
+   "file": "mff-2028-2034",
+   "date": "2026-11-25",
+   "source": "Agence Europe",
+   "inst": "press",
+   "kind": "press",
+   "text": "Agence Europe reports that own resources co-rapporteurs Danuše Nerudová and Sandra Gómez López welcomed the revenue side of Costa's negotiating box but said Parliament will not accept its spending cuts.",
+   "url": "https://agenceurope.eu/en/bulletin/article/13990/28/mff-2028-2034-meps-welcome-package-of-new-own-resources-proposed-by-antonio-costa",
+   "people": [
+    "ep:256847",
+    "ep:256997"
+   ],
+   "stage": false,
+   "paywall": true
+  }
+ },
+ {
+  "id": "1e1c6749e8",
+  "firstSeen": "2026-11-26",
+  "item": {
+   "file": "mff-2028-2034",
+   "date": "2026-11-24",
+   "source": "Agence Europe",
+   "inst": "press",
+   "kind": "press",
+   "text": "Agence Europe reports that the leaders of Poland, Czechia, Hungary and Slovakia called Costa's negotiating box unacceptable on 23 November and plan to coordinate on cohesion and CAP funding.",
+   "url": "https://agenceurope.eu/en/bulletin/article/13989/4/mff-2028-2034-peter-magyar-warns-antonio-costa-that-26-and-27-november-european-council-will-be-completely-pointless-for-budget-talks",
+   "people": [],
+   "stage": false,
+   "paywall": true
+  }
+ },
+ {
+  "id": "0c3c4978cd",
+  "firstSeen": "2026-11-26",
+  "item": {
+   "file": "cap-2028-2034",
+   "date": "2026-11-25",
+   "source": "Agence Europe",
+   "inst": "press",
+   "kind": "press",
+   "text": "Agence Europe reports that Norbert Lins, Dario Nardella and Barry Cowen wrote to António Costa on 24 November asking for about €93bn more for the CAP than his negotiating box provides.",
+   "url": "https://agenceurope.eu/en/bulletin/article/13990/24/european-parliament-negotiators-call-for-additional-eur93-billion-for-cap-2028-2034",
+   "people": [
+    "ep:124808",
+    "ep:257111",
+    "ep:257297"
+   ],
+   "stage": false,
+   "paywall": true
+  }
+ },
+ {
+  "id": "35c8cf73e1",
+  "firstSeen": "2026-11-26",
+  "item": {
+   "file": "food-feed-omnibus",
+   "date": "2026-11-24",
+   "source": "Agence Europe",
+   "inst": "press",
+   "kind": "press",
+   "text": "Agence Europe reports that rapporteurs and shadows on the omnibus pesticide rules found no compromise on 23 November. They are to meet again on 14 December; a joint AGRI-ENVI vote could follow in January or February 2027.",
+   "url": "https://agenceurope.eu/en/bulletin/article/13989/36/meps-vote-on-pesticide-authorisation-rules-postponed-until-early-2027",
+   "people": [
+    "ep:96787"
+   ],
    "stage": false,
    "paywall": true
   }

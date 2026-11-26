@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-25T21:41:43.522Z",
+ "generated": "2026-11-26T08:59:33.649Z",
  "windowDays": 30,
  "maxPerFile": 3,
  "files": {
@@ -148,6 +148,19 @@
   ],
   "industrial-accelerator-act": [
    {
+    "id": "278d7f2491",
+    "date": "2026-11-10",
+    "source": "EUobserver",
+    "inst": "press",
+    "kind": "press",
+    "text": "EUobserver reports that the Irish Presidency is on its third Industrial Accelerator Act compromise without a deal. A minority led by France wants the list of countries that count as Made in Europe kept short.",
+    "url": "https://euobserver.com/248217/made-in-europe-and-low-carbon-rules-up-for-debate-as-eu-eyes-industrial-law-deal/",
+    "people": [],
+    "stage": false,
+    "paywall": true,
+    "added": "2026-11-26"
+   },
+   {
     "id": "107ccc8019",
     "date": "2026-10-28",
     "source": "MLex",
@@ -223,6 +236,19 @@
    }
   ],
   "mff-2028-2034": [
+   {
+    "id": "6ee40b6927",
+    "date": "2026-11-22",
+    "source": "Agence Europe",
+    "inst": "press",
+    "kind": "press",
+    "text": "Agence Europe reports that António Costa's negotiating box of 21 November sets the MFF 2028–2034 at €1,582bn in 2025 prices, €180.5bn (10%) below the Commission proposal, and adds a 3% digital services tax.",
+    "url": "https://agenceurope.eu/en/bulletin/article/13987/1/mff-2028-2034-antonio-costa-proposes-further-eur40-billion-in-cuts-slower-debt-repayment-and-digital-tax",
+    "people": [],
+    "stage": false,
+    "paywall": true,
+    "added": "2026-11-26"
+   },
    {
     "id": "35b54fb267",
     "date": "2026-11-21",

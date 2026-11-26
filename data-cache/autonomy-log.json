@@ -174,5 +174,23 @@
     "role": "Policy Assistant"
    }
   ]
+ },
+ {
+  "at": "2026-11-26T08:59:29.065Z",
+  "source": "press",
+  "changes": [
+   {
+    "type": "published",
+    "name": "mff-2028-2034: Agence Europe 2026-11-22",
+    "url": "https://agenceurope.eu/en/bulletin/article/13987/1/mff-2028-2034-antonio-costa-proposes-further-eur40-billion-in-cuts-slower-debt-repayment-and-digital-tax",
+    "check": "verified on two runs"
+   },
+   {
+    "type": "published",
+    "name": "industrial-accelerator-act: EUobserver 2026-11-10",
+    "url": "https://euobserver.com/248217/made-in-europe-and-low-carbon-rules-up-for-debate-as-eu-eyes-industrial-law-deal/",
+    "check": "verified on two runs"
+   }
+  ]
  }
 ]
