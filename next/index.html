@@ -2300,17 +2300,18 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const opts = `<optgroup label="Leadership">${LEAD.map((l) => `<option value="${l[0]}">${esc(l[1])}</option>`).join("")}</optgroup><optgroup label="Working party">${CO_CONFS.map((c) => `<option value="wp:${c.id}">${esc(c.short)}</option>`).join("")}</optgroup>`;
     if ($("sheet").hidden) layer.sheet = document.activeElement;
     $("sheet").innerHTML = `<div class="sheet__bar"><button class="eu-iconbtn eu-iconbtn--sm" type="button" data-sheet-close aria-label="Close">${icon("x")}</button></div>
-      <div class="pr-sheet"><p class="cap">${esc(countryName(cc))}${slot !== "new" ? " · " + esc(slotLabel(slot)) : ""}</p>
+      <div class="pr-sheet"><p class="cap">${cc ? esc(countryName(cc)) + (slot !== "new" ? " · " + esc(slotLabel(slot)) : "") : esc(slotLabel(slot))}</p>
       ${has ? `<h2 class="eu-headline" id="sName" style="margin:8px 0 8px;font-size:30px;line-height:34px">${twoW(i.name)}</h2>
         <p class="cap pr-src">${i.mine ? "Added by you " + esc(dShort(prx.names[key].date)) + ", saved to your account" : src ? "From the Council's participant list of " + esc(fmtIso(src[1], { day: "numeric", month: "long", year: "numeric" })) : ""}${i.role ? " · " + esc(i.role) : ""}</p>
         <span class="pr-lab">Still the ${esc(slotLabel(slot).toLowerCase())}?</span>
         <div class="chips wrap" id="prKinds" role="group" aria-label="Still correct">${[["yes", "Yes, still correct"], ["moved", "Moved to another role"], ["left", "Left the delegation"]].map(([k, n]) => `<button class="eu-chip" type="button" data-prk="${k}" aria-pressed="${k === prSheetState.kind}">${n}</button>`).join("")}</div>
         <span class="pr-lab">Successor, if you know who (optional)</span><label class="eu-search"><input id="prName" type="text" placeholder="First and last name" aria-label="Successor name"></label>`
-      : `<h2 class="eu-headline" id="sName" style="margin:8px 0 20px;font-size:30px;line-height:34px">Add <strong>a name</strong></h2>
+      : `<h2 class="eu-headline" id="sName" style="margin:8px 0 20px;font-size:30px;line-height:34px">Add <strong>${cc ? "a name" : "an attaché"}</strong></h2>
         ${slot === "new" ? `<span class="pr-lab" style="margin-top:0">Role</span><select id="prSlot" class="pr-sel" aria-label="Role">${opts}</select>` : ""}
         <span class="pr-lab"${slot === "new" ? "" : ' style="margin-top:0"'}>Name</span><label class="eu-search"><input id="prName" type="text" placeholder="First and last name" aria-label="Name"></label>
+        ${cc ? "" : `<span class="pr-lab">Delegation</span><select id="prCc" class="pr-sel" aria-label="Delegation"><option value="">Choose a delegation</option>${[...CO_COUNTRIES].sort((a, b) => a.name.localeCompare(b.name)).map((c) => `<option value="${c.cc}">${esc(c.name)}</option>`).join("")}</select>`}
         <span class="pr-lab">Job title (optional)</span><label class="eu-search"><input id="prRole" type="text" placeholder="For example Counsellor" aria-label="Job title"></label>`}
-      <p class="note pr-top-note">${has ? "Your answer is a note for you. It is saved to your account and is not shared with anyone." : "Saved to your account. Check a name against a source you trust before you rely on it."}</p>
+      <p class="note pr-top-note">${has ? "Your answer is a note for you. It is saved to your account and is not shared with anyone." : cc ? "Saved to your account. Check a name against a source you trust before you rely on it." : "Saved to your account."}</p>
       <button class="eu-btn eu-btn--brand eu-btn--block" type="button" data-prsend style="margin-top:16px">${has ? "Save my note" : "Save name"}</button>
       <button class="eu-btn eu-btn--block" type="button" data-sheet-close>Cancel</button></div>`;
     $("scrim").hidden = false; $("sheet").hidden = false; $("sheet").scrollTop = 0;
@@ -2318,7 +2319,8 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const f = $("sheet").querySelector(has ? "[data-sheet-close]" : "input,select,[data-sheet-close]"); if (f) f.focus({ preventScroll: true });
   }
   function sendPr() {
-    const cc = prSheetState.cc; let slot = prSheetState.slot;
+    let cc = prSheetState.cc, slot = prSheetState.slot;
+    if (!cc) { cc = $("prCc") ? $("prCc").value : ""; if (!cc) { toast("Choose a delegation first"); if ($("prCc")) $("prCc").focus(); return; } }
     const sl = $("prSlot"); if (sl) slot = sl.value;
     const nm = ($("prName") ? $("prName").value : "").trim(), role = ($("prRole") ? $("prRole").value : "").trim();
     const key = cc + "|" + slot, today = isoD(new Date());
@@ -2332,9 +2334,10 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       if (!nm) { toast("Add a name first"); if ($("prName")) $("prName").focus(); return; }
       prx.names[key] = { name: nm, role, date: today };
     }
-    prxSave(); closeSheet(); toast("Saved on this device");
+    prxSave(); closeSheet(); toast("Saved");
     if (state.open && state.open.startsWith("deleg:")) { const top = $("profile").scrollTop; openDelegation(state.open.slice(6)); $("profile").scrollTop = top; }
     else if (state.open && state.open.startsWith("wp:")) { const id = state.open.slice(3); $("prWpList").innerHTML = wpListHtml(id); }
+    else if (state.open && state.open.startsWith("file:")) { openFile(state.open.slice(5), true); edRoomPaint(); }
     else renderCo();
   }
   /* Country pages: a national monument photo cut into five columns, and a band in the flag's colours.
@@ -4299,6 +4302,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const pps = t.closest("[data-prsheet]"); if (pps) { const [c, sl] = pps.dataset.prsheet.split("|"); return openPrSheet(c, sl); }
     const pdl = t.closest("[data-prdel]"); if (pdl) return openDelegation(pdl.dataset.prdel);
     const pwp = t.closest("[data-prwp]"); if (pwp) return openWp(pwp.dataset.prwp);
+    const pad = t.closest("[data-attadd]"); if (pad) return openPrSheet("", "wp:" + pad.dataset.attadd);
     const cf = t.closest("[data-conf]"); if (cf) return openConf(cf.dataset.conf);
     const cy = t.closest("[data-country]"); if (cy) return openCountry(cy.dataset.country);
     const gp = t.closest("[data-group]"); if (gp) { state.ep = { q: "", country: "", committee: "", group: gp.dataset.group }; return setView("ep"); }
@@ -5045,17 +5049,23 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const cfs = ((f.council || {}).configs || []).map((cid) => CONF_BY[cid]).filter(Boolean), g = wpGroups(f), nx = wpNext(f), pres = presOf(new Date());
     if (!cfs.length && !g.length) return `<div class="hint"><span>No Council body handles this file yet.</span></div>`;
     const parts = Object.fromEntries((f.parts || []).map((p) => [p.id, p.short || p.title]));
-    const wp = g.length ? `<h3>Working party</h3><div class="list">${g.map((x) => `<div class="block"><h4>${esc(x.name)}</h4>${x.part && parts[x.part] ? `<p class="cap">For ${esc(parts[x.part])}</p>` : ""}${x.note && !x.formats.length ? `<p class="cap">${esc(x.note)}</p>` : ""}${x.formats.length ? `<p class="cap">Also meets as</p><ul class="fp-wpfmt">${x.formats.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>` : ""}${x.basis === "inferred" ? `<p class="cap">Venue inferred, not confirmed.</p>` : ""}</div>`).join("")}</div>
-      <p class="cap">${pres ? `Chaired by the Presidency, ${esc(countryName(pres[0]))}, until the end of ${esc(fmtIso(pres[2] + "-01", { month: "long", year: "numeric" }))}.` : ""}${nx ? ` Next working party: ${esc(fdDate(nx.date, true))}, ${esc(nx.what.replace(/^Council [^:]*working party:?\s*/i, "") || "session")}.` : ""}</p>
-      ${edAttache([f], g.length > 1)}` : "";
+    const att = attBlock(f), one = g.length === 1;
+    const wp = g.length ? `<h3>Working party</h3><div class="list">${g.map((x) => `<div class="block"><h4>${esc(x.name)}</h4>${x.part && parts[x.part] ? `<p class="cap">For ${esc(parts[x.part])}</p>` : ""}${x.note && !x.formats.length ? `<p class="cap">${esc(x.note)}</p>` : ""}${x.formats.length ? `<p class="cap">Also meets as</p><ul class="fp-wpfmt">${x.formats.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>` : ""}${x.basis === "inferred" ? `<p class="cap">Venue inferred, not confirmed.</p>` : ""}${one ? att : ""}</div>`).join("")}${!one && att ? `<div class="block">${att}</div>` : ""}</div>
+      ${nx ? `<p class="cap">Next working party: ${esc(fdDate(nx.date, true))}, ${esc(nx.what.replace(/^Council [^:]*working party:?\s*/i, "") || "session")}.</p>` : ""}` : "";
     return (cfs.length ? `<h3>In the Council</h3><div class="list">${cfs.map(confRow).join("")}</div>` : "") + wp
       + (f.council && f.council.note ? `<p class="note">${esc(f.council.note)}</p>` : "");
   }
   /* Said where the gap shows (20 Oct 2026): the attachés who cover a working party are not in nodo, because the Council
      does not publish them. The link opens "Who covers…" for the file's Council configuration, where people add names. */
-  function edAttache(files, many) {
-    const conf = files.map((f) => ((f.council || {}).configs || [])[0]).find((c) => c && CONF_BY[c]);
-    return `<p class="ed-room__att">Attachés who cover ${many ? "these working parties" : "this working party"} aren't in nodo. The Council doesn't publish them.${conf ? ` <button class="ed-room__add" type="button" data-prwp="${esc(conf)}">Add the ones you know</button>` : ""}</p>`;
+  /* Simplified 26 Nov 2026: no explanation of the gap, one "Add an attaché" action. Names are stored per delegation
+     and Council configuration (slot wp:<conf>), the same notes the delegation and working-party pages show. */
+  const fileConf = (f) => ((f.council || {}).configs || []).find((c) => CONF_BY[c]);
+  function attBlock(f) {
+    const conf = fileConf(f); if (!conf) return "";
+    const slot = "wp:" + conf, has = CO_COUNTRIES.filter((c) => slotInfo(c.cc, slot).name).sort((a, b) => a.name.localeCompare(b.name));
+    return `<div class="att">${has.length ? `<span class="att__h">Your attachés</span>${has.map((c) => { const i = slotInfo(c.cc, slot);
+      return `<button class="att__row" type="button" data-prsheet="${c.cc}|${slot}" aria-label="${esc(i.name + ", " + c.name)}"><span><b>${esc(i.name)}</b><small>${esc(c.name + (i.role ? " · " + i.role : ""))}</small></span>${icon("edit")}</button>`; }).join("")}` : ""}
+      <button class="att__add" type="button" data-attadd="${esc(conf)}">${icon("plus")}Add an attaché</button></div>`;
   }
   function edRoomPaint() { const el = $("edRoom"); if (!el) return; el.innerHTML = edRoomHtml(); el.hidden = !el.innerHTML.trim(); }
 
@@ -9049,6 +9059,15 @@ if ("serviceWorker" in navigator && /github\.io$/.test(location.hostname)) addEv
 .ed-room__att { margin: var(--space-2) 0 0; padding-top: var(--space-2); border-top: 1px solid var(--hairline); font-size: 13px; line-height: 18px; color: var(--ink); }
 .ed-room__add { display: inline; min-height: 44px; padding: 0; border: 0; background: none; color: var(--brand); font: 600 13px/18px var(--font-sans); text-decoration: underline; text-underline-offset: 2px; cursor: pointer; }
 .fp-att { margin: var(--space-2) var(--space-1) 0; font-size: 13px; line-height: 18px; color: var(--ink-muted); }
+.att { display: flex; flex-direction: column; gap: 8px; margin-top: var(--space-3); padding-top: var(--space-3); border-top: 1px solid var(--hairline); }
+.att__h { font-size: 12px; line-height: 16px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-muted); }
+.att__row { display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 100%; min-height: 52px; padding: 8px 12px; border: 0; border-radius: var(--radius-md); background: var(--surface); color: var(--ink); text-align: left; font: inherit; cursor: pointer; }
+.att__row > span { display: flex; flex-direction: column; min-width: 0; }
+.att__row b { font-size: 15px; line-height: 20px; font-weight: 600; }
+.att__row small { font-size: 13px; line-height: 18px; color: var(--ink-muted); }
+.att__row svg { flex: none; width: 18px; height: 18px; color: var(--ink-muted); }
+.att__add { align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 4px; border: 0; background: none; color: var(--brand); font: 600 15px/20px var(--font-sans); cursor: pointer; }
+.att__add svg { width: 18px; height: 18px; }
 .fp-att button { min-height: 44px; padding: 0; border: 0; background: none; color: var(--brand); font: 600 13px/18px var(--font-sans); text-decoration: underline; text-underline-offset: 2px; cursor: pointer; }
 .ed-room__files { display: flex; flex-direction: column; align-items: flex-start; margin-top: var(--space-2); }
 .ed-room__coline { display: flex; flex-direction: column; gap: 2px; width: 100%; min-height: 44px; padding: 0; border: 0; background: none; color: inherit; font: inherit; text-align: left; cursor: pointer; }
