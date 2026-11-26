@@ -1883,6 +1883,80 @@
      }
     ]
    }
+  },
+  "2026-12-14": {
+   "stage": "draft",
+   "updated": "2026-11-26",
+   "link": "https://www.europarl.europa.eu/plenary/en/agendas.html",
+   "src": {
+    "api": "foreseen-activities",
+    "sha256": "de3a09937965c13f4dc60607f373a3d1c5ee22a15b4c5242c3d388890ee73f40"
+   },
+   "days": {
+    "2026-12-14": [
+     {
+      "time": "17:00–20:00",
+      "type": "other",
+      "title": ""
+     }
+    ],
+    "2026-12-15": [
+     {
+      "time": "12:00–12:30",
+      "type": "other",
+      "title": ""
+     },
+     {
+      "time": "12:30–13:30",
+      "type": "other",
+      "title": ""
+     },
+     {
+      "time": "13:30–15:00",
+      "type": "other",
+      "title": ""
+     },
+     {
+      "time": "15:00–20:00",
+      "type": "other",
+      "title": ""
+     }
+    ],
+    "2026-12-16": [
+     {
+      "time": "09:00–11:50",
+      "type": "other",
+      "title": ""
+     },
+     {
+      "time": "12:00–13:00",
+      "type": "other",
+      "title": ""
+     },
+     {
+      "time": "13:00–20:00",
+      "type": "other",
+      "title": ""
+     }
+    ],
+    "2026-12-17": [
+     {
+      "time": "09:00–11:50",
+      "type": "other",
+      "title": ""
+     },
+     {
+      "time": "12:00–14:00",
+      "type": "other",
+      "title": ""
+     },
+     {
+      "time": "15:00–16:00",
+      "type": "other",
+      "title": ""
+     }
+    ]
+   }
   }
  }
 }
