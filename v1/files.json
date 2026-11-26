@@ -33,7 +33,7 @@
    },
    {
     "id": "industry",
-    "name": "Industry and research"
+    "name": "Industry and single market"
    },
    {
     "id": "energy",
@@ -49,7 +49,7 @@
    },
    {
     "id": "budget",
-    "name": "Budget, finance and defence"
+    "name": "Budget and defence"
    },
    {
     "id": "finance",
@@ -1084,6 +1084,21 @@
      "id": "council-mff-page",
      "title": "Council: the EU's long-term budget for 2028–2034",
      "url": "https://www.consilium.europa.eu/en/policies/the-eu-s-long-term-budget-2028-2034/"
+    },
+    {
+     "id": "oeil-2025-0543-cod",
+     "title": "Legislative Observatory: procedure file 2025/0543(COD)",
+     "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2025/0543(COD)"
+    },
+    {
+     "id": "oeil-2025-0227-cod",
+     "title": "Legislative Observatory: procedure file 2025/0227(COD)",
+     "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2025/0227(COD)"
+    },
+    {
+     "id": "oeil-2025-0222-cod",
+     "title": "Legislative Observatory: procedure file 2025/0222(COD)",
+     "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2025/0222(COD)"
     }
    ],
    "checked": "2026-11-25",
@@ -1105,6 +1120,27 @@
      "title": "Performance Regulation (budget expenditure tracking and performance framework)",
      "procedure": "2025/0545(COD)",
      "short": "Performance"
+    },
+    {
+     "id": "horizon",
+     "title": "Horizon Europe 2028–2034",
+     "procedure": "2025/0543(COD)",
+     "short": "Horizon Europe",
+     "added": "2026-11-26"
+    },
+    {
+     "id": "global-europe",
+     "title": "Global Europe",
+     "procedure": "2025/0227(COD)",
+     "short": "Global Europe",
+     "added": "2026-11-26"
+    },
+    {
+     "id": "erasmus",
+     "title": "Erasmus+",
+     "procedure": "2025/0222(COD)",
+     "short": "Erasmus+",
+     "added": "2026-11-26"
     }
    ],
    "lede": "Costa's €1,582bn box goes to leaders on 26–27 November; Parliament's co-rapporteurs say it cannot be the basis for consent.",
@@ -2743,6 +2779,13 @@
      "title": "Permitting directive",
      "procedure": "2025/0400(COD)",
      "short": "Permitting"
+    },
+    {
+     "id": "network-charges",
+     "title": "Network charges, taxation, smart grids and grid connections",
+     "procedure": "2026/0203(COD)",
+     "short": "Network charges",
+     "added": "2026-11-26"
     }
    ],
    "meps": [
@@ -2873,6 +2916,38 @@
      "basis": "ep-procedure-file",
      "ref": "2025/0400(COD)",
      "part": "permitting"
+    },
+    {
+     "id": "256885",
+     "role": "rapporteur",
+     "committee": "ITRE",
+     "basis": "ep-open-data",
+     "ref": "2026/0203(COD)",
+     "part": "network-charges"
+    },
+    {
+     "id": "96668",
+     "role": "shadow",
+     "committee": "ITRE",
+     "basis": "ep-open-data",
+     "ref": "2026/0203(COD)",
+     "part": "network-charges"
+    },
+    {
+     "id": "197802",
+     "role": "shadow",
+     "committee": "ITRE",
+     "basis": "ep-open-data",
+     "ref": "2026/0203(COD)",
+     "part": "network-charges"
+    },
+    {
+     "id": "23816",
+     "role": "shadow",
+     "committee": "ITRE",
+     "basis": "ep-open-data",
+     "ref": "2026/0203(COD)",
+     "part": "network-charges"
     }
    ],
    "commission": {
@@ -2981,6 +3056,11 @@
      "id": "agenceurope-13984",
      "title": "Agence Europe: European Parliament and EU Council agree to streamline permitting for grid construction",
      "url": "https://agenceurope.eu/en/bulletin/article/13984/11/european-parliament-and-eu-council-agree-to-streamline-permitting-for-grid-construction"
+    },
+    {
+     "id": "oeil-2026-0203-cod",
+     "title": "Legislative Observatory: procedure file 2026/0203(COD)",
+     "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2026/0203(COD)"
     }
    ],
    "checked": "2026-11-25",
@@ -3339,6 +3419,126 @@
      "committee": "TRAN",
      "basis": "ep-procedure-file",
      "ref": "2025/0420(COD)"
+    },
+    {
+     "id": "185619",
+     "role": "rapporteur",
+     "committee": "ENVI",
+     "basis": "ep-open-data",
+     "ref": "2025/0421(COD)",
+     "part": "corporate-fleets"
+    },
+    {
+     "id": "256908",
+     "role": "rapporteur",
+     "committee": "TRAN",
+     "basis": "ep-open-data",
+     "ref": "2025/0421(COD)",
+     "part": "corporate-fleets"
+    },
+    {
+     "id": "257030",
+     "role": "shadow",
+     "committee": "ENVI-TRAN",
+     "basis": "ep-open-data",
+     "ref": "2025/0421(COD)",
+     "part": "corporate-fleets"
+    },
+    {
+     "id": "256876",
+     "role": "shadow",
+     "committee": "ENVI-TRAN",
+     "basis": "ep-open-data",
+     "ref": "2025/0421(COD)",
+     "part": "corporate-fleets"
+    },
+    {
+     "id": "257086",
+     "role": "shadow",
+     "committee": "ENVI-TRAN",
+     "basis": "ep-open-data",
+     "ref": "2025/0421(COD)",
+     "part": "corporate-fleets"
+    },
+    {
+     "id": "256879",
+     "role": "shadow",
+     "committee": "ENVI-TRAN",
+     "basis": "ep-open-data",
+     "ref": "2025/0421(COD)",
+     "part": "corporate-fleets"
+    },
+    {
+     "id": "256965",
+     "role": "shadow",
+     "committee": "ENVI-TRAN",
+     "basis": "ep-open-data",
+     "ref": "2025/0421(COD)",
+     "part": "corporate-fleets"
+    },
+    {
+     "id": "256805",
+     "role": "shadow",
+     "committee": "ENVI-TRAN",
+     "basis": "ep-open-data",
+     "ref": "2025/0421(COD)",
+     "part": "corporate-fleets"
+    },
+    {
+     "id": "256951",
+     "role": "shadow",
+     "committee": "ENVI-TRAN",
+     "basis": "ep-open-data",
+     "ref": "2025/0421(COD)",
+     "part": "corporate-fleets"
+    },
+    {
+     "id": "257031",
+     "role": "shadow",
+     "committee": "ENVI-TRAN",
+     "basis": "ep-open-data",
+     "ref": "2025/0421(COD)",
+     "part": "corporate-fleets"
+    },
+    {
+     "id": "198176",
+     "role": "shadow",
+     "committee": "ENVI-TRAN",
+     "basis": "ep-open-data",
+     "ref": "2025/0421(COD)",
+     "part": "corporate-fleets"
+    },
+    {
+     "id": "96810",
+     "role": "shadow",
+     "committee": "ENVI-TRAN",
+     "basis": "ep-open-data",
+     "ref": "2025/0421(COD)",
+     "part": "corporate-fleets"
+    },
+    {
+     "id": "197432",
+     "role": "shadow",
+     "committee": "ENVI-TRAN",
+     "basis": "ep-open-data",
+     "ref": "2025/0421(COD)",
+     "part": "corporate-fleets"
+    },
+    {
+     "id": "124813",
+     "role": "shadow",
+     "committee": "ENVI-TRAN",
+     "basis": "ep-open-data",
+     "ref": "2025/0421(COD)",
+     "part": "corporate-fleets"
+    },
+    {
+     "id": "267485",
+     "role": "shadow",
+     "committee": "ENVI-TRAN",
+     "basis": "ep-open-data",
+     "ref": "2025/0421(COD)",
+     "part": "corporate-fleets"
     }
    ],
    "commission": {
@@ -3430,10 +3630,30 @@
      "id": "council-cm-5111",
      "title": "Council: notice of meeting CM 5111/26, Working Party on the Environment, 23 and 25 Nov 2026",
      "url": "https://data.consilium.europa.eu/doc/document/CM-5111-2026-INIT/en/pdf"
+    },
+    {
+     "id": "oeil-2025-0421-cod",
+     "title": "Legislative Observatory: procedure file 2025/0421(COD)",
+     "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2025/0421(COD)"
     }
    ],
    "checked": "2026-11-25",
-   "asOf": "2026-10-21"
+   "asOf": "2026-10-21",
+   "parts": [
+    {
+     "id": "light-duty",
+     "title": "CO2 standards for cars and vans",
+     "procedure": "2025/0420(COD)",
+     "short": "Cars and vans"
+    },
+    {
+     "id": "corporate-fleets",
+     "title": "Clean corporate vehicles",
+     "procedure": "2025/0421(COD)",
+     "short": "Clean corporate vehicles",
+     "added": "2026-11-26"
+    }
+   ]
   },
   {
    "id": "afir-review",
@@ -4065,7 +4285,7 @@
    "short": "Digital euro",
    "title": "Digital euro: establishment regulation",
    "kind": "regulation",
-   "area": "budget",
+   "area": "finance",
    "procedure": "2023/0212(COD)",
    "stage": "trilogue",
    "sector": "finance",
@@ -5506,6 +5726,1634 @@
    ],
    "checked": "2026-11-25",
    "asOf": "2026-11-16"
+  },
+  {
+   "added": "2026-11-26",
+   "checked": "2026-11-26",
+   "asOf": "2026-11-26",
+   "ledeChecked": "2026-11-26",
+   "caveats": [
+    "Rapporteurs, shadows and opinion rapporteurs come from the Parliament's open data (checked 26 November 2026).",
+    "The PfE shadow on the ENVI report is not listed in the Parliament's open data yet."
+   ],
+   "id": "ets-review",
+   "short": "ETS review",
+   "title": "EU Emissions Trading System review: competitiveness and cost-effective decarbonisation",
+   "kind": "package",
+   "area": "energy",
+   "procedure": "2026/0212(COD)",
+   "stage": "positions-in-preparation",
+   "lede": "Peter Liese (EPP) leads in ENVI. The TRAN and BUDG opinions were adopted in November; the Observatory lists 14 December as the indicative plenary date.",
+   "status": "The Commission proposed the review on 17 July 2026 (COM(2026)616): a directive on the EU ETS and the market stability reserve, plus two companion regulations on 2026–2030 heat and fuel benchmarks and on maritime monitoring and reporting. The 2027 work programme lists it among the priority pending proposals. In Parliament, ENVI leads with Peter Liese (EPP) as rapporteur. His draft report was tabled on 15 September and amendments in October. BUDG adopted its opinion on 19 November and TRAN on 23 November; ITRE gives an opinion too.",
+   "next": [
+    {
+     "date": "2026-12-14",
+     "what": "Indicative plenary date, first reading (Legislative Observatory forecast)",
+     "src": "oeil-2026-0212-cod"
+    },
+    {
+     "date": null,
+     "what": "ENVI committee vote: no date set yet",
+     "src": "oeil-2026-0212-cod"
+    }
+   ],
+   "parts": [
+    {
+     "id": "directive",
+     "title": "ETS and market stability reserve directive",
+     "procedure": "2026/0212(COD)",
+     "short": "Directive"
+    },
+    {
+     "id": "benchmarks",
+     "title": "Heat and fuel benchmark values 2026–2030",
+     "procedure": "2026/0211(COD)",
+     "short": "Benchmarks"
+    },
+    {
+     "id": "maritime",
+     "title": "Maritime monitoring, reporting and verification",
+     "procedure": "2026/0210(COD)",
+     "short": "Maritime MRV"
+    }
+   ],
+   "ep": {
+    "lead": [
+     "ENVI"
+    ],
+    "note": "ENVI leads; ITRE, TRAN and BUDG give opinions. People listed are on the directive, 2026/0212(COD)."
+   },
+   "meps": [
+    {
+     "id": "1927",
+     "role": "rapporteur",
+     "committee": "ENVI",
+     "basis": "ep-open-data",
+     "ref": "2026/0212(COD)",
+     "part": "directive"
+    },
+    {
+     "id": "197782",
+     "role": "shadow",
+     "committee": "ENVI",
+     "basis": "ep-open-data",
+     "ref": "2026/0212(COD)",
+     "part": "directive"
+    },
+    {
+     "id": "197537",
+     "role": "shadow",
+     "committee": "ENVI",
+     "basis": "ep-open-data",
+     "ref": "2026/0212(COD)",
+     "part": "directive"
+    },
+    {
+     "id": "214839",
+     "role": "shadow",
+     "committee": "ENVI",
+     "basis": "ep-open-data",
+     "ref": "2026/0212(COD)",
+     "part": "directive"
+    },
+    {
+     "id": "197449",
+     "role": "shadow",
+     "committee": "ENVI",
+     "basis": "ep-open-data",
+     "ref": "2026/0212(COD)",
+     "part": "directive"
+    },
+    {
+     "id": "256805",
+     "role": "shadow",
+     "committee": "ENVI",
+     "basis": "ep-open-data",
+     "ref": "2026/0212(COD)",
+     "part": "directive"
+    },
+    {
+     "id": "256951",
+     "role": "shadow",
+     "committee": "ENVI",
+     "basis": "ep-open-data",
+     "ref": "2026/0212(COD)",
+     "part": "directive"
+    },
+    {
+     "id": "188096",
+     "role": "opinion-rapporteur",
+     "committee": "ITRE",
+     "basis": "ep-open-data",
+     "ref": "2026/0212(COD)",
+     "part": "directive"
+    },
+    {
+     "id": "257121",
+     "role": "opinion-rapporteur",
+     "committee": "TRAN",
+     "basis": "ep-open-data",
+     "ref": "2026/0212(COD)",
+     "part": "directive"
+    },
+    {
+     "id": "256847",
+     "role": "opinion-rapporteur",
+     "committee": "BUDG",
+     "basis": "ep-open-data",
+     "ref": "2026/0212(COD)",
+     "part": "directive"
+    }
+   ],
+   "commission": {
+    "lead": [
+     "wopke-hoekstra"
+    ],
+    "associated": []
+   },
+   "dg": {
+    "lead": [
+     "CLIMA"
+    ],
+    "basis": "source",
+    "note": "The Parliament's procedure file lists DG Climate Action."
+   },
+   "cabinet": [
+    {
+     "k": "wopke-hoekstra~dino-toljan",
+     "why": "Climate ETS"
+    },
+    {
+     "k": "wopke-hoekstra~matthieu-moulonguet",
+     "why": "Back-up on the ETS"
+    }
+   ],
+   "council": {
+    "configs": [
+     "ENVI"
+    ],
+    "configsBasis": "inferred",
+    "presidency": "IE",
+    "note": "Environment Council formation; working party not confirmed."
+   },
+   "sources": [
+    {
+     "id": "oeil-2026-0212-cod",
+     "title": "Legislative Observatory: procedure file 2026/0212(COD)",
+     "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2026/0212(COD)"
+    },
+    {
+     "id": "oeil-2026-0211-cod",
+     "title": "Legislative Observatory: procedure file 2026/0211(COD)",
+     "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2026/0211(COD)"
+    },
+    {
+     "id": "oeil-2026-0210-cod",
+     "title": "Legislative Observatory: procedure file 2026/0210(COD)",
+     "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2026/0210(COD)"
+    },
+    {
+     "id": "ep-open-data",
+     "title": "European Parliament Open Data Portal (procedure participants and events)",
+     "url": "https://data.europarl.europa.eu/"
+    },
+    {
+     "id": "cwp-2027-annex",
+     "title": "Commission work programme 2027, annexes (Council doc ST 15343/26 ADD 1, 4 Nov 2026)",
+     "url": "https://data.consilium.europa.eu/doc/document/ST-15343-2026-ADD-1/en/pdf"
+    }
+   ]
+  },
+  {
+   "added": "2026-11-26",
+   "checked": "2026-11-26",
+   "asOf": "2026-11-26",
+   "ledeChecked": "2026-11-26",
+   "caveats": [
+    "Rapporteurs, shadows and opinion rapporteurs come from the Parliament's open data (checked 26 November 2026).",
+    "People for the settlement finality, market directive and PEPP procedures are not listed yet."
+   ],
+   "id": "savings-investments-union",
+   "short": "Savings and Investments Union",
+   "title": "Savings and Investments Union: market integration and supervision, supplementary pensions, SFDR and PRIIPs",
+   "kind": "package",
+   "area": "finance",
+   "procedure": "2025/0383(COD)",
+   "stage": "trilogue",
+   "lede": "SFDR and PRIIPs are in trilogue; Parliament confirmed its pensions mandate on 25 November. The market integration and supervision package still waits for its ECON vote.",
+   "status": "Three strands from the Commission's December 2025 proposals, all on the 2027 priority list. Market integration and supervision (COM(2025)943 and two companions, December 2025): ECON rapporteur Markus Ferber (EPP); draft report tabled on 11 June, amendments in July, BUDG opinion adopted on 4 November. Supplementary pensions (IORP directive and PEPP regulation, November 2025): ECON adopted the IORP report by Damian Boeselager (Greens/EFA) on 10 November and plenary confirmed the negotiating mandate on 25 November. Sustainability disclosures (SFDR and PRIIPs, November 2025): rapporteur Gerben-Jan Gerbrandy (Renew); report adopted on 10 September, mandate confirmed on 7 October, trilogues on 22 October and 19 November.",
+   "next": [
+    {
+     "date": null,
+     "what": "ECON vote on market integration and supervision: no date set yet",
+     "src": "oeil-2025-0383-cod"
+    },
+    {
+     "date": null,
+     "what": "SFDR and PRIIPs: next trilogue not yet announced",
+     "src": "oeil-2025-0361-cod"
+    }
+   ],
+   "parts": [
+    {
+     "id": "market",
+     "title": "Market integration and supervision",
+     "procedure": "2025/0383(COD)",
+     "short": "Market integration"
+    },
+    {
+     "id": "settlement",
+     "title": "Settlement finality and financial collateral",
+     "procedure": "2025/0381(COD)",
+     "short": "Settlement finality"
+    },
+    {
+     "id": "market-2",
+     "title": "Market integration and supervision (directive)",
+     "procedure": "2025/0382(COD)",
+     "short": "Market directive"
+    },
+    {
+     "id": "iorp",
+     "title": "Occupational retirement provision (IORP)",
+     "procedure": "2025/0362(COD)",
+     "short": "IORP"
+    },
+    {
+     "id": "pepp",
+     "title": "Pan-European Personal Pension Product (PEPP)",
+     "procedure": "2025/0363(COD)",
+     "short": "PEPP"
+    },
+    {
+     "id": "sfdr",
+     "title": "Sustainability disclosures (SFDR) and PRIIPs",
+     "procedure": "2025/0361(COD)",
+     "short": "SFDR"
+    }
+   ],
+   "ep": {
+    "lead": [
+     "ECON"
+    ],
+    "note": "ECON leads each strand. People listed are on market integration (2025/0383), IORP (2025/0362) and SFDR (2025/0361)."
+   },
+   "meps": [
+    {
+     "id": "1917",
+     "role": "rapporteur",
+     "committee": "ECON",
+     "basis": "ep-open-data",
+     "ref": "2025/0383(COD)",
+     "part": "market"
+    },
+    {
+     "id": "197800",
+     "role": "shadow",
+     "committee": "ECON",
+     "basis": "ep-open-data",
+     "ref": "2025/0383(COD)",
+     "part": "market"
+    },
+    {
+     "id": "125106",
+     "role": "shadow",
+     "committee": "ECON",
+     "basis": "ep-open-data",
+     "ref": "2025/0383(COD)",
+     "part": "market"
+    },
+    {
+     "id": "197818",
+     "role": "shadow",
+     "committee": "ECON",
+     "basis": "ep-open-data",
+     "ref": "2025/0383(COD)",
+     "part": "market"
+    },
+    {
+     "id": "270261",
+     "role": "shadow",
+     "committee": "ECON",
+     "basis": "ep-open-data",
+     "ref": "2025/0383(COD)",
+     "part": "market"
+    },
+    {
+     "id": "257126",
+     "role": "shadow",
+     "committee": "ECON",
+     "basis": "ep-open-data",
+     "ref": "2025/0383(COD)",
+     "part": "market"
+    },
+    {
+     "id": "197439",
+     "role": "shadow",
+     "committee": "ECON",
+     "basis": "ep-open-data",
+     "ref": "2025/0383(COD)",
+     "part": "market"
+    },
+    {
+     "id": "257068",
+     "role": "opinion-rapporteur",
+     "committee": "BUDG",
+     "basis": "ep-open-data",
+     "ref": "2025/0383(COD)",
+     "part": "market"
+    },
+    {
+     "id": "197439",
+     "role": "rapporteur",
+     "committee": "ECON",
+     "basis": "ep-open-data",
+     "ref": "2025/0362(COD)",
+     "part": "iorp"
+    },
+    {
+     "id": "257077",
+     "role": "shadow",
+     "committee": "ECON",
+     "basis": "ep-open-data",
+     "ref": "2025/0362(COD)",
+     "part": "iorp"
+    },
+    {
+     "id": "190517",
+     "role": "shadow",
+     "committee": "ECON",
+     "basis": "ep-open-data",
+     "ref": "2025/0362(COD)",
+     "part": "iorp"
+    },
+    {
+     "id": "97399",
+     "role": "shadow",
+     "committee": "ECON",
+     "basis": "ep-open-data",
+     "ref": "2025/0362(COD)",
+     "part": "iorp"
+    },
+    {
+     "id": "257438",
+     "role": "shadow",
+     "committee": "ECON",
+     "basis": "ep-open-data",
+     "ref": "2025/0362(COD)",
+     "part": "iorp"
+    },
+    {
+     "id": "103246",
+     "role": "shadow",
+     "committee": "ECON",
+     "basis": "ep-open-data",
+     "ref": "2025/0362(COD)",
+     "part": "iorp"
+    },
+    {
+     "id": "257087",
+     "role": "shadow",
+     "committee": "ECON",
+     "basis": "ep-open-data",
+     "ref": "2025/0362(COD)",
+     "part": "iorp"
+    },
+    {
+     "id": "256880",
+     "role": "opinion-rapporteur",
+     "committee": "EMPL",
+     "basis": "ep-open-data",
+     "ref": "2025/0362(COD)",
+     "part": "iorp"
+    },
+    {
+     "id": "96940",
+     "role": "rapporteur",
+     "committee": "ECON",
+     "basis": "ep-open-data",
+     "ref": "2025/0361(COD)",
+     "part": "sfdr"
+    },
+    {
+     "id": "239260",
+     "role": "shadow",
+     "committee": "ECON",
+     "basis": "ep-open-data",
+     "ref": "2025/0361(COD)",
+     "part": "sfdr"
+    },
+    {
+     "id": "124701",
+     "role": "shadow",
+     "committee": "ECON",
+     "basis": "ep-open-data",
+     "ref": "2025/0361(COD)",
+     "part": "sfdr"
+    },
+    {
+     "id": "5392",
+     "role": "shadow",
+     "committee": "ECON",
+     "basis": "ep-open-data",
+     "ref": "2025/0361(COD)",
+     "part": "sfdr"
+    },
+    {
+     "id": "270719",
+     "role": "shadow",
+     "committee": "ECON",
+     "basis": "ep-open-data",
+     "ref": "2025/0361(COD)",
+     "part": "sfdr"
+    },
+    {
+     "id": "198076",
+     "role": "shadow",
+     "committee": "ECON",
+     "basis": "ep-open-data",
+     "ref": "2025/0361(COD)",
+     "part": "sfdr"
+    },
+    {
+     "id": "256844",
+     "role": "shadow",
+     "committee": "ECON",
+     "basis": "ep-open-data",
+     "ref": "2025/0361(COD)",
+     "part": "sfdr"
+    }
+   ],
+   "commission": {
+    "lead": [
+     "maria-luis-albuquerque"
+    ],
+    "associated": []
+   },
+   "dg": {
+    "lead": [
+     "FISMA"
+    ],
+    "basis": "source",
+    "note": "The Parliament's procedure file lists DG Financial Stability, Financial Services and Capital Markets Union."
+   },
+   "cabinet": [
+    {
+     "k": "maria-luis-albuquerque~larisa-dragomir",
+     "why": "Savings and Investments Union coordination; asset management and supervision; pensions"
+    },
+    {
+     "k": "maria-luis-albuquerque~philippe-thill",
+     "why": "Market infrastructures and settlement; pensions"
+    },
+    {
+     "k": "maria-luis-albuquerque~edoardo-rulli",
+     "why": "Sustainable finance"
+    },
+    {
+     "k": "maria-luis-albuquerque~zuzana-gentner-vavrova",
+     "why": "Capital markets financing of the economy"
+    }
+   ],
+   "council": {
+    "configs": [
+     "ECOFIN"
+    ],
+    "configsBasis": "inferred",
+    "presidency": "IE",
+    "note": "Financial services files go to ECOFIN; working parties not confirmed per strand."
+   },
+   "sources": [
+    {
+     "id": "oeil-2025-0383-cod",
+     "title": "Legislative Observatory: procedure file 2025/0383(COD)",
+     "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2025/0383(COD)"
+    },
+    {
+     "id": "oeil-2025-0362-cod",
+     "title": "Legislative Observatory: procedure file 2025/0362(COD)",
+     "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2025/0362(COD)"
+    },
+    {
+     "id": "oeil-2025-0361-cod",
+     "title": "Legislative Observatory: procedure file 2025/0361(COD)",
+     "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2025/0361(COD)"
+    },
+    {
+     "id": "oeil-2025-0381-cod",
+     "title": "Legislative Observatory: procedure file 2025/0381(COD)",
+     "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2025/0381(COD)"
+    },
+    {
+     "id": "oeil-2025-0382-cod",
+     "title": "Legislative Observatory: procedure file 2025/0382(COD)",
+     "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2025/0382(COD)"
+    },
+    {
+     "id": "oeil-2025-0363-cod",
+     "title": "Legislative Observatory: procedure file 2025/0363(COD)",
+     "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2025/0363(COD)"
+    },
+    {
+     "id": "ep-open-data",
+     "title": "European Parliament Open Data Portal (procedure participants and events)",
+     "url": "https://data.europarl.europa.eu/"
+    },
+    {
+     "id": "cwp-2027-annex",
+     "title": "Commission work programme 2027, annexes (Council doc ST 15343/26 ADD 1, 4 Nov 2026)",
+     "url": "https://data.consilium.europa.eu/doc/document/ST-15343-2026-ADD-1/en/pdf"
+    }
+   ]
+  },
+  {
+   "added": "2026-11-26",
+   "checked": "2026-11-26",
+   "asOf": "2026-11-26",
+   "ledeChecked": "2026-11-26",
+   "caveats": [
+    "Rapporteurs, shadows and opinion rapporteurs come from the Parliament's open data (checked 26 November 2026).",
+    "People on the NIS2 procedure are not listed yet."
+   ],
+   "id": "cybersecurity-act-2",
+   "short": "Cybersecurity Act 2",
+   "title": "Cybersecurity Act 2 (ENISA, certification and ICT supply chain security) and NIS2 simplification",
+   "kind": "package",
+   "area": "digital",
+   "procedure": "2026/0011(COD)",
+   "stage": "positions-in-preparation",
+   "lede": "Markéta Gregorová (Greens/EFA) leads in ITRE. Amendments were tabled in October and IMCO adopted its opinion on 10 November.",
+   "status": "The Commission proposed the Cybersecurity Act 2 on 20 January 2026 (COM(2026)11), replacing the 2019 act: a new mandate for ENISA, changes to the European cybersecurity certification framework and rules on ICT supply chain security. A companion proposal aligns and simplifies the NIS2 Directive. In Parliament, ITRE leads with Markéta Gregorová (Greens/EFA) as rapporteur; her draft report was tabled on 18 September and amendments on 13 October. IMCO adopted its opinion, drafted by Maria Guzenina (S&D), on 10 November.",
+   "next": [
+    {
+     "date": null,
+     "what": "ITRE committee vote: no date set yet",
+     "src": "oeil-2026-0011-cod"
+    }
+   ],
+   "parts": [
+    {
+     "id": "csa2",
+     "title": "Cybersecurity Act 2",
+     "procedure": "2026/0011(COD)",
+     "short": "CSA2"
+    },
+    {
+     "id": "nis2",
+     "title": "NIS2 simplification and alignment",
+     "procedure": "2026/0012(COD)",
+     "short": "NIS2"
+    }
+   ],
+   "ep": {
+    "lead": [
+     "ITRE"
+    ],
+    "note": "ITRE leads; IMCO gave an opinion. People listed are on the Cybersecurity Act 2."
+   },
+   "meps": [
+    {
+     "id": "197549",
+     "role": "rapporteur",
+     "committee": "ITRE",
+     "basis": "ep-open-data",
+     "ref": "2026/0011(COD)",
+     "part": "csa2"
+    },
+    {
+     "id": "96833",
+     "role": "shadow",
+     "committee": "ITRE",
+     "basis": "ep-open-data",
+     "ref": "2026/0011(COD)",
+     "part": "csa2"
+    },
+    {
+     "id": "197402",
+     "role": "shadow",
+     "committee": "ITRE",
+     "basis": "ep-open-data",
+     "ref": "2026/0011(COD)",
+     "part": "csa2"
+    },
+    {
+     "id": "128483",
+     "role": "shadow",
+     "committee": "ITRE",
+     "basis": "ep-open-data",
+     "ref": "2026/0011(COD)",
+     "part": "csa2"
+    },
+    {
+     "id": "197780",
+     "role": "shadow",
+     "committee": "ITRE",
+     "basis": "ep-open-data",
+     "ref": "2026/0011(COD)",
+     "part": "csa2"
+    },
+    {
+     "id": "257021",
+     "role": "shadow",
+     "committee": "ITRE",
+     "basis": "ep-open-data",
+     "ref": "2026/0011(COD)",
+     "part": "csa2"
+    },
+    {
+     "id": "256883",
+     "role": "shadow",
+     "committee": "ITRE",
+     "basis": "ep-open-data",
+     "ref": "2026/0011(COD)",
+     "part": "csa2"
+    },
+    {
+     "id": "187917",
+     "role": "shadow",
+     "committee": "ITRE",
+     "basis": "ep-open-data",
+     "ref": "2026/0011(COD)",
+     "part": "csa2"
+    },
+    {
+     "id": "256803",
+     "role": "opinion-rapporteur",
+     "committee": "IMCO",
+     "basis": "ep-open-data",
+     "ref": "2026/0011(COD)",
+     "part": "csa2"
+    },
+    {
+     "id": "257068",
+     "role": "opinion-rapporteur",
+     "committee": "BUDG",
+     "basis": "ep-open-data",
+     "ref": "2026/0011(COD)",
+     "part": "csa2"
+    }
+   ],
+   "commission": {
+    "lead": [
+     "henna-virkkunen"
+    ],
+    "associated": []
+   },
+   "dg": {
+    "lead": [
+     "CNECT"
+    ],
+    "basis": "source",
+    "note": "The Parliament's procedure file lists DG CNECT."
+   },
+   "cabinet": [
+    {
+     "k": "henna-virkkunen~benjamin-bogel",
+     "why": "Cybersecurity policy"
+    }
+   ],
+   "council": {
+    "configs": [
+     "TTE-TEL"
+    ],
+    "configsBasis": "inferred",
+    "presidency": "IE",
+    "note": "Telecoms Council formation; working party not confirmed."
+   },
+   "sources": [
+    {
+     "id": "oeil-2026-0011-cod",
+     "title": "Legislative Observatory: procedure file 2026/0011(COD)",
+     "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2026/0011(COD)"
+    },
+    {
+     "id": "oeil-2026-0012-cod",
+     "title": "Legislative Observatory: procedure file 2026/0012(COD)",
+     "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2026/0012(COD)"
+    },
+    {
+     "id": "ep-open-data",
+     "title": "European Parliament Open Data Portal (procedure participants and events)",
+     "url": "https://data.europarl.europa.eu/"
+    },
+    {
+     "id": "cwp-2027-annex",
+     "title": "Commission work programme 2027, annexes (Council doc ST 15343/26 ADD 1, 4 Nov 2026)",
+     "url": "https://data.consilium.europa.eu/doc/document/ST-15343-2026-ADD-1/en/pdf"
+    }
+   ]
+  },
+  {
+   "added": "2026-11-26",
+   "checked": "2026-11-26",
+   "asOf": "2026-11-26",
+   "ledeChecked": "2026-11-26",
+   "caveats": [
+    "Rapporteurs, shadows and opinion rapporteurs come from the Parliament's open data (checked 26 November 2026)."
+   ],
+   "id": "public-procurement-act",
+   "short": "Public Procurement Act",
+   "title": "Public Procurement Act",
+   "kind": "regulation",
+   "area": "industry",
+   "procedure": "2026/0265(COD)",
+   "stage": "positions-in-preparation",
+   "lede": "IMCO leads with Christian Doleschal (EPP), named on 16 November. Seven committees give opinions.",
+   "status": "The Commission proposed the Public Procurement Act on 9 September 2026 (COM(2026)590), revising the EU public procurement rules; it is on the 2027 priority list. Parliament announced the referral on 11 November. IMCO leads, with Christian Doleschal (EPP) as rapporteur since 16 November. ITRE, INTA, EMPL, ENVI, AGRI, JURI and LIBE give opinions; the ITRE, INTA, EMPL and ENVI opinion rapporteurs are named.",
+   "next": [
+    {
+     "date": null,
+     "what": "IMCO draft report: no date set yet",
+     "src": "oeil-2026-0265-cod"
+    }
+   ],
+   "ep": {
+    "lead": [
+     "IMCO"
+    ],
+    "note": "IMCO leads; seven committees give opinions."
+   },
+   "meps": [
+    {
+     "id": "197473",
+     "role": "rapporteur",
+     "committee": "IMCO",
+     "basis": "ep-open-data",
+     "ref": "2026/0265(COD)"
+    },
+    {
+     "id": "256803",
+     "role": "shadow",
+     "committee": "IMCO",
+     "basis": "ep-open-data",
+     "ref": "2026/0265(COD)"
+    },
+    {
+     "id": "257003",
+     "role": "shadow",
+     "committee": "IMCO",
+     "basis": "ep-open-data",
+     "ref": "2026/0265(COD)"
+    },
+    {
+     "id": "256882",
+     "role": "opinion-rapporteur",
+     "committee": "ITRE",
+     "basis": "ep-open-data",
+     "ref": "2026/0265(COD)"
+    },
+    {
+     "id": "257437",
+     "role": "opinion-rapporteur",
+     "committee": "INTA",
+     "basis": "ep-open-data",
+     "ref": "2026/0265(COD)"
+    },
+    {
+     "id": "208722",
+     "role": "opinion-rapporteur",
+     "committee": "EMPL",
+     "basis": "ep-open-data",
+     "ref": "2026/0265(COD)"
+    },
+    {
+     "id": "257023",
+     "role": "opinion-rapporteur",
+     "committee": "ENVI",
+     "basis": "ep-open-data",
+     "ref": "2026/0265(COD)"
+    }
+   ],
+   "commission": {
+    "lead": [
+     "stephane-sejourne"
+    ],
+    "associated": []
+   },
+   "dg": {
+    "lead": [
+     "GROW"
+    ],
+    "basis": "source",
+    "note": "The Parliament's procedure file lists DG GROW."
+   },
+   "cabinet": [
+    {
+     "k": "stephane-sejourne~jugatx-ortiz-gonzalez",
+     "why": "Public Procurement Act"
+    },
+    {
+     "k": "stephane-sejourne~andreea-diana-barbu",
+     "why": "Public Procurement Act"
+    }
+   ],
+   "council": {
+    "configs": [
+     "COMPET-IM"
+    ],
+    "configsBasis": "inferred",
+    "presidency": "IE",
+    "note": "Competitiveness Council (internal market); working party not confirmed."
+   },
+   "sources": [
+    {
+     "id": "oeil-2026-0265-cod",
+     "title": "Legislative Observatory: procedure file 2026/0265(COD)",
+     "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2026/0265(COD)"
+    },
+    {
+     "id": "ep-open-data",
+     "title": "European Parliament Open Data Portal (procedure participants and events)",
+     "url": "https://data.europarl.europa.eu/"
+    },
+    {
+     "id": "cwp-2027-annex",
+     "title": "Commission work programme 2027, annexes (Council doc ST 15343/26 ADD 1, 4 Nov 2026)",
+     "url": "https://data.consilium.europa.eu/doc/document/ST-15343-2026-ADD-1/en/pdf"
+    }
+   ]
+  },
+  {
+   "added": "2026-11-26",
+   "checked": "2026-11-26",
+   "asOf": "2026-11-26",
+   "ledeChecked": "2026-11-26",
+   "caveats": [
+    "Rapporteurs, shadows and opinion rapporteurs come from the Parliament's open data (checked 26 November 2026)."
+   ],
+   "id": "affordable-housing-act",
+   "short": "Affordable Housing Act",
+   "title": "Affordable Housing Act",
+   "kind": "regulation",
+   "area": "social",
+   "procedure": "2026/0268(COD)",
+   "stage": "positions-in-preparation",
+   "lede": "IMCO leads; no rapporteur yet. EMPL, REGI and TRAN give opinions.",
+   "status": "The Commission proposed the Affordable Housing Act on 9 September 2026 (COM(2026)599); it is on the 2027 priority list, and a housing simplification package is planned for the second quarter of 2027. Parliament announced the referral on 22 October. IMCO leads and has not named a rapporteur yet. EMPL, REGI and TRAN give opinions; Leila Chaibi (The Left) drafts the EMPL opinion.",
+   "next": [
+    {
+     "date": null,
+     "what": "IMCO: rapporteur not yet appointed",
+     "src": "oeil-2026-0268-cod"
+    }
+   ],
+   "ep": {
+    "lead": [
+     "IMCO"
+    ],
+    "note": "IMCO leads; no rapporteur yet. EMPL, REGI and TRAN give opinions."
+   },
+   "meps": [
+    {
+     "id": "197529",
+     "role": "opinion-rapporteur",
+     "committee": "EMPL",
+     "basis": "ep-open-data",
+     "ref": "2026/0268(COD)"
+    }
+   ],
+   "commission": {
+    "lead": [
+     "dan-jorgensen"
+    ],
+    "associated": []
+   },
+   "dg": {
+    "lead": [
+     "ENER"
+    ],
+    "basis": "source",
+    "note": "The Parliament's procedure file lists DG Energy, which supports the housing portfolio."
+   },
+   "cabinet": [
+    {
+     "k": "dan-jorgensen~agnese-papadia",
+     "why": "Affordable housing"
+    },
+    {
+     "k": "dan-jorgensen~philippe-moseley",
+     "why": "Housing supply and construction"
+    },
+    {
+     "k": "dan-jorgensen~stella-kaltsouni",
+     "why": "Housing investment platform"
+    }
+   ],
+   "council": {
+    "configs": [],
+    "configsBasis": "none",
+    "presidency": "IE",
+    "note": "Council formation and working party not confirmed."
+   },
+   "sources": [
+    {
+     "id": "oeil-2026-0268-cod",
+     "title": "Legislative Observatory: procedure file 2026/0268(COD)",
+     "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2026/0268(COD)"
+    },
+    {
+     "id": "ep-open-data",
+     "title": "European Parliament Open Data Portal (procedure participants and events)",
+     "url": "https://data.europarl.europa.eu/"
+    },
+    {
+     "id": "cwp-2027-annex",
+     "title": "Commission work programme 2027, annexes (Council doc ST 15343/26 ADD 1, 4 Nov 2026)",
+     "url": "https://data.consilium.europa.eu/doc/document/ST-15343-2026-ADD-1/en/pdf"
+    }
+   ]
+  },
+  {
+   "added": "2026-11-26",
+   "checked": "2026-11-26",
+   "asOf": "2026-11-26",
+   "ledeChecked": "2026-11-26",
+   "caveats": [
+    "Rapporteurs, shadows and opinion rapporteurs come from the Parliament's open data (checked 26 November 2026).",
+    "The Parliament's open data lists two Greens/EFA shadows on JURI; nodo shows the more recent one."
+   ],
+   "id": "eu-inc",
+   "short": "EU Inc.",
+   "title": "EU Inc.: the 28th regime corporate legal framework",
+   "kind": "regulation",
+   "area": "industry",
+   "procedure": "2026/0074(COD)",
+   "stage": "positions-in-preparation",
+   "lede": "René Repasi (S&D) leads in JURI. ECON and EMPL opinions are adopted; the JURI vote has no date yet.",
+   "status": "The Commission proposed EU Inc. on 18 March 2026 (COM(2026)321): an optional EU-wide corporate legal form, the \"28th regime\", for companies operating across borders. It is on the 2027 priority list. JURI leads with René Repasi (S&D) as rapporteur; his draft report was tabled on 29 June and amendments on 22 July. ECON adopted its opinion on 15 July and EMPL on 10 September.",
+   "next": [
+    {
+     "date": null,
+     "what": "JURI committee vote: no date set yet",
+     "src": "oeil-2026-0074-cod"
+    }
+   ],
+   "ep": {
+    "lead": [
+     "JURI"
+    ],
+    "note": "JURI leads; ECON and EMPL gave opinions."
+   },
+   "meps": [
+    {
+     "id": "229839",
+     "role": "rapporteur",
+     "committee": "JURI",
+     "basis": "ep-open-data",
+     "ref": "2026/0074(COD)"
+    },
+    {
+     "id": "96761",
+     "role": "shadow",
+     "committee": "JURI",
+     "basis": "ep-open-data",
+     "ref": "2026/0074(COD)"
+    },
+    {
+     "id": "197460",
+     "role": "shadow",
+     "committee": "JURI",
+     "basis": "ep-open-data",
+     "ref": "2026/0074(COD)"
+    },
+    {
+     "id": "257070",
+     "role": "shadow",
+     "committee": "JURI",
+     "basis": "ep-open-data",
+     "ref": "2026/0074(COD)"
+    },
+    {
+     "id": "256877",
+     "role": "shadow",
+     "committee": "JURI",
+     "basis": "ep-open-data",
+     "ref": "2026/0074(COD)"
+    },
+    {
+     "id": "256911",
+     "role": "shadow",
+     "committee": "JURI",
+     "basis": "ep-open-data",
+     "ref": "2026/0074(COD)"
+    },
+    {
+     "id": "4395",
+     "role": "shadow",
+     "committee": "JURI",
+     "basis": "ep-open-data",
+     "ref": "2026/0074(COD)"
+    },
+    {
+     "id": "96711",
+     "role": "shadow",
+     "committee": "JURI",
+     "basis": "ep-open-data",
+     "ref": "2026/0074(COD)"
+    },
+    {
+     "id": "197697",
+     "role": "opinion-rapporteur",
+     "committee": "ECON",
+     "basis": "ep-open-data",
+     "ref": "2026/0074(COD)"
+    },
+    {
+     "id": "38542",
+     "role": "opinion-rapporteur",
+     "committee": "EMPL",
+     "basis": "ep-open-data",
+     "ref": "2026/0074(COD)"
+    }
+   ],
+   "commission": {
+    "lead": [
+     "michael-mcgrath"
+    ],
+    "associated": []
+   },
+   "dg": {
+    "lead": [
+     "JUST"
+    ],
+    "basis": "source",
+    "note": "The Parliament's procedure file lists DG Justice and Consumers."
+   },
+   "cabinet": [
+    {
+     "k": "michael-mcgrath~kevin-barrett",
+     "why": "EU Inc and the 28th regime"
+    },
+    {
+     "k": "michael-mcgrath~lucie-rousselle",
+     "why": "Company law"
+    }
+   ],
+   "council": {
+    "configs": [
+     "COMPET-IM"
+    ],
+    "configsBasis": "inferred",
+    "presidency": "IE",
+    "note": "Company law sits with the Competitiveness Council; working party not confirmed."
+   },
+   "sources": [
+    {
+     "id": "oeil-2026-0074-cod",
+     "title": "Legislative Observatory: procedure file 2026/0074(COD)",
+     "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2026/0074(COD)"
+    },
+    {
+     "id": "ep-open-data",
+     "title": "European Parliament Open Data Portal (procedure participants and events)",
+     "url": "https://data.europarl.europa.eu/"
+    },
+    {
+     "id": "cwp-2027-annex",
+     "title": "Commission work programme 2027, annexes (Council doc ST 15343/26 ADD 1, 4 Nov 2026)",
+     "url": "https://data.consilium.europa.eu/doc/document/ST-15343-2026-ADD-1/en/pdf"
+    }
+   ]
+  },
+  {
+   "added": "2026-11-26",
+   "checked": "2026-11-26",
+   "asOf": "2026-11-26",
+   "ledeChecked": "2026-11-26",
+   "caveats": [
+    "Rapporteurs, shadows and opinion rapporteurs come from the Parliament's open data (checked 26 November 2026)."
+   ],
+   "id": "business-wallets",
+   "short": "European Business Wallets",
+   "title": "European Business Wallets",
+   "kind": "regulation",
+   "area": "digital",
+   "procedure": "2025/0358(COD)",
+   "stage": "trilogue",
+   "lede": "In trilogue since 14 October. Eero Heinäluoma (S&D) leads for Parliament.",
+   "status": "The Commission proposed the European Business Wallets regulation on 19 November 2025 (COM(2025)838): digital wallets for businesses and public bodies to identify themselves, sign and exchange documents across the EU. It is on the 2027 priority list. ITRE adopted the report by Eero Heinäluoma (S&D) on 10 September, with opinions from IMCO and JURI. Plenary confirmed the negotiating mandate on 7 October and the first trilogue took place on 14 October.",
+   "next": [
+    {
+     "date": null,
+     "what": "Next trilogue not yet announced",
+     "src": "oeil-2025-0358-cod"
+    }
+   ],
+   "ep": {
+    "lead": [
+     "ITRE"
+    ],
+    "note": "ITRE leads; IMCO and JURI gave opinions."
+   },
+   "meps": [
+    {
+     "id": "197800",
+     "role": "rapporteur",
+     "committee": "ITRE",
+     "basis": "ep-open-data",
+     "ref": "2025/0358(COD)"
+    },
+    {
+     "id": "96709",
+     "role": "shadow",
+     "committee": "ITRE",
+     "basis": "ep-open-data",
+     "ref": "2025/0358(COD)"
+    },
+    {
+     "id": "197429",
+     "role": "shadow",
+     "committee": "ITRE",
+     "basis": "ep-open-data",
+     "ref": "2025/0358(COD)"
+    },
+    {
+     "id": "197439",
+     "role": "shadow",
+     "committee": "ITRE",
+     "basis": "ep-open-data",
+     "ref": "2025/0358(COD)"
+    },
+    {
+     "id": "256874",
+     "role": "shadow",
+     "committee": "ITRE",
+     "basis": "ep-open-data",
+     "ref": "2025/0358(COD)"
+    },
+    {
+     "id": "220871",
+     "role": "shadow",
+     "committee": "ITRE",
+     "basis": "ep-open-data",
+     "ref": "2025/0358(COD)"
+    },
+    {
+     "id": "257014",
+     "role": "opinion-rapporteur",
+     "committee": "IMCO",
+     "basis": "ep-open-data",
+     "ref": "2025/0358(COD)"
+    },
+    {
+     "id": "96761",
+     "role": "opinion-rapporteur",
+     "committee": "JURI",
+     "basis": "ep-open-data",
+     "ref": "2025/0358(COD)"
+    }
+   ],
+   "commission": {
+    "lead": [
+     "henna-virkkunen"
+    ],
+    "associated": []
+   },
+   "dg": {
+    "lead": [
+     "CNECT"
+    ],
+    "basis": "source",
+    "note": "The Parliament's procedure file lists DG CNECT."
+   },
+   "cabinet": [
+    {
+     "k": "henna-virkkunen~benjamin-bogel",
+     "why": "Digital identity and EU wallet"
+    }
+   ],
+   "council": {
+    "configs": [
+     "TTE-TEL"
+    ],
+    "configsBasis": "inferred",
+    "presidency": "IE",
+    "note": "Telecoms Council formation; working party not confirmed."
+   },
+   "sources": [
+    {
+     "id": "oeil-2025-0358-cod",
+     "title": "Legislative Observatory: procedure file 2025/0358(COD)",
+     "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2025/0358(COD)"
+    },
+    {
+     "id": "ep-open-data",
+     "title": "European Parliament Open Data Portal (procedure participants and events)",
+     "url": "https://data.europarl.europa.eu/"
+    },
+    {
+     "id": "cwp-2027-annex",
+     "title": "Commission work programme 2027, annexes (Council doc ST 15343/26 ADD 1, 4 Nov 2026)",
+     "url": "https://data.consilium.europa.eu/doc/document/ST-15343-2026-ADD-1/en/pdf"
+    }
+   ]
+  },
+  {
+   "added": "2026-11-26",
+   "checked": "2026-11-26",
+   "asOf": "2026-11-26",
+   "ledeChecked": "2026-11-26",
+   "caveats": [
+    "Rapporteurs, shadows and opinion rapporteurs come from the Parliament's open data (checked 26 November 2026).",
+    "People on the ELA, ESSPASS and qualifications procedures are not listed yet."
+   ],
+   "id": "fair-labour-mobility",
+   "short": "Fair labour mobility package",
+   "title": "Fair labour mobility package: Skills Portability Act, European Labour Authority, ESSPASS and recognition of qualifications",
+   "kind": "package",
+   "area": "social",
+   "procedure": "2026/0274(COD)",
+   "stage": "positions-in-preparation",
+   "lede": "Five proposals from 15 September. On the Skills Portability Act, Brigitte van den Berg (Renew) leads in EMPL.",
+   "status": "The Commission proposed the fair labour mobility package on 15 September 2026: a Skills Portability Act (COM(2026)992), a revised mandate for the European Labour Authority, digital social security coordination with the European Social Security Pass (ESSPASS), digital recognition of professional qualifications, and recognition of third-country nationals' qualifications. All five are on the 2027 priority list. On the Skills Portability Act, referred on 22 October, EMPL leads with Brigitte van den Berg (Renew); IMCO and CULT give opinions.",
+   "next": [
+    {
+     "date": null,
+     "what": "EMPL draft report on the Skills Portability Act: no date set yet",
+     "src": "oeil-2026-0274-cod"
+    }
+   ],
+   "parts": [
+    {
+     "id": "skills",
+     "title": "Skills Portability Act",
+     "procedure": "2026/0274(COD)",
+     "short": "Skills Portability"
+    },
+    {
+     "id": "ela",
+     "title": "European Labour Authority mandate",
+     "procedure": "2026/0272(COD)",
+     "short": "ELA"
+    },
+    {
+     "id": "esspass",
+     "title": "Digital social security coordination (ESSPASS)",
+     "procedure": "2026/0271(COD)",
+     "short": "ESSPASS"
+    },
+    {
+     "id": "qualifications",
+     "title": "Digital recognition of professional qualifications",
+     "procedure": "2026/0273(COD)",
+     "short": "Qualifications"
+    },
+    {
+     "id": "tcn",
+     "title": "Recognition of third-country nationals' qualifications",
+     "procedure": "2026/0275(COD)",
+     "short": "Third-country qualifications"
+    }
+   ],
+   "ep": {
+    "lead": [
+     "EMPL"
+    ],
+    "note": "People listed are on the Skills Portability Act."
+   },
+   "meps": [
+    {
+     "id": "256976",
+     "role": "rapporteur",
+     "committee": "EMPL",
+     "basis": "ep-open-data",
+     "ref": "2026/0274(COD)",
+     "part": "skills"
+    },
+    {
+     "id": "256994",
+     "role": "shadow",
+     "committee": "EMPL",
+     "basis": "ep-open-data",
+     "ref": "2026/0274(COD)",
+     "part": "skills"
+    },
+    {
+     "id": "256964",
+     "role": "shadow",
+     "committee": "EMPL",
+     "basis": "ep-open-data",
+     "ref": "2026/0274(COD)",
+     "part": "skills"
+    },
+    {
+     "id": "257149",
+     "role": "shadow",
+     "committee": "EMPL",
+     "basis": "ep-open-data",
+     "ref": "2026/0274(COD)",
+     "part": "skills"
+    },
+    {
+     "id": "204336",
+     "role": "shadow",
+     "committee": "EMPL",
+     "basis": "ep-open-data",
+     "ref": "2026/0274(COD)",
+     "part": "skills"
+    },
+    {
+     "id": "256805",
+     "role": "shadow",
+     "committee": "EMPL",
+     "basis": "ep-open-data",
+     "ref": "2026/0274(COD)",
+     "part": "skills"
+    },
+    {
+     "id": "202073",
+     "role": "opinion-rapporteur",
+     "committee": "IMCO",
+     "basis": "ep-open-data",
+     "ref": "2026/0274(COD)",
+     "part": "skills"
+    },
+    {
+     "id": "124893",
+     "role": "opinion-rapporteur",
+     "committee": "CULT",
+     "basis": "ep-open-data",
+     "ref": "2026/0274(COD)",
+     "part": "skills"
+    }
+   ],
+   "commission": {
+    "lead": [
+     "roxana-minzatu"
+    ],
+    "associated": []
+   },
+   "dg": {
+    "lead": [
+     "EMPL"
+    ],
+    "basis": "source",
+    "note": "The Parliament's procedure file lists DG Employment, Social Affairs and Inclusion."
+   },
+   "cabinet": [
+    {
+     "k": "roxana-minzatu~francesco-corti",
+     "why": "Labour mobility, ELA, skills portability and social security coordination"
+    },
+    {
+     "k": "roxana-minzatu~georgi-dimitrov",
+     "why": "Union of Skills"
+    }
+   ],
+   "council": {
+    "configs": [
+     "EPSCO-EMPL"
+    ],
+    "configsBasis": "inferred",
+    "presidency": "IE",
+    "note": "Employment and social policy Council; working party not confirmed."
+   },
+   "sources": [
+    {
+     "id": "oeil-2026-0274-cod",
+     "title": "Legislative Observatory: procedure file 2026/0274(COD)",
+     "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2026/0274(COD)"
+    },
+    {
+     "id": "oeil-2026-0272-cod",
+     "title": "Legislative Observatory: procedure file 2026/0272(COD)",
+     "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2026/0272(COD)"
+    },
+    {
+     "id": "oeil-2026-0271-cod",
+     "title": "Legislative Observatory: procedure file 2026/0271(COD)",
+     "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2026/0271(COD)"
+    },
+    {
+     "id": "oeil-2026-0273-cod",
+     "title": "Legislative Observatory: procedure file 2026/0273(COD)",
+     "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2026/0273(COD)"
+    },
+    {
+     "id": "oeil-2026-0275-cod",
+     "title": "Legislative Observatory: procedure file 2026/0275(COD)",
+     "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2026/0275(COD)"
+    },
+    {
+     "id": "ep-open-data",
+     "title": "European Parliament Open Data Portal (procedure participants and events)",
+     "url": "https://data.europarl.europa.eu/"
+    },
+    {
+     "id": "cwp-2027-annex",
+     "title": "Commission work programme 2027, annexes (Council doc ST 15343/26 ADD 1, 4 Nov 2026)",
+     "url": "https://data.consilium.europa.eu/doc/document/ST-15343-2026-ADD-1/en/pdf"
+    }
+   ]
+  },
+  {
+   "added": "2026-11-26",
+   "checked": "2026-11-26",
+   "asOf": "2026-11-26",
+   "ledeChecked": "2026-11-26",
+   "caveats": [
+    "Rapporteurs, shadows and opinion rapporteurs come from the Parliament's open data (checked 26 November 2026).",
+    "People on the other five procedures are not listed yet."
+   ],
+   "id": "environmental-omnibus",
+   "short": "Environmental omnibus",
+   "title": "Environmental omnibus (Omnibus VIII): faster environmental assessments, INSPIRE, extended producer responsibility and batteries",
+   "kind": "package",
+   "area": "energy",
+   "procedure": "2025/0391(COD)",
+   "stage": "positions-in-preparation",
+   "lede": "Parliament voted the environmental assessments report by Emma Ytterell (Renew) in plenary on 25 November.",
+   "status": "The Commission proposed the environmental omnibus on 10 December 2025: faster environmental assessments (COM(2025)984), changes to the INSPIRE spatial data rules and an environmental directive, simpler extended producer responsibility for waste, packaging and batteries, and amendments to the batteries regulations. All are on the 2027 priority list. On environmental assessments, ENVI adopted the report by Emma Ytterell (Renew) on 4 November and Parliament voted on it in plenary on 25 November (text adopted TA-10-2026-0394).",
+   "next": [
+    {
+     "date": null,
+     "what": "Environmental assessments: negotiations with the Council not yet scheduled",
+     "src": "oeil-2025-0391-cod"
+    }
+   ],
+   "parts": [
+    {
+     "id": "assessments",
+     "title": "Speeding up environmental assessments",
+     "procedure": "2025/0391(COD)",
+     "short": "Assessments"
+    },
+    {
+     "id": "inspire",
+     "title": "Spatial information infrastructure (INSPIRE)",
+     "procedure": "2025/0393(COD)",
+     "short": "INSPIRE"
+    },
+    {
+     "id": "env-directive",
+     "title": "Environmental directive",
+     "procedure": "2025/0394(COD)",
+     "short": "Directive"
+    },
+    {
+     "id": "epr-reg",
+     "title": "Extended producer responsibility: batteries and packaging",
+     "procedure": "2025/0395(COD)",
+     "short": "EPR packaging"
+    },
+    {
+     "id": "epr-dir",
+     "title": "Extended producer responsibility: waste, WEEE and single-use plastics",
+     "procedure": "2025/0396(COD)",
+     "short": "EPR waste"
+    },
+    {
+     "id": "batteries",
+     "title": "Batteries regulations",
+     "procedure": "2025/0397(COD)",
+     "short": "Batteries"
+    }
+   ],
+   "ep": {
+    "lead": [
+     "ENVI"
+    ],
+    "note": "People listed are on environmental assessments, 2025/0391(COD)."
+   },
+   "meps": [
+    {
+     "id": "214839",
+     "role": "rapporteur",
+     "committee": "ENVI",
+     "basis": "ep-open-data",
+     "ref": "2025/0391(COD)",
+     "part": "assessments"
+    },
+    {
+     "id": "197839",
+     "role": "shadow",
+     "committee": "ENVI",
+     "basis": "ep-open-data",
+     "ref": "2025/0391(COD)",
+     "part": "assessments"
+    },
+    {
+     "id": "197466",
+     "role": "shadow",
+     "committee": "ENVI",
+     "basis": "ep-open-data",
+     "ref": "2025/0391(COD)",
+     "part": "assessments"
+    },
+    {
+     "id": "256951",
+     "role": "shadow",
+     "committee": "ENVI",
+     "basis": "ep-open-data",
+     "ref": "2025/0391(COD)",
+     "part": "assessments"
+    },
+    {
+     "id": "257090",
+     "role": "shadow",
+     "committee": "ENVI",
+     "basis": "ep-open-data",
+     "ref": "2025/0391(COD)",
+     "part": "assessments"
+    },
+    {
+     "id": "257169",
+     "role": "shadow",
+     "committee": "ENVI",
+     "basis": "ep-open-data",
+     "ref": "2025/0391(COD)",
+     "part": "assessments"
+    },
+    {
+     "id": "197691",
+     "role": "shadow",
+     "committee": "ENVI",
+     "basis": "ep-open-data",
+     "ref": "2025/0391(COD)",
+     "part": "assessments"
+    },
+    {
+     "id": "256913",
+     "role": "shadow",
+     "committee": "ENVI",
+     "basis": "ep-open-data",
+     "ref": "2025/0391(COD)",
+     "part": "assessments"
+    }
+   ],
+   "commission": {
+    "lead": [
+     "jessika-roswall"
+    ],
+    "associated": []
+   },
+   "dg": {
+    "lead": [
+     "ENV"
+    ],
+    "basis": "source",
+    "note": "The Parliament's procedure file lists DG Environment."
+   },
+   "cabinet": [
+    {
+     "k": "jessika-roswall~jan-ceyssens",
+     "why": "Simplification, overall coordination"
+    },
+    {
+     "k": "jessika-roswall~vita-jukne",
+     "why": "Simplification"
+    }
+   ],
+   "council": {
+    "configs": [
+     "ENVI"
+    ],
+    "configsBasis": "inferred",
+    "presidency": "IE",
+    "note": "Environment Council formation; working party not confirmed."
+   },
+   "sources": [
+    {
+     "id": "oeil-2025-0391-cod",
+     "title": "Legislative Observatory: procedure file 2025/0391(COD)",
+     "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2025/0391(COD)"
+    },
+    {
+     "id": "oeil-2025-0393-cod",
+     "title": "Legislative Observatory: procedure file 2025/0393(COD)",
+     "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2025/0393(COD)"
+    },
+    {
+     "id": "oeil-2025-0394-cod",
+     "title": "Legislative Observatory: procedure file 2025/0394(COD)",
+     "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2025/0394(COD)"
+    },
+    {
+     "id": "oeil-2025-0395-cod",
+     "title": "Legislative Observatory: procedure file 2025/0395(COD)",
+     "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2025/0395(COD)"
+    },
+    {
+     "id": "oeil-2025-0396-cod",
+     "title": "Legislative Observatory: procedure file 2025/0396(COD)",
+     "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2025/0396(COD)"
+    },
+    {
+     "id": "oeil-2025-0397-cod",
+     "title": "Legislative Observatory: procedure file 2025/0397(COD)",
+     "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2025/0397(COD)"
+    },
+    {
+     "id": "ep-open-data",
+     "title": "European Parliament Open Data Portal (procedure participants and events)",
+     "url": "https://data.europarl.europa.eu/"
+    },
+    {
+     "id": "cwp-2027-annex",
+     "title": "Commission work programme 2027, annexes (Council doc ST 15343/26 ADD 1, 4 Nov 2026)",
+     "url": "https://data.consilium.europa.eu/doc/document/ST-15343-2026-ADD-1/en/pdf"
+    }
+   ]
   }
  ],
  "radar": {
