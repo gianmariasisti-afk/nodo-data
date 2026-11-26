@@ -1,6 +1,6 @@
 {
  "task": "reference-refresh",
- "at": "2026-11-23T08:22:35.506Z",
+ "at": "2026-11-26T08:19:30.991Z",
  "result": "ok",
- "note": "Full run, 19 files: MFF (Costa box 21 Nov), digital euro (no deal 18-19 Nov), CEF/ECF mandate announcement, 4 Council WP dates added; auto pages 278; MEP lists 2 diffs skipped; calendar and presidency unchanged"
+ "note": "Short run, 9 files: kids-act IMCO co-rapporteurs added; MFF ECF mandate confirmed 25 Nov; CO2 cars past WP date dropped; military mobility WP 27 Nov sourced to CM 5136. checked/ledeChecked not advanced: refresh-guard refuses ledeChecked"
 }

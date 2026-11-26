@@ -1,6 +1,6 @@
 {
- "generated": "2026-11-25T22:00:00Z",
- "asOf": "2026-11-25",
+ "generated": "2026-11-26T08:19:11Z",
+ "asOf": "2026-11-26",
  "source": "Parliament Open Data Portal (basis ep-open-data); Parliament Legislative Observatory procedure files (basis ep-procedure-file); press and Council documents (basis press); commission.json for commissioners and cabinets",
  "legend": {
   "roles": [
@@ -66,7 +66,7 @@
     "2025/0571R(APP)"
    ],
    "stage": "council-negotiating-box",
-   "status": "António Costa tabled his negotiating box on 21 November 2026: €1,582bn in commitments at 2025 prices, €180.6bn below the Commission proposal and €40bn below the Irish Presidency box of 10 October, with slower repayment of NextGenerationEU debt and a digital levy. Leaders discuss it at the Special European Council on 26–27 November and aim for a deal in December. Unanimity in Council, then Parliament's consent; co-rapporteur Siegfried Mureşan called the box unacceptable to Parliament. Three programmes are followed as parts: the European Competitiveness Fund (ITRE co-rapporteurs Christian Ehler and Dan Nica; ITRE's report and mandate of 10 November were on the 25 November plenary voting list), the National and Regional Partnership Plans fund (Karlo Ressler, Andrey Novakov and Elsi Katainen; committee vote not before January 2027) and the Performance Regulation (Jean-Marc Germain and Niclas Herbst; more than 1,000 amendments, with the groups split over do no significant harm).",
+   "status": "António Costa tabled his negotiating box on 21 November 2026: €1,582bn in commitments at 2025 prices, €180.6bn below the Commission proposal and €40bn below the Irish Presidency box of 10 October, with slower repayment of NextGenerationEU debt and a digital levy. Leaders discuss it at the Special European Council on 26–27 November and aim for a deal in December. Unanimity in Council, then Parliament's consent; co-rapporteur Siegfried Mureşan called the box unacceptable to Parliament. Three programmes are followed as parts: the European Competitiveness Fund (ITRE co-rapporteurs Christian Ehler and Dan Nica; plenary confirmed ITRE's negotiating mandate on 25 November), the National and Regional Partnership Plans fund (Karlo Ressler, Andrey Novakov and Elsi Katainen; committee vote not before January 2027) and the Performance Regulation (Jean-Marc Germain and Niclas Herbst; more than 1,000 amendments, with the groups split over do no significant harm).",
    "next": [
     {
      "date": "2026-11-26",
@@ -3247,13 +3247,8 @@
    "sector": "transport",
    "lede": "ENVI adopted the EPP, S&D and Renew compromise on 4 November; plenary is indicated for 14 December; the Council has no position yet.",
    "ledeChecked": "2026-11-25",
-   "status": "The Commission proposed on 16 December 2025 to lower the 2035 target for cars and vans from 100% to 90%, with credits for renewable fuels and low-carbon EU steel. ENVI leads in Parliament with Massimiliano Salini as rapporteur; on 4 November 2026 it adopted its report (the Observatory lists the committee vote), on the EPP, S&D and Renew compromise of 20 October that eases the 2035 target further, after ITRE and TRAN backed it in their 22 October opinions. The Observatory gives 14 December as the indicative plenary date. The Council's environment working party had the proposal on its agenda on 28 October and examines a revised Presidency compromise text (doc 16044/26) on 25 November; the Council took stock of progress in June 2026 and has no position yet.",
+   "status": "The Commission proposed on 16 December 2025 to lower the 2035 target for cars and vans from 100% to 90%, with credits for renewable fuels and low-carbon EU steel. ENVI leads in Parliament with Massimiliano Salini as rapporteur; on 4 November 2026 it adopted its report (the Observatory lists the committee vote), on the EPP, S&D and Renew compromise of 20 October that eases the 2035 target further, after ITRE and TRAN backed it in their 22 October opinions. The Observatory gives 14 December as the indicative plenary date. The Council's environment working party had the proposal on its agenda on 28 October and examined a revised Presidency compromise text (doc 16044/26) on 25 November; the Council took stock of progress in June 2026 and has no position yet.",
    "next": [
-    {
-     "date": "2026-11-25",
-     "what": "Environment working party: revised Presidency compromise text (doc 16044/26)",
-     "src": "council-cm-5111"
-    },
     {
      "date": "2026-12-14",
      "what": "Plenary vote (indicative date in the Observatory)",
@@ -4613,8 +4608,8 @@
    "next": [
     {
      "date": "2026-11-27",
-     "what": "Council ad hoc working party on military mobility",
-     "src": "council-mpo-calendar"
+     "what": "Ad hoc working party on military mobility: trilogue preparation (four-column table WK 16494/2026 REV5)",
+     "src": "council-cm-5136"
     },
     {
      "date": null,
@@ -4814,6 +4809,11 @@
      "id": "council-cm-5135",
      "title": "Council: notice of meeting CM 5135/26, Ad hoc Working Party on Military Mobility, 24 Nov 2026",
      "url": "https://data.consilium.europa.eu/doc/document/CM-5135-2026-INIT/en/pdf"
+    },
+    {
+     "id": "council-cm-5136",
+     "title": "Council: notice of meeting CM 5136/26, Ad hoc Working Party on Military Mobility, 27 November 2026",
+     "url": "https://data.consilium.europa.eu/doc/document/CM-5136-2026-INIT/en/pdf"
     }
    ],
    "checked": "2026-11-25",
@@ -4996,6 +4996,20 @@
      "id": "256803",
      "role": "opinion-rapporteur",
      "committee": "CULT",
+     "basis": "ep-procedure-file",
+     "ref": "2026/0286(COD)"
+    },
+    {
+     "id": "256862",
+     "role": "rapporteur",
+     "committee": "IMCO",
+     "basis": "ep-procedure-file",
+     "ref": "2026/0286(COD)"
+    },
+    {
+     "id": "247735",
+     "role": "rapporteur",
+     "committee": "IMCO",
      "basis": "ep-procedure-file",
      "ref": "2026/0286(COD)"
     }
