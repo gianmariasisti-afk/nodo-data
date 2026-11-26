@@ -3930,7 +3930,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     { t: "Since you last looked", b: "New steps, people and dates on your files since you last opened nodo.", el: () => $("tdSince"), r: 20 },
     { t: "The next 7 days", b: () => (state.follow.size ? "What happens on your files this week, day by day." : "What happens on nodo's files this week, day by day. Once you follow files, only yours show.") + " Full calendar opens every step, ahead and past.", el: () => $("tdNext"), r: 20 },
     { t: "Pick your files", b: "Follow the files you work on. Today, Calendar and your alerts then follow them.", el: () => $("tdPick"), r: 20 },
-    { t: "On these files", b: "The people on the files that move this week: rapporteurs, Commissioners and the Council working party.", el: () => $("tdRoom"), r: 20 },
+    { t: "People on your files", b: "The people on the files you follow that move this week: rapporteurs, Commissioners and the Council working party.", el: () => $("tdRoom"), r: 20 },
     { t: "Your files", b: "The files you follow. Tap one for its people and dates, or Manage to add or drop a file.", el: () => $("tdMine"), r: 20 },
     { t: "Every institution", b: "Every MEP, Commissioner and cabinet member, and the 27 Council delegations.", el: () => $("tdPeople"), r: 20 },
     { t: "The menu", b: "Today, Your files, People and Calendar. About nodo sits at the bottom.", el: () => $("nxOpen"), r: 999 },
@@ -4995,7 +4995,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const w = edWeeks[edWkI]; if (!w) return "";
     const ids = [...new Set(w.list.flatMap((x) => x.files))], files = ids.map((id) => FILES.find((f) => f.id === id)).filter(Boolean);
     const when = `Week of ${w.mon.getDate()} ${fmtD(w.mon, { month: "short" })}`;
-    const head = (cap) => `<div class="ed-sh"><div><h2 class="ed-h">On these files</h2><p class="ed-cap" aria-live="polite">${esc(cap)}</p></div></div>`;
+    const head = (cap) => `<div class="ed-sh"><div><h2 class="ed-h">People on your files</h2><p class="ed-cap" aria-live="polite">${esc(cap)}</p></div></div>`;
     if (!files.length) return head(`${when} · no file dated this week`);
     const ppl = edRoomPeople(files), noRap = files.filter((f) => !membersOf(f).base.some((x) => x.role === "rapporteur"));
     const n = files.length === 1 ? "this week's file" : `this week's ${files.length} files`;
@@ -5199,7 +5199,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   function tdRoomHtml(files, w) {
     if (!files.length) return "";
     const ppl = edRoomPeople(files), ids = new Set(files.map((f) => f.id)), noRap = files.filter((f) => !membersOf(f).base.some((x) => x.role === "rapporteur"));
-    const cap = files.length === 1 ? `The people named on ${edTag(files[0])}, the file with a step in the next 7 days.` : `The people named on the ${files.length} files with a step in the next 7 days.`;
+    const cap = files.length === 1 ? `Named on ${edTag(files[0])}, the file you follow with a step in the next 7 days.` : `Named on the ${files.length} files you follow with a step in the next 7 days.`;
     const role = (p) => edRoomRole(p).replace(p.files.map((f) => f.short).join(", "), p.files.length > 1 && p.files.length === files.length ? `on ${files.length === 2 ? "both" : "all " + files.length} files` : p.files.map(edTag).join(", "));
     const rows = ppl.slice(0, 5).map((p) => { const o = BYKEY.get(p.key).o;
       return row({ attrs: tap(`data-open="${esc(p.key)}"`), lead: avaOf(p.key), name: esc(o.name), meta: esc(role(p)), wrap: true, extra: edAlsoHtml(p.key, ids), tail: starBtn(p.key, o.name) }); }).join("");
@@ -5211,7 +5211,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       return `<button class="td-co__l" type="button" data-file="${esc(f.id)}" data-filetab="co" aria-label="${esc(`Council: ${what}. ${edTag(f)}. Open the Council tab`)}"><span class="td-co__k">${esc(k)}</span><span class="td-co__wp">${esc(what)}</span><span class="td-co__m">${esc([edTag(f), pres ? `${countryName(pres[0])} chairs` : ""].filter(Boolean).join(" · "))}</span></button>`; }).join("")}</div>` : "";
     const links = files.map((f) => { const c = countsOf(f), n = c.ep + c.ec + c.cab;
       return `<button class="td-link" type="button" data-file="${esc(f.id)}">Everyone on ${esc(edTag(f))} (${n})${icon("arrow")}</button>`; }).join("");
-    return `<h2 class="td-t" id="tdRoomH">On these files</h2><p class="td-cap">${esc(cap)}</p>
+    return `<h2 class="td-t" id="tdRoomH">People on your files</h2><p class="td-cap">${esc(cap)}</p>
       ${rows ? `<div class="list td-ppl">${rows}</div>` : ""}${note}${council}${links}`;
   }
 
