@@ -1,5 +1,5 @@
 {
- "run": "2026-11-26T13:17:56.177Z",
+ "run": "2026-11-26T15:18:18.135Z",
  "sessions": {
   "2026-11-23": {
    "days": {
@@ -50,7 +50,8 @@
    "types": {
     "def/ep-activities/MEETING_PART": 11
    },
-   "items": 11
+   "items": 11,
+   "unchanged": true
   }
  }
 }
