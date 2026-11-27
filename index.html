@@ -7667,7 +7667,8 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const P = $("profile"), h = P && [...P.querySelectorAll("h3")].find((x) => /^On these files/.test(x.textContent));
     const fresh = fileLinks(key);
     if (h) { const l = h.nextElementSibling; if (l && l.classList.contains("list")) l.remove(); h.outerHTML = fresh; }
-    else if (fresh && P) { const a = P.querySelector(".acts"); if (a) a.insertAdjacentHTML("afterend", fresh); }
+    else if (fresh && P) { const a = P.querySelector(".pcc") || P.querySelector(".acts"); if (a) a.insertAdjacentHTML("afterend", fresh); }
+    if (typeof pccFiles === "function") pccFiles();
   }, true);
 
   /* Profile as a contact card (since 30 Oct 2026), for MEPs and Commissioners. Inspired by iOS Contacts: a short tinted band in the
@@ -7676,41 +7677,46 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
      the institution sections under a "Contact" heading. The original openers still build the page; pcCard reshapes it.
      When promoted, openMep and openCom render this header directly and the .mh / .stats header code goes. */
   function pcCard(kind) {
+    /* Compact card (27 Nov 2026, canvas "nodo profile alternatives", option A). Replaces the contact card's tall band and big
+       portrait: back and Share in the top bar, then one card with a small round portrait beside the name, the role line, the
+       group and chair chips and four equal actions, then three count tiles that jump to their section. "On these files"
+       follows on the first screen. */
     const P = $("profileBody"), mh = P && P.querySelector(":scope > .mh"), key = state.open, e = key && BYKEY.get(key), o = e && e.o;
     if (!mh || !o) return;
     const ep = kind === "ep";
     const name = mh.querySelector("#pName"), arch = mh.querySelector(".mh__arch"), tags = mh.querySelector(".eu-row__tags"),
       where = mh.querySelector(".mh__where"), back = mh.querySelector("[data-close]"), sh = mh.querySelector("#pShare");
     const copyFn = sh && sh.onclick;
+    const place = where ? where.textContent.trim() : "";
     const roleLine = ep ? "Member of the European Parliament" : [o.title, (o.portfolio || []).join(" · ")].filter(Boolean).join(" · ");
+    const subLine = ep ? ["MEP", place].filter(Boolean).join(" · ") : [o.title, place].filter(Boolean).join(" · ");
     const head = document.createElement("header");
-    head.className = "pc";
+    head.className = "pcc";
     head.style.setProperty("--pt", ep ? "var(--tint-sky)" : "var(--tint-apricot)");
     head.style.setProperty("--pa", ep ? "var(--accent-sky)" : "var(--accent-apricot)");
-    head.innerHTML = `<div class="pc__band"><div class="tb"></div></div><div class="pc__who"></div>`;
-    if (back) head.querySelector(".tb").appendChild(back);
-    const who = head.querySelector(".pc__who");
-    if (arch) { arch.classList.add("pc__ava"); who.appendChild(arch); }
-    if (name) { name.className = "pc__name"; who.appendChild(name); }
-    who.insertAdjacentHTML("beforeend", `<p class="pc__role">${esc(roleLine)}</p><div class="pc__chips"></div>`);
-    const chips = who.querySelector(".pc__chips");
-    if (ep && tags) [...tags.children].forEach((c) => chips.appendChild(c));
-    const place = where ? where.textContent.trim() : "";
-    if (place) chips.insertAdjacentHTML("beforeend", `<span class="pc__chip">${esc(place)}</span>`);
-    if (!chips.children.length) chips.remove();
+    head.innerHTML = `<div class="tb"></div><div class="pcc__card"><div class="pcc__id"><div class="pcc__tx"></div></div></div>`;
+    const tb = head.querySelector(".tb"), card = head.querySelector(".pcc__card"), id = head.querySelector(".pcc__id"), tx = head.querySelector(".pcc__tx");
+    if (back) tb.appendChild(back);
+    tb.insertAdjacentHTML("beforeend", `<button class="eu-iconbtn" type="button" data-pcshare aria-label="Share ${esc(o.name)}">${icon("share")}</button>`);
+    if (arch) { arch.classList.add("pcc__ava"); id.prepend(arch); }
+    if (name) { name.className = "pcc__name"; tx.appendChild(name); }
+    tx.insertAdjacentHTML("beforeend", `<p class="pcc__sub">${esc(subLine)}</p>`);
+    if (!ep && (o.portfolio || []).length) card.insertAdjacentHTML("beforeend", `<p class="pcc__pf">${esc(o.portfolio.join(" · "))}</p>`);
+    if (ep && tags && tags.children.length) { const ch = document.createElement("div"); ch.className = "pcc__chips"; [...tags.children].forEach((c) => ch.appendChild(c)); card.appendChild(ch); }
 
     /* Actions. Save keeps data-fav without data-label, so syncFav only flips aria-pressed and the label follows in CSS. */
     const saved = state.favs.has(key);
-    const save = (primary) => `<button class="pc__act${primary ? " is-primary" : ""}" type="button" data-fav="${esc(key)}" aria-pressed="${saved}">${icon("star")}<span class="pc__off">Save</span><span class="pc__on">Saved</span></button>`;
-    const acts = [];
-    const mail = ep && o.email ? o.email : "";
+    const mail = ep ? o.email || "" : o.contact || "";
     const cabH = !ep && [...P.querySelectorAll(":scope > h3")].find((h) => /^Cabinet/.test(h.textContent));
-    if (mail) acts.push(`<a class="pc__act is-primary" href="${esc(contactHref("mail", mail))}">${icon("mail")}<span>Email</span></a>`);
-    else if (cabH) acts.push(`<button class="pc__act is-primary" type="button" data-pccab>${icon("group")}<span>Cabinet</span></button>`);
-    acts.push(save(!acts.length));
+    const acts = [];
+    const mailAct = (primary) => `<a class="pc__act${primary ? " is-primary" : ""}" href="${esc(contactHref("mail", mail))}">${icon("mail")}<span>Email</span></a>`;
+    if (ep && mail) acts.push(mailAct(true));
+    if (!ep && cabH) acts.push(`<button class="pc__act is-primary" type="button" data-pccab>${icon("group")}<span>Cabinet</span></button>`);
+    if (!ep && mail) acts.push(mailAct(!acts.length));
+    acts.push(`<button class="pc__act${acts.length ? "" : " is-primary"}" type="button" data-fav="${esc(key)}" aria-pressed="${saved}">${icon("star")}<span class="pc__off">Save</span><span class="pc__on">Saved</span></button>`);
     acts.push(`<button class="pc__act" type="button" data-pefto="${esc(key)}">${icon("files")}<span>Add to file</span></button>`);
-    acts.push(`<button class="pc__act" type="button" data-pcshare>${icon("share")}<span>Share</span></button>`);
-    head.insertAdjacentHTML("beforeend", `<div class="acts pc__acts">${acts.join("")}</div>`);
+    if (ep && mail) acts.push(`<button class="pc__act" type="button" data-pccopy>${icon("copy")}<span>Copy email</span></button>`);
+    card.insertAdjacentHTML("beforeend", `<div class="pcc__acts" style="--n:${acts.length}">${acts.join("")}</div>`);
 
     /* The contact rows sat right under the old actions: keep them for later. */
     const oldActs = P.querySelector(":scope > .acts"), contact = oldActs && oldActs.nextElementSibling && oldActs.nextElementSibling.classList.contains("list") ? oldActs.nextElementSibling : null;
@@ -7725,14 +7731,33 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       if (anchor) { anchor.before(h); h.after(contact); } else { P.append(h, contact); }
     }
 
-    const shareBtn = head.querySelector("[data-pcshare]");
-    shareBtn.onclick = async () => {
+    /* Count tiles: each jumps to its section; a count of 0 is not a button. */
+    const stats = ep
+      ? [["files", "On these files", "On files"], [(o.committees || []).length, "Committees", ["Committee", "Committees"]], [(o.delegations || []).length, "Delegations", ["Delegation", "Delegations"]]]
+      : [["files", "On these files", "On files"], [(o.cabinet || []).length, "Cabinet", "Cabinet"], [(o.dgs || []).length, "Departments", ["Department", "Departments"]]];
+    head.insertAdjacentHTML("beforeend", `<div class="pcc__stats">${stats.map(([n, sec, lab]) => {
+      const c = n === "files" ? 0 : n, l = Array.isArray(lab) ? pl(c, lab[0], lab[1]) : lab;
+      return `<button class="pcc__stat" type="button" data-pcgo="${esc(sec)}"${n === "files" ? " data-pcfiles" : ""}${c ? "" : " disabled"}><b>${c}</b><span>${esc(l)}</span></button>`;
+    }).join("")}</div>`);
+    pccFiles();
+
+    head.querySelector("[data-pcshare]").onclick = async () => {
       const text = [o.name, roleLine, place, mail].filter(Boolean).join(" · ");
       if (navigator.share) { try { await navigator.share({ title: o.name, text }); Track.log("share", { section: kind, item: key }); return; } catch (err) { if (err && err.name === "AbortError") return; } }
       if (copyFn) copyFn(); else copy(text, "Contact");
     };
+    const cp = head.querySelector("[data-pccopy]"); if (cp) cp.onclick = () => copy(mail, "Email");
+    const jump = (h) => h && h.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
     const cb = head.querySelector("[data-pccab]");
-    if (cb && cabH) cb.onclick = () => cabH.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
+    if (cb && cabH) cb.onclick = () => jump(cabH);
+    head.querySelectorAll("[data-pcgo]").forEach((b) => { b.onclick = () => jump([...P.querySelectorAll(":scope > h3")].find((h) => h.textContent.trim().startsWith(b.dataset.pcgo))); });
+  }
+  /* The "On files" tile counts the rows under "On these files"; called again when Add to file changes them. */
+  function pccFiles() {
+    const P = $("profileBody"), t = P && P.querySelector("[data-pcfiles]"); if (!t) return;
+    const h = [...P.querySelectorAll(":scope > h3")].find((x) => /^On these files/.test(x.textContent));
+    const l = h && h.nextElementSibling, n = l && l.classList.contains("list") ? l.children.length : 0;
+    t.querySelector("b").textContent = n; t.disabled = !n;
   }
   {
     const m0 = openMep, c0 = openCom;
@@ -10856,5 +10881,34 @@ body { overflow-x: hidden; }
 .list { grid-template-columns: minmax(0, 1fr); }
 .list > * { min-width: 0; max-width: 100%; }
 .eu-row .lnk { max-width: 100%; overflow-wrap: anywhere; word-break: break-word; }
+
+/* Profile as a compact card (27 Nov 2026): pcCard. */
+.pcc { display: flex; flex-direction: column; gap: var(--space-3); }
+.pcc .tb { display: flex; justify-content: space-between; align-items: center; }
+.pcc .tb .eu-iconbtn { background: var(--surface-sunken); }
+.pcc__card { display: flex; flex-direction: column; gap: var(--space-4); padding: var(--space-5, 20px); border-radius: var(--radius-xl); background: var(--surface-sunken); }
+.pcc__id { display: flex; align-items: center; gap: var(--space-4); min-width: 0; }
+.pcc .mh__arch.pcc__ava { flex: none; width: 76px; height: 76px; max-width: none; aspect-ratio: auto; box-sizing: border-box; border-radius: 50%; overflow: hidden; display: grid; place-items: center; background: var(--pt); box-shadow: 0 0 0 3px var(--surface), 0 0 0 5px var(--pa); }
+.pcc .pcc__ava img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+.pcc .pcc__ava span { font-family: var(--font-display); font-size: 28px; line-height: 1; font-weight: 600; color: var(--pa); }
+.pcc__tx { min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+.pcc__name { margin: 0; font-family: var(--font-display); font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.01em; overflow-wrap: anywhere; text-wrap: balance; }
+.pcc__name strong { font-weight: 600; }
+.pcc__sub { margin: 0; font-size: 14px; line-height: 20px; font-weight: 500; color: var(--ink-muted); overflow-wrap: anywhere; }
+.pcc__pf { margin: 0; font-size: 15px; line-height: 21px; font-weight: 500; overflow-wrap: anywhere; }
+.pcc__chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.pcc__chips .eu-group { background: var(--surface); white-space: normal; height: auto; min-height: 28px; }
+.pcc__acts { display: grid; grid-template-columns: repeat(var(--n, 4), minmax(0, 1fr)); gap: var(--space-2); }
+.pcc .pc__act { min-height: 60px; background: var(--surface); color: var(--ink); text-align: center; }
+.pcc .pc__act.is-primary { background: var(--brand); color: var(--on-brand); }
+.pcc .pc__act[aria-pressed="true"]:not(.is-primary) { background: var(--ink); color: var(--ink-inverse); }
+.pcc__stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-2); }
+.pcc__stat { min-width: 0; padding: var(--space-3); border: 0; border-radius: var(--radius-md); background: var(--surface-sunken); color: var(--ink); font: inherit; text-align: left; cursor: pointer; }
+.pcc__stat b { display: block; font-family: var(--font-display); font-size: 24px; line-height: 28px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.pcc__stat span { display: block; font-size: 12px; line-height: 16px; font-weight: 500; color: var(--ink-muted); overflow-wrap: anywhere; }
+.pcc__stat:disabled { cursor: default; }
+.pcc__stat:not(:disabled):active { transform: scale(.97); }
+.pcc__stat:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+.pcc + h3 { margin-top: var(--space-6); }
 </style>
 </body></html>
