@@ -18,7 +18,7 @@
       "proc": "2025-0545",
       "kind": "milestone",
       "title": "Amendments tabled in committee",
-      "count": 1,
+      "count": 4,
       "push": true
     },
     {
@@ -174,18 +174,7 @@
       "proc": "2025-0545",
       "kind": "milestone",
       "title": "Amendments tabled in committee",
-      "count": 8,
-      "push": true
-    },
-    {
-      "id": "mff-2028-2034:ep:2025-0545:amendments:2026-10-29",
-      "fileId": "mff-2028-2034",
-      "date": "2026-10-29",
-      "source": "ep",
-      "proc": "2025-0545",
-      "kind": "milestone",
-      "title": "Amendments tabled in committee",
-      "count": 1,
+      "count": 6,
       "push": true
     },
     {
@@ -7716,6 +7705,17 @@
       "pushOn": "2026-12-01"
     },
     {
+      "id": "digital-networks-act:ep:amendments:2026-11-26",
+      "fileId": "digital-networks-act",
+      "date": "2026-11-26",
+      "source": "ep",
+      "proc": "2026-0013",
+      "kind": "milestone",
+      "title": "Amendments tabled in committee",
+      "count": 11,
+      "push": true
+    },
+    {
       "id": "digital-networks-act:ep:opinions:2026-11-04",
       "fileId": "digital-networks-act",
       "date": "2026-11-04",
@@ -11298,6 +11298,16 @@
       "pushOn": "2027-01-18"
     },
     {
+      "id": "biotech-act:ep:2025-0405-DEC-DCPL-2026-11-25",
+      "fileId": "biotech-act",
+      "date": "2026-11-25",
+      "source": "ep",
+      "proc": "2025-0405",
+      "kind": "procedural",
+      "title": "Plenary amendments",
+      "push": false
+    },
+    {
       "id": "biotech-act:ep:MTG-PL-2026-11-25-PVCRE-ITM-8-15",
       "fileId": "biotech-act",
       "date": "2026-11-25",
@@ -12892,6 +12902,18 @@
     }
   ],
   "kids-act": [
+    {
+      "id": "kids-act:ep:2026-0286-NMSR-256859-2026-11-26",
+      "fileId": "kids-act",
+      "date": "2026-11-26",
+      "source": "ep",
+      "proc": "2026-0286",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "256859",
+      "group": "PfE",
+      "push": false
+    },
     {
       "id": "kids-act:ep:2026-0286-NMCP-257014-SANT-2026-11-25",
       "fileId": "kids-act",
@@ -17129,6 +17151,26 @@
   ],
   "environmental-omnibus": [
     {
+      "id": "environmental-omnibus:ep:2025-0391-DEC-DCPL-2026-11-25",
+      "fileId": "environmental-omnibus",
+      "date": "2026-11-25",
+      "source": "ep",
+      "proc": "2025-0391",
+      "kind": "procedural",
+      "title": "Plenary amendments",
+      "push": false
+    },
+    {
+      "id": "environmental-omnibus:ep:2025-0391-DEC-REFBAK-2026-11-25",
+      "fileId": "environmental-omnibus",
+      "date": "2026-11-25",
+      "source": "ep",
+      "proc": "2025-0391",
+      "kind": "milestone",
+      "title": "Trilogue mandate confirmed in plenary",
+      "push": true
+    },
+    {
       "id": "environmental-omnibus:ep:MTG-PL-2026-11-25-PVCRE-ITM-8-13",
       "fileId": "environmental-omnibus",
       "date": "2026-11-25",
@@ -17168,6 +17210,19 @@
       "kind": "procedural",
       "title": "Report tabled for plenary",
       "count": 1,
+      "push": false
+    },
+    {
+      "id": "environmental-omnibus:ep:2025-0395-NMCP-257043-JURI-2026-11-18",
+      "fileId": "environmental-omnibus",
+      "date": "2026-11-18",
+      "source": "ep",
+      "proc": "2025-0395",
+      "kind": "people",
+      "title": "Opinion rapporteur named",
+      "personId": "257043",
+      "group": "EPP",
+      "committee": "JURI",
       "push": false
     },
     {

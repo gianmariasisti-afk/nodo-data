@@ -2,24 +2,25 @@
   "generatedAt": "2026-11-27T00:00:00Z",
   "events": [
     {
-      "id": "industrial-accelerator-act:next:2026-11-27:759f6d",
-      "fileId": "industrial-accelerator-act",
-      "date": "2026-11-27",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Industry working party: fourth Presidency compromise text (doc 15418/26)",
-      "push": true,
-      "pushOn": "2026-11-27"
+      "id": "digital-networks-act:ep:amendments:2026-11-26",
+      "fileId": "digital-networks-act",
+      "date": "2026-11-26",
+      "source": "ep",
+      "proc": "2026-0013",
+      "kind": "milestone",
+      "title": "Amendments tabled in committee",
+      "count": 11,
+      "push": true
     },
     {
-      "id": "military-mobility:next:2026-11-27:b67ccc",
-      "fileId": "military-mobility",
-      "date": "2026-11-27",
-      "source": "nodo",
-      "kind": "scheduled",
-      "title": "Ad hoc working party on military mobility: trilogue preparation (four-column table WK 16494/2026 REV5)",
-      "push": true,
-      "pushOn": "2026-11-27"
+      "id": "environmental-omnibus:ep:2025-0391-DEC-REFBAK-2026-11-25",
+      "fileId": "environmental-omnibus",
+      "date": "2026-11-25",
+      "source": "ep",
+      "proc": "2025-0391",
+      "kind": "milestone",
+      "title": "Trilogue mandate confirmed in plenary",
+      "push": true
     }
   ]
 }

@@ -1648,7 +1648,13 @@
     "environmental-omnibus:ep:2025-0394-ANPRO-2026-02-09": true,
     "environmental-omnibus:ep:2025-0395-ANPRO-2026-02-09": true,
     "environmental-omnibus:ep:2025-0396-ANPRO-2026-02-09": true,
-    "environmental-omnibus:ep:2025-0397-ANPRO-2026-02-09": true
+    "environmental-omnibus:ep:2025-0397-ANPRO-2026-02-09": true,
+    "digital-networks-act:ep:amendments:2026-11-26": true,
+    "biotech-act:ep:2025-0405-DEC-DCPL-2026-11-25": true,
+    "kids-act:ep:2026-0286-NMSR-256859-2026-11-26": true,
+    "environmental-omnibus:ep:2025-0391-DEC-DCPL-2026-11-25": true,
+    "environmental-omnibus:ep:2025-0391-DEC-REFBAK-2026-11-25": true,
+    "environmental-omnibus:ep:2025-0395-NMCP-257043-JURI-2026-11-18": true
   },
   "seeded": {
     "mff-2028-2034": true,
