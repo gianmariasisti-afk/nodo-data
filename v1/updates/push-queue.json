@@ -1,57 +1,25 @@
 {
-  "generatedAt": "2026-11-26T00:00:00Z",
+  "generatedAt": "2026-11-27T00:00:00Z",
   "events": [
     {
-      "id": "mff-2028-2034:ep:2025-0545:amendments:2026-11-26",
-      "fileId": "mff-2028-2034",
-      "date": "2026-11-26",
-      "source": "ep",
-      "proc": "2025-0545",
-      "kind": "milestone",
-      "title": "Amendments tabled in committee",
-      "count": 1,
-      "push": true
+      "id": "industrial-accelerator-act:next:2026-11-27:759f6d",
+      "fileId": "industrial-accelerator-act",
+      "date": "2026-11-27",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Industry working party: fourth Presidency compromise text (doc 15418/26)",
+      "push": true,
+      "pushOn": "2026-11-27"
     },
     {
-      "id": "mff-2028-2034:ep:2025-0545:amendments:2026-11-25",
-      "fileId": "mff-2028-2034",
-      "date": "2026-11-25",
-      "source": "ep",
-      "proc": "2025-0545",
-      "kind": "milestone",
-      "title": "Amendments tabled in committee",
-      "count": 1,
-      "push": true
-    },
-    {
-      "id": "mff-2028-2034:ep:MTG-PL-2026-11-25-PVCRE-ITM-8-7",
-      "fileId": "mff-2028-2034",
-      "date": "2026-11-25",
-      "source": "ep",
-      "proc": "2025-0555",
-      "kind": "milestone",
-      "title": "Plenary vote",
-      "push": true
-    },
-    {
-      "id": "cef-2028-2034:ep:MTG-PL-2026-11-25-PVCRE-ITM-8-6",
-      "fileId": "cef-2028-2034",
-      "date": "2026-11-25",
-      "source": "ep",
-      "proc": "2025-0221",
-      "kind": "milestone",
-      "title": "Plenary vote",
-      "push": true
-    },
-    {
-      "id": "biotech-act:ep:MTG-PL-2026-11-25-PVCRE-ITM-8-15",
-      "fileId": "biotech-act",
-      "date": "2026-11-25",
-      "source": "ep",
-      "proc": "2025-0405",
-      "kind": "milestone",
-      "title": "Plenary vote",
-      "push": true
+      "id": "military-mobility:next:2026-11-27:b67ccc",
+      "fileId": "military-mobility",
+      "date": "2026-11-27",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Ad hoc working party on military mobility: trilogue preparation (four-column table WK 16494/2026 REV5)",
+      "push": true,
+      "pushOn": "2026-11-27"
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-26T00:00:00Z",
+  "generatedAt": "2026-11-27T00:00:00Z",
   "events": [
     {
       "id": "cap-2028-2034:next:2027-01-27:7e2fa2",
@@ -38,6 +38,16 @@
       "source": "nodo",
       "kind": "scheduled",
       "title": "Plenary vote (indicative date in the Observatory)",
+      "push": true,
+      "pushOn": "2026-12-14"
+    },
+    {
+      "id": "ets-review:next:2026-12-14:7ad534",
+      "fileId": "ets-review",
+      "date": "2026-12-14",
+      "source": "nodo",
+      "kind": "scheduled",
+      "title": "Indicative plenary date, first reading (Legislative Observatory forecast)",
       "push": true,
       "pushOn": "2026-12-14"
     },
@@ -183,6 +193,16 @@
       "push": true
     },
     {
+      "id": "environmental-omnibus:ep:MTG-PL-2026-11-25-PVCRE-ITM-8-13",
+      "fileId": "environmental-omnibus",
+      "date": "2026-11-25",
+      "source": "ep",
+      "proc": "2025-0391",
+      "kind": "milestone",
+      "title": "Plenary vote",
+      "push": true
+    },
+    {
       "id": "kids-act:ep:2026-0286-NMCP-257014-SANT-2026-11-25",
       "fileId": "kids-act",
       "date": "2026-11-25",
@@ -193,6 +213,26 @@
       "personId": "257014",
       "group": "Renew",
       "committee": "SANT",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0227-DEC-PLEIN1-2026-11-25",
+      "fileId": "mff-2028-2034",
+      "date": "2026-11-25",
+      "source": "ep",
+      "proc": "2025-0227",
+      "kind": "procedural",
+      "title": "Plenary endorse committee interinstitutional negotiations",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0543-DEC-PLEIN1-2026-11-25",
+      "fileId": "mff-2028-2034",
+      "date": "2026-11-25",
+      "source": "ep",
+      "proc": "2025-0543",
+      "kind": "procedural",
+      "title": "Plenary endorse committee interinstitutional negotiations",
       "push": false
     },
     {
@@ -217,11 +257,51 @@
       "push": false
     },
     {
+      "id": "mff-2028-2034:ep:MTG-PL-2026-11-25-PVCRE-ITM-8-3",
+      "fileId": "mff-2028-2034",
+      "date": "2026-11-25",
+      "source": "ep",
+      "proc": "2025-0227",
+      "kind": "milestone",
+      "title": "Plenary vote",
+      "push": true
+    },
+    {
+      "id": "mff-2028-2034:ep:MTG-PL-2026-11-25-PVCRE-ITM-8-5",
+      "fileId": "mff-2028-2034",
+      "date": "2026-11-25",
+      "source": "ep",
+      "proc": "2025-0543",
+      "kind": "milestone",
+      "title": "Plenary vote",
+      "push": true
+    },
+    {
       "id": "mff-2028-2034:ep:MTG-PL-2026-11-25-PVCRE-ITM-8-7",
       "fileId": "mff-2028-2034",
       "date": "2026-11-25",
       "source": "ep",
       "proc": "2025-0555",
+      "kind": "milestone",
+      "title": "Plenary vote",
+      "push": true
+    },
+    {
+      "id": "savings-investments-union:ep:2025-0362-DEC-PLEIN1-2026-11-25",
+      "fileId": "savings-investments-union",
+      "date": "2026-11-25",
+      "source": "ep",
+      "proc": "2025-0362",
+      "kind": "procedural",
+      "title": "Plenary endorse committee interinstitutional negotiations",
+      "push": false
+    },
+    {
+      "id": "environmental-omnibus:ep:MTG-PL-2026-11-24-PVCRE-ITM-6-6",
+      "fileId": "environmental-omnibus",
+      "date": "2026-11-24",
+      "source": "ep",
+      "proc": "2025-0391",
       "kind": "milestone",
       "title": "Plenary vote",
       "push": true
@@ -251,6 +331,39 @@
       "push": false
     },
     {
+      "id": "ets-review:ep:2026-0210:opinions:2026-11-23",
+      "fileId": "ets-review",
+      "date": "2026-11-23",
+      "source": "ep",
+      "proc": "2026-0210",
+      "kind": "milestone",
+      "title": "Committee opinions adopted",
+      "count": 1,
+      "push": false
+    },
+    {
+      "id": "ets-review:ep:opinions:2026-11-23",
+      "fileId": "ets-review",
+      "date": "2026-11-23",
+      "source": "ep",
+      "proc": "2026-0212",
+      "kind": "milestone",
+      "title": "Committee opinions adopted",
+      "count": 1,
+      "push": false
+    },
+    {
+      "id": "environmental-omnibus:ep:tabled:2026-11-20",
+      "fileId": "environmental-omnibus",
+      "date": "2026-11-20",
+      "source": "ep",
+      "proc": "2025-0391",
+      "kind": "procedural",
+      "title": "Report tabled for plenary",
+      "count": 1,
+      "push": false
+    },
+    {
       "id": "cap-2028-2034:ep:opinions:2026-11-19",
       "fileId": "cap-2028-2034",
       "date": "2026-11-19",
@@ -260,6 +373,38 @@
       "title": "Committee opinions adopted",
       "count": 1,
       "push": false
+    },
+    {
+      "id": "environmental-omnibus:ep:tabled:2026-11-19",
+      "fileId": "environmental-omnibus",
+      "date": "2026-11-19",
+      "source": "ep",
+      "proc": "2025-0391",
+      "kind": "procedural",
+      "title": "Report tabled for plenary",
+      "count": 1,
+      "push": false
+    },
+    {
+      "id": "ets-review:ep:opinions:2026-11-19",
+      "fileId": "ets-review",
+      "date": "2026-11-19",
+      "source": "ep",
+      "proc": "2026-0212",
+      "kind": "milestone",
+      "title": "Committee opinions adopted",
+      "count": 1,
+      "push": false
+    },
+    {
+      "id": "savings-investments-union:ep:2025-0361-MEET-TRI1-2026-11-19",
+      "fileId": "savings-investments-union",
+      "date": "2026-11-19",
+      "source": "ep",
+      "proc": "2025-0361",
+      "kind": "milestone",
+      "title": "Trilogue",
+      "push": true
     },
     {
       "id": "biotech-act:ep:2025-0405:tabled:2026-11-18",
@@ -283,6 +428,30 @@
       "push": true
     },
     {
+      "id": "environmental-omnibus:ep:tabled:2026-11-18",
+      "fileId": "environmental-omnibus",
+      "date": "2026-11-18",
+      "source": "ep",
+      "proc": "2025-0391",
+      "kind": "procedural",
+      "title": "Report tabled for plenary",
+      "count": 8,
+      "push": false
+    },
+    {
+      "id": "fair-labour-mobility:ep:2026-0274-NMCP-202073-IMCO-2026-11-18",
+      "fileId": "fair-labour-mobility",
+      "date": "2026-11-18",
+      "source": "ep",
+      "proc": "2026-0274",
+      "kind": "people",
+      "title": "Opinion rapporteur named",
+      "personId": "202073",
+      "group": "S&D",
+      "committee": "IMCO",
+      "push": false
+    },
+    {
       "id": "mff-2028-2034:ep:2025-0555:tabled:2026-11-18",
       "fileId": "mff-2028-2034",
       "date": "2026-11-18",
@@ -294,6 +463,17 @@
       "push": false
     },
     {
+      "id": "environmental-omnibus:ep:tabled:2026-11-17",
+      "fileId": "environmental-omnibus",
+      "date": "2026-11-17",
+      "source": "ep",
+      "proc": "2025-0391",
+      "kind": "procedural",
+      "title": "Report tabled for plenary",
+      "count": 3,
+      "push": false
+    },
+    {
       "id": "grids-package:ep:2025-0400-MEET-TRI1-2026-11-17",
       "fileId": "grids-package",
       "date": "2026-11-17",
@@ -302,6 +482,18 @@
       "kind": "milestone",
       "title": "Trilogue",
       "push": true
+    },
+    {
+      "id": "public-procurement-act:ep:2026-0265-NMSR-256803-2026-11-17",
+      "fileId": "public-procurement-act",
+      "date": "2026-11-17",
+      "source": "ep",
+      "proc": "2026-0265",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "256803",
+      "group": "S&D",
+      "push": false
     },
     {
       "id": "tech-sovereignty-package:ep:CJ18-PR-797430-DEPOT-2026-11-17",
@@ -337,6 +529,19 @@
       "push": false
     },
     {
+      "id": "fair-labour-mobility:ep:2026-0274-NMCP-124893-CULT-2026-11-16",
+      "fileId": "fair-labour-mobility",
+      "date": "2026-11-16",
+      "source": "ep",
+      "proc": "2026-0274",
+      "kind": "people",
+      "title": "Opinion rapporteur named",
+      "personId": "124893",
+      "group": "EPP",
+      "committee": "CULT",
+      "push": false
+    },
+    {
       "id": "kids-act:ep:2026-0286-NMCOR-247735-IMCO-2026-11-16",
       "fileId": "kids-act",
       "date": "2026-11-16",
@@ -363,6 +568,41 @@
       "push": false
     },
     {
+      "id": "public-procurement-act:ep:2026-0265-NMCP-197473-IMCO-2026-11-16",
+      "fileId": "public-procurement-act",
+      "date": "2026-11-16",
+      "source": "ep",
+      "proc": "2026-0265",
+      "kind": "people",
+      "title": "Rapporteur named",
+      "personId": "197473",
+      "group": "EPP",
+      "committee": "IMCO",
+      "push": false
+    },
+    {
+      "id": "savings-investments-union:ep:2025-0362:tabled:2026-11-16",
+      "fileId": "savings-investments-union",
+      "date": "2026-11-16",
+      "source": "ep",
+      "proc": "2025-0362",
+      "kind": "procedural",
+      "title": "Report tabled for plenary",
+      "count": 1,
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0543:tabled:2026-11-13",
+      "fileId": "mff-2028-2034",
+      "date": "2026-11-13",
+      "source": "ep",
+      "proc": "2025-0543",
+      "kind": "procedural",
+      "title": "Report tabled for plenary",
+      "count": 1,
+      "push": false
+    },
+    {
       "id": "digital-fairness-act:stage:positions-in-preparation",
       "fileId": "digital-fairness-act",
       "date": "2026-11-12",
@@ -370,6 +610,99 @@
       "kind": "milestone",
       "title": "Stage change: pre proposal to positions in preparation",
       "push": true
+    },
+    {
+      "id": "ets-review:ep:2026-0211-MEET-TRI1-2026-11-12",
+      "fileId": "ets-review",
+      "date": "2026-11-12",
+      "source": "ep",
+      "proc": "2026-0211",
+      "kind": "milestone",
+      "title": "Trilogue",
+      "push": true
+    },
+    {
+      "id": "grids-package:ep:2026-0203-NMSR-96668-2026-11-12",
+      "fileId": "grids-package",
+      "date": "2026-11-12",
+      "source": "ep",
+      "proc": "2026-0203",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "96668",
+      "group": "EPP",
+      "push": false
+    },
+    {
+      "id": "public-procurement-act:ep:2026-0265-NMCP-257023-ENVI-2026-11-12",
+      "fileId": "public-procurement-act",
+      "date": "2026-11-12",
+      "source": "ep",
+      "proc": "2026-0265",
+      "kind": "people",
+      "title": "Opinion rapporteur named",
+      "personId": "257023",
+      "group": "The Left",
+      "committee": "ENVI",
+      "push": false
+    },
+    {
+      "id": "public-procurement-act:ep:2026-0265-NMCP-257437-INTA-2026-11-12",
+      "fileId": "public-procurement-act",
+      "date": "2026-11-12",
+      "source": "ep",
+      "proc": "2026-0265",
+      "kind": "people",
+      "title": "Opinion rapporteur named",
+      "personId": "257437",
+      "group": "Greens/EFA",
+      "committee": "INTA",
+      "push": false
+    },
+    {
+      "id": "environmental-omnibus:ep:tabled:2026-11-11",
+      "fileId": "environmental-omnibus",
+      "date": "2026-11-11",
+      "source": "ep",
+      "proc": "2025-0391",
+      "kind": "procedural",
+      "title": "Report tabled for plenary",
+      "count": 1,
+      "push": false
+    },
+    {
+      "id": "grids-package:ep:2026-0203-NMSR-197802-2026-11-11",
+      "fileId": "grids-package",
+      "date": "2026-11-11",
+      "source": "ep",
+      "proc": "2026-0203",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "197802",
+      "group": "Greens/EFA",
+      "push": false
+    },
+    {
+      "id": "public-procurement-act:ep:2026-0265-ANPRO-2026-11-11",
+      "fileId": "public-procurement-act",
+      "date": "2026-11-11",
+      "source": "ep",
+      "proc": "2026-0265",
+      "kind": "procedural",
+      "title": "Referred to committee",
+      "push": false
+    },
+    {
+      "id": "public-procurement-act:ep:2026-0265-NMSR-197649-2026-11-11",
+      "fileId": "public-procurement-act",
+      "date": "2026-11-11",
+      "source": "ep",
+      "proc": "2026-0265",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "197649",
+      "group": "EPP",
+      "push": false
     },
     {
       "id": "tech-sovereignty-package:ep:2026-0138-NMSR-257073-2026-11-11",
@@ -381,6 +714,30 @@
       "title": "Opinion shadow rapporteur recorded",
       "personId": "257073",
       "group": "ECR",
+      "push": false
+    },
+    {
+      "id": "affordable-housing-act:ep:2026-0268-NMSR-204414-2026-11-10",
+      "fileId": "affordable-housing-act",
+      "date": "2026-11-10",
+      "source": "ep",
+      "proc": "2026-0268",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "204414",
+      "group": "PfE",
+      "push": false
+    },
+    {
+      "id": "affordable-housing-act:ep:2026-0268-NMSR-257139-2026-11-10",
+      "fileId": "affordable-housing-act",
+      "date": "2026-11-10",
+      "source": "ep",
+      "proc": "2026-0268",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "257139",
+      "group": "Greens/EFA",
       "push": false
     },
     {
@@ -404,6 +761,28 @@
       "push": true
     },
     {
+      "id": "cybersecurity-act-2:ep:2026-0012:opinions:2026-11-10",
+      "fileId": "cybersecurity-act-2",
+      "date": "2026-11-10",
+      "source": "ep",
+      "proc": "2026-0012",
+      "kind": "milestone",
+      "title": "Committee opinions adopted",
+      "count": 1,
+      "push": false
+    },
+    {
+      "id": "cybersecurity-act-2:ep:opinions:2026-11-10",
+      "fileId": "cybersecurity-act-2",
+      "date": "2026-11-10",
+      "source": "ep",
+      "proc": "2026-0011",
+      "kind": "milestone",
+      "title": "Committee opinions adopted",
+      "count": 1,
+      "push": false
+    },
+    {
       "id": "digital-omnibus-data:ep:opinions:2026-11-10",
       "fileId": "digital-omnibus-data",
       "date": "2026-11-10",
@@ -412,6 +791,19 @@
       "kind": "milestone",
       "title": "Committee opinions adopted",
       "count": 1,
+      "push": false
+    },
+    {
+      "id": "fair-labour-mobility:ep:2026-0275-NMCP-197589-CULT-2026-11-10",
+      "fileId": "fair-labour-mobility",
+      "date": "2026-11-10",
+      "source": "ep",
+      "proc": "2026-0275",
+      "kind": "people",
+      "title": "Opinion rapporteur named",
+      "personId": "197589",
+      "group": "Renew",
+      "committee": "CULT",
       "push": false
     },
     {
@@ -436,6 +828,16 @@
       "push": false
     },
     {
+      "id": "mff-2028-2034:ep:2025-0543-DEC-ADCP-2026-11-10",
+      "fileId": "mff-2028-2034",
+      "date": "2026-11-10",
+      "source": "ep",
+      "proc": "2025-0543",
+      "kind": "milestone",
+      "title": "Report adopted in committee",
+      "push": true
+    },
+    {
       "id": "mff-2028-2034:ep:2025-0545:amendments:2026-11-10",
       "fileId": "mff-2028-2034",
       "date": "2026-11-10",
@@ -457,6 +859,28 @@
       "push": true
     },
     {
+      "id": "savings-investments-union:ep:2025-0362-DEC-ADCP-2026-11-10",
+      "fileId": "savings-investments-union",
+      "date": "2026-11-10",
+      "source": "ep",
+      "proc": "2025-0362",
+      "kind": "milestone",
+      "title": "Report adopted in committee",
+      "push": true
+    },
+    {
+      "id": "public-procurement-act:ep:2026-0265-NMSR-257070-2026-11-09",
+      "fileId": "public-procurement-act",
+      "date": "2026-11-09",
+      "source": "ep",
+      "proc": "2026-0265",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "257070",
+      "group": "ESN",
+      "push": false
+    },
+    {
       "id": "tech-sovereignty-package:ep:ITRE-PR-797426-DEPOT-2026-11-09",
       "fileId": "tech-sovereignty-package",
       "date": "2026-11-09",
@@ -466,6 +890,30 @@
       "title": "Draft report tabled",
       "push": true,
       "ref": "ITRE-PR-797426"
+    },
+    {
+      "id": "affordable-housing-act:ep:2026-0268-NMSR-197618-2026-11-05",
+      "fileId": "affordable-housing-act",
+      "date": "2026-11-05",
+      "source": "ep",
+      "proc": "2026-0268",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "197618",
+      "group": "Renew",
+      "push": false
+    },
+    {
+      "id": "affordable-housing-act:ep:2026-0268-NMSR-197842-2026-11-05",
+      "fileId": "affordable-housing-act",
+      "date": "2026-11-05",
+      "source": "ep",
+      "proc": "2026-0268",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "197842",
+      "group": "ECR",
+      "push": false
     },
     {
       "id": "digital-euro:ep:2023-0212-MEET-TRI1-2026-11-05",
@@ -478,11 +926,33 @@
       "push": true
     },
     {
+      "id": "affordable-housing-act:ep:2026-0268-NMSR-197414-2026-11-04",
+      "fileId": "affordable-housing-act",
+      "date": "2026-11-04",
+      "source": "ep",
+      "proc": "2026-0268",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "197414",
+      "group": "EPP",
+      "push": false
+    },
+    {
       "id": "co2-cars:ep:2025-0420-DEC-ADCP-2026-11-04",
       "fileId": "co2-cars",
       "date": "2026-11-04",
       "source": "ep",
       "proc": "2025-0420",
+      "kind": "milestone",
+      "title": "Report adopted in committee",
+      "push": true
+    },
+    {
+      "id": "co2-cars:ep:2025-0421-DEC-ADCP-2026-11-04",
+      "fileId": "co2-cars",
+      "date": "2026-11-04",
+      "source": "ep",
+      "proc": "2025-0421",
       "kind": "milestone",
       "title": "Report adopted in committee",
       "push": true
@@ -510,6 +980,29 @@
       "push": false
     },
     {
+      "id": "environmental-omnibus:ep:2025-0391-DEC-ADCP-2026-11-04",
+      "fileId": "environmental-omnibus",
+      "date": "2026-11-04",
+      "source": "ep",
+      "proc": "2025-0391",
+      "kind": "milestone",
+      "title": "Report adopted in committee",
+      "push": true
+    },
+    {
+      "id": "fair-labour-mobility:ep:2026-0271-NMCP-202073-EMPL-2026-11-04",
+      "fileId": "fair-labour-mobility",
+      "date": "2026-11-04",
+      "source": "ep",
+      "proc": "2026-0271",
+      "kind": "people",
+      "title": "Rapporteur named",
+      "personId": "202073",
+      "group": "S&D",
+      "committee": "EMPL",
+      "push": false
+    },
+    {
       "id": "medical-devices:ep:opinions:2026-11-04",
       "fileId": "medical-devices",
       "date": "2026-11-04",
@@ -530,6 +1023,66 @@
       "title": "Amendments tabled in committee",
       "count": 1,
       "push": true
+    },
+    {
+      "id": "public-procurement-act:ep:2026-0265-NMCP-208722-EMPL-2026-11-04",
+      "fileId": "public-procurement-act",
+      "date": "2026-11-04",
+      "source": "ep",
+      "proc": "2026-0265",
+      "kind": "people",
+      "title": "Opinion rapporteur named",
+      "personId": "208722",
+      "group": "Greens/EFA",
+      "committee": "EMPL",
+      "push": false
+    },
+    {
+      "id": "public-procurement-act:ep:2026-0265-NMSR-236050-2026-11-04",
+      "fileId": "public-procurement-act",
+      "date": "2026-11-04",
+      "source": "ep",
+      "proc": "2026-0265",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "236050",
+      "group": "PfE",
+      "push": false
+    },
+    {
+      "id": "public-procurement-act:ep:2026-0265-NMSR-97236-2026-11-04",
+      "fileId": "public-procurement-act",
+      "date": "2026-11-04",
+      "source": "ep",
+      "proc": "2026-0265",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "97236",
+      "group": "Greens/EFA",
+      "push": false
+    },
+    {
+      "id": "savings-investments-union:ep:opinions:2026-11-04",
+      "fileId": "savings-investments-union",
+      "date": "2026-11-04",
+      "source": "ep",
+      "proc": "2025-0383",
+      "kind": "milestone",
+      "title": "Committee opinions adopted",
+      "count": 1,
+      "push": false
+    },
+    {
+      "id": "fair-labour-mobility:ep:2026-0275-NMSR-257238-2026-11-03",
+      "fileId": "fair-labour-mobility",
+      "date": "2026-11-03",
+      "source": "ep",
+      "proc": "2026-0275",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "257238",
+      "group": "S&D",
+      "push": false
     },
     {
       "id": "kids-act:ep:2026-0286-NMSR-197529-2026-11-03",
@@ -579,6 +1132,30 @@
       "push": false
     },
     {
+      "id": "public-procurement-act:ep:2026-0265-NMSR-199941-2026-10-30",
+      "fileId": "public-procurement-act",
+      "date": "2026-10-30",
+      "source": "ep",
+      "proc": "2026-0265",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "199941",
+      "group": "S&D",
+      "push": false
+    },
+    {
+      "id": "affordable-housing-act:ep:2026-0268-NMSR-122978-2026-10-29",
+      "fileId": "affordable-housing-act",
+      "date": "2026-10-29",
+      "source": "ep",
+      "proc": "2026-0268",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "122978",
+      "group": "S&D",
+      "push": false
+    },
+    {
       "id": "mff-2028-2034:ep:2025-0545:amendments:2026-10-29",
       "fileId": "mff-2028-2034",
       "date": "2026-10-29",
@@ -600,6 +1177,66 @@
       "personId": "256809",
       "group": "EPP",
       "committee": "IMCO",
+      "push": false
+    },
+    {
+      "id": "fair-labour-mobility:ep:2026-0272-NMSR-256890-2026-10-28",
+      "fileId": "fair-labour-mobility",
+      "date": "2026-10-28",
+      "source": "ep",
+      "proc": "2026-0272",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "256890",
+      "group": "The Left",
+      "push": false
+    },
+    {
+      "id": "fair-labour-mobility:ep:2026-0273-NMSR-256937-2026-10-28",
+      "fileId": "fair-labour-mobility",
+      "date": "2026-10-28",
+      "source": "ep",
+      "proc": "2026-0273",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "256937",
+      "group": "S&D",
+      "push": false
+    },
+    {
+      "id": "fair-labour-mobility:ep:2026-0273-NMSR-257095-2026-10-27",
+      "fileId": "fair-labour-mobility",
+      "date": "2026-10-27",
+      "source": "ep",
+      "proc": "2026-0273",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "257095",
+      "group": "ECR",
+      "push": false
+    },
+    {
+      "id": "fair-labour-mobility:ep:2026-0274-NMSR-204336-2026-10-27",
+      "fileId": "fair-labour-mobility",
+      "date": "2026-10-27",
+      "source": "ep",
+      "proc": "2026-0274",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "204336",
+      "group": "EPP",
+      "push": false
+    },
+    {
+      "id": "fair-labour-mobility:ep:2026-0274-NMSR-256994-2026-10-27",
+      "fileId": "fair-labour-mobility",
+      "date": "2026-10-27",
+      "source": "ep",
+      "proc": "2026-0274",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "256994",
+      "group": "S&D",
       "push": false
     },
     {
@@ -639,6 +1276,78 @@
       "push": false
     },
     {
+      "id": "fair-labour-mobility:ep:2026-0271-NMSR-197406-2026-10-26",
+      "fileId": "fair-labour-mobility",
+      "date": "2026-10-26",
+      "source": "ep",
+      "proc": "2026-0271",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "197406",
+      "group": "EPP",
+      "push": false
+    },
+    {
+      "id": "fair-labour-mobility:ep:2026-0273-NMSR-256805-2026-10-26",
+      "fileId": "fair-labour-mobility",
+      "date": "2026-10-26",
+      "source": "ep",
+      "proc": "2026-0273",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "256805",
+      "group": "The Left",
+      "push": false
+    },
+    {
+      "id": "fair-labour-mobility:ep:2026-0275-NMCP-197589-EMPL-2026-10-26",
+      "fileId": "fair-labour-mobility",
+      "date": "2026-10-26",
+      "source": "ep",
+      "proc": "2026-0275",
+      "kind": "people",
+      "title": "Opinion rapporteur named",
+      "personId": "197589",
+      "group": "Renew",
+      "committee": "EMPL",
+      "push": false
+    },
+    {
+      "id": "fair-labour-mobility:ep:2026-0275-NMSR-257065-2026-10-26",
+      "fileId": "fair-labour-mobility",
+      "date": "2026-10-26",
+      "source": "ep",
+      "proc": "2026-0275",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "257065",
+      "group": "EPP",
+      "push": false
+    },
+    {
+      "id": "fair-labour-mobility:ep:2026-0272-NMCP-95074-EMPL-2026-10-23",
+      "fileId": "fair-labour-mobility",
+      "date": "2026-10-23",
+      "source": "ep",
+      "proc": "2026-0272",
+      "kind": "people",
+      "title": "Rapporteur named",
+      "personId": "95074",
+      "group": "EPP",
+      "committee": "EMPL",
+      "push": false
+    },
+    {
+      "id": "affordable-housing-act:ep:2026-0268-ANPRO-2026-10-22",
+      "fileId": "affordable-housing-act",
+      "date": "2026-10-22",
+      "source": "ep",
+      "proc": "2026-0268",
+      "kind": "procedural",
+      "title": "Referred to committee",
+      "push": false
+    },
+    {
       "id": "co2-cars:ep:opinions:2026-10-22",
       "fileId": "co2-cars",
       "date": "2026-10-22",
@@ -650,6 +1359,68 @@
       "push": false
     },
     {
+      "id": "ets-review:ep:2026-0211-DEC-DCPL-2026-10-22",
+      "fileId": "ets-review",
+      "date": "2026-10-22",
+      "source": "ep",
+      "proc": "2026-0211",
+      "kind": "procedural",
+      "title": "Plenary amendments",
+      "push": false
+    },
+    {
+      "id": "ets-review:ep:2026-0211-DEC-REFBAK-2026-10-22",
+      "fileId": "ets-review",
+      "date": "2026-10-22",
+      "source": "ep",
+      "proc": "2026-0211",
+      "kind": "milestone",
+      "title": "Trilogue mandate confirmed in plenary",
+      "push": true
+    },
+    {
+      "id": "ets-review:ep:MTG-PL-2026-10-22-PVCRE-ITM-7-4",
+      "fileId": "ets-review",
+      "date": "2026-10-22",
+      "source": "ep",
+      "proc": "2026-0211",
+      "kind": "milestone",
+      "title": "Plenary vote",
+      "push": true
+    },
+    {
+      "id": "fair-labour-mobility:ep:2026-0274-ANPRO-2026-10-22",
+      "fileId": "fair-labour-mobility",
+      "date": "2026-10-22",
+      "source": "ep",
+      "proc": "2026-0274",
+      "kind": "procedural",
+      "title": "Referred to committee",
+      "push": false
+    },
+    {
+      "id": "fair-labour-mobility:ep:2026-0274-NMSR-256964-2026-10-22",
+      "fileId": "fair-labour-mobility",
+      "date": "2026-10-22",
+      "source": "ep",
+      "proc": "2026-0274",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "256964",
+      "group": "Greens/EFA",
+      "push": false
+    },
+    {
+      "id": "fair-labour-mobility:ep:2026-0275-ANPRO-2026-10-22",
+      "fileId": "fair-labour-mobility",
+      "date": "2026-10-22",
+      "source": "ep",
+      "proc": "2026-0275",
+      "kind": "procedural",
+      "title": "Referred to committee",
+      "push": false
+    },
+    {
       "id": "kids-act:ep:2026-0286-ANPRO-2026-10-22",
       "fileId": "kids-act",
       "date": "2026-10-22",
@@ -657,6 +1428,154 @@
       "proc": "2026-0286",
       "kind": "procedural",
       "title": "Referred to committee",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0222-DEC-DCPL-2026-10-22",
+      "fileId": "mff-2028-2034",
+      "date": "2026-10-22",
+      "source": "ep",
+      "proc": "2025-0222",
+      "kind": "procedural",
+      "title": "Plenary amendments",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0222-DEC-REFBAK-2026-10-22",
+      "fileId": "mff-2028-2034",
+      "date": "2026-10-22",
+      "source": "ep",
+      "proc": "2025-0222",
+      "kind": "milestone",
+      "title": "Trilogue mandate confirmed in plenary",
+      "push": true
+    },
+    {
+      "id": "mff-2028-2034:ep:MTG-PL-2026-10-22-PVCRE-ITM-7-2",
+      "fileId": "mff-2028-2034",
+      "date": "2026-10-22",
+      "source": "ep",
+      "proc": "2025-0222",
+      "kind": "milestone",
+      "title": "Plenary vote",
+      "push": true
+    },
+    {
+      "id": "savings-investments-union:ep:2025-0361-MEET-TRI1-2026-10-22",
+      "fileId": "savings-investments-union",
+      "date": "2026-10-22",
+      "source": "ep",
+      "proc": "2025-0361",
+      "kind": "milestone",
+      "title": "Trilogue",
+      "push": true
+    },
+    {
+      "id": "ets-review:ep:amendments:2026-10-21",
+      "fileId": "ets-review",
+      "date": "2026-10-21",
+      "source": "ep",
+      "proc": "2026-0212",
+      "kind": "milestone",
+      "title": "Amendments tabled in committee",
+      "count": 4,
+      "push": true
+    },
+    {
+      "id": "fair-labour-mobility:ep:2026-0271-NMSR-198076-2026-10-21",
+      "fileId": "fair-labour-mobility",
+      "date": "2026-10-21",
+      "source": "ep",
+      "proc": "2026-0271",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "198076",
+      "group": "Greens/EFA",
+      "push": false
+    },
+    {
+      "id": "fair-labour-mobility:ep:2026-0271-NMSR-256870-2026-10-21",
+      "fileId": "fair-labour-mobility",
+      "date": "2026-10-21",
+      "source": "ep",
+      "proc": "2026-0271",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "256870",
+      "group": "Renew",
+      "push": false
+    },
+    {
+      "id": "fair-labour-mobility:ep:2026-0272-NMSR-124700-2026-10-21",
+      "fileId": "fair-labour-mobility",
+      "date": "2026-10-21",
+      "source": "ep",
+      "proc": "2026-0272",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "124700",
+      "group": "Renew",
+      "push": false
+    },
+    {
+      "id": "fair-labour-mobility:ep:2026-0273-NMCP-197447-EMPL-2026-10-21",
+      "fileId": "fair-labour-mobility",
+      "date": "2026-10-21",
+      "source": "ep",
+      "proc": "2026-0273",
+      "kind": "people",
+      "title": "Opinion rapporteur named",
+      "personId": "197447",
+      "group": "Renew",
+      "committee": "EMPL",
+      "push": false
+    },
+    {
+      "id": "fair-labour-mobility:ep:2026-0274-NMCP-256976-EMPL-2026-10-21",
+      "fileId": "fair-labour-mobility",
+      "date": "2026-10-21",
+      "source": "ep",
+      "proc": "2026-0274",
+      "kind": "people",
+      "title": "Rapporteur named",
+      "personId": "256976",
+      "group": "Renew",
+      "committee": "EMPL",
+      "push": false
+    },
+    {
+      "id": "fair-labour-mobility:ep:2026-0275-NMSR-256964-2026-10-21",
+      "fileId": "fair-labour-mobility",
+      "date": "2026-10-21",
+      "source": "ep",
+      "proc": "2026-0275",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "256964",
+      "group": "Greens/EFA",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:MTG-PL-2026-10-21-PVCRE-ITM-12",
+      "fileId": "mff-2028-2034",
+      "date": "2026-10-21",
+      "source": "ep",
+      "proc": "2025-0222",
+      "kind": "milestone",
+      "title": "Plenary debate",
+      "push": false,
+      "ref": "A-10-2026-0257"
+    },
+    {
+      "id": "public-procurement-act:ep:2026-0265-NMSR-124700-2026-10-21",
+      "fileId": "public-procurement-act",
+      "date": "2026-10-21",
+      "source": "ep",
+      "proc": "2026-0265",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "124700",
+      "group": "Renew",
       "push": false
     },
     {
@@ -705,6 +1624,147 @@
       "ref": "ITRE-PR-791994"
     },
     {
+      "id": "environmental-omnibus:ep:2025-0395-DEC-DCPL-2026-10-20",
+      "fileId": "environmental-omnibus",
+      "date": "2026-10-20",
+      "source": "ep",
+      "proc": "2025-0395",
+      "kind": "procedural",
+      "title": "Plenary amendments",
+      "push": false
+    },
+    {
+      "id": "environmental-omnibus:ep:2025-0395-DEC-REFBAK-2026-10-20",
+      "fileId": "environmental-omnibus",
+      "date": "2026-10-20",
+      "source": "ep",
+      "proc": "2025-0395",
+      "kind": "milestone",
+      "title": "Trilogue mandate confirmed in plenary",
+      "push": true
+    },
+    {
+      "id": "environmental-omnibus:ep:2025-0396-DEC-DCPL-2026-10-20",
+      "fileId": "environmental-omnibus",
+      "date": "2026-10-20",
+      "source": "ep",
+      "proc": "2025-0396",
+      "kind": "procedural",
+      "title": "Plenary amendments",
+      "push": false
+    },
+    {
+      "id": "environmental-omnibus:ep:2025-0396-DEC-REFBAK-2026-10-20",
+      "fileId": "environmental-omnibus",
+      "date": "2026-10-20",
+      "source": "ep",
+      "proc": "2025-0396",
+      "kind": "milestone",
+      "title": "Trilogue mandate confirmed in plenary",
+      "push": true
+    },
+    {
+      "id": "environmental-omnibus:ep:MTG-PL-2026-10-20-PVCRE-ITM-6-3",
+      "fileId": "environmental-omnibus",
+      "date": "2026-10-20",
+      "source": "ep",
+      "proc": "2025-0396",
+      "kind": "milestone",
+      "title": "Plenary vote",
+      "push": true
+    },
+    {
+      "id": "environmental-omnibus:ep:MTG-PL-2026-10-20-PVCRE-ITM-6-4",
+      "fileId": "environmental-omnibus",
+      "date": "2026-10-20",
+      "source": "ep",
+      "proc": "2025-0395",
+      "kind": "milestone",
+      "title": "Plenary vote",
+      "push": true
+    },
+    {
+      "id": "ets-review:ep:2026-0211:tabled:2026-10-20",
+      "fileId": "ets-review",
+      "date": "2026-10-20",
+      "source": "ep",
+      "proc": "2026-0211",
+      "kind": "procedural",
+      "title": "Report tabled for plenary",
+      "count": 8,
+      "push": false
+    },
+    {
+      "id": "ets-review:ep:amendments:2026-10-20",
+      "fileId": "ets-review",
+      "date": "2026-10-20",
+      "source": "ep",
+      "proc": "2026-0212",
+      "kind": "milestone",
+      "title": "Amendments tabled in committee",
+      "count": 7,
+      "push": true
+    },
+    {
+      "id": "fair-labour-mobility:ep:2026-0271-NMSR-261796-2026-10-20",
+      "fileId": "fair-labour-mobility",
+      "date": "2026-10-20",
+      "source": "ep",
+      "proc": "2026-0271",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "261796",
+      "group": "PfE",
+      "push": false
+    },
+    {
+      "id": "fair-labour-mobility:ep:2026-0274-NMSR-256805-2026-10-20",
+      "fileId": "fair-labour-mobility",
+      "date": "2026-10-20",
+      "source": "ep",
+      "proc": "2026-0274",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "256805",
+      "group": "The Left",
+      "push": false
+    },
+    {
+      "id": "fair-labour-mobility:ep:2026-0275-NMSR-256805-2026-10-20",
+      "fileId": "fair-labour-mobility",
+      "date": "2026-10-20",
+      "source": "ep",
+      "proc": "2026-0275",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "256805",
+      "group": "The Left",
+      "push": false
+    },
+    {
+      "id": "fair-labour-mobility:ep:2026-0275-NMSR-256874-2026-10-20",
+      "fileId": "fair-labour-mobility",
+      "date": "2026-10-20",
+      "source": "ep",
+      "proc": "2026-0275",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "256874",
+      "group": "PfE",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0227:tabled:2026-10-20",
+      "fileId": "mff-2028-2034",
+      "date": "2026-10-20",
+      "source": "ep",
+      "proc": "2025-0227",
+      "kind": "procedural",
+      "title": "Report tabled for plenary",
+      "count": 1,
+      "push": false
+    },
+    {
       "id": "military-mobility:ep:2025-0847-MEET-TRI1-2026-10-20",
       "fileId": "military-mobility",
       "date": "2026-10-20",
@@ -715,6 +1775,104 @@
       "push": true
     },
     {
+      "id": "public-procurement-act:ep:2026-0265-NMSR-257143-2026-10-20",
+      "fileId": "public-procurement-act",
+      "date": "2026-10-20",
+      "source": "ep",
+      "proc": "2026-0265",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "257143",
+      "group": "ECR",
+      "push": false
+    },
+    {
+      "id": "savings-investments-union:ep:2025-0361-NMSR-198076-2026-10-20",
+      "fileId": "savings-investments-union",
+      "date": "2026-10-20",
+      "source": "ep",
+      "proc": "2025-0361",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "198076",
+      "group": "Greens/EFA",
+      "push": false
+    },
+    {
+      "id": "environmental-omnibus:ep:MTG-PL-2026-10-19-PVCRE-ITM-16",
+      "fileId": "environmental-omnibus",
+      "date": "2026-10-19",
+      "source": "ep",
+      "proc": "2025-0396",
+      "kind": "milestone",
+      "title": "Plenary debate",
+      "push": false,
+      "ref": "C-10-2025-0335"
+    },
+    {
+      "id": "ets-review:ep:2026-0211-DEC-ADCP-2026-10-19",
+      "fileId": "ets-review",
+      "date": "2026-10-19",
+      "source": "ep",
+      "proc": "2026-0211",
+      "kind": "milestone",
+      "title": "Report adopted in committee",
+      "push": true
+    },
+    {
+      "id": "ets-review:ep:2026-0211:tabled:2026-10-19",
+      "fileId": "ets-review",
+      "date": "2026-10-19",
+      "source": "ep",
+      "proc": "2026-0211",
+      "kind": "procedural",
+      "title": "Report tabled for plenary",
+      "count": 1,
+      "push": false
+    },
+    {
+      "id": "fair-labour-mobility:ep:2026-0271-ANPRO-2026-10-19",
+      "fileId": "fair-labour-mobility",
+      "date": "2026-10-19",
+      "source": "ep",
+      "proc": "2026-0271",
+      "kind": "procedural",
+      "title": "Referred to committee",
+      "push": false
+    },
+    {
+      "id": "fair-labour-mobility:ep:2026-0272-ANPRO-2026-10-19",
+      "fileId": "fair-labour-mobility",
+      "date": "2026-10-19",
+      "source": "ep",
+      "proc": "2026-0272",
+      "kind": "procedural",
+      "title": "Referred to committee",
+      "push": false
+    },
+    {
+      "id": "fair-labour-mobility:ep:2026-0272-NMSR-261796-2026-10-19",
+      "fileId": "fair-labour-mobility",
+      "date": "2026-10-19",
+      "source": "ep",
+      "proc": "2026-0272",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "261796",
+      "group": "PfE",
+      "push": false
+    },
+    {
+      "id": "fair-labour-mobility:ep:2026-0273-ANPRO-2026-10-19",
+      "fileId": "fair-labour-mobility",
+      "date": "2026-10-19",
+      "source": "ep",
+      "proc": "2026-0273",
+      "kind": "procedural",
+      "title": "Referred to committee",
+      "push": false
+    },
+    {
       "id": "industrial-accelerator-act:ep:amendments:2026-10-19",
       "fileId": "industrial-accelerator-act",
       "date": "2026-10-19",
@@ -723,6 +1881,27 @@
       "kind": "milestone",
       "title": "Amendments tabled in committee",
       "count": 18,
+      "push": true
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0222:tabled:2026-10-19",
+      "fileId": "mff-2028-2034",
+      "date": "2026-10-19",
+      "source": "ep",
+      "proc": "2025-0222",
+      "kind": "procedural",
+      "title": "Report tabled for plenary",
+      "count": 1,
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0227-DEC-ADCP-2026-10-19",
+      "fileId": "mff-2028-2034",
+      "date": "2026-10-19",
+      "source": "ep",
+      "proc": "2025-0227",
+      "kind": "milestone",
+      "title": "Report adopted in committee",
       "push": true
     },
     {
@@ -751,6 +1930,30 @@
       "push": false
     },
     {
+      "id": "fair-labour-mobility:ep:2026-0271-NMSR-257023-2026-10-16",
+      "fileId": "fair-labour-mobility",
+      "date": "2026-10-16",
+      "source": "ep",
+      "proc": "2026-0271",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "257023",
+      "group": "The Left",
+      "push": false
+    },
+    {
+      "id": "public-procurement-act:ep:2026-0265-NMSR-257023-2026-10-16",
+      "fileId": "public-procurement-act",
+      "date": "2026-10-16",
+      "source": "ep",
+      "proc": "2026-0265",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "257023",
+      "group": "The Left",
+      "push": false
+    },
+    {
       "id": "tech-sovereignty-package:ep:2026-0138-NMSR-124867-2026-10-16",
       "fileId": "tech-sovereignty-package",
       "date": "2026-10-16",
@@ -760,6 +1963,78 @@
       "title": "Opinion shadow rapporteur recorded",
       "personId": "124867",
       "group": "S&D",
+      "push": false
+    },
+    {
+      "id": "affordable-housing-act:ep:2026-0268-NMCP-197529-EMPL-2026-10-15",
+      "fileId": "affordable-housing-act",
+      "date": "2026-10-15",
+      "source": "ep",
+      "proc": "2026-0268",
+      "kind": "people",
+      "title": "Opinion rapporteur named",
+      "personId": "197529",
+      "group": "The Left",
+      "committee": "EMPL",
+      "push": false
+    },
+    {
+      "id": "ets-review:ep:2026-0210:amendments:2026-10-15",
+      "fileId": "ets-review",
+      "date": "2026-10-15",
+      "source": "ep",
+      "proc": "2026-0210",
+      "kind": "milestone",
+      "title": "Amendments tabled in committee",
+      "count": 1,
+      "push": true
+    },
+    {
+      "id": "fair-labour-mobility:ep:2026-0271-NMSR-257116-2026-10-15",
+      "fileId": "fair-labour-mobility",
+      "date": "2026-10-15",
+      "source": "ep",
+      "proc": "2026-0271",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "257116",
+      "group": "ECR",
+      "push": false
+    },
+    {
+      "id": "fair-labour-mobility:ep:2026-0272-NMSR-197794-2026-10-15",
+      "fileId": "fair-labour-mobility",
+      "date": "2026-10-15",
+      "source": "ep",
+      "proc": "2026-0272",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "197794",
+      "group": "ECR",
+      "push": false
+    },
+    {
+      "id": "fair-labour-mobility:ep:2026-0274-NMSR-257149-2026-10-15",
+      "fileId": "fair-labour-mobility",
+      "date": "2026-10-15",
+      "source": "ep",
+      "proc": "2026-0274",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "257149",
+      "group": "ECR",
+      "push": false
+    },
+    {
+      "id": "fair-labour-mobility:ep:2026-0275-NMSR-256986-2026-10-15",
+      "fileId": "fair-labour-mobility",
+      "date": "2026-10-15",
+      "source": "ep",
+      "proc": "2026-0275",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "256986",
+      "group": "ECR",
       "push": false
     },
     {
@@ -776,6 +2051,49 @@
       "push": false
     },
     {
+      "id": "business-wallets:ep:2025-0358-MEET-TRI1-2026-10-14",
+      "fileId": "business-wallets",
+      "date": "2026-10-14",
+      "source": "ep",
+      "proc": "2025-0358",
+      "kind": "milestone",
+      "title": "Trilogue",
+      "push": true
+    },
+    {
+      "id": "environmental-omnibus:ep:2025-0395:tabled:2026-10-14",
+      "fileId": "environmental-omnibus",
+      "date": "2026-10-14",
+      "source": "ep",
+      "proc": "2025-0395",
+      "kind": "procedural",
+      "title": "Report tabled for plenary",
+      "count": 4,
+      "push": false
+    },
+    {
+      "id": "environmental-omnibus:ep:2025-0396:tabled:2026-10-14",
+      "fileId": "environmental-omnibus",
+      "date": "2026-10-14",
+      "source": "ep",
+      "proc": "2025-0396",
+      "kind": "procedural",
+      "title": "Report tabled for plenary",
+      "count": 3,
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0222:tabled:2026-10-14",
+      "fileId": "mff-2028-2034",
+      "date": "2026-10-14",
+      "source": "ep",
+      "proc": "2025-0222",
+      "kind": "procedural",
+      "title": "Report tabled for plenary",
+      "count": 2,
+      "push": false
+    },
+    {
       "id": "biotech-act:ep:2025-0405-NMSR-256942-2026-10-13",
       "fileId": "biotech-act",
       "date": "2026-10-13",
@@ -786,6 +2104,50 @@
       "personId": "256942",
       "group": "ESN",
       "push": false
+    },
+    {
+      "id": "cybersecurity-act-2:ep:amendments:2026-10-13",
+      "fileId": "cybersecurity-act-2",
+      "date": "2026-10-13",
+      "source": "ep",
+      "proc": "2026-0011",
+      "kind": "milestone",
+      "title": "Amendments tabled in committee",
+      "count": 4,
+      "push": true
+    },
+    {
+      "id": "environmental-omnibus:ep:2025-0395:tabled:2026-10-13",
+      "fileId": "environmental-omnibus",
+      "date": "2026-10-13",
+      "source": "ep",
+      "proc": "2025-0395",
+      "kind": "procedural",
+      "title": "Report tabled for plenary",
+      "count": 1,
+      "push": false
+    },
+    {
+      "id": "environmental-omnibus:ep:2025-0396:tabled:2026-10-13",
+      "fileId": "environmental-omnibus",
+      "date": "2026-10-13",
+      "source": "ep",
+      "proc": "2025-0396",
+      "kind": "procedural",
+      "title": "Report tabled for plenary",
+      "count": 1,
+      "push": false
+    },
+    {
+      "id": "ets-review:ep:amendments:2026-10-13",
+      "fileId": "ets-review",
+      "date": "2026-10-13",
+      "source": "ep",
+      "proc": "2026-0212",
+      "kind": "milestone",
+      "title": "Amendments tabled in committee",
+      "count": 3,
+      "push": true
     },
     {
       "id": "grids-package:ep:2025-0399-MEET-TRI1-2026-10-13",
@@ -809,6 +2171,53 @@
       "push": true
     },
     {
+      "id": "mff-2028-2034:ep:2025-0222:tabled:2026-10-13",
+      "fileId": "mff-2028-2034",
+      "date": "2026-10-13",
+      "source": "ep",
+      "proc": "2025-0222",
+      "kind": "procedural",
+      "title": "Report tabled for plenary",
+      "count": 1,
+      "push": false
+    },
+    {
+      "id": "public-procurement-act:ep:2026-0265-NMSR-256976-2026-10-13",
+      "fileId": "public-procurement-act",
+      "date": "2026-10-13",
+      "source": "ep",
+      "proc": "2026-0265",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "256976",
+      "group": "Renew",
+      "push": false
+    },
+    {
+      "id": "public-procurement-act:ep:2026-0265-NMSR-275087-2026-10-13",
+      "fileId": "public-procurement-act",
+      "date": "2026-10-13",
+      "source": "ep",
+      "proc": "2026-0265",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "275087",
+      "group": "S&D",
+      "push": false
+    },
+    {
+      "id": "ets-review:ep:2026-0212-NMSR-198176-2026-10-12",
+      "fileId": "ets-review",
+      "date": "2026-10-12",
+      "source": "ep",
+      "proc": "2026-0212",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "198176",
+      "group": "PfE",
+      "push": false
+    },
+    {
       "id": "medical-devices:ep:2025-0404-NMSR-197870-2026-10-12",
       "fileId": "medical-devices",
       "date": "2026-10-12",
@@ -818,6 +2227,53 @@
       "title": "Opinion shadow rapporteur recorded",
       "personId": "197870",
       "group": "Greens/EFA",
+      "push": false
+    },
+    {
+      "id": "public-procurement-act:ep:2026-0265-NMCP-256882-ITRE-2026-10-12",
+      "fileId": "public-procurement-act",
+      "date": "2026-10-12",
+      "source": "ep",
+      "proc": "2026-0265",
+      "kind": "people",
+      "title": "Opinion rapporteur named",
+      "personId": "256882",
+      "group": "PfE",
+      "committee": "ITRE",
+      "push": false
+    },
+    {
+      "id": "environmental-omnibus:ep:2025-0395:tabled:2026-10-09",
+      "fileId": "environmental-omnibus",
+      "date": "2026-10-09",
+      "source": "ep",
+      "proc": "2025-0395",
+      "kind": "procedural",
+      "title": "Report tabled for plenary",
+      "count": 1,
+      "push": false
+    },
+    {
+      "id": "environmental-omnibus:ep:2025-0396:tabled:2026-10-09",
+      "fileId": "environmental-omnibus",
+      "date": "2026-10-09",
+      "source": "ep",
+      "proc": "2025-0396",
+      "kind": "procedural",
+      "title": "Report tabled for plenary",
+      "count": 1,
+      "push": false
+    },
+    {
+      "id": "public-procurement-act:ep:2026-0265-NMSR-119435-2026-10-09",
+      "fileId": "public-procurement-act",
+      "date": "2026-10-09",
+      "source": "ep",
+      "proc": "2026-0265",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "119435",
+      "group": "EPP",
       "push": false
     },
     {
@@ -841,6 +2297,106 @@
       "kind": "milestone",
       "title": "Trilogue",
       "push": true
+    },
+    {
+      "id": "grids-package:ep:2026-0203-NMSR-23816-2026-10-08",
+      "fileId": "grids-package",
+      "date": "2026-10-08",
+      "source": "ep",
+      "proc": "2026-0203",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "23816",
+      "group": "PfE",
+      "push": false
+    },
+    {
+      "id": "business-wallets:ep:2025-0358-DEC-PLEIN1-2026-10-07",
+      "fileId": "business-wallets",
+      "date": "2026-10-07",
+      "source": "ep",
+      "proc": "2025-0358",
+      "kind": "procedural",
+      "title": "Plenary endorse committee interinstitutional negotiations",
+      "push": false
+    },
+    {
+      "id": "grids-package:ep:2026-0203-NMCP-256885-ITRE-2026-10-07",
+      "fileId": "grids-package",
+      "date": "2026-10-07",
+      "source": "ep",
+      "proc": "2026-0203",
+      "kind": "people",
+      "title": "Rapporteur named",
+      "personId": "256885",
+      "group": "S&D",
+      "committee": "ITRE",
+      "push": false
+    },
+    {
+      "id": "savings-investments-union:ep:2025-0361-DEC-PLEIN1-2026-10-07",
+      "fileId": "savings-investments-union",
+      "date": "2026-10-07",
+      "source": "ep",
+      "proc": "2025-0361",
+      "kind": "procedural",
+      "title": "Plenary endorse committee interinstitutional negotiations",
+      "push": false
+    },
+    {
+      "id": "savings-investments-union:ep:2025-0363:amendments:2026-10-07",
+      "fileId": "savings-investments-union",
+      "date": "2026-10-07",
+      "source": "ep",
+      "proc": "2025-0363",
+      "kind": "milestone",
+      "title": "Amendments tabled in committee",
+      "count": 1,
+      "push": true
+    },
+    {
+      "id": "environmental-omnibus:ep:2025-0393-DEC-DCPL-2026-10-06",
+      "fileId": "environmental-omnibus",
+      "date": "2026-10-06",
+      "source": "ep",
+      "proc": "2025-0393",
+      "kind": "procedural",
+      "title": "Plenary amend proposal",
+      "push": false
+    },
+    {
+      "id": "environmental-omnibus:ep:MTG-PL-2026-10-06-PVCRE-ITM-9-7",
+      "fileId": "environmental-omnibus",
+      "date": "2026-10-06",
+      "source": "ep",
+      "proc": "2025-0393",
+      "kind": "milestone",
+      "title": "Plenary vote",
+      "push": true
+    },
+    {
+      "id": "ets-review:ep:2026-0210-NMSR-124736-2026-10-06",
+      "fileId": "ets-review",
+      "date": "2026-10-06",
+      "source": "ep",
+      "proc": "2026-0210",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "124736",
+      "group": "The Left",
+      "push": false
+    },
+    {
+      "id": "ets-review:ep:2026-0212-NMSR-124736-2026-10-06",
+      "fileId": "ets-review",
+      "date": "2026-10-06",
+      "source": "ep",
+      "proc": "2026-0212",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "124736",
+      "group": "The Left",
+      "push": false
     },
     {
       "id": "grids-package:ep:2025-0400-MEET-TRI1-2026-10-06",
@@ -901,6 +2457,50 @@
       "push": false
     },
     {
+      "id": "environmental-omnibus:ep:2025-0395-DEC-ADCP-2026-10-05",
+      "fileId": "environmental-omnibus",
+      "date": "2026-10-05",
+      "source": "ep",
+      "proc": "2025-0395",
+      "kind": "milestone",
+      "title": "Report adopted in committee",
+      "push": true
+    },
+    {
+      "id": "environmental-omnibus:ep:2025-0396-DEC-ADCP-2026-10-05",
+      "fileId": "environmental-omnibus",
+      "date": "2026-10-05",
+      "source": "ep",
+      "proc": "2025-0396",
+      "kind": "milestone",
+      "title": "Report adopted in committee",
+      "push": true
+    },
+    {
+      "id": "ets-review:ep:2026-0210-NMSR-267485-2026-10-05",
+      "fileId": "ets-review",
+      "date": "2026-10-05",
+      "source": "ep",
+      "proc": "2026-0210",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "267485",
+      "group": "ESN",
+      "push": false
+    },
+    {
+      "id": "ets-review:ep:2026-0212-NMSR-267485-2026-10-05",
+      "fileId": "ets-review",
+      "date": "2026-10-05",
+      "source": "ep",
+      "proc": "2026-0212",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "267485",
+      "group": "ESN",
+      "push": false
+    },
+    {
       "id": "industrial-accelerator-act:ep:opinions:2026-10-05",
       "fileId": "industrial-accelerator-act",
       "date": "2026-10-05",
@@ -923,6 +2523,29 @@
       "ref": "CJ13-PR-787767"
     },
     {
+      "id": "ets-review:ep:2026-0212-NMSR-257296-2026-10-02",
+      "fileId": "ets-review",
+      "date": "2026-10-02",
+      "source": "ep",
+      "proc": "2026-0212",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "257296",
+      "group": "EPP",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0222:tabled:2026-10-02",
+      "fileId": "mff-2028-2034",
+      "date": "2026-10-02",
+      "source": "ep",
+      "proc": "2025-0222",
+      "kind": "procedural",
+      "title": "Report tabled for plenary",
+      "count": 1,
+      "push": false
+    },
+    {
       "id": "biotech-act:ep:opinions:2026-10-01",
       "fileId": "biotech-act",
       "date": "2026-10-01",
@@ -931,6 +2554,18 @@
       "kind": "milestone",
       "title": "Committee opinions adopted",
       "count": 1,
+      "push": false
+    },
+    {
+      "id": "cybersecurity-act-2:ep:2026-0011-NMSR-256941-2026-10-01",
+      "fileId": "cybersecurity-act-2",
+      "date": "2026-10-01",
+      "source": "ep",
+      "proc": "2026-0011",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "256941",
+      "group": "ESN",
       "push": false
     },
     {
@@ -958,6 +2593,18 @@
       "push": false
     },
     {
+      "id": "cybersecurity-act-2:ep:2026-0012-NMSR-257021-2026-09-30",
+      "fileId": "cybersecurity-act-2",
+      "date": "2026-09-30",
+      "source": "ep",
+      "proc": "2026-0012",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "257021",
+      "group": "ECR",
+      "push": false
+    },
+    {
       "id": "digital-euro:ep:2023-0212-MEET-TRI1-2026-09-30",
       "fileId": "digital-euro",
       "date": "2026-09-30",
@@ -966,6 +2613,17 @@
       "kind": "milestone",
       "title": "Trilogue",
       "push": true
+    },
+    {
+      "id": "environmental-omnibus:ep:2025-0393:tabled:2026-09-30",
+      "fileId": "environmental-omnibus",
+      "date": "2026-09-30",
+      "source": "ep",
+      "proc": "2025-0393",
+      "kind": "procedural",
+      "title": "Report tabled for plenary",
+      "count": 1,
+      "push": false
     },
     {
       "id": "grids-package:ep:2025-0399-MEET-TRI1-2026-09-30",
@@ -978,6 +2636,124 @@
       "push": true
     },
     {
+      "id": "environmental-omnibus:ep:2025-0393:tabled:2026-09-29",
+      "fileId": "environmental-omnibus",
+      "date": "2026-09-29",
+      "source": "ep",
+      "proc": "2025-0393",
+      "kind": "procedural",
+      "title": "Report tabled for plenary",
+      "count": 1,
+      "push": false
+    },
+    {
+      "id": "ets-review:ep:2026-0210-NMSR-257097-2026-09-29",
+      "fileId": "ets-review",
+      "date": "2026-09-29",
+      "source": "ep",
+      "proc": "2026-0210",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "257097",
+      "group": "ECR",
+      "push": false
+    },
+    {
+      "id": "ets-review:ep:2026-0212-NMSR-128483-2026-09-29",
+      "fileId": "ets-review",
+      "date": "2026-09-29",
+      "source": "ep",
+      "proc": "2026-0212",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "128483",
+      "group": "ESN",
+      "push": false
+    },
+    {
+      "id": "ets-review:ep:2026-0212-NMSR-257097-2026-09-29",
+      "fileId": "ets-review",
+      "date": "2026-09-29",
+      "source": "ep",
+      "proc": "2026-0212",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "257097",
+      "group": "ECR",
+      "push": false
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0222-DEC-ADCP-2026-09-29",
+      "fileId": "mff-2028-2034",
+      "date": "2026-09-29",
+      "source": "ep",
+      "proc": "2025-0222",
+      "kind": "milestone",
+      "title": "Report adopted in committee",
+      "push": true
+    },
+    {
+      "id": "ets-review:ep:2026-0210-NMCP-256920-TRAN-2026-09-28",
+      "fileId": "ets-review",
+      "date": "2026-09-28",
+      "source": "ep",
+      "proc": "2026-0210",
+      "kind": "people",
+      "title": "Opinion rapporteur named",
+      "personId": "256920",
+      "group": "EPP",
+      "committee": "TRAN",
+      "push": false
+    },
+    {
+      "id": "ets-review:ep:2026-0212-NMSR-257147-2026-09-28",
+      "fileId": "ets-review",
+      "date": "2026-09-28",
+      "source": "ep",
+      "proc": "2026-0212",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "257147",
+      "group": "ECR",
+      "push": false
+    },
+    {
+      "id": "ets-review:ep:2026-0210-NMSR-257003-2026-09-25",
+      "fileId": "ets-review",
+      "date": "2026-09-25",
+      "source": "ep",
+      "proc": "2026-0210",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "257003",
+      "group": "Renew",
+      "push": false
+    },
+    {
+      "id": "ets-review:ep:2026-0212-NMSR-127766-2026-09-25",
+      "fileId": "ets-review",
+      "date": "2026-09-25",
+      "source": "ep",
+      "proc": "2026-0212",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "127766",
+      "group": "The Left",
+      "push": false
+    },
+    {
+      "id": "public-procurement-act:ep:2026-0265-NMSR-257003-2026-09-25",
+      "fileId": "public-procurement-act",
+      "date": "2026-09-25",
+      "source": "ep",
+      "proc": "2026-0265",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "257003",
+      "group": "Renew",
+      "push": false
+    },
+    {
       "id": "tech-sovereignty-package:ep:2026-0138-NMSR-197490-2026-09-25",
       "fileId": "tech-sovereignty-package",
       "date": "2026-09-25",
@@ -987,6 +2763,29 @@
       "title": "Opinion shadow rapporteur recorded",
       "personId": "197490",
       "group": "EPP",
+      "push": false
+    },
+    {
+      "id": "cybersecurity-act-2:ep:ITRE-PR-792221-DEPOT-2026-09-24",
+      "fileId": "cybersecurity-act-2",
+      "date": "2026-09-24",
+      "source": "ep",
+      "proc": "2026-0012",
+      "kind": "milestone",
+      "title": "Draft report tabled",
+      "push": true,
+      "ref": "ITRE-PR-792221"
+    },
+    {
+      "id": "ets-review:ep:2026-0210-NMSR-257103-2026-09-24",
+      "fileId": "ets-review",
+      "date": "2026-09-24",
+      "source": "ep",
+      "proc": "2026-0210",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "257103",
+      "group": "S&D",
       "push": false
     },
     {
@@ -1011,6 +2810,42 @@
       "title": "Opinion shadow rapporteur recorded",
       "personId": "257073",
       "group": "ECR",
+      "push": false
+    },
+    {
+      "id": "business-wallets:ep:tabled:2026-09-23",
+      "fileId": "business-wallets",
+      "date": "2026-09-23",
+      "source": "ep",
+      "proc": "2025-0358",
+      "kind": "procedural",
+      "title": "Report tabled for plenary",
+      "count": 1,
+      "push": false
+    },
+    {
+      "id": "cybersecurity-act-2:ep:2026-0011-NMSR-58766-2026-09-23",
+      "fileId": "cybersecurity-act-2",
+      "date": "2026-09-23",
+      "source": "ep",
+      "proc": "2026-0011",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "58766",
+      "group": "Greens/EFA",
+      "push": false
+    },
+    {
+      "id": "ets-review:ep:2026-0212-NMCP-257121-TRAN-2026-09-23",
+      "fileId": "ets-review",
+      "date": "2026-09-23",
+      "source": "ep",
+      "proc": "2026-0212",
+      "kind": "people",
+      "title": "Opinion rapporteur named",
+      "personId": "257121",
+      "group": "S&D",
+      "committee": "TRAN",
       "push": false
     },
     {
@@ -1048,6 +2883,29 @@
       "personId": "257096",
       "group": "ECR",
       "push": false
+    },
+    {
+      "id": "cybersecurity-act-2:ep:2026-0011-NMSR-197545-2026-09-22",
+      "fileId": "cybersecurity-act-2",
+      "date": "2026-09-22",
+      "source": "ep",
+      "proc": "2026-0011",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "197545",
+      "group": "ECR",
+      "push": false
+    },
+    {
+      "id": "ets-review:ep:2026-0211:amendments:2026-09-22",
+      "fileId": "ets-review",
+      "date": "2026-09-22",
+      "source": "ep",
+      "proc": "2026-0211",
+      "kind": "milestone",
+      "title": "Amendments tabled in committee",
+      "count": 1,
+      "push": true
     },
     {
       "id": "tech-sovereignty-package:ep:2026-0138-NMSR-28390-2026-09-22",
@@ -1098,6 +2956,41 @@
       "push": false
     },
     {
+      "id": "cybersecurity-act-2:ep:ITRE-PR-792222-DEPOT-2026-09-18",
+      "fileId": "cybersecurity-act-2",
+      "date": "2026-09-18",
+      "source": "ep",
+      "proc": "2026-0011",
+      "kind": "milestone",
+      "title": "Draft report tabled",
+      "push": true,
+      "ref": "ITRE-PR-792222"
+    },
+    {
+      "id": "ets-review:ep:2026-0210-NMSR-256833-2026-09-18",
+      "fileId": "ets-review",
+      "date": "2026-09-18",
+      "source": "ep",
+      "proc": "2026-0210",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "256833",
+      "group": "Greens/EFA",
+      "push": false
+    },
+    {
+      "id": "ets-review:ep:2026-0212-NMSR-256833-2026-09-18",
+      "fileId": "ets-review",
+      "date": "2026-09-18",
+      "source": "ep",
+      "proc": "2026-0212",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "256833",
+      "group": "Greens/EFA",
+      "push": false
+    },
+    {
       "id": "tech-sovereignty-package:ep:2026-0139-NMSR-88882-2026-09-18",
       "fileId": "tech-sovereignty-package",
       "date": "2026-09-18",
@@ -1107,6 +3000,36 @@
       "title": "Opinion shadow rapporteur recorded",
       "personId": "88882",
       "group": "S&D",
+      "push": false
+    },
+    {
+      "id": "ets-review:ep:2026-0210-ANPRO-2026-09-17",
+      "fileId": "ets-review",
+      "date": "2026-09-17",
+      "source": "ep",
+      "proc": "2026-0210",
+      "kind": "procedural",
+      "title": "Referred to committee",
+      "push": false
+    },
+    {
+      "id": "ets-review:ep:2026-0212-ANPRO-2026-09-17",
+      "fileId": "ets-review",
+      "date": "2026-09-17",
+      "source": "ep",
+      "proc": "2026-0212",
+      "kind": "procedural",
+      "title": "Referred to committee",
+      "push": false
+    },
+    {
+      "id": "grids-package:ep:2026-0203-ANPRO-2026-09-17",
+      "fileId": "grids-package",
+      "date": "2026-09-17",
+      "source": "ep",
+      "proc": "2026-0203",
+      "kind": "procedural",
+      "title": "Referred to committee",
       "push": false
     },
     {
@@ -1143,6 +3066,30 @@
       "push": false
     },
     {
+      "id": "ets-review:ep:2026-0212-NMSR-197558-2026-09-16",
+      "fileId": "ets-review",
+      "date": "2026-09-16",
+      "source": "ep",
+      "proc": "2026-0212",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "197558",
+      "group": "Renew",
+      "push": false
+    },
+    {
+      "id": "ets-review:ep:2026-0212-NMSR-96675-2026-09-16",
+      "fileId": "ets-review",
+      "date": "2026-09-16",
+      "source": "ep",
+      "proc": "2026-0212",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "96675",
+      "group": "Greens/EFA",
+      "push": false
+    },
+    {
       "id": "grids-package:ep:2025-0399-DEC-PLEIN1-2026-09-16",
       "fileId": "grids-package",
       "date": "2026-09-16",
@@ -1165,6 +3112,84 @@
       "push": false
     },
     {
+      "id": "environmental-omnibus:ep:2025-0393:tabled:2026-09-15",
+      "fileId": "environmental-omnibus",
+      "date": "2026-09-15",
+      "source": "ep",
+      "proc": "2025-0393",
+      "kind": "procedural",
+      "title": "Report tabled for plenary",
+      "count": 1,
+      "push": false
+    },
+    {
+      "id": "ets-review:ep:2026-0211-NMSR-257086-2026-09-15",
+      "fileId": "ets-review",
+      "date": "2026-09-15",
+      "source": "ep",
+      "proc": "2026-0211",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "257086",
+      "group": "ECR",
+      "push": false
+    },
+    {
+      "id": "ets-review:ep:2026-0212-NMSR-197782-2026-09-15",
+      "fileId": "ets-review",
+      "date": "2026-09-15",
+      "source": "ep",
+      "proc": "2026-0212",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "197782",
+      "group": "S&D",
+      "push": false
+    },
+    {
+      "id": "ets-review:ep:ENVI-PR-791996-DEPOT-2026-09-15",
+      "fileId": "ets-review",
+      "date": "2026-09-15",
+      "source": "ep",
+      "proc": "2026-0212",
+      "kind": "milestone",
+      "title": "Draft report tabled",
+      "push": true,
+      "ref": "ENVI-PR-791996"
+    },
+    {
+      "id": "ets-review:ep:ENVI-PR-791997-DEPOT-2026-09-15",
+      "fileId": "ets-review",
+      "date": "2026-09-15",
+      "source": "ep",
+      "proc": "2026-0210",
+      "kind": "milestone",
+      "title": "Draft report tabled",
+      "push": true,
+      "ref": "ENVI-PR-791997"
+    },
+    {
+      "id": "ets-review:ep:MTG-PL-2026-09-15-PVCRE-ITM-5-1",
+      "fileId": "ets-review",
+      "date": "2026-09-15",
+      "source": "ep",
+      "proc": "2026-0211",
+      "kind": "milestone",
+      "title": "Plenary vote",
+      "push": true
+    },
+    {
+      "id": "savings-investments-union:ep:2025-0361:tabled:2026-09-15",
+      "fileId": "savings-investments-union",
+      "date": "2026-09-15",
+      "source": "ep",
+      "proc": "2025-0361",
+      "kind": "procedural",
+      "title": "Report tabled for plenary",
+      "count": 1,
+      "push": false
+    },
+    {
       "id": "tech-sovereignty-package:ep:2026-0138-NMSR-28419-2026-09-15",
       "fileId": "tech-sovereignty-package",
       "date": "2026-09-15",
@@ -1177,6 +3202,40 @@
       "push": false
     },
     {
+      "id": "ets-review:ep:2026-0211-ANPRO-2026-09-14",
+      "fileId": "ets-review",
+      "date": "2026-09-14",
+      "source": "ep",
+      "proc": "2026-0211",
+      "kind": "procedural",
+      "title": "Referred to committee",
+      "push": false
+    },
+    {
+      "id": "ets-review:ep:2026-0212-NMSR-220801-2026-09-14",
+      "fileId": "ets-review",
+      "date": "2026-09-14",
+      "source": "ep",
+      "proc": "2026-0212",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "220801",
+      "group": "Renew",
+      "push": false
+    },
+    {
+      "id": "ets-review:ep:2026-0212-NMSR-256885-2026-09-14",
+      "fileId": "ets-review",
+      "date": "2026-09-14",
+      "source": "ep",
+      "proc": "2026-0212",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "256885",
+      "group": "S&D",
+      "push": false
+    },
+    {
       "id": "tech-sovereignty-package:ep:2026-0139-ANPRO-2026-09-14",
       "fileId": "tech-sovereignty-package",
       "date": "2026-09-14",
@@ -1184,6 +3243,18 @@
       "proc": "2026-0139",
       "kind": "procedural",
       "title": "Referred to committee",
+      "push": false
+    },
+    {
+      "id": "ets-review:ep:2026-0212-NMSR-23816-2026-09-11",
+      "fileId": "ets-review",
+      "date": "2026-09-11",
+      "source": "ep",
+      "proc": "2026-0212",
+      "kind": "people",
+      "title": "Opinion shadow rapporteur recorded",
+      "personId": "23816",
+      "group": "PfE",
       "push": false
     },
     {
@@ -1232,6 +3303,16 @@
       "push": true
     },
     {
+      "id": "business-wallets:ep:2025-0358-DEC-ADCP-2026-09-10",
+      "fileId": "business-wallets",
+      "date": "2026-09-10",
+      "source": "ep",
+      "proc": "2025-0358",
+      "kind": "milestone",
+      "title": "Report adopted in committee",
+      "push": true
+    },
+    {
       "id": "digital-euro:ep:2023-0212-MEET-TRI1-2026-09-10",
       "fileId": "digital-euro",
       "date": "2026-09-10",
@@ -1242,6 +3323,75 @@
       "push": true
     },
     {
+      "id": "environmental-omnibus:ep:2025-0393-DEC-ADCP-2026-09-10",
+      "fileId": "environmental-omnibus",
+      "date": "2026-09-10",
+      "source": "ep",
+      "proc": "2025-0393",
+      "kind": "milestone",
+      "title": "Report adopted in committee",
+      "push": true
+    },
+    {
+      "id": "ets-review:ep:2026-0210-NMSR-197449-2026-09-10",
+      "fileId": "ets-review",
+      "date": "2026-09-10",
+      "source": "ep",
+      "proc": "2026-0210",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "197449",
+      "group": "Greens/EFA",
+      "push": false
+    },
+    {
+      "id": "ets-review:ep:2026-0211-NMSR-197449-2026-09-10",
+      "fileId": "ets-review",
+      "date": "2026-09-10",
+      "source": "ep",
+      "proc": "2026-0211",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "197449",
+      "group": "Greens/EFA",
+      "push": false
+    },
+    {
+      "id": "ets-review:ep:2026-0211-NMSR-197829-2026-09-10",
+      "fileId": "ets-review",
+      "date": "2026-09-10",
+      "source": "ep",
+      "proc": "2026-0211",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "197829",
+      "group": "PfE",
+      "push": false
+    },
+    {
+      "id": "ets-review:ep:2026-0212-NMSR-197449-2026-09-10",
+      "fileId": "ets-review",
+      "date": "2026-09-10",
+      "source": "ep",
+      "proc": "2026-0212",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "197449",
+      "group": "Greens/EFA",
+      "push": false
+    },
+    {
+      "id": "eu-inc:ep:opinions:2026-09-10",
+      "fileId": "eu-inc",
+      "date": "2026-09-10",
+      "source": "ep",
+      "proc": "2026-0074",
+      "kind": "milestone",
+      "title": "Committee opinions adopted",
+      "count": 1,
+      "push": false
+    },
+    {
       "id": "grids-package:ep:2025-0399-DEC-ADCP-2026-09-10",
       "fileId": "grids-package",
       "date": "2026-09-10",
@@ -1250,6 +3400,88 @@
       "kind": "milestone",
       "title": "Report adopted in committee",
       "push": true
+    },
+    {
+      "id": "mff-2028-2034:ep:2025-0227:opinions:2026-09-10",
+      "fileId": "mff-2028-2034",
+      "date": "2026-09-10",
+      "source": "ep",
+      "proc": "2025-0227",
+      "kind": "milestone",
+      "title": "Committee opinions adopted",
+      "count": 1,
+      "push": false
+    },
+    {
+      "id": "savings-investments-union:ep:2025-0361-DEC-ADCP-2026-09-10",
+      "fileId": "savings-investments-union",
+      "date": "2026-09-10",
+      "source": "ep",
+      "proc": "2025-0361",
+      "kind": "milestone",
+      "title": "Report adopted in committee",
+      "push": true
+    },
+    {
+      "id": "ets-review:ep:2026-0210-NMSR-197820-2026-09-09",
+      "fileId": "ets-review",
+      "date": "2026-09-09",
+      "source": "ep",
+      "proc": "2026-0210",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "197820",
+      "group": "ECR",
+      "push": false
+    },
+    {
+      "id": "ets-review:ep:2026-0210-NMSR-256805-2026-09-09",
+      "fileId": "ets-review",
+      "date": "2026-09-09",
+      "source": "ep",
+      "proc": "2026-0210",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "256805",
+      "group": "The Left",
+      "push": false
+    },
+    {
+      "id": "ets-review:ep:2026-0211-NMSR-256805-2026-09-09",
+      "fileId": "ets-review",
+      "date": "2026-09-09",
+      "source": "ep",
+      "proc": "2026-0211",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "256805",
+      "group": "The Left",
+      "push": false
+    },
+    {
+      "id": "ets-review:ep:2026-0212-NMCP-188096-ITRE-2026-09-09",
+      "fileId": "ets-review",
+      "date": "2026-09-09",
+      "source": "ep",
+      "proc": "2026-0212",
+      "kind": "people",
+      "title": "Opinion rapporteur named",
+      "personId": "188096",
+      "group": "EPP",
+      "committee": "ITRE",
+      "push": false
+    },
+    {
+      "id": "ets-review:ep:2026-0212-NMSR-256805-2026-09-09",
+      "fileId": "ets-review",
+      "date": "2026-09-09",
+      "source": "ep",
+      "proc": "2026-0212",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "256805",
+      "group": "The Left",
+      "push": false
     },
     {
       "id": "tech-sovereignty-package:ep:2026-0139-NMSR-197780-2026-09-09",
@@ -1288,6 +3520,54 @@
       "push": false
     },
     {
+      "id": "ets-review:ep:2026-0210-NMSR-214839-2026-09-08",
+      "fileId": "ets-review",
+      "date": "2026-09-08",
+      "source": "ep",
+      "proc": "2026-0210",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "214839",
+      "group": "Renew",
+      "push": false
+    },
+    {
+      "id": "ets-review:ep:2026-0211-NMSR-214839-2026-09-08",
+      "fileId": "ets-review",
+      "date": "2026-09-08",
+      "source": "ep",
+      "proc": "2026-0211",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "214839",
+      "group": "Renew",
+      "push": false
+    },
+    {
+      "id": "ets-review:ep:2026-0212-NMSR-197537-2026-09-08",
+      "fileId": "ets-review",
+      "date": "2026-09-08",
+      "source": "ep",
+      "proc": "2026-0212",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "197537",
+      "group": "ECR",
+      "push": false
+    },
+    {
+      "id": "ets-review:ep:2026-0212-NMSR-214839-2026-09-08",
+      "fileId": "ets-review",
+      "date": "2026-09-08",
+      "source": "ep",
+      "proc": "2026-0212",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "214839",
+      "group": "Renew",
+      "push": false
+    },
+    {
       "id": "biotech-act:ep:opinions:2026-09-07",
       "fileId": "biotech-act",
       "date": "2026-09-07",
@@ -1299,6 +3579,31 @@
       "push": false
     },
     {
+      "id": "ets-review:ep:2026-0212-NMCP-1927-ENVI-2026-09-04",
+      "fileId": "ets-review",
+      "date": "2026-09-04",
+      "source": "ep",
+      "proc": "2026-0212",
+      "kind": "people",
+      "title": "Rapporteur named",
+      "personId": "1927",
+      "group": "EPP",
+      "committee": "ENVI",
+      "push": false
+    },
+    {
+      "id": "ets-review:ep:2026-0210-NMSR-197528-2026-09-03",
+      "fileId": "ets-review",
+      "date": "2026-09-03",
+      "source": "ep",
+      "proc": "2026-0210",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "197528",
+      "group": "PfE",
+      "push": false
+    },
+    {
       "id": "industrial-accelerator-act:ep:2026-0068-NMSR-256951-2026-09-03",
       "fileId": "industrial-accelerator-act",
       "date": "2026-09-03",
@@ -1306,6 +3611,90 @@
       "proc": "2026-0068",
       "kind": "people",
       "title": "Opinion shadow rapporteur recorded",
+      "personId": "256951",
+      "group": "ESN",
+      "push": false
+    },
+    {
+      "id": "environmental-omnibus:ep:2025-0394:opinions:2026-09-02",
+      "fileId": "environmental-omnibus",
+      "date": "2026-09-02",
+      "source": "ep",
+      "proc": "2025-0394",
+      "kind": "milestone",
+      "title": "Committee opinions adopted",
+      "count": 1,
+      "push": false
+    },
+    {
+      "id": "ets-review:ep:2026-0210-NMSR-256951-2026-09-02",
+      "fileId": "ets-review",
+      "date": "2026-09-02",
+      "source": "ep",
+      "proc": "2026-0210",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "256951",
+      "group": "ESN",
+      "push": false
+    },
+    {
+      "id": "ets-review:ep:2026-0210-NMSR-257169-2026-09-02",
+      "fileId": "ets-review",
+      "date": "2026-09-02",
+      "source": "ep",
+      "proc": "2026-0210",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "257169",
+      "group": "S&D",
+      "push": false
+    },
+    {
+      "id": "ets-review:ep:2026-0211-NMCP-197517-ENVI-2026-09-02",
+      "fileId": "ets-review",
+      "date": "2026-09-02",
+      "source": "ep",
+      "proc": "2026-0211",
+      "kind": "people",
+      "title": "Rapporteur named",
+      "personId": "197517",
+      "group": "EPP",
+      "committee": "ENVI",
+      "push": false
+    },
+    {
+      "id": "ets-review:ep:2026-0211-NMSR-256951-2026-09-02",
+      "fileId": "ets-review",
+      "date": "2026-09-02",
+      "source": "ep",
+      "proc": "2026-0211",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "256951",
+      "group": "ESN",
+      "push": false
+    },
+    {
+      "id": "ets-review:ep:2026-0211-NMSR-257169-2026-09-02",
+      "fileId": "ets-review",
+      "date": "2026-09-02",
+      "source": "ep",
+      "proc": "2026-0211",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
+      "personId": "257169",
+      "group": "S&D",
+      "push": false
+    },
+    {
+      "id": "ets-review:ep:2026-0212-NMSR-256951-2026-09-02",
+      "fileId": "ets-review",
+      "date": "2026-09-02",
+      "source": "ep",
+      "proc": "2026-0212",
+      "kind": "people",
+      "title": "Shadow rapporteur recorded",
       "personId": "256951",
       "group": "ESN",
       "push": false
@@ -1330,6 +3719,17 @@
       "kind": "milestone",
       "title": "Committee opinions adopted",
       "count": 2,
+      "push": false
+    },
+    {
+      "id": "savings-investments-union:ep:2025-0363:opinions:2026-09-02",
+      "fileId": "savings-investments-union",
+      "date": "2026-09-02",
+      "source": "ep",
+      "proc": "2025-0363",
+      "kind": "milestone",
+      "title": "Committee opinions adopted",
+      "count": 1,
       "push": false
     },
     {
