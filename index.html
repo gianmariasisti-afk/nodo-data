@@ -10844,5 +10844,17 @@ body { font-variant-numeric: tabular-nums; }
 .fa-ri__area { padding: 3px 9px; border-radius: var(--radius-pill); background: color-mix(in srgb, var(--area-tint, var(--surface-sunken)) var(--area-mix), var(--surface-sunken)); font-size: 12px; line-height: 16px; font-weight: 600; }
 .fa-notify { flex: none; min-height: 44px; padding: 0 14px; border: 1.5px solid var(--border-control); border-radius: var(--radius-pill); background: var(--surface); color: var(--ink); font: inherit; font-size: 13px; font-weight: 600; cursor: pointer; }
 .fa-notify[aria-pressed="true"] { border-color: var(--ink); background: var(--ink); color: var(--surface); }
+/* No sideways panning (27 Nov 2026). iOS let the page and the profile layer move left and right when one row came out wider than the screen.
+   1) The page and every full-screen layer clip anything wider than the screen; overscroll-behavior-x stops the sideways bounce.
+   2) Lists are one column that can never grow past the screen (a grid's default column grows to its widest row).
+   3) Long unbreakable text (emails, URLs) breaks inside its row. */
+html, body { overscroll-behavior-x: none; }
+body { overflow-x: hidden; }
+@supports (overflow: clip) { html, body { overflow-x: clip; } }
+.profile, .onb, .sheet { overflow-x: hidden; overscroll-behavior-x: none; }
+.profile > .col, .onb > .col { max-width: 100%; }
+.list { grid-template-columns: minmax(0, 1fr); }
+.list > * { min-width: 0; max-width: 100%; }
+.eu-row .lnk { max-width: 100%; overflow-wrap: anywhere; word-break: break-word; }
 </style>
 </body></html>
