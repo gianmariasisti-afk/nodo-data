@@ -4,7 +4,7 @@
    node scripts/press-merge.mjs <items.json>     add items (a JSON array, see checkItem), rewrite press.json and its manifest entry
    node scripts/press-merge.mjs --remove <id>     drop one published item
    node scripts/press-merge.mjs --prune           only drop items older than keepDays
-   node scripts/press-merge.mjs --split <items.json> <auto.json> <review.json> [--log]
+   node scripts/press-merge.mjs --split <items.json> <auto.json> <review.json> [--log] [--failed <id,...>]
                                                   check every item, then sort them by the autonomy policy (scripts/autonomy.mjs,
                                                   classifyPress). <auto.json> gets what is published to main now: institutional
                                                   items that do not change a stage, and press items or stage changes that passed
@@ -13,7 +13,13 @@
                                                   data-cache/press/pending.json for the next run. Items already published are left
                                                   out of both. --log appends the published ones to data-cache/autonomy-log.json and
                                                   rewrites pending.json. Writes nothing to press.json.
-   node scripts/press-merge.mjs --pending         print the items that wait for a second look (JSON array)
+                                                  --failed <id,id,...> names the waiting items whose second look failed this
+                                                  run: they leave pending.json at once and are logged as dropped. A waiting
+                                                  item that a later-day run neither submits again nor names in --failed counts
+                                                  as a missed look; after cfg.maxMissed missed looks (2) it is dropped too.
+   node scripts/press-merge.mjs --pending         print the items that wait for a second look (JSON array, each with id,
+                                                  firstSeen and missed)
+   node scripts/press-merge.mjs --drop-pending <id> [why]   take one waiting item out of pending.json by hand
 
    Every item is checked here and again by scripts/validate-data.mjs. An item that fails is refused with the reason and
    nothing is written. Items already published (same file and url) are kept as they are. */
@@ -98,6 +104,28 @@ const PENDING = path.join(ROOT, "data-cache/press/pending.json");
 function loadPending() { try { const a = JSON.parse(fs.readFileSync(PENDING, "utf8")); return Array.isArray(a) ? a.filter((p) => p && p.id && p.item) : []; } catch { return []; } }
 function savePending(list) { fs.mkdirSync(path.dirname(PENDING), { recursive: true }); fs.writeFileSync(PENDING, JSON.stringify(list, null, 1) + "\n"); }
 
+/* What happens to the items that waited before this run and were not submitted again (pure, for the tests).
+   A run on a later day than firstSeen was due to take the second look: the task submits the item again (it then
+   publishes), names it in failed (dropped now), or says nothing (a missed look, e.g. the page did not answer).
+   Two missed looks, or cfg.pendingDays, and the item is dropped, so nothing waits in silence. */
+export function carryPending(before, { today, resubmitted, published, failed = new Set(), inPress = () => false, keepFrom, maxMissed = 2 }) {
+  const carried = [], dropped = [];
+  for (const p of before) {
+    if (resubmitted.has(p.id) || published.has(p.id) || inPress(p)) continue;
+    const drop = (why) => dropped.push({ id: p.id, file: p.item.file, source: p.item.source, url: p.item.url, why });
+    if (failed.has(p.id)) { drop("failed its second look"); continue; }
+    if (p.firstSeen < keepFrom) { drop("waited longer than pendingDays"); continue; }
+    if (p.firstSeen < today) {
+      const missed = p.lastMissed === today ? p.missed || 1 : (p.missed || 0) + 1;
+      if (missed >= maxMissed) { drop(`not submitted again by ${missed} later runs`); continue; }
+      carried.push({ ...p, missed, lastMissed: today });
+      continue;
+    }
+    carried.push(p);
+  }
+  return { carried, dropped };
+}
+
 function main() {
   const args = process.argv.slice(2);
   const doc = load();
@@ -125,17 +153,30 @@ function main() {
     const v = classifyPress(fresh, undefined, { pending: before, idOf, sure });
     fs.writeFileSync(autoOut, JSON.stringify(v.auto, null, 1) + "\n");
     fs.writeFileSync(reviewOut, JSON.stringify(v.review, null, 1) + "\n");
-    const done = () => console.log(JSON.stringify({ auto: v.auto.length, waiting: v.pending.length, review: v.review.length, alreadyPublished: items.length - fresh.length, overLimit: v.overLimit, reasons: v.reasons }, null, 1));
-    if (!args.includes("--log")) { done(); return; }
+    if (!args.includes("--log")) { console.log(JSON.stringify({ auto: v.auto.length, waiting: v.pending.length, review: v.review.length, alreadyPublished: items.length - fresh.length, overLimit: v.overLimit, reasons: v.reasons }, null, 1)); return; }
     /* Waiting items: this run's, plus earlier ones this run did not submit again, for cfg.pendingDays at most. */
-    const keepFrom = addDays(today, -(cfg.pendingDays || 14)), now = new Set(fresh.map(idOf)), published = new Set(v.auto.map(idOf));
-    const carried = before.filter((p) => !now.has(p.id) && !published.has(p.id) && p.firstSeen >= keepFrom && !(doc.files[p.item.file] || []).some((y) => y.id === p.id));
+    const fi = args.indexOf("--failed"), failed = new Set(fi > 0 ? String(args[fi + 1] || "").split(",").map((s) => s.trim()).filter(Boolean) : []);
+    const unknown = [...failed].filter((id) => !before.some((p) => p.id === id));
+    if (unknown.length) { console.error(`--failed names ids that do not wait in pending.json: ${unknown.join(", ")}`); process.exit(1); }
+    const { carried, dropped } = carryPending(before, { today, resubmitted: new Set(fresh.map(idOf)), published: new Set(v.auto.map(idOf)), failed, inPress: (p) => (doc.files[p.item.file] || []).some((y) => y.id === p.id), keepFrom: addDays(today, -(cfg.pendingDays || 14)), maxMissed: cfg.maxMissed || 2 });
     savePending([...carried, ...v.pending]);
-    if (v.auto.length) logAuto(path.join(ROOT, "data-cache"), { source: "press", changes: v.auto.map((x) => ({ type: "published", name: `${x.file}: ${x.source} ${x.date}`, url: x.url, check: x.kind === "institutional" && x.stage !== true && sure(x) ? "institution's own page" : x.confirm ? "second source" : "verified on two runs" })) }).then(done);
-    else done();
+    const report = () => { console.log(JSON.stringify({ auto: v.auto.length, waiting: carried.length + v.pending.length, review: v.review.length, alreadyPublished: items.length - fresh.length, overLimit: v.overLimit, dropped, reasons: v.reasons }, null, 1)); };
+    const changes = [
+      ...v.auto.map((x) => ({ type: "published", name: `${x.file}: ${x.source} ${x.date}`, url: x.url, check: x.kind === "institutional" && x.stage !== true && sure(x) ? "institution's own page" : x.confirm ? "second source" : "verified on two runs" })),
+      ...dropped.map((d) => ({ type: "dropped", name: `${d.file}: ${d.source} (${d.id})`, url: d.url, check: d.why })),
+    ];
+    if (changes.length) logAuto(path.join(ROOT, "data-cache"), { source: "press", changes }).then(report);
+    else report();
     return;
   }
-  if (args[0] === "--pending") { console.log(JSON.stringify(loadPending().map((p) => ({ ...p.item, firstSeen: p.firstSeen })), null, 1)); return; }
+  if (args[0] === "--pending") { console.log(JSON.stringify(loadPending().map((p) => ({ id: p.id, firstSeen: p.firstSeen, missed: p.missed || 0, ...p.item })), null, 1)); return; }
+  if (args[0] === "--drop-pending") {
+    const id = args[1], why = args.slice(2).join(" ") || "dropped by hand", list = loadPending(), p = list.find((x) => x.id === id);
+    if (!p) { console.error(`no waiting item ${id}`); process.exit(1); }
+    savePending(list.filter((x) => x.id !== id));
+    logAuto(path.join(ROOT, "data-cache"), { source: "press", changes: [{ type: "dropped", name: `${p.item.file}: ${p.item.source} (${id})`, url: p.item.url, check: why }] }).then(() => console.log(`dropped ${id} from pending.json`));
+    return;
+  }
   if (!args[0]) { console.error("usage: press-merge.mjs <items.json> | --remove <id> | --prune"); process.exit(2); }
   const raw = JSON.parse(fs.readFileSync(args[0], "utf8"));
   if (!Array.isArray(raw)) { console.error("items file must hold a JSON array"); process.exit(2); }

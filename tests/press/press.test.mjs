@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { checkItem, idOf, canonicalUrl } from "../../scripts/press-merge.mjs";
+import { checkItem, idOf, canonicalUrl, carryPending } from "../../scripts/press-merge.mjs";
 import { parseFeed, matchFiles } from "../../scripts/press-feeds.mjs";
 import { resolve, checkPressSource, checkCitation, checkRegistry } from "../../scripts/sources.mjs";
 
@@ -108,4 +108,21 @@ test("MLex section links become the working article link; other urls are untouch
   assert.equal(canonicalUrl("https://www.mlex.com/mlex/articles/2548983"), "https://www.mlex.com/mlex/articles/2548983");
   const ae = "https://agenceurope.eu/en/bulletin/article/13978/4/x";
   assert.equal(canonicalUrl(ae), ae);
+});
+
+/* Waiting items never sit in silence: a failed second look drops them at once, two missed looks drop them too. */
+test("waiting items: failed, missed, resubmitted, same day", () => {
+  const w = (id, firstSeen, extra = {}) => ({ id, firstSeen, item: { file: "iaa", source: "Agence Europe", url: "https://agenceurope.eu/" + id }, ...extra });
+  const before = [w("a", "2026-11-12"), w("b", "2026-11-12"), w("c", "2026-11-12"), w("d", "2026-11-26"), w("e", "2026-11-12", { missed: 1, lastMissed: "2026-11-23" }), w("f", "2026-11-01")];
+  const base = { today: "2026-11-26", resubmitted: new Set(["c"]), published: new Set(), keepFrom: "2026-11-12" };
+  const r = carryPending(before, { ...base, failed: new Set(["a"]) });
+  assert.deepEqual(r.dropped.map((d) => d.id).sort(), ["a", "e", "f"]);
+  assert.deepEqual(r.carried.map((p) => p.id), ["b", "d"]);
+  assert.equal(r.carried[0].missed, 1);
+  assert.equal(r.carried[1].missed, undefined);
+  /* a second run on the same day does not count the look twice */
+  const again = carryPending(r.carried, { ...base, resubmitted: new Set() });
+  assert.deepEqual(again.carried.map((p) => [p.id, p.missed]), [["b", 1], ["d", undefined]]);
+  /* the next run that skips it again drops it */
+  assert.deepEqual(carryPending(again.carried, { ...base, today: "2026-11-30", resubmitted: new Set(), keepFrom: "2026-11-01" }).dropped.map((d) => d.id), ["b"]);
 });

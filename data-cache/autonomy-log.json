@@ -192,5 +192,29 @@
     "check": "verified on two runs"
    }
   ]
+ },
+ {
+  "at": "2026-11-27T09:02:47.832Z",
+  "source": "press",
+  "changes": [
+   {
+    "type": "dropped",
+    "name": "industrial-accelerator-act: Agence Europe (33ce7b41d4)",
+    "url": "https://agenceurope.eu/en/bulletin/article/13978/4/reciprocity-anti-circumvention-low-carbon-criteria-in-iaa-dublin-to-ask-eu27-on-wednesday-to-clarify-their-expectations",
+    "check": "headline announces the 11 Nov Coreper step; text states it as done (tense rule); failed second look on 26 Nov"
+   }
+  ]
+ },
+ {
+  "at": "2026-11-27T09:02:47.867Z",
+  "source": "press",
+  "changes": [
+   {
+    "type": "dropped",
+    "name": "industrial-accelerator-act: Agence Europe (7fba18927f)",
+    "url": "https://agenceurope.eu/en/bulletin/article/13978/5/iaa-and-automotive-package-eu27-ambassadors-to-decide-on-several-issues-including-franco-german-proposals",
+    "check": "headline announces the 11 Nov Coreper step; text states it as done (tense rule); failed second look on 26 Nov"
+   }
+  ]
  }
 ]
