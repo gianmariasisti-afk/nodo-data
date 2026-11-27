@@ -1947,8 +1947,8 @@
    "short": "Digital Fairness Act",
    "title": "Digital Fairness Act",
    "kind": "regulation",
+   "procedure": "2026/0356(COD)",
    "area": "digital",
-   "procedure": null,
    "stage": "positions-in-preparation",
    "status": "The Commission adopted the Digital Fairness Act on 11 November 2026, in a consumer package with a Simplification Directive amending the Consumer Rights Directive and a revision of the Consumer Protection Cooperation Regulation. The DFA is a regulation that replaces the 2005 Unfair Commercial Practices Directive and gives the Commission its own power to investigate and fine, up to 6% of turnover. It targets dark patterns, addictive design, influencer marketing, personalisation that exploits vulnerabilities and misleading pricing, and addresses hard-to-cancel contracts, automatic renewals and free trials that turn into paid subscriptions. The social media minimum age sits in the EU KIDS Act, which nodo follows as its own file. Parliament's committee referral and rapporteur, and the Council working party, are still to come.",
    "next": [
@@ -2073,6 +2073,11 @@
      "id": "ec-dfa-20261111",
      "title": "European Commission: Digital Fairness Act (proposal adopted 11 November 2026)",
      "url": "https://commission.europa.eu/law/law-topic/consumer-protection-law/digital-fairness-act_en"
+    },
+    {
+     "id": "oeil-2026-0356-cod",
+     "title": "Legislative Observatory: procedure file 2026/0356(COD)",
+     "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2026/0356(COD)"
     }
    ],
    "checked": "2026-11-25",

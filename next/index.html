@@ -7799,7 +7799,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     if (AU.list) return Promise.resolve(AU.list);
     if (AU.loading) return AU.loading;
     AU.loading = fetchJson(DATA_BASE + "auto-files.json").then((d) => {
-      const xs = Array.isArray(d.files) ? d.files.filter((f) => f && f.id && !FILE_BY[f.id] && !FILES.some((c) => c.procedure && c.procedure === f.procedure)) : [];
+      const xs = Array.isArray(d.files) ? d.files.filter((f) => f && f.id && !FILE_BY[f.id] && !FILES.some((c) => (c.procedure && c.procedure === f.procedure) || (!c.procedure && words(c.short) === words(f.short)))) : [];
       xs.forEach((f) => {
         f._find = words([f.short, f.procedure, f.procedure.replace(/[/()]/g, " "), ((f.ep || {}).lead || []).join(" "), auRap(f).join(" ")].join(" "));
         f._t = words(f.short);
