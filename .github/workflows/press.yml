@@ -5,8 +5,6 @@ name: Collect press candidates
 # ("nodo press scan") reviews the candidates and proposes items on the branch review/press.
 
 on:
-  schedule:
-    - cron: "23 5 * * *"
   workflow_dispatch:
 
 permissions:

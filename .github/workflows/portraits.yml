@@ -9,8 +9,6 @@ on:
   push:
     branches: [main]
     paths: [v1/meps.json, v1/commission.json, scripts/split-portraits.mjs]
-  schedule:
-    - cron: "37 6 * * *"
   workflow_dispatch:
 
 permissions:

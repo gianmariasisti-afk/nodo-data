@@ -5,8 +5,6 @@ name: Update MEP directory
 # rolling branch review/meps with one open issue; merging that branch accepts them.
 
 on:
-  schedule:
-    - cron: "11 5 * * 1-5"
   workflow_dispatch:
     inputs:
       report_only:

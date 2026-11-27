@@ -9,8 +9,8 @@
 --   select vault.update_secret((select id from vault.secrets where name = 'github_dispatch_token'), '<new token>');
 -- Until the secret exists every job is a no-op, so this file can be applied before the token is made.
 --
--- The `schedule:` lines stay in the workflows as a late fallback until the dispatched runs have been checked for a
--- few days; then they come out in a second change, so no workflow runs twice a day.
+-- The `schedule:` lines came out of the workflows on 27 Nov 2026 after three days of on-time dispatched runs;
+-- pg_cron is now the only scheduler.
 
 create extension if not exists pg_cron;
 create extension if not exists pg_net;
@@ -38,7 +38,7 @@ end;
 $$;
 revoke execute on function public.dispatch_workflow(text) from public, anon, authenticated;
 
--- Same UTC times as the workflows' `schedule:` lines.
+-- UTC times. These are the workflows' only scheduled starts.
 select cron.schedule('gh-activity',   '30 3,15 * * *',         $j$ select public.dispatch_workflow('activity.yml') $j$);
 select cron.schedule('gh-commission', '41 4 * * 1-5',          $j$ select public.dispatch_workflow('commission.yml') $j$);
 select cron.schedule('gh-meps',       '11 5 * * 1-5',          $j$ select public.dispatch_workflow('meps.yml') $j$);

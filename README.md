@@ -190,11 +190,11 @@ The gate is `scripts/validate-data.mjs`. It checks counts, required fields, role
 
 ## Health status (status.json)
 
-The Action "Publish health status" (`.github/workflows/status.yml`) writes `status.json` to the `status` branch after every data workflow finishes (and on weekdays at 06:20 UTC as a backstop). It holds the latest run of each workflow, open issues, review branches, file counts, the build date of every data file (`freshness`), the dates still ahead for each priority file (`files`) and manifest entries that no longer match their file (`manifestProblems`, from `scripts/status-data.mjs`). The weekday Claude check reads it from `https://raw.githubusercontent.com/gianmariasisti-afk/nodo-data/status/status.json`.
+The Action "Publish health status" (`.github/workflows/status.yml`) writes `status.json` to the `status` branch after every data workflow finishes (and on weekdays at 06:20 UTC from pg_cron as a backstop). It holds the latest run of each workflow, open issues, review branches, file counts, the build date of every data file (`freshness`), the dates still ahead for each priority file (`files`) and manifest entries that no longer match their file (`manifestProblems`, from `scripts/status-data.mjs`). The weekday Claude check reads it from `https://raw.githubusercontent.com/gianmariasisti-afk/nodo-data/status/status.json`.
 
 Since 15 Nov 2026 the workflow's last step also has Supabase take a copy: it calls `public.refresh_data_status()` with the publishable key, and the function fetches `status.json` from the `status` branch itself and keeps it in `public.data_status` (one row; see `supabase/schema.sql`). The maintenance dashboard reads its Data health from that table, so it is as fresh as the last status run. No secret is involved, and a failed copy never fails the run (it shows as a warning on the step).
 
-GitHub starts scheduled runs on this repo 6–7 hours late and skips some (observed 5–12 October 2026): the morning jobs land around midday UTC and the agenda job runs about twice a day out of four slots. Times in this README are the scheduled ones.
+GitHub started scheduled runs on this repo 6–12 hours late and skipped some (observed October and November 2026). Since 27 Nov 2026 the workflows have no `schedule:` trigger: Supabase pg_cron starts them on time (see "Workflow start times"). Times in this README are UTC start times.
 
 The daily "Update file stream" run also recomputes the `files` entry of `v1/manifest.json` from `v1/files.json`, which is edited by hand, and removes anything in the files map that is not an entry.
 
@@ -228,7 +228,7 @@ At most one a day per person; an update is never sent twice; muted files, switch
 
 ## Workflow start times (Supabase pg_cron, since 24 Nov 2026)
 
-GitHub's `schedule:` trigger starts runs 7 to 12 hours late. `supabase/dispatch.sql` (migration `workflow_dispatch_schedule`) adds eight pg_cron jobs, `gh-activity` to `gh-updates`, that call GitHub's workflow_dispatch API at the same UTC times as the workflows' `schedule:` lines. They read a fine-grained token (nodo-data only, Actions read and write) from Supabase Vault under the name `github_dispatch_token`; until it is stored, every job does nothing. The `schedule:` lines stay as a late fallback until the dispatched runs have been checked for a few days, then they come out so nothing runs twice.
+GitHub's `schedule:` trigger starts runs 7 to 12 hours late. `supabase/dispatch.sql` (migration `workflow_dispatch_schedule`) adds eight pg_cron jobs, `gh-activity` to `gh-updates`, that call GitHub's workflow_dispatch API at the same UTC times as the workflows' `schedule:` lines. They read a fine-grained token (nodo-data only, Actions read and write) from Supabase Vault under the name `github_dispatch_token`; until it is stored, every job does nothing. The dispatched runs were checked from 25 to 27 Nov 2026 (every job fired on the minute, GitHub answered 204, every run succeeded), and on 27 Nov 2026 the `schedule:` lines came out of the eight workflows, so each runs once per slot. pg_cron is now the only scheduler: if the token expires or Supabase is paused, the data stops updating until it is renewed. Check: `select j.jobname, d.status, d.start_time from cron.job_run_details d join cron.job j using (jobid) where j.jobname like 'gh-%' order by d.start_time desc limit 20;`
 
 ## Country pages: monument photos and flag band
 

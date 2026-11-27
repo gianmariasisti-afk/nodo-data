@@ -1,8 +1,6 @@
 name: Update plenary agenda
 
 on:
-  schedule:
-    - cron: "17 5,9,13,17 * * 1-5"
   workflow_dispatch:
     inputs:
       days_ahead:
