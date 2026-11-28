@@ -2117,7 +2117,7 @@
    "area": "digital",
    "procedure": null,
    "stage": "positions-in-preparation",
-   "status": "The Commission proposed both on 3 June 2026. In Parliament, ITRE leads the Chips Act 2.0 (rapporteur Oliver Schenk, appointed 31 August) and ITRE and IMCO share the CADA (Diego Solier and Reinier van Lanschot); neither has a draft report or a committee vote date yet. The Council's industry working party took up the Chips Act 2.0 on 2 September and on 12 and 13 October, and had the Presidency compromise text (doc 13545/26 REV 1) on its agenda on 29 and 30 October. On the CADA, the telecoms working party had the Presidency's first compromise text of Title IV on 10 November and took up the text on Pillars 1 and 2 (doc 15830/26) on 24 November. The CADA aims to triple EU data-centre capacity within five to seven years and creates a framework to assess cloud and AI sovereignty, which is the most contested element.",
+   "status": "The Commission proposed both on 3 June 2026. In Parliament, ITRE rapporteur Oliver Schenk published the Chips Act 2.0 draft report on 9 November (amendments due 2 December), and co-rapporteurs Diego Solier (ITRE) and Reinier van Lanschot (IMCO) published the CADA draft report on 17 November under the joint committee procedure (amendments due 10 December); both are considered in committee on 1 December and no committee vote date is set. The Council's industry working party had the Presidency compromise on the Chips Act 2.0 (doc 13545/26 REV 1) on its agenda on 29 and 30 October, and the telecoms working party took up the CADA text on Pillars 1 and 2 (doc 15830/26) on 24 November. The CADA aims to triple EU data-centre capacity within five to seven years; its framework to assess cloud and AI sovereignty is the most contested element.",
    "next": [
     {
      "date": null,
@@ -2455,11 +2455,31 @@
      "id": "council-cm-5068",
      "title": "Council: notice of meeting CM 5068/26, Working Party on Telecommunications and Information Society, 24 Nov 2026",
      "url": "https://data.consilium.europa.eu/doc/document/CM-5068-2026-INIT/en/pdf"
+    },
+    {
+     "id": "ep-itre-pr-797426",
+     "title": "European Parliament, ITRE: draft report on the Chips Act 2.0 (Oliver Schenk), PE797.426, 9 Nov 2026",
+     "url": "https://www.europarl.europa.eu/doceo/document/ITRE-PR-797426_EN.html"
+    },
+    {
+     "id": "ep-cj18-pr-797430",
+     "title": "European Parliament, ITRE and IMCO: draft report on the Cloud and AI Development Act (Diego Solier, Reinier van Lanschot), PE797.430, 17 Nov 2026",
+     "url": "https://www.europarl.europa.eu/doceo/document/CJ18-PR-797430_EN.html"
+    },
+    {
+     "id": "ep-itre-oj-20261130",
+     "title": "European Parliament, ITRE: draft agenda, 30 November and 1 December 2026",
+     "url": "https://www.europarl.europa.eu/doceo/document/ITRE-OJ-2026-11-30-1_EN.html"
+    },
+    {
+     "id": "ep-cj18-oj-20261201",
+     "title": "European Parliament, ITRE and IMCO joint committee: draft agenda, 1 December 2026",
+     "url": "https://www.europarl.europa.eu/doceo/document/CJ18-OJ-2026-12-01-1_EN.html"
     }
    ],
-   "checked": "2026-11-25",
-   "lede": "The Council works on the Chips Act 2.0 compromise; neither text has a draft report in Parliament yet.",
-   "ledeChecked": "2026-11-25"
+   "checked": "2026-11-28",
+   "lede": "Both texts now have draft reports in Parliament: Chips Act 2.0 amendments are due 2 December, CADA amendments 10 December.",
+   "ledeChecked": "2026-11-28"
   },
   {
    "id": "ai-act-implementation",
