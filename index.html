@@ -9497,6 +9497,323 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     };
   }
 
+  /* ---------- Committee steps on the files (since 28 Nov 2026) ----------
+     v1/committee-steps.json (tools/committees/pull.py, read twice a week from the committees' draft agendas and draft
+     reports) holds dated steps ahead on each file: committee votes, votes on a trilogue deal, consideration of a draft
+     report or of amendments, exchanges of views and amendment deadlines, each with its committee, time and agenda.
+     They join the file's own "next" steps, so Today's Next 7 days, Calendar and the file page show them like the rest.
+     An undated step the agenda now dates (same part, same committee, a vote) gives way to it. In Calendar a committee
+     step reads "Parliament committee · 10.00" and a deadline "Amendments due · 17.00".
+     On a file page, the next dated step leads in a dark card in place of the "Dates and updates on this file" row. */
+  let CS = null;
+  const CS_BY_WHAT = new Map();
+  const CS_VOTE = new Set(["deal-vote", "mandate-vote", "vote", "opinion-vote"]);
+  function csMerge() {
+    if (!CS) return;
+    const t = todayIso();
+    CS_BY_WHAT.clear();
+    FILES.forEach((f) => {
+      const xs = ((CS.files || {})[f.id] || []).filter((s) => s.date >= t);
+      const own = (f.next || []).filter((x) => !x.cs);
+      const gone = (x) => !x.date && xs.some((s) => CS_VOTE.has(s.kind) && (s.part || null) === (x.part || null)
+        && /\bvote\b/i.test(x.what || "") && new RegExp("\\b" + s.committee.split("–")[0] + "\\b").test(x.what || ""));
+      f.next = [...own.filter((x) => !gone(x)), ...xs.map((s) => ({ date: s.date, what: s.what, part: s.part, src: s.src, cs: s }))];
+      xs.forEach((s) => CS_BY_WHAT.set(s.what, s));
+    });
+  }
+  const csInst = (s) => (s.kind === "deadline" ? ["cal", "Amendments due" + (s.time ? " · " + s.time : "")] : ["ep", "Parliament committee" + (s.time ? " · " + s.time : "")]);
+  {
+    const csGroups0 = clGroups;
+    clGroups = function () {
+      const gs = csGroups0.apply(this, arguments);
+      gs.forEach((g) => g.lines.forEach((l) => { const s = CS_BY_WHAT.get(l.what); if (s) l.inst = csInst(s); }));
+      return gs;
+    };
+  }
+  /* The file page: the next dated step in a dark card. Same target as the row it replaces: Calendar on this file. */
+  {
+    const csOpen0 = openFile;
+    openFile = function (id, keep, startTab) {
+      csOpen0(id, keep, startTab);
+      const f = FILE_BY[id], p = $("profile"), row = p && p.querySelector(".fp-cal");
+      if (!f || !row || state.open !== "file:" + id) return;
+      const t = todayIso(), ahead = (f.next || []).filter((x) => x.date && x.date >= t).sort((a, b) => a.date.localeCompare(b.date) || String((a.cs || {}).time || "99").localeCompare(String((b.cs || {}).time || "99")));
+      const nx = ahead[0]; if (!nx) return;
+      const s = nx.cs, d = fromIso(nx.date), n = Math.round((d - fromIso(t)) / 864e5);
+      const when = n === 0 ? "today" : n === 1 ? "tomorrow" : `in ${n} days`;
+      const part = nx.part && (f.parts || []).find((q) => q.id === nx.part);
+      const what = part ? String(nx.what).replace(new RegExp("^" + (part.short || part.title).replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + ":\\s*"), "") : nx.what;
+      const meta = s
+        ? [part && (part.short || part.title), s.rapporteur && (s.kind === "deadline" ? "Rapporteur " : "Rapporteur ") + s.rapporteur, s.time].filter(Boolean)
+        : [part && (part.short || part.title), clInstLabel(nx.what)].filter(Boolean);
+      const nPast = UPD.status === "done" ? tdSinceItems([f], addD(new Date(), -120)).length : 0;
+      const src = s ? `From the ${s.committee.split("–")[0]} ${s.src.startsWith("ep-draft-") ? "draft report" : "draft agenda"}` : "";
+      row.className = "fp-cal fp-next";
+      row.setAttribute("aria-label", `Next on this file, ${fmtD(d, { weekday: "long", day: "numeric", month: "long" })}: ${what}. See all dates and updates`);
+      row.innerHTML = `<span class="fp-next__top"><span class="fp-next__ov">Next on this file</span><span class="fp-next__in">${esc(when)}</span></span>
+        <span class="fp-next__main"><span class="fp-next__d" aria-hidden="true"><small>${esc(fmtD(d, { weekday: "short" }).toUpperCase())}</small><b>${d.getDate()}</b><small>${esc(fmtD(d, { month: "short" }))}</small></span>
+          <span class="fp-next__tx"><b>${esc(clClean(what))}</b><small>${esc(meta.join(" · "))}</small>${src ? `<small class="fp-next__src">${esc(src)}</small>` : ""}</span></span>
+        <span class="fp-next__foot"><span>${esc([`${ahead.length} ${pl(ahead.length, "date", "dates")} ahead`, nPast ? `${nPast} earlier ${pl(nPast, "update", "updates")}` : ""].filter(Boolean).join(" · "))}</span><span class="fp-next__go">See all ${icon("arrow")}</span></span>`;
+    };
+  }
+  const clInstLabel = (w) => { const i = /trilogue/i.test(w) ? "Trilogue" : /deadline/i.test(w) ? "Deadline" : TD_INST[edInst(w)] || ""; return i; };
+  fetchJson(DATA_BASE + "committee-steps.json").then((j) => {
+    CS = j; csMerge();
+    const f = curFile(); if (f) openFile(f.id, true);
+    if (state.view === "home" && !state.hq && typeof edRender === "function") edRender();
+    if (state.view === "cal" && typeof renderCal === "function") renderCal();
+  }).catch(() => { /* no committee steps yet: every view works without them */ });
+
+  /* ---------- An MEP's office and team (since 28 Nov 2026) ----------
+     v1/offices.json (tools/offices/pull.py, read weekly from the MEP pages) holds each MEP's Brussels and Strasbourg
+     office (building, room, telephone) and accredited assistants, names only. On a profile, under the count tiles:
+     "Office" with a Call button per city, then "Team in Brussels": the MEP's own accredited assistants, or the pool
+     they share with other MEPs (said in one line), three names then "Show all". Local assistants stay out. */
+  let OFFICES = null;
+  const moTel = (p) => "tel:" + String(p).replace(/[^\d+]/g, "");
+  function moBlock(id) {
+    const o = OFFICES && OFFICES.meps && OFFICES.meps[id]; if (!o) return "";
+    const city = (k, label, note) => {
+      const x = o[k]; if (!x) return "";
+      return row({ lead: disc("bank"), name: esc(label), wrap: true, meta: esc([[x.building, x.room].filter(Boolean).join(" "), note].filter(Boolean).join(" · ")) + (x.phone ? `<br><span class="mo-tel">${esc(x.phone)}</span>` : ""),
+        tail: x.phone ? `<a class="eu-btn eu-btn--sm${k === "bxl" ? "" : " eu-btn--outline"} mo-call" href="${esc(moTel(x.phone))}" aria-label="Call the ${esc(label)} office, ${esc(x.phone)}">${icon("phone")}Call</a>` : "" });
+    };
+    const offices = city("bxl", "Brussels", "") + city("sxb", "Strasbourg", "plenary weeks");
+    const own = o.team || [], pool = o.pool || [], names = own.length ? own : pool;
+    const open = moOpen.has(id), shown = open ? names : names.slice(0, 3);
+    const team = names.length ? `<h3>Team in Brussels <small>${names.length}</small></h3>
+      <div class="mo-team">${!own.length ? `<p class="mo-note">Accredited assistants this MEP shares with other MEPs.</p>` : ""}
+        <ul class="mo-names">${shown.map((n) => `<li>${esc(n)}</li>`).join("")}</ul>
+        ${names.length > 3 ? `<button class="linkbtn mo-more" type="button" data-momore="${esc(id)}" aria-expanded="${open}">${open ? "Show fewer" : `Show all ${names.length}`}</button>` : ""}</div>` : "";
+    return (offices ? `<h3>Office</h3><div class="list">${offices}</div>` : "") + team
+      + `<p class="cap mo-src">From the MEP's page on the Parliament's site, checked ${OFFICES.fetched ? esc(fmtIso(OFFICES.fetched, { day: "numeric", month: "short" })) : "weekly"}. The Parliament publishes assistants' names only, no emails or roles.</p>`;
+  }
+  const moOpen = new Set();
+  function moPlace(m) {
+    const P = $("profileBody"); if (!P || !m || state.open !== m.key) return;
+    P.querySelectorAll(".mo-wrap").forEach((n) => n.remove());
+    const h = moBlock(String(m.id)); if (!h) return;
+    const head = P.querySelector(":scope > .pcc"); if (!head) return;
+    head.insertAdjacentHTML("afterend", `<div class="mo-wrap">${h}</div>`);
+  }
+  {
+    const moOpenMep0 = openMep;
+    openMep = function (m) { const r = moOpenMep0.apply(this, arguments); moPlace(m); return r; };
+  }
+  document.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-momore]"); if (!b) return;
+    const id = b.dataset.momore; if (moOpen.has(id)) moOpen.delete(id); else moOpen.add(id);
+    const ent = BYKEY.get("ep:" + id); if (ent) moPlace(ent.o);
+  });
+  document.addEventListener("click", (e) => { const a = e.target.closest(".mo-call"); if (a) Track.log("call_office", { section: "ep", item: state.open }); });
+  fetchJson(DATA_BASE + "offices.json").then((j) => {
+    OFFICES = j;
+    const ent = state.open && BYKEY.get(state.open); if (ent && ent.t === "ep") moPlace(ent.o);
+  }).catch(() => { /* no offices yet: profiles work without them */ });
+
+  /* ---------- One-page brief (since 28 Nov 2026) ----------
+     A file page's "More" menu (…) gains "One-page brief": a sheet with a preview line, two switches (your people and
+     labels: on; your private contacts: off, because a brief usually goes to a manager or a client) and Share PDF.
+     The PDF is made on the device with pdf-lib and the app's own typefaces (vendor/brief/, loaded only when asked):
+     where the file stands, the next dates, the Parliament people per part, the Commission, the Council, your people,
+     the latest developments and the sources, on one A4 page (a second only for very long files). It follows the
+     list as the person edited it. Nothing is uploaded; one "brief" event is logged with the file id. */
+  const BRIEF_BASE = "vendor/brief/";
+  const BR = { mine: true, priv: false, lib: null };
+  function brLoad() {
+    if (BR.lib) return BR.lib;
+    const js = (src) => new Promise((ok, no) => { const s = document.createElement("script"); s.src = BRIEF_BASE + src; s.onload = ok; s.onerror = () => no(new Error(src)); document.head.appendChild(s); });
+    const bin = (f) => fetch(BRIEF_BASE + f).then((r) => { if (!r.ok) throw new Error(f); return r.arrayBuffer(); });
+    BR.lib = Promise.all([js("pdf-lib.min.js"), js("fontkit.umd.min.js")])
+      .then(() => Promise.all(["Figtree_400Regular.ttf", "Figtree_600SemiBold.ttf", "Outfit_500Medium.ttf"].map(bin)))
+      .then(([reg, semi, disp]) => ({ reg, semi, disp }))
+      .catch((e) => { BR.lib = null; throw e; });
+    return BR.lib;
+  }
+  const brGroup = (p) => String(p.group || "").replace(/^Greens\/EFA$/, "Greens/EFA");
+  /* What goes on the page, as plain data. */
+  function brData(f, o, lvl = 0) {
+    const m = membersOf(f), keep = new Set(m.base.map((x) => x.key)), t = todayIso();
+    const ep = (x) => { const e = BYKEY.get("ep:" + x.id); return e && e.o; };
+    const who = (p, cc) => `${p.name}${p.group || cc ? ` (${[brGroup(p), cc ? p.country : ""].filter(Boolean).join(", ")})` : ""}`;
+    /* With parts, the people on the whole file come first, under the file's own name; then each part. */
+    const parts = (f.parts || []).length ? [{ id: "", name: f.short }, ...f.parts.map((q) => ({ id: q.id, name: q.short || q.title }))] : [{ id: null, name: "" }];
+    const epBlocks = parts.map((q) => {
+      const xs = (f.meps || []).filter((x) => (q.id === null ? true : q.id === "" ? !x.part : x.part === q.id) && keep.has("ep:" + x.id) && ep(x));
+      const by = (r) => xs.filter((x) => x.role === r);
+      const rap = by("rapporteur"), sh = by("shadow"), op = by("opinion-rapporteur"), rel = by("relevant");
+      return { name: q.name, lead: [...new Set(rap.map((x) => x.committee))].join(", "),
+        rap: rap.map((x) => who(ep(x), true)), sh: sh.map((x) => who(ep(x), false)),
+        op: op.map((x) => `${x.committee}: ${who(ep(x), false)}`).slice(0, lvl >= 2 ? 4 : 99), opMore: lvl >= 2 ? Math.max(0, op.length - 4) : 0, rel: rel.map((x) => who(ep(x), false)) };
+    }).filter((b) => b.rap.length || b.sh.length || b.op.length || b.rel.length);
+    const coms = m.base.filter((x) => BYKEY.get(x.key).t === "ec").map((x) => { const c = BYKEY.get(x.key).o; const t = c.title === "President" ? "President of the European Commission" : [c.title, (c.portfolio || []).join(", ")].filter(Boolean).join(" for "); return `${c.name}, ${t}${x.role === "lead" ? " (lead)" : ""}`; });
+    const cabs = m.base.filter((x) => BYKEY.get(x.key).t === "cab").map((x) => { const c = BYKEY.get(x.key).o; return `${c.name}${x.why && lvl < 1 ? ` (${x.why.replace(/;.*$/, "")})` : ""}`; });
+    const co = f.council || {}, pres = co.presidency ? countryName(co.presidency) + " Presidency" : "";
+    const confs = (co.configs || []).map((id) => (CONF_BY[id] ? CONF_BY[id].name : id));
+    const wps = (co.workingParties || []).filter((w) => !w.part).map((w) => w.name);
+    const ahead = (f.next || []).filter((x) => x.date && x.date >= t).sort((a, b) => a.date.localeCompare(b.date) || String((a.cs || {}).time || "99").localeCompare(String((b.cs || {}).time || "99")));
+    const next = ahead.slice(0, 4).map((x) => ({ when: fmtD(fromIso(x.date), { weekday: "short", day: "numeric", month: "short" }) + (x.cs && x.cs.time ? ", " + x.cs.time : ""), what: clClean(x.what) }));
+    const undated = ahead.length < 3 ? (f.next || []).filter((x) => !x.date).slice(0, 3 - ahead.length).map((x) => ({ when: "No date", what: clClean(String(x.what).replace(/[:;,]\s*no (?:date|dates|day) set(?: yet)?\.?$/i, "")) })) : [];
+    const mine = [];
+    if (o.mine) {
+      const lab = (k) => AP.label(f.id, k);
+      [...m.base, ...m.added].forEach((x) => { const l = lab(x.key), add = !!x.mine; if (!l && !add) return; const e = BYKEY.get(x.key), p = e.o;
+        const where = e.t === "ep" ? [brGroup(p), p.country].filter(Boolean).join(", ") : e.t === "cab" ? "Cabinet " + (p.com.name.split(" ").pop()) : p.title || "Commission";
+        mine.push({ label: l || "Added by you", text: `${p.name} (${where})` }); });
+      if (o.priv) AP.contacts(f.id).forEach((c) => mine.push({ label: c.label || "Your contact", text: [c.name, [c.role, c.org].filter(Boolean).join(", ")].filter(Boolean).join(" · ") }));
+    }
+    const press = ((PRESS && PRESS.files && PRESS.files[f.id]) || []).slice().sort((a, b) => b.date.localeCompare(a.date)).slice(0, lvl >= 3 ? 0 : lvl >= 1 ? 1 : 2)
+      .map((x) => ({ when: fmtD(fromIso(x.date), { day: "numeric", month: "short" }), src: x.source, text: x.text }));
+    const srcs = ["the Parliament's Legislative Observatory and Open Data Portal", "the Commission's team pages"];
+    const docs = [...new Set(ahead.filter((x) => x.cs).map((x) => `${x.cs.committee.split("–")[0]} ${x.cs.src.startsWith("ep-draft-") ? "draft report" : "draft agenda"}`))];
+    if (docs.length) srcs.push("committee documents (" + docs.join(", ") + ")");
+    if (co.configs) srcs.push("the Council's meeting pages");
+    press.forEach((x) => srcs.push(x.src + ", " + x.when));
+    const pp = (f.parts || []).filter((q) => q.procedure), procs = pp.length ? [...(f.procedure && !pp.some((q) => q.procedure === f.procedure) ? [`${f.short} ${f.procedure}`] : []), ...pp.map((q) => `${q.short || q.title} ${q.procedure}`)] : [f.procedure].filter(Boolean);
+    return { title: f.short, full: f.title && f.title !== f.short ? f.title : "", stage: (STAGE[f.stage] || [])[0] || FL_STATION[ED_STAGE.indexOf(f.stage)] || "", procs, lede: flStatus(f),
+      next: [...next, ...undated], lead: (f.ep && f.ep.lead || []).join(", "), epBlocks, coms, cabs, pres, confs, wps, mine, press, srcs: [...new Set(srcs)] };
+  }
+  async function brPdf(f, o, lvl = 0) {
+    const fonts = await brLoad(), { PDFDocument, rgb } = window.PDFLib;
+    const doc = await PDFDocument.create(); doc.registerFontkit(window.fontkit);
+    const R = await doc.embedFont(fonts.reg, { subset: true }), S = await doc.embedFont(fonts.semi, { subset: true }), D = await doc.embedFont(fonts.disp, { subset: true });
+    const hex = (h) => rgb(parseInt(h.slice(1, 3), 16) / 255, parseInt(h.slice(3, 5), 16) / 255, parseInt(h.slice(5, 7), 16) / 255);
+    const INK = hex("#111312"), MUTED = hex("#5c635e"), LIME = hex("#d9f266"), SUNK = hex("#eef0ec"), LINE = hex("#d5dad3"), GOLD = hex("#f5b800"), GREEN = hex("#17754a");
+    const W = 595.28, H = 841.89, M = 44, CW = W - 2 * M, day = new Date().toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+    const x0 = brData(f, o, lvl);
+    doc.setTitle(`${x0.title}: file brief`); doc.setAuthor("nodo"); doc.setCreator("nodo (getnodo.eu)"); doc.setProducer("nodo");
+    let page, y;
+    const clean = (s) => String(s == null ? "" : s).replace(/[\u2028\u2029\t\r\n]+/g, " ").replace(/\s+/g, " ").trim();
+    const wrap = (txt, font, size, w) => { const out = []; let cur = ""; clean(txt).split(" ").forEach((wd) => { const t = cur ? cur + " " + wd : wd; if (font.widthOfTextAtSize(t, size) <= w || !cur) cur = t; else { out.push(cur); cur = wd; } }); if (cur) out.push(cur); return out; };
+    const newPage = () => {
+      page = doc.addPage([W, H]); y = H - M;
+      page.drawText("nod", { x: M, y: y - 16, size: 18, font: D, color: INK });
+      page.drawText("o", { x: M + D.widthOfTextAtSize("nod", 18), y: y - 16, size: 18, font: D, color: GOLD });
+      const r = `File brief · ${day}`; page.drawText(r, { x: W - M - R.widthOfTextAtSize(r, 9), y: y - 13, size: 9, font: R, color: MUTED });
+      y -= 26; page.drawLine({ start: { x: M, y }, end: { x: W - M, y }, thickness: 0.6, color: LINE }); y -= 16;
+    };
+    const room = (h) => { if (y - h < M + 50) newPage(); };
+    const para = (txt, { font = R, size = 10, color = INK, x = M, w = CW, lh = 1.4, gap = 0 } = {}) => {
+      const ls = wrap(txt, font, size, w); room(ls.length * size * lh);
+      ls.forEach((l) => { page.drawText(l, { x, y: y - size, size, font, color }); y -= size * lh; }); y -= gap;
+    };
+    /* "Label · text" with the label in semibold */
+    const lead = (label, txt, { size = 10, x = M, w = CW, color = INK, gap = 2 } = {}) => {
+      const lw = S.widthOfTextAtSize(label + "  ", size), ls = wrap(txt, R, size, w - lw);
+      room(Math.max(1, ls.length) * size * 1.4);
+      page.drawText(label, { x, y: y - size, size, font: S, color: INK });
+      ls.forEach((l, i) => { page.drawText(l, { x: x + lw, y: y - size, size, font: R, color }); y -= size * 1.4; });
+      if (!ls.length) y -= size * 1.4; y -= gap;
+    };
+    const over = (t) => { room(30); y -= 6; page.drawText(t.toUpperCase(), { x: M, y: y - 8, size: 7.5, font: S, color: MUTED }); y -= 15; };
+    newPage();
+    /* title, stage, procedures */
+    const tl = wrap(x0.title, D, 22, CW - 130), yT = y;
+    tl.forEach((l) => { page.drawText(l, { x: M, y: y - 22, size: 22, font: D, color: INK }); y -= 26; });
+    if (x0.stage) { const sw = S.widthOfTextAtSize(x0.stage, 8.5) + 16, sx = W - M - sw, sy = yT - 20;
+      page.drawRectangle({ x: sx, y: sy, width: sw, height: 16, color: SUNK }); page.drawText(x0.stage, { x: sx + 8, y: sy + 4.5, size: 8.5, font: S, color: GREEN }); }
+    if (x0.full) para(x0.full, { size: 9, color: MUTED, lh: 1.35 });
+    if (x0.procs.length) para(x0.procs.join(" · "), { size: 8.5, color: MUTED, gap: 4 });
+    /* where it stands, then the next dates in a lime band: date on the left, the step beside it */
+    over("Where it stands"); para(x0.lede, { size: 10.5, lh: 1.45, gap: 4 });
+    if (x0.next.length) {
+      const dw = 92, tw = CW - 24 - dw, rows = x0.next.map((n) => ({ n, ls: wrap(n.what, R, 9.5, tw) }));
+      const hN = 30 + rows.reduce((h, r) => h + r.ls.length * 13 + 5, 0);
+      room(hN + 6); y -= 4;
+      page.drawRectangle({ x: M, y: y - hN, width: CW, height: hN, color: LIME });
+      let yy = y - 15; page.drawText("NEXT DATES", { x: M + 12, y: yy, size: 7.5, font: S, color: INK }); yy -= 16;
+      rows.forEach((r) => { page.drawText(r.n.when, { x: M + 12, y: yy, size: 9.5, font: S, color: INK });
+        r.ls.forEach((l) => { page.drawText(l, { x: M + 12 + dw, y: yy, size: 9.5, font: R, color: INK }); yy -= 13; }); yy -= 5; });
+      y -= hN + 6;
+    }
+    /* Parliament */
+    if (x0.epBlocks.length) {
+      over("Parliament" + (x0.lead ? " · " + x0.lead + " leads" : ""));
+      x0.epBlocks.forEach((b) => {
+        if (b.name) { room(30); page.drawText(b.name, { x: M, y: y - 10, size: 10, font: S, color: INK }); y -= 15; }
+        if (b.rap.length) lead(b.rap.length > 1 ? "Rapporteurs" : "Rapporteur", b.rap.join("; "));
+        if (b.sh.length) lead("Shadows", b.sh.join(", "), { color: MUTED });
+        if (b.op.length) { const more = b.opMore + Math.max(0, b.op.length - 8); lead("Opinions", b.op.slice(0, 8).join("; ") + (more ? `; and ${more} more` : ""), { color: MUTED }); }
+        if (b.rel.length) lead("Also active", b.rel.join(", "), { color: MUTED });
+        y -= 4;
+      });
+    }
+    /* Commission and Council */
+    if (x0.coms.length || x0.cabs.length) { over("Commission");
+      x0.coms.forEach((c) => para(c, { size: 10 }));
+      if (x0.cabs.length) lead("Cabinet", x0.cabs.join("; "), { color: MUTED }); }
+    if (x0.pres || x0.confs.length || x0.wps.length) { over("Council");
+      para([x0.pres, ...x0.confs].filter(Boolean).join(" · "), { size: 10 });
+      if (x0.wps.length) lead(x0.wps.length > 1 ? "Working parties" : "Working party", x0.wps.join("; "), { color: MUTED }); }
+    /* Your people */
+    if (x0.mine.length) { over("Your people on this file"); x0.mine.forEach((p) => lead(p.label, p.text)); }
+    /* Latest developments */
+    if (x0.press.length) { over("Latest developments"); x0.press.forEach((p) => lead(`${p.when} · ${p.src}.`, p.text, { gap: 4 })); }
+    /* footer on every page */
+    const foot = `Sources: ${x0.srcs.join("; ")}. Made with nodo from public sources on ${day}. Check names and dates against the source before external use. getnodo.eu`;
+    doc.getPages().forEach((pg, i, all) => {
+      const ls = wrap(foot, R, 7.5, CW - 40); let yy = M + 8 + ls.length * 10;
+      pg.drawLine({ start: { x: M, y: yy + 4 }, end: { x: W - M, y: yy + 4 }, thickness: 0.6, color: LINE });
+      ls.forEach((l) => { pg.drawText(l, { x: M, y: yy - 6, size: 7.5, font: R, color: MUTED }); yy -= 10; });
+      if (all.length > 1) pg.drawText(`${i + 1} / ${all.length}`, { x: W - M - 20, y: M + 2, size: 7.5, font: R, color: MUTED });
+    });
+    /* Over one page: cut words, never shrink the type. First one latest development instead of two and the cabinet
+       without portfolios, then shorter
+       opinion lists, then no latest developments. A file with many parts (the MFF) may still take two pages. */
+    if (doc.getPageCount() > 1 && lvl < 3) return brPdf(f, o, lvl + 1);
+    const bytes = await doc.save();
+    return { blob: new Blob([bytes], { type: "application/pdf" }), name: `nodo - ${String(f.short).replace(/[\\/:*?"<>|]+/g, " ").trim()} - brief - ${todayIso()}.pdf`, pages: doc.getPageCount() };
+  }
+  function brOpen(id) {
+    const f = FILE_BY[id]; if (!f) return;
+    state.sheet = "br:" + id;
+    if ($("sheet").hidden) layer.sheet = document.activeElement;
+    const nAdd = membersOf(f).added.length, nLab = Object.keys((AP.d.labels || {})[f.id] || {}).length, nPriv = AP.contacts(f.id).length;
+    const sw = (k, t, s, dis) => `<div class="yu-set xp-set${dis ? " is-off" : ""}"><span class="yu-set__tx" id="brL-${k}"><b>${t}</b><span>${s}</span></span>
+      <button class="nx-switch" type="button" role="switch" data-brsw="${k}" aria-checked="${!!BR[k] && !dis}" aria-labelledby="brL-${k}"${dis ? " disabled" : ""}></button></div>`;
+    $("sheet").innerHTML = `<div class="sheet__bar"><button class="eu-iconbtn eu-iconbtn--sm" type="button" data-sheet-close aria-label="Close">${icon("x")}</button></div>
+      <div class="top"><div class="top__tx"><h2 id="sName">One-page brief</h2><div class="cap">${esc(f.short)} · PDF, A4</div></div></div>
+      <p class="br-intro">Where the file stands, the next dates, who is on it in the Parliament, the Commission and the Council, and the latest developments, with sources.</p>
+      <div class="xp-grp"><h3 class="xp-lg">Include</h3>
+        ${sw("mine", "Your people and labels", nAdd || nLab ? `The list as you edited it, with ${nAdd + nLab} of your additions or labels` : "You haven't added or labelled anyone on this file", !(nAdd || nLab))}
+        ${sw("priv", "Your private contacts", nPriv ? `${nPriv} ${pl(nPriv, "contact", "contacts")} nodo doesn't list. Off, because briefs are often sent on` : "You have no private contacts on this file", !nPriv)}</div>
+      <p class="xp-note">The PDF is made on your device. nodo keeps no copy. Public sources, as of today.</p>
+      <button class="eu-btn eu-btn--brand eu-btn--block xp-go" type="button" data-brgo="${esc(f.id)}">${XP_SVG.dl}<span id="brGoT">Share PDF</span></button>`;
+    $("scrim").hidden = false; $("sheet").hidden = false; $("sheet").scrollTop = 0;
+    syncLayers();
+    $("sheet").querySelector("[data-sheet-close]").focus({ preventScroll: true });
+    brLoad().catch(() => {}); /* warm up while the person reads the sheet */
+  }
+  {
+    const brOpenFile0 = openFile;
+    openFile = function (id) {
+      const r = brOpenFile0.apply(this, arguments);
+      const m = $("xpMenu");
+      if (m && !m.querySelector("[data-bropen]")) m.insertAdjacentHTML("afterbegin", `<button class="xp-mi" type="button" role="menuitem" data-bropen="${esc(id)}">${FD_SVG.pdf}One-page brief</button>`);
+      return r;
+    };
+  }
+  document.addEventListener("click", (e) => {
+    const t = e.target, op = t.closest("[data-bropen]");
+    if (op) { e.preventDefault(); e.stopImmediatePropagation(); const m = $("xpMenu"); if (m) { m.hidden = true; const b = document.querySelector("[data-xpmore]"); if (b) b.setAttribute("aria-expanded", "false"); } return brOpen(op.dataset.bropen); }
+    const f = state.sheet && state.sheet.startsWith("br:") ? FILE_BY[state.sheet.slice(3)] : null; if (!f) return;
+    const sw = t.closest("[data-brsw]"), go = t.closest("[data-brgo]");
+    if (sw && !sw.disabled) { e.preventDefault(); e.stopImmediatePropagation(); const k = sw.dataset.brsw; BR[k] = !BR[k]; sw.setAttribute("aria-checked", String(BR[k])); return; }
+    if (go && !go.disabled) {
+      e.preventDefault(); e.stopImmediatePropagation();
+      go.disabled = true; const lab = $("brGoT"); if (lab) lab.textContent = "Making the PDF…";
+      const o = { mine: BR.mine && (membersOf(f).added.length > 0 || Object.keys((AP.d.labels || {})[f.id] || {}).length > 0), priv: BR.priv && AP.contacts(f.id).length > 0 };
+      brPdf(f, o).then((out) => xpDeliver(out).then((how) => {
+        go.disabled = false; if (lab) lab.textContent = "Share PDF";
+        if (how === "cancelled") return;
+        closeSheet();
+        Track.log("brief", { section: "file", item: f.id, results: out.pages });
+        toast(how === "shared" ? "Brief ready" : `Saved ${out.name}`, 2600);
+      })).catch(() => { go.disabled = false; if (lab) lab.textContent = "Share PDF"; toast("The brief could not be made. Check your connection and try again."); });
+    }
+  }, true);
+
+
   initHome(); initEp(); initEc();
   let startView = "home";
   try { const h = (location.hash || "").slice(1); startView = { parliament: "ep", commission: "ec", council: "co", calendar: "cal", agenda: "agenda", saved: "saved", files: "files", news: "news" }[h] || "home"; } catch { /* ignore */ }
@@ -11439,5 +11756,39 @@ body { overflow-x: hidden; }
 /* UI consistency pass (28 Nov 2026): the four file tabs (Parliament, Commission, Council, Yours) stay on one line at phone width. */
 .chips.wrap:has(> [data-ftab]) { flex-wrap: nowrap; gap: 6px; }
 .chips.wrap:has(> [data-ftab]) .eu-chip { flex: 1 1 auto; min-width: 0; padding: 0 8px; justify-content: center; font-size: 14px; white-space: nowrap; }
+
+/* Committee steps: the next dated step on a file page (28 Nov 2026). */
+.fp-cal.fp-next { display: grid; gap: 10px; padding: 18px 18px 16px; border-radius: var(--radius-xl, 28px); background: #111312; color: #f4f6f2; box-shadow: inset 0 0 0 1px rgba(244,246,242,.08); }
+.fp-next__top, .fp-next__foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.fp-next__ov { font-size: 11px; line-height: 14px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: #a3aaa4; }
+.fp-next__in { font-size: 12px; color: #a3aaa4; }
+.fp-next__main { display: flex; gap: 14px; align-items: flex-start; }
+.fp-next__d { flex: none; width: 52px; padding: 6px 0; border-radius: 10px; background: var(--lime, #d9f266); color: #111312; text-align: center; display: grid; line-height: 1.1; }
+.fp-next__d small { font-size: 11px; font-weight: 600; }
+.fp-next__d b { font-family: var(--font-display); font-size: 22px; line-height: 26px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.fp-next__tx { min-width: 0; display: grid; gap: 4px; }
+.fp-next__tx b { font-family: var(--font-display); font-size: 18px; line-height: 23px; font-weight: 600; overflow-wrap: anywhere; }
+.fp-next__tx small { font-size: 13px; line-height: 18px; color: #a3aaa4; overflow-wrap: anywhere; }
+.fp-next__tx .fp-next__src { font-size: 12px; }
+.fp-next__foot { padding-top: 10px; border-top: 1px solid #2b2e2c; font-size: 13px; }
+.fp-next__go { display: inline-flex; align-items: center; gap: 4px; color: var(--lime, #d9f266); font-weight: 600; white-space: nowrap; }
+.fp-next__go .eu-icon { width: 16px; height: 16px; stroke: currentColor; }
+.fp-cal.fp-next:focus-visible { outline: 2px solid var(--lime, #d9f266); outline-offset: 2px; }
+
+/* An MEP's office and team (28 Nov 2026). */
+.mo-wrap > h3 { margin-top: var(--space-6); }
+.mo-call { flex: none; gap: 6px; }
+.mo-tel { white-space: nowrap; font-variant-numeric: tabular-nums; }
+.mo-call .eu-icon { width: 16px; height: 16px; }
+.mo-team { padding: 14px 16px; border-radius: var(--radius-md); background: var(--surface-sunken); }
+.mo-note { margin: 0 0 6px; font-size: 13px; line-height: 18px; color: var(--ink-muted); }
+.mo-names { margin: 0; padding: 0; list-style: none; }
+.mo-names li { padding: 10px 0; font-size: 15px; line-height: 20px; border-bottom: 1px solid var(--hairline); overflow-wrap: anywhere; }
+.mo-names li:last-child { border-bottom: 0; }
+.mo-more { margin-top: 4px; min-height: 44px; font-weight: 600; }
+.mo-src { margin-top: var(--space-2); }
+
+/* One-page brief (28 Nov 2026). */
+.br-intro { margin: var(--space-3) 0 var(--space-4); font-size: 15px; line-height: 21px; color: var(--ink-muted); }
 </style>
 </body></html>

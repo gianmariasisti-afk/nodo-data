@@ -70,6 +70,7 @@ const html = patch(readFileSync(join(ROOT, "index.html"), "utf8"), "index.html",
   ["photos", "fetch(`photos/${f}.json`)", "fetch(`../photos/${f}.json`)"],
   ["monument photos", 'const MON_BASE = "monuments/";', 'const MON_BASE = "../monuments/";'],
   ["supabase library", 'sc.src = "vendor/supabase.js"', 'sc.src = "../vendor/supabase.js"'],
+  ["brief library", 'const BRIEF_BASE = "vendor/brief/";', 'const BRIEF_BASE = "../vendor/brief/";'],
   /* Preview events carry a session id starting "next-", so the usage dashboard can tell them apart. */
   ["usage tag", "sid: Math.random().toString(36).slice(2, 12)", 'sid: "next-" + Math.random().toString(36).slice(2, 10)'],
   /* Accounts not on the list stop here: no sync, no usage log, the private screen instead. */
