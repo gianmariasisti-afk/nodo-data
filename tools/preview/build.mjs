@@ -22,7 +22,7 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
 const OUT = join(ROOT, "next");
 
 /* Who can open the preview: Supabase user ids. Add a tester's id here to let them in. */
-const PREVIEW_ACCOUNTS = ["16f3b8c5-9a37-492e-81af-1c89792751df"];
+const PREVIEW_ACCOUNTS = ["b75fa75c-e566-4503-977d-6c76ed03818b"]; /* Gianmaria's Google account (admin). The earlier id, 16f3b8c5…, no longer exists (checked 28 Nov 2026). */
 
 function patch(text, file, rules) {
   for (const [label, from, to] of rules) {
