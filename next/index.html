@@ -6349,7 +6349,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     if (t.closest("[data-coqmv]")) return coOpenQmv();
     const cv = t.closest("[data-cov]");
     if (cv) { e.stopPropagation(); state.co.v = cv.dataset.cov; if (state.view !== "co") { coKeep = true; return setView("co"); } renderCo(); scrollTo({ top: 0 });
-      const f = $("coBody").querySelector(".co-backhome") || $("coq"); if (f && cv.dataset.cov !== "home") f.focus({ preventScroll: true }); return; }
+      const f = document.querySelector("#vCo .ep-back") || $("coq"); if (f && cv.dataset.cov !== "home") f.focus({ preventScroll: true }); return; }
     /* A QMV toggle keeps its place and focus in the sheet after the repaint. */
     const qm = t.closest("#sheet [data-qmv], #sheet [data-qmvset]");
     if (qm) { const k = qm.dataset.qmv, s = qm.dataset.qmvset, top = $("sheet").scrollTop;
@@ -9479,6 +9479,23 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       const rows = apXp0(f, o); if (!o || !o.mine) return rows;
       AP.contacts(f.id).forEach((c) => rows.push({ name: c.name, inst: AP_PLACE[c.place] || "", role: "Your contact" + (c.label ? " · " + c.label : ""), cmte: "", pos: c.role || "", group: c.org || "", party: "", country: "", email: "", url: "", src: "Your list" }));
       return rows;
+    };
+  }
+
+
+  /* ---------- Council: one way back (since 28 Nov 2026) ----------
+     The Council's sub-pages (all delegations, Presidency, perm reps) had two back controls: the header arrow,
+     which went to People, and a "← Council" pill under it. The pill is gone; on a sub-page the header arrow
+     goes back to the Council page, and on the Council page itself it goes to People as before. */
+  {
+    const coOneBack0 = renderCo;
+    renderCo = function () {
+      coOneBack0();
+      const sub = (state.co.v || "home") !== "home", b = document.querySelector("#vCo .ep-back");
+      document.querySelectorAll("#coBody .co-backhome").forEach((n) => n.remove());
+      if (!b) return;
+      if (sub) { b.removeAttribute("data-view"); b.dataset.cov = "home"; b.setAttribute("aria-label", "Back to Council"); }
+      else { delete b.dataset.cov; b.dataset.view = "people"; b.setAttribute("aria-label", "Back to People"); }
     };
   }
 
