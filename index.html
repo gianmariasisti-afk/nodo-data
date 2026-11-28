@@ -3517,7 +3517,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const out = { exported: new Date().toISOString(), profile: state.profile || null, saved: [...state.favs].map((k) => ({ key: k, name: nm(k) })),
       following: [...state.follow].map((id) => ({ id, name: (FILE_BY[id] || {}).short || id })),
       lists: Object.fromEntries(Object.entries(state.lists).map(([id, l]) => [id, { added: (l.add || []).map((k) => ({ key: k, name: nm(k) })), removed: (l.rem || []).map((k) => ({ key: k, name: nm(k) })) }])) };
-    if (usage) out.usage = usage;
+    if (usage) out.usage = usage; try { out.contacts = AP.body(); } catch { /* none yet */ }
     const a = document.createElement("a");
     a.href = URL.createObjectURL(new Blob([JSON.stringify(out, null, 2)], { type: "application/json" })); a.download = "nodo-my-data.json";
     document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 1500);
@@ -3618,7 +3618,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const sec = (h, p) => `<section><h4>${h}</h4><p>${p}</p></section>`;
     const provNames = (CFG.providers || []).map((k) => (PROVIDERS[k] || {}).name).filter(Boolean);
     return `<div class="block">
-      ${LIVE ? sec("With an account", "nodo keeps one record for you: your name and email, the organisation, role and countries you enter, a profile picture if you add one, the people you save, the files you follow and the changes you make to stakeholder lists. The record sits in nodo's database, hosted by Supabase. Other people who use nodo cannot read it.")
+      ${LIVE ? sec("With an account", "nodo keeps one record for you: your name and email, the organisation, role and countries you enter, a profile picture if you add one, the people you save, the files you follow, the changes you make to stakeholder lists, and the contacts and labels you add to files (names and details of people you enter yourself; only you can read them). The record sits in nodo's database, hosted by Supabase. Other people who use nodo cannot read it.")
         + sec("How you use nodo", "While you are signed in, nodo keeps a usage log for your account: the sections and profiles you open, what you type in search and how many results came back, when you save or follow something, whether you took the tour, and any error the app runs into (the message and where in the code it happened). The team behind nodo reads it to see what works and what is missing. It sits in the same database, is not shared with anyone else and is not used for advertising.")
         + sec("Signing in", "With email you choose a password. It goes straight to the sign-in service, which keeps only a scrambled form of it; nodo never stores it. " + (provNames.length ? "If you sign in with " + provNames.join(" or ") + ", that service passes nodo your name and email address. " : "") + "nodo posts nothing on your behalf and does not read your contacts.")
         : sec("In this preview", "There are no accounts here. Your profile, the people you save, the files you follow and your list changes stay in this browser" + (state.me.id ? ", and in your own Claude account when you open nodo there" : "") + ". The sign-in screens are simulated: nothing you type in them is saved or sent.")}
@@ -3692,7 +3692,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       const title = `<h1 class="onb-xl onb-xl--auth" id="onbTitle" tabindex="-1">Untangle the <strong>EU.</strong></h1>`;
       /* Signing in is the way in. The preview has no server, so there the same screens are simulated. */
       main = `${title}
-        <p class="lead">Sign in or create your account to start. Your files, countries and saved people follow you on every device.</p>
+        <p class="lead">Who is on your EU file in the Parliament, the Commission and the Council, and what happens on it this week. Sign in or create your account to start.</p>
         <div class="auth-list">${claude}${provs}</div>
         ${provs || claude ? `<div class="or"><span>or</span></div>` : ""}
         ${emailBtn}`;
@@ -4500,7 +4500,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   function nxRequestCard(q, lead) {
     const done = nxRequested().has(fold(q).trim());
     return `<div class="block nx-req"><p><b>${lead}</b></p>
-      <p class="cap">${FILES.length ? `nodo follows ${nxNum(FILES.length)} priority files for now, and we are adding more.` : "nodo is adding files all the time."} Request this one: the most requested files get a full page first, with the Commission lead, cabinet contacts, the Council and checked sources.</p>
+      <p class="cap">${FILES.length ? `nodo follows ${nxNum(FILES.length)} priority files for now, and we are adding more.` : "nodo is adding files all the time."} Request this one. You get an answer in nodo within three working days: a full page, an automatic page, or the reason it isn't added.</p>
       <button class="eu-btn ${done ? "" : "eu-btn--brand "}eu-btn--block" type="button" data-nxreq="${esc(q)}"${done ? " disabled" : ""}>${done ? "Requested" + icon("check") : "Request a full page for “" + esc(nxClip(q, 40)) + "”"}</button></div>`;
   }
   const nxResultsBase = resultsHtml;
@@ -4523,7 +4523,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     set.add(k); store.set(NX.REQ, JSON.stringify([...set].slice(-200)));
     Track.log("request", { section: "file", query: q.slice(0, 200) }); Track.flush();
     btn.disabled = true; btn.classList.remove("eu-btn--brand"); btn.innerHTML = "Requested" + icon("check");
-    toast("Request sent. Thank you.");
+    toast(`Requested. Answer in nodo by ${rqDay(rqDueFrom(new Date()))}.`, 3200); setTimeout(rqLoad, 4000);
   }
 
   /* ---------- 3. automatic page ---------- */
@@ -6337,7 +6337,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     if (t.closest("[data-coqmv]")) return coOpenQmv();
     const cv = t.closest("[data-cov]");
     if (cv) { e.stopPropagation(); state.co.v = cv.dataset.cov; if (state.view !== "co") { coKeep = true; return setView("co"); } renderCo(); scrollTo({ top: 0 });
-      const f = $("coBody").querySelector(".co-backhome") || $("coq"); if (f && cv.dataset.cov !== "home") f.focus({ preventScroll: true }); return; }
+      const f = document.querySelector("#vCo .ep-back") || $("coq"); if (f && cv.dataset.cov !== "home") f.focus({ preventScroll: true }); return; }
     /* A QMV toggle keeps its place and focus in the sheet after the repaint. */
     const qm = t.closest("#sheet [data-qmv], #sheet [data-qmvset]");
     if (qm) { const k = qm.dataset.qmv, s = qm.dataset.qmvset, top = $("sheet").scrollTop;
@@ -6603,7 +6603,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
         <div class="yu-set"><span class="yu-set__tx"><b>${esc(mail || "No email on file")}</b><span>${p.method ? "Signed in with " + esc(METHOD_LABEL[p.method] || "your account") : acct.user ? "Signed in" : "Not signed in"}</span></span></div>
       </div></section>
       <section aria-labelledby="yuA3"><h3 class="yu-cap" id="yuA3">Your data</h3><div class="yu-list">
-        <button class="yu-set yu-set--go" type="button" id="yuExp"><span class="yu-set__tx"><b>Download your data</b><span>Profile, saved people, lists and files you follow</span></span>${chev}</button>
+        <button class="yu-set yu-set--go" type="button" id="yuExp"><span class="yu-set__tx"><b>Download your data</b><span>Profile, saved people, lists, your contacts and files you follow</span></span>${chev}</button>
         <button class="yu-set yu-set--go" type="button" id="yuWhat"><span class="yu-set__tx"><b>What nodo stores</b><span>And who can read it</span></span>${chev}</button>
       </div></section>
       <div class="yu-end" id="yuDelBox">${acct.user ? `<button class="eu-btn eu-btn--outline danger" id="yuDel" type="button">Delete account</button><p class="yu-meta">Removes your account and everything you saved, on every device.</p>` : ""}</div>
@@ -8140,7 +8140,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       <p class="st-none__k">Where nodo looked</p>
       <ul class="st-none__ul"><li>The ${n(nCur)} files nodo follows</li>${nAu ? `<li>${n(nAu)} files from the Legislative Observatory</li>` : ""}${nRp ? `<li>${n(nRp)} Parliament reports and opinions</li>` : ""}<li>Every MEP, Commissioner, cabinet member and Council delegation</li></ul>
       <p class="st-none__p">Try the official title, the procedure number (like 2025/0102) or a broader word.</p>
-      <div class="st-none__ask"><p><b>Know the file exists?</b> Tell nodo. The most requested files get a full page first.</p>
+      <div class="st-none__ask"><p><b>Know the file exists?</b> Request it. You get an answer in nodo within three working days.</p>
         <button class="eu-btn ${asked ? "" : "eu-btn--brand "}eu-btn--block" type="button" data-nxreq="${esc(q)}"${asked ? " disabled" : ""}>${asked ? "Requested" + icon("check") : `Request “${esc(nxClip(q, 30))}”`}</button></div></section>`;
   }
   {
@@ -8231,7 +8231,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
         <div class="au-list">${af.slice(0, FL_FIND_MAX).map(auCard).join("")}</div>
         ${af.length > FL_FIND_MAX ? `<p class="cap nx-more">Showing ${FL_FIND_MAX} of ${af.length}. Add a word or the procedure number to narrow it down.</p>` : ""}`
       : ok && !mine.length ? `<p class="fl-find__none">No file in the Observatory matches “${esc(nxClip(q, 40))}”.</p>` : "";
-    const req = ok ? `<div class="fl-find__req"><p><b>Can't find it?</b> Ask nodo to follow it. The most requested files get a full page first.</p>
+    const req = ok ? `<div class="fl-find__req"><p><b>Can't find it?</b> Request it. You get an answer in nodo within three working days.</p>
       <button class="eu-btn eu-btn--outline eu-btn--block" type="button" data-nxreq="${esc(q.trim())}"${asked ? " disabled" : ""}>${asked ? "Requested" + icon("check") : "Request a full page for “" + esc(nxClip(q.trim(), 32)) + "”"}</button>
       <p class="cap">Want to say more? <button class="linkbtn" type="button" data-flreqmail>Write to ${NX_MAIL}</button></p></div>` : "";
     box.innerHTML = follows + auto + req;
@@ -8259,8 +8259,11 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const vv = window.visualViewport, sh = $("sheet"); if (!vv || !sh) return;
     const fit = () => {
       const kb = sh.hidden ? 0 : Math.round(innerHeight - vv.height - vv.offsetTop);
-      if (kb > 80) { sh.style.bottom = kb + "px"; sh.style.maxHeight = Math.round(vv.height - 8) + "px"; sh.classList.add("is-kb"); }
-      else if (sh.classList.contains("is-kb")) { sh.style.bottom = ""; sh.style.maxHeight = ""; sh.classList.remove("is-kb"); }
+      /* In Safari the address bar floats above the keyboard and the page showed through between it and the sheet:
+         there the sheet reaches down behind the bar (28 Nov 2026). The iPhone app has no address bar. */
+      const under = window.Capacitor ? 0 : 72;
+      if (kb > 80) { sh.style.bottom = Math.max(0, kb - under) + "px"; sh.style.maxHeight = Math.round(vv.height - 8 + under) + "px"; sh.style.setProperty("--kb-under", under + "px"); sh.classList.add("is-kb"); }
+      else if (sh.classList.contains("is-kb")) { sh.style.bottom = ""; sh.style.maxHeight = ""; sh.style.removeProperty("--kb-under"); sh.classList.remove("is-kb"); }
     };
     vv.addEventListener("resize", fit); vv.addEventListener("scroll", fit);
     new MutationObserver(fit).observe(sh, { attributes: true, attributeFilter: ["hidden"] });
@@ -9013,7 +9016,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       if (!FILES.length || !$("filesBody")) return;
       const areas = FL_AREAS().filter((a) => faAreaFiles(a.id).length), known = new Set(FL_AREAS().map((a) => a.id));
       const n = faCurated().length;
-      $("filesBody").innerHTML = `<p class="fl-intro">${n} EU laws in the making, in ${areas.length} policy areas. Open one to see where it stands and who shapes it.</p>
+      $("filesBody").innerHTML = `<p class="fl-intro">${n} EU laws in the making, in ${areas.length} policy areas. Open one to see where it stands and who shapes it. Every other Parliament file has an automatic page.</p>
         <div id="flPanel" class="fl-panel">
           ${frSec("mine", "Your files", followedFiles())}
           <section class="fa-areas" aria-labelledby="faAreasH">
@@ -9107,6 +9110,385 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       toast(had ? "Notification removed" : "We'll notify you when it's proposed", 2400);
     }
   }, true);
+
+
+  /* ---------- Answers to file requests (since 27 Nov 2026) ----------
+     public.file_requests (supabase/requests.sql) records every "Request a full page" and answers it within three working
+     days: automatically each weekday morning when the request names a file nodo follows or a procedure with an automatic
+     page, otherwise in the weekly refresh, with a one-line reason when it is not added. Today shows the answers not yet
+     seen, in one card above the rest; "Got it" or opening the page marks an answer seen on every device. */
+  const RQ = { rows: [] };
+  const rqDay = (d) => d.toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short" });
+  function rqDueFrom(t) { /* mirrors public.add_working_days(t, 3) */
+    const d = new Date(t); let k = 0;
+    while (k < 3) { d.setDate(d.getDate() + 1); const w = d.getDay(); if (w > 0 && w < 6) k++; }
+    return d;
+  }
+  async function rqLoad() {
+    if (!LIVE || !acct.user || !SB.client) return;
+    try {
+      const { data, error } = await SB.client.from("file_requests")
+        .select("id,query,status,file_id,reason,due_at,answered_at,seen_at").order("created_at", { ascending: false }).limit(50);
+      if (error) return;
+      RQ.rows = data || [];
+      if (RQ.rows.some((r) => r.status === "auto" && !r.seen_at)) { try { await auLoad(); } catch { /* the Open button then says so */ } }
+      if (state.view === "home" && !state.hq) edRender();
+    } catch { /* stay quiet: the card simply doesn't show */ }
+  }
+  function rqSeen(id) {
+    const r = RQ.rows.find((x) => String(x.id) === String(id)); if (!r || r.seen_at) return;
+    r.seen_at = new Date().toISOString();
+    try { SB.client.rpc("mark_request_seen", { p_id: r.id }); } catch { /* ignore */ }
+  }
+  function tdReqHtml() {
+    const ans = RQ.rows.filter((r) => r.status !== "open" && !r.seen_at).slice(0, 3);
+    if (!ans.length) return "";
+    const it = (r) => {
+      const f = r.status === "full" ? FILE_BY[r.file_id] : null;
+      const q = esc(nxClip(r.query, 60));
+      const what = r.status === "full" && f ? `<b>${esc(f.short)}</b> has a full page in nodo.`
+        : r.status === "auto" ? `<b>${q}</b> has an automatic page, built from the Parliament's procedure file.`
+        : r.status === "declined" ? `<b>${q}</b> isn't added. ${esc(r.reason || "")}` : "";
+      if (!what) return "";
+      const go = r.status === "full" && f ? `<button class="eu-btn eu-btn--sm eu-btn--brand" type="button" data-rqseen="${r.id}" data-file="${esc(f.id)}">Open page</button>`
+        : r.status === "auto" && r.file_id ? `<button class="eu-btn eu-btn--sm eu-btn--brand" type="button" data-rqseen="${r.id}" data-augo="${esc(r.file_id)}">Open page</button>` : "";
+      return `<div class="td-row td-rq"><span class="td-row__what">${what}</span>
+        <span class="td-rq__acts">${go}<button class="eu-btn eu-btn--sm" type="button" data-rqseen="${r.id}" data-rqok>Got it</button></span></div>`;
+    };
+    return `<div class="td-h"><h2 class="td-t" id="tdReqH">Your requests</h2></div>${ans.map(it).join("")}`;
+  }
+  (function rqMount() {
+    const since = $("tdSince"); if (!since || $("tdReq")) return;
+    since.insertAdjacentHTML("beforebegin", `<section id="tdReq" class="td-card" aria-labelledby="tdReqH" hidden></section>`);
+  })();
+  {
+    const edRender0 = edRender;
+    edRender = function () {
+      edRender0();
+      const el = $("tdReq"); if (!el) return;
+      const h = tdReqHtml(); el.innerHTML = h; el.hidden = !h;
+    };
+  }
+  document.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-rqseen]"); if (!b) return;
+    rqSeen(b.dataset.rqseen);
+    Track.log("request_answer", { section: "today", item: String(b.dataset.rqseen) });
+    if (b.hasAttribute("data-rqok")) { e.stopPropagation(); edRender(); }
+    else setTimeout(edRender, 0); /* data-file / data-augo still open the page */
+  }, true);
+  setTimeout(rqLoad, 3000);
+  document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") rqLoad(); });
+
+
+  /* ---------- The file of the week, on a first visit (since 27 Nov 2026) ----------
+     Until a person follows a file, Today opens with one curated file shown the way nodo shows a followed one: stage,
+     lede, next step, the rapporteurs, a count of everyone else, the latest development, Follow and Open. It goes as
+     soon as one file is followed. Picked each day, nothing by hand: a curated file with a step in the next 7 days,
+     files in trilogue or the Council negotiating box first, then the one with the most Latest developments, then the
+     soonest step. With no step in the window, the file with the most Latest developments. */
+  const SMP_RANK = { trilogue: 0, "council-negotiating-box": 0 };
+  function smpPress(f) { const l = PRESS && PRESS.files && PRESS.files[f.id]; return Array.isArray(l) ? l : []; }
+  function smpStep(f, from, to) { return (f.next || []).filter((x) => x.date && x.date >= from && x.date <= to).sort((a, b) => a.date.localeCompare(b.date))[0] || null; }
+  function smpPick() {
+    const w = tdWindow(), from = isoD(w.start), to = isoD(w.end);
+    const xs = FILES.filter((f) => !f.auto);
+    const busy = xs.filter((f) => smpStep(f, from, to));
+    const pool = busy.length ? busy : xs;
+    return pool.slice().sort((a, b) => (SMP_RANK[a.stage] ?? 1) - (SMP_RANK[b.stage] ?? 1)
+      || smpPress(b).length - smpPress(a).length
+      || String((smpStep(a, from, to) || {}).date || "9").localeCompare(String((smpStep(b, from, to) || {}).date || "9"))
+      || a.short.localeCompare(b.short))[0] || null;
+  }
+  function tdSmpHtml() {
+    const f = smpPick(); if (!f) return "";
+    const w = tdWindow(), from = isoD(w.start), st = smpStep(f, from, isoD(w.end)) || smpStep(f, from, "9999-12-31");
+    const today = isoD(new Date()), d = st ? fromIso(st.date) : null;
+    const when = !st ? "" : st.date === today ? "Next step · today" : st.date === isoD(addD(new Date(), 1)) ? "Next step · tomorrow" : "Next step";
+    const step = st ? `<button class="smp-step" type="button" data-file="${esc(f.id)}" data-filetab="next">
+        <span class="smp-step__d" aria-hidden="true"><small>${esc(fmtD(d, { weekday: "short" }))}</small><b>${d.getDate()}</b><small>${esc(fmtD(d, { month: "short" }))}</small></span>
+        <span class="smp-step__t"><span class="smp-k">${esc(when)}</span><span class="smp-step__w">${esc(edWhat({ what: st.what, files: [f] }))}</span>
+        <span class="smp-step__m">${esc(fmtD(d, { weekday: "long", day: "numeric", month: "long" }))}</span></span></button>` : "";
+    const m = membersOf(f).base, raps = m.filter((x) => x.role === "rapporteur" && BYKEY.has(x.key)).slice(0, 3);
+    const ppl = raps.map((x) => { const o = BYKEY.get(x.key).o, mm = (f.meps || []).find((y) => "ep:" + y.id === x.key);
+      const lab = [raps.length > 1 ? "Co-rapporteur" : "Rapporteur", mm && mm.committee].filter(Boolean).join(", ");
+      return row({ attrs: tap(`data-open="${esc(x.key)}"`), lead: avaOf(x.key), name: esc(o.name), meta: esc([lab, o.group, o.country].filter(Boolean).join(" · ")), wrap: true }); }).join("");
+    const c = countsOf(f), wp = wpGroups(f).length;
+    const rest = [c.ep - raps.length > 0 ? `${c.ep - raps.length} more ${pl(c.ep - raps.length, "MEP", "MEPs")}` : "",
+      c.ec ? `${c.ec} ${pl(c.ec, "Commissioner", "Commissioners")}` : "", c.cab ? `${c.cab} cabinet staff` : "",
+      wp ? (wp > 1 ? `${wp} Council working parties` : "the Council working party") : ""].filter(Boolean);
+    const restTxt = rest.length ? `Plus ${rest.length > 1 ? rest.slice(0, -1).join(", ") + " and " + rest[rest.length - 1] : rest[0]}.` : "";
+    const pr = smpPress(f).slice().sort((a, b) => String(b.date).localeCompare(String(a.date)))[0];
+    const dev = pr ? `<div class="smp-dev"><span class="smp-k">Latest development · ${esc(fmtD(fromIso(pr.date), { day: "numeric", month: "short" }))}</span><span>${esc(pr.text)}</span><small>${esc(pr.source || "")}</small></div>` : "";
+    const sl = STAGE[f.stage];
+    return `<div class="td-h"><span class="smp-k">The file of the week</span>${sl ? `<span class="smp-pill">${esc(sl[0])}</span>` : ""}</div>
+      <h2 class="td-t" id="tdSmpH">${esc(f.short)}</h2>
+      ${f.lede ? `<p class="smp-lede">${esc(f.lede)}</p>` : ""}
+      ${step}
+      ${ppl ? `<h3 class="smp-h3">Who shapes it</h3><div class="list">${ppl}</div>` : ""}
+      ${restTxt ? `<p class="td-cap">${esc(restTxt)}</p>` : ""}
+      ${dev}
+      <div class="smp-acts"><button class="eu-btn eu-btn--brand" type="button" data-smpfollow="${esc(f.id)}">Follow this file</button>
+        <button class="eu-btn eu-btn--outline" type="button" data-file="${esc(f.id)}">Open the full page</button></div>
+      <p class="td-cap smp-foot">This is what nodo shows for every file you follow. It goes away once you follow one.</p>`;
+  }
+  /* Latest developments load after start-up: draw the card again once they are in, since they decide the pick. */
+  { let n = 0; const t = setInterval(() => { n++; if (PRESS || n > 40) { clearInterval(t); if (PRESS && state.view === "home" && !state.hq) edRender(); } }, 500); }
+  (function smpMount() {
+    const nx = $("tdNext"); if (!nx || $("tdSmp")) return;
+    nx.insertAdjacentHTML("beforebegin", `<section id="tdSmp" class="td-card smp" aria-labelledby="tdSmpH" hidden></section>`);
+  })();
+  {
+    const edRender1 = edRender;
+    edRender = function () {
+      edRender1();
+      const el = $("tdSmp"); if (!el) return;
+      const h = !followedFiles().length && FILES.length ? tdSmpHtml() : "";
+      if (el.dataset.k !== h) { el.dataset.k = h; el.innerHTML = h; }
+      el.hidden = !h;
+    };
+  }
+  document.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-smpfollow]"); if (!b) return;
+    e.stopPropagation();
+    const id = b.dataset.smpfollow, f = FILE_BY[id]; if (!f) return;
+    if (!state.follow.has(id)) { state.follow.add(id); Track.log("follow", { section: "today-sample", item: id }); }
+    saveFollow(); renderFiles(); renderNews(); renderSpot();
+    toast(`Following ${f.short}. Today now shows your file.`, 3000);
+  }, true);
+
+
+  /* ---------- Add a person to a file (since 27 Nov 2026) ----------
+     Adding people sits up front: a lime "Add a person to this file" card under the Parliament / Commission / Council
+     chips, and a fourth chip, Yours, with everything the person added. The search is the existing one (MEPs,
+     Commissioners, cabinet staff): nodo knows each person's institution and files them in the right section, then
+     offers Undo and an optional label (Key contact, Ally, To meet, To watch). Someone nodo doesn't list is added as a
+     contact of your own: name, organisation, role, where they sit on the file, a label, and an optional detail line.
+     Contacts and labels are private to the account. They sync through their own Supabase table, user_file_people
+     (one row per account, like user_council_names), because the live app rewrites user_state whole. */
+  const AP_KEY = "nodo.filePeople", AP_UPD = "nodo.filePeople.updated", AP_SYNCED = "nodo.filePeople.synced";
+  const AP_PLACES = [["ep-staff", "Parliament staff"], ["ec", "Commission or DG"], ["co", "Council or perm rep"], ["industry", "Industry"], ["ngo", "NGO"], ["other", "Other"]];
+  const AP_LABELS = ["Key contact", "Ally", "To meet", "To watch"];
+  const AP_PLACE = Object.fromEntries(AP_PLACES);
+  const AP = {
+    d: (() => { try { const x = JSON.parse(store.get(AP_KEY) || "null"); return x && typeof x === "object" ? { contacts: x.contacts || {}, labels: x.labels || {} } : { contacts: {}, labels: {} }; } catch { return { contacts: {}, labels: {} }; } })(),
+    uid: null, timer: null,
+    body() { return { contacts: this.d.contacts, labels: this.d.labels }; },
+    contacts(fid) { return (this.d.contacts[fid] || []).filter((c) => !c.del); },
+    label(fid, key) { return (this.d.labels[fid] || {})[key] || ""; },
+    count(fid) { const m = membersOf(FILE_BY[fid]); return m.added.length + this.contacts(fid).length; },
+    save() { store.set(AP_KEY, JSON.stringify(this.d)); store.set(AP_UPD, String(Date.now())); this.push(); },
+    setLabel(fid, key, lab) { const l = this.d.labels[fid] || (this.d.labels[fid] = {}); if (lab) l[key] = lab; else delete l[key]; if (!Object.keys(l).length) delete this.d.labels[fid]; this.save(); },
+    upsert(fid, c) { const xs = this.d.contacts[fid] || (this.d.contacts[fid] = []); const i = xs.findIndex((x) => x.id === c.id); c.ts = Date.now(); if (i >= 0) xs[i] = c; else xs.push(c); this.save(); },
+    remove(fid, id) { const xs = this.d.contacts[fid] || []; const c = xs.find((x) => x.id === id); if (c) { c.del = true; c.ts = Date.now(); c.name = ""; c.org = ""; c.role = ""; c.detail = ""; } this.save(); },
+    async connect(uid) {
+      const sb = SB.client; if (!sb || !uid) return;
+      const { data, error } = await sb.from("user_file_people").select("body,updated").eq("user_id", uid).maybeSingle();
+      if (error) return;
+      this.uid = uid;
+      const first = store.get(AP_SYNCED) !== uid, localUpd = Number(store.get(AP_UPD) || 0), r = (data && data.body) || {}, rUpd = data ? Number(data.updated) || 0 : 0;
+      store.set(AP_SYNCED, uid);
+      if (data && (first || rUpd > localUpd)) {
+        /* Contacts merge by id, the newer edit wins; labels from the account fill in or replace. */
+        Object.entries(r.contacts || {}).forEach(([fid, xs]) => (xs || []).forEach((c) => {
+          const mine = this.d.contacts[fid] || (this.d.contacts[fid] = []), i = mine.findIndex((x) => x.id === c.id);
+          if (i < 0) mine.push(c); else if ((c.ts || 0) > (mine[i].ts || 0)) mine[i] = c;
+        }));
+        Object.entries(r.labels || {}).forEach(([fid, l]) => { this.d.labels[fid] = first ? { ...l, ...(this.d.labels[fid] || {}) } : { ...l }; });
+        store.set(AP_KEY, JSON.stringify(this.d));
+        const f = curFile(); if (f) openFile(f.id, true);
+      }
+      if (!data || first || localUpd > rUpd) this.push(true);
+    },
+    push(now) {
+      if (!this.uid || !SB.client) return;
+      clearTimeout(this.timer);
+      const go = () => SB.client.from("user_file_people").upsert({ user_id: this.uid, body: this.body(), updated: Number(store.get(AP_UPD) || Date.now()) })
+        .then(({ error }) => { if (error) toast("Could not save to your account. Your contacts are kept on this phone."); });
+      if (now) go(); else this.timer = setTimeout(go, 600);
+    },
+  };
+  /* Connect once signed in (the session arrives after start-up). */
+  { let n = 0; const t = setInterval(() => { n++; if (LIVE && acct.user && SB.client) { clearInterval(t); AP.connect(acct.user.id); } else if (n > 120) clearInterval(t); }, 1000); }
+  const apUid = () => "c" + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+  const apInit = (n) => String(n || "?").trim().split(/\s+/).map((w) => w[0] || "").join("").slice(0, 2).toUpperCase();
+  const apPill = (lab) => (lab ? `<span class="ap-pill">${esc(lab)}</span>` : "");
+
+  /* The file page: the lime card, the Yours chip and the Yours view. */
+  function apYoursHtml(f) {
+    const m = membersOf(f), byT = (t) => m.added.filter((x) => (BYKEY.get(x.key) || {}).t === t || (t === "ec" && (BYKEY.get(x.key) || {}).t === "cab"));
+    const known = (x) => { const e = BYKEY.get(x.key); if (!e) return ""; const o = e.o;
+      const meta = e.t === "ep" ? [o.group, countryName(o.country), "In nodo"] : e.t === "ec" ? [o.title, "In nodo"] : [o.role, o.com ? "Cabinet " + o.com.short : "", "In nodo"];
+      return row({ attrs: tap(`data-open="${esc(x.key)}"`), lead: avaOf(x.key), name: esc(o.name), meta: esc(meta.filter(Boolean).join(" · ")), wrap: true, tail: apPill(AP.label(f.id, x.key)) }); };
+    const contact = (c) => `<button class="eu-row ap-row" type="button" data-apedit="${esc(c.id)}"><span class="ap-ava" aria-hidden="true">${esc(apInit(c.name))}</span>
+        <span class="eu-row__body"><span class="eu-row__name">${esc(c.name)}</span><span class="eu-row__meta">${esc([c.role, c.org, "Your contact"].filter(Boolean).join(" · "))}</span></span>${apPill(c.label)}</button>`;
+    const sec = (title, html, n) => (n ? `<h3>${esc(title)} <small>${n}</small></h3><div class="list">${html}</div>` : "");
+    const cs = AP.contacts(f.id), ep = byT("ep"), ec = byT("ec");
+    const places = AP_PLACES.map(([k, t]) => [t, cs.filter((c) => c.place === k)]).filter(([, xs]) => xs.length);
+    const any = ep.length + ec.length + cs.length;
+    return `<p class="cap ap-cap">The people you added to this file, from nodo and your own contacts. Only you see this list.</p>
+      ${sec("Parliament", ep.map(known).join(""), ep.length)}${sec("Commission", ec.map(known).join(""), ec.length)}
+      ${places.map(([t, xs]) => sec(t, xs.map(contact).join(""), xs.length)).join("")}
+      ${any ? "" : `<div class="hint"><span>Nobody yet. Add the people you work with on this file: anyone in nodo, or a contact of your own.</span></div>`}`;
+  }
+  {
+    const apOpen0 = openFile;
+    openFile = function (id, keep, startTab) {
+      apOpen0(id, keep, startTab);
+      const f = FILE_BY[id], p = $("profileBody"); if (!f || !p || state.open !== "file:" + id) return;
+      const chips = p.querySelector('.chips[aria-label="View"]'); if (!chips || chips.querySelector("[data-ftab=mine]")) return;
+      const tab = state.ftab || "ep", n = AP.count(id);
+      chips.insertAdjacentHTML("beforeend", `<button class="eu-chip" type="button" data-ftab="mine" aria-pressed="${tab === "mine"}">Yours${n ? ` · ${n}` : ""}</button>`);
+      if (!["ep", "ec", "co", "mine"].includes(tab)) return;
+      const stats = p.querySelector(":scope .stats") || chips;
+      stats.insertAdjacentHTML("afterend", `<button class="ap-add" type="button" data-apadd><span class="ap-add__i" aria-hidden="true">${icon("plus")}</span>
+        <span class="ap-add__t"><b>Add a person to this file</b><span>Anyone in nodo, or a contact of your own</span></span></button>`);
+      if (tab !== "mine") return;
+      chips.querySelectorAll("[data-ftab]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.ftab === "mine")));
+      let el = chips.nextElementSibling; while (el) { const nx = el.nextElementSibling; el.remove(); el = nx; }
+      chips.insertAdjacentHTML("afterend", `<div class="ap-yours">${apYoursHtml(f)}</div>`);
+    };
+  }
+
+  /* The search sheet: the existing one, plus a way to add someone nodo doesn't list. */
+  {
+    const apOpenAdd0 = openAdd;
+    openAdd = function (id) {
+      document.querySelectorAll(".ap-ok").forEach((n) => n.remove());
+      apOpenAdd0(id);
+      const f = FILE_BY[id], h = $("sName"); if (!f || !h) return;
+      h.textContent = "Add a person to " + f.short;
+      const cap = h.parentElement.querySelector(".cap"); if (cap) cap.textContent = "MEPs, Commissioners and cabinet staff. Tap one: nodo puts them in the right section.";
+      const q = $("fq"); if (q) q.placeholder = "First or last name";
+    };
+    const apRes0 = addResults;
+    addResults = function (f, q) {
+      apRes0(f, q);
+      const host = $("fRes"), t = String(q || "").trim(); if (!host || t.length < 2) return;
+      const empty = !host.querySelector("[data-fpick]");
+      host.insertAdjacentHTML(empty ? "afterbegin" : "beforeend", empty
+        ? `<div class="ap-none"><b>${esc(nxClip(t, 40))} isn't in nodo</b><span>nodo lists MEPs, Commissioners and cabinet staff. Add anyone else as your own contact on this file.</span></div>
+           <button class="ap-add" type="button" data-apnew="${esc(t)}"><span class="ap-add__i" aria-hidden="true">${icon("plus")}</span><span class="ap-add__t"><b>Add ${esc(nxClip(t, 32))} as a new contact</b><span>Private to you, on every device</span></span></button>`
+        : `<button class="ap-new" type="button" data-apnew="${esc(t)}"><span class="ap-new__i" aria-hidden="true">${icon("plus")}</span><span class="ap-add__t"><b>Not here? Add “${esc(nxClip(t, 28))}” as a new contact</b><span>Someone nodo doesn't list. Only you see them.</span></span></button>`);
+      if (empty) { const n = host.querySelector(".desk-hint"); if (n) n.remove(); }
+    };
+  }
+
+  /* After a person from nodo is added: Undo and an optional label, in one dark card. */
+  let apLast = null;
+  {
+    const apListAdd0 = listAdd;
+    listAdd = function (f, key) { apListAdd0(f, key); if (state.sheet && state.sheet.startsWith("add:")) apLast = { fid: f.id, key, at: Date.now() }; };
+  }
+  function apConfirm() {
+    const x = apLast; apLast = null; if (!x || Date.now() - x.at > 3000) return;
+    const f = FILE_BY[x.fid], e = BYKEY.get(x.key); if (!f || !e) return;
+    const sect = e.t === "ep" ? "Parliament" : "Commission", cur = AP.label(f.id, x.key);
+    document.querySelectorAll(".ap-ok").forEach((n) => n.remove());
+    document.querySelectorAll(".toast").forEach((n) => { n.hidden = true; });
+    $("profile").insertAdjacentHTML("beforeend", `<section class="ap-ok" role="status" data-apfid="${esc(f.id)}" data-apkey="${esc(x.key)}">
+      <div class="ap-ok__h"><p><b>${esc(e.o.name)} added</b> to the ${sect} section of ${esc(f.short)}.</p><button type="button" class="ap-ok__undo" data-apundo>Undo</button></div>
+      <span class="ap-ok__q">Why do they matter? Optional</span>
+      <div class="ap-ok__l" role="group" aria-label="Label">${AP_LABELS.map((l) => `<button type="button" class="ap-lab" data-aplab="${esc(l)}" aria-pressed="${cur === l}">${esc(l)}</button>`).join("")}</div>
+      <button type="button" class="ap-ok__x" data-apokx aria-label="Close">${icon("x")}</button></section>`);
+    clearTimeout(apConfirm.t); apConfirm.t = setTimeout(() => document.querySelectorAll(".ap-ok").forEach((n) => n.remove()), 12000);
+  }
+  {
+    const apOpen1 = openFile;
+    openFile = function (id, keep, startTab) { if (!apLast) document.querySelectorAll(".ap-ok").forEach((n) => n.remove()); apOpen1(id, keep, startTab); if (apLast) setTimeout(apConfirm, 0); };
+  }
+
+  /* New contact, and editing one. */
+  function apSheet(fid, c, q) {
+    const f = FILE_BY[fid]; if (!f) return;
+    const edit = !!c; c = c || { id: apUid(), name: q || "", org: "", role: "", place: "", label: "", detail: "" };
+    state.sheet = "ap:" + fid;
+    if ($("sheet").hidden) layer.sheet = document.activeElement;
+    const chips = (name, xs, cur) => xs.map(([k, t]) => `<button type="button" class="eu-chip" data-apch="${name}" data-v="${esc(k)}" aria-pressed="${cur === k}">${esc(t)}</button>`).join("");
+    $("sheet").innerHTML = `<div class="sheet__bar"><button class="eu-iconbtn eu-iconbtn--sm" type="button" data-sheet-close aria-label="Close">${icon("x")}</button></div>
+      <div class="top"><div class="top__tx"><h2 id="sName">${edit ? "Your contact" : "New contact"}</h2><div class="cap">On ${esc(f.short)}</div></div></div>
+      <form id="apForm" class="ap-form" novalidate data-apid="${esc(c.id)}" data-apfid="${esc(fid)}">
+        <label class="ap-f"><span>Name</span><input id="apName" value="${esc(c.name)}" autocomplete="off" maxlength="120" required></label>
+        <div class="ap-two"><label class="ap-f"><span>Organisation</span><input id="apOrg" value="${esc(c.org)}" autocomplete="off" maxlength="120"></label>
+          <label class="ap-f"><span>Role <small>optional</small></span><input id="apRole" value="${esc(c.role)}" autocomplete="off" maxlength="120"></label></div>
+        <fieldset class="ap-fs"><legend>Where they sit on this file</legend><div class="ap-chips">${chips("place", AP_PLACES, c.place)}</div><p class="ap-err" id="apErr" hidden>Pick where they sit.</p></fieldset>
+        <fieldset class="ap-fs"><legend>Why they matter <small>optional</small></legend><div class="ap-chips">${chips("label", AP_LABELS.map((l) => [l, l]), c.label)}</div></fieldset>
+        ${c.detail ? "" : `<button type="button" class="textbtn textbtn--brand ap-more" data-apmore>+ Add email, phone or a note</button>`}
+        <label class="ap-f" id="apDetailBox"${c.detail ? "" : " hidden"}><span>Email, phone or a note <small>optional</small></span><textarea id="apDetail" rows="3" maxlength="500">${esc(c.detail)}</textarea></label>
+        <p class="ap-priv">${icon("lock")}<span>Only you see this contact. ${acct.user ? "It syncs to your account" : "It stays on this device"}, and you can download or delete it in You › Your data.</span></p>
+        <button class="eu-btn eu-btn--brand eu-btn--block" type="submit">${edit ? "Save" : "Add to " + esc(f.short)}</button>
+        ${edit ? `<button class="eu-btn eu-btn--outline eu-btn--block danger" type="button" data-apdel>Remove this contact</button>` : ""}
+      </form>`;
+    $("scrim").hidden = false; $("sheet").hidden = false; $("sheet").scrollTop = 0;
+    syncLayers();
+    const nm = $("apName"); if (!c.name) nm.focus({ preventScroll: true });
+  }
+  function apSubmit(form) {
+    const fid = form.dataset.apfid, f = FILE_BY[fid]; if (!f) return;
+    const pick = (n) => { const b = form.querySelector(`[data-apch="${n}"][aria-pressed="true"]`); return b ? b.dataset.v : ""; };
+    const name = $("apName").value.trim(), place = pick("place");
+    if (!name) { $("apName").setAttribute("aria-invalid", "true"); $("apName").focus(); return; }
+    if (!place) { $("apErr").hidden = false; return; }
+    const had = AP.contacts(fid).some((x) => x.id === form.dataset.apid);
+    AP.upsert(fid, { id: form.dataset.apid, name, org: $("apOrg").value.trim(), role: $("apRole").value.trim(), place, label: pick("label"), detail: ($("apDetail").value || "").trim() });
+    Track.log(had ? "contact_edit" : "contact_add", { section: "file", item: fid });
+    closeSheet(); state.ftab = "mine"; openFile(fid, true);
+    { const y = document.querySelector("#profileBody .chips[aria-label=View]"); if (y) y.scrollIntoView({ block: "start" }); }
+    toast(had ? "Contact saved" : `${name} added to ${f.short}`);
+  }
+  document.addEventListener("submit", (e) => { if (e.target.id !== "apForm") return; e.preventDefault(); apSubmit(e.target); });
+  document.addEventListener("click", (e) => {
+    const t = e.target;
+    if (t.closest("[data-apadd]")) { e.stopPropagation(); const f = curFile(); if (f) openAdd(f.id); return; }
+    const nw = t.closest("[data-apnew]");
+    if (nw) { e.stopPropagation(); const fid = (state.sheet || "").startsWith("add:") ? state.sheet.slice(4) : (curFile() || {}).id; if (fid) apSheet(fid, null, nw.dataset.apnew); return; }
+    const ed = t.closest("[data-apedit]");
+    if (ed) { e.stopPropagation(); const f = curFile(); if (!f) return; const c = AP.contacts(f.id).find((x) => x.id === ed.dataset.apedit); if (c) apSheet(f.id, { ...c }); return; }
+    const ch = t.closest("[data-apch]");
+    if (ch) { e.preventDefault(); const on = ch.getAttribute("aria-pressed") === "true";
+      ch.parentElement.querySelectorAll("[data-apch]").forEach((b) => b.setAttribute("aria-pressed", "false"));
+      if (!on || ch.dataset.apch === "place") ch.setAttribute("aria-pressed", "true");
+      if (ch.dataset.apch === "place" && $("apErr")) $("apErr").hidden = true; return; }
+    if (t.closest("[data-apmore]")) { t.closest("[data-apmore]").remove(); $("apDetailBox").hidden = false; $("apDetail").focus(); return; }
+    if (t.closest("[data-apdel]")) { const fm = $("apForm"); if (!fm) return; AP.remove(fm.dataset.apfid, fm.dataset.apid); closeSheet(); openFile(fm.dataset.apfid, true); toast("Contact removed"); return; }
+    const ok = t.closest(".ap-ok"); if (!ok) return;
+    const fid = ok.dataset.apfid, key = ok.dataset.apkey, f = FILE_BY[fid];
+    if (t.closest("[data-apundo]")) { ok.remove(); if (f) { listRemove(f, key); AP.setLabel(fid, key, ""); openFile(fid, true); toast("Removed"); } return; }
+    if (t.closest("[data-apokx]")) { ok.remove(); return; }
+    const lb = t.closest("[data-aplab]");
+    if (lb) { const was = lb.getAttribute("aria-pressed") === "true";
+      ok.querySelectorAll("[data-aplab]").forEach((b) => b.setAttribute("aria-pressed", "false"));
+      if (!was) lb.setAttribute("aria-pressed", "true");
+      AP.setLabel(fid, key, was ? "" : lb.dataset.aplab);
+      Track.log("contact_label", { section: "file", item: fid });
+      const p = $("profile"), top = p ? p.scrollTop : 0; if (curFile() && curFile().id === fid) { openFile(fid, true); if (p) p.scrollTop = top; } }
+  }, true);
+
+  /* Export: your contacts on a file go into its Excel or CSV with the rest. */
+  {
+    const apXp0 = xpRows;
+    xpRows = function (f, o) {
+      const rows = apXp0(f, o); if (!o || !o.mine) return rows;
+      AP.contacts(f.id).forEach((c) => rows.push({ name: c.name, inst: AP_PLACE[c.place] || "", role: "Your contact" + (c.label ? " · " + c.label : ""), cmte: "", pos: c.role || "", group: c.org || "", party: "", country: "", email: "", url: "", src: "Your list" }));
+      return rows;
+    };
+  }
+
+
+  /* ---------- Council: one way back (since 28 Nov 2026) ----------
+     The Council's sub-pages (all delegations, Presidency, perm reps) had two back controls: the header arrow,
+     which went to People, and a "← Council" pill under it. The pill is gone; on a sub-page the header arrow
+     goes back to the Council page, and on the Council page itself it goes to People as before. */
+  {
+    const coOneBack0 = renderCo;
+    renderCo = function () {
+      coOneBack0();
+      const sub = (state.co.v || "home") !== "home", b = document.querySelector("#vCo .ep-back");
+      document.querySelectorAll("#coBody .co-backhome").forEach((n) => n.remove());
+      if (!b) return;
+      if (sub) { b.removeAttribute("data-view"); b.dataset.cov = "home"; b.setAttribute("aria-label", "Back to Council"); }
+      else { delete b.dataset.cov; b.dataset.view = "people"; b.setAttribute("aria-label", "Back to People"); }
+    };
+  }
 
   initHome(); initEp(); initEc();
   let startView = "home";
@@ -9953,6 +10335,72 @@ html:has(body.nx-on-home) { background: var(--ed-ground); }
 .td-cap { margin: 0 0 10px; font-size: 13px; line-height: 18px; color: var(--ink-muted); }
 .td-lead { margin: 4px 0 8px; font-size: 15px; line-height: 22px; color: var(--ink-muted); }
 .td-row { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; width: 100%; padding: 14px; margin-top: 6px; border: 0; border-radius: var(--radius-md); background: var(--td-row); color: var(--ink); text-align: left; cursor: pointer; }
+.td-rq { cursor: default; }
+.smp { gap: 12px; }
+.smp-k { font-size: 12px; line-height: 16px; font-weight: 700; color: var(--ink-muted); }
+.smp-pill { flex: none; padding: 4px 10px; border-radius: 999px; background: var(--surface-sunken); font-size: 12px; line-height: 16px; font-weight: 600; }
+.smp-lede { margin: -4px 0 0; }
+.smp-h3 { margin: 4px 0 0; font-size: 13px; line-height: 18px; font-weight: 700; }
+.smp-step { display: flex; gap: 12px; width: 100%; padding: 14px; border: 0; border-radius: var(--radius-md); background: var(--node-on-deep); color: #111312; text-align: left; cursor: pointer; }
+.smp-step .smp-k { color: #111312; }
+.smp-step__d { flex: none; width: 44px; display: flex; flex-direction: column; align-items: center; }
+.smp-step__d small { font-size: 12px; line-height: 14px; font-weight: 700; }
+.smp-step__d b { font: 700 24px/28px var(--font-display); }
+.smp-step__t { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.smp-step__w { font-size: 14px; line-height: 20px; font-weight: 600; }
+.smp-step__m { font-size: 12px; line-height: 16px; }
+.smp-dev { display: flex; flex-direction: column; gap: 4px; padding: 14px; border-radius: var(--radius-md); background: var(--td-row); font-size: 14px; line-height: 20px; }
+.smp-dev small { font-size: 12px; line-height: 16px; color: var(--ink-muted); }
+.smp-acts { display: flex; flex-wrap: wrap; gap: 8px; }
+.smp-foot { margin: 0; }
+.ap-add { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 64px; margin: 12px 0 4px; padding: 0 16px; border: 0; border-radius: 20px; background: var(--lime, #d9f266); color: #111312; text-align: left; cursor: pointer; box-shadow: inset 0 0 0 1px rgba(17,19,18,.08); }
+.ap-add__i { flex: none; width: 36px; height: 36px; border-radius: 999px; background: #111312; color: #d9f266; display: flex; align-items: center; justify-content: center; }
+.ap-add__i .eu-icon, .ap-new__i .eu-icon { width: 18px; height: 18px; }
+.ap-add__t { display: flex; flex-direction: column; min-width: 0; }
+.ap-add__t b { font-size: 16px; line-height: 20px; }
+.ap-add__t span { font-size: 13px; line-height: 18px; }
+.ap-new { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 60px; margin-top: 16px; padding: 8px 14px; border: 0; border-radius: 18px; background: var(--surface-sunken); color: var(--ink); text-align: left; cursor: pointer; }
+.ap-new__i { flex: none; width: 36px; height: 36px; border-radius: 999px; border: 1.5px dashed var(--ink-muted); display: flex; align-items: center; justify-content: center; }
+.ap-new .ap-add__t span { color: var(--ink-muted); font-size: 12px; line-height: 16px; }
+.ap-none { display: flex; flex-direction: column; gap: 6px; padding: 14px 4px 4px; }
+.ap-none b { font-size: 16px; line-height: 22px; }
+.ap-none span { font-size: 14px; line-height: 20px; color: var(--ink-muted); }
+.ap-cap { margin: 4px 4px 0; }
+.ap-pill { flex: none; padding: 4px 10px; border-radius: 999px; background: var(--lime, #d9f266); color: #111312; font-size: 12px; line-height: 16px; font-weight: 700; }
+.ap-row { width: 100%; border: 0; text-align: left; cursor: pointer; font: inherit; color: inherit; }
+.ap-ava { flex: none; width: 40px; height: 40px; border-radius: 999px; border: 1.5px dashed var(--border-control); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; }
+.ap-ok { position: sticky; bottom: 16px; z-index: 5; margin: 16px 0 0; padding: 16px 48px 16px 16px; border-radius: 24px; background: #111312; color: #f4f6f2; box-shadow: 0 16px 40px rgba(17,19,18,.28); display: flex; flex-direction: column; gap: 10px; }
+.ap-ok__h { display: flex; align-items: flex-start; gap: 12px; }
+.ap-ok__h p { margin: 0; flex: 1; font-size: 15px; line-height: 20px; }
+.ap-ok__undo { flex: none; min-height: 44px; margin: -12px 0; padding: 0 6px; border: 0; background: none; color: #d9f266; font-size: 14px; font-weight: 700; cursor: pointer; }
+.ap-ok__q { font-size: 12px; line-height: 16px; color: #b4bbb5; }
+.ap-ok__l { display: flex; flex-wrap: wrap; gap: 6px; }
+.ap-lab { min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid rgba(244,246,242,.3); background: transparent; color: #f4f6f2; font-size: 14px; font-weight: 600; cursor: pointer; }
+.ap-lab[aria-pressed="true"] { border-color: #d9f266; background: #d9f266; color: #111312; font-weight: 700; }
+.ap-ok__x { position: absolute; top: 8px; right: 8px; width: 36px; height: 36px; border: 0; border-radius: 999px; background: transparent; color: #f4f6f2; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+.ap-form { display: flex; flex-direction: column; gap: 14px; margin-top: 8px; }
+.ap-f { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.ap-f > span, .ap-fs legend { font-size: 13px; line-height: 18px; font-weight: 700; }
+.ap-f small, .ap-fs small { font-weight: 500; color: var(--ink-muted); }
+.ap-f input, .ap-f textarea { min-height: 48px; padding: 10px 14px; border-radius: 16px; border: 1px solid var(--border-control); background: var(--surface); color: var(--ink); font: 16px/22px var(--font-sans); box-sizing: border-box; width: 100%; }
+.ap-two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.ap-fs { margin: 0; padding: 0; border: 0; min-width: 0; }
+.ap-fs legend { padding: 0; margin-bottom: 8px; }
+.ap-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+/* Add a person, with the keyboard up: a shorter header, the sheet fills the visible area, and the new-contact
+   row stays in view at the bottom. */
+.sheet.is-kb { padding-bottom: calc(var(--kb-under, 0px) + 12px); }
+.sheet.is-kb .top h2 { font-size: 19px; line-height: 23px; }
+.sheet.is-kb .top .cap { display: none; }
+.sheet .ap-new { position: sticky; bottom: 0; z-index: 1; box-shadow: 0 -10px 18px var(--surface); }
+.sheet.is-kb .ap-new { bottom: var(--kb-under, 0px); }
+.ap-chips .eu-chip[aria-pressed="true"] { background: #111312; color: #f4f6f2; border-color: #111312; }
+.ap-chips .eu-chip[data-apch="label"][aria-pressed="true"] { background: #d9f266; color: #111312; border-color: #d9f266; }
+.ap-err { margin: 6px 0 0; font-size: 13px; color: var(--danger, #b3261e); }
+.ap-more { align-self: flex-start; }
+.ap-priv { display: flex; gap: 8px; margin: 0; font-size: 12px; line-height: 16px; color: var(--ink-muted); }
+.ap-priv .eu-icon { flex: none; width: 16px; height: 16px; }
+.td-rq__acts { display: flex; gap: 8px; flex-wrap: wrap; }
 .td-row:first-of-type { margin-top: 0; }
 .td-row__top { display: flex; justify-content: space-between; align-items: center; gap: var(--space-2); width: 100%; }
 .td-row__f { font-size: 13px; line-height: 16px; font-weight: 700; }
