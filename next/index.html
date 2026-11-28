@@ -8271,8 +8271,11 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const vv = window.visualViewport, sh = $("sheet"); if (!vv || !sh) return;
     const fit = () => {
       const kb = sh.hidden ? 0 : Math.round(innerHeight - vv.height - vv.offsetTop);
-      if (kb > 80) { sh.style.bottom = kb + "px"; sh.style.maxHeight = Math.round(vv.height - 8) + "px"; sh.classList.add("is-kb"); }
-      else if (sh.classList.contains("is-kb")) { sh.style.bottom = ""; sh.style.maxHeight = ""; sh.classList.remove("is-kb"); }
+      /* In Safari the address bar floats above the keyboard and the page showed through between it and the sheet:
+         there the sheet reaches down behind the bar (28 Nov 2026). The iPhone app has no address bar. */
+      const under = window.Capacitor ? 0 : 72;
+      if (kb > 80) { sh.style.bottom = Math.max(0, kb - under) + "px"; sh.style.maxHeight = Math.round(vv.height - 8 + under) + "px"; sh.style.setProperty("--kb-under", under + "px"); sh.classList.add("is-kb"); }
+      else if (sh.classList.contains("is-kb")) { sh.style.bottom = ""; sh.style.maxHeight = ""; sh.style.removeProperty("--kb-under"); sh.classList.remove("is-kb"); }
     };
     vv.addEventListener("resize", fit); vv.addEventListener("scroll", fit);
     new MutationObserver(fit).observe(sh, { attributes: true, attributeFilter: ["hidden"] });
@@ -10401,6 +10404,13 @@ html:has(body.nx-on-home) { background: var(--ed-ground); }
 .ap-fs { margin: 0; padding: 0; border: 0; min-width: 0; }
 .ap-fs legend { padding: 0; margin-bottom: 8px; }
 .ap-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+/* Add a person, with the keyboard up: a shorter header, the sheet fills the visible area, and the new-contact
+   row stays in view at the bottom. */
+.sheet.is-kb { padding-bottom: calc(var(--kb-under, 0px) + 12px); }
+.sheet.is-kb .top h2 { font-size: 19px; line-height: 23px; }
+.sheet.is-kb .top .cap { display: none; }
+.sheet .ap-new { position: sticky; bottom: 0; z-index: 1; box-shadow: 0 -10px 18px var(--surface); }
+.sheet.is-kb .ap-new { bottom: var(--kb-under, 0px); }
 .ap-chips .eu-chip[aria-pressed="true"] { background: #111312; color: #f4f6f2; border-color: #111312; }
 .ap-chips .eu-chip[data-apch="label"][aria-pressed="true"] { background: #d9f266; color: #111312; border-color: #d9f266; }
 .ap-err { margin: 6px 0 0; font-size: 13px; color: var(--danger, #b3261e); }
