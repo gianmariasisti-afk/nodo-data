@@ -314,7 +314,7 @@ h3 small { font-size: 12px; line-height: 16px; font-weight: 500; letter-spacing:
 .eu-row__tags { flex-wrap: wrap; }
 .eu-row--sunken .eu-btn, .eu-row--sunken .disc { background: var(--surface); }
 .row-hit { display: block; margin-top: var(--space-1); font-size: 13px; line-height: 18px; overflow-wrap: anywhere; }
-.row-hit b { font-weight: 600; background: var(--tint-apricot); border-radius: 4px; padding: 0 2px; }
+.row-hit b { font-weight: 600; background: var(--tint-butter); border-radius: 3px; padding: 0 1px; }
 .row-aside { flex: none; max-width: 40%; font-size: 12px; line-height: 16px; font-weight: 500; color: var(--ink-muted); text-align: right; }
 .disc { display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; flex: none; border-radius: var(--radius-pill); background: var(--surface-sunken); color: var(--ink); }
 .ava { position: relative; overflow: hidden; }
@@ -1228,6 +1228,8 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   "use strict";
   /* The directory data lives in four files next to the page. Load them first; offer a retry if the connection fails. */
   const boot = document.getElementById("boot"), bootMsg = document.getElementById("bootMsg"), bootRetry = document.getElementById("bootRetry");
+  /* Months in three letters everywhere: en-GB writes "Sept" beside "Jul" and "Aug" (UI consistency pass, 28 Nov 2026). */
+  { const ld = Date.prototype.toLocaleDateString; Date.prototype.toLocaleDateString = function (l, o) { const s = ld.call(this, l, o); return o && o.month === "short" ? s.replace(/\bSept\b/g, "Sep") : s; }; }
   const DATA_BASE = /github\.io$/.test(location.hostname) ? "v1/" : "https://gianmariasisti-afk.github.io/nodo-data/v1/";
   const fetchJson = (u) => fetch(u).then((r) => { if (!r.ok) throw new Error(u + " " + r.status); return r.json(); });
   /* Hosted data first; the bundled copy in data/ is the fallback when the host cannot be reached. */
@@ -1623,7 +1625,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     if (pos !== Infinity && pos > 60) best = "…" + best.slice(best.lastIndexOf(" ", pos - 30) + 1);
     let h = esc(best);
     t.forEach((x) => { h = h.replace(new RegExp("(^|[^\\p{L}\\p{N}])(" + x + (x.length <= 2 ? ")(?![\\p{L}\\p{N}])" : "[\\p{L}\\p{N}]*)"), "giu"), "$1<b>$2</b>"); });
-    return h;
+    return h.replace(/<\/b>(\s+)<b>/g, "$1");
   }
   const rowCab = (m, t = [], showCab = true) => {
     const sn = snippet(m, t);
@@ -1785,9 +1787,9 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     extra: `<span class="eu-row__tags">${stagePill(f.stage)}</span>`, tail: followBtn(f.id, f.short) });
   /* The Files door on Home: one wide tile, a way into each priority file, followed files marked with a star.
      Each file keeps its place so the grid stays the same from day to day. */
-  const FILE_TAG = { "mff-2028-2034": "MFF", "digital-omnibus-data": "Omnibus", "industrial-accelerator-act": "IAA", "digital-networks-act": "DNA", "digital-fairness-act": "DFA", "tech-sovereignty-package": "Chips", "ai-act-implementation": "AI Act" };
+  const FILE_TAG = { "mff-2028-2034": "MFF", "digital-omnibus-data": "Omnibus", "industrial-accelerator-act": "IAA", "digital-networks-act": "DNA", "digital-fairness-act": "DFA", "tech-sovereignty-package": "Chips", "ai-act-implementation": "AI Act", "grids-package": "Grids", "cef-2028-2034": "CEF", "co2-cars": "CO2 cars", "afir-review": "AFIR", "medical-devices": "MDR/IVDR", "biotech-act": "Biotech Act", "digital-euro": "Digital euro", "food-feed-omnibus": "Food omnibus", "era-act": "ERA Act", "military-mobility": "Military mobility", "kids-act": "KIDS Act", "cap-2028-2034": "CAP", "ets-review": "ETS", "savings-investments-union": "SIU", "cybersecurity-act-2": "Cybersecurity Act", "public-procurement-act": "Procurement", "affordable-housing-act": "Housing Act", "eu-inc": "EU Inc.", "business-wallets": "Business Wallets", "fair-labour-mobility": "Labour mobility", "environmental-omnibus": "Environmental omnibus" };
   const FILE_IC = { "mff-2028-2034": "euro", "digital-omnibus-data": "bus", "industrial-accelerator-act": "factory", "digital-networks-act": "antenna", "digital-fairness-act": "hook", "tech-sovereignty-package": "chip", "ai-act-implementation": "robot" };
-  const fileTag = (f) => f.tag || FILE_TAG[f.id] || String(f.short).split(/[\s(]/)[0];
+  const fileTag = (f) => f.tag || FILE_TAG[f.id] || String(f.short);
   const fileIc = (f) => (IC[f.icon] ? f.icon : IC[FILE_IC[f.id]] ? FILE_IC[f.id] : f.kind === "budget" ? "euro" : "file");
   function renderFiles() {
     const w = $("doorFiles"); if (!w) return;
@@ -2166,7 +2168,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
         <p class="note">Standard qualified majority (Article 16(4) TEU) for Commission proposals: 55% of member states representing 65% of the EU population. A blocking minority needs at least four member states. Population figures for 2026 from Council Decision (EU, Euratom) 2025/2427.</p>`;
     }
     $("coBody").innerHTML = h;
-    $("coNote").textContent = tab === "qmv" ? "" : tab === "perms" ? `Ambassador and deputy names from the Council's participant lists and the Permanent Representations' official sources, checked ${CO.fetched}. Any other name is one you added, saved to your account.` : `Sources: Council of the EU meeting calendar and participant lists, checked ${CO.fetched}.`;
+    $("coNote").textContent = tab === "qmv" ? "" : tab === "perms" ? `Ambassador and deputy names from the Council's participant lists and the Permanent Representations' official sources, checked ${fmtIso(String(CO.fetched).slice(0, 10), { day: "numeric", month: "short", year: "numeric" })}. Any other name is one you added, saved to your account.` : `Sources: Council of the EU meeting calendar and participant lists, checked ${fmtIso(String(CO.fetched).slice(0, 10), { day: "numeric", month: "short", year: "numeric" })}.`;
   }
 
   /* ---------- permanent representations ---------- */
@@ -2255,7 +2257,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       <div class="pr-btns"><button class="eu-btn eu-btn--brand eu-btn--block" type="button" data-prsheet="${cc}|new">Add a name</button></div>
       <h3>In the Council <small>last meeting of each</small></h3>
       <button class="eu-btn eu-btn--block" type="button" data-country="${cc}">Open the ${esc(countryName(cc))} country page</button>
-      <p class="foot">Ambassador and deputy come from official Council participant lists (${esc(CO.fetched)}). Counsellors and attachés are not published there. The names you add are saved to your account.</p>`);
+      <p class="foot">Ambassador and deputy come from official Council participant lists (${esc(fmtIso(String(CO.fetched).slice(0, 10), { day: "numeric", month: "short", year: "numeric" }))}). Counsellors and attachés are not published there. The names you add are saved to your account.</p>`);
   }
   /* Working party: the names the person has, then one fold to add a name for any other delegation. */
   function wpListHtml(id) {
@@ -2813,7 +2815,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   function addResults(f, q) {
     const host = $("fRes"); if (!host) return;
     const r = searchAll(q);
-    if (!r) { host.innerHTML = `<p class="cap desk-hint">MEPs, Commissioners and cabinet staff.</p>`; return; }
+    if (!r) { host.innerHTML = `<p class="cap desk-hint">Type at least two letters of a first or last name.</p>`; return; }
     const m = membersOf(f), have = new Set([...m.base, ...m.added].map((x) => x.key));
     Track.search("list-add", q, r.com.length + r.cab.length + r.ep.length);
     const pick = (key, o, meta) => row({ el: "button", attrs: `type="button" data-fpick="${esc(key)}"${have.has(key) ? " disabled" : ""}`, lead: avaOf(key), name: esc(o.name), meta, wrap: true,
@@ -3016,7 +3018,10 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
 
   const backBtn = `<button class="eu-iconbtn" type="button" data-close aria-label="Back">`;
   const extRow = (label, href) => `<a class="eu-row eu-row--sunken" href="${href}" target="_blank" rel="noopener">${disc("bank")}<span class="eu-row__body"><span class="eu-row__name wrap">${label}</span></span><span class="eu-iconbtn eu-iconbtn--sm" aria-hidden="true">${icon("ext")}</span></a>`;
-  const linkBtns = (pairs) => `<div class="links">${pairs.map(([k, u]) => `<a class="eu-btn eu-btn--sm" href="${esc(u)}" target="_blank" rel="noopener">${esc(k)}${icon("ext")}</a>`).join("")}</div>`;
+  /* One spelling per network, whatever the source writes ("x", "Linkedin", "youtube"). */
+  const LINK_NAME = { x: "X", twitter: "X", linkedin: "LinkedIn", youtube: "YouTube", facebook: "Facebook", instagram: "Instagram", bluesky: "Bluesky", threads: "Threads", mastodon: "Mastodon", tiktok: "TikTok", website: "Website" };
+  const linkName = (k) => LINK_NAME[String(k).toLowerCase()] || k;
+  const linkBtns = (pairs) => `<div class="links">${pairs.map(([k, u]) => `<a class="eu-btn eu-btn--sm" href="${esc(u)}" target="_blank" rel="noopener">${esc(linkName(k))}${icon("ext")}</a>`).join("")}</div>`;
   /* Profile portraits: lists carry small thumbnails; the full-size portrait (Parliament's original, up to 600 px wide)
      loads from photos/NNN.json when a profile opens (photos/cNNN.json for Commissioners). If it cannot load, the thumbnail stays. */
   const hiCache = new Map();
@@ -3815,7 +3820,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       main = `<h1 class="eu-headline" id="onbTitle" tabindex="-1">Which <strong>countries</strong> do you cover?</h1>
         <p class="lead">Optional. Their MEPs and each cabinet's country desk show up first.</p>
         <div class="pickgrid"><button class="eu-chip" type="button" data-pick-all aria-pressed="${EU27.every((x) => d.countries.has(x))}">All of them</button>${pickBtns(EU27, "data-pick-c", (x) => d.countries.has(x), countryName)}</div>`;
-      foot = ed ? saveBtn : cta("finish", "Build my home");
+      foot = ed ? saveBtn : cta("finish", "Open Today");
     }
     $("onbBody").innerHTML = `${top}<div class="onb-main">${main}</div><div class="onb-foot${footCls}">${foot}</div>`;
 
@@ -4808,7 +4813,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   function edWhat(s) {
     let w = String(s.what).replace(/\s*\((?:doc|docs|art|arts|article|articles|ST|COM|CM)\b[^)]*\)\s*$/i, "");
     const t = s.files.length === 1 && FILE_TAG[s.files[0].id];
-    if (t && t.length <= 4) w = w.replace(new RegExp(`\\b${t}\\s+(?=\\S)`), "");
+    if (t && ["MFF", "IAA", "DNA", "DFA"].includes(t)) w = w.replace(new RegExp(`\\b${t}\\s+(?=\\S)`), "");
     /* The meta line names the institution: "Council Audiovisual…" reads "Audiovisual…". */
     if (/^Council\s+(?!of\b)/.test(w) && edInst(s.what) === "co") w = w.replace(/^Council\s+/, "").replace(/^./, (c) => c.toUpperCase());
     return w;
@@ -5767,7 +5772,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
         ${tile("ep", "bank", "Parliament", "Every MEP, committee seat and role, with their activity")}
         ${tile("ec", "group", "Commission", "The College and every cabinet member, by portfolio")}
         ${tile("co", "flag", "Council", "Presidency, meetings and the 27 permanent representations")}
-        ${tile("cal", "cal", "Calendar", "Plenary weeks, agendas and Council meetings")}
+        ${tile("cal", "cal", "Calendar", "Every dated step on your files, and the Parliament's calendar")}
         <div class="ab-tile ab-tile--files"><span class="ab-disc" aria-hidden="true">${icon("files")}</span><span class="ab-tile__tx"><b>Files</b><span>${n ? n + " priority file" + (n === 1 ? "" : "s") : "Priority files"}, linked to the people working on them</span></span></div>
       </div>
 
@@ -5945,7 +5950,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   function epSeatBar() {
     const xs = GROUP_ORDER.map((g) => [g, MEPS.filter((m) => m.group === g).length]).filter((x) => x[1]);
     $("groups").innerHTML = xs.map(([g, n]) => `<button class="ep-seat" type="button" data-g="${esc(g)}" aria-pressed="false" aria-label="${esc(g)}, ${n} seats"
-      style="flex:${n} 1 0;--gc:${gc(g)};--gt:${EP_LIGHT_TX.has(g) ? "#fff" : "#111312"}">${n >= 70 ? esc(g) : ""}</button>`).join("");
+      style="flex:${n} 1 0;--gc:${gc(g)};--gt:${EP_LIGHT_TX.has(g) ? "#fff" : "#111312"}">${n >= 70 + Math.max(0, g.length - 3) * 12 ? esc(g) : ""}</button>`).join("");
   }
   const epInit0 = initEp;
   initEp = function () { epInit0(); epSeatBar(); };
@@ -6107,7 +6112,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     /* Links from elsewhere still set tab "cabinets" with staff "all": a cabinet search or a country desk. */
     if (s.tab === "cabinets" && !s.q && !s.who && !s.country && !role) s.tab = "college";
     $("ecq").value = s.q;
-    $("ecq").placeholder = "Name or topic";
+    $("ecq").placeholder = "Search the Commission";
     const any = !!(t.length || s.who || s.country || role);
     const nf = [s.who, s.country, role].filter(Boolean).length;
     $("ecFiltN").hidden = !nf; $("ecFiltN").textContent = nf;
@@ -6120,7 +6125,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
 
     if (!any) {
       const cabN = COLL.reduce((a, c) => a + c.cabinet.length, 0);
-      $("ecCount").textContent = `${COLL.length} · ${cabN} in cabinets`; $("ecCount").classList.remove("is-on");
+      $("ecCount").textContent = `${COLL.length} Commissioners`; $("ecCount").classList.remove("is-on");
       const pres = COLL.filter((c) => c.kind === "president"), vps = COLL.filter((c) => c.kind === "evp" || c.kind === "hrvp"), coms = COLL.filter((c) => c.kind === "commissioner");
       $("ecBody").innerHTML = `${pres.map((c) => ecComRow(c, true)).join("")}
         ${vps.length ? `<h3 class="ec-h">Executive Vice-Presidents <small>${vps.length}</small></h3>${vps.map((c) => ecComRow(c)).join("")}` : ""}
@@ -6293,7 +6298,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       $("coCount").textContent = "27 delegations"; $("coCount").classList.remove("is-on");
     } else {
       $("coBody").innerHTML = coHome();
-      $("coNote").textContent = `Sources: Council of the EU meeting calendar and participant lists, checked ${CO.fetched}.`;
+      $("coNote").textContent = `Sources: Council of the EU meeting calendar and participant lists, checked ${fmtIso(String(CO.fetched).slice(0, 10), { day: "numeric", month: "short", year: "numeric" })}.`;
     }
     if (!$("sheet").hidden && state.sheet === "qmv") coQmvPaint();
   };
@@ -6515,9 +6520,9 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     return `<section class="yu-card" aria-labelledby="yuSetT">
       <div class="yu-card__top"><h3 class="yu-h" id="yuSetT">Make nodo <strong>yours</strong></h3><span class="yu-meta">0 of 3</span></div>
       <div class="yu-bar" aria-hidden="true"><i></i><i></i><i></i></div>
-      <p class="yu-lead">Each step changes what your home shows first.</p>
+      <p class="yu-lead">Each step changes what Today shows first.</p>
       ${step(1, `data-edit="2"`, "Pick the countries you cover", "Their MEPs and each cabinet's country desk come first")}
-      ${step(2, `data-nxpick`, "Follow the files you work on", "Their next dates lead your home and your alerts")}
+      ${step(2, `data-nxpick`, "Follow the files you work on", "Their next dates lead Today and your alerts")}
       ${step(3, `data-view="people"`, "Save the people you meet", "Tap the star on any MEP, Commissioner or adviser")}
     </section>`;
   }
@@ -6528,7 +6533,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       : `<p class="yu-empty">None yet. Their MEPs and country desks will come first.</p>`;
     const files = fol.length ? `<div class="yu-files">${fol.map((f) => { const n = yuNext(f), soon = n && n.date <= t7;
         return `<button class="yu-file" type="button" data-file="${esc(f.id)}"><span class="yu-file__tx"><b>${esc(f.short)}</b><span>${n ? esc(n.what.replace(/\s*\(.*?\)\s*$/, "")) + " · " + yuDate(n.date) : "No date set yet"}</span></span>${soon ? `<i class="yu-soon" role="img" aria-label="Next date within a week"></i>` : ""}</button>`; }).join("")}</div>`
-      : `<p class="yu-empty">None yet. Followed files lead your home.</p>`;
+      : `<p class="yu-empty">None yet. Followed files lead Today.</p>`;
     const by = { ep: 0, ec: 0, cab: 0 }; favs.forEach((k) => { const t = BYKEY.get(k).t; if (by[t] !== undefined) by[t]++; });
     const mix = [by.ep && `${by.ep} ${pl(by.ep, "MEP", "MEPs")}`, by.cab && `${by.cab} cabinet`, by.ec && `${by.ec} ${pl(by.ec, "Commissioner", "Commissioners")}`].filter(Boolean).join(" · ");
     const people = favs.length ? `<button class="yu-faces" type="button" data-view="saved" aria-label="${esc(favs.length + " saved: " + mix)}"><span class="yu-stack" aria-hidden="true">${favs.slice(0, 5).map((k) => avaOf(k)).join("")}${favs.length > 5 ? `<span class="yu-more">+${favs.length - 5}</span>` : ""}</span><span class="yu-meta">${esc(mix)}</span></button>`
@@ -8095,6 +8100,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       const rx = new RegExp("(^|[^\\p{L}\\p{N}>])(" + w.split(" ").map(stEsc).join("[^\\p{L}\\p{N}]+") + "[\\p{L}\\p{N}]*)", "giu");
       h = h.replace(rx, "$1<mark class=\"st-mark\">$2</mark>");
     });
+    h = h.replace(/<\/mark>(\s+)<mark class="st-mark">/g, "$1");
     return h;
   }
   const stMeta = (f) => { const rap = auRap(f); return [f.procedure, f.auto ? auLabel(f) : (STAGE[f.stage] || [f.stage])[0], rap.length ? rap.join(", ") : ""].filter(Boolean).join(" · "); };
@@ -9207,7 +9213,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const step = st ? `<button class="smp-step" type="button" data-file="${esc(f.id)}" data-filetab="next">
         <span class="smp-step__d" aria-hidden="true"><small>${esc(fmtD(d, { weekday: "short" }))}</small><b>${d.getDate()}</b><small>${esc(fmtD(d, { month: "short" }))}</small></span>
         <span class="smp-step__t"><span class="smp-k">${esc(when)}</span><span class="smp-step__w">${esc(edWhat({ what: st.what, files: [f] }))}</span>
-        <span class="smp-step__m">${esc(fmtD(d, { weekday: "long", day: "numeric", month: "long" }))}</span></span></button>` : "";
+        <span class="smp-step__m sr">${esc(fmtD(d, { weekday: "long", day: "numeric", month: "long" }))}</span></span></button>` : "";
     const m = membersOf(f).base, raps = m.filter((x) => x.role === "rapporteur" && BYKEY.has(x.key)).slice(0, 3);
     const ppl = raps.map((x) => { const o = BYKEY.get(x.key).o, mm = (f.meps || []).find((y) => "ep:" + y.id === x.key);
       const lab = [raps.length > 1 ? "Co-rapporteur" : "Rapporteur", mm && mm.committee].filter(Boolean).join(", ");
@@ -9368,7 +9374,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       host.insertAdjacentHTML(empty ? "afterbegin" : "beforeend", empty
         ? `<div class="ap-none"><b>${esc(nxClip(t, 40))} isn't in nodo</b><span>nodo lists MEPs, Commissioners and cabinet staff. Add anyone else as your own contact on this file.</span></div>
            <button class="ap-add" type="button" data-apnew="${esc(t)}"><span class="ap-add__i" aria-hidden="true">${icon("plus")}</span><span class="ap-add__t"><b>Add ${esc(nxClip(t, 32))} as a new contact</b><span>Private to you, on every device</span></span></button>`
-        : `<button class="ap-new" type="button" data-apnew="${esc(t)}"><span class="ap-new__i" aria-hidden="true">${icon("plus")}</span><span class="ap-add__t"><b>Not here? Add “${esc(nxClip(t, 28))}” as a new contact</b><span>Someone nodo doesn't list. Only you see them.</span></span></button>`);
+        : `<button class="ap-new" type="button" data-apnew="${esc(t)}"><span class="ap-new__i" aria-hidden="true">${icon("plus")}</span><span class="ap-add__t"><b>Not here? Add “${esc(nxClip(t, 28))}” as a new contact</b><span>Someone nodo doesn't list. Private to you, on every device.</span></span></button>`);
       if (empty) { const n = host.querySelector(".desk-hint"); if (n) n.remove(); }
     };
   }
@@ -10129,25 +10135,25 @@ body:has(#profile:not([hidden])) .ep-dock, body:has(#profile:not([hidden])) .ep-
 .cm-conf__s { font-size: 11px; line-height: 14px; color: var(--ink-muted); overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
 .cm-conf .ep-files { margin-top: 0; font-size: 11px; }
 /* Council page, prioritised (27 Nov 2026): coming up on your files, Presidency, the 27, the configurations by Coreper. */
-.co-up { margin-top: var(--space-2); padding: var(--space-5) var(--space-4) var(--space-3); border-radius: var(--radius-lg); background: var(--ink); color: var(--ink-inverse); }
+.co-up { margin-top: var(--space-2); padding: var(--space-5) var(--space-4) var(--space-3); border-radius: var(--radius-lg); background: var(--brand-deep); color: var(--on-brand-deep); }
 .co-up__h { margin: 0; font-size: 16px; line-height: 22px; font-weight: 600; }
-.co-up__cap { margin: 2px 0 0; font-size: 12px; line-height: 16px; color: var(--ink-inverse-muted); }
+.co-up__cap { margin: 2px 0 0; font-size: 12px; line-height: 16px; color: var(--on-brand-deep-muted); }
 .co-up__rows { display: grid; gap: var(--space-2); margin-top: var(--space-4); }
-.co-up__row { display: flex; align-items: center; gap: var(--space-3); width: 100%; padding: 10px; border: 0; border-radius: var(--radius-md); background: color-mix(in srgb, var(--ink-inverse) 9%, transparent); color: var(--ink-inverse); font: inherit; text-align: left; cursor: pointer; }
-.co-up__row > svg { width: 18px; height: 18px; flex: none; color: var(--ink-inverse-muted); }
-.co-up__d { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 48px; height: 52px; flex: none; border-radius: 10px; background: color-mix(in srgb, var(--ink-inverse) 14%, transparent); font-variant-numeric: tabular-nums; }
+.co-up__row { display: flex; align-items: center; gap: var(--space-3); width: 100%; padding: 10px; border: 0; border-radius: var(--radius-md); background: color-mix(in srgb, var(--on-brand-deep) 9%, transparent); color: var(--on-brand-deep); font: inherit; text-align: left; cursor: pointer; }
+.co-up__row > svg { width: 18px; height: 18px; flex: none; color: var(--on-brand-deep-muted); }
+.co-up__d { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 48px; height: 52px; flex: none; border-radius: 10px; background: color-mix(in srgb, var(--on-brand-deep) 14%, transparent); font-variant-numeric: tabular-nums; }
 .co-up__d span { font-size: 11px; line-height: 14px; font-weight: 700; letter-spacing: .06em; opacity: .75; }
 .co-up__d b { font-family: var(--font-display); font-size: 22px; line-height: 24px; font-weight: 600; }
 .co-up__d.is-hot { background: var(--node); color: #111312; }
 .co-up__d.is-hot span { opacity: 1; }
 .co-up__tx { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
 .co-up__tx b { font-size: 15px; line-height: 20px; }
-.co-up__tx > span { font-size: 12px; line-height: 16px; color: var(--ink-inverse-muted); }
+.co-up__tx > span { font-size: 12px; line-height: 16px; color: var(--on-brand-deep-muted); }
 .co-up__chips { display: flex !important; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
-.co-up__chips span { padding: 2px 10px; border-radius: var(--radius-pill); box-shadow: inset 0 0 0 1px var(--ink-inverse-muted); color: var(--ink-inverse); font-size: 12px; line-height: 16px; font-weight: 600; }
-.co-up__cal { display: inline-flex; align-items: center; gap: 4px; min-height: 40px; margin-top: var(--space-1); padding: 0; border: 0; background: none; color: var(--node); font: inherit; font-size: 13px; font-weight: 600; cursor: pointer; }
+.co-up__chips span { padding: 2px 10px; border-radius: var(--radius-pill); box-shadow: inset 0 0 0 1px var(--on-brand-deep-muted); color: var(--on-brand-deep); font-size: 12px; line-height: 16px; font-weight: 600; }
+.co-up__cal { display: inline-flex; align-items: center; gap: 4px; min-height: 40px; margin-top: var(--space-1); padding: 0; border: 0; background: none; color: var(--lime); font: inherit; font-size: 13px; font-weight: 600; cursor: pointer; }
 .co-up__cal .eu-icon { width: 16px; height: 16px; }
-.co-up__row:focus-visible, .co-up__cal:focus-visible { outline: 2px solid var(--ink-inverse); outline-offset: 2px; }
+.co-up__row:focus-visible, .co-up__cal:focus-visible { outline: 2px solid var(--on-brand-deep); outline-offset: 2px; }
 .co-dels { margin-top: var(--space-3); padding: var(--space-5) var(--space-4) var(--space-2); border-radius: var(--radius-lg); background: var(--surface); }
 .co-dels__h { margin: 0; font-size: 16px; line-height: 22px; font-weight: 600; }
 .co-dels__cap { margin: 2px 0 var(--space-3); font-size: 13px; line-height: 18px; color: var(--ink-muted); }
@@ -10176,6 +10182,7 @@ body:has(#profile:not([hidden])) .ep-dock, body:has(#profile:not([hidden])) .ep-
 .yu-head { display: flex; align-items: center; gap: var(--space-4); }
 .yu-face { position: relative; flex: none; padding: 0; border: 0; background: none; border-radius: 50%; cursor: pointer; }
 .yu-face .ava { width: 72px; height: 72px; font-family: var(--font-display); font-size: 26px; background: var(--tint-brand, var(--surface-sunken)); }
+.yu-face .ini::before { content: attr(data-ini); }
 .yu-face > i { position: absolute; right: 2px; bottom: 2px; width: 14px; height: 14px; border-radius: 50%; background: var(--node); box-shadow: 0 0 0 3px var(--surface); }
 .yu-head__tx { flex: 1; min-width: 0; }
 .yu-name, .yu-title { margin: 0; font-family: var(--font-display); font-weight: 300; letter-spacing: -0.02em; color: var(--ink); }
@@ -10188,6 +10195,7 @@ body:has(#profile:not([hidden])) .ep-dock, body:has(#profile:not([hidden])) .ep-
 .yu-card { display: grid; gap: var(--space-5); padding: var(--space-5); border-radius: var(--radius-lg); background: var(--surface-sunken); }
 .yu-card__top { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-3); }
 .yu-h { margin: 0; font: 300 26px/30px var(--font-display); letter-spacing: -0.02em; color: var(--ink); }
+#yuSetT { display: block; }
 .yu-card .yu-lead { margin: calc(var(--space-3) * -1) 0 0; font-size: 14px; line-height: 20px; }
 .yu-bar { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; margin-top: calc(var(--space-2) * -1); }
 .yu-bar i { height: 6px; border-radius: var(--radius-pill); background: var(--border-control); opacity: .45; }
@@ -11426,5 +11434,9 @@ body { overflow-x: hidden; }
 .pcc__stat:not(:disabled):active { transform: scale(.97); }
 .pcc__stat:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
 .pcc + h3 { margin-top: var(--space-6); }
+
+/* UI consistency pass (28 Nov 2026): the four file tabs (Parliament, Commission, Council, Yours) stay on one line at phone width. */
+.chips.wrap:has(> [data-ftab]) { flex-wrap: nowrap; gap: 6px; }
+.chips.wrap:has(> [data-ftab]) .eu-chip { flex: 1 1 auto; min-width: 0; padding: 0 8px; justify-content: center; font-size: 14px; white-space: nowrap; }
 </style>
 </body></html>
