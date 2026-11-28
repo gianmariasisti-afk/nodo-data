@@ -3662,13 +3662,16 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
 
   function openOnb(step, edit, fresh) {
     const p = (!fresh && state.profile) || {};
-    onb.step = step; onb.edit = !!edit;
+    onb.step = step; onb.edit = !!edit; onb.single = false;
     onb.d = { name: p.name || "", org: p.org || "", role: p.role || "", countries: new Set(p.countries || []) };
+    if (step === 1 && !edit && (state.me.name || onb.d.name.trim())) { onb.step = 2; onb.single = true; }
     onb.a = { provider: "", method: "", first: String(p.name || "").trim().split(/\s+/)[0] || "", last: String(p.name || "").trim().split(/\s+/).slice(1).join(" "), email: p.email || "", passkey: !!p.passkey, fresh: !!fresh, terms: false, busy: false, resendAt: 0, err: {} };
     $("onb").hidden = false;
     renderOnb(true);
   }
   function goStep(step) { onb.step = step; onb.a.err = {}; onb.a.busy = false; renderOnb(true); }
+  /* After sign-up: the name step only when no name came with the account; otherwise the countries step alone. */
+  function startSetup() { onb.single = !onb.edit && !!(state.me.name || (onb.d && onb.d.name.trim())); goStep(onb.single ? 2 : 1); }
 
   function renderOnb(moved) {
     if (!onb.d) return;
@@ -3681,7 +3684,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       : ed ? `<div class="onb-top"><button class="eu-iconbtn" type="button" data-onb="close" aria-label="Close">${icon("back")}</button><span class="cap">${s === "passkey" ? "Sign-in" : "Edit profile"}</span></div>`
       : s === "passkey" || s === "newpw" ? `<div class="onb-top"></div>`
       : light ? backTop
-      : `<div class="onb-top">${LIVE && acct.user && s === 1 ? "" : `<button class="eu-iconbtn" type="button" data-onb="back" aria-label="Back">${icon("back")}</button>`}<div class="prog" role="img" aria-label="Step ${s} of 2"><i style="width:${(s / 2 * 100).toFixed(0)}%"></i></div><span class="cap">Step ${s} of 2</span></div>`;
+      : `<div class="onb-top">${LIVE && acct.user && (s === 1 || onb.single) ? "" : `<button class="eu-iconbtn" type="button" data-onb="back" aria-label="Back">${icon("back")}</button>`}${onb.single ? "" : `<div class="prog" role="img" aria-label="Step ${s} of 2"><i style="width:${(s / 2 * 100).toFixed(0)}%"></i></div><span class="cap">Step ${s} of 2</span>`}</div>`;
     const pickBtns = (list, attr, sel, label) => list.map((x) => `<button class="eu-chip" type="button" ${attr}="${esc(x)}" aria-pressed="${sel(x)}">${esc(label(x))}</button>`).join("");
     let main = "", foot = "", footCls = "";
     const cta = (act, label, off) => `<button class="eu-btn eu-btn--on-deep eu-btn--block" data-onb="${act}" type="button"${off ? " disabled" : ""}>${label}</button>`;
@@ -3806,7 +3809,6 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
         <form id="fProv" novalidate><div class="imp">
           ${row("name", "Name", state.me.name || d.name, `id="aName" autocomplete="name" placeholder="First and last name"${state.me.name ? " readonly" : ""}`, `<span class="imp__ava" id="impAva" aria-hidden="true">${(state.me.name || d.name).trim() ? esc(initialsOf(state.me.name || d.name)) : icon("user")}</span>`)}
           ${row("email", "Email", a.email, `id="aMail" ${emailAttrs}`, `<span class="imp__ava imp__ava--none"></span>`)}
-          ${row("org", "Organisation (optional)", d.org, `id="aOrg" autocomplete="organization" placeholder="Where you work"`, `<span class="imp__ava imp__ava--none"></span>`)}
         </div>${ferr("prov")}</form>
         <ul class="vows"><li>${icon("check")}${pv.vow}</li><li>${icon("check")}You can sign out or clear your data at any time in your profile.</li></ul>`;
       foot = `<button class="eu-btn eu-btn--brand eu-btn--block" id="provGo" type="submit" form="fProv">Continue</button>
@@ -3823,10 +3825,8 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       main = `<h1 class="eu-headline" id="onbTitle" tabindex="-1">What nodo <strong>stores</strong></h1>${dataNoticeHtml()}`;
       foot = `<button class="eu-btn eu-btn--brand eu-btn--block" data-onb="back" type="button">Back</button>`;
     } else if (s === 1) {
-      main = `<h1 class="eu-headline" id="onbTitle" tabindex="-1">About <strong>you</strong></h1><p class="lead">This tunes what nodo shows you first.</p>
-        ${!state.me.name ? `<div class="field"><label for="onbName">Your name</label><input id="onbName" data-f="name" value="${esc(d.name)}" autocomplete="name" placeholder="First and last name"></div>` : ""}
-        <div class="field"><label for="onbOrg">Organisation (optional)</label><input id="onbOrg" data-f="org" value="${esc(d.org)}" autocomplete="organization" placeholder="Where you work"></div>
-        <p class="lbl2">Your role</p><div class="pickgrid">${pickBtns(ROLES, "data-role", (x) => d.role === x, (x) => x)}</div>`;
+      main = `<h1 class="eu-headline" id="onbTitle" tabindex="-1">About <strong>you</strong></h1><p class="lead">Your name, as it shows on your profile.</p>
+        ${!state.me.name ? `<div class="field"><label for="onbName">Your name</label><input id="onbName" data-f="name" value="${esc(d.name)}" autocomplete="name" placeholder="First and last name"></div>` : ""}`;
       foot = ed ? saveBtn : cta("next", "Continue");
     } else {
       main = `<h1 class="eu-headline" id="onbTitle" tabindex="-1">Which <strong>countries</strong> do you cover?</h1>
@@ -3908,7 +3908,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       saveProfile();
       return signBack();
     }
-    goStep(1);
+    startSetup();
   }
   function signBack() {
     store.del(SIGNED_KEY); clearInterval(resendTimer);
@@ -4122,7 +4122,8 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     if (act) {
       const k = act.dataset.onb, s = onb.step;
       if (k === "next") { onb.step++; renderOnb(true); }
-      else if (k === "back" && LIVE && acct.user && s === 1) return;
+      else if (k === "back" && LIVE && acct.user && (s === 1 || onb.single)) return;
+      else if (k === "back" && onb.single && s === 2) goStep(0);
       else if (k === "data") { if (s !== "data") onb.from = s; if (s === "password" && $("aPw")) onb.a.terms = $("aTerms").checked; goStep("data"); }
       else if (k === "back" && s === "data") goStep(onb.from == null ? 0 : onb.from);
       else if (k === "back") goStep(s === "forgot" || s === "sent" ? "signin" : typeof s === "string" ? 0 : Math.max(0, s - 1));
@@ -4139,7 +4140,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       else if (k === "passkey-make" || k === "passkey-skip") {
         if (k === "passkey-make") { a.passkey = true; toast(PREVIEW ? "Passkey simulated for this preview" : "Passkey created", 2400); }
         if (onb.edit) { if (a.passkey && state.profile) { state.profile.passkey = true; saveProfile(); } $("onb").hidden = true; onb.d = null; if (state.open === "me") openMe(true); }
-        else goStep(1);
+        else startSetup();
       }
       else if (k === "signin") signBack();
       else if (k === "other") openOnb(0, false);
@@ -5776,7 +5777,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
         <div class="ab-hero__wm">${wm}</div>
         <h1 class="eu-headline" id="abTitle" tabindex="-1">Untangle <strong>the EU.</strong></h1>
         <p>A pocket directory of the people behind EU policy: MEPs, Commissioners and their cabinets, Council delegations, the calendar, and the files that tie them together.</p>
-        <p class="ab-hero__meta"><i aria-hidden="true"></i>Beta · An independent project</p>
+        <p class="ab-hero__meta"><i aria-hidden="true"></i>An independent project</p>
       </section>
 
       <h2 class="ab-h">What's inside</h2>
