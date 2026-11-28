@@ -1,0 +1,497 @@
+{
+  "generated": "2026-11-28T06:42:04Z",
+  "manifestGenerated": "2026-11-28T06:41:33.430Z",
+  "counts": {
+    "activityFiles": 722,
+    "questionFiles": 10837
+  },
+  "freshness": {
+    "meps": "2026-11-25",
+    "mepsChecked": "2026-11-27",
+    "commission": "2026-11-25",
+    "commissionChecked": "2026-11-27",
+    "council": "2026-11-26",
+    "calendar": "2026-11-18",
+    "agendaChecked": "2026-11-27",
+    "activity": "2026-11-28",
+    "updates": "2026-11-28",
+    "filesAsOf": "2026-11-26"
+  },
+  "files": [
+    {
+      "id": "mff-2028-2034",
+      "short": "MFF 2028–2034",
+      "checked": "2026-11-25",
+      "checkedDays": 3,
+      "lastNext": "2026-12-07",
+      "upcoming": 1,
+      "past": 1
+    },
+    {
+      "id": "digital-omnibus-data",
+      "short": "Digital Omnibus (data)",
+      "checked": "2026-11-25",
+      "checkedDays": 3,
+      "lastNext": null,
+      "upcoming": 0,
+      "past": 0
+    },
+    {
+      "id": "industrial-accelerator-act",
+      "short": "Industrial Accelerator Act",
+      "checked": "2026-11-23",
+      "checkedDays": 5,
+      "lastNext": "2026-12-14",
+      "upcoming": 1,
+      "past": 1
+    },
+    {
+      "id": "digital-networks-act",
+      "short": "Digital Networks Act",
+      "checked": "2026-11-23",
+      "checkedDays": 5,
+      "lastNext": "2026-12-01",
+      "upcoming": 1,
+      "past": 0
+    },
+    {
+      "id": "digital-fairness-act",
+      "short": "Digital Fairness Act",
+      "checked": "2026-11-25",
+      "checkedDays": 3,
+      "lastNext": null,
+      "upcoming": 0,
+      "past": 0
+    },
+    {
+      "id": "tech-sovereignty-package",
+      "short": "Chips Act 2.0 and CADA",
+      "checked": "2026-11-25",
+      "checkedDays": 3,
+      "lastNext": null,
+      "upcoming": 0,
+      "past": 0
+    },
+    {
+      "id": "ai-act-implementation",
+      "short": "AI Act after the Omnibus",
+      "checked": "2026-11-25",
+      "checkedDays": 3,
+      "lastNext": "2026-12-02",
+      "upcoming": 1,
+      "past": 0
+    },
+    {
+      "id": "grids-package",
+      "short": "Grids Package",
+      "checked": "2026-11-25",
+      "checkedDays": 3,
+      "lastNext": null,
+      "upcoming": 0,
+      "past": 0
+    },
+    {
+      "id": "cef-2028-2034",
+      "short": "CEF 2028–2034",
+      "checked": "2026-11-25",
+      "checkedDays": 3,
+      "lastNext": null,
+      "upcoming": 0,
+      "past": 0
+    },
+    {
+      "id": "co2-cars",
+      "short": "CO2 standards for cars",
+      "checked": "2026-11-25",
+      "checkedDays": 3,
+      "lastNext": "2026-12-14",
+      "upcoming": 1,
+      "past": 0
+    },
+    {
+      "id": "afir-review",
+      "short": "AFIR review",
+      "checked": "2026-11-23",
+      "checkedDays": 5,
+      "lastNext": null,
+      "upcoming": 0,
+      "past": 0
+    },
+    {
+      "id": "medical-devices",
+      "short": "Medical devices revision",
+      "checked": "2026-11-23",
+      "checkedDays": 5,
+      "lastNext": "2027-01-18",
+      "upcoming": 1,
+      "past": 0
+    },
+    {
+      "id": "biotech-act",
+      "short": "Biotech Act I",
+      "checked": "2026-11-25",
+      "checkedDays": 3,
+      "lastNext": "2027-01-18",
+      "upcoming": 1,
+      "past": 0
+    },
+    {
+      "id": "digital-euro",
+      "short": "Digital euro",
+      "checked": "2026-11-25",
+      "checkedDays": 3,
+      "lastNext": "2026-11-30",
+      "upcoming": 1,
+      "past": 0
+    },
+    {
+      "id": "food-feed-omnibus",
+      "short": "Food and feed omnibus",
+      "checked": "2026-11-25",
+      "checkedDays": 3,
+      "lastNext": "2026-12-14",
+      "upcoming": 1,
+      "past": 0
+    },
+    {
+      "id": "era-act",
+      "short": "ERA Act",
+      "checked": "2026-11-25",
+      "checkedDays": 3,
+      "lastNext": null,
+      "upcoming": 0,
+      "past": 0
+    },
+    {
+      "id": "military-mobility",
+      "short": "Military mobility",
+      "checked": "2026-11-25",
+      "checkedDays": 3,
+      "lastNext": "2026-11-27",
+      "upcoming": 0,
+      "past": 1
+    },
+    {
+      "id": "kids-act",
+      "short": "EU KIDS Act",
+      "checked": "2026-11-25",
+      "checkedDays": 3,
+      "lastNext": null,
+      "upcoming": 0,
+      "past": 0
+    },
+    {
+      "id": "cap-2028-2034",
+      "short": "CAP 2028–2034",
+      "checked": "2026-11-25",
+      "checkedDays": 3,
+      "lastNext": "2027-01-27",
+      "upcoming": 2,
+      "past": 0
+    },
+    {
+      "id": "ets-review",
+      "short": "ETS review",
+      "checked": "2026-11-26",
+      "checkedDays": 2,
+      "lastNext": "2026-12-14",
+      "upcoming": 1,
+      "past": 0
+    },
+    {
+      "id": "savings-investments-union",
+      "short": "Savings and Investments Union",
+      "checked": "2026-11-26",
+      "checkedDays": 2,
+      "lastNext": null,
+      "upcoming": 0,
+      "past": 0
+    },
+    {
+      "id": "cybersecurity-act-2",
+      "short": "Cybersecurity Act 2",
+      "checked": "2026-11-26",
+      "checkedDays": 2,
+      "lastNext": null,
+      "upcoming": 0,
+      "past": 0
+    },
+    {
+      "id": "public-procurement-act",
+      "short": "Public Procurement Act",
+      "checked": "2026-11-26",
+      "checkedDays": 2,
+      "lastNext": null,
+      "upcoming": 0,
+      "past": 0
+    },
+    {
+      "id": "affordable-housing-act",
+      "short": "Affordable Housing Act",
+      "checked": "2026-11-26",
+      "checkedDays": 2,
+      "lastNext": null,
+      "upcoming": 0,
+      "past": 0
+    },
+    {
+      "id": "eu-inc",
+      "short": "EU Inc.",
+      "checked": "2026-11-26",
+      "checkedDays": 2,
+      "lastNext": null,
+      "upcoming": 0,
+      "past": 0
+    },
+    {
+      "id": "business-wallets",
+      "short": "European Business Wallets",
+      "checked": "2026-11-26",
+      "checkedDays": 2,
+      "lastNext": null,
+      "upcoming": 0,
+      "past": 0
+    },
+    {
+      "id": "fair-labour-mobility",
+      "short": "Fair labour mobility package",
+      "checked": "2026-11-26",
+      "checkedDays": 2,
+      "lastNext": null,
+      "upcoming": 0,
+      "past": 0
+    },
+    {
+      "id": "environmental-omnibus",
+      "short": "Environmental omnibus",
+      "checked": "2026-11-26",
+      "checkedDays": 2,
+      "lastNext": null,
+      "upcoming": 0,
+      "past": 0
+    }
+  ],
+  "reference": {
+    "calendar": {
+      "checked": "2026-11-18",
+      "checkedDays": 10,
+      "lastSession": "2027-12-13"
+    },
+    "presidency": {
+      "current": "IE",
+      "currentProfile": true,
+      "next": "LT",
+      "nextStarts": "2027-01-01",
+      "daysToHandover": 34,
+      "nextProfile": true
+    },
+    "permrepsExtra": {
+      "entries": 6,
+      "oldestCheck": "2026-11-23",
+      "oldestDays": 5
+    },
+    "tasks": [
+      {
+        "task": "reference-refresh",
+        "name": "nodo reference refresh (Mon and Thu)",
+        "at": "2026-11-26T08:19:30.991Z",
+        "result": "ok",
+        "note": "Short run, 9 files: kids-act IMCO co-rapporteurs added; MFF ECF mandate confirmed 25 Nov; CO2 cars past WP date dropped; military mobility WP 27 Nov sourced to CM 5136. checked/ledeChecked not advanced: refresh-guard refuses ledeChecked",
+        "ageDays": 2,
+        "maxAgeDays": 5,
+        "late": false
+      },
+      {
+        "task": "press-scan",
+        "name": "nodo press scan (Mon and Thu)",
+        "at": "2026-11-26T08:59:50.616Z",
+        "result": "ok",
+        "note": "2 published, 6 waiting for a second look, 4 failed their second look",
+        "ageDays": 2,
+        "maxAgeDays": 5,
+        "late": false
+      },
+      {
+        "task": "council-minutes",
+        "name": "nodo Council and minutes refresh",
+        "at": null,
+        "result": null,
+        "note": "",
+        "ageDays": null,
+        "maxAgeDays": 5,
+        "late": null
+      }
+    ],
+    "commission": {
+      "unchecked": []
+    },
+    "press": {
+      "files": 11,
+      "of": 28,
+      "newest": "2026-11-25",
+      "newestDays": 3
+    }
+  },
+  "autonomy": [
+    {
+      "at": "2026-11-23",
+      "source": "press",
+      "changes": [
+        "published: mff-2028-2034: Agence Europe 2026-11-10",
+        "published: grids-package: Agence Europe 2026-11-12",
+        "published: mff-2028-2034: Agence Europe 2026-11-13",
+        "published: kids-act: Agence Europe 2026-11-13",
+        "published: tech-sovereignty-package: MLex 2026-11-11",
+        "published: tech-sovereignty-package: Agence Europe 2026-11-18"
+      ]
+    },
+    {
+      "at": "2026-11-25",
+      "source": "commission",
+      "changes": [
+        "added: Feodora Wester (dan-jorgensen)",
+        "removed: Rasmus Beim Hvide (dan-jorgensen)"
+      ]
+    },
+    {
+      "at": "2026-11-26",
+      "source": "press",
+      "changes": [
+        "published: mff-2028-2034: Agence Europe 2026-11-22",
+        "published: industrial-accelerator-act: EUobserver 2026-11-10"
+      ]
+    },
+    {
+      "at": "2026-11-27",
+      "source": "press",
+      "changes": [
+        "dropped: industrial-accelerator-act: Agence Europe (33ce7b41d4)"
+      ]
+    },
+    {
+      "at": "2026-11-27",
+      "source": "press",
+      "changes": [
+        "dropped: industrial-accelerator-act: Agence Europe (7fba18927f)"
+      ]
+    }
+  ],
+  "manifestProblems": [
+    {
+      "entry": "auto",
+      "problem": "size or checksum differs (manifest 548611 bytes, file 547696 bytes)"
+    }
+  ],
+  "sizes": {
+    "largest": [
+      {
+        "bytes": 4799377,
+        "path": "data-cache/questions.json"
+      },
+      {
+        "bytes": 3690454,
+        "path": "v1/meps.json"
+      },
+      {
+        "bytes": 1728434,
+        "path": "v1/commission.json"
+      }
+    ]
+  },
+  "workflows": [
+    {
+      "name": "Collect press candidates",
+      "latest": {
+        "conclusion": "success",
+        "at": "2026-11-28T05:23:01Z",
+        "event": "workflow_dispatch",
+        "url": "https://github.com/gianmariasisti-afk/nodo-data/actions/runs/46111858297"
+      },
+      "lastSuccessAt": "2026-11-28T05:23:01Z"
+    },
+    {
+      "name": "Split portraits",
+      "latest": {
+        "conclusion": "success",
+        "at": "2026-11-28T06:37:01Z",
+        "event": "workflow_dispatch",
+        "url": "https://github.com/gianmariasisti-afk/nodo-data/actions/runs/46117430944"
+      },
+      "lastSuccessAt": "2026-11-28T06:37:01Z"
+    },
+    {
+      "name": "Update Commission and cabinets",
+      "latest": {
+        "conclusion": "success",
+        "at": "2026-11-27T14:18:55Z",
+        "event": "schedule",
+        "url": "https://github.com/gianmariasisti-afk/nodo-data/actions/runs/46014800334"
+      },
+      "lastSuccessAt": "2026-11-27T14:18:55Z"
+    },
+    {
+      "name": "Update MEP activity",
+      "latest": {
+        "conclusion": "success",
+        "at": "2026-11-28T03:30:01Z",
+        "event": "workflow_dispatch",
+        "url": "https://github.com/gianmariasisti-afk/nodo-data/actions/runs/46103133577"
+      },
+      "lastSuccessAt": "2026-11-28T03:30:01Z"
+    },
+    {
+      "name": "Update MEP directory",
+      "latest": {
+        "conclusion": "success",
+        "at": "2026-11-27T14:57:52Z",
+        "event": "schedule",
+        "url": "https://github.com/gianmariasisti-afk/nodo-data/actions/runs/46020603619"
+      },
+      "lastSuccessAt": "2026-11-27T14:57:52Z"
+    },
+    {
+      "name": "Update file stream",
+      "latest": {
+        "conclusion": "success",
+        "at": "2026-11-28T06:41:01Z",
+        "event": "workflow_dispatch",
+        "url": "https://github.com/gianmariasisti-afk/nodo-data/actions/runs/46117738017"
+      },
+      "lastSuccessAt": "2026-11-28T06:41:01Z"
+    },
+    {
+      "name": "Update plenary agenda",
+      "latest": {
+        "conclusion": "success",
+        "at": "2026-11-27T17:17:01Z",
+        "event": "workflow_dispatch",
+        "url": "https://github.com/gianmariasisti-afk/nodo-data/actions/runs/46040588977"
+      },
+      "lastSuccessAt": "2026-11-27T17:17:01Z"
+    },
+    {
+      "name": "Validate data",
+      "latest": {
+        "conclusion": "success",
+        "at": "2026-11-27T22:22:10Z",
+        "event": "push",
+        "url": "https://github.com/gianmariasisti-afk/nodo-data/actions/runs/46076213099"
+      },
+      "lastSuccessAt": "2026-11-27T22:22:10Z"
+    }
+  ],
+  "openIssues": [
+    {
+      "number": 103,
+      "title": "Agenda found (2026-11-26 13:18)",
+      "labels": [
+        "agenda"
+      ],
+      "createdAt": "2026-11-26T13:18:46Z",
+      "url": "https://github.com/gianmariasisti-afk/nodo-data/issues/103"
+    }
+  ],
+  "reviewBranches": [
+    "review/press"
+  ]
+}
