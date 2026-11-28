@@ -767,6 +767,7 @@ html.touring { overflow: hidden; }
 .auth-list--tight { margin-top: 0; }
 .pmark, .pface { width: 28px; height: 28px; flex: none; border-radius: 50%; }
 .pmark { display: grid; place-items: center; background: var(--tint-brand); color: var(--ink); font-size: 12px; line-height: 1; font-weight: 700; }
+[data-prov="google"] .pmark { background: #fff; box-shadow: inset 0 0 0 1px rgba(17,19,18,.12); }
 .pface { object-fit: cover; }
 .or { display: flex; align-items: center; gap: var(--space-3); margin: var(--space-4) var(--space-1); color: var(--on-brand-deep-muted); font-size: 13px; line-height: 16px; font-weight: 600; }
 .or::before, .or::after { content: ""; flex: 1; height: 1px; background: currentColor; opacity: .35; }
@@ -790,7 +791,7 @@ html.touring { overflow: hidden; }
 .onb .block { background: var(--surface-sunken); }
 .onb .block section + section { margin-top: var(--space-5); }
 .avsheet .block p, .onb .block p { color: var(--ink-muted); }
-.auth-me { display: grid; place-items: center; width: 72px; height: 72px; margin: var(--space-10) var(--space-1) 0; border-radius: 50%; background: var(--brand-on-deep); color: #0A1128; font-size: 26px; line-height: 1; font-weight: 700; }
+.auth-me { display: grid; place-items: center; width: 72px; height: 72px; margin: var(--space-10) var(--space-1) 0; border-radius: 50%; background: var(--brand-on-deep); color: #111312; font-size: 26px; line-height: 1; font-weight: 700; }
 .auth-me + .onb-xl { margin-top: var(--space-6); }
 
 .onb--light { background: var(--surface); color: var(--ink); }
@@ -1659,7 +1660,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   function resultsHtml(r, q) {
     const tot = r.fl.length + r.com.length + r.cab.length + r.ep.length + r.co.length;
     if (!tot) return `<p class="empty mt">Nothing matches “${esc(q)}”. Try one word, a file like MFF, or a policy area like energy.</p>`;
-    const all = (n, where, to) => `<button class="eu-btn eu-btn--block" type="button" data-goto="${to}" data-q="${esc(q)}">Show all ${n} in ${where}</button>`;
+    const all = (n, where, to) => `<button class="eu-btn eu-btn--block" type="button" data-goto="${to}" data-q="${esc(q)}">See all ${n} in ${where}</button>`;
     return `
       ${r.fl.length ? `<h3>Files <small>${r.fl.length}</small></h3><div class="list">${r.fl.map(homeFile).join("")}</div>` : ""}
       ${r.com.length ? `<h3>Commission <small>${r.com.length}</small></h3><div class="list">${r.com.slice(0, 5).map(rowCom).join("")}</div>` : ""}
@@ -3605,7 +3606,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   const LOGO_D = `<svg class="logo-mark" viewBox="0 0 96 96" aria-hidden="true"><path fill="currentColor" d="M32 30.8V35.3Q36.2 31.7 39.3 30Q43.1 28 46.4 28Q51.5 28 54.3 31.4Q57.1 34.8 57.7 40.5L60 61.3Q60.1 62.6 60.5 63.3Q60.8 63.9 61.6 64.1L63 64.5Q63.8 64.8 64.2 65.3Q64.5 65.7 64.5 66.3Q64.5 67.1 64 67.5Q63.5 68 62.3 68H46.2Q43.9 68 43.9 66.2Q43.9 65.1 45.2 64.5L46.8 64.1Q47.5 63.8 48 63.2Q48.4 62.6 48.2 61.3L46.1 42.1Q45.7 38.6 44.3 36.7Q42.8 34.9 40.1 34.9Q38.4 34.9 36.4 35.8Q34.5 36.7 32.4 38.6L32 38.9V61.4Q32 62.7 32.3 63.3Q32.7 63.8 33.4 64.1L34.9 64.5Q36.2 65.1 36.2 66.2Q36.2 68 33.9 68H18Q16.9 68 16.3 67.5Q15.8 67.1 15.8 66.3Q15.8 65.7 16.1 65.3Q16.5 64.8 17.3 64.5L18.9 64.1Q19.7 63.8 20 63.3Q20.4 62.7 20.4 61.4V37.8Q20.4 36.7 20.1 36.2Q19.8 35.8 19.1 35.7L16.9 35.5Q16.1 35.3 15.8 35Q15.5 34.6 15.5 34Q15.5 33.3 15.9 32.9Q16.2 32.5 17.4 32.1L25 29.3Q26.6 28.7 27.5 28.5Q28.5 28.2 29.4 28.2Q30.6 28.2 31.3 28.9Q32 29.6 32 30.8Z"/><circle class="wm-node" cx="75.5" cy="63.0" r="5"/></svg>`;
   const PROVIDERS = {
     apple: { name: "Apple", mark: '<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M16.37 12.6c-.02-2.2 1.8-3.26 1.88-3.31-1.03-1.5-2.62-1.7-3.18-1.73-1.35-.14-2.64.8-3.33.8-.69 0-1.74-.78-2.86-.76-1.47.02-2.83.86-3.59 2.17-1.53 2.66-.39 6.6 1.1 8.76.73 1.06 1.6 2.24 2.73 2.2 1.1-.04 1.51-.71 2.84-.71 1.32 0 1.7.71 2.86.69 1.18-.02 1.93-1.08 2.65-2.14.84-1.22 1.18-2.41 1.2-2.47-.03-.01-2.3-.88-2.3-3.5zM14.2 6.14c.6-.73 1.01-1.75.9-2.76-.87.04-1.92.58-2.54 1.31-.56.65-1.05 1.68-.92 2.68.97.07 1.96-.49 2.56-1.23z"/></svg>', vow: "Nothing else from your account is shared with nodo." },
-    google: { name: "Google", mark: "G", vow: "Nothing else from your account is shared with nodo." },
+    google: { name: "Google", mark: '<svg viewBox="0 0 48 48" width="18" height="18" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>', vow: "Nothing else from your account is shared with nodo." },
     linkedin: { name: "LinkedIn", mark: "in", vow: "Nothing is posted to LinkedIn and your connections stay private." },
     microsoft: { name: "Microsoft", mark: "M", vow: "Nothing else from your account is shared with nodo." },
   };
@@ -3739,8 +3740,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
           ${state.me.name ? "" : field("aName", "Full name", "name", d.name, `autocomplete="name" placeholder="First and last name"`)}
           ${field("aMail", "Work email", "email", a.email, emailAttrs)}
           ${pwField("new-password", true)}
-          <label class="tick"><input type="checkbox" id="aTerms"${a.terms ? " checked" : ""}${a.err.terms ? ` aria-invalid="true"` : ""}><span>I have read what nodo stores.</span></label>
-          <p class="fhelp">${dataLink("What nodo stores")}</p>
+          <label class="tick"><input type="checkbox" id="aTerms"${a.terms ? " checked" : ""}${a.err.terms ? ` aria-invalid="true"` : ""}><span>I have read ${dataLink("what nodo stores")}.</span></label>
           ${ferr("terms")}
           ${ferr("form")}
         </form>`;
@@ -5018,7 +5018,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       const meta = [coFiles.length > 1 ? f.short : "", pres ? `${countryName(pres[0])} chairs` : "", nx ? `next ${fdDate(nx.date)}` : ""].filter(Boolean).join(" · ");
       return `<button class="ed-room__coline" type="button" data-file="${esc(f.id)}" data-filetab="co" aria-label="${esc(`Council: ${what}. ${meta}. Open the Council tab of ${f.short}`)}"><span class="ed-room__k"><i class="ed-mark ed-mark--co" aria-hidden="true"></i>Council</span><span class="ed-room__wp">${esc(what)}</span><span class="ed-room__m">${esc(meta)}</span></button>`; }).join("")}</div>` : "";
     const links = `<div class="ed-room__files">${files.map((f) => { const c = countsOf(f), n = c.ep + c.ec + c.cab;
-      return `<button class="ed-room__all" type="button" data-file="${esc(f.id)}">View all ${n} on ${esc(f.short)}<span aria-hidden="true"> →</span></button>`; }).join("")}</div>`;
+      return `<button class="ed-room__all" type="button" data-file="${esc(f.id)}">See all ${n} on ${esc(f.short)}${icon("arrow")}</button>`; }).join("")}</div>`;
     return `${head(cap)}${note}${rows ? `<div class="list">${rows}</div>` : ""}${links}${council}`;
   }
   /* Working parties grouped (22 Oct 2026). When exactly one working party has no `part` and the others have one, the
@@ -5762,7 +5762,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
         <p class="ab-hero__meta"><i aria-hidden="true"></i>Beta · An independent project</p>
       </section>
 
-      <h2 class="ab-h">What’s inside</h2>
+      <h2 class="ab-h">What's inside</h2>
       <div class="ab-grid">
         ${tile("ep", "bank", "Parliament", "Every MEP, committee seat and role, with their activity")}
         ${tile("ec", "group", "Commission", "The College and every cabinet member, by portfolio")}
@@ -5780,7 +5780,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
       </ul>
       <div class="ab-card ab-labels">
         <p><b>How to read the labels</b></p>
-        <p><span class="ab-chip ab-chip--ok">${icon("check")}Verified</span><span>Read from an official source and matched to the person’s record</span></p>
+        <p><span class="ab-chip ab-chip--ok">${icon("check")}Verified</span><span>Read from an official source and matched to the person's record</span></p>
         <p><span class="ab-chip">${icon("news")}Press</span><span>Named in published reporting. Check the official file before you rely on it</span></p>
       </div>
 
@@ -5945,7 +5945,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   function epSeatBar() {
     const xs = GROUP_ORDER.map((g) => [g, MEPS.filter((m) => m.group === g).length]).filter((x) => x[1]);
     $("groups").innerHTML = xs.map(([g, n]) => `<button class="ep-seat" type="button" data-g="${esc(g)}" aria-pressed="false" aria-label="${esc(g)}, ${n} seats"
-      style="flex:${n} 1 0;--gc:${gc(g)};--gt:${EP_LIGHT_TX.has(g) ? "#fff" : "#0a1128"}">${n >= 70 ? esc(g) : ""}</button>`).join("");
+      style="flex:${n} 1 0;--gc:${gc(g)};--gt:${EP_LIGHT_TX.has(g) ? "#fff" : "#111312"}">${n >= 70 ? esc(g) : ""}</button>`).join("");
   }
   const epInit0 = initEp;
   initEp = function () { epInit0(); epSeatBar(); };
@@ -7564,7 +7564,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
     const reset = $("resetBox"); if (reset) reset.remove();
     chips.insertAdjacentHTML("afterend", edit
       ? `<div class="pe-bar pe-bar--on"><span class="pe-bar__t"><small>${esc(f.short)}</small><b>Edit your list</b></span><button class="eu-btn eu-btn--brand" type="button" data-fedit>Done</button></div>
-         <button class="pe-add" type="button" data-fadd><span class="pe-add__ic" aria-hidden="true">${icon("plus")}</span><span class="pe-add__t"><b>Add someone</b><small>MEPs, Commissioners and cabinet staff</small></span></button>`
+         <button class="pe-add" type="button" data-fadd><span class="pe-add__ic" aria-hidden="true">${icon("plus")}</span><span class="pe-add__t"><b>Add a person</b><small>Anyone in nodo, or a contact of your own</small></span></button>`
       : `<div class="pe-bar"><p>${esc(peSummary(f))}</p><button class="eu-btn eu-btn--sm eu-btn--outline" type="button" data-fedit>${icon("edit")}Edit</button></div>`);
     const hid = peHidden(f, tab), anchor = p.querySelector(".fp-srcrow") || p.querySelector(":scope > .note") || null;
     const place = (html) => (anchor ? anchor.insertAdjacentHTML("beforebegin", html) : p.insertAdjacentHTML("beforeend", html));
@@ -7635,7 +7635,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
   const peAdd0 = openAdd;
   openAdd = function (id) {
     peAdd0(id);
-    const f = FILE_BY[id], h = $("sName"); if (f && h) { h.textContent = "Add someone"; const c = h.nextElementSibling; if (c) c.textContent = "to " + f.short; c.classList.add("pe-addcap"); }
+    const f = FILE_BY[id], h = $("sName"); if (f && h) { h.textContent = "Add a person"; const c = h.nextElementSibling; if (c) c.textContent = "to " + f.short; c.classList.add("pe-addcap"); }
   };
 
   /* Add to a file, from a profile: followed files first (all files when none is followed), each a checkbox. Ticking adds the
@@ -7927,7 +7927,7 @@ button.eu-iconbtn--sm::after { content: ""; position: absolute; inset: -4px; bor
           <p>Everything above, plus cabinet staff, the Council working party, committee speakers and latest developments.</p>
           <p class="au-kind__fine">nodo follows the file and checks it against Council and Commission sources.</p></div>
         <div class="au-sh__acts">
-          ${f && !have ? `<button class="eu-btn eu-btn--brand eu-btn--block" type="button" data-augo="${esc(f.id)}">Generate the auto page</button>` : ""}
+          ${f && !have ? `<button class="eu-btn eu-btn--brand eu-btn--block" type="button" data-augo="${esc(f.id)}">Generate page</button>` : ""}
           ${f ? `<button class="eu-btn eu-btn--outline eu-btn--block" type="button" data-nxreq="${esc(reqQ)}"${asked ? " disabled" : ""}>${asked ? "Requested" + icon("check") : "Request a full page"}</button>` : `<button class="eu-btn eu-btn--outline eu-btn--block" type="button" data-sheet-close>Got it</button>`}
           ${f && !have ? `<p class="cap au-sh__note">You can request a full page later from the auto page.</p>` : ""}
         </div></div>`;
@@ -9640,7 +9640,8 @@ if ("serviceWorker" in navigator && /github\.io$/.test(location.hostname)) addEv
 .ed-room__files { display: flex; flex-direction: column; align-items: flex-start; margin-top: var(--space-2); }
 .ed-room__coline { display: flex; flex-direction: column; gap: 2px; width: 100%; min-height: 44px; padding: 0; border: 0; background: none; color: inherit; font: inherit; text-align: left; cursor: pointer; }
 .ed-room__coline + .ed-room__coline { margin-top: var(--space-2); padding-top: var(--space-2); border-top: 1px solid var(--hairline); }
-.ed-room__all { min-height: 44px; margin: 0; padding: 0 var(--space-1); border: 0; background: none; color: var(--brand); font: 600 15px/20px var(--font-sans); text-align: left; cursor: pointer; }
+.ed-room__all { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; margin: 0; padding: 0 var(--space-1); border: 0; background: none; color: var(--brand); font: 600 15px/20px var(--font-sans); text-align: left; cursor: pointer; }
+.ed-room__all .eu-icon { width: 16px; height: 16px; }
 .ed-room__coline:focus-visible, .ed-room__all:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; border-radius: var(--radius-md); }
 .block .fp-wpfmt, .fp-wpfmt { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0 0; padding: 0; list-style: none; }
 .fp-wpfmt li { flex: 0 0 auto; width: auto; margin: 0; padding: 4px 10px; border: 1px solid var(--hairline); border-radius: var(--radius-pill); font-size: 13px; line-height: 18px; color: var(--ink); }
@@ -9789,7 +9790,7 @@ html:has(body.nx-on-home) { background: var(--brand-deep); }
 @media (prefers-reduced-motion: no-preference) { .pp-card { transition: transform .15s ease-out; } .pp-card:active { transform: scale(.985); } }
 .pp-flags { position: relative; display: flex; align-items: flex-end; justify-content: space-between; gap: 2px; height: 190px; }
 .pp-flags::before { content: ""; position: absolute; top: -6px; left: calc(50% - 6px); width: 12px; height: 12px; border-radius: 50%; background: var(--spark); }
-.pp-flags i { flex: 1; min-width: 0; border-radius: 6px 6px 3px 3px; box-shadow: inset 0 0 0 1px rgba(13,21,53,.12); }
+.pp-flags i { flex: 1; min-width: 0; border-radius: 6px 6px 3px 3px; box-shadow: inset 0 0 0 1px rgba(17,19,18,.12); }
 .pp-wrap { position: relative; border-radius: var(--radius-lg); }
 .pp-wrap--ep { background: var(--tint-sky); } .pp-wrap--ec { background: var(--tint-apricot); } .pp-wrap--co { background: var(--tint-mint); }
 .pp-wrap .pp-card { background: none; padding-bottom: 0; }
@@ -10080,33 +10081,33 @@ body:has(#profile:not([hidden])) .ep-dock, body:has(#profile:not([hidden])) .ep-
 .cm-modes, .cm-seg { display: flex; gap: 4px; padding: 3px; border-radius: var(--radius-pill); background: var(--surface-sunken); }
 .cm-modes button { height: 36px; padding: 0 12px; border: 0; border-radius: var(--radius-pill); background: none; color: var(--ink); font: inherit; font-size: 12px; font-weight: 700; cursor: pointer; }
 .cm-modes [aria-checked="true"], .cm-seg [aria-checked="true"] { background: var(--ink); color: var(--ink-inverse); }
-.cm { position: relative; width: 100%; margin-top: var(--space-2); border-radius: var(--radius-lg); background: #10152e; overflow: hidden; }
+.cm { position: relative; width: 100%; margin-top: var(--space-2); border-radius: var(--radius-lg); background: #161a17; overflow: hidden; }
 .cm--load { display: flex; align-items: center; justify-content: center; aspect-ratio: 358 / 420; }
-.cm--load .cap { color: #c9cee8; }
+.cm--load .cap { color: #b4bbb5; }
 .cm svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
-.cm-land { fill: #222a52; }
+.cm-land { fill: #2a302b; }
 .cm-s { fill: #2f5a4a; transition: fill .25s ease-out; }
 .cm-s.now { fill: #8fdcb0; } .cm-s.trio { fill: #5fb38e; }
 .cm-s.w5 { fill: #8fdcb0; } .cm-s.w4 { fill: #5fb38e; } .cm-s.w3 { fill: #448f71; } .cm-s.w2 { fill: #356f58; } .cm-s.w1 { fill: #2a5444; }
-.cm-s.sel { fill: #f0b93a; }
+.cm-s.sel { fill: #d9f266; }
 .cm-n { position: absolute; width: 34px; height: 34px; margin: -17px 0 0 -17px; padding: 0; border: 0; background: transparent; cursor: pointer; z-index: 1; }
 .cm-n.is-sel { z-index: 3; }
-.cm-n i { position: absolute; left: 11px; top: 11px; width: 12px; height: 12px; box-sizing: border-box; border-radius: 50%; background: #10152e; border: 2px solid #eceffa; }
+.cm-n i { position: absolute; left: 11px; top: 11px; width: 12px; height: 12px; box-sizing: border-box; border-radius: 50%; background: #161a17; border: 2px solid #f4f6f2; }
 .cm-n.is-now i { background: #8fdcb0; }
-.cm-n.is-sel i { background: #f0b93a; border-color: #fff; }
-.cm-n.is-sel i::after { content: ""; position: absolute; inset: -2px; border-radius: 50%; background: #f0b93a; animation: cm-ping 1.6s ease-out infinite; }
+.cm-n.is-sel i { background: #d9f266; border-color: #fff; }
+.cm-n.is-sel i::after { content: ""; position: absolute; inset: -2px; border-radius: 50%; background: #d9f266; animation: cm-ping 1.6s ease-out infinite; }
 @keyframes cm-ping { 0% { transform: scale(1); opacity: .7; } 100% { transform: scale(2.4); opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .cm-n.is-sel i::after { animation: none; display: none; } .cm-s { transition: none; } }
-.cm-n span { position: absolute; left: 26px; top: 9px; height: 16px; padding: 0 5px; border-radius: 999px; background: rgba(16, 21, 46, .78); color: #eceffa; font-size: 9px; font-weight: 700; line-height: 16px; white-space: nowrap; }
+.cm-n span { position: absolute; left: 26px; top: 9px; height: 16px; padding: 0 5px; border-radius: 999px; background: rgba(17, 19, 18, .78); color: #f4f6f2; font-size: 10px; font-weight: 700; line-height: 16px; white-space: nowrap; }
 .cm-n.is-left span { left: auto; right: 22px; }
-.cm-n.is-sel span { top: 7px; height: 20px; line-height: 20px; padding: 0 8px; background: #eceffa; color: #0a1128; font-size: 12px; }
+.cm-n.is-sel span { top: 7px; height: 20px; line-height: 20px; padding: 0 8px; background: #d9f266; color: #111312; font-size: 12px; }
 .cm-n:focus-visible { outline: none; }
 .cm-n:focus-visible i { outline: 2px solid #fff; outline-offset: 3px; }
-.cm-leg { position: absolute; left: 10px; top: 10px; display: flex; flex-direction: column; gap: 4px; padding: 8px 10px; border-radius: 12px; background: rgba(16, 21, 46, .9); pointer-events: none; z-index: 2; }
-.cm-leg span { display: flex; align-items: center; gap: 6px; font-size: 11px; line-height: 14px; font-weight: 600; color: #dfe3f4; }
+.cm-leg { position: absolute; left: 10px; top: 10px; display: flex; flex-direction: column; gap: 4px; padding: 8px 10px; border-radius: 12px; background: rgba(17, 19, 18, .9); pointer-events: none; z-index: 2; }
+.cm-leg span { display: flex; align-items: center; gap: 6px; font-size: 11px; line-height: 14px; font-weight: 600; color: #f4f6f2; }
 .cm-leg i { width: 10px; height: 10px; border-radius: 50%; }
 .cm-leg i.now, .cm-leg i.w5 { background: #8fdcb0; } .cm-leg i.trio { background: #5fb38e; } .cm-leg i.w3 { background: #448f71; } .cm-leg i.w1 { background: #2a5444; }
-.cm-leg b { font-size: 11px; line-height: 14px; color: #f0b93a; }
+.cm-leg b { font-size: 11px; line-height: 14px; color: #d9f266; }
 .cm-card { display: flex; align-items: center; gap: var(--space-3); margin-top: var(--space-2); padding: 12px 12px 12px 16px; border-radius: var(--radius-lg); background: var(--surface-sunken); }
 .cm-card__tx { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
 .cm-card__tx b { font-family: var(--font-display); font-size: 22px; line-height: 26px; letter-spacing: -.02em; }
@@ -10115,7 +10116,7 @@ body:has(#profile:not([hidden])) .ep-dock, body:has(#profile:not([hidden])) .ep-
 .cm-strip { display: flex; gap: 6px; overflow-x: auto; margin: var(--space-2) calc(-1 * var(--space-4)) 0; padding: 2px var(--space-4) 4px; scrollbar-width: none; scroll-snap-type: x proximity; }
 .cm-strip::-webkit-scrollbar { display: none; }
 .cm-strip button { flex: 0 0 auto; height: 40px; padding: 0 14px; border: 0; border-radius: var(--radius-pill); background: var(--surface-sunken); color: var(--ink); font: inherit; font-size: 13px; font-weight: 600; white-space: nowrap; cursor: pointer; scroll-snap-align: start; }
-.cm-strip [aria-checked="true"] { background: #f0b93a; color: #0a1128; }
+.cm-strip [aria-checked="true"] { background: var(--ink); color: var(--ink-inverse); }
 .cm-strip button:focus-visible, .cm-modes button:focus-visible, .cm-seg button:focus-visible, .cm-conf:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
 .cm-seg { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .cm-seg button { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; min-height: 48px; border: 0; border-radius: var(--radius-pill); background: none; color: var(--ink); font: inherit; cursor: pointer; }
@@ -10137,7 +10138,7 @@ body:has(#profile:not([hidden])) .ep-dock, body:has(#profile:not([hidden])) .ep-
 .co-up__d { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 48px; height: 52px; flex: none; border-radius: 10px; background: color-mix(in srgb, var(--ink-inverse) 14%, transparent); font-variant-numeric: tabular-nums; }
 .co-up__d span { font-size: 11px; line-height: 14px; font-weight: 700; letter-spacing: .06em; opacity: .75; }
 .co-up__d b { font-family: var(--font-display); font-size: 22px; line-height: 24px; font-weight: 600; }
-.co-up__d.is-hot { background: var(--node); color: #0A1128; }
+.co-up__d.is-hot { background: var(--node); color: #111312; }
 .co-up__d.is-hot span { opacity: 1; }
 .co-up__tx { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
 .co-up__tx b { font-size: 15px; line-height: 20px; }
@@ -10861,7 +10862,7 @@ html:has(body.nx-burger:not(.nx-on-home)):not(:has(.profile:not([hidden]))) { ba
 .pe-bar--on { position: sticky; top: 0; z-index: 3; margin-inline: calc(-1 * var(--space-4, 16px)); padding: var(--space-2, 8px) var(--space-4, 16px); background: var(--surface); border-bottom: 1px solid var(--hairline); }
 .pe-bar__t { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 .pe-bar__t small { font-size: 12px; line-height: 16px; color: var(--ink-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.pe-bar__t b { font: 700 20px/24px var(--font-display, "Bricolage Grotesque", sans-serif); letter-spacing: -0.02em; color: var(--ink); }
+.pe-bar__t b { font: 700 20px/24px var(--font-display); letter-spacing: -0.02em; color: var(--ink); }
 .pe-add { display: flex; align-items: center; gap: var(--space-3, 12px); width: 100%; min-height: 60px; margin: var(--space-2, 8px) 0 var(--space-4, 16px); padding: 10px 12px; border: 1px solid var(--border-control); border-radius: var(--radius-md, 16px); background: none; color: var(--ink); text-align: left; font: inherit; cursor: pointer; }
 .pe-add__ic { display: grid; place-items: center; flex: none; width: 40px; height: 40px; border-radius: 999px; background: var(--ink); color: var(--ink-inverse); }
 .pe-add__t { display: flex; flex-direction: column; gap: 2px; }
@@ -11221,7 +11222,7 @@ body { font-variant-numeric: tabular-nums; }
 /* Export a file's people (since 3 Nov 2026) */
 .xp-wrap { position: relative; display: inline-flex; }
 .xp-more svg { width: 20px; height: 20px; }
-.xp-menu { position: absolute; top: calc(100% + 6px); right: 0; z-index: 30; min-width: 220px; padding: 6px; border-radius: var(--radius-md, 16px); background: var(--surface); box-shadow: 0 1px 2px rgba(13,21,53,.08), 0 12px 32px rgba(13,21,53,.18); display: flex; flex-direction: column; }
+.xp-menu { position: absolute; top: calc(100% + 6px); right: 0; z-index: 30; min-width: 220px; padding: 6px; border-radius: var(--radius-md, 16px); background: var(--surface); box-shadow: 0 1px 2px rgba(17,19,18,.08), var(--shadow-float); display: flex; flex-direction: column; }
 .xp-menu[hidden] { display: none; }
 .xp-mi { display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 0 12px; border: 0; border-radius: 10px; background: none; color: var(--ink); font: inherit; font-size: 15px; text-align: left; cursor: pointer; }
 .xp-mi:hover, .xp-mi:focus-visible { background: var(--surface-sunken); }
