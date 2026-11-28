@@ -29,6 +29,8 @@ v1/
   search-terms.json Hand-kept nicknames of files and topic words, for search
   auto-files.json Auto pages: every codecision file, ongoing or of this term, that nodo does not follow, read weekly from the Legislative Observatory
   minutes.json    Who spoke on the priority files in Parliament committee meetings, from the committees' minutes
+  committee-steps.json Dated committee steps ahead on the priority files (votes, trilogue-deal votes, amendment deadlines), from the committees' draft agendas and draft reports
+  offices.json    Each MEP's Brussels and Strasbourg office (building, room, telephone) and accredited assistants, names only, from the MEP pages
   press.json      Latest developments: dated items on the priority files with nodo's own takeaway
   sources.json    Source list: media by tier, institutions, analysis sources and excluded domains
 ```
@@ -250,7 +252,7 @@ Data with a feed is refreshed by GitHub Actions (above). Everything editorial or
 
 | Task | When | Covers |
 |---|---|---|
-| nodo Council and minutes refresh (Mon and Thu) | Mon and Thu 07:30, on Gianmaria's Mac (built-in browser); to move to every weekday, which only Gianmaria can set in the app | council.json meetings, Coreper, participant lists; minutes.json (the Council's and the Parliament's bot checks block the cloud). A run with nothing new changes no data |
+| nodo Council and minutes refresh (Mon and Thu) | Mon and Thu 07:30, on Gianmaria's Mac (built-in browser); to move to every weekday, which only Gianmaria can set in the app | council.json meetings, Coreper, participant lists; minutes.json; committee-steps.json; offices.json on Mondays (the Council's and the Parliament's bot checks block the cloud). A run with nothing new changes no data |
 | nodo reference refresh (Mon and Thu) | Mon and Thu 09:07, cloud | Monday, full run: files.json status and next steps (scope `files`); MEP lists against the Observatory (scope `meps`); auto pages; Parliament calendar (`calendar`); Presidency handover (`presidency`); hand-added permanent representatives (`permreps`). Thursday, short run: MEP lists, then status and next steps only for files in trilogue, in the Council negotiating box or with a step in the next 14 days |
 | nodo press scan (Mon and Thu) | Mon and Thu 09:47, cloud | Latest developments for every priority file: institutional items go live at once, press items and stage changes after a double check |
 | nodo weekly requests and backend | Mon 08:52, cloud | file requests and empty searches from Supabase events; Supabase security and performance advisors, auth and API errors; one email |
@@ -273,6 +275,18 @@ Data with a feed is refreshed by GitHub Actions (above). Everything editorial or
 - A curated file shows the date its data was checked, its sources and its Legislative Observatory link under the title.
 - The Files view starts with Your files and what moved in the last 7 days. "Which files do you track?" is asked once after sign-in. Your week shows what the Monday email will hold.
 - The Monday email and alert switches are saved on the profile as `notify`. Nothing is sent yet.
+
+## committee-steps.json
+
+Built by the weekday refresh on the Mac (task "nodo Council and minutes refresh", step 12), for the same bot-check reason as the minutes.
+
+1. `tools/browser/committees.js` runs in a www.europarl.europa.eu tab. For every committee named in `files.json` it reads `/committees/en/<code>/documents/latest-documents` (about 80 recent documents), then each draft agenda (OJ) for a meeting from today on, joint-committee agendas (CJxx) included, and each draft report (PR) or draft opinion (PA) whose amendment deadline is still ahead. Only text leaves the tab.
+2. `tools/committees/pull.py` splits each agenda into its numbered items, takes the date and time from the section line above the item, keeps the items carrying a procedure number nodo follows (a file's, a related one or a part's), and turns each bullet into a step: `deal-vote`, `mandate-vote`, `vote`, `opinion-vote`, `amendments`, `consideration`, `debate`, `deadline` (a deadline takes its own date and time). One agenda item gives one step per file. A draft report adds its amendment deadline when no agenda gave it. Steps from documents not read in this run stay while still ahead; past steps drop out.
+3. The app adds the steps to each file's own `next` steps (Today, Calendar, file page, brief). An undated "vote" step of the same part and committee gives way to the dated one. Tests: `python3 -m pytest tests/committees`.
+
+## offices.json
+
+Built on Mondays by the same Mac refresh (step 13). `tools/browser/offices.js` reads every current MEP's assistants page (`/meps/en/<id>/x/assistants`), which carries both contact cards and the assistants by category; `tools/offices/pull.py` keeps the Brussels and Strasbourg office (building, room, telephone in +32 form) and the accredited assistants: `team` (the MEP's own) and `pool` (shared with other MEPs, "grouping"). Local assistants, service providers, paying agents and trainees are left out. The Parliament publishes assistants' names only; nodo stores no emails or roles. A run with fewer than 600 MEPs or more than 60 errors is refused.
 
 ## minutes.json
 

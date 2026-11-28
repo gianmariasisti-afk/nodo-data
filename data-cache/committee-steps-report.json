@@ -1,0 +1,18 @@
+{
+ "run": "2026-11-28T08:52:30Z",
+ "changed": true,
+ "fetched": "2026-11-28",
+ "agendas": 30,
+ "drafts": 29,
+ "files": {
+  "tech-sovereignty-package": 6,
+  "savings-investments-union": 1,
+  "grids-package": 2,
+  "ets-review": 1,
+  "environmental-omnibus": 3,
+  "public-procurement-act": 1,
+  "medical-devices": 1
+ },
+ "steps": 15,
+ "errors": []
+}

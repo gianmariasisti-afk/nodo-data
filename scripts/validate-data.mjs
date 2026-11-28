@@ -216,6 +216,46 @@ if (fs.existsSync(path.join(V1, "minutes.json"))) {
   }
 }
 
+/* Committee steps: dated steps ahead from the committees' draft agendas (optional file, built by tools/committees/pull.py) */
+if (fs.existsSync(path.join(V1, "committee-steps.json"))) {
+  const cs = load("committee-steps.json");
+  if (cs) {
+    const byId = new Map(((files && files.files) || []).map((f) => [f.id, f]));
+    const KINDS = new Set(["deal-vote", "mandate-vote", "vote", "opinion-vote", "amendments", "consideration", "deadline", "debate", "other"]);
+    for (const [fid, xs] of Object.entries(cs.files || {})) {
+      const f = byId.get(fid);
+      if (!f) { bad(`committee-steps.json: unknown file ${fid}`); continue; }
+      const parts = new Set((f.parts || []).map((p) => p.id));
+      for (const s of xs) {
+        const at = `committee-steps.json ${fid} ${s.date} "${String(s.what).slice(0, 40)}"`;
+        if (!ISO.test(s.date)) bad(`${at}: date is not YYYY-MM-DD`);
+        if (s.time && !/^\d\d\.\d\d$/.test(s.time)) bad(`${at}: time "${s.time}" is not HH.MM`);
+        if (!KINDS.has(s.kind)) bad(`${at}: unknown kind ${s.kind}`);
+        if (!s.what || /\bundefined\b|\bnull\b/.test(s.what)) bad(`${at}: no wording`);
+        if (s.part && !parts.has(s.part)) bad(`${at}: unknown part ${s.part}`);
+        if (!/^https:\/\/www\.europarl\.europa\.eu\/doceo\/document\/[A-Z0-9-]+_EN\.html$/.test(s.url || "")) bad(`${at}: source is not a Parliament document`);
+        if (!/^\d{4}\/\d{4}R?\([A-Z]{3}\)$/.test(s.procedure || "")) bad(`${at}: no procedure number`);
+      }
+    }
+  }
+}
+
+/* MEP offices and teams (optional file, built by tools/offices/pull.py) */
+if (fs.existsSync(path.join(V1, "offices.json"))) {
+  const of = load("offices.json");
+  if (of) {
+    const n = Object.keys(of.meps || {}).length;
+    if (n < 600) bad(`offices.json: only ${n} MEPs (expected about 720)`);
+    for (const [id, o] of Object.entries(of.meps || {})) {
+      if (!mepIds.has(id)) bad(`offices.json: MEP ${id} is not in meps.json`);
+      for (const k of ["bxl", "sxb"]) if (o[k] && (!o[k].building || (o[k].phone && !/^\+\d[\d ]{6,20}$/.test(o[k].phone)))) bad(`offices.json ${id}.${k}: bad office ${JSON.stringify(o[k]).slice(0, 80)}`);
+      for (const k of ["team", "pool"]) if (o[k] && (!Array.isArray(o[k]) || o[k].some((x) => typeof x !== "string" || !x.trim() || x.length > 80 || /@/.test(x)))) bad(`offices.json ${id}.${k}: names must be plain strings, no emails`);
+    }
+    const prev = loadBase("offices.json");
+    if (prev && prev.meps && n < Object.keys(prev.meps).length - 30) bad(`offices.json: MEPs dropped from ${Object.keys(prev.meps).length} to ${n} in one change`);
+  }
+}
+
 /* Latest developments: dated items on nodo's files with nodo's own takeaway (optional file, built by scripts/press-merge.mjs) */
 if (fs.existsSync(path.join(V1, "press.json"))) {
   const pr = load("press.json");

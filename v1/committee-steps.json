@@ -1,0 +1,236 @@
+{
+ "generated": "2026-11-28T08:52:30Z",
+ "source": "European Parliament committees: draft agendas and draft reports (europarl.europa.eu), read by nodo",
+ "fetched": "2026-11-28",
+ "files": {
+  "environmental-omnibus": [
+   {
+    "date": "2026-12-01",
+    "what": "Batteries: ENVI vote on the draft report",
+    "kind": "vote",
+    "committee": "ENVI",
+    "doc": "ENVI-OJ-2026-11-30-1",
+    "url": "https://www.europarl.europa.eu/doceo/document/ENVI-OJ-2026-11-30-1_EN.html",
+    "src": "ep-oj-ENVI-OJ-2026-11-30-1",
+    "item": 15,
+    "agendaItem": "Amending Regulation (EU) 2023/1542 and Regulation (EU) 2024/1244 as regards simplification of some requirements and reduction of administrative burden",
+    "time": "12.30",
+    "rapporteur": "Susana Solís Pérez",
+    "procedure": "2025/0397(COD)",
+    "part": "batteries"
+   },
+   {
+    "date": "2026-12-01",
+    "what": "Directive: ENVI vote on the draft report",
+    "kind": "vote",
+    "committee": "ENVI",
+    "doc": "ENVI-OJ-2026-11-30-1",
+    "url": "https://www.europarl.europa.eu/doceo/document/ENVI-OJ-2026-11-30-1_EN.html",
+    "src": "ep-oj-ENVI-OJ-2026-11-30-1",
+    "item": 14,
+    "agendaItem": "Amending Directives 2008/98/EC, 2010/75/EU, (EU) 2015/2193 and (EU) 2024/1785 of the European Parliament and of the Council as regards simplification of some re",
+    "time": "12.30",
+    "rapporteur": "Susana Solís Pérez",
+    "procedure": "2025/0394(COD)",
+    "part": "env-directive"
+   },
+   {
+    "date": "2026-12-03",
+    "what": "EPR packaging: JURI vote on its opinion",
+    "kind": "opinion-vote",
+    "committee": "JURI",
+    "doc": "JURI-OJ-2026-12-03-1",
+    "url": "https://www.europarl.europa.eu/doceo/document/JURI-OJ-2026-12-03-1_EN.html",
+    "src": "ep-oj-JURI-OJ-2026-12-03-1",
+    "item": 15,
+    "agendaItem": "Suspending the application of the rules on the appointment of an authorised representative for extended producer responsibility for batteries and waste batterie",
+    "time": "11.45",
+    "procedure": "2025/0395(COD)",
+    "part": "epr-reg"
+   }
+  ],
+  "ets-review": [
+   {
+    "date": "2026-11-30",
+    "what": "Benchmarks: ENVI report back on the trilogue negotiations",
+    "kind": "debate",
+    "committee": "ENVI",
+    "doc": "ENVI-OJ-2026-11-30-1",
+    "url": "https://www.europarl.europa.eu/doceo/document/ENVI-OJ-2026-11-30-1_EN.html",
+    "src": "ep-oj-ENVI-OJ-2026-11-30-1",
+    "item": 4,
+    "agendaItem": "Report on ongoing interinstitutional negotiations",
+    "time": "16.00",
+    "rapporteur": "Adam Jarubas",
+    "procedure": "2026/0211(COD)",
+    "part": "benchmarks"
+   }
+  ],
+  "grids-package": [
+   {
+    "date": "2026-12-01",
+    "what": "Permitting: ITRE vote on the provisional agreement",
+    "kind": "deal-vote",
+    "committee": "ITRE",
+    "doc": "ITRE-OJ-2026-11-30-1",
+    "url": "https://www.europarl.europa.eu/doceo/document/ITRE-OJ-2026-11-30-1_EN.html",
+    "src": "ep-oj-ITRE-OJ-2026-11-30-1",
+    "item": 6,
+    "agendaItem": "Amending Directives (EU) 2018/2001, (EU) 2019/944, (EU) 2024/1788 as regards acceleration of permit-granting procedures",
+    "time": "10.00",
+    "rapporteur": "Niels Fuglsang",
+    "procedure": "2025/0400(COD)",
+    "part": "permitting"
+   },
+   {
+    "date": "2026-12-01",
+    "what": "Network charges: ECON vote on its opinion",
+    "kind": "opinion-vote",
+    "committee": "ECON",
+    "doc": "ECON-OJ-2026-11-30-1",
+    "url": "https://www.europarl.europa.eu/doceo/document/ECON-OJ-2026-11-30-1_EN.html",
+    "src": "ep-oj-ECON-OJ-2026-11-30-1",
+    "item": 16,
+    "agendaItem": "Electricity market: network charges, taxation, smart grids and grid connections",
+    "time": "17.00",
+    "procedure": "2026/0203(COD)",
+    "part": "network-charges"
+   }
+  ],
+  "medical-devices": [
+   {
+    "date": "2026-12-03",
+    "what": "SANT vote on the draft report",
+    "kind": "vote",
+    "committee": "SANT",
+    "doc": "SANT-OJ-2026-12-03-1",
+    "url": "https://www.europarl.europa.eu/doceo/document/SANT-OJ-2026-12-03-1_EN.html",
+    "src": "ep-oj-SANT-OJ-2026-12-03-1",
+    "item": 8,
+    "agendaItem": "Amending Regulations (EU) 2017/745 and (EU) 2017/746 as regards simplifying and reducing the burden of the rules on medical devices and in vitro diagnostic medi",
+    "time": "09.00",
+    "rapporteur": "Oliver Schenk",
+    "procedure": "2025/0404(COD)"
+   }
+  ],
+  "public-procurement-act": [
+   {
+    "date": "2026-11-30",
+    "what": "Commission presents the proposal in INTA",
+    "kind": "debate",
+    "committee": "INTA",
+    "doc": "INTA-OJ-2026-11-30-1",
+    "url": "https://www.europarl.europa.eu/doceo/document/INTA-OJ-2026-11-30-1_EN.html",
+    "src": "ep-oj-INTA-OJ-2026-11-30-1",
+    "item": 6,
+    "agendaItem": "Public Procurement Act",
+    "time": "15.00",
+    "procedure": "2026/0265(COD)"
+   }
+  ],
+  "savings-investments-union": [
+   {
+    "date": "2026-12-01",
+    "what": "ECON exchange of views",
+    "kind": "debate",
+    "committee": "ECON",
+    "doc": "ECON-OJ-2026-11-30-1",
+    "url": "https://www.europarl.europa.eu/doceo/document/ECON-OJ-2026-11-30-1_EN.html",
+    "src": "ep-oj-ECON-OJ-2026-11-30-1",
+    "item": 11,
+    "agendaItem": "Market Integration Supervision Package",
+    "time": "14.30",
+    "rapporteur": "Markus Ferber",
+    "procedure": "2025/0381(COD)"
+   }
+  ],
+  "tech-sovereignty-package": [
+   {
+    "date": "2026-12-01",
+    "what": "Chips Act 2.0: IMCO considers the amendments",
+    "kind": "amendments",
+    "committee": "IMCO",
+    "doc": "IMCO-OJ-2026-11-30-1",
+    "url": "https://www.europarl.europa.eu/doceo/document/IMCO-OJ-2026-11-30-1_EN.html",
+    "src": "ep-oj-IMCO-OJ-2026-11-30-1",
+    "item": 11,
+    "agendaItem": "Chips Act 2.0",
+    "time": "09.00",
+    "procedure": "2026/0139(COD)",
+    "part": "chips-act-2"
+   },
+   {
+    "date": "2026-12-01",
+    "what": "Chips Act 2.0: ITRE considers the draft report",
+    "kind": "consideration",
+    "committee": "ITRE",
+    "doc": "ITRE-OJ-2026-11-30-1",
+    "url": "https://www.europarl.europa.eu/doceo/document/ITRE-OJ-2026-11-30-1_EN.html",
+    "src": "ep-oj-ITRE-OJ-2026-11-30-1",
+    "item": 11,
+    "agendaItem": "Chips Act 2.0",
+    "time": "10.00",
+    "rapporteur": "Oliver Schenk",
+    "procedure": "2026/0139(COD)",
+    "part": "chips-act-2"
+   },
+   {
+    "date": "2026-12-01",
+    "what": "CADA: ITRE–IMCO considers the draft report",
+    "kind": "consideration",
+    "committee": "ITRE–IMCO",
+    "doc": "CJ18-OJ-2026-12-01-1",
+    "url": "https://www.europarl.europa.eu/doceo/document/CJ18-OJ-2026-12-01-1_EN.html",
+    "src": "ep-oj-CJ18-OJ-2026-12-01-1",
+    "item": 3,
+    "agendaItem": "Cloud and AI Development Act",
+    "time": "14.30",
+    "rapporteur": "Diego Solier Reinier Van Lanschot",
+    "procedure": "2026/0138(COD)",
+    "part": "cada"
+   },
+   {
+    "date": "2026-12-02",
+    "what": "Chips Act 2.0: ITRE deadline for amendments to the draft report",
+    "kind": "deadline",
+    "committee": "ITRE",
+    "doc": "ITRE-OJ-2026-11-30-1",
+    "url": "https://www.europarl.europa.eu/doceo/document/ITRE-OJ-2026-11-30-1_EN.html",
+    "src": "ep-oj-ITRE-OJ-2026-11-30-1",
+    "item": 11,
+    "agendaItem": "Chips Act 2.0",
+    "time": "17.00",
+    "rapporteur": "Oliver Schenk",
+    "procedure": "2026/0139(COD)",
+    "part": "chips-act-2"
+   },
+   {
+    "date": "2026-12-10",
+    "what": "CADA: ITRE–IMCO deadline for amendments to the draft report",
+    "kind": "deadline",
+    "committee": "ITRE–IMCO",
+    "doc": "CJ18-OJ-2026-12-01-1",
+    "url": "https://www.europarl.europa.eu/doceo/document/CJ18-OJ-2026-12-01-1_EN.html",
+    "src": "ep-oj-CJ18-OJ-2026-12-01-1",
+    "item": 3,
+    "agendaItem": "Cloud and AI Development Act",
+    "time": "12.00",
+    "rapporteur": "Diego Solier Reinier Van Lanschot",
+    "procedure": "2026/0138(COD)",
+    "part": "cada"
+   },
+   {
+    "date": "2026-12-11",
+    "what": "CADA: LIBE deadline for amendments to the draft opinion",
+    "kind": "deadline",
+    "committee": "LIBE",
+    "doc": "LIBE-PA-796307",
+    "url": "https://www.europarl.europa.eu/doceo/document/LIBE-PA-796307_EN.html",
+    "src": "ep-draft-LIBE-PA-796307",
+    "rapporteur": "Kristian Vigenin",
+    "procedure": "2026/0138(COD)",
+    "part": "cada"
+   }
+  ]
+ }
+}

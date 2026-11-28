@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generated": "2026-11-28T06:41:33.430Z",
+ "generated": "2026-11-28T12:17:42Z",
  "files": {
   "meps": {
    "path": "meps.json",
@@ -85,6 +85,18 @@
    "description": "How each MEP voted in the committee responsible's final roll-call vote on nodo's files, from the reports on the Parliament's Open Data Portal",
    "bytes": 2179,
    "sha256": "20f42c7653ba347cbae2bd83a9f5b55e70e89d497dd4393b233088c9db950754"
+  },
+  "committeeSteps": {
+   "path": "committee-steps.json",
+   "description": "Dated committee steps ahead on nodo's files, from the committees' draft agendas and draft reports",
+   "bytes": 8191,
+   "sha256": "2afb41be0892257f9a29d41ae2f17970a4cdf993543161e41ea6a89ef9c473c4"
+  },
+  "offices": {
+   "path": "offices.json",
+   "description": "MEP offices (Brussels, Strasbourg) and accredited assistants, names only, from the MEP pages",
+   "bytes": 244474,
+   "sha256": "4054926790b907d2b1504cab78884e97e32d7b1027c22530e3bfee0c769d39d5"
   }
  }
 }
